@@ -1,0 +1,1 @@
+<Block id="about" layout="home/about"/>

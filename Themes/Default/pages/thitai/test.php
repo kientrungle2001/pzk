@@ -1,0 +1,1 @@
+<Education.Question.Test table="tests" id="test" layout="test/midcontent" doTestPostUrl="/contest/showTest" />

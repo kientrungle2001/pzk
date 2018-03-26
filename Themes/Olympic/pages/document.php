@@ -1,0 +1,1 @@
+<Block id="document" layout="home/document"/>

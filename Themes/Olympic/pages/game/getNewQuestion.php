@@ -1,0 +1,1 @@
+<Game.Family id="getNewQuestion" layout="game/getNewQuestion" />

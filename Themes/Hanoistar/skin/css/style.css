@@ -1,0 +1,6 @@
+.bgsn{background: #2b52aa;}
+.textsn{color: #eddc21;}
+.bg_tuvan{background: url(../images/bg_tuvan.png) no-repeat; padding-top: 50px; padding-bottom: 700px; background-size: cover;}
+.box_tuvanhd textarea{height: 210px; margin-bottom: 10px; border-radius: 5px;}
+.box_tuvanhd{topx: 0px; left: 0px;}
+.bt_tuvan{padding: 65px 0px; background: #491c1f; color: white;}

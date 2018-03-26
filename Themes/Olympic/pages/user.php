@@ -1,0 +1,1 @@
+<Block id="user" layout="home/user"/>

@@ -1,0 +1,58 @@
+/**
+*	HEADER
+*/
+
+.navbar-fixed-top, .nav-homepage {
+	background: #25aae1;
+	color: #FFF;
+}
+
+.navbar-fixed-top .dropdown-menu, .nav-homepage .dropdown-menu{
+	background: #25aae1;
+	margin-top: 7px !important;
+}
+
+.navbar-fixed-top .dropdown-menu>li>a:hover, 
+.navbar-fixed-top .dropdown-menu>li>a:focus,
+.nav-homepage .dropdown-menu>li>a:hover, 
+.nav-homepage .dropdown-menu>li>a:focus
+ {
+	background: #25aae1;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+	background: #25aae1;
+}
+
+.dropdown-menu:before {
+  position: absolute;
+  top: -7px;
+  left: 9px;
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #ccc;
+  border-left: 7px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.2);
+  content: '';
+}
+
+.dropdown-menu:after {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  display: inline-block;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #25aae1;
+  border-left: 7px solid transparent;
+  content: '';
+}
+
+.navbar-fixed-top a,
+.nav-homepage a {
+	color: #fff !important; 		font-weight: bold;
+}
+
+.navbar-fixed-top a:hover,
+.nav-homepage a:hover {
+	color: #fff !important;
+}

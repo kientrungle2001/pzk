@@ -1,0 +1,1 @@
+<Game.Family id="family" layout="game/family" />

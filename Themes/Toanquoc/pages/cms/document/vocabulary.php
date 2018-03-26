@@ -1,0 +1,1 @@
+<Cms.Document.Detail cacheable="true" cacheParams="id,layout,itemId"  id="vocabulary" layout="cms/document/vocabulary" />

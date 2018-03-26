@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i');
+
+@font-face {
+	font-family: 'iCiel';
+    src:  url('../fonts/iCielSoupofJustice.ttf');
+}
+
+body{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 18px;
+}
+.iciel{
+	font-family: 'iCiel', sans-serif;;
+}
+.fs30{font-size: 30px;}
+.fs18{font-size: 18px;}
+.fs16{font-size: 16px;}
+.fs14{font-size: 14px;}
+
+.texttest{color: #8dc53e;}
+.pointer{cursor: pointer;}
+.inline-block{display: inline-block;}
+.full{float: left; width: 100%;}
+.w50p{width: 50%;}
+.absolute{position: absolute;}
+.relative{position: relative;}
+.text-middle{text-align: middle;}
+.text-justify{text-align: justify;}
+
+.mgb5{margin-bottom: 5px;}
+.mgb10{margin-bottom: 10px;}
+.mgb15{margin-bottom: 15px;}
+.mgb20{margin-bottom: 20px;}
+.mgb25{margin-bottom: 25px;}
+.mgb30{margin-bottom: 30px;}
+.mgb35{margin-bottom: 35px;}
+.mgb40{margin-bottom: 40px;}
+.mgb45{margin-bottom: 45px;}
+.mgb50{margin-bottom: 50px;}
+.mgb55{margin-bottom: 55px;}
+
+.mgt5{margin-top: 5px;}
+.mgt10{margin-top: 10px;}
+.mgt15{margin-top: 15px;}
+.mgt20{margin-top: 20px;}
+.mgt25{margin-top: 25px;}
+.mgt30{margin-top: 30px;}
+.mgt35{margin-top: 35px;}
+.mgt40{margin-top: 40px;}
+.mgt45{margin-top: 55px;}
+.mgt50{margin-top: 50px;}
+.mgt55{margin-top: 55px;}
+
+.mgl5{margin-left: 5px;}
+.mgl10{margin-left: 10px;}
+.mgl15{margin-left: 15px;}
+.mgl20{margin-left: 20px;}
+
+.mgr5{margin-right: 5px;}
+.mgr10{margin-right: 10px;}
+.mgr15{margin-right: 15px;}
+.mgr20{margin-right: 20px;}
+
+.auto{margin: 0px auto;}
+.bold{font-weight: bold;}
+.pd0{padding: 0px !important;}
+
+/*header*/
+
+#header {
+  background: #ade4fc; 
+  background: -webkit-linear-gradient(-60deg, #ade4fc, #eaf8fe); 
+  background: -o-linear-gradient(-60deg, #ade4fc, #eaf8fe); 
+  background: -moz-linear-gradient(-60deg, #ade4fc, #eaf8fe); 
+  background: linear-gradient(-60deg, #ade4fc, #eaf8fe); 
+}
+.top-header{line-height: 90px;}
+.logo{position: absolute;   left: 47%;}
+ul.menu li:last-of-type{float: right !important; padding: 0px;}
+ul.menu li:first-child{padding: 0px;}
+.menu li{float: left; list-style: none; padding: 0px 26px;}
+.color-sp{color: #257ae3;}
+.register a{color: #257ae3;}
+.bg1{background: #eff0ed;}
+.bg2{background: #8dc63f;}
+.menu2{padding-top: 20px; padding-bottom: 35px;}
+.menu2 a{margin: 0px 15px;}
+/*content*/
+
+.box1{background: #8dc63f;}
+.box2{background: #00bff3;}
+.box3{background: #f68e56;}
+.box4{background: #1cbbb4;}
+.box5{background: #b35db4;}
+.box6{background: #7accc8;}
+.pdb40{padding-bottom: 40px;}
+.title-box1{background: #84b63f;}
+.title-box2{background: #448ccb;}
+.title-box3{background: #df8656;}
+.title-box4{background: #31a29d;}
+.title-box5{background: #976298;}
+.title-box6{background: #74b8b5;}
+.box{min-height: 315px; border-radius: 10px 10px 0px 0px; margin-bottom: 30px;}
+.box ul{float: left; margin-top: 30px;}
+.double li{margin-left: 15px !important;}
+.box ul li{color:white;margin: 5px 5px 5px 30px; }
+.box ul li a{color: white;}
+.box ul li a:hover{color: #2696c4;}
+.title-box{border-radius: 10px 10px 0px 0px;line-height: 65px; text-align: center; font-size: 30px; font-family: 'iCiel';text-transform: uppercase; color: white;}
+.test{float:left; width: 100%; border-radius: 5px; background: white; text-align: center; margin-bottom: 15px;}
+.test a{font-size: 30px; line-height: 75px; width: 100%; float: left; color: #8dc53e; font-weight: bold; text-transform: uppercase;}
+/*FOOTTER*/
+
+.nextnobels h1{
+	font-size:40px;
+	font-weight:bold;
+}
+.footer-color{
+	width:100%;
+	height:auto;
+	background-color:#096691;
+	font-size: 16px;
+	padding-bottom: 50px;
+}	
+.footer-color ul{
+	list-style-type:none;
+}
+.mg-top{
+	margin-top:3%;
+}
+.info{
+
+	color:#ffffff;
+
+}
+.info h1{
+
+	color:#ffffff;
+	font-size:20px;
+	font-weight:600;
+
+}
+.info ul{
+	margin-left:-40px;
+}
+.info2{
+
+	color:#ffffff;
+
+}
+.info2 h4{
+
+	color:#ffffff;
+
+	font-size:15px;
+	font-weight:600;
+
+}
+.info2 ul{
+	margin-left:-40px;
+}
+.info2 a{
+	color:#ffffff;
+}	
+.pos{
+
+	color:#ffffff;
+
+}
+.pos h4{
+	font-size:14px;
+}
+.social{
+	
+	color:#ffffff;
+
+
+}	
+.social a{
+	color:#ffffff;
+	
+}
+.social a:hover{
+	color:#ff1111;
+
+}
+/*END FOOTTER*/

@@ -1,0 +1,267 @@
+@font-face {
+	font-family: 'Roboto Slab';
+	src: url(../media/font/RobotoSlab-Regular.ttf);
+}
+@font-face {
+	font-family: 'Roboto Slab';
+	src: url(../media/font/RobotoSlab-Bold.ttf);
+	font-weight: bold;
+}
+@font-face {
+	font-family: 'Roboto Slab';
+	src: url(../media/font/RobotoSlab-Light.ttf);
+	font-weight: lighter;
+}
+.roboto{
+	font-family: 'Roboto Slab';
+	src: url(../media/font/RobotoSlab-Regular.ttf);
+}
+.top50{
+	margin-top:50px;
+}
+.top20{
+	margin-top:20px;
+}
+.top-90{
+	margin-top:-90px;
+}
+.bot10{
+	margin-bottom:10px;
+}
+.bot20{
+	margin-bottom:20px;
+}
+.mg0{
+	margin:0px !important;
+}
+.pd0{
+	padding:0px !important;
+}
+.left10{
+	margin-left:10px;
+}
+.blue{
+	color: blue;
+}
+.songnguheader{
+	background: transparent url("../media/new-header.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: 100%;
+  height: 430px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #231e60!important;
+}
+.songnguheader2{
+  background: transparent url("../media/nheader.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: 100%;
+  height: 500px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #231e60!important;
+}
+.songnguheader3{
+  background: transparent url("../media/headernew.jpg") no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: 100%;
+  height: 390px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #231e60!important;
+}
+.songnguheader h1{
+	font-size:34px;
+	font-weight:bold;
+}
+
+
+.widthfix {     width:14.8%; }
+@media (max-width: 320px) { 
+	.widthfix {
+		width: 85px !important;
+		height: 85px !important;
+		padding: 20px;
+		border-radius: 45px;
+		font-size:		13px;
+	}
+}
+@media (max-width: 480px) { 
+	.widthfix {
+		width: 90px;
+		height: 90px;
+		padding: 20px;
+		border-radius: 45px;
+		font-size:		13px;
+	}
+}
+@media (min-width: 481px) { .widthfix {
+    width:29%;
+	height:50px;
+}}
+@media (min-width: 768px) { .widthfix {
+    width:22%;
+	height:40px;
+}}
+@media (min-width: 992px) { .widthfix {
+    width:17.7%;
+	height:40px;
+}}
+@media (min-width: 1200px) { .widthfix {
+    width:14.8%;
+	height:40px;
+}}
+.heightresponsive{
+	height:200px;
+}
+@media (max-width: 480px) { .heightresponsive {
+    height:80px;
+	
+}}
+@media (min-width: 481px) { .heightresponsive {
+	height:80px;
+}}
+@media (min-width: 768px) { .heightresponsive {
+	height:180px;
+}}
+@media (min-width: 992px) { .heightresponsive {
+	height:200px;
+}}
+@media (min-width: 1200px) { .heightresponsive {
+	height:200px;
+}}
+
+
+.imgbg{
+	height:990px;
+}
+@media (max-width: 480px) { .imgbg {
+    height:300px;
+}}
+@media (min-width: 481px) { .imgbg {
+	height:520px;
+}}
+@media (min-width: 768px) { .imgbg {
+	height:650px;
+}}
+@media (min-width: 992px) { .imgbg {
+	height:720px;
+}}
+@media (min-width: 1200px) { .imgbg {
+	height:820px;
+}}
+
+
+
+.circle {
+	width: 40px;
+	height: 40px;
+	line-height: 20px;
+	
+	background: red;
+	-moz-border-radius: 20px;
+	-webkit-border-radius: 20px;
+	border-radius: 20px;
+	position: relative;
+
+}
+.none{
+	 list-style:none;	
+	 text-align: center;			 
+}
+.check{
+	position: absolute;left: 35%;top: 38%;
+	color: white;
+}
+.m-font{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 7px;
+	text-transform: uppercase;
+	font-weight: bold;
+	
+}
+
+.trial-3-level-2, .trial-4-level-2, .trial-4-level-3 {
+	display: none;
+}
+.mgright{margin-right: 0px !important; }
+
+.bc-test{margin-top: 30px; margin-bottom: 20px; font-size: 20px;}
+.bdt{border: 2px solid #eab2b2;}
+.bd{border: 1px solid #a864a8;}
+.tcolor{color: #363636; font-size: 15px;}
+.mgla5{margin-left: -5px;}
+.select-week{border: none; line-height: 40px; font-weight: bold; background: #b6d452;}
+.select-week option{float: left; height: 40px; font-size: 14px; padding: 15px !important; font-weight: bold;}
+
+.bg-test{background: #b6d452;}
+#menu-test{top: 34px; width: 100%;}
+#menu-test li{float: left; width: 50%}
+
+.imgbg{
+	height:990px;
+}
+/*hotnew*/
+#hotnew{ right: 5px !important; margin: 0px !important; bottom: -2px !important; padding: 10px !important;}
+.zoom-font{right: 5px !important; top: auto !important; bottom: -4px !important; padding: 10px !important;}
+.ptnn-title img{margin: 0px auto !important;}
+.ptnn-title video{width: 100% !important; height: auto !important;}
+/*.content table tr td:nth-child(1), .content table tr td:nth-child(2), .content table tr td:nth-child(3) { text-align: left !important;}*/
+@media (max-width: 480px) { 
+	.ulhoatest{
+		border: none;
+	}
+	
+}
+@media (min-width: 481px) { 
+	
+}
+@media (min-width: 768px) { 
+	
+}
+@media (min-width: 992px) { 
+	.fonttest1{font-size: 14px;}
+	.fonttest3{font-size: 14px;}
+	.ulhoatest li:nth-child(odd) {
+		margin-right: 5px !important;
+	}
+	.ulhoatest li {
+		font-size: 13px !important;
+	}
+	.ulhoa{margin: 9px 0px;}
+	
+	.ulhoa li {
+		font-size: 14px !important;
+	}
+	.ulhoa li:nth-child(odd) {
+		margin-right: 25px;
+	}
+	.hidden-fix{display: none;}
+	.dc-content table {font-size: 20px !important; color: black;}
+	.dc-content table tr td {min-width: 160px !important;}
+	.content table {font-size: 20px !important; color: black;}
+	.ptnn-title{font-size: 18px !important;}
+	.choice{font-size: 20px !important;}
+	#finish-choice{font-size: 20px !important;}
+	.order{font-size: 20px !important;}
+	#view-result, #show-answers{font-size: 20px !important;}
+	
+}
+@media (min-width: 1200px) { 
+	.testmgl0 {
+		margin-left:0px !important;
+	}
+	.ulhoatest{border-right: 2px solid #89a334;}
+	.ulhoa{margin: 6px 0px !important; border-right: 2px solid #89a334;}
+	.fonttest1{font-size: 20px;}
+	.fonttest3{font-size: 19px;}
+	.ulhoatest li { font-size: 16px !important;}
+	.ulhoa li { font-size: 18px !important;}
+	
+}
+.content-newsn img {width: 100% !important; height: auto !important;}
+.fb-comments span, .fb-comments span iframe{width: 100% !important;}
+.bd-div{background: white;}

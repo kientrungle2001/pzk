@@ -1,0 +1,1 @@
+<Core.Db.List table="tests" id="testlist" layout="education/practice/showTestnumber" conditions ='["and", ["status", "1"], ["practice","0"]]' orderBy="tests.Ordering desc" pageSize="17" />

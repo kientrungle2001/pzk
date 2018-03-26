@@ -1,0 +1,1 @@
+<Education.Contest.Result.Tl id="bookTl" layout="education/contest/result/tn" />

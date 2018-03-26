@@ -1,0 +1,53 @@
+@import url("base.css");
+@import url("col15.css");
+@import url("font.css");
+@import url("dimension.css");
+@import url("navbar.css");
+@import url("slide-section.css");
+@import url("box.css");
+@import url("footer.css");
+/**
+* BODY
+*/
+body {		padding-top: 50px;		background:	#f2dbff; font-size: 14px; }
+
+.top155 { 						margin-top:			255px;	}
+
+@media (max-width: 480px) {
+	
+	.top155 { 					margin-top:		55px; 	}
+	.home-slide button{			width: 			100%; 	margin-top: 	10px;	}
+	#uniqueId26 .box-content > div, #uniqueId26 .box-content > div > div > div , #uniqueId26 .box-content p > div,
+		#uniqueId26 .box-content p > div > div > div{
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+	#uniqueId26 .box-content > div > div , #uniqueId26 .box-content p > div > div, 
+		#uniqueId26 .box-content > div > div > div > div, #uniqueId26 .box-content p > div > div > div > div{
+		padding-left: 5px !important;
+		padding-right: 5px !important;
+	}
+	#uniqueId26 video, #uniqueId26 img {
+		width: 100%;
+		height: auto;
+	}
+	.site-title {
+		display: none;
+	}
+	
+	
+}
+
+.box-content img {
+	width: 100%;
+}
+
+.user-board {
+	list-style-image: url('../media/list.png');
+}
+
+.background-wrapper {
+	background: url('../media/footerbg.png') no-repeat;
+	background-position: bottom center;
+}
+

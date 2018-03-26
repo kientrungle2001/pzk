@@ -1,0 +1,34 @@
+{
+	"row": {
+		"tagName": 		"div",
+		"attrs": {
+			"class": 	"row"
+		}
+	},
+	"container": {
+		"tagName": 		"div",
+		"attrs": {
+			"class":	"container"
+		}
+	},
+	"navbar-header": {
+		"tagName":		"div",
+		"attrs": {
+			"class":	"navbar-header"
+		},
+		"openHtml": "<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#myNavbar\"><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span></button>"
+	},
+	"navbar": {
+		"tagName":		"div",
+		"attrs": {
+			"class":	"collapse navbar-collapse",
+			"id":		"myNavbar"
+		}
+	},
+	"navbar-nav": {
+		"tagName":		"ul",
+		"attrs": {
+			"class":	"nav navbar-nav navbar-right"
+		}
+	}
+}

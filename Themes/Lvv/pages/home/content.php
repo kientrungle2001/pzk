@@ -1,0 +1,1 @@
+<Block layout="home/content" />

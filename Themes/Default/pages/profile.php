@@ -1,0 +1,1 @@
+<Block id="profile" cacheable="true" cacheParams="layout" layout="home/profile" />

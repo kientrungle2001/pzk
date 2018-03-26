@@ -1,0 +1,1 @@
+<Education.History.Book id="book" layout="history/book" />

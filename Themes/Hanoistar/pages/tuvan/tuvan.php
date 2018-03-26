@@ -1,0 +1,1 @@
+<Education.Tuvan.Tuvan table="tuvan" cacheable="true" layout="tuvan/tuvan" />

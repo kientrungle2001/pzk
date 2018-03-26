@@ -1,0 +1,1372 @@
+@CHARSET "UTF-8";
+
+/**
+*	BODY
+*/
+
+body {
+	overflow: scroll;
+}
+
+.site-title {
+	font-weight: 	bold;
+	color:			purple;
+	line-height:	30px;
+}
+
+footer a,footer  p,footer  li {
+	line-height: 	35px;
+}
+
+footer ul {
+	margin: 		0;
+	padding:		0 0 0 15px;
+}
+
+/**
+* 	HOME SLIDE
+*/
+
+.tv4 {
+	background: url('../media/banner-sub.png') no-repeat;
+    background-size: 100% auto;
+	background-position: bottom center;
+}
+.homepage-banner {
+	background: url('../media/banner.jpg') no-repeat;
+    background-size: 100% auto;
+	background-position: bottom center;
+}
+.auto-height { 				height: auto; }
+@media (min-width: 480px) { .auto-height {
+    height: 178px;
+}}
+@media (min-width: 768px) { .auto-height {
+    height: 270px;
+}}
+@media (min-width: 992px) { .auto-height {
+    height: 320px;
+}}
+@media (min-width: 1200px) { .auto-height {
+    height: 400px;
+}}
+
+.auto-height-sub { 				height: 85px; }
+@media (min-width: 480px) { .auto-height-sub {
+    height: 125px;
+}}
+@media (min-width: 768px) { .auto-height-sub {
+    height: 195px;
+}}
+@media (min-width: 992px) { .auto-height-sub {
+    height: 260px;
+}}
+@media (min-width: 1200px) { .auto-height-sub {
+    height: 320px;
+}}
+
+.auto-top { 				margin-top: 10px; }
+@media (min-width: 480px) { .auto-top {
+    margin-top: 70px;
+}}
+@media (min-width: 768px) { .auto-top {
+    margin-top: 70px;
+}}
+@media (min-width: 992px) { .auto-top {
+    margin-top: 55px;
+}}
+@media (min-width: 1200px) { .auto-top {
+    margin-top: 130px;
+}}
+
+.auto-top-sub { 				margin-top: 10px; }
+@media (min-width: 480px) { .auto-top-sub {
+    margin-top: 40px;
+}}
+@media (min-width: 768px) { .auto-top-sub {
+    margin-top: 40px;
+}}
+@media (min-width: 992px) { .auto-top-sub {
+    margin-top: 70px;
+}}
+@media (min-width: 1200px) { .auto-top-sub {
+    margin-top: 100px;
+}}
+
+/**
+*	MAIN MENU
+*/
+
+.main-menu {
+	background: none;
+}
+#mainMenu {
+	width: 				100%;
+	position:			relative;
+	/*top: -30px;*/
+	top: 0;
+	left: 10px;
+}
+
+@media (min-width: 768px) { #mainMenu {
+    left: auto;
+}}
+
+#mainMenu li {
+	text-align: 		center;
+	color: 				#fff;
+	font-weight:		bold;
+}
+
+#mainMenu li {
+    width: 	33.33%;
+	float:	left;
+	box-shadow: 1px 1px 5px;
+    -moz-box-shadow: 1px 1px 5px;
+    -webkit-box-shadow: 1px 1px 5px;
+    -o-box-shadow: 1px 1px 5px;
+    -ms-box-shadow: 1px 1px 5px;
+}
+
+#mainMenu li:hover {
+	box-shadow: 1px 1px 10px;
+    -moz-box-shadow: 1px 1px 10px;
+    -webkit-box-shadow: 1px 1px 10px;
+    -o-box-shadow: 1px 1px 10px;
+    -ms-box-shadow: 1px 1px 10px;
+	color:	#333;
+}
+#mainMenu li a {
+	opacity:	0.8;
+}
+
+.carousel .glyphicon-chevron-left, .carousel .glyphicon-chevron-right {
+	padding: 10px;
+	background: rgba(255,255,255, 0.5);
+	color:	#777 !important;
+	cursor: pointer;
+	opacity: 0.3;
+	transition: opacity	0.5s;
+}
+
+.carousel:hover  .glyphicon-chevron-left, .carousel:hover  .glyphicon-chevron-right{
+	opacity: 1;
+}
+
+#mainMenu li a:hover {
+	background: inherit;
+	opacity:	1;
+}
+
+#mainMenu li:first-child {
+	border-radius: 5px 0px 0px 5px;
+}
+
+#mainMenu li:last-child {
+	border-radius: 0px 5px 5px 0px;
+}
+
+@media (min-width: 480px) {
+	#mainMenu li {
+        width: 	50%;
+    }
+}
+
+@media (min-width: 768px) {
+	#mainMenu li {
+        width: 	14.2857%;
+    }
+}
+@media (min-width: 992px) {
+    #mainMenu li {
+        width: 	14.2857%;
+    }
+}
+@media (min-width: 1200px) {
+    #mainMenu li {
+        /*width: 	14.2857%;*/
+		width: 16.66%;
+    }
+}
+
+#mainMenu li a {
+	color: 				#fff;
+}
+
+/**
+*	BACKGROUND COLOR
+*/
+.bgcolor, .bgcolor0 {
+	background:			#5E2083;
+}
+
+.bgcolor-bold, .bgcolor0-bold {
+	background:			#9c74b4;
+}
+
+.bgcolor1 {
+	background:			#ca9fe4;
+}
+
+.bgcolor1-bold {
+	background:			#9c74b4;
+}
+
+.bgcolor2 {
+	background:			#4bc89e;
+}
+
+.bgcolor2-bold {
+	background:			#3e997a;
+}
+
+
+.bgcolor3 {
+	background:			#fcacac;
+}
+.bgcolor3-bold {
+	background:			#e16c6c;
+}
+
+.bgcolor4 {
+	background:			#fdc600;
+}
+
+.bgcolor4-bold {
+	background:			#e0af00;
+}
+
+.bgcolor5 {
+	background:			#7ed0f2;
+}
+
+.bgcolor5-bold {
+	background:			#30a6d7;
+}
+
+.bgcolor6 {
+	background:			#15ef81;
+}
+
+.bgcolor6-bold {
+	background:			#0fd270;
+}
+
+/**
+*	COLOR
+*/
+.color1, .color1 a {
+	color:			#ca9fe4 !important;
+}
+
+.color1-bold, .color1-bold a {
+	color:			#9c74b4 !important;
+}
+
+.color2 , .color2  a{
+	color:			#4bc89e !important;
+}
+
+.color2-bold, .color2-bold a{
+	color:			#3e997a !important;
+}
+
+
+.color3, .color3 a {
+	color:			#fcacac !important;
+}
+.color3-bold, .color3-bold a {
+	color:			#e16c6c !important;
+}
+
+.color4, .color4 a {
+	color:			#fdc600 !important;
+}
+
+.color4-bold, .color4-bold a {
+	color:			#e0af00 !important;
+}
+
+.color5, .color5 a {
+	color:			#7ed0f2 !important;
+}
+
+.color5-bold, .color5-bold a {
+	color:			#30a6d7 !important;
+}
+
+.color6, .color6 a {
+	color:			#15ef81 !important;
+}
+
+.color6-bold, .color6-bold a {
+	color:			#0fd270 !important;
+}
+
+/**
+*	BORDER LEFT COLOR
+*/
+
+.blcolor1 {
+	border-left-color:			#ca9fe4;
+}
+
+.blcolor1-bold {
+	border-left-color:			#9c74b4;
+}
+
+.blcolor2 {
+	border-left-color:			#4bc89e;
+}
+
+.blcolor2-bold {
+	border-left-color:			#3e997a;
+}
+
+
+.blcolor3 {
+	border-left-color:			#fcacac;
+}
+.blcolor3-bold {
+	border-left-color:			#e16c6c;
+}
+
+.blcolor4 {
+	border-left-color:			#fdc600;
+}
+
+.blcolor4-bold {
+	border-left-color:			#e0af00;
+}
+
+.blcolor5 {
+	border-left-color:			#7ed0f2;
+}
+
+.blcolor5-bold {
+	border-left-color:			#30a6d7;
+}
+
+.blcolor6 {
+	border-left-color:			#15ef81;
+}
+
+.blcolor6-bold {
+	border-left-color:			#0fd270;
+}
+
+
+.lecture-section-heading {
+	background: url('../media/background-section.png') no-repeat;
+}
+
+.luyen-tu-va-cau .lecture-section-heading {
+	background: url('../media/background-section-color1.png') no-repeat;
+}
+/**
+*	4 COLUMNS DETAIL LAYOUT
+*/
+
+.img-4-columns img {
+	height: 160px;
+}
+
+.columns-4 .header, .columns-4 h2 {
+	padding: 			5px;
+	margin:				0;
+	text-align:			center;
+	color: 				#fff;
+	font-size:			16px;
+	font-weight:		bold;
+}
+
+.columns-4 a, .columns-4 p, .columns-4 span {
+	color: 				#fff;
+}
+
+.columns-4 .layout-row {
+	margin-top: 10px;
+}
+
+.columns-4 .column{
+	width: 				22%;
+	margin-right: 		4%;
+	float: 				left;
+	background:			#ca9fe4;
+}
+
+.columns-4-detail .column {
+	background:			#ca9fe4;
+}
+
+.columns-4 .column h3 {
+	font-size:			14px;
+	font-weight:		bold;
+	text-align:			center;
+	margin: 			0;
+	height:				40px;
+	line-height:		40px;
+}
+
+.columns-4 .column .image img {
+	width: 				100%;
+	height: 			auto;
+}
+
+.columns-4-detail .column h3 {
+	background: 		#9c74b4;
+}
+
+.columns-4 .column.last {
+	margin-right: 		0%;
+}
+
+.columns-4 .lesson {
+	padding: 			10px;
+}
+
+.columns-4 .separator {
+	width: 				30%;
+	height: 			3px;
+	background: 		#fff;
+	margin-left:		10px;
+}
+
+.columns-4 .lesson-detail {
+	padding-left: 		5px;
+	margin-top: 		10px;
+}
+
+.columns-4 .lesson-detail li {
+	padding: 			5px;
+	margin: 			0px;
+	text-indent: 		0;
+	list-style-type: 	none;
+	
+}
+
+.columns-4 .lesson-detail li a {
+	position: 			relative;
+	left: 				-10px;
+	
+}
+
+.columns-4 .lesson-detail li.course:before {
+	content: 			"\e043";
+    font-family: 		'Glyphicons Halflings';
+    font-size: 			9px;
+    position: 			relative;
+    margin-right: 		10px;
+    top: 				3px;
+    color: 				#fff;
+}
+
+.columns-4 .lesson-detail li.practice:before {
+	content: 			"\270f";
+    font-family: 		'Glyphicons Halflings';
+    font-size: 			9px;
+    position: 			relative;
+    margin-right: 		10px;
+    top: 				3px;
+    color: 				#fff;
+}
+
+/**
+*	5 COLUMNS 2 ROWS LAYOUT
+*/
+
+.columns-5-rows-2 .header, .columns-5-rows-2 h2 {
+	padding: 			5px;
+	margin:				0;
+	text-align:			center;
+	color: 				#fff;
+	font-size:			16px;
+	font-weight:		bold;
+}
+
+.columns-5-rows-2 .layout-row {
+	margin-top: 		10px;
+}
+
+.columns-5-rows-2 .column{
+	width: 				16%;
+	margin-right: 		5%;
+	height: 			35px;
+	float: 				left;
+}
+
+.columns-5-rows-2 .column.last {
+	margin-right: 		0;
+}
+
+.columns-5-rows-2 h3, .columns-5-rows-2 a {
+	color: 				#fff;
+	text-decoration: 	none;
+}
+
+.columns-5-rows-2 .column h3 {
+	font-size:			14px;
+	font-weight:		bold;
+	text-align:			center;
+	margin: 			0;
+	line-height:		35px;
+}
+
+/**
+*	5 COLUMNS LAYOUT
+*/
+
+.img-5-columns img {
+	margin: 0 auto;
+	height: 95px;
+}
+
+.columns-5 .header, .columns-5 h2 {
+	padding: 			5px;
+	margin:				0;
+	text-align:			center;
+	color: 				#fff;
+	font-size:			16px;
+	font-weight:		bold;
+}
+
+.columns-5 .layout-row {
+	margin-top: 		10px;
+}
+
+.columns-5 h3, .columns-5 a, .columns-5 span, .columns-5 p {
+	color: 				#fff;
+	text-decoration: 	none;
+}
+
+.columns-5 .column{
+	width: 				16%;
+	margin-right: 		5%;
+	float: 				left;
+}
+
+.columns-5 .column.last {
+	margin-right: 		0;
+}
+
+.columns-5 .column h3 {
+	font-size:			14px;
+	font-weight:		bold;
+	text-align:			center;
+	margin: 			0;
+	line-height:		35px;
+}
+
+.columns-5 .column .image img {
+	width: 				100%;
+	height: 			auto;
+}
+
+/**
+*	HOME
+*/
+.lesson-detail {
+	padding: 0;
+	margin: 10px;
+	padding-bottom: 30px;
+}
+.lesson-detail li{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	margin-top: 10px;
+}
+
+.lesson {
+	padding-top: 10px;
+	color: #fff;
+	padding-left: 10px;
+}
+
+.separator {
+	background: #fff;
+	width: 80px;
+	height: 5px;
+	margin: 10px;
+	margin-bottom: 20px;
+}
+
+/**
+*	LECTURE
+*/
+
+
+
+.lecture-page {
+	background: 		url('../media/lecture-background.jpg');
+}
+
+
+.lecture-region {
+	position: relative;
+}
+
+.lecture-bird {
+	background: 		url('../media/lecture-bird.png');
+	width: 296px;
+	height: 224px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.lecture-bird-2 {
+	background: 		url('../media/bird-2.png');
+	width: 351px;
+	height: 153px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.columns-lecture {
+	/*height:				580px;*/
+}
+
+.lecture-page h1 {
+	font-weight:		bold;
+	color:				purple;
+}
+
+.lecture-menu ul {
+    list-style-type: 		none;
+	list-style-position: 	outside;
+	padding-left:			0;
+}
+
+@media (min-width: 1200px) { .lecture-menu ul {    
+	position: 				relative;
+	top:					370px;
+}
+.cau-tao-tu .lecture-menu ul {
+	position: 				relative;
+	top:					225px;
+}
+.tu-loai .lecture-menu ul {
+	position: 				relative;
+	top:					210px;
+}
+.chuyen-de-ve-cau .lecture-menu ul {
+	position: 				relative;
+	top:					265px;
+}
+.dau-cau .lecture-menu ul {
+	position: 				relative;
+	top:					160px;
+}
+}
+
+.lecture-menu ul li {
+	background: 		#855c9d;
+	margin-top:			10px;
+	padding-top:		8px;
+	padding-bottom:		8px;
+	padding-left:		35px;
+	position:			relative;
+	border-radius:		5px;
+	box-shadow: 		0px 3px 3px #888888;
+}
+
+.lecture-menu ul li:hover {
+	box-shadow: 		0px 3px 3px #555555;
+}
+
+.lecture-menu ul li a {
+	color: 				#fff;
+}
+
+.lecture-menu ul li:before {
+	content:			"";
+	background:			url('../media/lecture-bullet-flower.png');
+	display: 			inline-block;
+	width:				61px;
+	height:				61px;
+	position: 			absolute;
+	top:				-15px;
+	left:				-35px;
+}
+
+.lecture-girl-cartoon {
+	background:			url('../media/lecture-cartoon-girl.png') no-repeat;
+	width:				215px;
+	height:				108px;
+	position:			absolute;
+	bottom:				20px;
+	left:				65px;
+	background-size: 	80%;
+}
+
+.lecture-children-cartoon {
+	background:			url('../media/children.png') no-repeat;
+	width:				369px;
+	height:				72px;
+}
+
+.lecture-kids-cartoon {
+	background:			url('../media/kids.png') no-repeat;
+	width:				528px;
+	height:				135px;
+}
+
+.lecture-girl2-cartoon {
+	background:			url('../media/girl2.png') no-repeat;
+	width:				247px;
+	height:				157px;
+}
+
+.lecture-index {
+	
+	width:				100%;
+	height:				auto;
+	position:			relative;
+	margin-top:			30px;
+	margin-bottom:		30px;
+}
+
+.lecture-index h2 a {
+	color:				#fff;
+}
+
+@media (min-width: 480px) { .lecture-index {
+	background:			none;
+}}
+
+@media (min-width: 768px) { .lecture-index {
+    height: 			580px;
+	background: 		url('../media/lecture-open-notebook.png') no-repeat;
+	background-size:	100% 100%;
+}
+.luyen-tu-va-cau .lecture-index {
+    height: 				2254px;
+	background:			url('../media/background-luyen-tu-va-cau.png') no-repeat;
+	background-size:	100% 100%;
+	padding-top:			60px;
+}
+
+.luyen-tu-va-cau .lecture-detail,.luyen-tu-va-cau  .lecture-practice {
+	float:				left;
+	width:				50%;
+}
+
+.luyen-tu-va-cau .lecture-left, .luyen-tu-va-cau .lecture-right {
+	padding-top:		10px;
+}
+
+.cau-tao-tu .lecture-index {
+    height: 				615px;
+}
+.tu-loai .lecture-index {
+    height: 				570px;
+}
+.chuyen-de-ve-cau .lecture-index {
+    height: 				770px;
+}
+.chuyen-de-ve-cau .lecture-girl-cartoon {
+	right: 					65px;
+	left: 					auto;
+}
+.dau-cau .lecture-index {
+    height: 				460px;
+}
+.dau-cau .lecture-item {
+	padding-bottom: 		50px;
+}
+.chinh-ta .lecture-index {
+	height:					952px;
+	background: 			url('../media/page7-open-2-side-book-chinh-ta-tablet.png') no-repeat;
+	padding-top:			30px;
+	margin-bottom:			40px;
+}
+.chinh-ta .lecture-item {
+	padding-bottom: 		30px;
+}
+.tap-doc-hieu .lecture-index {
+    height: 				820px;
+	background:			url('../media/lecture-open-book-large-full.png') no-repeat;
+	background-size:	100% 100%;
+}
+
+.tap-doc-hieu .lecture-title {
+	height: 				50px;
+}
+
+.tap-doc-hieu .lecture-girl-cartoon {
+	right: 					65px;
+	left: 					auto;
+}
+
+.de-thi-tong-hop .lecture-index {
+	background:			url('../media/lecture-open-book-large-full.png') no-repeat;
+	background-size:	100% 100%;
+}
+}
+@media (min-width: 992px) { .lecture-index {
+	height:					625px;
+}
+.cau-tao-tu .lecture-index {
+    height: 				767px;
+	background:				url('../media/page3-open-2-side-book-cau-tao-tu-tablet.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.cau-tao-tu .lecture-index .lecture-item {
+	padding-bottom:			30px;
+}
+.tu-loai .lecture-index {
+    height: 				768px;
+	background:				url('../media/page4-open-2-side-book-tu-loai-tablet.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.tu-loai .lecture-index .lecture-item {
+	padding-bottom:			30px;
+}
+.chuyen-de-ve-cau .lecture-index {
+    height: 				940px;
+	background:				url('../media/page5-open-2-side-book-chuyen-de-ve-cau-tablet.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.chuyen-de-ve-cau .lecture-index .lecture-item {
+	padding-bottom:			30px;
+}
+.dau-cau .lecture-index {
+    height: 				767px;
+	background:				url('../media/page6-open-2-side-book-dau-cau-tablet.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.dau-cau .lecture-item {
+	padding-bottom: 		70px;
+}
+
+.chinh-ta .lecture-girl-cartoon {
+	right: 					65px;
+	left: 					auto;
+}
+.mo-rong-von-tu .lecture-index {
+    height: 				740px;
+	background:				url('../media/page8-open-2-side-book-mo-rong-von-tu-tablet.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.mo-rong-von-tu .lecture-item {
+	padding-bottom:			30px;
+}
+.tap-lam-van .lecture-index {
+    height: 				740px;
+	background:				url('../media/page9-open-2-side-book-tap-lam-van-tablet.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.tap-lam-van .lecture-item {
+	padding-bottom:			30px;
+}
+
+.tap-doc-hieu .lecture-index {
+    height: 				830px;
+}
+
+.tap-doc-hieu .lecture-girl-cartoon {
+	right: 					65px;
+	left: 					auto;
+}
+}
+
+
+@media (min-width: 1200px) { 
+.lecture-index {    
+	height: 				765px;
+}
+.cau-tao-tu .lecture-index {
+    height: 				767px;
+	background: 			url('../media/page3-open-2-side-book-cau-tao-tu-desktop.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.cau-tao-tu .lecture-index .lecture-item {
+	padding-bottom:			30px;
+}
+
+.tu-loai .lecture-index {
+    height: 				768px;
+	background:				url('../media/page4-open-2-side-book-tu-loai-desktop.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.tu-loai .lecture-index .lecture-item {
+	padding-bottom:			30px;
+}
+.chuyen-de-ve-cau .lecture-index {
+    height: 				940px;
+	background:				url('../media/page5-open-2-side-book-chuyen-de-ve-cau-desktop.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.chuyen-de-ve-cau .lecture-index .lecture-item {
+	padding-bottom:			30px;
+}
+
+.dau-cau .lecture-index {
+    height: 				767px;
+	background:				url('../media/page6-open-2-side-book-dau-cau-desktop.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+.dau-cau .lecture-item {
+	padding-bottom: 		70px;
+}
+
+.chinh-ta .lecture-index {
+    height: 				760px;
+	background:				url('../media/page7-open-2-side-book-chinh-ta-desktop.png') no-repeat;
+	padding-top: 			35px;
+	margin-bottom:			40px;
+}
+
+.chinh-ta .lecture-item {
+	padding-bottom: 		30px;
+}
+
+.mo-rong-von-tu .lecture-index {
+    height: 				807px;
+	background:				url('../media/page8-open-2-side-book-mo-rong-von-tu-desktop.png') no-repeat;
+	padding-top:			30px;
+	margin-bottom:			40px;
+	background-size:		100% 100%;
+}
+
+.mo-rong-von-tu .lecture-item {
+	padding-bottom:			30px;
+}
+
+.tap-lam-van .lecture-index {
+    height: 				865px;
+	background:				url('../media/page9-open-2-side-book-tap-lam-van-desktop.png') no-repeat;
+	padding-top:			30px;
+	margin-bottom:			40px;
+	background-size:		100% 100%;
+}
+
+.tap-lam-van .lecture-item {
+	padding-bottom:			30px;
+}
+
+.tap-doc-hieu .lecture-index {
+    height: 				2064px;
+	background:				url('../media/page10-open-2-side-book-tap-doc-hieu-desktop-tab1.png') no-repeat;
+	padding-top:			60px;
+	margin-bottom:			40px;
+	background-size:		100% 100%;
+}
+
+.tap-doc-hieu .lecture-girl-cartoon {
+	right: 					65px;
+	left: 					auto;
+}
+}
+
+
+
+.lecture-left, .lecture-right {
+	float: 				left;
+	width: 				100%;
+	padding-left: 		10%;
+	padding-top:		30px;
+}
+
+@media (min-width: 480px) { .lecture-left, .lecture-right {
+    width: 				100%;
+}}
+
+@media (min-width: 768px) { .lecture-left, .lecture-right {
+    width: 				50%;
+}}
+
+.lecture-right {
+	padding-left:		5%;
+	padding-right: 		8%;
+}
+
+.chinh-ta .lecture-right {
+	/*padding-left: 		0;*/
+}
+
+.chinh-ta .left {
+	width: 				45%;
+}
+
+.chinh-ta .right {
+	width:				55%;
+}
+
+.lecture-index h2 {
+	display: 			block;
+    width: 				220px;
+    color: 				#fff;
+    padding: 			10px;
+    border-radius: 		10px 10px 0 0;
+	position:			absolute;
+	top:				-10px;
+	left:				130px;
+	font-size:			18px;
+	font-weight: 		bold;
+	height:				40px;
+	cursor:				pointer;
+}
+
+.lecture-index h2.tab1 {
+	opacity: 0;
+}
+
+.lecture-index h2.tab2 {
+	left: 400px;
+	opacity: 0;
+}
+
+.lecture-index h2.tab3 {
+	left: 530px;
+}
+
+h3.lecture-section-heading {
+	margin-top:			20px;
+	padding:			10px;
+	width:				245px;
+	color:				#fff;
+	font-size:			17px;
+	font-weight:		bold;
+}
+
+.lecture-right h3:before {
+	content: 			"\e006";
+    font-family: 		'Glyphicons Halflings';
+	padding-right: 		5px;
+}
+
+.lecture-left h3:before {
+	content: 			"\002a";
+    font-family: 		'Glyphicons Halflings';
+	padding-right: 		5px;
+}
+
+.lecture-item {
+	border-left-width:		2px;
+	border-left-style:		solid;
+	padding-left: 		10px;
+	position:			relative;
+	margin-left:		40px;
+	/*margin-right:		40px;*/
+	padding-bottom:		10px;
+	/*padding-right:		10px;*/
+}
+
+.chinh-ta .lecture-item {
+	margin-right: 		0;
+	padding-right:		0;
+}
+
+.lecture-item:before {
+	position:			absolute;
+	left:				-55px;
+	background:			url('../media/lecture-number-icon.png');
+	width:				44px;
+	height:				36px;
+	display:			block;
+	padding-top:		5px;
+	padding-left:		10px;
+	font-size:			18px;
+	font-weight:		bold;
+	color:				#fff;
+}
+
+.luyen-tu-va-cau .lecture-item:before {
+	background:			url('../media/lecture-number-icon-color-1.png');
+}
+
+.chinh-ta .lecture-item:before {
+	background:			url('../media/lecture-number-icon-color-2.png');
+}
+
+.mo-rong-von-tu .lecture-item:before {
+	background:			url('../media/lecture-number-icon-color-3.png');
+}
+
+.tap-lam-van .lecture-item:before {
+	background:			url('../media/lecture-number-icon-color-5.png');
+}
+
+.pd-top-30 {
+	padding-top:		30px;
+}
+.pd-10-percent {
+	padding-left: 		10%;
+}
+
+.num1:before {
+	content:			"1";
+}
+
+.num2:before {
+	content:			"2";
+}
+
+.num3:before {
+	content:			"3";
+}
+
+.num4:before {
+	content:			"4";
+}
+
+.num5:before {
+	content:			"5";
+}
+
+.num6:before {
+	content:			"6";
+}
+
+.num7:before {
+	content:			"7";
+}
+
+.num8:before {
+	content:			"8";
+}
+
+.num9:before {
+	content:			"9";
+}
+.num10:before {
+	content:			"10";
+}
+.num11:before {
+	content:			"11";
+}
+.num12:before {
+	content:			"12";
+}
+.num13:before {
+	content:			"13";
+}
+.num14:before {
+	content:			"14";
+}
+.num15:before {
+	content:			"15";
+}
+.num16:before {
+	content:			"16";
+}
+.num17:before {
+	content:			"17";
+}
+.num18:before {
+	content:			"18";
+}
+.num19:before {
+	content:			"19";
+}
+.num20:before {
+	content:			"20";
+}
+.num21:before {
+	content:			"21";
+}
+.num22:before {
+	content:			"22";
+}
+.num23:before {
+	content:			"23";
+}
+.num24:before {
+	content:			"24";
+}
+.num25:before {
+	content:			"25";
+}
+.num26:before {
+	content:			"26";
+}
+.num27:before {
+	content:			"27";
+}
+.num28:before {
+	content:			"28";
+}
+.num29:before {
+	content:			"29";
+}
+.num30:before {
+	content:			"30";
+}
+.num31:before {
+	content:			"31";
+}
+.num32:before {
+	content:			"32";
+}
+.num33:before {
+	content:			"33";
+}
+.num34:before {
+	content:			"34";
+}
+.num35:before {
+	content:			"35";
+}
+.num36:before {
+	content:			"36";
+}
+
+.lecture-title {
+	font-weight:		bold;
+	padding-top:		5px;
+	padding-bottom:		5px;
+}
+
+.lecture-detail, .lecture-practice {
+	padding-left:		20px;
+	white-space:		nowrap;
+}
+
+.lecture-detail a, .lecture-practice a {
+	color:				#333;
+}
+
+.lecture-detail:before {
+	content:			" ";
+	display:			inline-block;
+	width:				20px;
+	height:				15px;
+	background:			url('../media/lecture-video-icon.png') no-repeat;
+	margin-right:		5px;
+}
+
+.lecture-practice:before {
+	content:			" ";
+	display:			inline-block;
+	width:				20px;
+	height:				20px;
+	background:			url('../media/lecture-homework-icon.png') no-repeat;
+	margin-right:		5px;
+}
+
+.lecture-image {
+	position: absolute;
+	top: 0;
+	right: 50px;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 2px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+::-webkit-scrollbar-track {
+  background: #9c74b4;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #9c74b4;
+}
+::-webkit-scrollbar-track:active {
+  background: purple;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/**
+SELECT BACKGROUND
+*/
+
+.select-background option {
+	background: #fff;
+	color: #333;
+}
+
+/**
+TEST DETAIL
+*/
+
+.question-num {
+	width: 40px; height: 40px; 
+	background: #5E2083; 
+	padding-left: 16px; padding-top: 10px; 
+	top: 0px; left: -35px;
+}
+
+.answer-input-wrapper {
+	border: 1px solid purple; 
+	width: 14px; 
+	height: 14px;
+}
+
+.answer-input {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+@media (max-width: 480px) {
+.news-content > div {
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+.news-content > div > div {
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+.news-content video, .news-content img {
+	width: 100%;
+	height: auto;
+}
+
+#mainMenu li {
+	height: 60px;
+}
+
+.tap-lam-van img {
+	display: none;
+}
+
+.tap-lam-van .lecture-left {
+	padding-left: 5%;
+}
+
+.mo-rong-von-tu .lecture-left {
+	padding-left: 5%;
+}
+
+.mo-rong-von-tu .lecture-index img {
+	display: none;
+}
+
+footer {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+}
+
+.img-4-columns img {
+	width: 100% !important;
+}

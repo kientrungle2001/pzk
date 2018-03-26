@@ -1,0 +1,28 @@
+/**
+* HOME SLIDE
+*/
+
+.tv4 {
+	background: 		url('../media/tv4.jpg') no-repeat;
+	background-size: 	100% auto;
+	background-position: bottom center;
+}
+
+.tv4 a, .tv4 p, .tv4 button{	color: #40155A !important;	}
+
+.tv5 {
+	background: 		url('../media/tv5.jpg') no-repeat;
+	background-size: 	100% auto;
+	background-position: bottom center;
+}
+
+.tv5 a, .tv5 p{ 				color: #FFF !important;	}
+.tv5 a.btn {	color:	#40155A !important; }
+
+.tv3 {
+	background: 		url('../media/tv3.jpg') no-repeat;
+	background-size: 	100% auto;
+	background-position: bottom center;
+}
+
+.tv3 a, .tv3 p, .tv3 button{ 	color: #40155A !important; 	}
