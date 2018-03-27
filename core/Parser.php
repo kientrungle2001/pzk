@@ -617,6 +617,21 @@ class PzkParser {
         $content = preg_replace("/{$o}({$idExp})\[({$idExp})\]{$c}/", '<?php echo isset($$1[\'$2\'])?$$1[\'$2\']: \'\';?>', $content);
 		// Thay {a.b[c]} thành $a->b['c']
         $content = preg_replace("/{$o}({$idExp})\.({$idExp})\[({$idExp})\]{$c}/", '<'.'?php echo isset($$1->$2[\'$3\']) ? $$1->$2[\'$3\']: \'\';?>', $content);
+		
+		
+		// Thay {!a} thành echo $a
+		$content = preg_replace("/{$o}!({$idExp}){$c}/", '<'.'?php echo html_escape(isset($$1)?$$1: \'\');?'.'>', $content);
+		// Thay {!a.b} thành echo $a->b
+        $content = preg_replace("/{$o}!({$idExp})\.({$idExp}){$c}/", '<'.'?php echo html_escape(isset($$1)?$$1->$2: \'\');?>', $content);
+        // Thay {!a.b()} thành echo $a->b()
+		$content = preg_replace("/{$o}!({$idExp})\.({$idExp})\(\){$c}/", '<?php echo html_escape(isset($$1)?$$1->$2(): \'\');?>', $content);
+		// Thay {!a.b('c')} thành echo $a->b('c')
+		$content = preg_replace("/{$o}!({$idExp})\.({$idExp})\('({$idExp})'\){$c}/", '<?php echo html_escape(isset($$1)?$$1->$2(\'$3\'): \'\');?>', $content);
+		// Thay {!a[b]} thành $a['b']
+        $content = preg_replace("/{$o}!({$idExp})\[({$idExp})\]{$c}/", '<?php echo html_escape(isset($$1[\'$2\'])?$$1[\'$2\']: \'\');?>', $content);
+		// Thay {!a.b[c]} thành $a->b['c']
+        $content = preg_replace("/{$o}!({$idExp})\.({$idExp})\[({$idExp})\]{$c}/", '<'.'?php echo html_escape(isset($$1->$2[\'$3\']) ? $$1->$2[\'$3\']: \'\');?>', $content);
+		
 		// Thay {thumb WxH $src} thành <img src="filename($src)-WxH.ext($src)" />
         $content = preg_replace("/{$o}thumb ([\d]+)x([\d]+) ([^{$c}]+){$c}/", '<img src="<?php echo BASE_URL . createThumb($3, $1, $2);?>" />', $content);
 		// Thay {each $arr as $val} thành foreach($arr as $val):
