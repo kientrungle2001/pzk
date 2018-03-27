@@ -1,0 +1,66 @@
+(* if(data.areas) { 
+var areas = data.areas;
+*)
+<h2>Tổng kết</h2>
+<table class="table table-hover">
+	<tr>
+	<th>(*= data.areaChildLabel*)</th>
+	<th>Số học sinh</th>
+	</tr>
+	(* for (var i = 0; i < areas.length; i++) { *)
+	<tr>
+		<td>(*= areas[i].areacodeName *)</td>
+		<td>(*= areas[i].users *)</td>
+	</tr>
+	(* } *)
+</table>
+(* } *)
+<h2>Danh sách học sinh</h2>
+<table class="table table-hover">
+<tr>
+(* 
+var items = data.items;
+var totalItems = data.totalItems;
+var student = items[0];
+var fieldCount = 0;
+var currentPage = data.currentPage;
+
+var totalPages = Math.ceil(totalItems / 20);
+var startPage = 0;
+if(currentPage > 5) {
+startPage = currentPage - 5;
+}
+var endPage = totalPages;
+if(currentPage < totalPages - 5) {
+endPage = currentPage + 5;
+}
+*)
+	(* for (var field in student) { *)
+	<th>(*= field*)(* fieldCount++; *)</th>
+	(* }*)
+</tr>
+<tr>
+	<td colspan="(*= fieldCount *)">
+	(* for(var j = 0; j < totalPages; j++) { *)
+	(* if((j !== 0 && j < startPage) || ( j !== totalPages-1 && j > endPage) ) continue; *)
+	<a class="btn btn-default (*if(j == currentPage) { *)btn-primary(* } *)" href="#" onclick="show_students((*= j*)); return false;">(*= j+1 *)</a>
+	(* } *)
+	</td>
+</tr>
+(* for(var i = 0; i < items.length; i++) { *)
+<tr>
+	(* var student = items[i];*)
+	(* for (var field in student) { *)
+	<td><a href="/monitor/student/(*= student['id'] *)">(*= student[field]*)</a></td>
+	(* }*)
+</tr>
+(* } *)
+<tr>
+	<td colspan="(*= fieldCount *)">
+	(* for(var j = 0; j < totalPages; j++) { *)
+	(* if((j !== 0 && j < startPage) || ( j !== totalPages-1 && j > endPage) ) continue; *)
+	<a class="btn btn-default (*if(j == currentPage) { *)btn-primary(* } *)" href="#" onclick="show_students((*= j*)); return false;">(*= j+1 *)</a>
+	(* } *)
+	</td>
+</tr>
+</table>

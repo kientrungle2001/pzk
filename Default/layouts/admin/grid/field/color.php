@@ -1,0 +1,1 @@
+<div bgcolor="{? echo $data->get('value') ?}" width="{? $data->get('width')?}" height="{? echo $data->get('height') ?}" style="display: inline-block; width: {? echo $data->get('width') ?}; height: {? echo $data->get('height') ?}; background: {? echo $data->get('value') ?}"></div>

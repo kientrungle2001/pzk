@@ -1,0 +1,1 @@
+<Core.Db.Grid  table="user" layout="admin/grid/import" />

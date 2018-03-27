@@ -1,0 +1,238 @@
+/* Edit infor user*/
+.user_editinfor{
+  width: 100%;
+  background: url("../media/Trangcanhan.png") no-repeat;
+  background-size: 100%;
+  height: 1400px;
+}
+.editinfor_title{
+  margin: 0px auto;
+  width: 80%;
+  min-height: 20px;
+  line-height: 25px;
+  
+}
+
+.txt_editinfor_title{
+  color: #00a550;
+  font-weight: bold;
+  font-size: 15px;
+  font-style: italic;
+}
+.txt_editinfor_note{
+  color: #802a90;
+  font-style: italic;
+  font-size: 12px;
+  font-weight: bold;
+  
+}
+.user_editinfor1{
+  width: 1024px;
+  background: url("../media/editinfor.jpg") no-repeat;
+  background-size: 100%;
+  height: 1400px;
+  margin: 0 auto;
+}
+.title_edit{
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  padding-top: 38px;
+  font-size: 33px;
+  color: #62035F;
+}
+.edit_area{
+  padding-top: 175px;
+  color: green;
+  padding-left: 120px;
+}
+.editpass_area{
+  padding-top: 120px;
+  color: green;
+  padding-left: 196px;
+}
+.btt_update {
+  width: 100%;
+  line-height: 37px;
+  height: 37px;
+  margin: 0px auto;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  border:none;
+  background: 
+  url("../media/bg2.png") repeat-x;
+}
+
+
+.user_profile{
+  width: 100%;
+  background: url("../media/Profile.jpg") no-repeat;
+  background-size: 100%;
+  min-height: 1400px;
+}
+.prf_area{
+  width: 65%;
+  height:579px;
+  padding-top: 126px;  
+  margin-left: 94px;
+  float: left;
+}
+.lesson_history{
+  width: 100%;
+  height:858px;
+  float: left;
+  
+}
+.history_area{
+  width: 83.5%;
+  height: 320px;
+  margin-top: 200px;
+  margin-left: 104px;
+  float: left;
+
+}
+.pfr_infor{
+  width: 60%;
+  min-height: 30px;
+  float: left;
+  
+}
+.pfr_imgavatar{
+  width: 37%;
+  height: 380px;
+  float: left;
+}
+.pfravatar{
+  width: 100%;
+  height: 258px;
+}
+.pfrbutton{
+  width: 90%;
+  height: 200px;
+  margin: 0px auto;
+}
+.pfrbutton1{
+  width: 100%;
+  height: 100px;
+  margin: 0px auto;
+  display: block;
+}
+.pfrbutton2{
+  width: 100%;
+  height: 100px;
+  margin: 0px auto;
+  display: block;
+}
+button.pfrbtt_edita {
+  width: 70%;
+  line-height: 44px;
+  height: 44px;
+  display: block;
+  margin: 0px auto;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  border:none;
+  background: 
+  url("../media/Profile_bg1.png") repeat-x;
+}
+button.pfrbtt_editp {
+  width: 70%;
+  line-height: 44px;
+  height: 44px;
+  display: block;
+  margin: 0px auto;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  border:none;
+  background: 
+  url("../media/Profile_bg2.png") repeat-x;
+}
+.prf_label{
+  width: 97%;
+  height: 35px;
+  line-height: 35px;
+  margin-bottom: 11px;
+  margin-top: 5px;
+  margin-left: 20px;
+  background: white;
+  padding-left: 10px;
+}
+.prf_label2{
+  width: 97%;
+  height: 73px;
+  line-height: 35px;
+  margin-bottom: 11px;
+  margin-top: 5px;
+  margin-left: 20px;
+  background: white;
+  padding-left: 10px;
+}
+.prf_label3{
+  width: 97%;
+  height: 55px;
+  line-height: 30px;
+  margin-top: 5px;
+  margin-left: 20px;
+  background: white;
+  margin-bottom: 11px;
+  padding-left: 10px;
+}
+.pfr_btt{
+  width: 19%;
+  height: 19%;
+  float: left;
+}
+.prf_button1 {
+  width: 100%;
+  line-height: 44px;
+  height: 44px;
+  margin: 0px auto;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  border:none;
+  background: 
+  url("../media/bg2.png") repeat-x;
+}
+.pfravatar_img{
+  width: 201px;
+  height: 196px;
+  border-color: #040000;
+  border-style: solid;
+  border-width: 2px;
+  margin-top: 50px;
+  margin-left: 55px;
+}
+.prf_labels{
+  font-weight: bold;
+}
+label.error {
+        width: auto;
+        display: block;
+        color: red;
+        font-style: italic;
+        font-size: 12px;
+        font-weight: normal;
+}
+#exampleModal input[type=file] {
+  border: 1px solid #DDD;
+  padding: 6px;
+  background: #FFF;
+  border-radius: 5px;
+}
+#exampleModal #bttUploadA {
+  border: none;
+  float: left;
+  padding: 10px;
+  background: #61BAE4;
+  border-radius: 5px;
+  color: #FFF;
+}
+/* End Edit infor user*/

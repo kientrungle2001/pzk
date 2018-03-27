@@ -1,0 +1,150 @@
+<div class="row">
+	<!-- Filters -->
+	<div id="grid-nav" class="col-sm-12">
+	Filters
+	</div>
+	<!-- End Filters -->
+	
+	<div id="grid-list-new" class="col-sm-12">
+		<!-- Show data -->
+		<div class="panel panel-default">
+			
+			<!-- Head Panel -->
+			<div class="panel-heading">
+				<!-- Dashboard button -->
+				<a class="btn  btn-xs btn-danger" href="/Admin_Home/index" data-toggle="tooltip" data-placement="top" title="Trang Tổng"><span class="glyphicon glyphicon-dashboard"></span></a>
+				<!-- End Dashboard button -->
+				
+				
+				<a class="btn  btn-xs btn-primary" href="#"  data-toggle="tooltip" data-placement="top" title="Thu gọn Bên Trái"><span class="glyphicon glyphicon-indent-right"></span></a>
+				
+				<a class="btn  btn-xs btn-primary" href="#"  data-toggle="tooltip" data-placement="top" title="Thu gọn dòng"><span class="glyphicon glyphicon-resize-small"></span></a>
+				
+				<a class="btn  btn-xs btn-primary" href="#"  data-toggle="tooltip" data-placement="top" title="Thu gọn nhãn"><span class="glyphicon glyphicon-tasks"></span></a>
+				
+				<b>(*= co.title || 'Grid' *)</b>
+				
+				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="#"  data-toggle="tooltip" data-placement="top" title="Kiểm tra"><span class="glyphicon glyphicon-warning-sign"></span></a>
+				
+				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="/Admin_(*= co.module*)/changeQuickMode" data-toggle="tooltip" data-placement="top" title="Xem Nhanh"><span class="glyphicon glyphicon-list-alt"></span></a>
+				
+				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="#" data-toggle="tooltip" data-placement="top" title="Ẩn / Hiện Cột"><span class="glyphicon glyphicon-th"></span></a>
+				<span class="pull-right">
+				</span>
+
+			</div>
+			<!-- End Head Panel -->
+			<table id="admin_table_(*= co.id*)" class="table table-hover table-bordered table-striped table-condensed">
+				<thead class="header">
+				<tr>
+					<th><input type="checkbox" id="selecctall"/></th>
+					<th>#</th>
+					(* co.listFieldSettings.forEach(function(field) { *)
+					<th>
+					<span title="(*= field.label *)" class="glyphicon glyphicon-remove-circle column-toogle-(*= field.index *)" style="cursor: pointer;" ></span>
+						<span class="glyphicon glyphicon-floppy-disk" style="cursor: pointer;" ></span>
+					<span class="column-header-(*= field.index *)">
+						(*= field.label *)
+					</span>
+					&nbsp;<span class="column-sorter-(*= field.index *) glyphicon glyphicon-chevron-up" style="cursor: pointer;"></span>
+					</th>
+					(* }); *)
+					<th>Hành động</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td colspan="(*= 3 + co.listFieldSettings.length *)">
+					
+					<form class="form-inline">
+					<strong>Số mục: </strong>
+					<select name="pageSize" class="form-control input-sm pageSize" onchange="pzk_list.changePageSize(this.value);">
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+						<option value="200">200</option>
+						<option value="500">500</option>
+						<option value="1000">1000</option>
+					  </select>
+					
+					<strong>Trang: </strong>
+					
+					<a class="btn btn-xs btn-primary" href="#" >1</a>
+					
+					<div style="float:right;">
+					<strong>Hành động: </strong>
+				  <select id="gridAction" name="action" class="form-control input-sm">
+						<option selected="selected" value="">Thao tác</option>
+							<option value="{action[value]}">{action[label]}</option>
+					</select>
+					<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger"  >
+						<span class="glyphicon glyphicon-execute"></span> Thực hiện
+					</div>
+					</div>
+					</form>
+					</td>
+				</tr>
+
+				<tr id="row-{item[id]}" class="row-item row-item-{item[id]} row-parent-{item[parent]}" rel="{item[id]}">
+					<td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="{item[id]}" /></td>
+					<td style="white-space: nowrap;">
+					<a class="row-toggle-btn" id="row-toggle-btn-{item[id]}" rel="{item[id]}" data-expansionDisplay="1" href="#" ><span class="glyphicon glyphicon-folder-open"></span></a>
+					
+					<a href="/Admin_(*= co.module*)/edit/{item[id]}" class="text-center"><span class="glyphicon glyphicon-edit"></span></a>
+					</td>
+					(* co.listFieldSettings.forEach(function(field) { *)
+				<td style="white-space: nowrap;"><span class="column-{field[index]}">(*= field.label*)</span><a href="#"><span class="glyphicon glyphicon-link"></span> </a></td>
+					(* }); *)
+					<td style="white-space: nowrap"><a href="/Admin_(*= co.module*)/edit/{item[id]}" class="text-center"><span class="glyphicon glyphicon-edit"></span></a>
+					<a href="#" ><span class="glyphicon glyphicon-info-sign"></span></a>
+					<a class="color_delete text-center" href="/Admin_(*= co.module*)/del/{item[id]}"><span class="glyphicon glyphicon-remove"></span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="(*= 3 + co.listFieldSettings.length *)">
+					<form class="form-inline">
+					<strong>Số mục: </strong>
+					<select name="pageSize" class="pageSize form-control input-sm" onchange="pzk_list.changePageSize(this.value);">
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option value="50">50</option>
+						<option value="100">100</option>
+						<option value="200">200</option>
+						<option value="500">500</option>
+						<option value="1000">1000</option>
+					  </select>
+
+					<strong>Trang: </strong>
+					<a class="btn btn-xs btn-primary" href="#" >1</a>
+					<div style="float:right;">
+					<strong>Hành động: </strong>
+				  <select id="gridAction" name="action" class="form-control input-sm">
+						<option selected="selected" value="">Thao tác</option>
+							<option value="{action[value]}">{action[label]}</option>
+					</select>
+					<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger"  >
+						<span class="glyphicon glyphicon-execute"></span> Thực hiện
+					</div>
+					</div>
+					</form>
+					</td>
+				</tr>
+
+				</tbody>
+			</table>
+			<div class="panel-footer item">
+				<div  id="griddelete" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" >
+					<span class="glyphicon glyphicon-remove"></span>Xóa tất
+				</div>
+				<a class="btn  btn-sm btn-primary pull-right" href="/Admin_(*= co.module*)/add"><span class="glyphicon glyphicon-plus"></span> </a>
+				<div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>

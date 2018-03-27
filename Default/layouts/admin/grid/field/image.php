@@ -1,0 +1,1 @@
+<img src="{? echo $data->get('value') ?}" width="{? echo $data->get('width')?}" height="{? echo $data->get('height')?}" />

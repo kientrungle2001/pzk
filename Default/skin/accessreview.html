@@ -1,0 +1,121 @@
+(* 
+var reviews = data.reviews;
+if(reviews.numberStudent > 0) {
+*)
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Kết quả học tập</div>
+  <div class="panel-body">
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-info">Số học sinh làm bài: (*= reviews['numberStudent'] *)</li>
+			<li class="list-group-item list-group-item-info">Phần trăm làm đúng luyện tập của học sinh: (*= reviews['centPratice'] *)%</li>	
+			<li class="list-group-item list-group-item-info">Phần trăm làm đúng đề luyện tập của học sinh: (*= reviews['centTestPratice'] *)%</li>	
+			<li class="list-group-item list-group-item-info">Phần trăm làm đúng đề thi của học sinh: (*= reviews['centTest'] *)%</li>
+			<li class="list-group-item list-group-item-info">Phần trăm làm đúng game của học sinh: (*= reviews['centGame'] *)%</li>
+		</ul>
+	</div>
+</div>
+
+<div class="panel panel-info">
+	<div class="panel-heading">Xu hướng học tập của học sinh</div>
+	<div class="panel-body">
+		<ul class="list-group">
+			<li class="list-group-item ">Phần trăm học sinh học Khoa học: (*= reviews['category52'] *)%</li>
+			<li class="list-group-item">Phần trăm học sinh học Toán: (*= reviews['category51'] *)%</li>
+			<li class="list-group-item">Phần trăm học sinh học Văn: (*= reviews['category157'] *)%</li>
+			<li class="list-group-item">Phần trăm học sinh học Sử: (*= reviews['category53'] *)%</li>
+			<li class="list-group-item">Phần trăm học sinh học Địa: (*= reviews['category50'] *)%</li>
+			<li class="list-group-item">Phần trăm học sinh học Tiếng Anh: (*= reviews['category164'] *)%</li>
+			<li class="list-group-item">Phần trăm học sinh học Kĩ năng quan sát: (*= reviews['category88'] *)%</li>
+			<li class="list-group-item">Phần trăm học sinh học Kĩ năng nghe: (*= reviews['category87'] *)%</li>
+			<li class="list-group-item">Phần trăm học sinh học Hiểu biết xã hội: (*= reviews['category59'] *)%</li>
+			<li class="list-group-item">Phần trăm học sinh học Ngôn ngữ và giao tiếp: (*= reviews['category54'] *)%</li>
+		</ul>
+	</div>
+</div>
+(* if(reviews.allLangCategory > 0) { *)
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#lang">Xu hướng chọn ngôn ngữ</a></li>
+  <li><a data-toggle="tab" href="#vn_lang">Học theo Tiếng Việt</a></li>
+  <li><a data-toggle="tab" href="#en_lang">Học theo Tiếng Anh</a></li>
+  <li><a data-toggle="tab" href="#ev_lang">Học Song ngữ</a></li>
+</ul>
+
+<div class="tab-content">
+	<div id="lang" class="tab-pane fade in active">
+		<div class="panel panel-info">
+			<div class="panel-heading">Xu hướng chọn ngôn ngữ của học sinh</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item ">Phần trăm học sinh học theo ngôn ngữ Tiếng Việt: (*= reviews['cent_vn_category'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học theo ngôn ngữ Tiếng Anh: (*= reviews['cent_en_category'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học theo Song ngữ: (*= reviews['cent_ev_category'] *)%</li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="vn_lang" class="tab-pane fade">
+		<div class="panel panel-info">
+			<div class="panel-heading">Xu hướng học tập của học sinh theo ngôn ngữ Tiếng Việt</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item ">Phần trăm học sinh học Khoa học: (*= reviews['cent_vn_category52'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Toán: (*= reviews['cent_vn_category51'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Văn: (*= reviews['cent_vn_category157'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Sử: (*= reviews['cent_vn_category53'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Địa: (*= reviews['cent_vn_category50'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Tiếng Anh: (*= reviews['cent_vn_category164'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Kĩ năng quan sát: (*= reviews['cent_vn_category88'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Kĩ năng nghe: (*= reviews['cent_vn_category87'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Hiểu biết xã hội: (*= reviews['cent_vn_category59'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Ngôn ngữ và giao tiếp: (*= reviews['cent_vn_category54'] *)%</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="en_lang" class="tab-pane fade">
+		<div class="panel panel-info">
+			<div class="panel-heading">Xu hướng học tập của học sinh theo ngôn ngữ Tiếng Anh</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item ">Phần trăm học sinh học Khoa học: (*= reviews['cent_en_category52'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Toán: (*= reviews['cent_en_category51'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Văn: (*= reviews['cent_en_category157'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Sử: (*= reviews['cent_en_category53'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Địa: (*= reviews['cent_en_category50'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Tiếng Anh: (*= reviews['cent_en_category164'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Kĩ năng quan sát: (*= reviews['cent_en_category88'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Kĩ năng nghe: (*= reviews['cent_en_category87'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Hiểu biết xã hội: (*= reviews['cent_en_category59'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Ngôn ngữ và giao tiếp: (*= reviews['cent_en_category54'] *)%</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="ev_lang" class="tab-pane fade">
+		<div class="panel panel-info">
+			<div class="panel-heading">Xu hướng học tập của học sinh theo Song ngữ</div>
+			<div class="panel-body">
+				<ul class="list-group">
+					<li class="list-group-item ">Phần trăm học sinh học Khoa học: (*= reviews['cent_ev_category52'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Toán: (*= reviews['cent_ev_category51'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Văn: (*= reviews['cent_ev_category157'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Sử: (*= reviews['cent_ev_category53'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Địa: (*= reviews['cent_ev_category50'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Tiếng Anh: (*= reviews['cent_ev_category164'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Kĩ năng quan sát: (*= reviews['cent_ev_category88'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Kĩ năng nghe: (*= reviews['cent_ev_category87'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Hiểu biết xã hội: (*= reviews['cent_ev_category59'] *)%</li>
+					<li class="list-group-item">Phần trăm học sinh học Ngôn ngữ và giao tiếp: (*= reviews['cent_ev_category54'] *)%</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+(* } *)
+
+(* } else { *)
+	<div class="alert alert-danger">Không có dữ liệu.</div>
+(* } *)
+

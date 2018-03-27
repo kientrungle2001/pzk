@@ -1,0 +1,31 @@
+.ptnn-title{
+	color: #ac4ec3;
+	font-weight: bold;
+}
+.ptnn-title .join{width: 125px; display: inline;}
+.order{
+	float: left;	
+	border: 1px solid #3e9e00;
+  	padding: 3px 10px;
+  	border-radius: 20px;
+  	text-align: center;
+	font-weight:bold;
+	color:#ff8000;
+	font-size: 16px;
+}
+.nobel-list-md {
+    clear: both;
+    display: block;
+    margin: 0;
+    padding: 15px 0;
+    position: relative;
+}
+.form-horizontal .choice .control-label {padding-top:0px;}
+.line_question{ border-bottom: 1px solid #d0d0d0; clear: both; display: block;}
+.input-choice{float:left;}
+.label-choice{float:left;}
+.remove-input { padding-top: 6px; position: absolute; right: 0; top: 0;}
+.color_delete{color:#bd1501}
+.input_w{width:100%}
+.answer_box{ display: none; }
+.active{ display: block;}

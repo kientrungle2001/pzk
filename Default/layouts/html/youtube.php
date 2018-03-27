@@ -1,0 +1,1 @@
+<iframe width="{prop width}" height="{prop height}" src="https://www.youtube.com/embed/{prop code}?controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>

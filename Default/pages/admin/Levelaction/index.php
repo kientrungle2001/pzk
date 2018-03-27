@@ -1,0 +1,1 @@
+<Core.Db.Grid table="admin_level_action" layout="admin/levelaction/index" id="list"/>

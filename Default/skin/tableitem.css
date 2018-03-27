@@ -1,0 +1,48 @@
+/*table item*/	
+
+@media screen and (max-width: 2400px) {
+  table.tableitem tr td img {
+	  margin: 0px auto;
+  }
+  .content{font-size: 20px !important;}
+  table.tableitem * {
+	  font-size: 	30px;
+
+  }
+  table.tableitem thead { display: none; }
+  table.tableitem tbody td { 
+	display: block; padding: .6rem; 
+	text-align: justify !important;
+  }
+  table.tableitem tbody tr td:first-child, table.tableitem tbody tr td:nth-child(2), table.tableitem tbody tr td:nth-child(3) { 
+	background: #1a60b6; color: #fff; 
+	
+  }
+  
+  
+  
+  table.tableitem tbody tr td:nth-child(3), table.tableitem tbody tr td:nth-child(1), table.tableitem tbody tr td:nth-child(2) { 
+	
+	width: 33% !important;
+	display: inline-block;
+	line-height: 2;
+  }
+	table.tableitem tbody td:before { 
+	/*content: attr(data-th); */
+	font-weight: bold;
+	display: inline-block;
+	width: 45%;  
+  }
+ 
+  .popover {
+	  left: 0px !important;
+	  bottom: 5px !important;
+	  width: 100%;
+	  overflow-y: scroll;
+  }
+}
+.tableitem tr td span.glyphicon {font-size: 18px !important;}
+.tableitem tr td button.btn-primary{ 
+	margin: 0px auto;
+    display: inherit !important;
+}

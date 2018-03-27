@@ -1,0 +1,1 @@
+<Cms.Featured.Comments  layout="cms/featured/comments" />

@@ -1,0 +1,1 @@
+<Core.Db.List table="questions" parentMode="true" parentField="categoryId" layout="admin/home/questions" />

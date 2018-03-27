@@ -1,0 +1,1 @@
+	<Cms.Stat  layout="cms/stat"  />

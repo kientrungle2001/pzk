@@ -1,0 +1,1 @@
+<Cms.News.Comments  layout="cms/news/comments" />

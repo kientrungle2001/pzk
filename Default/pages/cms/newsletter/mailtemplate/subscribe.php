@@ -1,0 +1,1 @@
+﻿<Cms.Newsletter.Mailtemplate layout="cms/newsletter/mailtemplate/subscribe" />

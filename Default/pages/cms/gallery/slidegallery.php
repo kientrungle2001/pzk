@@ -1,0 +1,1 @@
+	<Cms.Gallery.Slidegallery  layout="cms/gallery/slidegallery"  />

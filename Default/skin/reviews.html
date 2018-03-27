@@ -1,0 +1,69 @@
+<div class="well">
+
+	<div class="row">
+		<div class="col-md-4 col-xs-12">
+			<label for="filterWeekYear">Đánh giá học tập theo tuần</label>
+			<select class="form-control" id="filterWeekYear" name="viewWeek" onchange="return accessReview(this, '(*= data *)');" >
+
+					(* 
+					var d = new Date();
+					var year = d.getFullYear();
+					var crurrentWeek = getWeekNumber(d);
+					*)
+					<option>Chọn tuần</option>
+					(*
+					for(var week = 0; week <= crurrentWeek-1; week++){ 
+					var tam = week + 1;
+					var weekYear = tam+'-'+year;
+					*)
+					
+					<option value="(*= weekYear *)">Tuần (* var dateweek = getDateOfWeek(week, year); *) (*= tam *)  ((*=dateweek[0]*)  đến (*= dateweek[1] *))</option>
+					(* } *)
+				
+			</select>
+		</div>
+		
+		
+		
+		<div class="col-md-4 col-xs-12">
+			<label for="filteYear">Đánh giá theo năm học</label>
+			<select class="form-control" id="filteYear" name="viewYear" onchange="return accessReviewYear(this, '(*= data *)');" >
+					<option>Chọn năm học</option>
+					(* 
+					var d = new Date();
+					var year = d.getFullYear();
+					
+					for(var i = 2016; i <= year; i++){ 
+					
+					*)
+					
+					<option value="(*= i *)">Năm (*=i*) - (*=i+1*)</option>
+					(* } *)
+				
+			</select>
+		</div>
+		
+		<div class="col-md-4 col-xs-12">
+			<label for="filterSummer">Đánh giá học tập hè</label>
+			<select class="form-control" id="filterSummer" name="viewSummer" onchange="return accessSummer(this, '(*= data *)');" >
+					<option>Chọn năm</option>
+					(* 
+					var d = new Date();
+					var year = d.getFullYear();
+					
+					for(var i = 2016; i <= year; i++){ 
+					
+					*)
+					
+					<option value="(*= i *)">Năm (*=i*) - (*=i+1*)</option>
+					(* } *)
+				
+			</select>
+		</div>
+		
+		
+	</div>
+</div>
+<div id="result-review">
+
+</div>

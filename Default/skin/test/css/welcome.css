@@ -1,0 +1,24 @@
+*, ul{ margin: 0px; padding: 0px; }
+body{ margin: 0px auto !important; width:100%; }
+#welcome{ margin:auto !important; width:100%; }
+#welcome img{ width:100%;}
+
+.login-title{ color:#265B89; margin-top:7px; }
+.margin-top-33{ margin-top:33px;}
+.margin-top-30{ margin-top:30px;}
+.margin-top-20{ margin-top:20px;}
+.margin-top-5{margin-top:5px}
+.margin-top-10{margin-top:10px}
+.margin-top-3{margin-top:3px}
+.validate{ color:#b20000; font-weight:bold; }
+
+.icon-date{ margin-top: 32px; position: absolute; right: 20px; }
+
+input.error{ border: 1px solid #b20000 !important; }
+label.error{ margin-top:3px; color: #b20000;}
+.pd-5{ padding-left:5px; }
+select.error{ border: 1px solid #b20000 !important; }
+.date .col-xs-4{padding:0px 0px;}
+#registerForm{border-top:2px solid #265b89 !important; }
+#register_successful{display:none;}
+#register_successful11{display:none;}

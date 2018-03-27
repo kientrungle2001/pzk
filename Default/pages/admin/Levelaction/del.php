@@ -1,0 +1,1 @@
+<Core.Db.Detail table="admin_level_action" itemId="0" layout="admin/levelaction/del" />

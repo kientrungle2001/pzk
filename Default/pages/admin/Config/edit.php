@@ -1,0 +1,1 @@
+<Core.Db.List layout="admin/config/edit" id="config"/>

@@ -1,0 +1,1 @@
+<Core.Db.List table="user" itemId="0" layout="admin/grid/highchart" />

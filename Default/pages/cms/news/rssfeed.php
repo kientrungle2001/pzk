@@ -1,0 +1,1 @@
+<Cms.News.Rssfeed  layout="cms/news/rssfeed"/>

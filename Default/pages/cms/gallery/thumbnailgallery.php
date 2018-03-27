@@ -1,0 +1,1 @@
+	<Cms.Gallery.Thumbnailgallery  layout="cms/gallery/thumbnailgallery"  />

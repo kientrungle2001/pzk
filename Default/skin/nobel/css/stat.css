@@ -1,0 +1,30 @@
+.stat_ul {
+	padding-left:35px; 
+	list-style-type:none;
+	font-size:13px;	
+}
+.stat_li{
+	color:#0080FF; 
+	text-align:right;
+	float:right;
+	margin-right:35px;	
+}
+.stat_li2{
+	color:#0080FF; 
+	font-size:10px;
+	margin-right:25px;	
+}
+
+#memberonline{
+	color:#0080FF; 
+	margin-right:35px;
+}
+.showmember{
+	padding-left:10px;
+	padding-top:5px;
+}
+.stat_ul li::after {
+	content: "";
+	display: block;
+	clear:both;
+}

@@ -1,0 +1,1 @@
+<Core.Db.Report table="user" itemId="0" layout="admin/report/index" />

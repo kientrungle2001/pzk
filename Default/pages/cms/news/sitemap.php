@@ -1,0 +1,1 @@
+<Cms.News.Sitemap  layout="cms/news/sitemap"/>

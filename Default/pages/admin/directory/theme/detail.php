@@ -1,0 +1,1 @@
+<Core.Themes.Directory.Detail id="themeDetail" />
