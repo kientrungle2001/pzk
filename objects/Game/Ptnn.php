@@ -24,27 +24,29 @@ class PzkGamePtnn extends PzkObject
     }
 	
 	public function getRate($gamecode, $topic) {
-		$sql = "SELECT g.live, g.score, g.userId, u.username FROM gamescore as g
-		LEFT JOIN `user` as u ON g.userId = u.id
-		WHERE gamecode = '{$gamecode}' and gametopic = {$topic} 
-		GROUP BY userId 
-		ORDER BY score desc, live desc 
-		limit 10";
-		$data = _db()->query($sql);
+		
+		$data = _db()->select('g.live, g.score, g.userId, u.username')
+		->from('gamescore as g')
+		->join('user as u', 'g.userId = u.id', 'left')
+		->whereGamecode($gamecode)
+		->whereTopic($topic)
+		->groupBy('userId')
+		->orderBy('score desc, live desc')
+		->limit(10)
+		->result();
 		return $data;
 	}
 	
 	public function countDragWord() {
-		$data = _db()->query("select id from game where gamecode = 'dragWord'");
+		$data = _db()->select('id')->fromGame()->whereGamecode('dragWord')->result();
 		
 		return $data;
 			
 	}
 	
 	public function getPairWords($id) {
-	$lesson = _db()->query("select * from game where id = {$id}");
-		
-		
+	$lesson = _db()->selectAll()->fromGame()->whereId($id)->result();
+	
 		if($lesson[0]['question'] != '') {
 			$content = $lesson[0]['question'];
 			$words = preg_split('/\r\n|\r|\n|\<br \/\>|\<br\/\>/', $content);

@@ -13,57 +13,22 @@ class PzkEducationQuestionShowRating extends PzkObject {
     public $orderBy = 'id desc';
 
     public function getItems () {
-        $software = pzk_request('softwareId');
-        $limit = $this->pageNum*$this->pageSize;
-
-        /*
-		$sql = "select userId, startTime, mark, duringTime, testId, username, name, name_sn
-            from (
-            select ub.startTime, ub.userId as userId, ub.id, mark , ub.duringTime, ub.testId, u.username, t.name, t.name_sn
-            FROM user_book ub
-            INNER JOIN user u ON ub.userId = u.id
-            INNER JOIN tests t ON ub.testId = t.id
-            where $this->conditions
-            and t.software = $software
-            ORDER BY ub.mark DESC, ub.duringTime ASC) as subQuery
-            GROUP BY userId
-            ORDER BY mark desc, duringTime ASC
-            LIMIT $limit , $this->pageSize ";
-		*/
-		$sql = "select userId, startTime, mark, duringTime, testId, username, name, name_sn
-            from user_book_rating
-            where $this->conditions
-            and software = $software
-            ORDER BY mark desc, duringTime ASC
-            LIMIT $limit , $this->pageSize ";
-        $query = _db()->useCache(1800)->query($sql);
+        
+        $query = _db()->select('userId, startTime, mark, duringTime, testId, username, name, name_sn')
+		->useCache(1800)->fromUser_book_rating()
+		->where($this->conditions)
+		->orderBy('mark desc, duringTime ASC')
+		->limit($this->pageSize, $this->pageNum)
+		->result();
 
 
         return $query;
-        //echo $query->getQuery();
     }
 
     public function getCountItems() {
-        $software = pzk_request('softwareId');
-		/*
-        $sql = "select userId, startTime, mark, duringTime, testId, username, name
-            from (
-            select ub.startTime, ub.userId as userId, ub.id, mark , ub.duringTime, ub.testId, u.username, t.name
-            FROM #user_book ub
-            INNER JOIN #user u ON ub.userId = u.id
-            INNER JOIN #tests t ON ub.testId = t.id
-            where $this->conditions
-            and t.software = $software
-            ORDER BY ub.mark DESC, ub.duringTime ASC) as subQuery
-            GROUP BY userId
-            ";
-		*/
-		$sql = "select count(*) as total
-            from user_book_rating
-            where $this->conditions
-            and software = $software
-            ORDER BY mark desc, duringTime ASC";
-        $query = _db()->useCache(1800)->query_one($sql);
+      
+        $query = _db()->select('count(*) as total')->useCache(1800)
+		->fromUser_book_rating()->where($this->conditions)->orderBy('mark desc, duringTime ASC')->result_one();
         return $query['total'];
     }
 

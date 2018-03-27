@@ -20,8 +20,8 @@ class PzkGameFamily extends PzkObject
 	}
 	
 	public function getNewQuestion($id) {
-		$sql = "SELECT * FROM questions WHERE id NOT IN ($id) AND type = 'gameQuestion' ORDER BY rand() LIMIT 1";
-		$data = _db()->query($sql);
+		$id = mysql_escape_string($id);
+		$data = _db()->selectAll()->fromQuestions()->where("id NOT IN ($id)")->whereType('gameQuestion')->orderBy(rand())->limit(1)->result();
         return $data;
 	}
 	

@@ -2,8 +2,9 @@
 class PzkGameVocabulary extends PzkObject
 {
     public function getPairWords($documenId, $type) {
-	$lesson = _db()->query("select * from game where documentId = {$documenId} and gamecode ='{$type}'");
-		
+	$lesson = _db()->selectAll()->fromGame()
+		->whereDocumentId($documentId)->whereGamecode($type)
+		->result();
 		
 		if($lesson[0]['question'] != '') {
 			$content = $lesson[0]['question'];
