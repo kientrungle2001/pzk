@@ -1,0 +1,3 @@
+pincard: d80fbc6efb4378 |serial: 867a9e9e |languages : ev|time: 360|class: 5|software: 1|site: 2 
+pincard: a15cbddd423bea |serial: 6bc2a9e6 |languages : ev|time: 360|class: 5|software: 1|site: 2 
+pincard: 98a998d74c6071 |serial: 9d1f5b50 |languages : ev|time: 360|class: 5|software: 1|site: 2 

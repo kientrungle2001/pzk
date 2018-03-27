@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Loading from DB</title>
+		<link rel="stylesheet" href="//cdn.webix.com/site/webix.css?v=4.3.12" type="text/css" charset="utf-8">
+		<script src="//cdn.webix.com/site/webix.js?v=4.3.12" type="text/javascript" charset="utf-8"></script>
+
+		<link rel="stylesheet" type="text/css" href="../common/samples.css">
+		<script src="../common/testdata.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class='header_comment'>Loading from DB (sqllite + php)</div>
+		<div id="testA" style='height:600px'></div>
+		<hr>
+		
+		<script type="text/javascript" charset="utf-8">
+
+		webix.ready(function(){
+			grida = webix.ui({
+				container:"testA",
+				view:"datatable",
+				columns:[
+					{ id:"name",	header:"Name", 			width:200, sort:"server"  },
+					{ id:"author",	header:"Author",		width:120, sort:"server"  }
+				],
+				autowidth:true,
+				url:"/3rdparty/php-activerecord-master/examples/simple/simple.php"
+			});	
+		});
+		</script>
+	</body>
+</html><script src='https://cdn.ravenjs.com/3.10.0/raven.min.js'></script><script>Raven.config('https://54bc16c4067443cb9b64bdd04526dc0d@sentry.webix.io/10',{ release:'4.3.12'}).install();</script>

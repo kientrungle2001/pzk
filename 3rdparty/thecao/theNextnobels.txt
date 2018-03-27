@@ -1,0 +1,12 @@
+UserId: 7 |username: kieunghiaserviceId : 1|thoi gian: 15-08-20 04:32:00|Ma the: 222222|Serial: 222222
+UserId: 7 |username: kieunghia |serviceId : 2|thoi gian: 15-08-25 03:50:27|Ma the: 666666|Serial: 666666
+UserId: 7 |username: kieunghia |serviceId : 2|thoi gian: 15-09-04 04:11:15|Ma the: 444444|Serial: 444444
+UserId: 7 |username: kieunghia |serviceId : 1|thoi gian: 15-10-13 09:22:45|Ma the: 444444|Serial: 444444
+UserId: 6742 |username: meobentun |languages : en|thoi gian: 180|Ma the: |Serial: |Thoi gian nap: 2016-12-13 15:13:37
+UserId: 6742 |username: meobentun |languages : en|thoi gian: 180|Ma the: e807f1fcf82d132f9bb018ca6738a19f|Serial: 1234567890|Thoi gian nap: 2016-12-13 15:16:16
+UserId: 6742 |username: meobentun |languages : en|thoi gian: 180|Ma the: e807f1fcf82d132f9bb018ca6738a19f|Serial: 1234567890|Thoi gian nap: 2016-12-13 15:19:50
+UserId: 6742 |username: meobentun |languages : en|thoi gian: 180|Ma the: e807f1fcf82d132f9bb018ca6738a19f|Serial: 1234567890|Thoi gian nap: 2016-12-13 15:53:13
+UserId: 6742 |username: meobentun |languages : en|thoi gian: 180|Ma the: e807f1fcf82d132f9bb018ca6738a19f|Serial: 1234567890|Thoi gian nap: 2016-12-13 15:55:34
+UserId: 7 |username: kieunghia |languages : ev|thoi gian: 360|Ma the: f6a50d7d1e07589b0fda2a8e3b1412db|Serial: c5771639|Thoi gian nap: 2016-12-16 11:09:40
+UserId: 7 |username: kieunghia |languages : ev|thoi gian: 360|Ma the: c51ebe46400741d71a31d310aae7d556|Serial: b12e48ae|Thoi gian nap: 2016-12-17 15:19:44
+UserId: 7 |username: kieunghia |languages : ev|thoi gian: 360|Ma the: 52ab2f34344b0652e298d83a1e669638|Serial: 867a9e9e|Thoi gian nap: 2016-12-17 15:31:50

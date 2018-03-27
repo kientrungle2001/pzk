@@ -1,0 +1,5 @@
+pincard: a5772e1a1e9e6b |serial: e1604210|time: 360|class: 5|software: 1|site: 1 
+pincard: c0780c50b37bb7 |serial: 21e1ca3f|time: 360|class: 5|software: 1|site: 1 
+pincard: f4b6e8e8e507ba |serial: f6803dd4|time: 360|class: 5|software: 1|site: 1 
+pincard: 93e00e4e3ac782 |serial: 38dad483|time: 360|class: 5|software: 1|site: 1 
+pincard: bbccddafdd5dd1 |serial: 0a1d6b46|time: 360|class: 5|software: 1|site: 1 
