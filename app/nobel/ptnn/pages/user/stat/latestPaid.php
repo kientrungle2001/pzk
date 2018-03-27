@@ -1,0 +1,1 @@
+<User.Stat.LatestPaid  layout="user/stat/latestPaid" />

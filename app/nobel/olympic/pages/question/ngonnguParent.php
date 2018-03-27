@@ -1,0 +1,1 @@
+<Education.Question.Ngonngu id="ngonnguParent" layout="question/ngonnguParent" />

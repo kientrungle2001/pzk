@@ -1,0 +1,1 @@
+	<Game.Rainword  layout="game/rainword"  />

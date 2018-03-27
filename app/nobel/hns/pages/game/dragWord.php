@@ -1,0 +1,1 @@
+<Game.Ptnn id="listDragWord" layout='game/dragWord' />

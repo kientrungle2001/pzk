@@ -1,0 +1,1 @@
+<Game.Vocabulary.DragToPart id="dragToPart" layout='game/vocabulary/dragToPart'/>

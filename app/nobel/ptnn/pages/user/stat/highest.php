@@ -1,0 +1,1 @@
+<User.Stat.Highest  layout="user/stat/highest" />

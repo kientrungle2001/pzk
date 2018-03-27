@@ -1,0 +1,1 @@
+<Ecommerce.Payment.Confirmpayment  layout="payment/confirmpayment" />

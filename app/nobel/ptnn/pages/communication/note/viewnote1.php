@@ -1,0 +1,1 @@
+<Communication.Note.Viewnote id="view_note1" layout="communication/note/viewnote1" />

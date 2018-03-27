@@ -1,0 +1,1 @@
+<Education.Question.LessonTest table = "questions" id="lessonTest" layout="question/lessontest" />

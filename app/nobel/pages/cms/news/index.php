@@ -1,0 +1,1 @@
+<Cms.News.Index css="news" table="news" layout="cms/news/index" />

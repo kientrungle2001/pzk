@@ -1,0 +1,1 @@
+<User.Confirmpayment  layout="user/payment/confirmpayment" />

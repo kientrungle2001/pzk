@@ -1,0 +1,1 @@
+<User.DetailLesson  layout="user/detailLesson" />

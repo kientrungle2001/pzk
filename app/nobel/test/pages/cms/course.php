@@ -1,0 +1,1 @@
+<Cms.Course  layout="cms/course"/>

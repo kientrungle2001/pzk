@@ -1,0 +1,1 @@
+	<Game.Subrainword  layout="game/subrainword"  />

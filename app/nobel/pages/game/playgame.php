@@ -1,0 +1,1 @@
+	<Game.Playgame  layout="game/playgame"  />

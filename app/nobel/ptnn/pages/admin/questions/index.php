@@ -1,0 +1,1 @@
+<Core.Db.List table="questions" layout="admin/questions/index" id="question"/>

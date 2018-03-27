@@ -1,0 +1,1 @@
+<Game.Ptnn table1="game_type" id='trytopic' table2="game_topic" layout="game/trytopic"/>

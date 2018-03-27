@@ -1,0 +1,1 @@
+<Category.Answer  layout="category/answer"/>

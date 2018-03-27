@@ -1,0 +1,1 @@
+<Admin.Education.Schedule.Teacher.Detail />

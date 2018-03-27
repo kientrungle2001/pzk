@@ -1,0 +1,1 @@
+<Core.Db.Detail table="questions" itemId="0" layout="admin/questions/del" />

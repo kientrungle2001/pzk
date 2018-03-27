@@ -1,0 +1,1 @@
+<Communication.Note.Detailnote id="detailnote"  layout="communication/note/detailnote" />

@@ -1,0 +1,1 @@
+<Admin.Education.Homeroomteacher.Point layout="admin/homeroomteacher/allpointajax"/>

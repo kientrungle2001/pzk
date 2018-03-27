@@ -1,0 +1,1 @@
+<Game.Vocabulary.Vdt id="vdt" layout='game/vocabulary/vdt'/>

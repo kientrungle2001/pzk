@@ -1,0 +1,1 @@
+<Education.Question.Ngonngu id="showQuestion" layout="question/showQuestion" />

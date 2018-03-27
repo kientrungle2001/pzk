@@ -1,0 +1,1 @@
+<Admin.Education.Homeroomteacher.Teacher layout="admin/homeroomteacher/teachers"/>

@@ -1,0 +1,1 @@
+<Div layout="admin/questiontype/menu" />

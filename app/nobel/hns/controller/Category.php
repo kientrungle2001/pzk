@@ -1,0 +1,205 @@
+<?php
+/**
+ *
+ */
+class PzkCategoryController extends PzkFrontendController
+{
+    public $masterPage = 'index';
+    public $masterPosition = 'left';
+
+    public function indexAction()
+    {
+        $this->layout();
+        $this->page->display();
+    }
+    public function categoryAction()
+    {
+        $this->layout();
+        $category = pzk_parse('<home.category table="categories" layout="home/category"/>');
+        $left = pzk_element('left');
+        $left->append($category);
+        $this->page->display();
+    }
+    public function sectionAction()
+    {
+        $parent_id = pzk_request()->getSegment(3);
+        $this->initPage();
+        $this->append('category/section', 'left');
+        $category = pzk_element('parent_category');
+        $category->setParentCategoryId($parent_id);
+
+        $this->display();
+    }
+
+    public function subSectionAction()
+    {
+        $parent_id = pzk_request()->getSegment(3);
+
+        $this->initPage();
+        $this->append('category/section', 'left');
+        $category = pzk_element('parent_category');
+        $category->setParentCategoryId($parent_id);
+
+        $this->display();
+    }
+
+    public function lessonAction()
+    {
+        $parent_id = pzk_request()->getSegment(3);
+
+        $this->initPage();
+        $this->append('category/lesson', 'left');
+        $category = pzk_element('parent_category');
+
+        $config_category = array(
+            '29'=> array(
+                array(
+                    'category_id'=> 7,
+                    'name'=> 'Từ'
+                ),
+                array(
+                    'category_id'=> 8,
+                    'name'=> 'Câu'
+                )
+            ),
+            '30'=> array(
+                array(
+                    'category_id'=> 9,
+                    'name'=> 'Dàn ý'
+                ),
+                array(
+                    'category_id'=> 10,
+                    'name'=> 'Bài văn'
+                )
+            )
+        );
+        if($parent_id == 33 or $parent_id == 34  or $parent_id == 35) {
+        $config_filter = array(
+            array(
+                'id'=> EASY,
+                'name'=> "Cách 1: Cảm nhận nhận xét về đối tượng được tả"
+            ),
+            array(
+                'id'=> NORMAL,
+                'name'=> 'Cách 2'
+            ),
+            array(
+                'id' => HARD,
+                'name'=> 'Cách 3'
+            )
+        );
+            $category->setConfigFilter($config_filter);
+        }
+        $category->setConfigCategory($config_category);
+        $category->setParentCategoryId($parent_id);
+
+        $this->display();
+    }
+
+    public function questionAction(){
+        $this->initPage();
+        $this->append('category/question', 'left');
+
+        $this->display();
+    }
+    public function answerAction(){
+    	
+        $this->initPage();
+        $this->append('category/answer', 'left');
+
+        $this->display();
+    }
+    public function reviewAction(){
+
+        $this->initPage();
+        $this->append('category/review', 'left');
+
+        $this->display();
+    }
+
+    public function ajaxAction() {
+        $request = pzk_element('request');
+        //$subject = $request->get('subject');
+        //$tamtime = strtotime($_SERVER['REQUEST_TIME'] - $request->get('start_time')) - 7*3600;
+        //echo $tamtime;
+        $userbook=array('userId'=>pzk_session('userId'),
+            'categoryId'=>$request->get('parent_id'),
+            'quantity_question'=>$request->get('number'),
+            'time'=>$request->get('time'),
+            'time_do'=>$request->get('stop_timer'),
+            'start_time'=>$request->get('start_time'),
+            'mark_status'=>0,
+            'date' => date("Y-m-d H:i:s")
+        );
+        //add user_book
+        $frontendmodel = pzk_model('Frontend');
+        $userbookId = $frontendmodel->save($userbook, 'user_book');
+        //add user_answer
+        $question_answers = $request->get('answers');
+
+        foreach($question_answers as $key => $val) {
+            $type = $frontendmodel->getTypeByQuestionId($key);
+            $user_answer = array(
+                'user_book_id' => $userbookId,
+                'questionId' => $key,
+                'question_type' => $type,
+                'content' => implode('|', $val)
+            );
+            if($type == 'Q2' or $type == 'Q21' or $type == 'Q26' or $type == 'Q29'){
+                $frontendmodel->save($user_answer, 'user_answers_text');
+            }elseif($type == 'Q0') {
+                $frontendmodel->save($user_answer, 'user_answers');
+            }
+
+        }
+        echo base64_encode(encrypt($userbookId, SECRETKEY));
+    }
+    public function markAction() {
+        $request = pzk_element('request');
+        $tam = $request->get('bookid');
+        $bookid = trim(decrypt(base64_decode($tam),SECRETKEY));
+        if(is_numeric($bookid)) {
+            $frontendmodel = pzk_model('Frontend');
+            $row = array(
+                'mark_status' => 1
+            );
+            $frontendmodel->save($row, 'user_book', $bookid);
+        }
+    }
+    public function seeAnswerAction() {
+        $request = pzk_element('request');
+        $tam = $request->get('ids');
+        $arIds = explode(',', $tam);
+        $frontendmodel = pzk_model('Frontend');
+        $arResult = array();
+        foreach($arIds as $item) {
+            $type = $frontendmodel->getTypeByQuestionId($item);
+            $result = '';
+            if($type == 'Q2' or $type == 'Q21' or $type == 'Q29' or $type == 'Q22'){
+                $answers = $frontendmodel->getAnswerByQuestionId($item);
+                foreach($answers as $val) {
+                    $result .= ', '.$val['content'];
+                }
+                if(!empty($result)) {
+                    $result = substr($result,2);
+                }
+                $arResult[] = array(
+                    'type' => $type,
+                    'questionId' => $item,
+                    'value' =>  $result
+                );
+            }elseif($type == 'Q0') {
+                $answersTrue = $frontendmodel->getAnswerTrue($item);
+                $arResult[] = array(
+                    'type' => $type,
+                    'questionId' => $item,
+                    'value' =>  $answersTrue
+                );
+            }
+
+        }
+        echo json_encode($arResult) ;
+
+    }
+}
+?>

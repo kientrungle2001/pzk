@@ -1,0 +1,1 @@
+<Category.Success  layout="category/success"/>

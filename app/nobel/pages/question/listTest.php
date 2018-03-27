@@ -1,0 +1,1 @@
+<Education.Question.ShowRating id="listTest" layout="question/listTest" />

@@ -1,0 +1,1 @@
+<Cms.Image  layout="cms/image"/>

@@ -1,0 +1,1 @@
+<Education.Test.Latest  layout="test/latest" />

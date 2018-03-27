@@ -1,0 +1,1 @@
+<Education.Class.Topiclist id="topicList" layout="education/class/topiclist" />

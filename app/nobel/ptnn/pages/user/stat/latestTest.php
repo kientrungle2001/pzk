@@ -1,0 +1,1 @@
+<User.Stat.LatestTest layout="user/stat/latestTest" />

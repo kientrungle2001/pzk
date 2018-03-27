@@ -1,0 +1,1 @@
+<Game.Gameother layout="game/gameOther"></Game.Gameother>

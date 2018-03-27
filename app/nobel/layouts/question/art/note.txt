@@ -1,0 +1,7 @@
+addsentence: viet tiep cau
+choice: trac nghiem
+choicerepair: chon dap an sai va sua lai
+fill: dien cang nhieu dap an cang tot
+topic: tim tu theo chu de
+repair: chua loi sai( hoc sind dien tu sai, va dien tu dung)
+name: dat ten cho tung doan van

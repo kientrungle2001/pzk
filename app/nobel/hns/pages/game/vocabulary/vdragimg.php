@@ -1,0 +1,1 @@
+<Game.Vocabulary.Vdragimg id="vdragimg" layout='game/vocabulary/vdragimg'/>

@@ -1,0 +1,1 @@
+<Core.Db.List table="user_answers" layout="admin/book/homework" id="user_book" />

@@ -1,0 +1,1 @@
+<Game.Vocabulary.Sortword id="nosupport" layout='game/vocabulary/nosupport'/>

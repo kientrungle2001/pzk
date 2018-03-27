@@ -1,0 +1,58 @@
+Dang nhap bang tai khoan Google
+
+1. link : https://code.google.com/apis/console
+
+user: kieunghia.luckystar@gmail.com
+pass: 121310121310
+
+2. cac app
+
+2.1: http://luyenthitrandainghia.vn
+
+$google_client_id       = '704176988777-mo5lmfedjvdjhgb37ujlrpvao55bttrn.apps.googleusercontent.com';
+
+$google_client_secret   = 'xdqv1Wo32UnMECvM1HhJ3gfM';
+
+$google_developer_key   = 'AIzaSyAE92e14snZ6rFdyT4GnUrASKlJmaCigzo';
+
+$google_redirect_url   = 'http://luyenthitrandainghia.vn/Account/logingoogle';
+
+2.2: http://ptnn.vn
+
+$google_client_id       = '126161793684-8gdvvustk16ci8mm4rfcrpse22jhtg3c.apps.googleusercontent.com';
+
+$google_client_secret   = 'C99sCPqZfCa1FYjjOaJJKFtW';
+
+$google_developer_key   = 'AIzaSyCot2ozarrxNUA8g6ZnX-dnsooigJ0sXRI';
+
+$google_redirect_url   = 'http://ptnn.vn/Account/logingoogle';
+
+2.3: http://nextnobels.com
+
+$google_client_id       = '1046335713090-v0c51682gbbq8s06l8fo50t8ltjccch0.apps.googleusercontent.com';
+
+$google_client_secret   = 'bfttLfk5HoZqucvsfMvDlgkZ';
+
+$google_developer_key   = 'AIzaSyBr8QtqoS0VnJBe9Ry4iL90dXnBuIVxfHc';
+
+$google_redirect_url   = 'http://nextnobels.com/Account/logingoogle';
+
+2.4: http://s1.nextnobels.com
+
+$google_client_id       = '281150147749-k79rk9laf895o84n5ji05h5ikim3aff8.apps.googleusercontent.com';
+
+$google_client_secret   = 'mJhKFETUgOSk0m4qC0KKT38_';
+
+$google_developer_key   = 'AIzaSyBmqze0l0etL-K50n5EOWafpzm6EpyQd7A';
+
+$google_redirect_url   = 'http://s1.nextnobels.com/Account/logingoogle';
+
+2.5: http://s2.nextnobels.com
+
+$google_client_id       = '1021492434919-u1ti09ac62r67kmmcodsm30v5igkibj1.apps.googleusercontent.com';
+
+$google_client_secret   = 'uLaftIAQwizBlSMSdsLAczNq';
+
+$google_developer_key   = 'AIzaSyC5iIeJIlBeZ9m10J-gxW8ygdhkyPCc_WU';
+
+$google_redirect_url   = 'http://s2.nextnobels.com/Account/logingoogle';

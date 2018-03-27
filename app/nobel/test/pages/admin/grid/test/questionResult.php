@@ -1,0 +1,1 @@
+<Core.Db.List table="questions" id="questionResult" layout="admin/grid/test/questionResult" />

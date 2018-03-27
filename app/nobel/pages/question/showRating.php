@@ -1,0 +1,1 @@
+<Education.Question.ShowRating table="user_book" id="showRatings" layout="question/showRating" />

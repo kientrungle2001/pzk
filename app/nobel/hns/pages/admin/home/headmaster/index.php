@@ -1,0 +1,1 @@
+<Block layout="admin/education/headmaster/index" />

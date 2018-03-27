@@ -1,0 +1,33 @@
+login bang Facebook:
+
+1. user fb: kieunghia.luckystar@gmail.com
+pass: Nghiak4bcntt
+
+2.link app: https://developers.facebook.com/apps/
+
+3. các app
+
+3.1: htpp://luyenthitrandainghia.vn
+	
+	App ID: 629305860533611
+	App Secret: d57acaaa4d0e9782af86e393c0f60112
+
+3.2: htpp://nextnobels.com
+	
+	App ID: 860175967369645
+	App Secret: 5384c3f535dd8eafc8d66e9369621943
+
+3.3: htpp://ptnn.vn
+	
+	App ID: 1552342791689162
+	App Secret: c5496ab5545b2eee110a17c4c114e526
+
+3.4: htpp://s2.nextnobels.com
+	
+	App ID: 874432039288821
+	App Secret: de082ab04ecb34ef464e6f9aa25eba4c
+
+3.5: htpp://s1.nextnobels.com
+	
+	App ID: 474070302757620
+	App Secret: d31bbd4ee0163d13b3aa3a72f5865188

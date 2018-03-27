@@ -1,0 +1,1 @@
+<Room.Join id="room" layout="room/join" />

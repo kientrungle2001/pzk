@@ -1,0 +1,1 @@
+	<Game.Gamehome  layout="game/gamehome"  />

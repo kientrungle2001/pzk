@@ -1,0 +1,1 @@
+<Education.Form.ListDragWord id="listDragWord" layout='education/form/listDragWord' />

@@ -1,0 +1,1 @@
+<Communication.Friend.Detailnote  layout="communication/friend/detailnotepage" />
