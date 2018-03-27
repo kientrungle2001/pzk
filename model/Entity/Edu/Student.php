@@ -7,8 +7,12 @@ class PzkEntityEduStudentModel extends PzkEntityModel {
 	}
 	
 	public function getClasses() {
-		$query = 'select classes.*, class_student.note, class_student.startClassDate, class_student.endClassDate from classes inner join class_student on classes.id = class_student.classId where class_student.studentId=' . $this->get('id');
-		$classes = _db()->query($query);
+		$classes = _db()->select('classes.*, class_student.note, class_student.startClassDate, class_student.endClassDate')
+		->from('classes')
+		->join('class_student', 'classes.id = class_student.classId')
+		->where("class_student.studentId=$this->get('id')")
+		->result();
+		
 		$result = array();
 		foreach($classes as $class) {
 			$obj = _db()->getEntity('edu.class');

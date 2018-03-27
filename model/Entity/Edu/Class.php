@@ -3,17 +3,23 @@ require_once BASE_DIR . '/model/Entity.php';
 class PzkEntityEduClassModel extends PzkEntityModel {
 	public $table = 'classes';
 	public function getStudents($orderBy = 'student.name', $studentId = null) {
-		$query = 'select student.*, 
+			
+		$query = _db()->select('student.*, 
 			class_student.note, class_student.id as classStudentId, 
 			class_student.startClassDate, 
 			class_student.endClassDate,
 			class_student.classId,
-			classes.startDate, classes.endDate
-			from student 
-				inner join class_student on student.id = class_student.studentId
-				inner join classes on class_student.classId = classes.id				
-			where class_student.classId=' . $this->get('id') . ($studentId? ' and class_student.studentId='.$studentId: '' ) . ' order by ' . $orderBy;
-		$students = _db()->query($query);
+			classes.startDate, classes.endDate')
+			->from('student')
+			->join('class_student', 'student.id = class_student.studentId')
+			->join('classes', 'class_student.classId = classes.id')
+			->where("class_student.classId= $this->get('id')")
+			if($studentId){
+				$query->where("class_student.studentId=$studentId");
+			}
+			$query->orderBy($orderBy)
+			$students = $query->result();
+			
 		$result = array();
 		foreach($students as $student) {
 			$obj = _db()->getEntity('edu.student');
