@@ -597,10 +597,11 @@ class PzkMonitorController extends PzkController {
 						->whereClass($class)
 						->where("year * 52 + week >= $startYear AND year * 52 + week <= $endYear")
 						->result();
-						
-					$sqlCountUser = "select count(distinct(userId)) as c  from achievement where (year * 52 + week) >= $startYear and (year * 52 + week) <= $endYear and school = $school and class = $class"; 
 					
-					$countUser = _db()->query_one($sqlCountUser);
+					$countUser = _db()->select('count(distinct(userId)) as c')
+						->fromAchievement()->where('(year * 52 + week) >= $startYear and (year * 52 + week) <= $endYear')
+						->whereSchool($school)->whereClass($class)
+						->result_one();
 					
 					$arrReview = $this->executeReview($achievement, $countUser['c']);
 					
@@ -617,11 +618,15 @@ class PzkMonitorController extends PzkController {
 						->whereClassname($classname)
 						->where("year * 52 + week >= $startYear AND year * 52 + week <= $endYear")
 						->result();
-						
-					$sqlCountUser = "select count(distinct(userId)) as c  from achievement where (year * 52 + week) >= $startYear and (year * 52 + week) <= $endYear and school = $school and class = $class and classname = $classname"; 
 					
-					$countUser = _db()->query_one($sqlCountUser);
-						
+					$countUser = _db()->select('count(distinct(userId)) as c')
+						->fromAchievement()
+						->where('(year * 52 + week) >= $startYear and (year * 52 + week) <= $endYear')
+						->whereSchool($school)
+						->whereClass($class)
+						->whereClassname($classname)
+						->result_one();
+					
 					$arrReview = $this->executeReview($achievement, $countUser['c']);
 				}
 				echo json_encode(array('reviews' => $arrReview), true);
@@ -642,9 +647,9 @@ class PzkMonitorController extends PzkController {
 					->whereYear($year)
 					->where($sqlWeek)
 					->result();
-						
-				$sqlCountUser = "select count(distinct(userId)) as c  from achievement where year = $year and $sqlWeek"; 
-				$countUser = _db()->query_one($sqlCountUser);		
+
+				$countUser = _db()->select('count(distinct(userId)) as c')->fromAchievement()
+					->whereYear($year)->where($sqlWeek)->result_one();
 						
 				$arrReview = $this->executeReview($achievement, $countUser['c']);
 				
@@ -662,8 +667,8 @@ class PzkMonitorController extends PzkController {
 						->where($sqlWeek)
 						->result();
 						
-					$sqlCountUser = "select count(distinct(userId)) as c  from achievement where year = $year AND $sqlWeek AND areacode = {$areacode['id']}"; 
-					$countUser = _db()->query_one($sqlCountUser);		
+					_db()->select('count(distinct(userId)) as c')->fromAchievement()->whereYear($year)
+						->where($sqlWeek)->whereAreacode($areacode['id'])->result_one();
 						
 					$arrReview = $this->executeReview($achievement, $countUser['c']);
 					
@@ -677,9 +682,10 @@ class PzkMonitorController extends PzkController {
 						->where($sqlWeek)
 						->result();
 						
-					$sqlCountUser = "select count(distinct(userId)) as c  from achievement where year = $year and $sqlWeek AND district = {$areacode['id']}"; 
-					
-					$countUser = _db()->query_one($sqlCountUser);		
+					$countUser = _db()->select('count(distinct(userId)) as c')
+							->fromAchievement()->whereYear($year)
+							->where($sqlWeek)->whereDistrict($areacode['id'])
+							->result_one();
 					$arrReview = $this->executeReview($achievement, $countUser['c']);
 					
 				} else if($areacode['type'] == 'school') {
@@ -692,9 +698,9 @@ class PzkMonitorController extends PzkController {
 						->where($sqlWeek)
 						->result();
 						
-					$sqlCountUser = "select count(distinct(userId)) as c  from achievement where year = $year and $sqlWeek and school = {$areacode['id']}"; 
-					
-					$countUser = _db()->query_one($sqlCountUser);
+					$countUser = _db()->select('count(distinct(userId)) as c')->fromAchievement()
+						->whereYear($year)->where($sqlWeek)
+						->whereSchool($areacode['id'])->result_one();
 						
 					$arrReview = $this->executeReview($achievement, $countUser['c']);
 					
@@ -715,10 +721,10 @@ class PzkMonitorController extends PzkController {
 						->whereYear($year)
 						->where($sqlWeek)
 						->result();
-						
-					$sqlCountUser = "select count(distinct(userId)) as c  from achievement where year = $year and $sqlWeek and school = $school and class = $class"; 
 					
-					$countUser = _db()->query_one($sqlCountUser);
+					$countUser = _db()->select('count(distinct(userId)) as c')->fromAchievement()
+						->whereYear($year)->where($sqlWeek)->whereSchool($school)->whereClass($class)
+						->result_one();
 					
 					$arrReview = $this->executeReview($achievement, $countUser['c']);
 					
