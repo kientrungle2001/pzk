@@ -161,10 +161,15 @@
 					<span class="glyphicon glyphicon-list-alt"></span>
 					Xem kết quả
 				</button>
-				<button id="show-answers" class="btn btn-danger btt-practice" style="display:none" onclick="show_answers();">
+				<?php
+					$today = date('Y-m-d H:i:s');
+					if(($test['showDate'] <= $today || $test['showDate'] == '0000-00-00 00:00:00')){
+				?>
+				<button id="show-answers" class="btn btn-danger btt-practice" onclick="show_answers();">
 					<span class="glyphicon glyphicon-check"></span> 
 					Xem đáp án
 				</button>
+				<?php } ?>
 			</div>
 				
 			</div>
@@ -242,8 +247,13 @@
 	          	</div>
 	        </div>
 	        <div class="modal-footer">
+				<?php
+					$today = date('Y-m-d H:i:s');
+					if(($test['showDate'] <= $today || $test['showDate'] == '0000-00-00 00:00:00')){
+				?>
 				<button class="btn btn-danger" name="show-answers" onclick="show_answers();$('#exampleModal').modal('hide');" type="button"><span class="glyphicon glyphicon-check"></span> <?php echo $language['result'];?>
-				</button>		
+				</button>
+				<?php }?>	
 	        	<a href="javascript:void(0)" class="btn fb-share"></a>
 	        </div>
       	</div><!-- /.modal-content -->
@@ -270,7 +280,9 @@
 		$('#show-answers').show();
 		$('#show-answers-mb').show();
     	save_choice(function () {
+			
 			show_result();
+			
 		});
 		
     	return formdata;
@@ -285,7 +297,12 @@
 		$('#show-answers-mb').show();
 		$('#view-result').show();
       	$('#view-rating').show();
-		show_answers();
+		<?php
+			$today = date('Y-m-d H:i:s');
+			if(($test['showDate'] <= $today || $test['showDate'] == '0000-00-00 00:00:00')){
+		?>
+			show_answers();
+		<?php } ?>
 		show_result_only();
 		return formdata;
 	}
