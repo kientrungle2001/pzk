@@ -17,9 +17,9 @@
 	$class 				= 	$session->get('lop');
 	$language 			= 	pzk_global()->get('language');
 	$lang 				= 	$session->get('language');
-	$homework			=	$request->get('homework');
-	$subject			=	$request->get('subject');
-	$topic				=	$request->get('topic');
+	$homework			=	intval($request->get('homework'));
+	$subject			=	intval($request->get('subject'));
+	$topic				=	intval($request->get('topic'));
 	$bookId				=	$data->get('bookId');
 	$book				=	$data->get('book');
 	$subjectEntity		=	_db()->getTableEntity('categories')->load($subject);

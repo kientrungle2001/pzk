@@ -29,13 +29,13 @@
 	$category_name = $data->get('categoryName');
 
 	$class= pzk_session('lop');
-	$de=pzk_request('de');
+	$de= clean_value(pzk_request('de'));
 	if(pzk_request('subject')){
-		$psubject = pzk_request('subject');
+		$psubject = intval(pzk_request('subject'));
 	}else{
-		$psubject=pzk_request()->getSegment(3);
+		$psubject= intval(pzk_request()->getSegment(3));
 	}
-	$subject=pzk_request()->getSegment(3);
+	$subject= intval(pzk_request()->getSegment(3));
 	$parentSubject = 0;
 	if($subject) {
 		
@@ -99,7 +99,7 @@
 					<?php endforeach;
 					} else { ?>
 						<?php 
-								$topicPost= pzk_request('topic');
+								$topicPost= intval(pzk_request('topic'));
 								$subjectPost= $subject;
 								$level = $data -> getLevel($subject);
 								//echo $level;
@@ -339,7 +339,7 @@
 							if($check == 0){ 
 								echo $language['trialpractice']; 
 							}else{ 
-								$topicId = pzk_request('topic');
+								$topicId = intval(pzk_request('topic'));
 								$topic = $data->getTopicsName($topicId, $class);
 								if($lang == 'en' || $lang == 'ev'){ echo $topic['name_en']; }else{ echo $topic['name_vn']; }
 								echo " - ".$language['lesson'].$de; 
@@ -543,8 +543,8 @@
 						<?php echo $language['score'];?>
 					</button>
 					<button id="show-answers" class="btn btt-practice btn-danger <?php if(pzk_session('servicePackage') == 'classroom' && pzk_session('checkUser') == 1 && pzk_session('checkSchool') == 1){
-						$topicId = pzk_request('topic');
-						$exercise_number = pzk_request('de');
+						$topicId = intval(pzk_request('topic'));
+						$exercise_number = intval(pzk_request('de'));
 						$schedule  = _db()->getEntity('User.Account.Teacher');
 						$time = $schedule->checkTime($subject, $topicId, $exercise_number);
 						$now = date("d-m-Y H:i:s");
@@ -565,8 +565,8 @@
 						<?php echo $language['score'];?>
 					</button>
 					<button id="show-answers-mb" class="btn btn-danger col-xs-12 bot20 <?php if(pzk_session('servicePackage') == 'classroom' && pzk_session('checkUser') == 1 && pzk_session('checkSchool') == 1){
-								$topicId = pzk_request('topic');
-								$exercise_number = pzk_request('de');
+								$topicId = intval(pzk_request('topic'));
+								$exercise_number = intval(pzk_request('de'));
 								$schedule  = _db()->getEntity('User.Account.Teacher');
 								$time = $schedule->checkTime($subject, $topicId, $exercise_number);
 								$now = date("d-m-Y H:i:s");
@@ -618,8 +618,8 @@
 						<div class="col-md-10 col-md-offset-2 col-sm-10 col-sm-offset-2 col-xs-12">
 							<button class="btn btn-sm btn-danger col-md-4 col-sm-4 col-xs-12 top10" onclick="window.location='/?class={class}'"> <?php echo $language['other-subject'];?> <span class="glyphicon glyphicon-arrow-left hidden-xs"></span></button>
 							<button id="show-answers-on-dialog" class="btn btn-sm btn-danger col-md-3 col-sm-3 col-xs-12 top10 <?php if(pzk_session('servicePackage') == 'classroom' && pzk_session('checkUser') == 1 && pzk_session('checkSchool') == 1){
-								$topicId = pzk_request('topic');
-								$exercise_number = pzk_request('de');
+								$topicId = intval(pzk_request('topic'));
+								$exercise_number = intval(pzk_request('de'));
 								$schedule  = _db()->getEntity('User.Account.Teacher');
 								$time = $schedule->checkTime($subject, $topicId, $exercise_number);
 								$now = date("Y-m-d H:i:s");

@@ -21,11 +21,11 @@
 		<div id='resPractice' class="container">
 
 		<?php
-		$UserId = pzk_or(pzk_request()->getSegment(3), pzk_session()->get('userId'));
+		$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId'));
 		
 		$data->pageSize = 20;
 		
-		$page = pzk_request('page');
+		$page = intval(pzk_request('page'));
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{
@@ -155,11 +155,11 @@
 		<div  id='resPractice' class="container">
 
 		<?php
-		$UserId = pzk_or(pzk_request()->getSegment(3), pzk_session()->get('userId'));
+		$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId'));
 		
 		$data->pageSize = 20;
 		
-		$page = pzk_request('page');
+		$page = intval(pzk_request('page'));
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{
@@ -289,11 +289,11 @@
 		<div id='resTest' class="container">
 
 		<?php
-		$UserId = pzk_or(pzk_request()->getSegment(3), pzk_session()->get('userId'));
+		$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId'));
 		
 		$data->pageSize = 20;
 		
-		$page = pzk_request('page');
+		$page = intval(pzk_request('page'));
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{

@@ -1,6 +1,6 @@
 <?php 
 	$check= pzk_session('checkPayment');
-	$subjectId = pzk_request()->getSegment(3);
+	$subjectId = intval(pzk_request()->getSegment(3));
 	$vocabularys = $data->showDocument($check, $subjectId); 
 	
 ?>

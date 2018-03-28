@@ -44,7 +44,7 @@ $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($
 						  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
 						  {each $subjects as $sbj}
 						  
-							<li><a href="/document/class-{? echo pzk_request()->get('class')?}/subject-{sbj[alias]}-{sbj[id]}">{sbj[name]}</a></li>
+							<li><a href="/document/class-{? echo intval(pzk_request()->get('class'))?}/subject-{sbj[alias]}-{sbj[id]}">{sbj[name]}</a></li>
 						  {/each}
 						  </ul>
 						</span>

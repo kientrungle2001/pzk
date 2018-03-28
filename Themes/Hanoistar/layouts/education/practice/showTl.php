@@ -29,13 +29,13 @@
 	$category_name = $data->get('categoryName');
 
 	$class= pzk_session('lop');
-	$de=pzk_request('de');
+	$de=clean_value(pzk_request('de'));
 	if(pzk_request('subject')){
-		$psubject = pzk_request('subject');
+		$psubject = intval(pzk_request('subject'));
 	}else{
-		$psubject=pzk_request()->getSegment(3);
+		$psubject= intval(pzk_request()->getSegment(3));
 	}
-	$subject=pzk_request()->getSegment(3);
+	$subject= intval(pzk_request()->getSegment(3));
 	$parentSubject = 0;
 	if($subject) {
 		
@@ -99,7 +99,7 @@
 					<?php endforeach;
 					} else { ?>
 						<?php 
-								$topicPost= pzk_request('topic');
+								$topicPost= intval(pzk_request('topic'));
 								$subjectPost= $subject;
 								$level = $data -> getLevel($subject);
 								//echo $level;
@@ -339,7 +339,7 @@
 							if($check == 0){ 
 								echo $language['trialpractice']; 
 							}else{ 
-								$topicId = pzk_request('topic');
+								$topicId = intval(pzk_request('topic'));
 								$topic = $data->getTopicsName($topicId, $class);
 								if($lang == 'en' || $lang == 'ev'){ echo $topic['name_en']; }else{ echo $topic['name_vn']; }
 								echo " - ".$language['lesson'].$de; 

@@ -1,6 +1,6 @@
 <?php
-$class = pzk_request('class');
-$type= pzk_request('practice');
+$class = intval(pzk_request('class'));
+$type= intval(pzk_request('practice'));
 if($type == 0){
 	$dataTest = $data->get('test');
 }

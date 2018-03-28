@@ -27,7 +27,7 @@
 <?php if(1): ?>
 
 <?php
-$category_id = pzk_request()->getSegment(3);
+$category_id = intval(pzk_request()->getSegment(3));
 $showQuestions 	= $data->getQuestionByIds($category_id);
 // xu li questions
 	$processQuestions = array();

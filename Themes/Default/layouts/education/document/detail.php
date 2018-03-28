@@ -36,7 +36,7 @@ $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($
 			<div id="document-detail">
 				<p class="t-weight text-center"><ul class="breadcrumb text-center">
 					<li><a href="/document/home">Tài liệu học tập</a></li>
-					<li><a href="#">Lớp {? echo pzk_request()->get('class')?}</a></li>
+					<li><a href="#">Lớp {? echo intval(pzk_request()->get('class'))?}</a></li>
 					<li class="active">
 						<span class="dropdown">
 						  <a class="dropdown-toggle" type="button" id="dropdownSubjectDocument" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -45,7 +45,7 @@ $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($
 						  </a>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
 						  {each $subjects as $sbj}
-							<li><a href="/document/index/{sbj[id]}?class={? echo pzk_request()->get('class')?}">{sbj[name]}</a></li>
+							<li><a href="/document/index/{sbj[id]}?class={? echo intval(pzk_request()->get('class'))?}">{sbj[name]}</a></li>
 						  {/each}
 						  </ul>
 						</span>

@@ -1,6 +1,6 @@
 <?php 
 
-$subject = _db()->getTableEntity('categories')->load(pzk_request()->getSegment(3));
+$subject = _db()->getTableEntity('categories')->load(intval(pzk_request()->getSegment(3)));
 $subjects = _db()->selectAll()->fromCategories()->whereParent($subject->getParent())->result();
  ?>
 <div class="col-md-12 col-xs-12 btn-custom4">
@@ -15,7 +15,7 @@ $subjects = _db()->selectAll()->fromCategories()->whereParent($subject->getParen
 			  </a>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
 			  {each $subjects as $sbj}
-				<li><a href="/document/index/{sbj[id]}?class={? echo pzk_request()->get('class')?}">{sbj[name]}</a></li>
+				<li><a href="/document/index/{sbj[id]}?class={? echo intval(pzk_request()->get('class'))?}">{sbj[name]}</a></li>
 			  {/each}
 			  </ul>
 			</span>

@@ -28,9 +28,9 @@
 	$category = $data->get('category');
 	$category_id = $data->get('categoryId');
 	$category_name = $data->get('categoryName');
-	$class=pzk_request('class');
-	$de=pzk_request('de');
-	$subject=pzk_request()->getSegment(3);
+	$class= intval(pzk_request('class'));
+	$de= clean_value(pzk_request('de'));
+	$subject = intval(pzk_request()->getSegment(3));
 	$parentSubject = 0;
 	if($subject) {
 		$subjectEntity = _db()->getTableEntity('categories')->load($subject);

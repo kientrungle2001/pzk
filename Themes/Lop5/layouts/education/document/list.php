@@ -1,6 +1,6 @@
 <?php 
 
-$subject = _db()->getTableEntity('categories')->load(pzk_request()->getSegment(3));
+$subject = _db()->getTableEntity('categories')->load(intval(pzk_request()->getSegment(3)));
 $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($subject->get('parent'))->result();
  ?>
 <div class="col-md-12 col-xs-12 btn-custom4">

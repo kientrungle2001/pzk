@@ -135,7 +135,7 @@
 </div>
 <div class="container pdbot-60">
 	<div class="row ajaxchangepractice">
-		<?php $numberclass = pzk_request('class'); ?>
+		<?php $numberclass = intval(pzk_request('class')); ?>
 		<?php if(!$numberclass):?>
 		<?php for($i = 18; $i>1; $i--){ ?>
 		<div class="col-md-2 text-center col-xs-2 text-uppercase btn-custom3 pd-10 weight-16 widthfix">
@@ -155,7 +155,7 @@
 </div>
 <div class="container pdbot-60">
 	<div class="row ajaxchange">
-		<?php $numberclass = pzk_request('class'); ?>
+		<?php $numberclass = intval(pzk_request('class')); ?>
 		<?php if(!$numberclass):?>
 		<?php for($i = 18; $i>1; $i--){ ?>
 		<div class="col-md-2 text-center col-xs-2 text-uppercase btn-custom3 pd-10 weight-16 widthfix">
@@ -200,7 +200,7 @@
 		// trigger nut bam chon lop click
 			//$(".btnclick[data-class="+class+"]").click();
 	<?php if(pzk_request('class')) : ?>
-		$(".btnclick[data-class=<?php echo pzk_request('class') ?>]").trigger("click");
+		$(".btnclick[data-class=<?php echo intval(pzk_request('class')) ?>]").trigger("click");
 	<?php endif; ?>
 	$(".nullclass").click(function(){
 		alert('Bạn cần chọn lớp trước');

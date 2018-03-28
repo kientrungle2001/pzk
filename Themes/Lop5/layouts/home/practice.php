@@ -71,7 +71,7 @@ function opentb1() {
 </div>
 <div id="practice-test-section" class="container pdbot-60">
 	<div class="row ajaxchangepractice">
-		<?php $numberclass = pzk_request('class'); ?>
+		<?php $numberclass = intval(pzk_request('class')); ?>
 		<?php if(!$numberclass):?>
 		<?php for($i = 18; $i>1; $i--){ ?>
 		<div class="col-md-2 text-center col-xs-3 text-uppercase btn-custom3 pd-10 weight-16 widthfix">
@@ -94,7 +94,7 @@ function opentb1() {
 <div id="test-section" class="container pdbot-60">
 	
 	<div class="row ajaxchange">
-		<?php $numberclass = pzk_request('class'); ?>
+		<?php $numberclass = intval(pzk_request('class')); ?>
 		<?php if(!$numberclass):?>
 		<?php for($i = 18; $i>1; $i--){ ?>
 		<div class="col-md-2 text-center col-xs-3 text-uppercase btn-custom3 pd-10 weight-16 widthfix">
@@ -120,7 +120,7 @@ function opentb1() {
 <div id="testtl-section" class="container pdbot-60">
 	
 	<div class="row ajaxchange">
-		<?php $numberclass = pzk_request('class'); ?>
+		<?php $numberclass = intval(pzk_request('class')); ?>
 		<?php if(!$numberclass):?>
 		<?php for($i = 18; $i>1; $i--){ ?>
 		<div class="col-md-2 text-center col-xs-3 text-uppercase btn-custom3 pd-10 weight-16 widthfix">
@@ -187,7 +187,7 @@ function opentb1() {
 	});
 	
 	<?php if(pzk_request('class')) : ?>
-		$(".btnclick[data-class=<?php echo pzk_request('class') ?>]").trigger("click");
+		$(".btnclick[data-class=<?php echo intval(pzk_request('class')) ?>]").trigger("click");
 	<?php endif; ?>
 	$(".nullclass").click(function(){
 		alert('Bạn cần đăng nhập để sử dụng chức năng này');

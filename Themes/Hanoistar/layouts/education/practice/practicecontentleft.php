@@ -10,7 +10,7 @@
 	$category 		= 	$data->get('category');
 	$category_id 	= 	$data->get('categoryId');
 	$category_name 	= 	$data->get('categoryName');
-	$subject		=	pzk_request()->getSegment(3);
+	$subject		=	intval(pzk_request()->getSegment(3));
 	$check 			= 	pzk_session('checkPayment');
 	$class			= 	pzk_session('lop');
 	
@@ -507,7 +507,7 @@
 
 <script>
 	de = null;
-	subject = <?php echo pzk_request()->getSegment(3); ?>;
+	subject = <?php echo intval(pzk_request()->getSegment(3)); ?>;
 	de_type = null;
 	$(function(){
 		

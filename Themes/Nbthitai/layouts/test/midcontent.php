@@ -1,6 +1,6 @@
 <?php
-$class = pzk_request('class');
-$type= pzk_request('practice');
+$class = intval(pzk_request('class'));
+$type= intval(pzk_request('practice'));
 if($type == 0){
 	$dataTest = $data->get('test');
 }
@@ -9,7 +9,7 @@ if($type==1){
 	$dataTest = $data->get('practice');
 }
 
-$testId = pzk_request()->getSegment(3);
+$testId = intval(pzk_request()->getSegment(3));
 
 $doTestPostUrl = $data->get('doTestPostUrl');
 if(!$doTestPostUrl) {

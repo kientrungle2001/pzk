@@ -27,14 +27,14 @@
 <div class="container">
 
 <?php
-$UserId = pzk_or(pzk_request()->getSegment(3), pzk_session()->get('userId'));
+$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId'));
 $pageSize = pzk_session('listPageSize');
 if($pageSize) {
     $data->pageSize = $pageSize;
 }else {
     $data->pageSize = 20;
 }
-$page = pzk_request('page');
+$page = intval(pzk_request('page'));
 if(!empty($page)) {
     $data->pageNum = $page;
 }else{

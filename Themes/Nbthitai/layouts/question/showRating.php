@@ -19,7 +19,7 @@ if($testId) {
     }else{
         $data->pageSize = 20;
     }
-    $page = pzk_request('page');
+    $page = intval(pzk_request('page'));
 
     if(!empty($page)) {
         $data->pageNum = $page;
@@ -35,7 +35,7 @@ if($testId) {
 }else{
     $items = '';
 }
-$practice = pzk_request('practice');
+$practice = intval(pzk_request('practice'));
 //data
 ?>
 <div class="container fulllook3 hidden-xs">

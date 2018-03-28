@@ -24,9 +24,9 @@
 	
 	
 	$data_criteria	= $data->get('data_criteria');
-	$class = pzk_request('class');
+	$class = intval(pzk_request('class'));
 	
-	$type= pzk_request('practice');
+	$type= intval(pzk_request('practice'));
 	if($type == 0){
 		$dataTest = $data->get('test');
 	}

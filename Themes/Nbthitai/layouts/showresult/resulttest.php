@@ -3,7 +3,7 @@
 	$class = $data->get('class');
     
     if(pzk_request('page')){
-        $currentpage = pzk_request('page');
+        $currentpage = intval(pzk_request('page'));
     }else $currentpage =0;
 	$pageSize = 20;
 	

@@ -27,9 +27,9 @@
 	$category 			= $data->get('category');
 	$category_id 		= $data->get('categoryId');
 	$category_name 		= $data->get('categoryName');
-	$class				= pzk_request('class');
-	$de					= pzk_request('de');
-	$subject			= pzk_request()->getSegment(3);
+	$class				= intval(pzk_request('class'));
+	$de					= intval(pzk_request('de'));
+	$subject			= intval(pzk_request()->getSegment(3));
 	$parentSubject 		= 0;
 	if($subject) {
 		$subjectEntity 	= _db()->getTableEntity('categories')->load($subject, 1800);
@@ -106,7 +106,7 @@
 					<?php endforeach;
 					} else { ?>
 						<?php 
-								$topicPost= pzk_request('topic');
+								$topicPost= intval(pzk_request('topic'));
 								$subjectPost= $subject;
 								$level = $data -> getLevel($subject);
 								if($level == '1'){

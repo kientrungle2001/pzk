@@ -1,5 +1,5 @@
 <?php
-$id = pzk_request()->get('id');
+$id = intval(pzk_request()->get('id'));
 $categoryId = $data->get('categoryId');
 
  ?>

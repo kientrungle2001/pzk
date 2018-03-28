@@ -5,7 +5,7 @@
 <?php
 	$check = pzk_session('checkPayment');
 	$cate = pzk_session('categoryIds');
-	$subjectId  	= pzk_request()->getSegment(3);
+	$subjectId  	= intval(pzk_request()->getSegment(3));
 	if(pzk_session('subject')){
 		$subjectId = pzk_session('subject');
 	}

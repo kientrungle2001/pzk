@@ -1,7 +1,7 @@
 <?php
 # danh sách các gói thi
-$testId = pzk_request()->getSegment(3);
-$search = pzk_request()->get('name');
+$testId = intval(pzk_request()->getSegment(3));
+$search = clean_value(pzk_request()->get('name'));
 $testName = '';
 if(is_numeric($testId)){
 	$test =  _db()->selectAll()->fromTests()->whereId($testId)->result_one();
