@@ -169,7 +169,7 @@ class PzkAdminTestController extends PzkGridAdminController {
         )
 	);
 
-    public $addFields = 'name, testMark, score, classes, categoryIds, content, trytest, time, quantity, status, practice, createdId, created, modifiedId, modified, software, isSort, parent, compability, homework, week, month, semester, teacherIds, subjectId, startDate, endDate';
+    public $addFields = 'name, testMark, score, classes, categoryIds, content, trytest, time, quantity, status, practice, createdId, created, modifiedId, modified, software, isSort, parent, compability, homework, week, month, semester, teacherIds, subjectId, startDate, showDate, endDate';
 
     public $addLabel = 'Thêm Đề thi';
 
@@ -312,6 +312,12 @@ class PzkAdminTestController extends PzkGridAdminController {
 			'mdsize'	=> 3,
         ),
 		array(
+            'index' => 'showDate',
+            'type' => 'datetimepicker',
+            'label' => 'Ngày xem đáp án',
+			'mdsize'	=> 3,
+        ),
+		array(
             'index' => 'endDate',
             'type' => 'datetimepicker',
             'label' => 'Ngày kết thúc',
@@ -338,7 +344,7 @@ class PzkAdminTestController extends PzkGridAdminController {
     );
 
     public $editLabel = 'Sửa đề thi';
-    public $editFields = 'name, score, testMark, classes, categoryIds, content, trytest, time, status, quantity, practice, createdId, created, modifiedId, modified, software, isSort, parent, compability, homework, subjectId, week, month, semester, teacherIds, startDate, endDate';
+    public $editFields = 'name, score, testMark, classes, categoryIds, content, trytest, time, status, quantity, practice, createdId, created, modifiedId, modified, software, isSort, parent, compability, homework, subjectId, week, month, semester, teacherIds, startDate, showDate, endDate';
 
 
     public $editFieldSettings = array(
@@ -477,6 +483,12 @@ class PzkAdminTestController extends PzkGridAdminController {
             'index' => 'startDate',
             'type' => 'datetimepicker',
             'label' => 'Ngày bắt đầu',
+			'mdsize'	=> 3,
+        ),
+		array(
+            'index' => 'showDate',
+            'type' => 'datetimepicker',
+            'label' => 'Ngày xem đáp án',
 			'mdsize'	=> 3,
         ),
 		array(
