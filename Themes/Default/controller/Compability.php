@@ -18,7 +18,7 @@ class PzkCompabilityController extends PzkController{
 				//if($sClass == $class){
 					$frontend = pzk_model('Frontend');
 					
-					$parentId = pzk_request()->getSegment(4);
+					$parentId = intval(pzk_request()->getSegment(4));
 					$userId = pzk_session('userId');
 					
 					$checkTestNsTn = $frontend->checkTestNsTn($userId, $parentId);
@@ -75,8 +75,8 @@ class PzkCompabilityController extends PzkController{
 					pzk_system()->halt();
 				}*/
 			}else if($check){
-				$parentId = pzk_request()->getSegment(4);
-				$class = pzk_request()->getSegment(3);
+				$parentId = intval(pzk_request()->getSegment(4));
+				$class = intval(pzk_request()->getSegment(3));
 			
 				$frontend = pzk_model('Frontend');
 				$userId = pzk_session('userId');
@@ -121,7 +121,7 @@ class PzkCompabilityController extends PzkController{
 
 		}else{
 			//chua dang nhap
-			$camp = pzk_request()->getSegment(3);
+			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
 				pzk_page()->set('title', 'Đăng nhập');
 				pzk_page()->set('keywords', 'Đăng nhập');
@@ -132,44 +132,43 @@ class PzkCompabilityController extends PzkController{
 				$login = pzk_element('login');
 				$login->set('rel', "/trytest/showtn/".$camp);
 				$login->set('title', 'thì mới được vào thi thử');
-			$this->display();			
+			$this->display();
 			pzk_system()->halt();
 		}		
 	}
 	public function showtlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = pzk_request('parentId');
+			$parentId 		= 	intval(pzk_request('parentId'));
 			
-			
-			$frontend = pzk_model('Frontend');
+			$frontend 		= 	pzk_model('Frontend');
 				
-			$userId = pzk_session('userId');
+			$userId 		= 	pzk_session('userId');
 			
-			$testTl = $frontend->getChildCompability(TL, $parentId);
+			$testTl 		= 	$frontend->getChildCompability(TL, $parentId);
 		
-			$compabilityTl=$this->parse('education/test/compabilityTl');
+			$compabilityTl	=	$this->parse('education/test/compabilityTl');
 		
-			$compabilityTl = pzk_element('compabilityTl');
+			$compabilityTl 	= 	pzk_element('compabilityTl');
 			
 			
-			$sSchool = pzk_session('school');
-			$time = $testTl['time'];
+			$sSchool 		= 	pzk_session('school');
+			$time 			= 	$testTl['time'];
 			if($sSchool == NS){
-				$time = pzk_request('timeTl');
+				$time = intval(pzk_request('timeTl'));
 				$compabilityTl->set('ngoisao', 1);
 			}
 			
 			$data_criteria = array(
-				'time' => $time,
-				'quantity' => $testTl['quantity'],
-				'name' => $testTl['name'],
-				'id' => $testTl['id'],
-				'parentTest' => $testTl['parent']
+				'time' 			=> $time,
+				'quantity' 		=> $testTl['quantity'],
+				'name' 			=> $testTl['name'],
+				'id' 			=> $testTl['id'],
+				'parentTest' 	=> $testTl['parent']
 			);
 			
-			$compabilityTl->set('parentId', $parentId);
-			$compabilityTl->set('data_criteria', $data_criteria);
+			$compabilityTl->set('parentId', 		$parentId);
+			$compabilityTl->set('data_criteria', 	$data_criteria);
 			$compabilityTl->display();
 			
 		}
@@ -185,13 +184,13 @@ class PzkCompabilityController extends PzkController{
     	
     	$data_answers 		= $request->get('answers');
 		
-		$parentTest = $data_answers['parentTest'];
+		$parentTest 		= $data_answers['parentTest'];
 		
-    	$question_id 	= $data_answers['questions'];
+    	$question_id 		= $data_answers['questions'];
 		
-    	$testId = $data_answers['testId'];
+    	$testId 			= $data_answers['testId'];
     
-    	$answers 		= array();
+    	$answers 			= array();
     	
     	if(isset($data_answers['answers'])){
     		
@@ -308,11 +307,11 @@ class PzkCompabilityController extends PzkController{
 		
     	$user_book_key	= $request->get('keybook');
 		
-		$parentTest = $data_answers['parentTest'];
+		$parentTest 	= $data_answers['parentTest'];
     	
-		$question_id 	= $data_answers['questions'];
+		$questions 	= $data_answers['questions'];
 		
-    	$testId = $data_answers['testId'];
+    	$testId 		= intval($data_answers['testId']);
 		
     	$quantity_question	= count($data_answers['questions']);
     	
@@ -366,11 +365,11 @@ class PzkCompabilityController extends PzkController{
 		$userbookId = $userBook->get('id');
 		
 		
-		foreach($question_id as $key => $value){
+		foreach($questions as $key => $value){
 			if(empty($answers[$key])){
 				$answers[$key] = '';
 			}
-			$questionId		=	$question_id[$key];
+			$questionId		=	$questions[$key];
 			//xu li input textarea
 			$arAnswer = array();
 			if(isset($answers[$key.'_i'])){
@@ -393,7 +392,7 @@ class PzkCompabilityController extends PzkController{
 	}
 	
 	public function rankAction() {
-		$parentId = pzk_request()->getSegment(4);
+		$parentId = intval(pzk_request()->getSegment(4));
 		$this->initPage();
 		$this->append('education/test/compabilityrating');
 		$compabilityRating = pzk_element('compabilityRating');
@@ -402,7 +401,7 @@ class PzkCompabilityController extends PzkController{
 		));
 		$compabilityRating->set('fields', 'user_contest.*, user.username, user.name');
 		$compabilityRating->set('parentId', $parentId);
-		$compabilityRating->set('pageNum', pzk_request('page'));
+		$compabilityRating->set('pageNum', intval(pzk_request('page')));
 		$this->display();
 	}
 	

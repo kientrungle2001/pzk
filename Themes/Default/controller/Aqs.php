@@ -10,14 +10,13 @@ class PzkAqsController extends PzkController {
 		pzk_page()->set('description', 'Hỏi đáp nhanh phần mềm Full Look');
 		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 		pzk_page()->set('brief', 'Hỏi đáp nhanh phần mềm Full Look');
-		$this->append('aqs', 'wrapper')
-		->display();
+		$this->append('aqs')->display();
 	}
 	
 	public function pageAction(){
 		$obj = $this->parse('cms/AQs/AQshome');
 		$obj->set('isAjax', true);
-		$obj->set('page', pzk_request()->get('page'));
+		$obj->set('page', intval(pzk_request()->get('page')));
 		$obj->display();
 	}
 	
@@ -25,14 +24,14 @@ class PzkAqsController extends PzkController {
 	{	
 		if(pzk_session('login'))
 		{
-			$question=pzk_request('question');				
-			$username=pzk_session('username');					
+			$question	=	clean_value(pzk_request('question'));
+			$username	=	pzk_session('username');					
 			if($question){
 				$addquestion = array(
-				'question' => $question,
-				'username' => $username,
-				'userId'	=> pzk_session('userId'),
-				'software' => pzk_request()->get('softwareId')
+					'question' => $question,
+					'username' => $username,
+					'userId'	=> pzk_session('userId'),
+					'software' => pzk_request()->get('softwareId')
 				);
 				$entity = _db()->useCB()->getEntity('table')->setTable('aqs_question');
 				$entity->setData($addquestion);
@@ -49,24 +48,33 @@ class PzkAqsController extends PzkController {
 	{
 		if(pzk_session('login'))
 		{
-			$answer=pzk_request('answer');
-			$questionid=pzk_request('questionid');
-			$userid=pzk_session('id');
-			$username=pzk_session('username');
+			$answer			=	clean_value(pzk_request('answer'));
+			$questionid		=	intval(pzk_request('questionid'));
+			$userid			=	pzk_session('userId');
+			$username		=	pzk_session('username');
 			if($answer){
 				$addanswer = array(
-					'questionId' => $questionid,
-					'answer' => $answer,
-					'userId' => $userid,
-					'username' => $username,
-					'software' => pzk_request()->get('softwareId')
+					'questionId' 	=> $questionid,
+					'answer' 		=> $answer,
+					'userId' 		=> $userid,
+					'username' 		=> $username,
+					'software' 		=> pzk_request()->get('softwareId')
 				);
-				$entity = _db()->useCb()->getEntity('table')->setTable('aqs_answer');
+				$entity 	= _db()->useCB()
+					->getEntity('table')
+					->setTable('aqs_answer');
 				$entity->setData($addanswer);
 				$entity->save();
-				$allanswer=_db()->useCB()->select("answer")->from("aqs_answer")->where(array('questionId',$questionid))->result();
-				$count=count($allanswer);
-				_db()->useCB()->update('aqs_question')->set(array('answer' => $count))->where(array('id',$questionid))->result();
+				$allanswer	=_db()->useCB()
+					->select("answer")
+					->from("aqs_answer")
+					->where(array('questionId',	$questionid))
+					->result();
+				$count		=	count($allanswer);
+				_db()->useCB()->update('aqs_question')
+					->set(array('answer' 	=> $count))
+					->where(array('id',	$questionid))
+					->result();
 			}
 			$this->redirect('aqs/index');
 		}
