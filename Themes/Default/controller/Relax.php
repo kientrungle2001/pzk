@@ -21,7 +21,7 @@ class PzkRelaxController extends PzkController{
 	}
 	public function ajaxdetailAction(){
 			$this->parse('education/relax/ajaxdetail');
-			$id = pzk_request('id');
+			$id = intval(pzk_request('id'));
 			//$parentid = pzk_request('parentid');
 			$detail = pzk_element('ajaxdetail');
 			$detail->set('itemId', $id);
@@ -35,15 +35,15 @@ class PzkRelaxController extends PzkController{
 	}
 	public function showsubjectAction(){
 			$this->parse('education/relax/showsubject');
-			$id = pzk_request('id');
+			$id = intval(pzk_request('id'));
 			$detail = pzk_element('parent');
 			$detail->set('parentId', $id);
 			$detail->display();
 	}
 	public function newCommentAction() {
-		$newId = pzk_request('newsid');
-		$userId = pzk_request('userid');
-		$comment = pzk_request('comment');
+		$newId = intval(pzk_request('newsid'));
+		$userId = intval(pzk_request('userid'));
+		$comment = clean_value(pzk_request('comment'));
 		if($newId !='' and $comment !='') {
 			$frontend = pzk_model('Frontend');
 			$data = array(

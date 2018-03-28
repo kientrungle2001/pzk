@@ -7,7 +7,7 @@ class PzkPhanlopController extends PzkController
 
 	public function lopAction() 
 	{
-		pzk_session('lop', pzk_request('lop'));
+		pzk_session('lop', intval(pzk_request('lop')));
 		//check payment		
 		$fullModel = pzk_model('Service.Full');
 		$checkPayment= $fullModel->checkPayment('full');

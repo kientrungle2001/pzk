@@ -7,7 +7,7 @@ class PzkCompabilityController extends PzkController{
 	public $masterPosition = 'wrapper';
 	public function testAction(){
 		if(pzk_session('userId')){
-			$parentId = pzk_request()->getSegment(3);
+			$parentId = intval(pzk_request()->getSegment(3));
 			$check 		= pzk_user()->checkCompabilityTestAccess($parentId);
 			//thanh toan
 			if($check){
@@ -120,7 +120,7 @@ class PzkCompabilityController extends PzkController{
 			 }
 		}else{
 			//chua dang nhap
-			$parentId = pzk_request()->getSegment(3);
+			$parentId = intval(pzk_request()->getSegment(3));
 			$this->initPage();
 				pzk_page()->set('title', 'Đăng nhập');
 				pzk_page()->set('keywords', 'Đăng nhập');
@@ -138,9 +138,9 @@ class PzkCompabilityController extends PzkController{
 	public function showtlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = pzk_request('parentId');
+			$parentId = intval(pzk_request('parentId'));
 			if(!pzk_request('parentId')){
-				$parentId = pzk_request()->getSegment(3);
+				$parentId = intval(pzk_request()->getSegment(3));
 			}
 			
 			
@@ -176,9 +176,9 @@ class PzkCompabilityController extends PzkController{
 	public function showTestTlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = pzk_request('parentId');
+			$parentId = intval(pzk_request('parentId'));
 			if(!pzk_request('parentId')){
-				$parentId = pzk_request()->getSegment(3);
+				$parentId = intval(pzk_request()->getSegment(3));
 			}
 			
 			
@@ -436,7 +436,7 @@ class PzkCompabilityController extends PzkController{
 	
 	
 	public function rankAction() {
-		$parentId = pzk_request()->getSegment(3);
+		$parentId = intval(pzk_request()->getSegment(3));
 		$this->initPage();
 		$this->append('education/test/compabilityrating');
 		$compabilityRating = pzk_element('compabilityRating');
@@ -604,9 +604,9 @@ class PzkCompabilityController extends PzkController{
 		
 		$userId 			=	$session->get('userId');
 		
-		$subject 			=	$request->get('subject');
-		$topic				=	$request->get('topic');
-		$testId				=	$request->get('homework');
+		$subject 			=	intval($request->get('subject'));
+		$topic				=	intval($request->get('topic'));
+		$testId				=	intval($request->get('homework'));
 		$userData 			= 	$request->get('userData');
 		$questionIds 		= 	$userData['questionIds'];
 		$questionTypes 		= 	$userData['questionTypes'];

@@ -11,10 +11,10 @@ class PzkThemesDefaultPracticeController extends PzkController{
 		$this->initPage();
 		
 		// subject
-		$category_id 	= pzk_request()->getSegment(3);
+		$category_id 	= intval(pzk_request()->getSegment(3));
 		
 		// class
-		$class 			= pzk_request()->get('class');
+		$class 			= intval(pzk_request()->get('class'));
 		
 		
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
@@ -53,8 +53,9 @@ class PzkThemesDefaultPracticeController extends PzkController{
 	}
 	
 	public function exercisesAction($topicId) {
-		$check 	=	pzk_request()->get('check');
-		$class	=	pzk_request()->get('class');
+		$topicId = intval($topicId);
+		$check 	=	intval(pzk_request()->get('check'));
+		$class	=	intval(pzk_request()->get('class'));
 		if(isset($check ) && ($check == 1)){
 			$query = _db()->useCache(1800)
 			->select('count(*) as c')
@@ -88,15 +89,15 @@ class PzkThemesDefaultPracticeController extends PzkController{
     	
 		$this->initPage();
 		
-		$de = pzk_request('de');
+		$de = intval(pzk_request('de'));
 		
-		$topicId		= pzk_request('topic');
+		$topicId		= intval(pzk_request('topic'));
 		
 		// subject
-		$category_id 	= pzk_request()->getSegment(3);
+		$category_id 	= intval(pzk_request()->getSegment(3));
 		
 		// class
-		$class 			= pzk_request()->get('class');
+		$class 			= intval(pzk_request()->get('class'));
 		
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 			
@@ -151,18 +152,17 @@ class PzkThemesDefaultPracticeController extends PzkController{
     	$this->display();
     }
 	public function vocabularyAction(){
-		$class 		= pzk_request('class');
-		$categoryId = pzk_request()->getSegment(3);		
+		$categoryId = intval(pzk_request()->getSegment(3));		
 		
 		$detail = $this->parse('education/document/vocabulary');
-		$documentId = pzk_request('id');
-		$detail->set('itemId', pzk_request()->get('id'));
+		
+		$detail->set('itemId', intval(pzk_request()->get('id')));
 		$detail->set('categoryId', $categoryId);
 		$detail->display();
 	}
 	function showAnswersTeacherAction(){
 		$request	= pzk_element('request');
-		$id = $request->get('questionId');
+		$id = intval($request->get('questionId'));
 		$answer = _db()->select('*')->from('answers_question_tn')->whereStatus('1')->whereQuestion_id($id)->result_one();
 		echo json_encode($answer);
 	}
@@ -173,8 +173,8 @@ class PzkThemesDefaultPracticeController extends PzkController{
 			$email = pzk_session('email');
 			$username = pzk_session('username');
 			$userId	=	pzk_session('userId');
-			$contentError = pzk_request('contentError');
-			$questionId = pzk_request('questionId');
+			$contentError = clean_value(pzk_request('contentError'));
+			$questionId = intval(pzk_request('questionId'));
 			$rows = array(
 				'phone' => $phone,
 				'email'  => $email,

@@ -63,7 +63,7 @@ class PzkPaymentController extends PzkController
 	}
 	public function cardflPostAction()
 	{
-		$flcardId= pzk_request('flcardId');		
+		$flcardId= clean_value(pzk_request('flcardId'));		
 		$flcardId= trim($flcardId);
 		$flcardId=md5($flcardId);
 		if(pzk_session('userId') ==''){
@@ -96,9 +96,9 @@ class PzkPaymentController extends PzkController
 	public function paycardPostAction()
 	{
 		$request		=	pzk_element('request');
-		$type_card		=	$request->get('pm_typecard');
-		$card_serial	=	$request->get('pm_txt_serialcard');
-		$pin_card		=	$request->get('pm_txt_pincard');
+		$type_card		=	clean_value($request->get('pm_typecard'));
+		$card_serial	=	clean_value($request->get('pm_txt_serialcard'));
+		$pin_card		=	clean_value($request->get('pm_txt_pincard'));
 		if($type_card=='' || $card_serial=='' || $pin_card==''){
 			return false;
 		}
@@ -216,9 +216,9 @@ public function cardPostAction()
 			return false;
 		}
 		$request		=	pzk_element('request');
-		$type_card		=	$request->get('pm_typecard');
-		$card_serial	=	$request->get('pm_txt_serialcard');
-		$pin_card		=	$request->get('pm_txt_pincard');
+		$type_card		=	clean_value($request->get('pm_typecard'));
+		$card_serial	=	clean_value($request->get('pm_txt_serialcard'));
+		$pin_card		=	clean_value($request->get('pm_txt_pincard'));
 		
 		require(BASE_DIR.'/3rdparty/thecao/includes/MobiCard.php');
     	$call 			= 	new MobiCard();		
@@ -445,13 +445,13 @@ public function cardPostAction()
 	}
 	public function PaymentNganLuongAction()
 	{
-		$nganluong= pzk_request('username');
+		$nganluong= clean_value(pzk_request('username'));
 		echo "ok".$nganluong;
 	}
 	public function PaymentNextNobelsAction()
 	{
-		$nextnobels_card= pzk_request('nextnobels_card');
-		$nextnobels_serial= pzk_request('nextnobels_serial');
+		$nextnobels_card= clean_value(pzk_request('nextnobels_card'));
+		$nextnobels_serial= clean_value(pzk_request('nextnobels_serial'));
 		$nextnobels_card= trim($nextnobels_card);
 		$nextnobels_card=md5($nextnobels_card);
 		$userActive=pzk_session('userId');

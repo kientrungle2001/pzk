@@ -35,11 +35,11 @@ class PzkContestController extends PzkController{
 	}
 	
 	public function testAction(){
-		$class = pzk_request('class');
-		$type= pzk_request('practice');
+		$class = intval(pzk_request('class'));
+		$type= intval(pzk_request('practice'));
 		$check = pzk_user()->checkPayment('full');
     	$this->initPage();
-    	$testId = pzk_request()->getSegment(3);
+    	$testId = intval(pzk_request()->getSegment(3));
 		$catEntity = _db()->getTableEntity('tests')->load($testId);
 			
 		pzk_page()->set('title', $catEntity->get('name'));
@@ -72,8 +72,8 @@ class PzkContestController extends PzkController{
     }
 	
 	function showTestAction(){
-    	$class = pzk_request('class');
-		$type= pzk_request('practice');
+    	$class = intval(pzk_request('class'));
+		$type= intval(pzk_request('practice'));
     	if( pzk_request()->is('POST')){
 	    	$testId = (int) pzk_request()->get('test');
 	    	if(isset($testId)){
@@ -162,9 +162,9 @@ class PzkContestController extends PzkController{
 			return false;
 		}
 		$request		=	pzk_element('request');
-		$type_card		=	$request->get('pm_typecard');
-		$card_serial	=	$request->get('pm_txt_serialcard');
-		$pin_card		=	$request->get('pm_txt_pincard');
+		$type_card		=	clean_value($request->get('pm_typecard'));
+		$card_serial	=	clean_value($request->get('pm_txt_serialcard'));
+		$pin_card		=	clean_value($request->get('pm_txt_pincard'));
 		
 		require(BASE_DIR.'/3rdparty/thecao/includes/MobiCard.php');
     	$call 			= 	new MobiCard();		
@@ -267,7 +267,7 @@ class PzkContestController extends PzkController{
 		if(!$username){
 			return false;
 		}
-		$serviceId	= 	pzk_request('serviceId');
+		$serviceId	= 	intval(pzk_request('serviceId'));
 		$service= _db()->getEntity('Service.Service');
 		$service->load($serviceId);
 		$price = $service->get('amount');
@@ -356,7 +356,7 @@ class PzkContestController extends PzkController{
         $this->initPage();
         $this->append('thitai/testrating', 'wrapper');
 		$rank = pzk_element('testRating');
-		$camp = pzk_request()->get('camp');
+		$camp = intval(pzk_request()->get('camp'));
 		
 		$rank->set('camp', $camp);
 		
@@ -375,17 +375,17 @@ class PzkContestController extends PzkController{
 		$this->display();
     }
     public function changePageSizeAction() {
-        pzk_session('ratingPageSize', pzk_request('pageSize'));
-		$camp = pzk_request('camp');
+        pzk_session('ratingPageSize', intval(pzk_request('pageSize')));
+		$camp = intval(pzk_request('camp'));
         //pzk_session('camp', pzk_request('camp'));
         $this->redirect('rating?camp='.$camp);
     }
 	public function newsAction() {
         $this->initPage();
 		
-		$newsId = pzk_request('id');
+		$newsId = intval(pzk_request('id'));
 		
-		if(!$newsId) $newsId = pzk_request()->getSegment(3);
+		if(!$newsId) $newsId = intval(pzk_request()->getSegment(3));
 		
 		pzk_request()->set('id', $newsId);
 		

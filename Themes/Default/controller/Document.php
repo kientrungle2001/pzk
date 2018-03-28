@@ -18,9 +18,9 @@ class PzkDocumentController extends PzkDefaultDocumentController{
 	public function chitietAction(){
 		$this->initPage();
 		
-		$newsId = pzk_request('id');
+		$newsId = intval(pzk_request('id'));
 		
-		if(!$newsId) $newsId = pzk_request()->getSegment(3);
+		if(!$newsId) $newsId = intval(pzk_request()->getSegment(3));
 		
 		pzk_request()->set('id', $newsId);
 		

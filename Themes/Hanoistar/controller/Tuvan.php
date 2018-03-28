@@ -16,8 +16,8 @@ class PzkTuvanController extends PzkThemesDefaultHomeController{
 		$frontendmodel = pzk_model('Frontend');
 		$userId	=	pzk_session('userId');
 		$rows = array(
-				'content' => pzk_request()->get('content'),
-				'type'  => pzk_request()->get('type'),
+				'content' => clean_value(pzk_request()->get('content')),
+				'type'  => clean_value(pzk_request()->get('type')),
 				'userId'  => $userId,
 				'created' => date(DATEFORMAT, $_SERVER['REQUEST_TIME'])
 				

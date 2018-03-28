@@ -477,9 +477,9 @@ class PzkCompabilityController extends PzkController{
 		
 		$userId 			=	$session->get('userId');
 		
-		$subject 			=	$request->get('subject');
-		$topic				=	$request->get('topic');
-		$testId				=	$request->get('homework');
+		$subject 			=	intval($request->get('subject'));
+		$topic				=	intval($request->get('topic'));
+		$testId				=	intval($request->get('homework'));
 		$userData 			= 	$request->get('userData');
 		$questionIds 		= 	$userData['questionIds'];
 		$questionTypes 		= 	$userData['questionTypes'];

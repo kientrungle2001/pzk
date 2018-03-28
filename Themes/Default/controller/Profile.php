@@ -36,29 +36,29 @@ class PzkProfileController extends PzkFrontendController
 		$this->display();
 	}
 	public function onchangeCateIdAction() {
-        pzk_session('cateSelect', pzk_request('categoryId'));
-        pzk_session('cateSelectName', pzk_request('cateName'));
+        pzk_session('cateSelect', intval(pzk_request('categoryId')));
+        pzk_session('cateSelectName', clean_value(pzk_request('cateName')));
         $this->redirect('teacher');
     }
 	
 	public function onchangeHistoryWeekAction() {
-        pzk_session('historyWeek', pzk_request('historyWeek'));
+        pzk_session('historyWeek', intval(pzk_request('historyWeek')));
         $this->redirect('Profile/detail');
     }
 	public function onchangeHistoryMonthAction() {
-        pzk_session('historyMonth', pzk_request('historyMonth'));
+        pzk_session('historyMonth', intval(pzk_request('historyMonth')));
         $this->redirect('Profile/detail');
     }
 	
     public function updateScheduleAction()
     {
-    	$subject 	= pzk_request('subject');
-    	$topicId 	= pzk_request('topicId');
-    	$date 		= pzk_request('date');
+    	$subject 	= intval(pzk_request('subject'));
+    	$topicId 	= intval(pzk_request('topicId'));
+    	$date 		= clean_value(pzk_request('date'));
     	$date 		= date("Y-m-d H:i:s", strtotime($date));
-    	$status 	= pzk_request('status');
-    	$lessonId 	= pzk_request('lessonId');
-    	$scheduleId 	= pzk_request('scheduleId');
+    	$status 	= intval(pzk_request('status'));
+    	$lessonId 	= intval(pzk_request('lessonId'));
+    	$scheduleId 	= intval(pzk_request('scheduleId'));
     	$teacher = _db()->getEntity('User.Account.Teacher');
     	if($scheduleId){
     		$rows = $teacher->loadWhere(array('id',$scheduleId));
@@ -95,6 +95,7 @@ class PzkProfileController extends PzkFrontendController
     }
 	public function bookAction($id)
 	{	
+		$id = intval($id);
 		$this->initPage();
 		pzk_page()->set('title', 'Trang cá nhân');
 		pzk_page()->set('keywords', 'Giáo dục');
@@ -108,7 +109,8 @@ class PzkProfileController extends PzkFrontendController
 		}
 		$this->display();
 	}
-	public function booktlAction($userBookId){	
+	public function booktlAction($userBookId){
+		$userBookId = intval($userBookId);	
 		$userId = pzk_session('userId');
 		$frontend = pzk_model('Frontend');
 		$userbookTl = $frontend->getUserBook($userBookId);
@@ -183,8 +185,8 @@ class PzkProfileController extends PzkFrontendController
 
 		$request 	= pzk_request();
 
-		$email= $request->get('addemail');
-		$phone= $request->get('addphone');
+		$email= clean_value($request->get('addemail'));
+		$phone= clean_value($request->get('addphone'));
 
 		$user		= pzk_user();
 
@@ -205,14 +207,14 @@ class PzkProfileController extends PzkFrontendController
 	{
 		$request 	= pzk_request();
 		
-		$name 		= $request->get('name');
-		$birthday 	= $request->get('birthday');
-		$address 	= $request->get('address');
-		$schoolname 	= $request->get('schoolname');	
-		$classname		= $request->get('class1');
-		$area		= $request->get('areacode');
-		$phone 		= $request->get('phone');
-		$sex 		= $request->get('sex');
+		$name 		= clean_value($request->get('name'));
+		$birthday 	= clean_value($request->get('birthday'));
+		$address 	= clean_value($request->get('address'));
+		$schoolname 	= clean_value($request->get('schoolname'));	
+		$classname		= clean_value($request->get('class1'));
+		$area		= intval($request->get('areacode'));
+		$phone 		= clean_value($request->get('phone'));
+		$sex 		= intval($request->get('sex'));
 		
 			
 		$user		= pzk_user();

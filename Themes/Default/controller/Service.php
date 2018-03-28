@@ -34,12 +34,12 @@ class PzkServiceController extends PzkController
 		if(!$username){
 			return false;
 		}
-		$serviceSelect	= 	pzk_request('serviceId');
+		$serviceSelect	= 	clean_value(pzk_request('serviceId'));
 		$serviceSelect = explode("/",$serviceSelect);
 		$serviceId = $serviceSelect[0];
 		$price  = $serviceSelect[1];
-		$coupon = pzk_request('coupon');
-		$className	= 	pzk_request('className');
+		$coupon = clean_value(pzk_request('coupon'));
+		$className	= 	clean_value(pzk_request('className'));
 		$service= _db()->getEntity('Service.Service');
 		$service->load($serviceId);
 		
@@ -86,7 +86,7 @@ class PzkServiceController extends PzkController
 	}
 	public function BuyTestAction()
 	{
-		$opt_service	= 	pzk_request('opt_service_type');
+		$opt_service	= 	clean_value(pzk_request('opt_service_type'));
 		$opt_service	= 	explode(" ",$opt_service);
 		$opt_service_id	= 	$opt_service[0];
 		$price			= 	$opt_service[1];
@@ -172,13 +172,13 @@ class PzkServiceController extends PzkController
 	}*/
 	public function orderFLSNAction()
 	{
-		$txtcoupon= pzk_request('txtcoupon');
-		$txtname= pzk_request('txtname');
-		$txtphone= pzk_request('txtphone');
-		$txtaddress= pzk_request('txtaddress');
-		$txtquantity= pzk_request('txtquantity');
-		$serviceId= pzk_request('serviceId');
-		$className = pzk_request('className');
+		$txtcoupon= clean_value(pzk_request('txtcoupon'));
+		$txtname= clean_value(pzk_request('txtname'));
+		$txtphone= clean_value(pzk_request('txtphone'));
+		$txtaddress= clean_value(pzk_request('txtaddress'));
+		$txtquantity= intval(pzk_request('txtquantity'));
+		$serviceId= intval(pzk_request('serviceId'));
+		$className = clean_value(pzk_request('className'));
 		
 		$opt_service= explode("/",$serviceId);
 		$opt_service_id= $opt_service[0];
@@ -195,10 +195,10 @@ class PzkServiceController extends PzkController
 	public function orderFullookAction()
 	{
 		
-		$txtname= pzk_request('txtname');
-		$txtphone= pzk_request('txtphone');
-		$txtaddress= pzk_request('txtaddress');
-		$txtquantity= pzk_request('txtquantity');
+		$txtname= clean_value(pzk_request('txtname'));
+		$txtphone= clean_value(pzk_request('txtphone'));
+		$txtaddress= clean_value(pzk_request('txtaddress'));
+		$txtquantity= intval(pzk_request('txtquantity'));
 		$datetime=date("Y-m-d H:i:s");
 		$ordercard=_db()->getEntity('Service.Ordercard');
 		$row=array('cardId'=>0,'fullname'=>$txtname,'phone'=>$txtphone, 'address'=>$txtaddress,'quantity'=>$txtquantity, 'amount'=> 0,'class' => 0, 'date'=>$datetime, 'software'=>pzk_request('softwareId'),  'site'=>pzk_request('siteId'));
@@ -216,7 +216,7 @@ class PzkServiceController extends PzkController
 		if(!$username){
 			return false;
 		}
-		$serviceId	= 	pzk_request('serviceId');
+		$serviceId	= 	clean_value(pzk_request('serviceId'));
 		$service= _db()->getEntity('Service.Service');
 		$service->load($serviceId);
 		$contestId= $service->get('contestId');

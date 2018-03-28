@@ -7,7 +7,7 @@ class PzkContestController extends PzkThemesDefaultContestController {
 	public function showResultAction() {
 		
 		if(pzk_session('userId')){
-				$testId = pzk_request()->getSegment(3);
+				$testId = intval(pzk_request()->getSegment(3));
 				$userId = pzk_session('userId');
 			
 				$frontend = pzk_model('Frontend');
@@ -68,7 +68,7 @@ class PzkContestController extends PzkThemesDefaultContestController {
 			
 		}else{
 			//chua dang nhap
-			$camp = pzk_request()->getSegment(3);
+			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
 				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
 				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
@@ -84,7 +84,7 @@ class PzkContestController extends PzkThemesDefaultContestController {
 		}
 	}
 	public function ratingAction() {
-		$testId = pzk_request()->getSegment(3);
+		$testId = intval(pzk_request()->getSegment(3));
 		
         $this->initPage();
         $this->append('showresult/testrating', 'wrapper');
@@ -94,7 +94,7 @@ class PzkContestController extends PzkThemesDefaultContestController {
 		$this->display();
     }
 	public function getStudentAction() {
-		$class = pzk_request()->getSegment(3);
+		$class = intval(pzk_request()->getSegment(3));
 		if($class == 4 or $class == 5) {
 			$this->initPage();
 			$this->append('showresult/resulttest', 'wrapper');

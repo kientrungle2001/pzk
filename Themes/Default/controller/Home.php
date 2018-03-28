@@ -69,7 +69,7 @@ class PzkHomeController extends PzkController{
 	public function pageAction(){
 		$obj = $this->parse('home/index');
 		$obj->set('isAjax', true);
-		$obj->set('page',pzk_request()->get('page'));
+		$obj->set('page', intval(pzk_request()->get('page')));
 		$obj->display();
 		
 	}
@@ -140,15 +140,15 @@ class PzkHomeController extends PzkController{
 
         $showRating	= pzk_element('showRatings');
 
-        $dataTest = $userBook->getAllTest(pzk_request()->get('practice'));
+        $dataTest = $userBook->getAllTest(intval(pzk_request()->get('practice')));
 
         $showRating->set('dataTest', $dataTest);
 
         $this->display();
     }
 	public function onchangeTestIdAction() {
-        pzk_session('userBookTestId', pzk_request('testId'));
-        $this->redirect('rating', array('practice' => pzk_request('practice')));
+        pzk_session('userBookTestId', intval(pzk_request('testId')));
+        $this->redirect('rating', array('practice' => intval(pzk_request('practice'))));
     }
 	public function listTestAction() {
         $this->initPage();
@@ -161,19 +161,19 @@ class PzkHomeController extends PzkController{
     }
 	public function changePageSizeAction() {
 
-        $userId = pzk_request('userId');
+        $userId = intval(pzk_request('userId'));
         if(!empty($userId)) {
-            pzk_session('listPageSize', pzk_request('pageSize'));
+            pzk_session('listPageSize', intval(pzk_request('pageSize')));
             $this->redirect('listTest/'.$userId);
         }else{
-            pzk_session('ratingPageSize', pzk_request('pageSize'));
+            pzk_session('ratingPageSize', intval(pzk_request('pageSize')));
             $this->redirect('rating');
 
         }
     }
 	public function showtestnumberAction(){
 			$this->parse('education/practice/showTestnumber');
-			$class = pzk_request('class');
+			$class = intval(pzk_request('class'));
 			$detail = pzk_element('testlist');
 			$detail->addFilter('classes', $class, 'like');
 			$detail->display();
@@ -181,7 +181,7 @@ class PzkHomeController extends PzkController{
 	
 	public function showtesttlAction(){
 			$this->parse('education/practice/showTestTl');
-			$class = pzk_request('class');
+			$class = intval(pzk_request('class'));
 			$detail = pzk_element('testtllist');
 			$detail->addFilter('classes', $class, 'like');
 			$detail->display();
@@ -189,7 +189,7 @@ class PzkHomeController extends PzkController{
 	
 	public function showpracticenumberAction(){
 			$this->parse('education/practice/showPracticenumber');
-			$class = pzk_request('class');
+			$class = intval(pzk_request('class'));
 			$detail = pzk_element('practicelist');
 			$detail->addFilter('classes', $class, 'like');
 			$detail->display();
@@ -349,10 +349,10 @@ class PzkHomeController extends PzkController{
     	}
     }
 	public function ajaxHistoryAction() {
-		$practice = pzk_request()->get('practice');
-		$idResult = pzk_request()->get('idResult');
-		$page = pzk_request()->get('page');
-		$userId = pzk_request()->get('userId');
+		$practice = intval(pzk_request()->get('practice'));
+		$idResult = intval(pzk_request()->get('idResult'));
+		$page = intval(pzk_request()->get('page'));
+		$userId = intval(pzk_request()->get('userId'));
 		$pageSize = 20;
 		$this->parse('history/testHistory');
 			
@@ -366,8 +366,8 @@ class PzkHomeController extends PzkController{
 			
 	}
 	public function ajaxPracticeAction() {
-		$page = pzk_request()->get('page');
-		$userId = pzk_request()->get('userId');
+		$page = intval(pzk_request()->get('page'));
+		$userId = intval(pzk_request()->get('userId'));
 		$pageSize = 20;
 		$this->parse('history/practiceHistory');
 			

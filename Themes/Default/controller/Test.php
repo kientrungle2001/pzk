@@ -6,8 +6,8 @@ class PzkTestController extends PzkController{
 	public $isContest		=	false;
 	public function testAction(){
 		$request	= pzk_request();
-		$class 		= $request->get('class');
-		$type		= $request->get('practice');
+		$class 		= intval($request->get('class'));
+		$type		= intval($request->get('practice'));
 		$check 		= pzk_session('checkPayment');
     	
     	$testId 	= $request->getSegment(3);
@@ -59,7 +59,7 @@ class PzkTestController extends PzkController{
 	function testtlAction(){
 		
     	
-		$class 		= pzk_request('class');
+		$class 		= intval(pzk_request('class'));
 		
 		$testId = (int) pzk_request()->getSegment(3);
 		$dbTryTestIds = _db()->select('id')->fromTests()->whereTrial(1)->whereSoftware(1)->result();
@@ -134,8 +134,8 @@ class PzkTestController extends PzkController{
 	
 	function doTestAction(){
 		
-    	$class 		= pzk_request('class');
-		$type		= pzk_request('practice');
+    	$class 		= intval(pzk_request('class'));
+		$type		= intval(pzk_request('practice'));
     	if( pzk_request()->is('POST')){
 	    	$testId = (int) pzk_request()->get('test');
 	    	if(isset($testId)){
@@ -174,11 +174,11 @@ class PzkTestController extends PzkController{
 	public function testSNAction(){
 
 		$request	= pzk_request();
-		$class 		= $request->get('class');
-		$type		= $request->get('practice');
+		$class 		= intval($request->get('class'));
+		$type		= intval($request->get('practice'));
 		$check 		= pzk_session('checkPayment');
     	
-    	$testId 	= pzk_request('de');
+    	$testId 	= intval(pzk_request('de'));
 		$testEntity = _db()->getTableEntity('tests')->load($testId, 1800);
 		
 		$this->initPage();
@@ -234,7 +234,7 @@ class PzkTestController extends PzkController{
 			$this->display();
 			pzk_system()->halt();
     	}else{
-			$testId 	= pzk_request('de');
+			$testId 	= intval(pzk_request('de'));
 			$check 		= pzk_session('checkPayment');
 			
 			if(isset($check) && $check == 0){
@@ -251,9 +251,9 @@ class PzkTestController extends PzkController{
 			}
 		}
 		
-    	$class 		= pzk_request('class');
-		$practice	= pzk_request('practice');
-		$week		= pzk_request('id');
+    	$class 		= intval(pzk_request('class'));
+		$practice	= intval(pzk_request('practice'));
+		$week		= intval(pzk_request('id'));
 		
 
     	if(isset($testId)){

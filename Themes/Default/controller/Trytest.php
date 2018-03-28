@@ -6,7 +6,7 @@ class PzkTrytestController extends PzkController{
 	public $masterPage	=	"thitai/index";
 	public $masterPosition = 'wrapper';
 	public function doAction() {
-		$contestId = pzk_request()->getSegment(3);
+		$contestId = intval(pzk_request()->getSegment(3));
 		
 		$this->initPage();
 			pzk_page()->set('title', 'Bắt đầu thi thử trường Trần Đại Nghĩa');
@@ -25,7 +25,7 @@ class PzkTrytestController extends PzkController{
 	public function showtnAction(){
 		if(pzk_session('userId')){
 			$cuserId = pzk_session('userId');
-			$contestId = pzk_request()->getSegment(3);
+			$contestId = intval(pzk_request()->getSegment(3));
 			$camp = $contestId;
 			$check = pzk_user()->checkContest($contestId);
 			$frontend = pzk_model('Frontend');
@@ -139,7 +139,7 @@ class PzkTrytestController extends PzkController{
 
 		}else{
 			//chua dang nhap
-			$camp = pzk_request()->getSegment(3);
+			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
 				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
 				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
@@ -157,7 +157,7 @@ class PzkTrytestController extends PzkController{
 	public function showtlAction(){
 		if(pzk_session('userId')){
 			$cuserId = pzk_session('userId');
-			$contestId = pzk_request()->getSegment(3);
+			$contestId = intval(pzk_request()->getSegment(3));
 			$camp = $contestId;
 			$check = pzk_user()->checkContest($contestId);
 			
@@ -274,7 +274,7 @@ class PzkTrytestController extends PzkController{
 			}
 		}else {
 			//chua dang nhap
-			$camp = pzk_request()->getSegment(3);
+			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
 				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
 				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
@@ -571,7 +571,7 @@ class PzkTrytestController extends PzkController{
 		if(pzk_session('userId')){
 			$userId = pzk_session('userId');
 			
-			$contestId = pzk_request()->getSegment(3);
+			$contestId = intval(pzk_request()->getSegment(3));
 			$camp = $contestId;
 			$check = pzk_user()->checkContest($contestId);
 			
@@ -729,7 +729,7 @@ class PzkTrytestController extends PzkController{
 			
 		}else{
 			//chua dang nhap
-			$camp = pzk_request()->getSegment(3);
+			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
 				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
 				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
@@ -749,7 +749,7 @@ class PzkTrytestController extends PzkController{
 		if(pzk_session('userId')){
 			$userId = pzk_session('userId');
             $frontend = pzk_model('Frontend');
-			$contestId = pzk_request()->getSegment(3);
+			$contestId = intval(pzk_request()->getSegment(3));
 			$dataContest = $frontend->getContestById($contestId);
 			//check ngay thi
 			
@@ -821,7 +821,7 @@ class PzkTrytestController extends PzkController{
 			
 		}else{
 			//chua dang nhap
-			$contestId = pzk_request()->getSegment(3);
+			$contestId = intval(pzk_request()->getSegment(3));
 			$this->initPage();
 				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
 				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
@@ -841,7 +841,7 @@ class PzkTrytestController extends PzkController{
 		if(pzk_session('userId')){
 			$userId = pzk_session('userId');
 			$frontend = pzk_model('Frontend');
-			$contestId = pzk_request()->getSegment(3);
+			$contestId = intval(pzk_request()->getSegment(3));
 			$dataContest = $frontend->getContestById($contestId);
 			//check ngay thi
 			
@@ -913,7 +913,7 @@ class PzkTrytestController extends PzkController{
 			
 		}else{
 			//chua dang nhap
-			$contestId = pzk_request()->getSegment(3);
+			$contestId = intval(pzk_request()->getSegment(3));
 			$this->initPage();
 				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
 				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');

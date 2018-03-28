@@ -10,7 +10,7 @@ class PzkCompabilityController extends PzkController{
 				$user = pzk_user();
 				$check 			= 	$user->checkPayment('full');
 				if($check){
-					$parentId = pzk_request()->getSegment(4);
+					$parentId = intval(pzk_request()->getSegment(4));
 					
 					$checkAccess = pzk_user()->checkHomeworkAccess($parentId);
 					//check quyen lam de thang
@@ -128,7 +128,7 @@ class PzkCompabilityController extends PzkController{
 			 }
 		}else{
 			//chua dang nhap
-			$camp = pzk_request()->getSegment(3);
+			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
 				pzk_page()->set('title', 'Đăng nhập');
 				pzk_page()->set('keywords', 'Đăng nhập');
@@ -146,9 +146,9 @@ class PzkCompabilityController extends PzkController{
 	public function showtlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = pzk_request('parentId');
+			$parentId = intval(pzk_request('parentId'));
 			if(!pzk_request('parentId')){
-				$parentId = pzk_request()->getSegment(4);
+				$parentId = intval(pzk_request()->getSegment(4));
 			}
 			
 			
@@ -165,7 +165,7 @@ class PzkCompabilityController extends PzkController{
 			
 			$sSchool = pzk_session('school');
 			
-			$time = pzk_request('timeTl');
+			$time = intval(pzk_request('timeTl'));
 			//cham chua
 			$checkMark = $frontend->checkMarkTl($userId, $parentId);						
 			$showResult = false;
@@ -192,9 +192,9 @@ class PzkCompabilityController extends PzkController{
 	public function showTestTlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = pzk_request('parentId');
+			$parentId = intval(pzk_request('parentId'));
 			if(!pzk_request('parentId')){
-				$parentId = pzk_request()->getSegment(4);
+				$parentId = intval(pzk_request()->getSegment(4));
 			}
 			
 			
@@ -218,7 +218,7 @@ class PzkCompabilityController extends PzkController{
 				
 				$sSchool = pzk_session('school');
 				
-				$time = pzk_request('timeTl');
+				$time = intval(pzk_request('timeTl'));
 				$compabilityTl->set('showResult', false);
 				
 				$data_criteria = array(
@@ -521,7 +521,7 @@ class PzkCompabilityController extends PzkController{
 	}
 	
 	public function rankAction() {
-		$parentId = pzk_request()->getSegment(4);
+		$parentId = intval(pzk_request()->getSegment(4));
 		$this->initPage();
 		$this->append('education/test/compabilityrating');
 		$compabilityRating = pzk_element('compabilityRating');
@@ -530,7 +530,7 @@ class PzkCompabilityController extends PzkController{
 		));
 		$compabilityRating->set('fields', 'user_contest.*, user.username, user.name');
 		$compabilityRating->set('parentId', $parentId);
-		$compabilityRating->set('pageNum', pzk_request('page'));
+		$compabilityRating->set('pageNum', intval(pzk_request('page')));
 		$this->display();
 	}
 	public function showMessageAndHalt($message = null) {
