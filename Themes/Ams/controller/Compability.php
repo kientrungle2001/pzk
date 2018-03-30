@@ -5,6 +5,138 @@ define('TL', 2);
 class PzkCompabilityController extends PzkController{
 	public $masterPage	=	"index";
 	public $masterPosition = 'wrapper';
+	
+	public function extraTestAction(){
+		if(pzk_session('userId')){
+			$parentId = intval(pzk_request()->getSegment(3));
+			$check 		= pzk_user()->checkCompabilityTestAccess($parentId);
+			//thanh toan
+			if($check){
+	
+					$frontend = pzk_model('Frontend');
+					
+					$userId = pzk_session('userId');
+					
+					$dataParentTest = $frontend->getOne($parentId, 'tests');
+					
+					
+					//chua den ngay thi
+					if(time() < strtotime($dataParentTest['startDate'])){
+						$this->showMessageAndHalt('Chưa đến ngày thi! Thời gian thi '.date('H:s d/m/Y', strtotime($dataParentTest['startDate'])));
+					}
+				
+					//da het thoi gian thi
+					if(time() > strtotime($dataParentTest['endDate'])){
+						$this->showMessageAndHalt('Đã hết thời gian thi!');
+					}
+					//check extra test 1
+					$checkExtraTest1 = $frontend->checkExtraTest($userId, $parentId, 1);
+					//check lam trac nghiem
+					if($checkTestNsTn == false) {
+					
+						$testTn = $frontend->getChildCompability(TN, $parentId);
+
+						$this->initPage();
+							pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
+							pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
+							pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng');
+							pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
+							pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+							$this->append('education/test/compability', 'wrapper');
+							
+						
+							$compability = pzk_element('compability');
+							
+							$data_criteria = array(
+								'time' => $dataParentTest['time'],
+								'quantity' => $testTn['quantity'],
+								'name' => $testTn['name'],
+								'id' => $testTn['id'],
+								'parentTest' => $testTn['parent']
+								
+							);
+							
+							$compability->set('parentId', $parentId);
+							$compability->set('data_criteria', $data_criteria);	
+						$this->display();
+						pzk_system()->halt();
+					}else{
+						$checkTestNsTl = $frontend->checkExtraTest($userId, $parentId, 2);
+						//check lam tu luan
+						if($checkTestNsTl == false) {
+								
+							$testTl = $frontend->getChildCompability(TL, $parentId);
+							
+							$this->initPage();
+								pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
+								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+								$this->append('education/test/againTestTl', 'wrapper');
+										
+						
+								$compabilityTl = pzk_element('compabilityTl');
+								
+								$checkTestNsTn = $frontend->checkTestNsTn($userId, $parentId);
+								
+								$time = $dataParentTest['time'] * 60 - $checkTestNsTn['duringTime'];
+								
+								$data_criteria = array(
+									'time' => $time,
+									'quantity' => $testTl['quantity'],
+									'name' => $testTl['name'],
+									'id' => $testTl['id'],
+									'parentTest' => $testTl['parent']
+								);
+								
+								$compabilityTl->set('parentId', $parentId);
+								$compabilityTl->set('data_criteria', $data_criteria);
+							$this->display();
+							pzk_system()->halt();
+							
+						}else{
+						//da thi xong
+							$this->initPage();
+								pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng với phần mềm Full Look');
+								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
+								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+								
+								$this->append('trytest/alert', 'wrapper');
+								$alert = pzk_element('alert');
+								$alert->set('title', 'Bạn đã hoàn thành bài thi. Kết quả được công bố '.date('H:s d/m/Y', strtotime($dataParentTest['resultDate'])));
+								$this->display();
+							pzk_system()->halt();
+						} 
+					}
+				}else{
+						//cam mua tai khoan
+						$this->initPage();
+						$this->append('education/test/nouser', 'wrapper');
+						$this->display();
+						pzk_system()->halt();
+					
+			 }
+		}else{
+			//chua dang nhap
+			$parentId = intval(pzk_request()->getSegment(3));
+			$this->initPage();
+				pzk_page()->set('title', 'Đăng nhập');
+				pzk_page()->set('keywords', 'Đăng nhập');
+				pzk_page()->set('description', 'Đăng nhập với phần mềm Full Look');
+				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				$this->append('user/login', 'wrapper');
+				$login = pzk_element('login');
+				$login->set('rel', "/Compability/test/".$parentId);
+				$login->set('title', 'thì mới được vào thi');
+			$this->display();			
+			pzk_system()->halt();
+		}		
+	}
+	
 	public function testAction(){
 		if(pzk_session('userId')){
 			$parentId = intval(pzk_request()->getSegment(3));

@@ -738,5 +738,22 @@ class PzkFrontendModel {
 			return false;
 		}	
 	}
+	
+	public function checkExtraTest($userId, $parentId, $order){
+		$data = _db()->select('*')
+			->from('user_book')
+			->where(array('userId', $userId))
+			->where(array('parentTest', $parentId))
+			->whereOrdering($order)
+			->whereCompability(1)
+			->whereExtraCompability(1)
+			->result_one();
+			
+		if($data) {
+			return $data;
+		}else{
+			return false;
+		}	
+	}
 }
 ?>

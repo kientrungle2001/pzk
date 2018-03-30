@@ -137,7 +137,7 @@ class PzkAdminTestController extends PzkGridAdminController {
         )
 	);
 
-    public $addFields = 'name, name_en, score, camp, classes,categoryIds,trytest, time, quantity, status, practice, createdId, created, modifiedId, modified, software, isSort, trial, name_sn, parent, compability, school, startDate, endDate, resultDate';
+    public $addFields = 'name, extraCompability, ordering, name_en, score, camp, classes,categoryIds,trytest, time, quantity, status, practice, createdId, created, modifiedId, modified, software, isSort, trial, name_sn, parent, compability, school, startDate, endDate, resultDate';
     public $addLabel = 'Thêm Đề thi';
 
     public $addFieldSettings = array(
@@ -300,7 +300,25 @@ class PzkAdminTestController extends PzkGridAdminController {
             'index' => 'resultDate',
             'type' => 'datetimepicker',
             'label' => 'Ngày xem đáp án'
-        )
+        ),
+		array(
+            'index' => 'extraCompability',
+            'type' => 'status',
+            'label' => 'Khảo sát mở rộng',
+            'options' => array(
+                '0' => 'Không hoạt động',
+                '1' => 'Hoạt động'
+            ),
+            'actions' => array(
+                '0' => 'mở',
+                '1' => 'dừng'
+            )
+        ),
+		array(
+            'index' => 'ordering',
+            'type' => 'text',
+            'label' => 'Thứ tự đề'
+        ) 
     );
 
 
@@ -322,7 +340,7 @@ class PzkAdminTestController extends PzkGridAdminController {
     );
 
     public $editLabel = 'Sửa đề thi';
-    public $editFields = 'name, name_en, score, camp, classes,categoryIds,trytest, time, status, quantity, practice, createdId, created, modifiedId, modified, software, isSort, trial, name_sn, parent, compability, school, startDate, endDate, resultDate';
+    public $editFields = 'name, extraCompability, ordering, name_en, score, camp, classes,categoryIds,trytest, time, status, quantity, practice, createdId, created, modifiedId, modified, software, isSort, trial, name_sn, parent, compability, school, startDate, endDate, resultDate';
 
     public $editFieldSettings = array(
         array(
@@ -486,7 +504,25 @@ class PzkAdminTestController extends PzkGridAdminController {
             'index' => 'resultDate',
             'type' => 'datetimepicker',
             'label' => 'Ngày xem đáp án'
-        )
+        ),
+		array(
+            'index' => 'extraCompability',
+            'type' => 'status',
+            'label' => 'Khảo sát mở rộng',
+            'options' => array(
+                '0' => 'Không hoạt động',
+                '1' => 'Hoạt động'
+            ),
+            'actions' => array(
+                '0' => 'mở',
+                '1' => 'dừng'
+            )
+        ),
+		array(
+            'index' => 'ordering',
+            'type' => 'text',
+            'label' => 'Thứ tự đề'
+        ) 
     );
 
     public $editValidator = array(

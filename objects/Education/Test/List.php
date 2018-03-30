@@ -95,6 +95,12 @@ class PzkEducationTestList extends PzkCoreDbList{
 		 $data = _db()->select('*')->from('tests')->where('compability=1')->where('status=1')->where('parent=0')->orderBy('ordering asc')->result();
 		 return $data;
 	}
+	public function getAllExtraTest(){
+		 $data = _db()->select('*')->from('tests')->where('compability=1')
+		 ->whereExtraCompability(1)->where('status=1')->where('parent=0')
+		 ->orderBy('ordering asc')->result();
+		 return $data;
+	}
 	
 	public function getTestCompabilityBySchool($class, $school){
 		$query = _db()->select('*')->from('tests')->where('classes like \'%,'.$class.',%\'')->where('compability=1')->where('status=1')->whereSchool($school)->where('parent=0')->orderBy('ordering desc');

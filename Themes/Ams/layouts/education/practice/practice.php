@@ -52,7 +52,7 @@
 	</div>
 	<div id="test-compability-section" class="container pdb80">
 		<div class="row">
-			{children [position=test-compability]}
+			{children [position=extra-compability]}
 		</div>
 	</div>
 </div>
