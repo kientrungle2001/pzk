@@ -44,6 +44,16 @@ class PzkAdminTuvanController extends PzkGridAdminController {
             'type' => 'text',
             'label' => 'Tư vấn'
         ),
+		array(
+			'index' 	=> 'created',
+			'type' 		=> 'datetime',
+			'label' 	=> 'Yêu cầu tư vấn'
+		),
+		array(
+			'index' 	=> 'modified',
+			'type' 		=> 'datetime',
+			'label' 	=> 'Ngày tư vấn'
+		),
         array(
             'index' => 'status',
             'type' => 'status',
