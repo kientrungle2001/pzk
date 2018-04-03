@@ -113,7 +113,7 @@ $login = pzk_session('userId');
     </div>
 	 <div class="item">
       <?php if(!$lang || $lang == 'vn'){ ?>
-				 <img class="item" src="/Themes/Songngu3/skin/images/slider4d1.png" />
+				 <img class="item" src="/Themes/Songngu3/skin/images/slider4uudai.png" />
 			<?php }else{ ?>
 				<img class="item" src="/Themes/Songngu3/skin/images/slider4d2.png" />
 			<?php } ?>
@@ -144,7 +144,7 @@ $login = pzk_session('userId');
 
 <div class="item">
     <marquee behavior="scroll" direction="left" scrollamount="5" style="width:100%; height:100%; vertical-align:middle; cursor:pointer;" onmouseover="javascript:this.setAttribute('scrollamount','0');" onmouseout="javascript:this.setAttribute('scrollamount','5');">
-    <strong class="red">Full Look – Phần mềm Khảo sát & Phát triển Năng lực dành cho HS ôn thi vào lớp 6, giá ưu đãi: 250k/ 6 tháng (ưu đãi trong 5 ngày, từ ngày 16/3/2018 đến 26/3/2018)</strong>
+    <strong class="red">Full Look – Phần mềm Khảo sát & Phát triển Năng lực dành cho HS ôn thi vào lớp 6</strong>
     </marquee>
  </div>
 

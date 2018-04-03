@@ -150,7 +150,7 @@
 	<?php } ?>
 </div>
 
-<div class="item bg5">
+<div class="item relative bg5">
 	<div class="container mgb70">
 		<div class="col-md-6 col-xs-12">
 			<div class="text-center item mgt70 mgb20 uppercase title_color fs30 cadena"><?php echo $language['advisory'];?></div>
@@ -230,16 +230,12 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-<div class="container top10">
-
-<div class="item">
-    <marquee behavior="scroll" direction="left" scrollamount="5" style="width:100%; height:100%; vertical-align:middle; cursor:pointer;" onmouseover="javascript:this.setAttribute('scrollamount','0');" onmouseout="javascript:this.setAttribute('scrollamount','5');">
-    <strong class="red">Full Look – Phần mềm Khảo sát & Phát triển Năng lực dành cho HS ôn thi vào lớp 6, giá ưu đãi: 250k/ 6 tháng (ưu đãi trong 5 ngày, từ ngày 16/3/2018 đến 26/3/2018)</strong>
-    </marquee>
- </div>
-
+	<div style="bottom: 10px; font-size: 20px; width: 100%; font-weight: bold;" class="absolute text-center hidden-xs">
+	Ưu đãi về giá (2/4/2018 – 2/5/2018): Gói 3. Chỉ còn 290k/6 tháng; Gói 4. Chỉ còn 350k/12 tháng.
+	</div>
+	<div style="bottom: 10px; width: 100%; font-weight: bold;" class="absolute text-center visible-xs">
+	Ưu đãi về giá (2/4/2018 – 2/5/2018): Gói 3. Chỉ còn 290k/6 tháng; Gói 4. Chỉ còn 350k/12 tháng.
+	</div>
 </div>
 
 <div class="item bg6">
