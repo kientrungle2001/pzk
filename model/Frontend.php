@@ -739,12 +739,21 @@ class PzkFrontendModel {
 		}	
 	}
 	
-	public function checkExtraTest($userId, $parentId, $order){
+	public function getExtraTest($parentId, $order) {
+		$test = _db()->select('*')->fromTests()
+			->whereParent($parentId)->whereOrdering($order)
+			->result_one();
+		return $test;
+	}
+	
+	public function checkExtraTest($userId, $parentId, $order, $test = false){
+		if(!$test)
+			$test = $this->getExtraTest($parentId, $order);
 		$data = _db()->select('*')
 			->from('user_book')
 			->where(array('userId', $userId))
 			->where(array('parentTest', $parentId))
-			->whereOrdering($order)
+			->whereTestId($test['id'])
 			->whereCompability(1)
 			->whereExtraCompability(1)
 			->result_one();

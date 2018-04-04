@@ -30,9 +30,10 @@ class PzkCompabilityController extends PzkController{
 						$this->showMessageAndHalt('Đã hết thời gian thi!');
 					}
 					//check extra test 1
-					$checkExtraTest1 = $frontend->checkExtraTest($userId, $parentId, 1);
-					//check lam trac nghiem
-					if($checkTestNsTn == false) {
+					$test1 = $frontend->getExtraTest($parentId, 1);
+					$checkExtraTest1 = $frontend->checkExtraTest($userId, $parentId, 1, $test1);
+					//check lam de 1
+					if($checkExtraTest1 == false) {
 					
 						$testTn = $frontend->getChildCompability(TN, $parentId);
 
@@ -42,30 +43,27 @@ class PzkCompabilityController extends PzkController{
 							pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng');
 							pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 							pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-							$this->append('education/test/compability', 'wrapper');
-							
-						
-							$compability = pzk_element('compability');
-							
-							$data_criteria = array(
-								'time' => $dataParentTest['time'],
-								'quantity' => $testTn['quantity'],
-								'name' => $testTn['name'],
-								'id' => $testTn['id'],
-								'parentTest' => $testTn['parent']
+							if($test1) {
+								$request 	=	pzk_request();
+								$request->set('homework', 		$test1['id']);
+								$request->set('subject', 		52);
+								$request->set('topic', 			52);
+								$this->append('education/practice/mixedTest');
 								
-							);
-							
-							$compability->set('parentId', $parentId);
-							$compability->set('data_criteria', $data_criteria);	
+								$homework					= 	pzk_element('showTest');
+								$homework->set('layout', 'education/contest/mixedTest');
+								$homework->set('itemId', 		$test1['id']);
+								$homework->set('parentTestId', $parentId);
+								$homework->set('parentTest', $dataParentTest);
+								$homework->set('ordering', 		1);
+							}
 						$this->display();
 						pzk_system()->halt();
 					}else{
-						$checkTestNsTl = $frontend->checkExtraTest($userId, $parentId, 2);
-						//check lam tu luan
-						if($checkTestNsTl == false) {
-								
-							$testTl = $frontend->getChildCompability(TL, $parentId);
+						$test2 = $frontend->getExtraTest($parentId, 2);
+						$checkExtraTest2 = $frontend->checkExtraTest($userId, $parentId, 2, $test2);
+						//check lam de 2
+						if($checkExtraTest2 == false) {
 							
 							$this->initPage();
 								pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
@@ -73,25 +71,22 @@ class PzkCompabilityController extends PzkController{
 								pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng');
 								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-								$this->append('education/test/againTestTl', 'wrapper');
-										
-						
-								$compabilityTl = pzk_element('compabilityTl');
 								
-								$checkTestNsTn = $frontend->checkTestNsTn($userId, $parentId);
+							if($test2) {
+								$request 	=	pzk_request();
+								$request->set('homework', 		$test2['id']);
+								$request->set('subject', 		52);
+								$request->set('topic', 			52);
+								$this->append('education/practice/mixedTest');
 								
-								$time = $dataParentTest['time'] * 60 - $checkTestNsTn['duringTime'];
+								$homework					= 	pzk_element('showTest');
+								$homework->set('layout', 'education/contest/mixedTest');
+								$homework->set('itemId', 		$test2['id']);
+								$homework->set('parentTestId', $parentId);
+								$homework->set('parentTest', $dataParentTest);
+								$homework->set('ordering', 		2);
+							}
 								
-								$data_criteria = array(
-									'time' => $time,
-									'quantity' => $testTl['quantity'],
-									'name' => $testTl['name'],
-									'id' => $testTl['id'],
-									'parentTest' => $testTl['parent']
-								);
-								
-								$compabilityTl->set('parentId', $parentId);
-								$compabilityTl->set('data_criteria', $data_criteria);
 							$this->display();
 							pzk_system()->halt();
 							
@@ -846,6 +841,158 @@ class PzkCompabilityController extends PzkController{
 			'totalMark'				=>	$totalMark,
 			'totalTn'				=> 	$totalTn,
 			'testMark'				=>  isset($test['testMark'])? $test['testMark']: 0
+		);
+		
+		# lưu
+		$userBookEntity =	_db()->getTableEntity('user_book');
+		$userBookEntity->setData($user_book);
+		$userBookEntity->save();
+		
+		# Lưu các đáp án
+		foreach($user_answers as $user_answer) {
+			$user_answer['user_book_id']	=	$userBookEntity->get('id');
+			$userAnswerEntity 	= 	_db()->getTableEntity('user_answers');
+			/*
+			# kiểm tra đáp án đã có chưa
+			
+			$userAnswerExisted 	= 	_db()->select('id')->from('user_answers')
+				->whereUser_book_id($bookId)
+				->whereQuestionId($user_answer['questionId'])
+				->result_one();
+				
+			# đáp án đã tồn tại
+			if($userAnswerExisted) {
+				$user_answer['id'] = $userAnswerExisted['id'];
+			}
+			*/
+			
+			# lưu
+			$userAnswerEntity->setData($user_answer);
+			$userAnswerEntity->save();
+		}
+	}
+	
+	public function saveContestMixedTestAction() {
+		$request 			= 	pzk_request();
+		$session 			=	pzk_session();
+		
+		$userId 			=	$session->get('userId');
+		
+		$subject 			=	intval($request->get('subject'));
+		$topic				=	intval($request->get('topic'));
+		$testId				=	intval($request->get('homework'));
+		
+		$userData 			= 	$request->get('userData');
+		$parentTestId		=	intval($userData['parentTestId']);
+		$questionIds 		= 	$userData['questionIds'];
+		$questionTypes 		= 	$userData['questionTypes'];
+		$answers			=	isset($userData['answers'])?$userData['answers']: array();
+		$bookId 			=	isset($userData['bookId'])?$userData['bookId']:0;
+		$totalMark			=	0;
+		$totalTn			=	0;
+		$autoMark			=	0;
+		$total 				=	0;
+		$startTime 			=	$userData['start_time'];
+		$duringTime			=	$userData['during_time'];
+		$stopTime			=	$startTime + $duringTime;
+		$user_answers		=	array();
+		$test				=	_db()->selectAll()->from('tests')->whereId($testId)->result_one();
+		
+		foreach($questionIds as $questionIndex => $questionId) {
+			$question 		=	_db()->getTableEntity('questions')->load($questionId);
+			$questionType = $questionTypes[$questionIndex];
+			$action = 'mark' . ucfirst($questionType);
+			# kiểu bài trắc nghiệm
+			if($questionType == 'choice') {
+				$mark = $this->$action($question, $answers, $test);
+				$totalMark 	+= 	$mark;
+				$autoMark 	+=	$mark;
+				$totalTn	+=	$mark;
+				$total++;
+				$user_answer 		=	array(
+					'questionId'	=>	$questionId,
+					'answerId'		=>	isset($answers[$questionId])?$answers[$questionId]: 0,
+					'user_book_id'	=>	$bookId,
+					'question_type'	=>	'Q0',
+					'mark'			=>	$mark,
+					'isMark'		=>	1,
+					'testId'		=>	$testId,
+					'auto'			=>	1
+				);
+				$user_answers[]		=	$user_answer;
+			} else {
+			# kiểu bài tự luận
+				
+				# bóc tách dữ liệu
+				$arAnswer = array();
+				if(isset($answers[$questionIndex.'_i'])){
+					$arAnswer['i'] = $answers[$questionIndex.'_i'];
+				}
+				if(isset($answers[$questionIndex.'_t'])){
+					$arAnswer['t'] = $answers[$questionIndex.'_t'];
+				}
+				
+				# chấm điểm
+				$mark = $this->$action($question, $arAnswer, $test);
+				$totalMark += $mark;
+				if($question->get('auto')) {
+					$autoMark += $mark;
+				}
+				
+				# lưu vào user answer
+				$user_answer 		=	array(
+					'questionId'	=>	$questionId,
+					'answerId'		=>	'',
+					'content'		=>	serialize($arAnswer),
+					'user_book_id'	=>	$bookId,
+					'question_type'	=>	'TL',
+					'testId'		=>	$testId,
+					'auto'			=>	$question->get('auto'),
+					'isMark'		=> 	$question->get('auto') ? 1 : 0,
+					'mark'			=>	$mark
+				);
+				$user_answers[]		=	$user_answer;
+			}
+		}
+		
+		# lấy tên lớp học của học sinh và tên lớp học của đề thi giao nhau
+		$className 					= 	'';
+		
+		# lưu vào bảng user_book
+		# niên khóa
+		$schoolYear					= 	date('Y');
+		if(date('m') < 7) $schoolYear = date('Y') - 1;
+		
+		# tạo bản ghi user_book
+		$user_book = array(
+			'id'					=> 	$bookId,
+			'userId'				=> 	$userId,
+			'categoryId'			=> 	$subject,
+			'topic'					=> 	$topic,
+			'quantity_question'		=> 	count($questionIds),
+			'startTime'				=> 	date('Y-m-d H:i:s', $startTime),
+			'stopTime'				=> 	date('Y-m-d H:i:s', $stopTime),
+			'duringTime'			=> 	$duringTime,
+			'testId'				=> 	$testId,
+			'keybook'				=> 	uniqid(),
+			'software'				=> 	$request->get('softwareId'),
+			'created'				=> 	date('Y-m-d H:i:s'),
+			'mustMark'				=> 	1,
+			'homework'				=> 	1,
+			'week'					=> 	isset($test['week'])?$test['week']:0,
+			'month'					=> 	isset($test['month'])?$test['month']:0,
+			'semester'				=> 	isset($test['semester'])?$test['semester']:0,
+			'class'					=> 	pzk_session('lop'),
+			'classname'				=>	$className,
+			'schoolYear'			=>	$schoolYear,
+			'homeworkStatus'		=>	1,
+			'autoMark'				=>	$autoMark,
+			'totalMark'				=>	$totalMark,
+			'totalTn'				=> 	$totalTn,
+			'testMark'				=>  isset($test['testMark'])? $test['testMark']: 0,
+			'compability'			=> 	1,
+			'extraCompability'		=>	1,
+			'parentTest'			=>	$parentTestId,
 		);
 		
 		# lưu
