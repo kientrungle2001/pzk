@@ -563,7 +563,7 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
             $this->redirect('index');
         
         } else {
-            pzk_validator()->setEdittingData($row);
+            pzk_validator()->setEditingData($row);
             $this->redirect('add');
         }
     }
