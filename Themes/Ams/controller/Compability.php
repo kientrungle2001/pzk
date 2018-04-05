@@ -655,6 +655,85 @@ class PzkCompabilityController extends PzkController{
 		$this->display();
 	}
 	
+	public function extraTestResultAction($testId) {
+		$userId 	= pzk_session('userId');
+		if(!$userId) {
+			return 0;
+		}
+		$testTnId 	= null;
+		$testTlId 	= null;
+		$frontend = pzk_model('Frontend');
+		$dataParentTest = $frontend->getOne($testId, 'tests');
+		//chua den ngay thi
+		if(strtotime($dataParentTest['resultDate']) > time()){
+			$this->showMessageAndHalt('Chưa đến thời gian xem kết quả!');
+		}
+		
+		$testTn = _db()->select('id')->fromTests()->whereParent($testId)->whereTrytest(1)->result_one();
+		$testTl   = _db()->select('id')->fromTests()->whereParent($testId)->whereTrytest(2)->result_one();
+		
+		if($testTn) {
+			$testTnId = $testTn['id'];
+		}
+		if($testTl) {
+			$testTlId = $testTl['id'];
+		}
+		
+		$userId 	= pzk_session('userId');
+		if(!$userId) {
+			return 0;
+		}
+		$userbookTn = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($testTnId)->result_one();
+		$userbookTl = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($testTlId)->result_one();
+		$this->initPage();
+		
+		//lay phan trac nghiem 
+		$this ->append('education/practice/book');
+		$book = pzk_element('book');
+		if($book) {
+			$book->set('itemId', $userbookTn['id']);
+			$book->set('teacherMark', $userbookTl['teacherMark']);
+		}
+		//show phan tu luan				
+		if($userbookTl['status'] == 1) {
+			//da cham xong
+			
+			$this->append('education/test/resultTestTl', 'wrapper');
+			
+			$userBookModel 	= pzk_model('Userbook');
+			
+			$resultTestTl = pzk_element('resultTestTl');
+			
+			//du lieu cho bai tu luan
+			$dataUserAnswers 	= $userBookModel->getUserAnswers($userbookTl['id']);
+			
+			$resultTestTl->set('dataUserAnswers', $dataUserAnswers);
+			
+			//diem bai thi tu luan 
+			$scoreTl = $userbookTl['teacherMark'];
+			$resultTestTl->set('scoreTl', $scoreTl);
+				
+		} else {
+			
+			$this->append('education/test/resultTestTl', 'wrapper');
+			
+			$userBookModel 	= pzk_model('Userbook');
+			
+			$resultTestTl = pzk_element('resultTestTl');
+			
+			//du lieu cho bai tu luan
+			$dataUserAnswers 	= $userBookModel->getUserAnswers($userbookTl['id']);
+			
+			$resultTestTl->set('dataUserAnswers', $dataUserAnswers);
+			
+			//diem bai thi tu luan 
+			$scoreTl = $userbookTl['teacherMark'];
+			$resultTestTl->set('scoreTl', $scoreTl);
+		}
+		
+		$this->display();
+	}
+	
 	public function dsthiAction() {
 		//goi luon layout
 		$this->renderLayout('education/contest/dsthi');

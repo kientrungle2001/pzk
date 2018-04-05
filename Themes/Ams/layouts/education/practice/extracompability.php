@@ -61,8 +61,8 @@ $testcheck = pzk_user()->checkCompabilityTestAccess($item['id']);
 		</div>
 		<div class="btn-group btn-group-justified" style="margin-top: 15px;">
 		<?php if(time() > strtotime($item['resultDate'])) { ?>
-			<a class="btn btn-danger" href="/Compability/result/<?=$item['id']?>">Kết quả</a>
-			<a class="btn btn-info" href="/Compability/rank/<?=$item['id']?>">Xếp hạng</a>
+			<a class="btn btn-danger" href="/Compability/extraTestResult/<?=$item['id']?>">Kết quả</a>
+			<a class="btn btn-info" href="/Compability/extraTestRank/<?=$item['id']?>">Xếp hạng</a>
 		<?php } ?>
 		</div>
 
