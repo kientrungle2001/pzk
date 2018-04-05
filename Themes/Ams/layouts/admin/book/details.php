@@ -55,8 +55,6 @@
 	</div>
 	
 	
-	<input type='hidden' name='trytest' value="<?=$dataShowUserBook['trytest'];?>" />
-	
 	<?php if(count($dataUserAnswers) > 0) { ?>
 		<?php foreach($dataUserAnswers as $key =>$value):
 			if(!isset($questionById[$value ['questionId']])) continue;

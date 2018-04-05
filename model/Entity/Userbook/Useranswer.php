@@ -7,7 +7,6 @@ class PzkEntityUserbookUseranswerModel extends PzkEntityModel {
 		$data = _db()->select('user_answers.mark')->fromUser_answers()
 			->where(array('equal', 'user_book_id', $userBookId))
 			->result();
-		debug($data);die();	
 		$total = 0;
 		if($data) {
 			foreach($data as $val) {

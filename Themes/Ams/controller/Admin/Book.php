@@ -258,7 +258,6 @@ class PzkAdminBookController extends PzkGridAdminController {
 				'teacher_mark'		=> $dataUserBook['teacherMark'],
 				'quantity_question' => count($dataUserAnswers),
 				'marked'			=> $dataUserBook['marked'],
-				'trytest'			=> $dataUserBook['trytest'],
 				'username'			=> $userInfo['name'],
 				
 					
@@ -423,7 +422,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 	
 	public function updatePostAction(){
 		
-		$row = pzk_request()->getFilterData('user_book_id, note, mark, checkfalse, recommend_mark, trytest, answers, answers_level, question_id, save, check');
+		$row = pzk_request()->getFilterData('user_book_id, note, mark, checkfalse, recommend_mark, answers, answers_level, question_id, save, check');
 		//debug($row);die();
 		$adminId = pzk_session('adminId');
 		$userBook	= _db()->getEntity('Userbook.Userbook');
@@ -441,27 +440,25 @@ class PzkAdminBookController extends PzkGridAdminController {
 				
 				foreach($row['mark'] as $key => $value){
 					
-					//neu la dang thi thu
-					if(isset($row['trytest']) && $row['trytest'] == 2 ){
-						
-						$arAnswer = array();
-						if(isset($row['answers'][$key.'_i'])){
-							$arAnswer['i'] = $row['answers'][$key.'_i'];
-						}
-						if(isset($row['answers'][$key.'_t'])){
-							$arAnswer['t'] = $row['answers'][$key.'_t'];
-						}			
-						if(isset($row['checkfalse'][$key])) {
-							$arAnswer['checkfalse'] = $row['checkfalse'][$key];
-						}
-						$dataCheckFalse = array(
-							'id'		=>  $key,
-							'content_edit' => serialize($arAnswer)
-						);
-						//debug($dataCheckFalse);die();
-						$userAnswer->setData($dataCheckFalse);
-						$userAnswer->save();
+					
+					$arAnswer = array();
+					if(isset($row['answers'][$key.'_i'])){
+						$arAnswer['i'] = $row['answers'][$key.'_i'];
 					}
+					if(isset($row['answers'][$key.'_t'])){
+						$arAnswer['t'] = $row['answers'][$key.'_t'];
+					}			
+					if(isset($row['checkfalse'][$key])) {
+						$arAnswer['checkfalse'] = $row['checkfalse'][$key];
+					}
+					$dataCheckFalse = array(
+						'id'		=>  $key,
+						'content_edit' => serialize($arAnswer)
+					);
+					//debug($dataCheckFalse);die();
+					$userAnswer->setData($dataCheckFalse);
+					$userAnswer->save();
+					
 						
 					if($row['recommend_mark'][$key] != null){
 						$dataUserAnswer = array(
@@ -515,7 +512,8 @@ class PzkAdminBookController extends PzkGridAdminController {
 					
 					$marked = $userAnswer->countAnswer($row['user_book_id']);
 					//da cham het cac cau hoi trong bai
-					$total_mark = $userAnswer->totalMark($row['user_book_id']);
+					//Tong diem cac cau giao vien cham
+					$total_mark = $userAnswer->totalMarkNs($row['user_book_id']);
 					$dataUserBook = array(
 						'id'			=> $row['user_book_id'],
 						'marked' => $marked,
@@ -542,60 +540,76 @@ class PzkAdminBookController extends PzkGridAdminController {
 					$userBook->save();
 				}
 				//update vao bang user contest
-				if($row['trytest'] == 2 && $checkMarkAll == 'ok') {
+				if($checkMarkAll == 'ok') {
 					//update vao bang user content
 					$dataUserBook = $userBook->userBook($row['user_book_id']);
 					$userId = $dataUserBook['userId'];
 					
 					$parentTest = $dataUserBook['parentTest'];
 					
-					$dataUserBookTn = $userBook->getNsTn($userId, 1, $parentTest);
-		
-					//tinh diem
-					$totalMark = $dataUserBookTn['totalTn'] + $dataUserBook['teacherMark']; 	
-					
-					$duringTime = $dataUserBookTn['duringTime'] + $dataUserBook['duringTime'];
 					//check xem da updat vao bang user contest chua
 					$userContest	= _db()->getEntity('Userbook.Usercontest');
-					
+					//total mark
+					$totalMark = $dataUserBook['totalTn'] + $dataUserBook['teacherMark'];
 					
 					$checkContest = $userContest->checkContestCompability($userId, $parentTest);
 					
 					if($checkContest) {
-						$dataUserContest = array(
-							'id'=> $checkContest['id'],
-							'parentTest' => $parentTest,
-							'mark' => $dataUserBookTn['mark'],
-							'totalTn' => $dataUserBookTn['totalTn'],
-							'teacherMark' => $dataUserBook['teacherMark'],
-							'totalMark' => $totalMark,
-							'duringTime' => $duringTime,
-							'choiceId' => $dataUserBookTn['id'],
-							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
-							'modified' => date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
-							'modifiedId'	=> pzk_session('adminId')
-						);
+						//update cham de 1
+						if($dataUserBook['camp'] == 1){
+							$dataUserContest = array(
+								'id'=> $checkContest['id'],
+								'parentTest' => $parentTest,
+								'test1DuringTime' => $dataUserBook['duringTime'],
+								'test1Id' => $row['user_book_id'],
+								'test1Mark'	=> $totalMark,	
+								'software' =>  pzk_request()->get('softwareId'),
+								'modified' => date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
+								'modifiedId'	=> pzk_session('adminId')
+							);
+						}else if($dataUserBook['camp'] == 2){
+							//update cham de 2
+							$dataUserContest = array(
+								'id'=> $checkContest['id'],
+								'parentTest' => $parentTest,
+								'test2DuringTime' => $dataUserBook['duringTime'],
+								'test2Id' => $row['user_book_id'],
+								'test2Mark'	=> $totalMark,
+								'software' =>  pzk_request()->get('softwareId'),
+								'modified' => date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
+								'modifiedId'	=> pzk_session('adminId')
+							);
+						}
 						
 						$userContest->setData($dataUserContest);
 						$userContest->save();
 					}else{
+						//update cham de 1
+						if($dataUserBook['camp'] == 1){
+							$dataUserContest = array(
+								'userId' => $userId,
+								'parentTest' => $parentTest,
+								'test1DuringTime' => $dataUserBook['duringTime'],
+								'test1Id' => $row['user_book_id'],
+								'test1Mark'	=> $totalMark,
+								'software' =>  pzk_request()->get('softwareId'),
+								'created' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
+								'modifiedId'	=> pzk_session('adminId')
+							);
+						}else if($dataUserBook['camp'] == 2) {
+							//update cham de 2
+							$dataUserContest = array(
+								'userId' => $userId,
+								'parentTest' => $parentTest,
+								'test2DuringTime' => $dataUserBook['duringTime'],
+								'test2Id' => $row['user_book_id'],
+								'test2Mark'	=> $totalMark,
+								'software' =>  pzk_request()->get('softwareId'),
+								'created' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
+								'modifiedId'	=> pzk_session('adminId')
+							);
+						}
 						
-						$dataUserContest = array(
-							'userId' => $userId,
-							'class' => $dataUserBook['class'],
-							'parentTest' => $parentTest,
-							'mark' => $dataUserBookTn['mark'],
-							'totalTn' => $dataUserBookTn['totalTn'],
-							'teacherMark' => $dataUserBook['teacherMark'],
-							'totalMark' => $totalMark,
-							'duringTime' => $duringTime,
-							'choiceId' => $dataUserBookTn['id'],
-							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
-							'created' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
-							'modifiedId'	=> pzk_session('adminId')
-						);
 						$userContest->setData($dataUserContest);
 						$userContest->save();
 						
