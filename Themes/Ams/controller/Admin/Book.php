@@ -555,13 +555,19 @@ class PzkAdminBookController extends PzkGridAdminController {
 					$checkContest = $userContest->checkContestCompability($userId, $parentTest);
 					
 					if($checkContest) {
+						$markContestTest1 = $checkContest['test1Mark'];
+						$markContestTest2 = $checkContest['test2Mark'];
+						$timeContestTest1 = $checkContest['test1DuringTime'];
+						$timeContestTest2 = $checkContest['test2DuringTime'];
 						//update cham de 1
 						if($dataUserBook['camp'] == 1){
 							$dataUserContest = array(
 								'id'=> $checkContest['id'],
 								'parentTest' => $parentTest,
 								'test1DuringTime' => $dataUserBook['duringTime'],
+								'duringTime' => $dataUserBook['duringTime'] + $timeContestTest2,
 								'test1Id' => $row['user_book_id'],
+								'totalMark' => $totalMark + $markContestTest2,
 								'test1Mark'	=> $totalMark,	
 								'software' =>  pzk_request()->get('softwareId'),
 								'modified' => date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
@@ -573,7 +579,9 @@ class PzkAdminBookController extends PzkGridAdminController {
 								'id'=> $checkContest['id'],
 								'parentTest' => $parentTest,
 								'test2DuringTime' => $dataUserBook['duringTime'],
+								'duringTime' => $dataUserBook['duringTime'] + $timeContestTest1,
 								'test2Id' => $row['user_book_id'],
+								'totalMark' => $totalMark + $markContestTest1,
 								'test2Mark'	=> $totalMark,
 								'software' =>  pzk_request()->get('softwareId'),
 								'modified' => date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
@@ -590,6 +598,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 								'userId' => $userId,
 								'parentTest' => $parentTest,
 								'test1DuringTime' => $dataUserBook['duringTime'],
+								'duringTime' => $dataUserBook['duringTime'] + $timeContestTest2,
 								'test1Id' => $row['user_book_id'],
 								'test1Mark'	=> $totalMark,
 								'software' =>  pzk_request()->get('softwareId'),
@@ -602,6 +611,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 								'userId' => $userId,
 								'parentTest' => $parentTest,
 								'test2DuringTime' => $dataUserBook['duringTime'],
+								'duringTime' => $dataUserBook['duringTime'] + $timeContestTest1,
 								'test2Id' => $row['user_book_id'],
 								'test2Mark'	=> $totalMark,
 								'software' =>  pzk_request()->get('softwareId'),

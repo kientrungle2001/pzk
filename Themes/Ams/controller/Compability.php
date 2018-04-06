@@ -561,7 +561,19 @@ class PzkCompabilityController extends PzkController{
     	echo 1;
 	}
 	
-	
+	public function extraTestRankAction(){
+		$parentId = intval(pzk_request()->getSegment(3));
+		$this->initPage();
+		$this->append('education/test/rankExtra');
+		$compabilityRating = pzk_element('rankExtra');
+		$compabilityRating->set('joins', array(
+			array('table' => 'user', 'condition' => 'user_contest.userId=user.id')
+		));
+		$compabilityRating->set('fields', 'user_contest.*, user.username, user.name');
+		$compabilityRating->set('parentId', $parentId);
+		$compabilityRating->set('pageNum', pzk_request('page'));
+		$this->display();
+	}
 	public function rankAction() {
 		$parentId = intval(pzk_request()->getSegment(3));
 		$this->initPage();
