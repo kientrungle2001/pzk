@@ -658,10 +658,10 @@ class PzkCompabilityController extends PzkController{
 	public function extraTestResultAction($testId) {
 		$userId 	= pzk_session('userId');
 		if(!$userId) {
-			return 0;
+			$this->showMessageAndHalt('Bạn chưa đăng nhập');
 		}
-		$testTnId 	= null;
-		$testTlId 	= null;
+		$test1Id 	= null;
+		$test2Id 	= null;
 		$frontend = pzk_model('Frontend');
 		$dataParentTest = $frontend->getOne($testId, 'tests');
 		//chua den ngay thi
@@ -669,68 +669,42 @@ class PzkCompabilityController extends PzkController{
 			$this->showMessageAndHalt('Chưa đến thời gian xem kết quả!');
 		}
 		
-		$testTn = _db()->select('id')->fromTests()->whereParent($testId)->whereTrytest(1)->result_one();
-		$testTl   = _db()->select('id')->fromTests()->whereParent($testId)->whereTrytest(2)->result_one();
+		$test1 = _db()->select('*')->fromTests()->whereParent($testId)->whereOrdering(1)->result_one();
+		$test2   = _db()->select('*')->fromTests()->whereParent($testId)->whereOrdering(2)->result_one();
 		
-		if($testTn) {
-			$testTnId = $testTn['id'];
+		if($test1) {
+			$test1Id = $test1['id'];
 		}
-		if($testTl) {
-			$testTlId = $testTl['id'];
+		if($test2) {
+			$test2Id = $test2['id'];
 		}
 		
 		$userId 	= pzk_session('userId');
 		if(!$userId) {
 			return 0;
 		}
-		$userbookTn = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($testTnId)->result_one();
-		$userbookTl = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($testTlId)->result_one();
+		
+		$userbook1 = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($test1Id)->result_one();
+		
+		$userbook2 = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($test2Id)->result_one();
+		
 		$this->initPage();
+		$testResult = $this->parse('education/contest/user/mixedTestResult');
 		
-		//lay phan trac nghiem 
-		$this ->append('education/practice/book');
-		$book = pzk_element('book');
-		if($book) {
-			$book->set('itemId', $userbookTn['id']);
-			$book->set('teacherMark', $userbookTl['teacherMark']);
-		}
-		//show phan tu luan				
-		if($userbookTl['status'] == 1) {
-			//da cham xong
-			
-			$this->append('education/test/resultTestTl', 'wrapper');
-			
-			$userBookModel 	= pzk_model('Userbook');
-			
-			$resultTestTl = pzk_element('resultTestTl');
-			
-			//du lieu cho bai tu luan
-			$dataUserAnswers 	= $userBookModel->getUserAnswers($userbookTl['id']);
-			
-			$resultTestTl->set('dataUserAnswers', $dataUserAnswers);
-			
-			//diem bai thi tu luan 
-			$scoreTl = $userbookTl['teacherMark'];
-			$resultTestTl->set('scoreTl', $scoreTl);
-				
-		} else {
-			
-			$this->append('education/test/resultTestTl', 'wrapper');
-			
-			$userBookModel 	= pzk_model('Userbook');
-			
-			$resultTestTl = pzk_element('resultTestTl');
-			
-			//du lieu cho bai tu luan
-			$dataUserAnswers 	= $userBookModel->getUserAnswers($userbookTl['id']);
-			
-			$resultTestTl->set('dataUserAnswers', $dataUserAnswers);
-			
-			//diem bai thi tu luan 
-			$scoreTl = $userbookTl['teacherMark'];
-			$resultTestTl->set('scoreTl', $scoreTl);
-		}
+		$testResult->set('test', $dataParentTest);
 		
+		$test1Obj = pzk_element('test1');
+		$test2Obj = pzk_element('test2');
+		
+		$test1Obj->set('testId', $test1Id);
+		$test1Obj->set('test', $test1);
+		$test1Obj->set('book', $userbook1);
+		
+		$test2Obj->set('testId', $test2Id);
+		$test2Obj->set('test', $test2);
+		$test2Obj->set('book', $userbook2);
+		
+		$this->append($testResult);
 		$this->display();
 	}
 	
@@ -1072,6 +1046,7 @@ class PzkCompabilityController extends PzkController{
 			'compability'			=> 	1,
 			'extraCompability'		=>	1,
 			'parentTest'			=>	$parentTestId,
+			'camp'					=> 	$test['ordering'],
 		);
 		
 		# lưu

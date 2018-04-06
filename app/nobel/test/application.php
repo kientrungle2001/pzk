@@ -1,8 +1,8 @@
 <Core.Application id="app" name="nobel_test" dispatcher="ControllerBased" 
 	gsv="DJBoN802jfeoHdZJX1oM0vqdSuVjiqQ_0t4dHq0zEf4">
 	<Core.Database.ArrayCondition id="conditionBuilder" />
-	<Core.Database id="db" host="localhost"
-		user="root" password="" dbName="dbfull5" />
+	<Core.Database id="db" host="thiams.com"
+		user="admin_ams" password="nn123456" dbName="admin_ams" />
 	<Core.Database.Schema id="db_schema" />
 	<Core.Themes />
 
