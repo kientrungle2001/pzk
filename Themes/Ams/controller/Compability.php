@@ -696,9 +696,9 @@ class PzkCompabilityController extends PzkController{
 			return 0;
 		}
 		
-		$userbook1 = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($test1Id)->result_one();
+		$userbook1 = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($test1Id)->result_one('Education.Userbook');
 		
-		$userbook2 = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($test2Id)->result_one();
+		$userbook2 = _db()->select('*')->fromUser_book()->whereUserId($userId)->whereTestId($test2Id)->result_one('Education.Userbook');
 		
 		$this->initPage();
 		$testResult = $this->parse('education/contest/user/mixedTestResult');
