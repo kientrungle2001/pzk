@@ -231,10 +231,10 @@
 		</div>
 	</div>
 	<div style="bottom: 10px; font-size: 20px; width: 100%; font-weight: bold;" class="absolute text-center hidden-xs">
-	Ưu đãi về giá (2/4/2018 – 2/5/2018): Gói 3. Chỉ còn 290k/6 tháng; Gói 4. Chỉ còn 350k/12 tháng.
+	Ưu đãi về giá (2/4/2018 – 2/5/2018): Gói 3. Chỉ còn 350k/6 tháng; Gói 4. Chỉ còn 500k/12 tháng.
 	</div>
 	<div style="bottom: 10px; width: 100%; font-weight: bold;" class="absolute text-center visible-xs">
-	Ưu đãi về giá (2/4/2018 – 2/5/2018): Gói 3. Chỉ còn 290k/6 tháng; Gói 4. Chỉ còn 350k/12 tháng.
+	Ưu đãi về giá (2/4/2018 – 2/5/2018): Gói 3. Chỉ còn 350k/6 tháng; Gói 4. Chỉ còn 500k/12 tháng.
 	</div>
 </div>
 
