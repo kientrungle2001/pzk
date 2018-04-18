@@ -113,7 +113,7 @@ $login = pzk_session('userId');
     </div>
 	 <div class="item">
       <?php if(!$lang || $lang == 'vn'){ ?>
-				 <img class="item" src="/Themes/Songngu3/skin/images/slider4do2.png" />
+				 <img class="item" src="/Themes/Songngu3/skin/images/slider500.png" />
 			<?php }else{ ?>
 				<img class="item" src="/Themes/Songngu3/skin/images/slider4d2.png" />
 			<?php } ?>
