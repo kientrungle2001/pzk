@@ -26,7 +26,7 @@ $answers = $book->getUserAnswers();
 	<?php $question = $answer->getQuestion(); ?>
 	<span class="text text-primary">Câu hỏi <?php echo ($index + 1)?></span>: 
 	<?php if($question->isTn()):?>
-	{question.get('name')}
+	{question.get('name_vn')}
 	<?php else:?>
 	{? echo $question->mix($answer); ?}
 	<?php endif;?>

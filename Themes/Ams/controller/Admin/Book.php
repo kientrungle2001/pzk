@@ -119,6 +119,11 @@ class PzkAdminBookController extends PzkGridAdminController {
 					'format'=> 'H:i d/m/Y',
 					'label' => 'Thời gian làm'
 			),
+			array(
+					'index' => 'status',
+					'type' 	=> 'status',
+					'label' => 'Đã chấm'
+			),
 	);
 	
 	//search fields co type la text

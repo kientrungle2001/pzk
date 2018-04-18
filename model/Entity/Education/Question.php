@@ -63,7 +63,7 @@ class PzkEntityEducationQuestionModel extends PzkEntityModel
 	public function mix($answer) {
 		$user_answer = unserialize($answer->get('content'));
 		$teacher_answers = json_decode($this->get('teacher_answers'));
-		$content = $this->get('name');
+		$content = $this->get('name_vn');
 		$pattern = '/\[(input|i)([\d]+)(\[([\d]+)\])?\]/';
 		$replacement =	"<input size='$4' class='answers_".$this->get('id')."_i_$2' name='answers[".$this->get('id')."_i][$2]'/>";
 		$content = preg_replace($pattern, $replacement, $content);
