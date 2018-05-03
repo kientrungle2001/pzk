@@ -151,7 +151,7 @@ $login = pzk_session('userId');
 </div>
 
 <div class="item">
-	<div class="container hidden-xs menu2">
+	<div class="container text-center hidden-xs menu2">
 		<a href="/home/detail">
 		<?php if(!$lang || $lang == 'vn' ){ ?>
 			<img src="/Themes/Songngu3/skin/images/gioithieusanpham2.png" />
@@ -160,14 +160,7 @@ $login = pzk_session('userId');
 		<?php } ?>
 		
 		</a>
-		<a href="#">
-		<?php if(!$lang || $lang == 'vn' ){ ?>
-			<img src="/Themes/Songngu3/skin/images/dungthu2.png" />
-		<?php } else { ?>
-			<img src="/Themes/Songngu3/skin/images/dungthu22.png" />
-		<?php } ?>
 		
-		</a>
 		<a href="/home/detail?tab8=1">
 		<?php if(!$lang || $lang == 'vn' ){ ?>
 			<img src="/Themes/Songngu3/skin/images/muasp2.png" />
@@ -194,7 +187,6 @@ $login = pzk_session('userId');
 	</div>
 	<div class="container visible-xs mb-menu2 mgt10">
 		<a class="color1" href="/home/detail"><?=$language['introduction']?></a>
-		<a class="color2" href="#"><?=$language['trial']?></a>
 		<a class="color3" href="/home/detail?tab8=1"><?=$language['buy']?></a>
 		<a class="color4" href="/huong-dan-su-dung-song-ngu"><?=$language['guide']?>	</a>
 		<a class="color5" data-toggle="modal" data-target="#home-review"  href="javascript:void(0);"><?=$language['commentary']?></a>

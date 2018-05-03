@@ -4,7 +4,21 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 	public $table 		= 	"questions";
 	public $module 		= 	"question2";
 	public $logable 	= 	true;
-	public $logFields 	= 	'id, name,  request, global, sharedSoftwares, teacherIds, level, classes, categoryIds, trial, questionType, testId, software, check, status, audio, explaination';
+	public $logFields 	= 	'id, name, code,  request, global, sharedSoftwares, teacherIds, level, classes, categoryIds, trial, questionType, testId, software, check, status, audio, explaination';
+	
+	public $exportFields = array(
+				array(
+					'label' 	=> "Id",
+					'index' 	=> "id",
+					'type' 		=> "text"
+				),
+				array(
+					'label' 	=> "Câu hỏi",
+					'index' 	=> "name_vn",
+					'type' 		=> "text"
+				)
+	);
+	
 	public function getLinks() {
 		$currentCategories = ',47,';
 		$currentCategoryId = $this->getFilterSession()->get('categoryIds');
@@ -56,25 +70,33 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 	public $listFieldSettings = array(
 		
 		array(
+			'index' 	=> 'code',
+			'type' 		=> 'text',
+			'label' 	=> 'Mã câu hỏi'
+		),
+		array(
 			'index'		=> 'groupOfInfor',
 			'type'		=> 'group',
 			'label'		=> 'Câu hỏi',
 			'delimiter'	=> '<hr />',
 			'link'		=> '/Admin_Question2/detail/',
 			'fields'	=> array(
-				
+				/*
 				array(
 					'index' 	=> 'name',
 					'type' 		=> 'text',
 					'label' 	=> 'Câu hỏi',
 					'link'		=> '/Admin_Question2/detail/'
 				),	
-				/*
+				*/
+				
 				array(
 					'index' 	=> 'name_vn',
 					'type' 		=> 'text',
-					'label' 	=> 'Dịch câu hỏi',
+					'label' 	=> 'Câu hỏi',
+					'link'		=> '/Admin_Question2/detail/'
 				),
+				/*
 				array(
 					'index' 	=> 'explaination',
 					'type' 		=> 'text',
@@ -249,6 +271,17 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 							),
 						),
 						array(
+							'index' 	=> 'auto',
+							'type' 		=> 'status',
+							'label' 	=> 'Tự động',
+							'icon'		=> 'pushpin',
+							'filter'		=> array(
+								'index'		=>'auto',
+								'type' 		=> 'status',
+								'label' 	=> 'Tự động'
+							),
+						),
+						array(
 							'index' 	=> 'deleted',
 							'type' 		=> 'status',
 							'label' 	=> 'Đã xóa',
@@ -379,7 +412,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 		*/
 	);
 	//search fields co type la text
-    public $searchFields = array('name', 'id');
+    public $searchFields = array('name_vn', 'code', 'id');
     public $searchlabels = 'Tên';
 	
 	 //filter cho cac truong co type la select
@@ -618,12 +651,22 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
     );
 	// add question
 	public $addLabel = "Thêm câu hỏi";
-	public $addFields = 'name, name_vn, request, global, sharedSoftwares, teacherIds, level, classes, categoryIds, trial, questionType, testId, software, check, status, audio, explaination';
+	public $addFields = 'name, name_vn, code,  request, global, sharedSoftwares, teacherIds, level, classes, categoryIds, trial, questionType, testId, software, check, status, audio, explaination';
 	public $addFieldSettings = array(
+		array(
+			'index' 	=> 'code',
+			'type' 		=> 'text',
+			'label' 	=> 'Mã câu hỏi'
+		),
 		array(
 			'index' => 'name',
 			'type' => 'tinymce',
-			'label' => "Câu hỏi"
+			'label' => "Câu hỏi tiếng Anh"
+		),
+		array(
+			'index' => 'name_vn',
+			'type' => 'tinymce',
+			'label' => "Câu hỏi dịch"
 		),
 		/*
 		array(
@@ -681,8 +724,8 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			'type' => 'selectoption',
 			'option' => array(
 				QUESTION_TYPE_CHOICE 		=> "Trắc nghiệm",
-                QUESTION_TYPE_FILL 			=> "Điền đáp án",
-                QUESTION_TYPE_TULUAN_DIENTU => "Tự luận điền từ vào chỗ trống",
+                // QUESTION_TYPE_FILL 			=> "Điền đáp án",
+                //QUESTION_TYPE_TULUAN_DIENTU => "Tự luận điền từ vào chỗ trống",
 				QUESTION_TYPE_TULUAN 		=> "Tự luận làm bài"
 			),
 			'label' => 'Câu hỏi dạng',
@@ -747,38 +790,31 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 	
 	//edit question
 	public $editLabel = "Sửa câu hỏi";
-	public $editFields = 'name, teacherIds, global, sharedSoftwares, request, level, classes, categoryIds, trial, questionType, testId, software, check, status, audio, name_vn, answerTranslation, explaination';
+	public $editFields = 'teacherIds, code, global, sharedSoftwares, request, level, classes, categoryIds, trial, questionType, testId, software, check, status, audio, name_vn, answerTranslation, explaination';
 	public $editFieldSettings = array(
+		array(
+			'index' 	=> 'code',
+			'type' 		=> 'text',
+			'label' 	=> 'Mã câu hỏi'
+		),
 		array(
 			'index' => 'name',
 			'type' => 'tinymce',
-			'label' => "Câu hỏi",
-			'mdsize'	=> 3,
+			'label' => "Câu hỏi tiếng Anh",
+			'mdsize'	=> 6,
 		),
 		array(
 			'index' => 'name_vn',
 			'type' => 'tinymce',
-			'label' => "Câu hỏi (Dịch)",
-			'mdsize'	=> 3,
+			'label' => "Câu hỏi dịch",
+			'mdsize'	=> 6,
 		),
 		array(
 			'index' => 'explaination',
 			'type' => 'tinymce',
 			'label' => "Lý giải",
-			'mdsize'	=> 3,
+			'mdsize'	=> 6,
 		),
-		array(
-			'index' => 'answerTranslation',
-			'type' => 'tinymce',
-			'label' => "Câu trả lời (Dịch)",
-			'mdsize'	=> 3,
-		),
-		/*
-		array(
-			'index' => 'request',
-			'type' => 'tinymce',
-			'label' => 'Yêu cầu'
-		),*/
 		array(
 			'index' => 'categoryIds',
 			'type' => "multiselect",
@@ -787,7 +823,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			'show_value' => "id",
 			'show_name' => 'name',
 			'condition'		=> 'router like \'%ngonngu%\' or router like \'%test%\'',
-			'mdsize'		=> 6,
+			'mdsize'		=> 12,
 			'orderBy'		=> 'ordering asc'
 		),
 		array(
@@ -797,7 +833,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			'table' => "tests",
 			'show_value' => "id",
 			'show_name' => 'name',
-			'mdsize'		=> 6
+			'mdsize'		=> 12
 		),
 		array(
 			'index' => 'level',
@@ -810,10 +846,8 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
                 SUPERHARD => "Nâng cao"
 			),
 			'label' => 'Độ khó',
-			'mdsize'		=> 2
+			'mdsize'		=> 12
 		),
-		
-		
 		 array(
 			'index' => 'teacherIds',
 			'type' => "multiselect",
@@ -822,21 +856,9 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			'show_value' => "id",
 			'show_name' => 'name',
 			'condition' => "usertype_id = 5",
+			'mdsize'		=> 12
 		),
-		array(
-            'index' => 'global',
-            'type' => 'status',
-            'label' => 'Global',
-            'options' => array(
-                '0' => 'Không hoạt động',
-                '1' => 'Hoạt động'
-            ),
-            'actions' => array(
-                '0' => 'mở',
-                '1' => 'dừng'
-            ),
-			'mdsize'		=> 2
-        ),
+		
 		 array(
             'index' => 'trial',
             'type' => 'status',
@@ -856,8 +878,8 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			'type' => 'selectoption',
 			'option' => array(
 				QUESTION_TYPE_CHOICE => "Trắc nghiệm",
-                QUESTION_TYPE_FILL => "Điền đáp án",
-                QUESTION_TYPE_FILL_JOIN => "Tự luận điền từ",
+                //QUESTION_TYPE_FILL => "Điền đáp án",
+                //QUESTION_TYPE_FILL_JOIN => "Tự luận điền từ",
 				QUESTION_TYPE_TULUAN => "Dạng tự luận",
 			),
 			'label' => 'Câu hỏi dạng',
@@ -876,42 +898,16 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
             'index' => 'status',
             'type' => 'status',
             'label' => 'Trạng thái',
-			'mdsize'		=> 2
+			'mdsize'		=> 5
         ),
-		/*
 		array(
-            'index' => 'audio',
-            'type' 			=> 'filemanager',
-			'upload_type'	=> 'audio',
-            'label' 		=> 'Bản đọc',
-			'mdsize'		=> 2
-        ),*/
-		
-		array(
-			'index' => 'sharedSoftwares',
-			'type' => 'multiselectoption',
-			'option' => array(
-				1 => "Full Look",
-                2 => "IQ, EQ, CQ",
-                3 => "Luyện viết văn",
-				4 => "Trang chủ",
-				6 => "Olympic",
-				7 => "Thi tài",
-				8 => "Thi tài Next Nobels"
-			),
-			'label' => 'Chia sẻ',
-			'mdsize'		=> 6
-		),
-		array(
-			'index' => 'classes',
-			'type' => 'multiselectoption',
-			'option' => array(
-				CLASS3 => "Lớp 3",
-                CLASS4 => "Lớp 4",
-                CLASS5 => "Lớp 5",
-			),
+			'index' 		=> 'classes',
+			'type' 			=> 'multiselect',
+			'table'			=> 'education_grade',
+			'show_name'		=> 'gradeNum',	
+			'show_value'	=> 'gradeNum',
 			'label' => 'Chọn lớp',
-			'mdsize'		=> 6
+			'mdsize'		=> 12
 		),
 	);		
     public function add($row) {
@@ -1203,7 +1199,11 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 		_db()->update('questions')
 			->set(array('teacher_answers' => json_encode($answers)))
 			->whereId($question_id)->result();
-		$this->redirect('detail/' . $question_id);
+		if($backHref = pzk_request('backHref')) {
+			$this->redirect($backHref);
+		} else {
+			$this->redirect('detail/' . $question_id);
+		}
 	}
 	
 	public function detailFullAction($id) {
@@ -1327,6 +1327,9 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 		}
 		echo json_encode($arr);
 	}
+	
+	
+   // public $exportTypes = array('pdf', 'excel', 'csv');
 	
 }
 ?>

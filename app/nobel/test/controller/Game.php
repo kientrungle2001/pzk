@@ -192,19 +192,14 @@ class PzkGameController extends PzkController {
 				$vmt->set('pageGame', 1);
 				$vmt->display();
 			}elseif($type == 'vdrag') {
-				if(pzk_request()->isMobile()) {
-					$this->parse('game/vocabulary/nosupport');
-					$nosupport = pzk_element('nosupport');
-					$nosupport->display();
-				}else{
-					
-					$this->parse('game/vocabulary/vdrag');
-					$vdrag = pzk_element('vdrag');
-					$vdrag->set('documentId', $id);
-					$vdrag->set('cateId', $cateId);
-					$vdrag->set('gameCode', $type);
-					$vdrag->display();
-				}
+				
+				$this->parse('game/vocabulary/vdrag');
+				$vdrag = pzk_element('vdrag');
+				$vdrag->set('documentId', $id);
+				$vdrag->set('cateId', $cateId);
+				$vdrag->set('gameCode', $type);
+				$vdrag->display();
+				
 			}elseif($type == 'vdragimg') {
 				if(pzk_request()->isMobile()) {
 					$this->parse('game/vocabulary/nosupport');

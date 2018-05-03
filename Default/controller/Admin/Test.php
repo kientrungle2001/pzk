@@ -115,6 +115,16 @@ class PzkAdminTestController extends PzkGridAdminController {
 			'like' 		=> true
         ),
 		array(
+            'index' 	=> 'categoryIds',
+            'type' 		=> 'select',
+            'label' 	=> 'Đề khảo sát năng lực',
+            'table' 	=> 'categories',
+			'condition'	=> 'parent=1410',
+			'show_name'	=> 'name',
+			'show_value'=> 'id',
+			'like' 		=> true
+        ),
+		array(
             'index'=>'trial',
             'type' => 'status',
             'label' => 'Dùng thử'

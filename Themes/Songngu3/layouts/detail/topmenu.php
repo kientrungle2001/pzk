@@ -166,8 +166,10 @@
 						  <!-- Wrapper for slides -->
 						  <div class="carousel-inner" role="listbox">
 							<div class="item active">
-							{? $items = $data->getWeekTest(ROOT_WEEK_CATEGORY_ID); ?}
-							<?php 
+							<?php //1410 //echo ROOT_WEEK_CATEGORY_ID;?>
+							{? $items = $data->getWeekTest(1410); ?}
+							<?php
+								
 							$trial = array();
 							foreach($items as $tuan) {
 								if($tuan['trial'] == 1) {
@@ -202,7 +204,7 @@
 							  
 							</div>
 							<div class="item">
-							{? $items = $data->getWeekTest2(ROOT_WEEK_CATEGORY_ID); ?}
+							{? $items = $data->getWeekTest2(1410); ?}
 							{each $items as $item}
 							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
 							

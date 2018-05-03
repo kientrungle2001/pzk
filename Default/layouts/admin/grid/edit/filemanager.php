@@ -12,7 +12,7 @@ $mdsize 		= pzk_or($data->get('mdsize'), 12);
 				class="form-control" id="{? echo $data->get('index')?}{rand}"
 				name="{? echo $data->get('index')?}" placeholder="{? echo $data->get('label')?}" type="text"
 				value="{? if ($data->get('type') != 'password') { echo @$data->get('value'); } ?}">
-			<button type="button" class="btn btn-primary" data-toggle="modal"
+			<button onclick="loadFrame{? echo $data->get('index')?}();" type="button" class="btn btn-primary" data-toggle="modal"
 				data-target="#m{? echo $data->get('index')?}{rand}">Select</button>
 		</div>
 	</div>
@@ -27,10 +27,9 @@ $mdsize 		= pzk_or($data->get('mdsize'), 12);
 						aria-hidden="true">&times;</button>
 					<h4 class="modal-title">{? echo $data->get('label')?}</h4>
 				</div>
-				<iframe width="100%" height="400"
-					src="/3rdparty/Filemanager/filemanager/dialog.php?type=0&field_id={? echo $data->get('index')?}{rand}&fldr="
-					frameborder="0"
-					style="overflow: scroll; overflow-x: hidden; overflow-y: scroll;"></iframe>
+				<div id="load{? echo $data->get('index')?}">
+				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -42,6 +41,18 @@ $mdsize 		= pzk_or($data->get('mdsize'), 12);
         $(that).val(res);
         $(modalSelector).modal('hide');
     }
+	var load{? echo $data->get('index')?} = false;
+	function loadFrame{? echo $data->get('index')?}(){
+		
+		if(!load{? echo $data->get('index')?}){
+			var html = '<iframe width="100%" height="400"\
+					src="/3rdparty/Filemanager/filemanager/dialog.php?type=0&field_id={? echo $data->get('index')?}{rand}&fldr="\
+					frameborder="0"\
+					style="overflow: scroll; overflow-x: hidden; overflow-y: scroll;"></iframe>';
+			$('#load{? echo $data->get('index')?}').html(html);
+			load{? echo $data->get('index')?} = true;
+		}
+	}
 
 
 </script>
