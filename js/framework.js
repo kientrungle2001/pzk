@@ -16,7 +16,7 @@ pzk = {
 	page : 'index',
 	elements : {},
 	cache: {},
-	version: serverTime,
+	version: 1,
 	getElement: function(name) {
 		return this.elements[name] || null;
 	},

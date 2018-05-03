@@ -20,26 +20,12 @@ class PzkCoreSystem extends PzkObjectLightWeight {
 			'softwareId'	=> 	'1',
 			'siteId'		=> 	'1'
 		),
-		'book.hanoistar.edu.vn' => 'hns.vn',
-		'hns.nextnobels.com' => 'hns.vn',
+		'fulllook.vn' => 'test1sn.vn',
+		'fulllook.com.vn' => 'test1sn.vn',
 		'fulllooksongngu.com' => 'test1sn.vn',
 		'beta.fulllooksongngu.com' => 'test1sn.vn',
 		'www.fulllooksongngu.com' => 'test1sn.vn',
 		'beta.flsn.nextnobels.com' => 'test1sn.vn',
-		'thiams.com' => 'test1sn.vn',
-		'thicaugiay.com' => 'test1sn.vn',
-		'hns.vn' 		=> array(
-			'app'			=> 	'nobel_hns',
-			'softwareId'	=> 	'1',
-			'siteId'		=> 	'2',
-			'language'		=> 	true
-		),
-		'hns.nextnobels.com' 		=> array(
-			'app'			=> 	'nobel_hns',
-			'softwareId'	=> 	'1',
-			'siteId'		=> 	'2',
-			'language'		=> 	true
-		),
 		'test1sn.vn' 		=> array(
 			'app'			=> 	'nobel_test',
 			'softwareId'	=> 	'1',

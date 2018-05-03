@@ -252,20 +252,22 @@ class PzkParser {
             
             // lay cac thuoc tinh
             $attrs = array();
-			$request = pzk_request();
-            foreach ($node->attributes as $attr) {
-				$nodeName = $attr->nodeName;
-				$nodeValue = $attr->nodeValue;
-				if(preg_match('/rq-([\w][\w\d]*)/', $nodeName, $match)) {
-					if(preg_match('/rseg([\d]+)/', $nodeValue, $rq)) {
-						$attrs[$match[1]] = $request->getSegment($rq[1]);
+			if(function_exists('pzk_request')) {
+				$request = pzk_request();
+				foreach ($node->attributes as $attr) {
+					$nodeName = $attr->nodeName;
+					$nodeValue = $attr->nodeValue;
+					if(preg_match('/rq-([\w][\w\d]*)/', $nodeName, $match)) {
+						if(preg_match('/rseg([\d]+)/', $nodeValue, $rq)) {
+							$attrs[$match[1]] = $request->getSegment($rq[1]);
+						} else {
+							$attrs[$match[1]] = $request->get($nodeValue);
+						}
 					} else {
-						$attrs[$match[1]] = $request->get($nodeValue);
+						$attrs[$attr->nodeName] = $attr->nodeValue;
 					}
-				} else {
-					$attrs[$attr->nodeName] = $attr->nodeValue;
 				}
-            }
+			}
             $attrs['tagName'] = $node->nodeName;
             $attrs['className'] = $className;
             $attrs['pzkParentId'] = isset($parent->id)?$parent->id: null;
