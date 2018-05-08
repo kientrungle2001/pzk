@@ -1,0 +1,1 @@
+<Education.Test.List id="ajaxtest" layout="education/test/ajaxtest" position="ajaxtest" />

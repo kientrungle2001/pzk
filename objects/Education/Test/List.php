@@ -19,6 +19,10 @@ class PzkEducationTestList extends PzkCoreDbList{
 		$data = _db()->selectAll()->fromCategories()->likeClasses('%,'.$class.',%')->wherePractice('0')->whereDisplay('1')->whereParent(ROOT_WEEK_CATEGORY_ID)->limit('18')->orderBy('ordering asc')->result();
 		return $data;
 	}
+	public function getTests($class, $pageNum, $pageSize){
+		$data = _db()->selectAll()->fromCategories()->likeClasses('%,'.$class.',%')->wherePractice('0')->whereDisplay('1')->whereParent(1410)->limit($pageSize, $pageNum)->orderBy('ordering asc')->result();
+		return $data;
+	}
 	public function getTestsOfWeek($class, $weekId, $practice, $check= 0) {
 		$listTest = _db()->useCache(1800)->useCacheKey('getTestsOfWeek_' . $weekId . '_' . $practice . '_' . $check . '_' . $class)->select('*')->fromTests();
 		
@@ -91,6 +95,29 @@ class PzkEducationTestList extends PzkCoreDbList{
 			return $listTest->whereTrial(1)->result_one();
 		}
 	}
+	
+	public function getTestByWeek($weekId=0, $practice, $check= 0, $class){
+	
+		$listTest = _db()->useCache(1800)->useCacheKey('getFirstTestByWeek_' . $weekId . '_' . $practice . '_' . $check . '_' . $class)->select('*')->fromTests();
+		
+		$listTest->whereStatus(1);
+		if($class)
+			$listTest->likeClasses("%,$class,%");
+		if($weekId)
+			$listTest->likeCategoryIds("%,$weekId,%");
+		$listTest->wherePractice($practice);
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+        $listTest->limit(2);
+        $listTest->orderBy('ordering asc');
+		
+		return $listTest->result();
+        /*if(isset($check ) && ($check == 1)){
+			return $listTest->result();
+		}else{
+			return $listTest->whereTrial(1)->result();
+		}*/
+	}
+	
 	public function getAllTestCompability(){
 		 $data = _db()->select('*')->from('tests')->where('compability=1')->where('status=1')->where('parent=0')->orderBy('ordering asc')->result();
 		 return $data;

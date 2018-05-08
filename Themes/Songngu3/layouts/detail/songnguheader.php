@@ -152,33 +152,26 @@ $login = pzk_session('userId');
 
 <div class="item">
 	<div class="container text-center hidden-xs menu2">
-		<a href="/home/detail">
-		<?php if(!$lang || $lang == 'vn' ){ ?>
-			<img src="/Themes/Songngu3/skin/images/gioithieusanpham2.png" />
-		<?php } else { ?>
-			<img src="/Themes/Songngu3/skin/images/gioithieusanpham22.png" />
-		<?php } ?>
 		
-		</a>
-		
-		<a href="/home/detail?tab8=1">
-		<?php if(!$lang || $lang == 'vn' ){ ?>
-			<img src="/Themes/Songngu3/skin/images/muasp2.png" />
-		<?php } else { ?>
-			<img src="/Themes/Songngu3/skin/images/muasp22.png" />
-		<?php } ?>
-		</a>
 		<a href="/huong-dan-su-dung-song-ngu">
 		<?php if(!$lang || $lang == 'vn' ){ ?>
-			<img src="/Themes/Songngu3/skin/images/huongdansd2.png" />
+			<img src="/Themes/Songngu3/skin/images/huongdan.png" />
 		<?php } else { ?>
 			<img src="/Themes/Songngu3/skin/images/huongdansd22.png" />
 		<?php } ?>
 		
 		</a>
+		<a href="/home/detail?tab8=1">
+		<?php if(!$lang || $lang == 'vn' ){ ?>
+			<img src="/Themes/Songngu3/skin/images/muasanpham.png" />
+		<?php } else { ?>
+			<img src="/Themes/Songngu3/skin/images/muasp22.png" />
+		<?php } ?>
+		</a>
+		
 		<a href="javascript:void(0);" data-toggle="modal" data-target="#home-review" >
 		<?php if(!$lang || $lang == 'vn' ){ ?>
-			<img src="/Themes/Songngu3/skin/images/danhgia2.png" />
+			<img src="/Themes/Songngu3/skin/images/danhgia.png" />
 		<?php } else { ?>
 			<img src="/Themes/Songngu3/skin/images/danhgia22.png" />
 		<?php } ?>

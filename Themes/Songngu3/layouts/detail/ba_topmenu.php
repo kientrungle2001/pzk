@@ -43,7 +43,106 @@
 	            </div>
 	        </li>
 			
-			
+			 <?php 
+				 $i=9;
+				 
+				 $dem = 0;
+				 ?>
+			<li class="dropdown colormenu3 tab-content">
+	            <a href="/#practice-test" class="dropdown-toggle fsize" data-class="<?php echo pzk_session('lop'); ?>" data-jumping="practice-test" rel="#B6D452" <?php if($lang == 'ev'){
+					echo 'title="'.$languagevn['general-title'].'"'; }?>><?php echo  $language['general'];?></a>
+	            <div class="dropdown-menu multi-column columns-3 tab-content">
+					<ul class="nav nav-tabs nav-tabs-ct1">
+						<li class="active" <?php if($lang == 'ev'){
+					echo 'title="'.$languagevn['general-title'].'"'; }?>><a data-toggle="tab" href="#menu12"><?php echo $language['general'];?></a></li>
+						<li <?php if($lang == 'ev'){
+					echo 'title="'.$languagevn['rating'].'"'; }?>><a href="/Home/rating?practice=1&clearTestId=1"><?php echo $language['rating'];?></a></li>
+					</ul> 
+					<div class="row tab-pane fade in active text-center pding10" id="menu12">
+					<div id="myCarousel" class="carousel col-md-11" style="margin-left:20px;" data-ride="carousel">
+
+						  <!-- Wrapper for slides -->
+						  <div class="carousel-inner" role="listbox">
+							<div class="item active">
+								{? $items = $data->getWeekPractice(ROOT_WEEK_CATEGORY_ID); ?}
+								<?php 
+									
+								//xu ly dung thu
+									$trial = array();
+									foreach($items as $tuan) {
+										if($tuan['trial'] == 1) {
+											$trial = $tuan;
+											break;
+										}
+									}
+									$linktrial = "/practice-examination/class-".$class."/week-".@$trial['id'];
+								
+								?>
+							  {each $items as $item}
+								<?php $firsttest= $data->getFirstTestByWeek($item['id'], 1, $check, $class); ?>
+								
+								<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicepractice" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+								echo 'title="'.$item['name'].'"'; }?>>
+									<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de<?php echo $i;?>.png" class="img-thumnail wheight50"></a>
+									<p class="text-uppercase robotofont weight10 top10">
+									<?php 
+									if(pzk_user_special()) { echo '#' . $item['id']; }
+									if ($lang == 'en' || $lang == 'ev'){
+										echo $item['name_en'];
+									}else{
+										echo $item['name'];
+									} ?></p>
+								</div>
+								
+								<?php $i--;
+								if($i==0){
+									$i=10;
+						
+								}
+								?>
+								{/each}
+							  
+							</div>
+							<div class="item">
+							{? $items = $data->getWeekPractice2(ROOT_WEEK_CATEGORY_ID); ?}
+							  {each $items as $item}
+								<?php $firsttest= $data->getFirstTestByWeek($item['id'], 1, $check, $class); ?>
+								<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicepractice" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+								echo 'title="'.$item['name'].'"'; }?>>
+									<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de<?php echo $i;?>.png" class="img-thumnail wheight50"></a>
+									<p class="text-uppercase robotofont weight10 top10">
+									<?php 
+									if(pzk_user_special()) { echo '#' . $item['id']; }
+									if ($lang == 'en' || $lang == 'ev'){
+										echo $item['name_en'];
+									}else{
+										echo $item['name'];
+									} ?></p>
+								</div>
+								<?php $i--;
+								if($i==0){
+									$i=10;
+						
+								}
+								?>
+								{/each}
+							  
+							</div>
+						  </div>
+
+						  <!-- Left and right controls -->
+						  <a class="left carousel-control" style="margin-left:-35px;" href="#myCarousel" role="button" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true" style="margin-right:20px;"></span>
+							<span class="sr-only">Previous</span>
+						  </a>
+						  <a class="right carousel-control" style="margin-right:-27px;" href="#myCarousel" role="button" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						  </a>
+						</div>
+		            </div>
+	            </div>
+	        </li>
 			
 			<?php 
 				$i=9;
@@ -67,8 +166,8 @@
 						  <!-- Wrapper for slides -->
 						  <div class="carousel-inner" role="listbox">
 							<div class="item active">
-							<?php //1410 ROOT_WEEK_CATEGORY_ID?>
-							{? $items = $data->getWeekTest(1410); ?}
+							<?php //1410 ?>
+							{? $items = $data->getWeekTest(ROOT_WEEK_CATEGORY_ID); ?}
 							<?php
 								//echo ROOT_WEEK_CATEGORY_ID;
 							$trial = array();
@@ -105,7 +204,7 @@
 							  
 							</div>
 							<div class="item">
-							{? $items = $data->getWeekTest2(1410); ?}
+							{? $items = $data->getWeekTest2(ROOT_WEEK_CATEGORY_ID); ?}
 							{each $items as $item}
 							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
 							
@@ -256,7 +355,7 @@
 					var test = $(this).data("test");
 					window.location = BASE_REQUEST+'/practice-examination/class-5/week-'+week+'/examination-'+test;
 				}else{
-					alert('Bạn cần mua tài khoản để sử dụng nội dung này !');
+					alert('B?n c?n mua t�i kho?n d? s? d?ng n?i dung n�y !');
 					return false;
 				}
 			}
@@ -283,7 +382,7 @@
 					var test = $(this).data("test");
 					window.location = BASE_REQUEST+'/test/class-5/week-'+week+'/examination-'+test;
 				}else{
-					alert('Bạn cần mua tài khoản để sử dụng nội dung này !');
+					alert('B?n c?n mua t�i kho?n d? s? d?ng n?i dung n�y !');
 					return false;
 				}
 			}

@@ -70,4 +70,14 @@ class PzkTestController extends PzkThemesDefaultTestController {
 		    	$this->display();
 	    	}
     }
+	public function ajaxTestAction(){
+		$page = pzk_request()->get('page');
+		$class = pzk_request()->get('lop');
+		$this->parse('education/test/ajaxtest');
+		
+		$ajaxtest = pzk_element('ajaxtest');
+		$ajaxtest->set('page', $page);
+		$ajaxtest->set('class', $class);
+		$ajaxtest->display();
+	}
 }

@@ -13,12 +13,6 @@ if(!$lang){
 	$lang = pzk_session('lang', 'vn');
 }
 ?>
-<style>
-	.logo img {
-		width: auto;
-		height: 53px;
-	}
-</style>
 <div class="container-fluid top-header">
 	<div class="container fs15">
 		<div class="row">
@@ -82,7 +76,7 @@ if(!$lang){
 	<div class="container">
 		<div class="row">
 			<div class="col-md-2 col-xs-12">
-				<a class="logo" href="/"><img src="<?php echo pzk_or(pzk_config('site_logo') ,'/Themes/Songngu3/skin/images/logo.png');?>" /></a>
+				<a href="/"><img src="/Themes/Songngu3/skin/images/logo.png" /></a>
 			</div>
 			<div class="col-md-10 col-xs-12">
 				{children [id=menu]}	

@@ -2,7 +2,7 @@
 	gsv="DJBoN802jfeoHdZJX1oM0vqdSuVjiqQ_0t4dHq0zEf4">
 	<Core.Database.ArrayCondition id="conditionBuilder" />
 	<Core.Database id="db" host="thiams.com"
-		user="admin_ams" password="nn123456" dbName="admin_ams" />
+		user="admin_flsn" password="nn123456" dbName="admin_flsn" />
 	<Core.Database.Schema id="db_schema" />
 	<Core.Themes />
 

@@ -22,10 +22,10 @@
 
 <div class="container top10">
 
-<div class="item text-center">
-   
+<div class="item">
+    <marquee behavior="scroll" direction="left" scrollamount="5" style="width:100%; height:100%; vertical-align:middle; cursor:pointer;" onmouseover="javascript:this.setAttribute('scrollamount','0');" onmouseout="javascript:this.setAttribute('scrollamount','5');">
     <?php echo $language['copyright'];?>
-    
+    </marquee>
  </div>
 
 </div>
@@ -41,7 +41,7 @@
 		<img class="item" src="/Themes/Songngu3/skin/images/bg1.png" />
 		<div  class="item visible-xs hfix"></div>
 		<div class="t-weight deluyentap textlt item text-center absolute">
-		<?php echo $language['weekend-title'];?>  <?php //if(pzk_session('lop')){ echo ' - '; echo $language['classnumber']; echo pzk_session('lop');}?></br>
+		<?php echo $language['generaltitle'];?>  <?php //if(pzk_session('lop')){ echo ' - '; echo $language['classnumber']; echo pzk_session('lop');}?></br>
 		-----
 	</div>
 	</div>
@@ -51,16 +51,50 @@
 
 <div class="item bg2">
 
-	<div id="practice-test-section" class="container mgt-25 mgb-100">
+	<div id="practice-test-section" class="container mgt-25">
 		<div class="row">
-			{children [position=showCompability]}
+			{children [position=practice-place]}
+		</div>
+	</div>
+	<div id="test" class="container">
+		<div class="t-weight text-center textlt mgb15 item"><?php echo $language['weekend'];?>
+		<?php //if(pzk_session('lop')){ echo ' - '; echo $language['classnumber']; echo pzk_session('lop');}?></br>
+		-----
+		</div>
+	</div>
+	<div id="test-section" class="container pdb80">
+		<div class="row">
+			{children [position=test-place]}
 		</div>
 	</div>
 	
+	<div id="testcompability" class="container">
+		<div class="t-weight text-center textlt mgb15 item"><?php echo $language['compability'];?>
+		</br>
+		-----
+		</div>
+	</div>
+	<div class="container pdb80">
+		<div class="row">
+			{children [position=test-compability]}
+		</div>
+	</div>
 	
-	<!-- thi am giay -->
+	<?php if(0):?>
+	<div id="testcompability" class="container">
+		<div class="t-weight text-center textlt mgb15 item">Ba?ng x�p ha?ng <?php echo $language['compability'];?>
+		</br>
+		-----
+		</div>
+	</div>
+	<div class="container pdb80">
+		<div class="row">
+			{children [position=test-compability-ranking]}
+		</div>
+	</div>
+	<?php endif; ?>
 	
-	{children [position=thithu]}
+	
 
 
 </div>
@@ -140,7 +174,7 @@
 	<?php } ?>
 </div>
 
-<div class="item relative bg5">
+<div class="item bg5">
 	<div class="container mgb70">
 		<div class="col-md-6 col-xs-12">
 			<div class="text-center item mgt70 mgb20 uppercase title_color fs30 cadena"><?php echo $language['advisory'];?></div>
@@ -219,12 +253,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div style="bottom: 10px; font-size: 20px; width: 100%; font-weight: bold;" class="absolute text-center hidden-xs">
-	Ưu đãi về giá (2/4/2018 – 2/5/2018): Gói 3. Chỉ còn 350k/6 tháng; Gói 4. Chỉ còn 500k/12 tháng.
-	</div>
-	<div style="bottom: 10px; width: 100%; font-weight: bold;" class="absolute text-center visible-xs">
-	Ưu đãi về giá (2/4/2018 – 2/5/2018): Gói 3. Chỉ còn 350k/6 tháng; Gói 4. Chỉ còn 500k/12 tháng.
 	</div>
 </div>
 
@@ -326,7 +354,7 @@
 			return false;
 		}else{
 			if(!validPhone(phone)) {
-				alert('Số điện thoại không đúng định dạng');
+				alert('S? di?n tho?i kh�ng d�ng d?nh d?ng');
 				$("#tv_phone").focus();
 				return false;
 			}
@@ -338,7 +366,7 @@
 			return false;
 		}else{
 			if(!validEmail(email)) {
-				alert('Email không đúng định dạng');
+				alert('Email kh�ng d�ng d?nh d?ng');
 				$("#tv_email").focus();
 				return false;
 			}
@@ -358,7 +386,7 @@
 						$("#tv_phone").val('');
 						$("#tv_email").val('');
 						$("#tv_name").val('');
-						alert('Bạn đã đăng kí tư vấn thành công!');
+						alert('B?n d� dang k� tu v?n th�nh c�ng!');
 					}
 				}
 			});

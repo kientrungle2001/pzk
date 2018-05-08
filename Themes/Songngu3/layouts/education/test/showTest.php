@@ -57,7 +57,7 @@
 			
 			<ul class="item menu-test" >
 				<?php 
-				$weeks = $data->getWeekTestSN(ROOT_WEEK_CATEGORY_ID,$practice, $check, $class);
+				$weeks = $data->getWeekTestSN(1410,$practice, $check, $class);
 				?>
 				{each $weeks as $week }
 					<?php 
