@@ -3,6 +3,7 @@ $language = pzk_global()->get('language');
 $lang = pzk_session('language');
 $check = pzk_session('checkPayment');
 $class = 5;
+$pageSize = 15;
 if(pzk_session('lop')) {
 	$class = pzk_session('lop');	
 }
@@ -12,55 +13,84 @@ if(pzk_session('lop')) {
 	.bg-white{background: white; border-radius: 5px; box-shadow: 0px 5px 2px #8cbcda;}
 	.vang{background: #f6e73f;}
 	.xanh{background: #13a4e1;}
+	.xanh img{width: 40px; margin-bottom: 2px;}
 	.link-box{font-size: 20px; padding: 10px 5px;font-family: 'cadena';}
 	.box-body{padding-top: 20px; padding-bottom: 30px;}
 	.mgb-100{margin-bottom: 100px;}
+	.pagecompability{margin-top: 30px;}
+	.pagecompability .active{background: #ff0167;}
+	.pagecompability .page{font-size: 20px; padding: 10px 25px; margin-right: 15px; font-family: 'cadena'; border: none;}
 </style>
 
 <div class="item" id="resultBox">
-{? $items = $data->getTests($class, 0, 21); ?}
-<?php $i =1; $j=1; ?>
+{? $items = $data->getTests($class, 0, $pageSize); ?}
+
 {each $items as $item}
 <?php $tests= $data->getTestByWeek($item['id'], 0, $check, $class); 
+$pattern = '/(\(.+\))/i';
+$replacement = ''; 
 ?>
 	<div class="col-md-4 col-xs-12">
 		<div class="bg-white">
-			<h2 class="text-center <?php if($j % 2 == 0){ echo 'vang'; } else { echo 'xanh'; } ?> head-box"><img src="/Themes/Songngu3/skin/images/mu.png" /> &nbsp;{item[name]}</h2>
+			<h2 class="text-center xanh head-box"><img src="/Themes/Songngu3/skin/images/nguyetque.png" /> &nbsp;
+			<?php
+				
+				if ($lang == 'en' || $lang == 'ev'){
+					$tam = explode('-', $item['name_en']);
+					echo $tam[0];
+				}else{
+					$tam = explode('-', $item['name']);
+					echo $tam[0];
+				}
+				 
+			?>
+			</h2>
 			<div class="box-body">
+				<?php $i =1;?>
 				{each $tests as $test}
 					<div class="text-uppercase link-box testnumber text-center" onclick ="testnumber(this);return false;" data-test="{test[id]}" data-week="{item[id]}" data-trial="{item[trial]}" <?php if($lang == 'ev'){
 										echo 'title="'.$test['name'].'"'; }?>>
 						<a href="" class="text-color">
 						<?php 
 						if ($lang == 'en' || $lang == 'ev'){
-							echo $test['name_en'];
+							echo 'Tổ Hợp '.$i.': '.preg_replace($pattern, $replacement, $test['name_en']);
 						}else{
-							echo $test['name'];
+							echo 'Tổ Hợp '.$i.': '.preg_replace($pattern, $replacement, $test['name']);
 						} ?>
 						</a>
 					</div>
 					<?php ?>
+					<?php $i++; ?>	
 				{/each}
 			</div>	
 		</div>
 	</div>
-	<?php if($i % 3 == 0){ $j++; } ?>
-<?php $i++; ?>	
+
 {/each}
 </div>
-<div style="margin-top: 30px;" class="text-center item">
-<img style="display: none;" onclick="xemthem(0, <?=$class;?>);" class="pointer xemlai" src="/Themes/Songngu3/skin/images/xemlai.png" />
-<img onclick="xemthem(1, <?=$class;?>);" class="pointer xemthem" src="/Themes/Songngu3/skin/images/readmore.png" />
-</div>
+<?php 
+	$totalPage = $data->countTests($class);
+	
+	$page = ceil($totalPage / $pageSize);
+	if($page > 1){
+		echo '<div class="text-center item pagecompability">';
+		for($i = 0; $i < $page; $i++){
+			$j = $i + 1;
+			$active = '';
+			if($i==0){ $active = 'active'; }
+			echo '<div onclick="xemthem(this, '.$i.','.$class.')" class="btn btn-large page pointer '.$active.' btn-primary">'.$j.'</div>';
+		}
+		echo '</div>';
+	}	
+	
+?>
+
 <script>
-function xemthem(page, lop){
-	if(page == 0){
-		$('.xemlai').hide();
-		$('.xemthem').show();
-	}else{
-		$('.xemlai').show();
-		$('.xemthem').hide();
-	}
+function xemthem(that, page, lop){
+	
+	$('.page').removeClass('active');
+	$(that).addClass('active');
+	
 	$.ajax({
 	  method: "POST",
 	  url: BASE_REQUEST+'/Test/ajaxTest',

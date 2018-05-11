@@ -23,6 +23,10 @@ class PzkEducationTestList extends PzkCoreDbList{
 		$data = _db()->selectAll()->fromCategories()->likeClasses('%,'.$class.',%')->wherePractice('0')->whereDisplay('1')->whereParent(1410)->limit($pageSize, $pageNum)->orderBy('ordering asc')->result();
 		return $data;
 	}
+	public function countTests($class){
+		$data = _db()->select('count(*) as total')->fromCategories()->likeClasses('%,'.$class.',%')->wherePractice('0')->whereDisplay('1')->whereParent(1410)->result_one();
+		return $data['total'];
+	}
 	public function getTestsOfWeek($class, $weekId, $practice, $check= 0) {
 		$listTest = _db()->useCache(1800)->useCacheKey('getTestsOfWeek_' . $weekId . '_' . $practice . '_' . $check . '_' . $class)->select('*')->fromTests();
 		

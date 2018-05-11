@@ -34,6 +34,17 @@ class PzkFulllookMenu extends PzkObject
 			->orderBy('ordering asc')
 			->limit(10, 1)->result();
 	}
+	function getWeekTestLimit($subjectId, $pageSize, $pageNum){
+		return _db()->useCache(1800)
+			->useCacheKey('categories-parent-' . $subjectId. '-practice-0-page-'.$pageNum+1)
+			->select('*')
+			->fromCategories()
+			->whereParent($subjectId)
+			->whereDisplay(1)
+			->wherePractice(0)			
+			->orderBy('ordering asc')
+			->limit($pageSize, $pageNum)->result();
+	}
 	function getWeekPractice($subjectId){
 		return _db()->useCache(1800)->select('*')
 			->useCacheKey('categories-parent-' . $subjectId. '-practice-1-page-1')

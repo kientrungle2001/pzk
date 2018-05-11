@@ -90,9 +90,11 @@
 								<?php 
 								if(pzk_user_special()) { echo '#' . $item['id']; }
 								if ($lang == 'en' || $lang == 'ev' ){
-									echo $item['name_en'];
+									$tam = explode('-', $item['name_en']);
+									echo $tam[0];
 								}else{
-									echo $item['name'];
+									$tam = explode('-', $item['name']);
+									echo $tam[0];
 								} ?></p>
 							</div>
 							<?php $i--;
@@ -104,6 +106,7 @@
 							{/each}
 							  
 							</div>
+							
 							<div class="item">
 							{? $items = $data->getWeekTest2(1410); ?}
 							{each $items as $item}
@@ -116,9 +119,11 @@
 								<?php 
 								if(pzk_user_special()) { echo '#' . $item['id']; }
 								if ($lang == 'en' || $lang == 'ev' ){
-									echo $item['name_en'];
+									$tam = explode('-', $item['name_en']);
+									echo $tam[0];
 								}else{
-									echo $item['name'];
+									$tam = explode('-', $item['name']);
+									echo $tam[0];
 								} ?></p>
 							</div>
 							<?php $i--;
@@ -130,6 +135,62 @@
 							{/each}
 								  
 							</div>
+							
+							<div class="item">
+							{? $items = $data->getWeekTestLimit(1410, 10, 2); ?}
+							<?php $i=1; ?>
+							{each $items as $item}
+							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
+							
+							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+							echo 'title="'.$item['name'].'"'; }?>>
+								<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
+								<p class="text-uppercase robotofont weight10 top10">
+								<?php 
+								if(pzk_user_special()) { echo '#' . $item['id']; }
+								if ($lang == 'en' || $lang == 'ev' ){
+									$tam = explode('-', $item['name_en']);
+									echo $tam[0];
+								}else{
+									$tam = explode('-', $item['name']);
+									echo $tam[0];
+								} ?></p>
+							</div>
+							<?php $i++;
+							
+							?>
+							{/each}
+								  
+							</div>
+							
+							<div class="item">
+							{? $items = $data->getWeekTestLimit(1410, 10, 3); ?}
+							<?php $i=1; ?>
+							{each $items as $item}
+							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
+							
+							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+							echo 'title="'.$item['name'].'"'; }?>>
+								<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
+								<p class="text-uppercase robotofont weight10 top10">
+								<?php 
+								if(pzk_user_special()) { echo '#' . $item['id']; }
+								if ($lang == 'en' || $lang == 'ev' ){
+									$tam = explode('-', $item['name_en']);
+									echo $tam[0];
+								}else{
+									$tam = explode('-', $item['name']);
+									echo $tam[0];
+								} ?></p>
+							</div>
+							<?php $i++;
+							
+							?>
+							{/each}
+								  
+							</div>
+							
+							
 						  </div>
 
 						  <!-- Left and right controls -->
