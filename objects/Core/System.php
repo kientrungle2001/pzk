@@ -101,7 +101,13 @@ class PzkCoreSystem extends PzkObjectLightWeight {
 			'softwareId'	=> 	'6',
 			'controller'	=> 	'Home',
 			'action'		=>	'Index'
-		)
+		),
+		'thinangluc.vn' 		=> array(
+			'app'			=> 	'nobel_test',
+			'softwareId'	=> 	'10',
+			'siteId'		=> 	'1',
+			'language'		=> 	true
+		),
 	);
 	
 	public function finish() {
