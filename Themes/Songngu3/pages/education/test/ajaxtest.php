@@ -1,1 +1,1 @@
-<Education.Test.List id="ajaxtest" layout="education/test/ajaxtest" position="ajaxtest" />
+<Education.Test.Compability id="ajaxtest" layout="education/test/ajaxtest" position="ajaxtest" />

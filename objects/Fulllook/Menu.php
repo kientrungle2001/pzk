@@ -70,6 +70,10 @@ class PzkFulllookMenu extends PzkObject
 		$subject=_db()->useCache(1800)->useCacheKey('list-category-parent-47')->selectAll()->fromCategories()->whereStatus('1')->whereDisplay('1')->whereParent('47')->orderBy('ordering asc')->result();
 		return($subject);
 	}
+	public function getSubjectByClass($class){
+		$data = _db()->useCache(1800)->useCacheKey('list-category-parent-1457')->selectAll()->fromCategories()->likeClasses('%,'.$class.',%')->whereStatus('1')->whereDisplay('1')->orderBy('ordering asc')->whereParent('1457')->result();
+		return $data;
+	}
 	public function getSubjectSN($class)
 	{
 		$subject=_db()->useCache(1800)->useCacheKey('list-category-parent-47-class-' . $class)->selectAll()->fromCategories()->likeClasses('%,'.$class.',%')->whereStatus('1')->whereDisplay('1')->whereParent('47')->orderBy('ordering asc')->result();

@@ -24,7 +24,7 @@
 		<Container id="wrapper" layout="empty" />
 		<Block layout="notifier/messages" cacheable="false" />
 		<Home.Footer id="footer" layout="home/footer">
-			<!--Cms.Banner.Region position="footer" /-->
+			<Cms.Banner.Region position="footer" />
 		</Home.Footer>
 	</Html.Body>
 </Page>

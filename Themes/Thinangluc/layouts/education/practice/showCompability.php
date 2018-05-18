@@ -23,7 +23,7 @@ if(pzk_session('lop')) {
 </style>
 
 <div class="item" id="resultBox">
-{? $items = $data->getTests($class, 1410, 0, $pageSize); ?}
+{? $items = $data->getTests($class, 1464, 0, $pageSize); ?}
 
 {each $items as $item}
 <?php $tests= $data->getTestByWeek($item['id'], 0, $check, $class); 
@@ -69,7 +69,7 @@ $replacement = '';
 {/each}
 </div>
 <?php 
-	$totalPage = $data->countTests($class, 1410);
+	$totalPage = $data->countTests($class, 1464);
 	
 	$page = ceil($totalPage / $pageSize);
 	if($page > 1){

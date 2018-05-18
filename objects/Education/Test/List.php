@@ -19,14 +19,8 @@ class PzkEducationTestList extends PzkCoreDbList{
 		$data = _db()->selectAll()->fromCategories()->likeClasses('%,'.$class.',%')->wherePractice('0')->whereDisplay('1')->whereParent(ROOT_WEEK_CATEGORY_ID)->limit('18')->orderBy('ordering asc')->result();
 		return $data;
 	}
-	public function getTests($class, $pageNum, $pageSize){
-		$data = _db()->selectAll()->fromCategories()->likeClasses('%,'.$class.',%')->wherePractice('0')->whereDisplay('1')->whereParent(1410)->limit($pageSize, $pageNum)->orderBy('ordering asc')->result();
-		return $data;
-	}
-	public function countTests($class){
-		$data = _db()->select('count(*) as total')->fromCategories()->likeClasses('%,'.$class.',%')->wherePractice('0')->whereDisplay('1')->whereParent(1410)->result_one();
-		return $data['total'];
-	}
+	
+	
 	public function getTestsOfWeek($class, $weekId, $practice, $check= 0) {
 		$listTest = _db()->useCache(1800)->useCacheKey('getTestsOfWeek_' . $weekId . '_' . $practice . '_' . $check . '_' . $class)->select('*')->fromTests();
 		
@@ -79,6 +73,7 @@ class PzkEducationTestList extends PzkCoreDbList{
 		$data = _db()->selectAll()->fromCategories()->likeClasses('%,'.$class.',%')->whereStatus('1')->whereDisplay('1')->orderBy('ordering asc')->whereParent('47')->result();
 		return $data;
 	}
+	
 	public function getFirstTestByWeek($weekId=0, $practice, $check= 0, $class){
 	
 		$listTest = _db()->useCache(1800)->useCacheKey('getFirstTestByWeek_' . $weekId . '_' . $practice . '_' . $check . '_' . $class)->select('*')->fromTests();
@@ -102,8 +97,9 @@ class PzkEducationTestList extends PzkCoreDbList{
 	
 	public function getTestByWeek($weekId=0, $practice, $check= 0, $class){
 	
-		$listTest = _db()->useCache(1800)->useCacheKey('getFirstTestByWeek_' . $weekId . '_' . $practice . '_' . $check . '_' . $class)->select('*')->fromTests();
+		//$listTest = _db()->useCache(1800)->useCacheKey('getFirstTestByWeek_' . $weekId . '_' . $practice . '_' . $check . '_' . $class)->select('*')->fromTests();
 		
+		$listTest = _db()->select('*')->fromTests();
 		$listTest->whereStatus(1);
 		if($class)
 			$listTest->likeClasses("%,$class,%");
