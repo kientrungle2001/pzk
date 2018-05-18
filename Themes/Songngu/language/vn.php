@@ -27,6 +27,7 @@ pzk_global()->set('language', array(
 	'halloffameweek'	=> 'Bảng thành tích tuần',
 	'gift'	=> 'Quà tặng',
 	'account' => 'Tài khoản',
+	'wallet_account' => 'Ví điện tử',
 	'purchase'	=> 'Mua tài khoản',
 	'personal-page' => 'Trang cá nhân',
 	'footer-adress'	=> 'Địa chỉ: Nhà số 6, Ngõ 115 Nguyễn Khang, Cầu Giấy, Hà Nội',

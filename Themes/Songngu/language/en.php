@@ -29,6 +29,7 @@ pzk_global()->set('language', array(
 	'footer-adress'	=> 'Address: No 6, 115 lane, Nguyễn Khang street, Cầu Giấy district, Hanoi',
 	'footer-tel'	=> 'Tel.: (04)8585 2525',
 	'account' => 'Account',
+	'wallet_account' => 'Wallet Account',
 	'purchase'	=> 'Purchase',
 	'personal-page' => 'Personal page',
 	'aboutus' => 'About us',

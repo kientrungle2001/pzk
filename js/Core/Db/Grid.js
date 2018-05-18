@@ -26,7 +26,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 	                if (r === true) {
 	                    $.ajax({
 	                        type: "POST",
-	                        url: BASE_REQUEST + "/admin_"+that.module+"/delAll",
+	                        url: BASE_REQUEST + "/Admin_"+that.module+"/delAll",
 	                        data:{ids:JSON.stringify(allVals)},
 	                        success: function(data) {
 	                            if(data ==1) {
@@ -91,7 +91,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		$(document).keydown(function(evt) {
 			if(evt.ctrlKey && evt.keyCode == 107) {
 				evt.preventDefault();
-				window.location = BASE_REQUEST + '/admin_' + that.module + '/add';
+				window.location = BASE_REQUEST + '/Admin_' + that.module + '/add';
 			}
 			if(!that.inlineFocus && that.gridFocus && evt.ctrlKey && evt.keyCode == 37) {
 				evt.preventDefault();
@@ -210,14 +210,14 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 			var id = $(input).attr('rel');
 			orderings[id] = val;
 		});
-		$.ajax({url: '/admin_'+ that.module + '/saveOrderings', type: 'post', data: {orderings: orderings, field: field}, success: function() { that.changePage(0); }});
+		$.ajax({url: '/Admin_'+ that.module + '/saveOrderings', type: 'post', data: {orderings: orderings, field: field}, success: function() { that.changePage(0); }});
 	},
 	saveRowOrdering: function (id, field) {
 		var that = this;
 		var inputOrdering = $('#' + field + '_' + id);
 		var value = inputOrdering.val();
 		$.ajax({
-			url: '/admin_'+ that.module + '/saveOrderings', 
+			url: '/Admin_'+ that.module + '/saveOrderings', 
 			type: 'post', 
 			data: {
 				id: id, 
@@ -240,11 +240,11 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 				if (r == true) {
 					$.ajax({
 						type: "POST",
-						url: BASE_REQUEST + "/admin_"+that.module+"/" + action,
+						url: BASE_REQUEST + "/Admin_"+that.module+"/" + action,
 						data:{ids:JSON.stringify(allVals)},
 						success: function(data) {
 							if(data ==1) {
-								window.location.href = '/admin_'+that.module+'/index';
+								window.location.href = '/Admin_'+that.module+'/index';
 							}
 
 						}
@@ -276,7 +276,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 	changeStatus: function(field, id, elem) {
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/changeStatus",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/changeStatus",
 			data:{id:id, field: field, isAjax: true},
 			success: function(data) {
 				if(data ==1) {
@@ -293,7 +293,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		that.keyword = keyword;
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/search",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/search",
 			data:{keyword: keyword, isAjax: true},
 			success: function(data) {
 				that.changePage(0);
@@ -304,7 +304,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 	workflow: function(field, id, value, elem) {
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/workflow",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/workflow",
 			data:{id:id, field: field, value: value, isAjax: true},
 			success: function(data) {
 				if(data) {
@@ -327,7 +327,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/index",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/index",
 			data: postData,
 			success: function(data) {
 				if(data) {
@@ -344,7 +344,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var that = this;
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/changePageSize",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/changePageSize",
 			data:{pageSize: pageSize, isAjax: true},
 			success: function(data) {
 				that.changePage(0);
@@ -355,7 +355,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var that = this;
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/changeView",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/changeView",
 			data:{view: view, isAjax: true},
 			success: function(data) {
 				that.changePage(0);
@@ -366,7 +366,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var that = this;
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/changeColumns",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/changeColumns",
 			data:{columns: columns, isAjax: true},
 			success: function(data) {
 				that.changePage(0);
@@ -377,7 +377,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var that = this;
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/changeOrderBy",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/changeOrderBy",
 			data:{orderBy: orderBy, isAjax: true},
 			success: function(data) {
 				that.changePage(0);
@@ -388,7 +388,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var that = this;
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/filter",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/filter",
 			data:{type: type, index: index, select: value, isAjax: true},
 			success: function(data) {
 				that.changePage(0);
@@ -537,7 +537,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var that = this;
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/command",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/command",
 			data:{command: command, isAjax: true},
 			success: function(response) {
 				eval('response = ' + response + ';');
@@ -561,7 +561,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var that = this;
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/orderBys",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/orderBys",
 			data:{orderBys: that.orderBys, isAjax: true},
 			success: function(data) {
 				that.checkSorter(index);
@@ -590,7 +590,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
             if (r == true) {
                 $.ajax({
                     type: "POST",
-                    url: BASE_REQUEST+"/admin_"+that.module+"/updateOneField",
+                    url: BASE_REQUEST+"/Admin_"+that.module+"/updateOneField",
                     data:{ids:JSON.stringify(allVals), data:data, field:field, type:type},
                     success: function(data) {
                         if(data ==1) {
@@ -616,7 +616,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
             if (r == true) {
                 $.ajax({
                     type: "POST",
-                    url: BASE_REQUEST+"/admin_"+that.module+"/updateOneField",
+                    url: BASE_REQUEST+"/Admin_"+that.module+"/updateOneField",
                     data:{ids:JSON.stringify(allVals), data:data, field:field, type:type},
                     success: function(data) {
                         if(data ==1) {
@@ -642,7 +642,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 			if (r == true) {
 				$.ajax({
 					type: "POST",
-					url: BASE_REQUEST+"/admin_"+that.module+"/updateDataTo",
+					url: BASE_REQUEST+"/Admin_"+that.module+"/updateDataTo",
 					data:{ids:JSON.stringify(allVals), data:data},
 					success: function(data) {
 						if(data ==1) {
@@ -661,7 +661,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 	dialog: function(id, url) {
 		var that = this;
 		if(!url) {
-			url = BASE_REQUEST + "/admin_"+this.module+"/dialog";
+			url = BASE_REQUEST + "/Admin_"+this.module+"/dialog";
 		}
 		$.ajax({
 			type: "POST",
@@ -693,7 +693,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var that = this;
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/view/" + id,
+			url: BASE_REQUEST + "/Admin_"+this.module+"/view/" + id,
 			data:{id: id, isAjax: true},
 			success: function(response) {
 				$('#grid-detail').html(response);
@@ -705,7 +705,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var ids = that.getAll();
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+this.module+"/verify",
+			url: BASE_REQUEST + "/Admin_"+this.module+"/verify",
 			data:{ids: ids, isAjax: true},
 			success: function(response) {
 				if(response) {
@@ -742,7 +742,7 @@ PzkCoreDbGrid = PzkObj.pzkExt({
 		var value = $('#inline-item-'+field+'-'+id).find('.inline-input input').val();
 		$.ajax({
 			type: "POST",
-			url: BASE_REQUEST + "/admin_"+that.module+"/inlineEditPost",
+			url: BASE_REQUEST + "/Admin_"+that.module+"/inlineEditPost",
 			data:{id: id, field: field, value: value, isAjax: true},
 			success: function(response) {
 				that.changePage(that.page);

@@ -1,7 +1,7 @@
 <Core.Application id="app" name="nobel_test" dispatcher="ControllerBased" 
 	gsv="DJBoN802jfeoHdZJX1oM0vqdSuVjiqQ_0t4dHq0zEf4">
 	<Core.Database.ArrayCondition id="conditionBuilder" />
-	<Core.Database id="db" host="thiams.com"
+	<Core.Database id="db" host="fulllook.com.vn"
 		user="admin_flsn" password="nn123456" dbName="admin_flsn" />
 	<Core.Database.Schema id="db_schema" />
 	<Core.Themes />

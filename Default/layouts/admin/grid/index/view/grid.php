@@ -191,7 +191,7 @@ $(function() {
 					{? if(@$field['filter']) { ?}
 					<?php 
 						$filterField = @$field['filter'];
-						$filterFieldObj = pzk_obj_once ( array('Core.Db.Grid.Edit.' . ucfirst($filterField ['type']), 'filter_' . $field['index'] ));
+						$filterFieldObj = pzk_obj ( 'Core.Db.Grid.Edit.' . ucfirst($filterField ['type']));
 						foreach ( $filterField as $key => $val ) {
 							$filterFieldObj->set ( $key, $val );
 						}
@@ -275,7 +275,7 @@ $(function() {
 					if(@$field['role'] && pzk_session('adminLevel') != @$field['role']) {continue;}
 					?}
 					{?
-						$fieldObj = pzk_obj_once(array('Core.Db.Grid.Field.' . ucfirst($field['type']), 'list_'. $field['index']));
+						$fieldObj = pzk_obj('Core.Db.Grid.Field.' . ucfirst($field['type']));
 						foreach($field as $key => $val) {
 							$fieldObj->set($key, $val);
 						}
@@ -484,7 +484,7 @@ $(function() {
 		if(@$field['role'] && pzk_session('adminLevel') != @$field['role']) {continue;}
 		?}
 		{?
-			$fieldObj = pzk_obj_once(array('Core.Db.Grid.Field.' . ucfirst($field['type']), 'list_'. $field['index']));
+			$fieldObj = pzk_obj('Core.Db.Grid.Field.' . ucfirst($field['type']));
 			foreach($field as $key => $val) {
 				$fieldObj->set($key, $val);
 			}

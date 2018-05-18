@@ -10,7 +10,7 @@
 	</b></span>
 	</span>
 	<ul class="dropdown-menu col-xs-12 ">
-		<li class="bdbottom bg-danger hidden-xs"><a href="#"><?=$language['account'];?> :<?php echo product_price(pzk_user()->getWallets(pzk_session('userId'))); ?></a></li>
+		<li class="bdbottom bg-danger hidden-xs"><a href="#"><?=$language['wallet_account'];?> :<?php echo product_price(pzk_user()->getWallets(pzk_session('userId'))); ?></a></li>
 		<?php if(pzk_session('adminUser') && pzk_session('adminUser') == pzk_session('username') ): ?>
 		<li class="bg-danger"><a href="/Monitor/index">Trang quản trị</a></li>
 		<?php if(pzk_session('adminClassname')): ?>
