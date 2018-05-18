@@ -13,8 +13,11 @@
     </Html.Head>
     <Html.Body id="body">    	
 		
-		<Core.Flatmodule.List conditions='["position", "user"]' />
-		
+		<!--Core.Flatmodule.List conditions='["position", "user"]' /-->
+
+		<User.Account.Registersn id="userAccountRegistersn" scriptable="true" />
+		<User.Account.Loginsn id="userAccountLoginsn" scriptable="true" />
+
 		<Home.Header id="header" layout="home/header2">
 			<User.Account.User id="userAccountUser" />
 			<Core.Flatmodule.List conditions='["position", "menu"]' id="menu" position="top-menu" />
