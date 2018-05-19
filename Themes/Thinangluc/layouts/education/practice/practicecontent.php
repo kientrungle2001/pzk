@@ -75,6 +75,8 @@
 #decuong{margin-top: 15px;}
 .pl-0{padding-left: 0px;}
 .item-lienquan{float: left; width: 100%; margin-bottom: 15px;}
+.title-practice{margin-top: 0px; margin-bottom: 30px;}
+#carousel-example-generic{margin-bottom: 30px;}
 </style>
 <div class="item bgcontent">
 	<div class="container">
@@ -227,7 +229,7 @@
 				</div>
 			</div>
 			<div class="col-xs-12 col-md-4">
-				<h2 class="text-center">Giảng viên</h2>
+				<h2 class="text-center title-practice">Giảng viên</h2>
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				  <!-- Indicators -->
 				  <ol class="carousel-indicators">
@@ -239,7 +241,7 @@
 				  <!-- Wrapper for slides -->
 				  <div class="carousel-inner" role="listbox">
 					<div class="text-center active">
-					  <img class="item img-circle" src="/Themes/Thinangluc/skin/media/gv.jpg" alt="...">
+					  <img class="img-circle" src="/Themes/Thinangluc/skin/media/gv.jpg" alt="...">
 					  <div class="item">
 						<h3>Third slide label</h3>
 						<p>
@@ -263,7 +265,7 @@
 				 
 				</div>
 				
-				<h2 class="text-center">Khóa học liên quan</h2>
+				<h2 class="text-center title-practice">Khóa học liên quan</h2>
 				<a href="#" class="item-lienquan">
 					<div class="col-xs-12 col-md-6"> 
 						<img class="item" src="/Themes/Thinangluc/skin/media/20382.jpg" alt="" />
