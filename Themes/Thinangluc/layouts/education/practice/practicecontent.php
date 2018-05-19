@@ -77,6 +77,7 @@
 .item-lienquan{float: left; width: 100%; margin-bottom: 15px;}
 .title-practice{margin-top: 0px; margin-bottom: 30px;}
 #carousel-example-generic{margin-bottom: 30px;}
+.badge{background: red;}
 </style>
 <div class="item bgcontent">
 	<div class="container">
@@ -173,7 +174,7 @@
 								<a href="#">
 								
 								4. ĐÁNH GIÁ NĂNG LỰC - TOÁN HỌC VÀ ỨNG DỤNG - SỐ TỰ NHIÊN - ĐỀ 1 
-								<span class="badge">14</span>
+								<span class="badge">Dùng thử</span>
 								</a>
 							  </li>
 							  <li class="list-group-item">
@@ -271,8 +272,8 @@
 						<img class="item" src="/Themes/Thinangluc/skin/media/20382.jpg" alt="" />
 					</div>
 					<div class="col-xs-12 pl-0 col-md-6">
-						<p>Ôn thi vào 6 môn Toán</p>
-						<p>Giá: 1.000.000 VNĐ</p>
+						<p><b>Ôn thi vào 6 môn Toán</b></p>
+						<p><b>Giá: 1.000.000 VNĐ</b></p>
 					</div>
 				</a>
 				<a href="#" class="item-lienquan">
@@ -280,8 +281,8 @@
 						<img class="item" src="/Themes/Thinangluc/skin/media/20382.jpg" alt="" />
 					</div>
 					<div class="col-xs-12 pl-0 col-md-6">
-						<p>Ôn thi vào 6 môn Toán</p>
-						<p>Giá: 1.000.000 VNĐ</p>
+						<p><b>Ôn thi vào 6 môn Toán</b></p>
+						<p><b>Giá: 1.000.000 VNĐ</b></p>
 					</div>
 				</a>
 			</div>
