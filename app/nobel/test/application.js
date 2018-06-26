@@ -1,19 +1,10 @@
 pzk.app.init = function() {
 	controller = pzk.request.getSegment(2) || 'home';
 	action = pzk.request.getSegment(3) || 'index';
-	var layoutRoot = '/themejs/'+pzk.request.get('theme')+'/layouts';
-	var skinRoot = '/themejs/'+pzk.request.get('theme')+'/skin';
-	pzk.lib('string');
-	pzk.lib('array');
-	pzk.lib('html');
-	pzk.lib('locator');
-	pzk.lib('template');
-	pzk.lib('object');
-	pzk.lib('parser');
-	pzk.lib('database');
-	pzk.lib('model');
-	pzk.lib('browser');
-	pzk.lib('lazy');
+	layoutRoot = '/themejs/'+pzk.request.get('theme')+'/layouts';
+	skinRoot = '/themejs/'+pzk.request.get('theme')+'/skin';
+	themeRoot = '/themejs/'+pzk.request.get('theme') ;
+	
 	pzk.locator.set({
 		'page': '/themejs/songngu3/layouts/page.html',
 		'tab': '/themejs/songngu3/layouts/tab.html',
@@ -92,12 +83,13 @@ pzk.app.init = function() {
 			}
 		});
 	}
-	
+}
+pzk.app.run = function() {
 	if(pzk_controller) {
 		if(pzk_controller.init) {
 			pzk_controller.init();
 		}
 		pzk_controller[action](pzk.request.getSegment(4), pzk.request.getSegment(5), pzk.request.getSegment(6), pzk.request.getSegment(7), pzk.request.getSegment(8), pzk.request.getSegment(9));
 	}
-}
+};
 pzk.app.init();

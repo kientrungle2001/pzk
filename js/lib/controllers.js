@@ -81,7 +81,7 @@ pzk.lib('objects/db/form');
 PzkAdminGridController = PzkAdminController.pzkExt({
 	customModule: 'grid',
 	init: function() {
-		PzkAdminController.prototype.init.call(this);
+		PzkAdminController.supper('init', this);
 	},
 	index: function(type, metaType) {
 		if(this.isLogin()) {
@@ -102,6 +102,7 @@ PzkAdminGridController = PzkAdminController.pzkExt({
 			this.initPage();
 			this.append(module);
 			this.display();
+			
 			var tab = pzk.elements.tab;
 			tab.attachEvents();
 			setTimeout(function() {
@@ -114,6 +115,7 @@ PzkAdminGridController = PzkAdminController.pzkExt({
 						});
 					}
 				}
+				grid.onRowContextMenu();
 			}, 1000);
 			
 		}
@@ -125,5 +127,47 @@ PzkAdminDirectoryGridController = PzkAdminGridController.pzkExt({
 	type: false,
 	metaType: false,
 	specificEditFieldSettings: false,
-	specificAddFieldSettings: false
+	specificAddFieldSettings: false,
+	disable: function(field, mode) {
+		if( typeof mode == 'undefined' ) {
+			mode = 'all';
+		}
+		if(is_array(field)) {
+			var that = this;
+			field.forEach(function(item, index) {
+				that.disable(item);
+			});
+			return this;
+		} else if(is_string(field) && field.contains(',')) {
+			var fields = field.explodetrim(',');
+			var that = this;
+			fields.forEach(function(item, index) {
+				that.disable(item, mode);
+			});
+			return this;
+		}
+		if(mode == 'all') {
+			this.specificAddFieldSettings[field] = -1;
+			this.specificEditFieldSettings[field] = -1;
+		} else if(mode == 'add') {
+			this.specificAddFieldSettings[field] = -1;
+		} else if (mode == 'edit') {
+			this.specificEditFieldSettings[field] = -1;
+		}
+		return this;
+	},
+	setField: function(field, settings, mode) {
+		if( typeof mode == 'undefined' ) {
+			mode = 'all';
+		}
+		if(mode == 'all') {
+			this.specificAddFieldSettings[field] = settings;
+			this.specificEditFieldSettings[field] = settings;
+		} else if(mode == 'add') {
+			this.specificAddFieldSettings[field] = settings;
+		} else if (mode == 'edit') {
+			this.specificEditFieldSettings[field] = settings;
+		}
+		return this;
+	}
 });

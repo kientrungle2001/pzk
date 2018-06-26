@@ -2,10 +2,10 @@ PzkObj = (function(props) {
 	$.extend(this, props || {});
 }).pzkImpl({
 	init : function() {
-		console.log(this.tagName);
+		// console.log(this.tagName);
 	},
 	finish : function() {
-		console.log('/' + this.tagName);
+		// console.log('/' + this.tagName);
 	},
 	defaultWrapper: false,
 	$ : function(selector) {
@@ -41,7 +41,6 @@ PzkObj = (function(props) {
 		currentObject = this;
 		co = this;
 		var layout = (pzk.locator && pzk.locator.locate(this.layout)) || this.layout;
-		console.log('layout: ' + layout);
 		return tmpl(layout, this.data);
 	},
 	loadData: function() {
@@ -67,8 +66,44 @@ PzkObj = (function(props) {
 	},
 	append: function(obj) {
 		this.children.push(obj);
+	},
+	supper: function(ParentClass, method, args) {
+		return ParentClass.prototype[method].apply(this, args || []);
 	}
 });
+
+PzkSimpleObj = PzkObj.pzkExt({
+	html: function() {
+		return PzkSimpleParser.parse(this.getSimpleObj()).html();
+	}
+});
+
+PzkComplexObj = PzkObj.pzkExt({
+	html: function(reload) {
+		this.loadData();
+		this.data.reload = reload;
+		currentObject = this;
+		co = this;
+		var layout = (pzk.locator && pzk.locator.locate(this.layout)) || this.layout;
+		return PzkSimpleParser.parse(tmpl(layout, this.data)).html();
+	}
+});
+
+PzkCompositeObj = PzkObj.pzkExt({
+	html: function(reload) {
+		this.loadData();
+		this.data.reload = reload;
+		currentObject = this;
+		co = this;
+		var layout = (pzk.locator && pzk.locator.locate(this.layout)) || this.layout;
+		return PzkParser.parse(tmpl(layout, this.data)).html();
+	}
+});
+
+function pzk_super(Class, method, inst, args) {
+	if(typeof args == 'undefined') args = [];
+	Class.prototype[method].apply(inst, args);
+}
 
 PzkFactory = {
 	create: function(props) {
@@ -77,6 +112,7 @@ PzkFactory = {
 		var objClass = window[props.className] || PzkObj;
 		var obj = new objClass(props);
 		obj.init();
+		obj.finish();
 		return obj;
 	}
 }
@@ -87,6 +123,7 @@ PzkController = function(props) {
 
 PzkController.pzkImpl({
 	page: false,
+	contentRegion: '#page-content',
 	initPage: function() {
 		this.page = this.parse(this.masterPage);
 		return this;
@@ -106,11 +143,31 @@ PzkController.pzkImpl({
 	display: function() {
 		var that = this;
 		$(function() {
-			$('#page-content').append(that.getPage().html());
+			$(that.contentRegion).append(that.getPage().html());
 			pzk.lib('tinymce');
 			setTinymce();
 		});
 		return that;
+	},
+	loadLayout: function(layout) {
+		pzk.load(layoutRoot + layout);
+	},
+	getLayout: function(layout) {
+		var html = null;
+		pzk.load(layoutRoot + layout, function(resp) {
+			html = resp;
+		});
+		return html;
+	},
+	htmlAppend: function(html) {
+		if(is_string(html)) {
+			$(this.contentRegion).append(html);
+		} else if(typeof html.html !== 'undefined') {
+			$(this.contentRegion).append(html.html());
+		}
+	},
+	simpleAppend: function(html) {
+		this.htmlAppend(html.toSimpleObj());
 	}
 });
 

@@ -1,8 +1,8 @@
 <?php
 class PzkAdminCategoryController extends PzkGridAdminController {
 	public $table = 'categories';
-	public $addFields = 'name, name_vn, name_en, parent, router, img, trial, status, display, software, content, recommend, isSort, alias, img, level, classes';
-	public $editFields = 'name, name_vn, name_en, parent, router, img, trial, status, display, software, content, recommend, isSort, alias, img, level, classes';
+	public $addFields = 'name, name_vn, name_en, parent, router, img, trial, status, display, software, content, recommend, isSort, alias, img, level, classes, teachers, youtubeUrl, relatedCourses';
+	public $editFields = 'name, name_vn, name_en, parent, router, img, trial, status, display, software, content, recommend, isSort, alias, img, level, classes, teachers, youtubeUrl, relatedCourses';
 
 	public $filterFields = array(
 	
@@ -299,6 +299,68 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 				),
 				'label' => 'Chọn lớp'
 			),
+			array(
+				'index'		=> 'teachers',
+				'type'		=> 'table',
+				'label'		=> 'Giảng viên',
+				'settings' => array(
+					array(
+						'type'	=> 	'text',
+						'index'	=>	'name',
+						'label'	=>	'Tên loại lựa chọn',
+						'mdsize'=>	2
+					),
+					array(
+						'type'	=> 	'selectoption',
+						'index'	=>	'type',
+						'label'	=>	'Loại Giá trị',
+						'mdsize'=>	2,
+						'option'=>	array(
+							'text'			=>	'Text',
+							'image'			=>	'Image',
+							'properties'	=>	'Properties',
+							'color'			=>	'Color'
+						)
+					),
+				)
+			),
+			array(
+				'index'		=> 'relatedCourses',
+				'type'		=> 'table',
+				'label'		=> 'Khóa học liên quan',
+				'settings' => array(
+					array(
+						'type'	=> 	'text',
+						'index'	=>	'name',
+						'label'	=>	'Tên khóa học',
+						'mdsize'=>	2
+					),
+					array(
+						'type'	=> 	'text',
+						'index'	=>	'link',
+						'label'	=>	'Link khóa học',
+						'mdsize'=>	2
+					),
+					array(
+						'type'	=> 	'filemanager',
+						'index'	=>	'image',
+						'label'	=>	'Ảnh',
+						'mdsize'=>	2
+					),
+					array(
+						'type'	=> 	'text',
+						'index'	=>	'price',
+						'label'	=>	'Giá',
+						'mdsize'=>	2
+					),
+				)
+			),
+			array (
+					'index' 		=> 'youtubeUrl',
+					'type' 			=> 'text',
+					'label' 		=> 'Đường dẫn youtube',
+					'mdsize'		=> 12
+			),
 	);
 	public $editFieldSettings = array (
 			array (
@@ -404,6 +466,68 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 					CLASS5 => "Lớp 5",
 				),
 				'label' => 'Chọn lớp'
+			),
+			array(
+				'index'		=> 'teachers',
+				'type'		=> 'table',
+				'label'		=> 'Giảng viên',
+				'settings' => array(
+					array(
+						'type'	=> 	'text',
+						'index'	=>	'name',
+						'label'	=>	'Tên giảng viên',
+						'mdsize'=>	2
+					),
+					array(
+						'type'	=> 	'text',
+						'index'	=>	'description',
+						'label'	=>	'Giới thiệu giảng viên',
+						'mdsize'=>	2
+					),
+					array(
+						'type'	=> 	'filemanager',
+						'index'	=>	'image',
+						'label'	=>	'Ảnh',
+						'mdsize'=>	2
+					),
+				)
+			),
+			array(
+				'index'		=> 'relatedCourses',
+				'type'		=> 'table',
+				'label'		=> 'Khóa học liên quan',
+				'settings' => array(
+					array(
+						'type'	=> 	'text',
+						'index'	=>	'name',
+						'label'	=>	'Tên khóa học',
+						'mdsize'=>	2
+					),
+					array(
+						'type'	=> 	'text',
+						'index'	=>	'link',
+						'label'	=>	'Link khóa học',
+						'mdsize'=>	2
+					),
+					array(
+						'type'	=> 	'filemanager',
+						'index'	=>	'image',
+						'label'	=>	'Ảnh',
+						'mdsize'=>	2
+					),
+					array(
+						'type'	=> 	'text',
+						'index'	=>	'price',
+						'label'	=>	'Giá',
+						'mdsize'=>	2
+					),
+				)
+			),
+			array (
+					'index' 		=> 'youtubeUrl',
+					'type' 			=> 'text',
+					'label' 		=> 'Đường dẫn youtube',
+					'mdsize'		=> 12
 			),
 	);
 

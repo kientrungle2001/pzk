@@ -7,23 +7,20 @@ PzkDbGrid = PzkGrid.pzkExt({
 	getConfig: function() {
 		var config = null;
 		if(this.metaType) {
-			config = _db().Select('*').From('directory')
-				.Where(['equal', 'alias', this.type + '-' + this.metaType])
-				.Where(['equal', 'type', 'Grid'])
-				.Where(['equal', 'status', 1])
+			config = DirectoryModel.dbGrid()
+				.WhereAlias(this.type + '-' + this.metaType)
+				.WhereActive()
 				.ResultOne();
 			if(!config) {
-				config = _db().Select('*').From('directory')
-					.Where(['equal', 'alias', this.type])
-					.Where(['equal', 'type', 'Grid'])
-					.Where(['equal', 'status', 1])
+				config = DirectoryModel.dbGrid()
+					.WhereAlias(this.type)
+					.WhereActive()
 					.ResultOne();	
 			}
 		} else {
-			config = _db().Select('*').From('directory')
-				.Where(['equal', 'alias', this.type])
-				.Where(['equal', 'type', 'Grid'])
-				.Where(['equal', 'status', 1])
+			config = DirectoryModel.dbGrid()
+				.WhereActive()
+				.WhereAlias(this.type)
 				.ResultOne();
 		}
 		return config;
@@ -31,30 +28,27 @@ PzkDbGrid = PzkGrid.pzkExt({
 	getEditConfig: function() {
 		var config = null;
 		if(this.metaType) {
-			config = _db().Select('*').From('directory')
-				.Where(['equal', 'alias', this.type + '-' + this.metaType])
-				.Where(['equal', 'type', 'Edit'])
-				.Where(['equal', 'status', 1])
+			config = DirectoryModel.dbEdit()
+				.WhereAlias(this.type + '-' + this.metaType)
+				.WhereActive()
 				.ResultOne();
 			if(!config) {
-				config = _db().Select('*').From('directory')
-					.Where(['equal', 'alias', this.type])
-					.Where(['equal', 'type', 'Edit'])
-					.Where(['equal', 'status', 1])
+				config = DirectoryModel.dbEdit()
+					.WhereAlias(this.type)
+					.WhereActive()
 					.ResultOne();	
 			}
 		} else {
-			config = _db().Select('*').From('directory')
-				.Where(['equal', 'alias', this.type])
-				.Where(['equal', 'type', 'Edit'])
-				.Where(['equal', 'status', 1])
+			config = DirectoryModel.dbEdit()
+				.WhereAlias(this.type)
+				.WhereActive()
 				.ResultOne();
 		}
 		return config;
 	},
 	initFromDatabase: function() {
 		var that = this;
-		PzkGrid.prototype.init.call(this);
+		this.supper(PzkGrid, 'init');
 		if(this.type) {
 			
 			var config = this.getConfig();
@@ -72,24 +66,47 @@ PzkDbGrid = PzkGrid.pzkExt({
 			}
 		}
 		this.fieldSettings = this.fieldSettings || [
-			(that.specificListFieldSettings && that.specificListFieldSettings.name) || grid_tree('name', 'Tiêu đề'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.alias) || grid_text('alias', 'Bí danh'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.path) || grid_text('path', 'Đường dẫn'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.ordering) || grid_tree('ordering', 'Thứ tự'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.created) || grid_datetime('created', 'Ngày tạo'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.modified) || grid_datetime('modified', 'Ngày sửa'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.image) || grid_image('image', 'Hình Ảnh'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.type) || grid_text('type', 'Loại'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.metaType) || grid_text('metaType', 'Meta Type'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.note) || grid_text('note', 'Ghi chú'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.parent) || grid_parent('parent', 'Thêm vào'),
-			(that.specificListFieldSettings && that.specificListFieldSettings.addChild) || grid_action('addChild', 'Thêm con', function(itemId) {
-				pzk.elements.grid.onAdd({parent: itemId});
-			}),
-			(that.specificListFieldSettings && that.specificListFieldSettings.label) || grid_label('label', 'Nhãn', [{value: 'trial', label: 'trial'}, {value: 'document', label: 'document'}, {value: 'featured', label: 'featured'}, {value: 'practice', label: 'practice'}, {value: 'test', label: 'test'}, {value: 'disabled', label: 'disabled'}, {value: 'checked', label: 'checked'}, {value: 'locked', label: 'locked'}, {value: 'hasimage', label: 'hasimage'}, {value: 'hasaudio', label: 'hasaudio'}, {value: 'translated', label: 'translated'} ].filter(that.specificListLabelFieldFilter || function(item) {return true;}) ),
-			(that.specificListFieldSettings && that.specificListFieldSettings.classes) || grid_label('classes', 'Lớp', [{value: '3', label: '3'}, {value: '4', label: '4'}, {value: '5', label: '5'}]),
-			(that.specificListFieldSettings && that.specificListFieldSettings.status) || grid_status('status', 'Trạng thái')
+			that.getListField('name', grid_tree('name', 'Tiêu đề')),
+			that.getListField('alias', grid_text('alias', 'Bí danh')),
+			that.getListField('path', grid_text('path', 'Đường dẫn')),
+			that.getListField('ordering', grid_tree('ordering', 'Thứ tự')),
+			that.getListField('created', grid_datetime('created', 'Ngày tạo')),
+			that.getListField('modified', grid_datetime('modified', 'Ngày sửa')),
+			that.getListField('image', grid_image('image', 'Hình Ảnh')),
+			that.getListField('type', grid_text('type', 'Loại')),
+			that.getListField('metaType', grid_text('metaType', 'Meta Type')),
+			that.getListField('note', grid_text('note', 'Ghi chú')),
+			that.getListField('parent', grid_parent('parent', 'Thêm vào')),
+			that.getListField('addChild', grid_action('addChild', 'Thêm con', function(itemId) {
+				pzk.elements.grid.add({parent: itemId});
+			})),
+			that.getListField('label', 
+				grid_label('label', 'Nhãn', [
+					{value: 'trial', label: 'trial'}, 
+					{value: 'document', label: 'document'}, 
+					{value: 'featured', label: 'featured'}, 
+					{value: 'practice', label: 'practice'}, 
+					{value: 'test', label: 'test'}, 
+					{value: 'disabled', label: 'disabled'}, 
+					{value: 'checked', label: 'checked'}, 
+					{value: 'locked', label: 'locked'}, 
+					{value: 'hasimage', label: 'hasimage'}, 
+					{value: 'hasaudio', label: 'hasaudio'}, 
+					{value: 'translated', label: 'translated'} 
+					]
+					.filter(that.specificListLabelFieldFilter || function(item) {return true;}) 
+				)),
+			that.getListField('classes', 
+				grid_label('classes', 'Lớp', [
+					{value: '3', label: '3'}, 
+					{value: '4', label: '4'}, 
+					{value: '5', label: '5'}
+				])),
+			that.getListField('status', grid_status('status', 'Trạng thái'))
 		].concat(that.extraListFieldSettings || []).filter(function(item) {return item !== -1;});
+	},
+	getListField: function(field, defaultSetting) {
+		return this.specificListFieldSettings && this.specificListFieldSettings[field] || defaultSetting;
 	},
 	configureGrid: function() {
 		if(this.type) {

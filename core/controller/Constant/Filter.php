@@ -94,6 +94,15 @@ class PzkFilterConstant {
 		'show_name' => 'title',
 	);
 	
+	public static $positionOfModule = array(
+		'index' => 'position',
+		'type' => 'select',
+		'label' => 'Vị trí',
+		'table' => 'flat_module',
+		'show_value' => 'position',
+		'show_name' => 'position',
+	);
+	
 	public static function  get($field, $replace) {
 		$dom = pzk_parse_selector($field);
 		$tagName = $dom['tagName'];

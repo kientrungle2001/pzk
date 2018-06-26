@@ -60,6 +60,12 @@ Array.pzkImpl({
 			if (index > -1) {
 				this.splice(index, 1);
 			}
+		} else if (typeof index == 'function') {
+			for(var i = this.length - 1; i >= 0; i--) {
+				if(index(this[i])) {
+					this.remove(i);
+				}
+			}
 		} else {
 			var realIndex = this.index(index);
 			this.remove(realIndex);
@@ -67,9 +73,13 @@ Array.pzkImpl({
 	},
 	append: function(arr) {
 		var that = this;
-		arr.forEach(function(item) {
-			that.push(item);
-		});
+		if(is_array(arr)) {
+			arr.forEach(function(item) {
+				that.push(item);
+			});
+		} else {
+			that.push(arr);
+		}
 		return that;
 	},
 	randomInt: function() {

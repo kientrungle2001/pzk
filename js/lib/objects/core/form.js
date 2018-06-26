@@ -1,4 +1,4 @@
-PzkForm = PzkObj.pzkExt({
+PzkCoreForm = PzkObj.pzkExt({
 	layout: 'form',
 	table: 'news',
 	defaults: false,

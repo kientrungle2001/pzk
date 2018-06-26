@@ -56,5 +56,9 @@ class PzkEntityEducationTestModel extends PzkEntityModel
 	public function getAnswersOfQuestion($question) {
 		return $question->getAnswers();
 	}
+	
+	public function getUrl($class, $subject) {
+		return '/test/class-'.$class.'/week-'.$subject->get('id').'/examination-' . $this->get('id');
+	}
 }
  ?>

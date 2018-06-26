@@ -10,10 +10,10 @@ $items = $data->getItems();
 			$elem = pzk_parse($item['page']);
 		}
 		
-		$elem->display();
-		
 		if($item['script']) {
 			eval($item['script']);
 		}
+		
+		$elem->display();
 	?>
 {/each}

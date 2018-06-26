@@ -82,6 +82,15 @@ PzkDB = PzkDB.pzkExt({
 		this.options.conds += ' or ' + conds;
 		return this;
 	},
+	WhereActive: function() {
+		return this.Where(['equal', 'status', 1]);
+	},
+	WhereAlias: function(alias) {
+		return this.Where(['equal', 'alias', alias]);
+	},
+	WhereLabel: function(label) {
+		return this.Where(['like', 'label', '%,' + label + ',%']);
+	},
 	Limit: function(pageSize, pageNum) {
 		this.options.pageNum = pageNum;
 		this.options.pageSize = pageSize;
@@ -282,7 +291,7 @@ PzkDB = PzkDB.pzkExt({
 		return '';
 	},
 	executeQuery: function(query) {
-		console.log(query);
+		// console.log(query);
 		query = Base64.encode(query);
 		var result = null;
 		var token = MD5(query + serverTime);

@@ -3,7 +3,12 @@ pzk.locator = {
 	},
 	locate: function(name) {
 		if(typeof this.data[name] != 'undefined') {
-			return this.data[name];
+			var result = this.data[name];
+			if(is_string(result)) {
+				return result;
+			} else if(is_function(result)) {
+				return result();
+			}
 		}
 		return name;
 	},

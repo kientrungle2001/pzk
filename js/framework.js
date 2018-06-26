@@ -12,6 +12,10 @@ Function.prototype.pzkExt = function(props) {
 	return func;
 };
 
+Function.prototype.supper = function(method, inst, args) {
+	return this.prototype[method].apply(inst, args || []);
+};
+
 pzk = {
 	page : 'index',
 	elements : {},
@@ -54,7 +58,7 @@ pzk = {
 						callback();
 				} else if(pzk.ext(url) == 'json') {
 					var json = null;
-					eval('json = ' + response + ';');
+					json = response;
 					if(callback)
 						callback(json);
 				} else {
@@ -100,11 +104,17 @@ pzk = {
 		window.localStorage.clear();
 	},
 	modal: false,
-	lib: function(lib) {
-		pzk.load('/js/lib/' + lib + '.js');
+	lib: function(lib, callback) {
+		pzk.load('/js/lib/' + lib + '.js', callback);
+	},
+	object: function(path, callback) {
+		pzk.lib('objects/' + path, callback);
 	},
 	system: {
 		run: function() {
+			pzk.load('/system/hosts.json', function(hosts) {
+				pzk.system.hosts = hosts;
+			});
 			pzk.request.init();
 			pzk.loader.init();
 			var app = this.getApp();
@@ -183,6 +193,22 @@ pzk = {
 	},
 	loader: {
 		init: function() {
+			pzk.lib('string');
+			pzk.lib('array');
+			pzk.lib('html');
+			pzk.lib('locator');
+			pzk.lib('template');
+			pzk.lib('object');
+			pzk.lib('parser');
+			pzk.lib('database');
+			pzk.lib('model');
+			pzk.lib('browser');
+			pzk.lib('lazy');
+			pzk.lib('contextMenu');
+			pzk.object('bootstraps');
+			
+			CategoriesModel = pzk.getModel('models.categories');
+			DirectoryModel = pzk.getModel('models.directory');
 		}
 	},
 	app: {
@@ -203,7 +229,8 @@ function pzk_session(key, value){
 	}
 	return pzk.set(key, value);
 }
-function pzk_language(txt, language = false) {
+function pzk_language(txt, language) {
+    if(typeof language == 'undefined') language = false;
 	if(language == false) {
 		language = lang;
 	}
@@ -219,7 +246,8 @@ function pzk_language(txt, language = false) {
 	
 }
 
-function pzk_language_set(txt, langTxt, language = false) {
+function pzk_language_set(txt, langTxt, language) {
+    if(typeof language == 'undefined') language = false;
 	if(language == false) {
 		language = lang;
 	}

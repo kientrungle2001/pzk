@@ -1,3 +1,11 @@
+<?php
+$id = pzk_request('id');
+$subject = $data->getItem();
+$topics = $subject->getTopics();
+$teachers = $subject->getTeachers();
+$relatedCourses = $subject->getRelatedCourses();
+$class = pzk_session('lop');
+?>
 <style>
 	.hot {
     font-size: 10px;
@@ -88,13 +96,13 @@
 			</a>	
 			&nbsp; &nbsp; &gt; &nbsp; &nbsp;
 			<a href="/practice/class-5/subject-Mathematics-51">
-			Toán học		</a>
+			{subject.get('name')}		</a>
 		</div>
 		
 		<div class="row">
 		
 			<div class="col-xs-12 col-md-8">
-				<iframe width="100%" height="340" src="https://www.youtube.com/embed/AzNyjWM2kt4" frameborder="0" allowfullscreen=""></iframe>
+				<iframe width="100%" height="340" src="<?php echo pzk_or($subject->getEmbedYoutubeUrl(), 'https://www.youtube.com/embed/AzNyjWM2kt4')?>" frameborder="0" allowfullscreen=""></iframe>
 				<div class="chiasekh">
                     <b style="float: left; margin-top: 5px; margin-right: 15px;">Chia sẻ khóa học:</b>
                     <a href="" target="_blank" title="Chia sẻ">
@@ -110,7 +118,7 @@
 			</div>
 			
 			<div class="col-xs-12 col-md-4">
-				<h2 style="margin-top: 0px;">Đánh giá năng lực: Toán và Khoa học</h2>
+				<h2 style="margin-top: 0px;">{subject.get('name')}</h2>
 				
 				<div class="item">
                     <span class="hot">HOT </span>
@@ -122,9 +130,11 @@
 				
 				<ul class="baogom">
                     <li>Khóa Học Bao Gồm</li>
-                    <li>0 video bài giảng</li>
-                    <li>3 bài học thử</li>
-                    <li>84 bài thi trắc nghiệm</li>
+                    <!--
+					<li>0 video bài giảng</li>
+					-->
+                    <li><?php echo $subject->getTrialTestCount();?> bài học thử</li>
+                    <li><?php echo $subject->getTestCount();?> bài thi trắc nghiệm</li>
                     <li>Xem lại bài bất cứ lúc nào</li>
                 </ul>
 			</div>
@@ -139,93 +149,31 @@
 				
 				<div class="item">
 					<div id="chitiet" class="chitiet">
-						Thông tin tuyển sinh vào 6 năm học 2018 - 2019:<br/>
-
-						Phương án kiểm tra, đánh giá năng lực: Học sinh phải thực hiện 02 bài kiểm tra (Bài tổ hợp Khoa học tự nhiên và Toán; bài tổ hợp Khoa học xã hội, tiếng Việt và tiếng Anh); Nội dung kiểm tra thuộc chương trình giáo dục tiểu học, chủ yếu nằm trong chương trình lớp 5 hiện hành của Bộ GD&ĐT; Hình thức kiểm tra trắc nghiệm khách quan kết hợp với tự luận, trong đó đảm bảo yêu cầu bốn cấp độ nhận thức: Nhận biết, thông hiểu, vận dụng cấp độ thấp và vận dụng cấp độ cao; Thời gian làm bài: 60 phút/bài kiểm tra.<br/>
-
-						Thời gian kiểm tra, đánh giá năng lực: Đợt 1 vào ngày 29/6/2018; đợt 2 vào ngày 30/6/2018.Tuyển sinh từ ngày 10/7/2018 đến hết ngày 12/7/2018.<br/>
-
-						Để giúp phụ huynh và học sinh bớt lo lắng, Hệ thống Trung tâm VINASTUDY.VN đã xây dựng khóa học "Đánh giá năng lực Khoa học Tự nhiên".<br/>
-
-						Mục đích khóa học: Là cơ hội để các em học sinh lớp 5 làm quen, thử sức với mẫu đề "kiểm tra đánh giá năng lực". Trên cơ sở đó, các em học sinh lớp 5 sẽ biết được năng lực (cả về kiến thức, kĩ năng) của bản thân đang ở mức nào? Có những lỗ hổng kiến thức cần khắc phục và có chiến lược ôn tập hợp lý, chuẩn bị cho kỳ thi vượt cấp.<br/>
-
-						Nội dung khóa học: Khóa học "Đánh giá năng lực Khoa học Tự nhiên" gồm các đề thi theo chuyên đề Khoa học Tự nhiên, Toán. Mỗi bài thi trong 60 phút, gồm các câu trắc nghiệm khách quan đảm bảo yêu cầu bốn cấp độ nhận thức: Nhận biết, thông hiểu, vận dụng cấp độ thấp và vận dụng cấp độ cao.<br/>
-
-						Kết quả:<br/>
-
-						+ Các câu hỏi sai sẽ xuất hiện nhiều ở các lần luyện tập về sau.<br/>
-
-						+ Điểm thi được chấm ngay sau khi làm và có đáp án.<br/>
-
-						+ Điểm thi được lưu vào bảng xếp hạng .<br/>
-
-						Đối tượng:<br/>
-
-						Học sinh có nhu cầu ôn thi THCS các môn Khoa học Tự nhiên- Toán.
+					{subject.get('content')}
 					</div>
 					<div id="decuong">
+					{each $topics as $topic}
+						<?php $tests = $topic->getTests();?>
 						<div class="panel panel-primary">
 						  <div class="panel-heading">
-							<h3 class="panel-title">1. Bài học thử  <span class="pull-right">3 Bài học</span></h3>
+							<h3 class="panel-title">{topic.get('name')}  <span class="pull-right"><?php echo count($tests);?> Bài học</span></h3>
 						  </div>
 						  <div class="panel-body">
 							<ul class="list-group">
+							{each $tests as $test}
 							  <li class="list-group-item">
-								<a href="#">
-								
-								4. ĐÁNH GIÁ NĂNG LỰC - TOÁN HỌC VÀ ỨNG DỤNG - SỐ TỰ NHIÊN - ĐỀ 1 
+								<a href="<?php echo $test->getUrl($class, $subject)?>">
+								{test.get('name')}
+								<?php if($test->get('trial')):?>
 								<span class="badge">Dùng thử</span>
+								<?php endif;?>
 								</a>
 							  </li>
-							  <li class="list-group-item">
-								<a href="#">
-								
-								4. ĐÁNH GIÁ NĂNG LỰC - TOÁN HỌC VÀ ỨNG DỤNG - SỐ TỰ NHIÊN - ĐỀ 1
-								<span class="badge">14</span>
-								</a>		
-							  </li>
-							  <li class="list-group-item">
-								<a href="#">
-								
-								4. ĐÁNH GIÁ NĂNG LỰC - TOÁN HỌC VÀ ỨNG DỤNG - SỐ TỰ NHIÊN - ĐỀ 1
-								<span class="badge">14</span>
-								</a>		
-							  </li>
+							{/each}
 							</ul>
 						  </div>
 						</div>
-						
-						<div class="panel panel-primary">
-						  <div class="panel-heading">
-							<h3 class="panel-title">1. Bài học thử  <span class="pull-right">3 Bài học</span></h3>
-						  </div>
-						  <div class="panel-body">
-							<ul class="list-group">
-							  <li class="list-group-item">
-								<a href="#">
-								
-								4. ĐÁNH GIÁ NĂNG LỰC - TOÁN HỌC VÀ ỨNG DỤNG - SỐ TỰ NHIÊN - ĐỀ 1 
-								<span class="badge">14</span>
-								</a>
-							  </li>
-							  <li class="list-group-item">
-								<a href="#">
-								
-								4. ĐÁNH GIÁ NĂNG LỰC - TOÁN HỌC VÀ ỨNG DỤNG - SỐ TỰ NHIÊN - ĐỀ 1
-								<span class="badge">14</span>
-								</a>		
-							  </li>
-							  <li class="list-group-item">
-								<a href="#">
-								
-								4. ĐÁNH GIÁ NĂNG LỰC - TOÁN HỌC VÀ ỨNG DỤNG - SỐ TỰ NHIÊN - ĐỀ 1
-								<span class="badge">14</span>
-								</a>		
-							  </li>
-							</ul>
-						  </div>
-						</div>
-						
+					{/each}
 					</div>
 				</div>
 			</div>
@@ -234,32 +182,24 @@
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				  <!-- Indicators -->
 				  <ol class="carousel-indicators">
-					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				  <?php foreach($teachers as $tIndex => $teacher):?>
+					<li data-target="#carousel-example-generic" data-slide-to="<?php echo $tIndex?>" <?php if($tIndex == 0):?>class="active"<?php endif;?>></li>
+					<?php endforeach;?>
 					
 				  </ol>
 
 				  <!-- Wrapper for slides -->
 				  <div class="carousel-inner" role="listbox">
-					<div class="text-center active">
-					  <img class="img-circle" src="/Themes/Thinangluc/skin/media/gv.jpg" alt="...">
-					  <div class="item">
-						<h3>Third slide label</h3>
-						<p>
-						Nơi ở hiện tại: Đống Đa – Hà Nội Học vị: Thạc sĩ Quá trình công tác và kinh nghiệm: Thầy Nguyễn Thành Long đã có kinh nghiệm 10 năm giảng dạy với hàng trăm học sinh đạt thành tích cao trong các kì thi Violympic Toán, Thi học sinh giỏi Toán. Đặc biệt, rất nhiều học sinh của thầy thi đỗ vào các trường chuyên, chất lượng cao ở Hà Nội như: Amsterdam, Giảng Võ, Chu Văn An,.... Thầy nguyên là giáo viên Hệ thống Giáo dục Anhxtanh Hà Nội. Giáo viên Hệ thống Giáo dục Vinastudy.vn. Giáo viên đội tuyển
-						<p>
-					  </div>
-					</div>
 					
-					<div class="item">
-					  <img class="text-center img-circle" src="/Themes/Thinangluc/skin/media/gv.jpg" alt="...">
+					<?php foreach($teachers as $tIndex => $teacher):?>
+					<div class="text-center <?php if($tIndex == 0):?>active<?php endif; ?>">
+					  <img class="img-circle" src="<?php if($teacher['image']):?><?php echo $teacher['image']?><?php else:?>/Themes/Thinangluc/skin/media/gv.jpg<?php endif;?>" alt="...">
 					  <div class="item">
-					  <h3>Third slide label</h3>
-					  <p>
-						Nơi ở hiện tại: Đống Đa – Hà Nội Học vị: Thạc sĩ Quá trình công tác và kinh nghiệm: Thầy Nguyễn Thành Long đã có kinh nghiệm 10 năm giảng dạy với hàng trăm học sinh đạt thành tích cao trong các kì thi Violympic Toán, Thi học sinh giỏi Toán. Đặc biệt, rất nhiều học sinh của thầy thi đỗ vào các trường chuyên, chất lượng cao ở Hà Nội như: Amsterdam, Giảng Võ, Chu Văn An,.... Thầy nguyên là giáo viên Hệ thống Giáo dục Anhxtanh Hà Nội. Giáo viên Hệ thống Giáo dục Vinastudy.vn. Giáo viên đội tuyển
-						<p>
+						<h3><?php echo $teacher['name']?></h3>
+						<p><?php echo $teacher['description']?></p>
 					  </div>
 					</div>
+					<?php endforeach;?>
 					
 				  </div>
 
@@ -267,24 +207,17 @@
 				</div>
 				
 				<h2 class="text-center title-practice">Khóa học liên quan</h2>
-				<a href="#" class="item-lienquan">
+				{each $relatedCourses as $related}
+				<a href="<?php echo $related['link']?>" class="item-lienquan">
 					<div class="col-xs-12 col-md-6"> 
-						<img class="item" src="/Themes/Thinangluc/skin/media/20382.jpg" alt="" />
+						<img class="item" src="<?php echo $related['image']?>" alt="" />
 					</div>
 					<div class="col-xs-12 pl-0 col-md-6">
-						<p><b>Ôn thi vào 6 môn Toán</b></p>
-						<p><b>Giá: 1.000.000 VNĐ</b></p>
+						<p><b><?php echo $related['name']?></b></p>
+						<p><b>Giá: <?php echo $related['price']?></b></p>
 					</div>
 				</a>
-				<a href="#" class="item-lienquan">
-					<div class="col-xs-12 col-md-6"> 
-						<img class="item" src="/Themes/Thinangluc/skin/media/20382.jpg" alt="" />
-					</div>
-					<div class="col-xs-12 pl-0 col-md-6">
-						<p><b>Ôn thi vào 6 môn Toán</b></p>
-						<p><b>Giá: 1.000.000 VNĐ</b></p>
-					</div>
-				</a>
+				{/each}
 			</div>
 		</div>
 	</div>	

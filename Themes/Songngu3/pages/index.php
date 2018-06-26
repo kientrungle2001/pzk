@@ -13,22 +13,21 @@
     </Html.Head>
     <Html.Body id="body">    	
 		
-		<!--Core.Flatmodule.List conditions='["position", "user"]' /-->
-
+		<Core.Module.List conditions='["position", "user"]' />
+<!--
 		<User.Account.Registersn id="userAccountRegistersn" scriptable="true" />
 		<User.Account.Loginsn id="userAccountLoginsn" scriptable="true" />
-
+-->
 		<Home.Header id="header" layout="home/header2">
 			<User.Account.User id="userAccountUser" />
-			<Core.Flatmodule.List conditions='["position", "menu"]' id="menu" position="top-menu" />
+			<Core.Module.List conditions='["position", "menu"]' id="menu" position="top-menu" />
 			<!--Fulllook.Menu id="menu" table="tests" cacheable="true" cacheParams="layout,table,position" layout="detail/topmenu"  position="top-menu" scriptable="false" /-->
 			
 		</Home.Header>
 		<Container id="wrapper" layout="empty" />
 		<Block layout="notifier/messages" cacheable="false" />
 		<Home.Footer id="footer" layout="home/footer">
-			<Core.Flatmodule.List conditions='["position", "footer"]' />
-			
+			<Core.Module.List conditions='["position", "footer"]' />
 		</Home.Footer>
 	</Html.Body>
 </Page>

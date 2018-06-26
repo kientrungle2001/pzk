@@ -1,13 +1,21 @@
 maxUniqueId = 1;
+
 PzkParser = {
 	parse: function(source) {
 		if(is_string(source)) {
 			if(source.contains('<')) {
 				var parser = new DOMParser();
 				var xmlDoc = parser.parseFromString(source, "text/xml");
+				if(isParseError(xmlDoc)) {
+					console.log(xmlDoc);
+				}
 				return this.parse(xmlDoc);
 			} else {
-				var path = pzk.locator.locate(source);
+				var path = source;
+				if(pzk.locator) {
+					path = pzk.locator.locate(source);
+				}
+				
 				pzk.load(path, function(resp) {
 					source = resp;
 				});
@@ -22,6 +30,7 @@ PzkParser = {
 		}
 	},
 	parseNode: function(node) {
+		var that = this;
 		var nodeObjData = {children: []};
 		if(node.nodeName == '#text') {
 			nodeObjData.tagName = 'label';
@@ -47,24 +56,31 @@ PzkParser = {
 		parts.forEach(function(part, index) {
 			parts[index] = part.ucfirst();
 		});
-		pzk.lib('objects/' + classPath);
 		var className = 'Pzk' + parts.join('');
+		if(typeof window[className] == 'undefined') {
+			pzk.lib('objects/' + classPath);
+		}
+		if(typeof window[className] == 'undefined') {
+			console.log(className + ' not found');
+		}
+		
 		var classFunction = window[className];
+		
 		var rs = new classFunction(nodeObjData);
 		pzk.elements[rs.id] = rs;
 		rs.init();
 		node.childNodes.forEach(function(childNode) {
-			nodeObjData.children.push(PzkParser.parseNode(childNode));
+			nodeObjData.children.push(that.parseNode(childNode));
 		});
 		rs.finish();
 		return rs;
 	},
 	htmlTags: {
 		'h1' : true, 'h2' : true, 'h3' : true, 'h4' : true, 'h5' : true, 'h6' : true, 'marquee' : true, 'br' : true,
-        'p' : true, 'em' : true, 'strong' : true, 'a' : true, 'style' : true, 'div' : true, 'span' : true, 'label' : true, 'b' : true, 'hr' : true,
+        'p' : true, 'em' : true, 'strong' : true, 'a' : true, 'style' : true, 'div' : true, 'span' : true, 'label' : true, 'b' : true, 'hr' : true, 'i': true, 'form': true,
         'script' : true, 'link' : true, 'select' : true, 'option' : true, 'ul' : true, 'li' : true,
         'table' : true, 'tr' : true, 'td' : true, 'thead' : true, 'tbody' : true, 'caption' : true,
-        'input' : true, 'textarea' : true, 'img' : true, 'pre' : true, 'header' : true
+        'input' : true, 'textarea' : true, 'img' : true, 'pre' : true, 'header' : true, 'footer': true
 	},
 	isHtmlTag: function(nodeName) {
 		if(this.htmlTags[nodeName]) {
@@ -73,3 +89,68 @@ PzkParser = {
 		return false;
 	}
 };
+
+PzkSimpleParser = $.extend({}, PzkParser, {
+	parseNode: function(node) {
+		var that = this;
+		var nodeObjData = {children: []};
+		if(node.nodeName == '#text') {
+			nodeObjData.tagName = 'label';
+			nodeObjData.content = node.nodeValue;
+		} else {
+			nodeObjData.tagName = node.nodeName;
+			if (this.isHtmlTag(node.nodeName)) {
+                nodeObjData.tagName = 'htmltag';
+				nodeObjData.tag = node.nodeName;
+            }
+			if(node.attributes.length) {
+				for(var i = 0; i < node.attributes.length; i++) {
+					nodeObjData[node.attributes[i].nodeName] = node.attributes[i].nodeValue;
+				}
+			}
+		}
+		var classPath = nodeObjData.tagName.replace(/\./g, '/');
+		var parts = nodeObjData.tagName.split('.');
+		parts.forEach(function(part, index) {
+			parts[index] = part.ucfirst();
+		});
+		var className = 'Pzk' + parts.join('');
+		if(typeof window[className] == 'undefined') {
+			pzk.lib('objects/' + classPath);
+		}
+		if(typeof window[className] == 'undefined') {
+			console.log(className + ' not found');
+		}
+		
+		var classFunction = window[className];
+		
+		var rs = new classFunction(nodeObjData);
+		rs.init();
+		node.childNodes.forEach(function(childNode) {
+			nodeObjData.children.push(that.parseNode(childNode));
+		});
+		rs.finish();
+		return rs;
+	},
+	htmlTags: {
+		'h1' : true, 'h2' : true, 'h3' : true, 'h4' : true, 'h5' : true, 'h6' : true, 'marquee' : true, 'br' : true,
+        'p' : true, 'em' : true, 'strong' : true, 'a' : true, 'style' : true, 'div' : true, 'span' : true, 'label' : true, 'b' : true, 'hr' : true, 'i': true,
+        'script' : true, 'link' : true, 'select' : true, 'option' : true, 'ul' : true, 'li' : true,
+        'table' : true, 'tr' : true, 'td' : true, 'thead' : true, 'tbody' : true, 'caption' : true,
+        'input' : true, 'textarea' : true, 'img' : true, 'pre' : true, 'header' : true, 'footer': true, 'form': true
+	}
+});
+
+function isParseError(parsedDocument) {
+    // parser and parsererrorNS could be cached on startup for efficiency
+    var parser = new DOMParser(),
+        errorneousParse = parser.parseFromString('<', 'text/xml'),
+        parsererrorNS = errorneousParse.getElementsByTagName("parsererror")[0].namespaceURI;
+
+    if (parsererrorNS === 'http://www.w3.org/1999/xhtml') {
+        // In PhantomJS the parseerror element doesn't seem to have a special namespace, so we are just guessing here :(
+        return parsedDocument.getElementsByTagName("parsererror").length > 0;
+    }
+
+    return parsedDocument.getElementsByTagNameNS(parsererrorNS, 'parsererror').length > 0;
+}

@@ -1,10 +1,10 @@
-pzk.lib('objects/form');
-PzkDbForm = PzkForm.pzkExt({
+pzk.lib('objects/core/form');
+PzkDbForm = PzkCoreForm.pzkExt({
 	type: false,
 	metaType: false,
 	initFromDatabase: function() {
 		var that = this;
-		PzkForm.prototype.init.call(this);
+		this.supper(PzkCoreForm, 'init');
 		if(this.type) {
 			var config = null;
 			if(this.metaType) {
@@ -31,7 +31,7 @@ PzkDbForm = PzkForm.pzkExt({
 				if(config.brief) {
 					var cfg = null;
 					eval('cfg = ' + config.brief + ';');
-					console.log(cfg);
+					// console.log(cfg);
 					$.extend(this, cfg);
 				}
 			}

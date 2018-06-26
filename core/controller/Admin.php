@@ -811,6 +811,17 @@ class PzkAdminController extends PzkBackendController {
 				}
 			}
 		}
+		return $this;
+	}
+	
+	public function removeField(&$fields, $field) {
+		foreach($fields as $index => $f) {
+			if($f['index'] == $field) {
+				array_splice($fields, $index, 1);
+				break;
+			}
+		}
+		return $this;
 	}
 	public function exportExcelAction($pageNum, $pageSize){
 		$exportFields = $this->exportFields;

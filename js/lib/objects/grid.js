@@ -7,6 +7,31 @@ PzkGrid = PzkList.pzkExt({
 	editable: true,
 	insertable: true,
 	multiple: true,
+	getSortObject: function() {
+		var sorter = PzkParser.parse('<db.grid.sort />');
+		sorter.grid = this;
+		return sorter;
+	},
+	getFilterObject: function() {
+		var filter = PzkParser.parse('<db.grid.filter />');
+		filter.grid = this;
+		return filter;
+	},
+	getToolbarObject: function() {
+		var toolbar = PzkParser.parse('<db.grid.toolbar />');
+		toolbar.grid = this;
+		return toolbar;
+	},
+	getHeaderObject: function() {
+		var header = PzkParser.parse('<db.grid.header />');
+		header.grid = this;
+		return header;
+	},
+	getPaginationObject: function() {
+		var pagination = PzkParser.parse('<db.grid.pagination />');
+		pagination.grid = this;
+		return pagination;
+	},
 	gotoPage: function(page) {
 		this.$('tfoot a.page.btn-primary').removeClass('btn-primary').addClass('btn-default');
 		this.$('tfoot a.page-'+page).addClass('btn-primary');
@@ -84,7 +109,19 @@ PzkGrid = PzkList.pzkExt({
 		this.fieldSettings.forEach(function(setting) {
 			that.checkColumn(setting.index);
 		});
-		
+		this.onRowContextMenu();
+	},
+	onRowContextMenu: function() {
+		var that = this;
+		$('.grid-row').contextMenu({
+			menuSelector: '#gridContextMenu-' + that.id, menuSelected: function($invokedOn, $selectedMenu) {
+				var $tr = $invokedOn.parents('tr:first');
+				contextItemId = parseInt($tr.attr('rel'));
+			}
+		});
+	},
+	add: function(formData = {}) {
+		this.onAdd(formData);
 	},
 	edit: function(id) {
 		var item = this.getItem(id);
@@ -390,6 +427,16 @@ PzkGrid = PzkList.pzkExt({
 		var itemId = (evt.dataTransfer.getData('itemId'));
 		_db().Update(this.table).Set({'parent': parentId}).WhereId(itemId).Result();
 		this.reload();
+	},
+	enable: function(itemId) {
+		var updation = {status: 1};
+		_db().Update(this.table).Set(updation).WhereId(itemId).Result();
+		this.reload();
+	},
+	disable: function(itemId) {
+		var updation = {status: 0};
+		_db().Update(this.table).Set(updation).WhereId(itemId).Result();
+		this.reload();
 	}
 });
 function grid_editable(options) {
@@ -430,7 +477,7 @@ function grid_status(index, label){
 }
 
 function grid_tree(index, label){
-	return {type: 'text', index: index, label: label, treeMode: true};
+	return {type: 'text', index: index, label: label, treeMode: true, language: true};
 }
 
 function grid_image(index, label){
@@ -508,6 +555,9 @@ function grid_field_text_html(item, column) {
 			content = column.maps[content];
 		}
 	}
+	if(column.language) {
+		content = pzk_language(content);
+	}
 	return (column.treeMode? (item.treeLevel ? '|<span style="opacity: 0;">____</span>'.repeat(item.treeLevel-1) + '|____' : ''): '') + content;
 }
 
@@ -567,7 +617,7 @@ function grid_filter_html(setting) {
 }
 
 function grid_filter_select_html(setting) {
-	var html = '<select onchange="'+co.locate()+'.filterBy(\''+setting.index+'\', this.value);" class="filterField filterField-'+setting.index+'" name="'+setting.index+'">';
+	var html = '<select onchange="'+co.locate()+'.filterBy(\''+setting.index+'\', this.value);" class="filterField filterField-'+setting.index+' form-control" name="'+setting.index+'">';
 	html += '<option value="">'+setting.label+'</option>';
 	if(setting.loader) {
 		setting.options = setting.loader(setting);
@@ -582,6 +632,6 @@ function grid_filter_select_html(setting) {
 }
 
 function grid_filter_text_html(setting) {
-	var html = setting.label + ' <input type="text" onkeyup="pzk.getElement(\''+co.id+'\').filterBy(\''+setting.index+'\', this.value);" style="width: '+(setting.width || '100px')+'" class="filterField filterField-'+setting.index+'" name="'+setting.index+'" value="'+(setting.value || '')+'" />';
+	var html = setting.label + ' <input type="text" onkeyup="pzk.getElement(\''+co.id+'\').filterBy(\''+setting.index+'\', this.value);" style="width: '+(setting.width || '100%')+'" class="filterField filterField-'+setting.index+' form-control" name="'+setting.index+'" value="'+(setting.value || '')+'" />';
 	return html;
 }

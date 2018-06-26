@@ -56,6 +56,12 @@ String.pzkImpl({
 			regex.lastIndex = ++nextStop;
 		}
 		return lastIndexOf;
+	},
+	toObj: function() {
+		return PzkParser.parse(this);
+	},
+	toSimpleObj: function() {
+		return PzkSimpleParser.parse(this);
 	}
 });
 
