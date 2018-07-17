@@ -82,7 +82,7 @@
 								{each $tests as $test }
 								<?php
 									if(!$lang || $lang == 'vn'){
-										$testName = $test['name_sn'];
+										$testName = $test['name'];
 									}else{
 										if($test['trial'] == 1){
 											$testName = 'Trial test';	
@@ -121,7 +121,7 @@
 							{each $tests as $test }
 								<?php 
 									if(!$lang || $lang == 'vn'){
-										$testName = $test['name_sn'];
+										$testName = $test['name'];
 									}else{
 										if($test['trial'] == 1){
 											$testName = 'Trial test';	
@@ -174,7 +174,7 @@
 
 						<?php 
 							if(!$lang || $lang == 'vn'){
-								echo $data_criteria['name_sn']; 
+								echo $data_criteria['name']; 
 							}else{
 								if($data_criteria['name_sn'] == 'Đề dùng thử'){
 										$data_criteria['name_sn'] = 'Trial test';

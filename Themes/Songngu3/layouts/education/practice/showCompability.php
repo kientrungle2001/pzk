@@ -53,7 +53,7 @@ $replacement = '';
 						<a href="" class="text-color">
 						<?php 
 						if ($lang == 'en' || $lang == 'ev'){
-							echo 'Tổ Hợp '.$i.': '.preg_replace($pattern, $replacement, $test['name_en']);
+							echo 'Combination '.$i.': '.preg_replace($pattern, $replacement, $test['name_en']);
 						}else{
 							echo 'Tổ Hợp '.$i.': '.preg_replace($pattern, $replacement, $test['name']);
 						} ?>
