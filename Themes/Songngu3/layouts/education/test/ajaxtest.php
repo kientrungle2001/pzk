@@ -3,9 +3,9 @@
 $lang = pzk_session('language');
 $check = pzk_session('checkPayment');
 	$page = $data->get('page');
-	$class = $data->get('class'); 	
+	$class = $data->get('class'); 
+	$items = $data->getTests($class, 1410, $page, 15);	
 ?>
-{? $items = $data->getTests($class, 1410, $page, 15); ?}
 
 {each $items as $item}
 <?php $tests= $data->getTestByWeek($item['id'], 0, $check, $class); 
