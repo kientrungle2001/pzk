@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ *
  * @author kienhang
  * Setter và Getter class: lớp này dùng để thực thi hàm ảo set, get, has, del, clear<br />
  * Ứng dụng dạng lưu trữ theo cặp key, value như cache file, memcache, redis, session,...<br />
@@ -30,7 +30,7 @@ class PzkSG {
 	public function get($key, $timeout = null) {
 		return isset($this->$key)?$this->$key : null;
 	}
-	
+
 	/**
 	 * Hàm đặt giá trị theo khóa
 	 * @param $key khóa
@@ -45,7 +45,7 @@ class PzkSG {
 		$this->$key = $value;
 		return $this;
 	}
-	
+
 	/**
 	 * Hàm kiểm tra xem khóa có tồn tại hay không
 	 * @param string $key khóa
@@ -63,19 +63,19 @@ class PzkSG {
 	public function has($key) {
 		return isset($this->$key);
 	}
-	
+
 	public function del($key) {
 		unset($this->$key);
 		return $this;
 	}
-	
+
 	/**
 	 * Ham xoa tat ca cac du lieu trong kho
 	 */
 	public function clear() {
 	}
-	
-	/*
+
+
 	public function __call($name, $arguments) {
 		$prefix = substr($name, 0, 3);
 		$property = strtolower($name[3]) . substr($name, 4);
@@ -101,18 +101,18 @@ class PzkSG {
 				throw new \Exception("Property $name doesn't exist.");
 				break;
 		}
-	}*/
-	
+	}
+
 	/**
 	 * Hàm lấy dữ liệu dựa vào các trường được chỉ định
 	 * @example <code>
 	 * $sg = new PzkSG();<br />
 	 * $sg->getFilterData(); // return all data<br />
-	 * $sg->getFilterData('name, category, created');<br /> 
-	 * $sg->getFilterData('name', 'category', 'created');<br /> 
-	 * $sg->getFilterData(array('name', 'category', 'created'));<br /> 
+	 * $sg->getFilterData('name, category, created');<br />
+	 * $sg->getFilterData('name', 'category', 'created');<br />
+	 * $sg->getFilterData(array('name', 'category', 'created'));<br />
 	 * 	// return array(name => , category => , created => );<br />
-	 * 
+	 *
 	 * </code>
 	 * @return array|multitype:gia
 	 */
