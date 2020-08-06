@@ -93,7 +93,3 @@ if(COMPILE_MODE) {
 	// shutdown hệ thống
 	pzk_system()->halt();
 }
-if(1) {
-	echo_memory_usage() . "\n"; // 36640
-	// echo get_server_load() . '<br />' . "\n";
-}
