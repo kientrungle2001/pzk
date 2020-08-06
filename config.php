@@ -37,8 +37,8 @@ $a = session_id();
 // Khởi tạo session theo domain và subdomain
 if(!SESSION_LOCAL_MODE && !$a)
 {
-	$currentCookieParams = session_get_cookie_params(); 
-	
+	$currentCookieParams = session_get_cookie_params();
+
 	function get_root_domain() {
 		static $root_domain = null;
 		if(null !== $root_domain) return $root_domain;
@@ -48,8 +48,8 @@ if(!SESSION_LOCAL_MODE && !$a)
 		$tld 		= array_pop($names);
 		return $root_domain = $tld. '.' . $ext;
 	}
-	$rootDomain = '.' . get_root_domain(); 
-	
+	$rootDomain = '.' . get_root_domain();
+
 	session_name('mysessname');
 	session_set_cookie_params(0, '/', $rootDomain);
 	@session_start();
@@ -57,7 +57,7 @@ if(!SESSION_LOCAL_MODE && !$a)
     @session_start();
 }
 
-  
+
 // Bắt quyền truy cập cho các file php của hệ thống
 define('PZK_ACCESS', true);
 
@@ -119,8 +119,8 @@ if(strpos($_SERVER['REQUEST_URI'], 'admin') !== false || strpos($_SERVER['REQUES
 	} else {
 		define('CACHE_MODE', false);
 	}
-	
-	
+
+
 	define('ADMIN_MODE', false);
 }
 
@@ -146,7 +146,7 @@ if(isset($_REQUEST['showDebug'])) {
 	} else {
 		define('DEBUG_MODE', false);
 	}
-	
+
 }
 
 
@@ -373,7 +373,7 @@ if(LOCAL_MODE) {
 	//ngay thi dot 1
 	define('DATECAMP1', '2016/05/05 08:00:00');
 	//ngay thi dot 2
-	define('DATECAMP2', '2016/06/12 08:00:00');	
+	define('DATECAMP2', '2016/06/12 08:00:00');
 } else {
 	define('FL_URL', 'http://s1.nextnobels.com');
 	define('FLSN_URL', 'http://fulllooksongngu.com');
@@ -382,14 +382,14 @@ if(LOCAL_MODE) {
 		define('HW_URL', 'http://tiengviettieuhoc.vn');
 		define('PMTV3_URL', 'http://pmtv3.tiengviettieuhoc.vn');
 		define('PMTV4_URL', 'http://pmtv4.tiengviettieuhoc.vn');
-		define('PMTV5_URL', 'http://pmtv5.tiengviettieuhoc.vn');	
+		define('PMTV5_URL', 'http://pmtv5.tiengviettieuhoc.vn');
 	} else {
 		define('HW_URL', 'http://tiengviettieuhoc.net');
 		define('PMTV3_URL', 'http://pmtv3.tiengviettieuhoc.net');
 		define('PMTV4_URL', 'http://pmtv4.tiengviettieuhoc.net');
 		define('PMTV5_URL', 'http://pmtv5.tiengviettieuhoc.net');
 	}
-	
+
 	//ngay show dap an dot 1
 	define('DATEFINISH1', '2016/06/08 16:00:00');
 	//ngay show dap an dot 2
@@ -401,20 +401,20 @@ if(LOCAL_MODE) {
 
 }
 
-if(LOCAL_MODE){	
+if(LOCAL_MODE){
   define('ROOT_WEEK_CATEGORY_ID','227');
 }else define('ROOT_WEEK_CATEGORY_ID','354');
 
 if(!function_exists('mysql_escape_string')) {
 	function mysql_escape_string($str) {
-		mysqli::real_escape_string($str);
+		return preg_replace('~[\x00\x0A\x0D\x1A\x22\x27\x5C]~u', '\\\$0', $str);
 	}
 }
 
-if(LOCAL_MODE){	
+if(LOCAL_MODE){
   define('ROOT_TEST_CATEGORY_ID','243');
 }else define('ROOT_TEST_CATEGORY_ID','529');
-if(LOCAL_MODE){	
+if(LOCAL_MODE){
   define('ROOT_PRATEST_CATEGORY_ID','242');
 }else define('ROOT_PRATEST_CATEGORY_ID','528');
 

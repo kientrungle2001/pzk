@@ -31,7 +31,7 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 			return $cond;
 		}
 	}
-	
+
 	public function mf_sql($sql) {
 		return $sql;
 	}
@@ -48,7 +48,7 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 	function mf_string($str) {
 		return '\'' . @mysql_escape_string($str) . '\'';
 	}
-	
+
 	function mf_equal($exp1, $exp2) {
 		if(is_string($exp1)) {
 			$exp1 = array('column', $exp1);
@@ -58,7 +58,7 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 		}
 		return '(' . $this->build($exp1) .'=' . $this->build($exp2) . ')';
 	}
-	
+
 	function mf_ne($exp1, $exp2) {
 		if(is_string($exp1)) {
 			$exp1 = array('column', $exp1);
@@ -111,7 +111,7 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 		array_unshift($args, 'or');
 		return call_user_func_array(array($this, 'mf_exp'), $args);
 	}
-	
+
 	function mf_in($col, $arr) {
 		if(!is_array($arr)) {
 			return false;
@@ -121,7 +121,7 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 		$arr = $this->mf_string_array($arr);
 		return $col. ' in (' . implode(', ', $arr) . ')';
 	}
-	
+
 	function mf_string_array($arr) {
 		$rs = array();
 		foreach($arr as $key => $val) {
@@ -129,7 +129,7 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 		}
 		return $rs;
 	}
-	
+
 	function mf_notin($col, $arr) {
 		if(!is_array($arr)) {
 			return false;
@@ -139,17 +139,17 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 		$arr = $this->mf_string_array($arr);
 		return $col. ' not in (' . implode(', ', $arr) . ')';
 	}
-	
+
 	function mf_isnull($col) {
 		$col = $this->mf_makecol($col);
 		return $col. ' is null';
 	}
-	
+
 	function mf_isnotnull($col) {
 		$col = $this->mf_makecol($col);
 		return $col. ' is not null';
 	}
-	
+
 	function mf_makecol($col) {
 		if (is_string($col)) {
 			return $this->mf_column($col);
@@ -157,7 +157,7 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 			return $this->build($col);
 		}
 	}
-	
+
 	function mf_gt($exp1, $exp2) {
 		if(is_string($exp1)) {
 			$exp1 = array('column', $exp1);
@@ -213,7 +213,7 @@ function mf_build($cond) {
 		}
 		// ngược lại
 		$op = $cond[0]; // toán tử
-		if(in_array($op, self::$operations)) {
+		if(in_array($op, PzkCoreDatabaseArrayCondition::$operations)) {
 			$func = 'mf_'.$op;
 			array_shift($cond);
 			return call_user_func_array($func, $cond);

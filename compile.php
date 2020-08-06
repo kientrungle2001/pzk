@@ -1,4 +1,14 @@
 <?php
+@mkdir('compile');
+@mkdir('compile/pages');
+@mkdir('compile/objects');
+@mkdir('compile/models');
+@mkdir('compile/layouts');
+@mkdir('compile/controller');
+@mkdir('cache');
+@mkdir('cache/data');
+@mkdir('cache/layout');
+@mkdir('cache/session');
 $includes = array(
 	__DIR__ . '/lib/string.php',
     __DIR__ . '/lib/error.php',
@@ -50,7 +60,7 @@ $includes = array(
 	__DIR__ . '/core/controller/GridAdmin.php',
 	__DIR__ . '/core/controller/Report.php',
 	__DIR__ . '/core/controller/ConfigAdmin.php',
-	
+
 	__DIR__ . '/core/controller/Frontend.php',
 	__DIR__ . '/model/Entity.php',
 	__DIR__ . '/objects/Core/System.php',
@@ -69,9 +79,9 @@ $includes = array(
 	__DIR__ . '/objects/Core/Mailer.php',
 	__DIR__ . '/objects/Core/Notifier.php',
 	__DIR__ . '/objects/Core/Validator.php',
-	
-	
-	
+
+
+
 	__DIR__ . '/objects/Page.php',
 	__DIR__ . '/objects/Block.php',
 	__DIR__ . '/objects/Container.php',
@@ -79,10 +89,10 @@ $includes = array(
 	__DIR__ . '/objects/Html/Body.php',
 	__DIR__ . '/objects/Html/Css.php',
 	__DIR__ . '/objects/Html/Js.php',
-	
+
 	__DIR__ . '/objects/Home/Header.php',
 	__DIR__ . '/objects/Home/Footer.php',
-	
+
 	__DIR__ . '/objects/User/Account/Registersn.php',
 	__DIR__ . '/objects/User/Account/Loginsn.php',
 	__DIR__ . '/objects/User/Account/User.php',
@@ -90,7 +100,7 @@ $includes = array(
 	__DIR__ . '/objects/Cms/Banner/Region.php',
 	__DIR__ . '/objects/Education/Test/List.php',
 	__DIR__ . '/objects/Education/Achievement/Achievement.php',
-	
+
 );
 $includeContent = '<?php ' . "\r\n";
 foreach($includes as $include) {
