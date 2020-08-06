@@ -1,17 +1,7 @@
 <?php
 $startTime = microtime(true);
 require_once __DIR__ . '/config.php';
-if(isset($_REQUEST['SIMPLE_MODE']) && $_REQUEST['SIMPLE_MODE']) {
-	define('SIMPLE_MODE', 1);
-}
-if(defined('SIMPLE_MODE') && SIMPLE_MODE) {
-	// setting for application
-	require_once BASE_DIR . '/simple/lib.php';
-	require_once BASE_DIR . '/simple/system.php';
-	require_once BASE_DIR . '/simple/app/' . APPLICATION . '.php';
-	require_once BASE_DIR . '/simple/app/' . APPLICATION . '/controller/'.CONTROLLER.'.php';
-	die();
-}
+
 // Chạy chế độ compile
 if(COMPILE_MODE) {
 	// include các thư viện và file hệ thống
