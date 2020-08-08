@@ -57,9 +57,9 @@ class PzkDemoController extends PzkController {
 
 	}
 	public function logoutAction(){
-		pzk_session('login',false);
-		pzk_session('username',false);
-		pzk_session('userId',false);
+		pzk_session()->setLogin(false);
+		pzk_session()->setUsername(false);
+		pzk_session()->setUserId(false);
 		header('location:/demo/index');
 
 	}
@@ -176,9 +176,9 @@ class PzkDemoController extends PzkController {
 		if($items){
 			//echo 'dang nhap thanh cong';
 			//echo $items['id'];
-			pzk_session('login', true);
-			pzk_session('username', $request->getLogin());
-			pzk_session('userId',$items['id']);
+			pzk_session()->setLogin( true);
+			pzk_session()->setUsername( $request->getLogin());
+			pzk_session()->setUserId($items['id']);
 			header('location:/demo/index');
 
 		}else{

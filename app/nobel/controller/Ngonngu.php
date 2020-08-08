@@ -25,7 +25,7 @@ class PzkNgonnguController extends PzkFrontendController{
         }else {
             $keybook	= uniqid();
 
-            $s_keybook	=	pzk_session('keybook', $keybook);
+            $s_keybook	=	pzk_session()->setKeybook( $keybook);
             $this->append('question/lessonTest', 'left');
 
         }
@@ -41,7 +41,7 @@ class PzkNgonnguController extends PzkFrontendController{
     		
     		$keybook	= uniqid();
     		
-    		$s_keybook	=	pzk_session('keybook', $keybook);
+    		$s_keybook	=	pzk_session()->setKeybook( $keybook);
     		
 	    	$this->append('question/showQuestion', 'left');
 
@@ -278,7 +278,7 @@ class PzkNgonnguController extends PzkFrontendController{
     	}else {
     		$keybook	= uniqid();
     	
-    		$s_keybook	=	pzk_session('keybook', $keybook);
+    		$s_keybook	=	pzk_session()->setKeybook( $keybook);
     		
     		$this->append('question/test', 'left');
     	}
@@ -304,7 +304,7 @@ class PzkNgonnguController extends PzkFrontendController{
 		    	
 		    	$keybook	= uniqid();
 		    	
-		    	$s_keybook	=	pzk_session('keybook', $keybook);
+		    	$s_keybook	=	pzk_session()->setKeybook( $keybook);
 		    	
 		    	$this->append('question/showTest', 'left');
 		    	
@@ -358,7 +358,7 @@ class PzkNgonnguController extends PzkFrontendController{
         $this->display();
     }
     public function onchangeTestIdAction() {
-        pzk_session('userBookTestId', pzk_request()->getTestId());
+        pzk_session()->setUserBookTestId( pzk_request()->getTestId());
         $this->redirect('rating');
     }
     public function listTestAction() {
@@ -372,10 +372,10 @@ class PzkNgonnguController extends PzkFrontendController{
 
         $userId = pzk_request()->getUserId();
         if(!empty($userId)) {
-            pzk_session('listPageSize', pzk_request()->getPageSize());
+            pzk_session()->setListPageSize( pzk_request()->getPageSize());
             $this->redirect('listTest/'.$userId);
         }else{
-            pzk_session('ratingPageSize', pzk_request()->getPageSize());
+            pzk_session()->setRatingPageSize( pzk_request()->getPageSize());
             $this->redirect('rating');
 
         }

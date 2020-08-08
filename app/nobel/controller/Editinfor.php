@@ -134,7 +134,7 @@ class PzkEditinforController extends PzkFrontendController
 				$userId= pzk_session('userId');
 				$user->loadWhere(array('id',$userId));
 				$user->update(array('username' => $username,'birthday' => $birthday,'address' => $address,'phone' => $phone,'sex' => $sex,'password' => $password,'email' => $email,'school' => $school,'class' => $class,'areacode' => $area,'modified'=>$editdate,'modifiedId'=>$userId));
-				pzk_session('username',$username);
+				pzk_session()->setUsername($username);
 				echo '1';
 			}
 		}
@@ -164,7 +164,7 @@ class PzkEditinforController extends PzkFrontendController
 				$userId= pzk_session('userId');
 				$user->loadWhere(array('id',$userId));
 				$user->update(array('username' => $username,'birthday' => $birthday,'address' => $address,'phone' => $phone,'password' => $password,'class' => $class,'school' => $school,'areacode' => $area,'modified'=>$editdate,'modifiedId'=>$userId));
-				pzk_session('username',$username);
+				pzk_session()->setUsername($username);
 				echo '1';
 		}
 	}

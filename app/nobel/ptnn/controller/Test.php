@@ -17,7 +17,7 @@ class PzkTestController extends PzkFrontendController
 	{
 		$id = pzk_request()->getId();
 		$key_test= uniqid();
-		pzk_session('keyTest',$key_test);
+		pzk_session()->setKeyTest($key_test);
 		$this->initPage();	
 		$test = $this->parse('test/test');
 		$test->setTestId($id);

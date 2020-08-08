@@ -15,9 +15,9 @@ if(pzk_session('adminLevel') == 'HomeroomTeacher' || pzk_session('adminLevel') =
 	$classrooms = _db()->select('*')->from('education_classroom')->whereHomeroomTeacherId(pzk_session('adminId'))->result();
 }
 $tree = array();
-pzk_session('homeroomTeacher',0);
+pzk_session()->setHomeroomTeacher(0);
 if(isset($classrooms)){
-	pzk_session('homeroomTeacher',1);
+	pzk_session()->setHomeroomTeacher(1);
 	foreach($classrooms as $classroom) {
 		if(!isset($tree[$classroom['schoolYear']])) {
 			$tree[$classroom['schoolYear']] = array();

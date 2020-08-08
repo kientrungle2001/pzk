@@ -143,7 +143,7 @@ class PzkProfileController extends PzkFrontendController
 				
 				$user->loadWhere(array('id',$userId));
 				$user->update(array('username' => $username,'areacode' => $areacode,'birthday' => $birthday,'address' => $address,'phone' => $phone,'sex' => $sex,'password' => $password,'email' => $email,'school' => $school,'class1' => $class1,'modified'=>$editdate,'modifiedId'=>$userId));
-				pzk_session('username',$username);
+				pzk_session()->setUsername($username);
 				//$message="Cập nhật thành công";
 				echo 1;
 			}
@@ -175,7 +175,7 @@ class PzkProfileController extends PzkFrontendController
 				
 				$user->loadWhere(array('id',$userId));
 				$user->update(array('username' => $username,'areacode' => $areacode,'birthday' => $birthday,'address' => $address,'phone' => $phone,'sex' => $sex,'password' => $password,'school' => $school,'class1' => $class1,'modified'=>$editdate,'modifiedId'=>$userId));
-				pzk_session('username',$username);
+				pzk_session()->setUsername($username);
 				//$message="Cập nhật thành công";
 				echo 1;
 			

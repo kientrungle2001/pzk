@@ -10,7 +10,7 @@ class PzkUserUser extends PzkObject
 			
 			$username = pzk_session('username');
 			$ip= getRealIPAddress();
-			pzk_session('userIp',$ip);
+			pzk_session()->setUserIp($ip);
 			$user=_db()->getEntity('User.User');
 			$user->loadWhere(array('username',$username));
 			if(pzk_request()->getApp()=='ptnn'){

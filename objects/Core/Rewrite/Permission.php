@@ -28,7 +28,7 @@ class PzkCoreRewritePermission extends PzkObjectLightWeight {
 	public function login($username, $password) {
 		$user = _db()->useCB()->select('*')->from('profile_profile')->where(array('and', array('username', $username), array('password', $password)))->result_one();
 		if($user) {
-			pzk_session('loginId', $user['id']);
+			pzk_session()->setLoginId( $user['id']);
 			return true;
 		}
 		return false;
@@ -40,7 +40,7 @@ class PzkCoreRewritePermission extends PzkObjectLightWeight {
 		$student = $student->result_one();
 		if($student) {
 			
-			pzk_session('studentId', $student['id']);
+			pzk_session()->setStudentId( $student['id']);
 			$this->login('parent', '123456');
 			return true;
 		}
@@ -52,7 +52,7 @@ class PzkCoreRewritePermission extends PzkObjectLightWeight {
 			->where(array('and', array('name', $username), array('password', $password)))
 			->result_one();
 		if($teacher) {
-			pzk_session('teacherId', $teacher['id']);
+			pzk_session()->setTeacherId( $teacher['id']);
 			$this->login('teacher', '123456');
 			return true;
 		}

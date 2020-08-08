@@ -520,10 +520,10 @@ class PzkAdminTestController extends PzkGridAdminController {
     public function searchPostAction() {
         $action	=	pzk_request()->getSubmit_action();
         if($action != ACTION_RESET){
-            pzk_session('detailTestKeyword', pzk_request()->getKeyword());
+            pzk_session()->setDetailTestKeyword( pzk_request()->getKeyword());
         }else{
-            pzk_session('detailTestKeyword', '');
-            pzk_session('testQuestionOrderBy', '');
+            pzk_session()->setDetailTestKeyword( '');
+            pzk_session()->setTestQuestionOrderBy( '');
 
         }
         $this->redirect('admin_test/detail/'.pzk_request()->getTestId());
@@ -568,7 +568,7 @@ class PzkAdminTestController extends PzkGridAdminController {
     }
 
     public function changeOrderByAction() {
-        pzk_session('testQuestionOrderBy', pzk_request()->getOrderBy());
+        pzk_session()->setTestQuestionOrderBy( pzk_request()->getOrderBy());
 
         $this->redirect('admin_test/detail/'.pzk_request()->getTestId());
     }

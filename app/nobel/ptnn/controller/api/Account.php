@@ -91,11 +91,11 @@ class PzkApiAccountController extends PzkController {
 						
 						$ipClient = $this->getClientIP();
 						
-						pzk_session('ipClient', $ipClient);
+						pzk_session()->setIpClient( $ipClient);
 						
 						$login_id = $loginLog->recordLogin($user, $ipClient);
 						
-						pzk_session('login_id', $login_id);
+						pzk_session()->setLogin_id( $login_id);
 						
 						$error = self::LOGIN_SUCCESS;
 					}else {
@@ -178,7 +178,7 @@ class PzkApiAccountController extends PzkController {
 						$user->login();
 						$loginLog = _db()->getEntity('login_log');
 						$ipClient = $this->getClientIP();
-						pzk_session('ipClient', $ipClient);
+						pzk_session()->setIpClient( $ipClient);
 						$loginLog->recordLogin($user, $ipClient);
 					}
 					
@@ -224,7 +224,7 @@ class PzkApiAccountController extends PzkController {
 			$newmessage->create($mess);
 			$loginLog = _db()->getEntity('login_log');
 			$ipClient = $this->getClientIP();
-			pzk_session('ipClient', $ipClient);
+			pzk_session()->setIpClient( $ipClient);
 			$loginLog->recordLogin($user, $ipClient);
 			$confirmRegister = $this->parse(self::PAGE_REGISTER_ACTIVATED_SUCCESS);
 			$confirmRegister->setMessage('ok');

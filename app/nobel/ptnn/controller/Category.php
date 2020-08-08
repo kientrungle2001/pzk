@@ -98,7 +98,7 @@ class PzkCategoryController extends PzkController
 
     public function questionAction(){
         $keybook	= uniqid();
-        pzk_session('keyBook', $keybook);
+        pzk_session()->setKeyBook( $keybook);
         $this->initPage();
         $this->append('category/question', 'left');
 

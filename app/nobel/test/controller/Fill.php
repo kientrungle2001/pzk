@@ -13,7 +13,7 @@ class PzkFillController extends PzkFrontendController
 		$this->initPage();	
 		$this->append('question/fill', 'left');
 		$key_book= uniqid();
-		pzk_session('keyBook',$key_book);
+		pzk_session()->setKeyBook($key_book);
 		$this->display();
 	}
 

@@ -27,13 +27,13 @@ class PzkCoreNotifier extends PzkObjectLightWeight {
 	 * @param array $messages
 	 */
 	public function setMessages($messages) {
-		pzk_session('messages', $messages);
+		pzk_session()->setMessages( $messages);
 	}
 	/**
 	 * Clear các thông điệp
 	 */
 	public function clearMessages() {
-		pzk_session('messages', array());
+		pzk_session()->setMessages( array());
 	}
 }
 

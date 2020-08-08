@@ -14,7 +14,7 @@ class PzkArtController extends PzkFrontendController
 		$quantity = pzk_request()->getNumber();
 		$level= pzk_request()->getLevel();
 		$key_book= uniqid();
-		pzk_session('keyBook',$key_book);
+		pzk_session()->setKeyBook($key_book);
 		$this->initPage();
 		$art= $this->parse('question/art/art');
 		$art->setCategoryId($categoryId);

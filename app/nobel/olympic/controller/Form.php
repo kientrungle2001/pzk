@@ -10,7 +10,7 @@ class PzkFormController extends PzkController {
 		}
 		$keybook	= uniqid();
     		
-		$s_keybook	=	pzk_session('keybook', $keybook);
+		$s_keybook	=	pzk_session()->setKeybook( $keybook);
 		
 		
 		$subTopicId = pzk_request()->getSegment(3);

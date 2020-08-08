@@ -295,7 +295,7 @@ class PzkAccountController extends  PzkController
 			if($user->getId()){
 				$user->login();
 				$ipClient = $this->getClientIP();
-				pzk_session('ipClient', $ipClient);
+				pzk_session()->setIpClient( $ipClient);
 				$loginLog->recordLogin($user, $ipClient);
 				$user->update(array('lastlogined' =>$dateregister ));
 			}else{
@@ -305,7 +305,7 @@ class PzkAccountController extends  PzkController
 				$user->save();
 				$user->login();
 				$ipClient = $this->getClientIP();
-				pzk_session('ipClient', $ipClient);
+				pzk_session()->setIpClient( $ipClient);
 				$loginLog->recordLogin($user, $ipClient);
 			}
 		}
@@ -358,7 +358,7 @@ class PzkAccountController extends  PzkController
 			if($userlogin->getId()){
 				$userlogin->login();
 				$ipClient = $this->getClientIP();
-				pzk_session('ipClient', $ipClient);
+				pzk_session()->setIpClient( $ipClient);
 				$loginLog->recordLogin($userlogin, $ipClient);
 				$userlogin->update(array('lastlogined' =>$dateregister ));
 			}else{
@@ -368,7 +368,7 @@ class PzkAccountController extends  PzkController
 				$userlogin->save();
 				$userlogin->login();
 				$ipClient = $this->getClientIP();
-				pzk_session('ipClient', $ipClient);
+				pzk_session()->setIpClient( $ipClient);
 				$loginLog->recordLogin($userlogin, $ipClient);
 			}
 		}

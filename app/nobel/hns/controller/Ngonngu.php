@@ -53,7 +53,7 @@ class PzkNgonnguController extends PzkController{
 			}else {
 				$keybook	= uniqid();
 
-				$s_keybook	=	pzk_session('keybook', $keybook);
+				$s_keybook	=	pzk_session()->setKeybook( $keybook);
 				if(pzk_themes('default')) {
 					$this->append('detail', 'wrapper');
 				} else {
@@ -73,7 +73,7 @@ class PzkNgonnguController extends PzkController{
     		
     		$keybook	= uniqid();
     		
-    		$s_keybook	=	pzk_session('keybook', $keybook);
+    		$s_keybook	=	pzk_session()->setKeybook( $keybook);
     		
 	    	$this->append('question/showQuestion', 'left');
 
@@ -517,7 +517,7 @@ class PzkNgonnguController extends PzkController{
     	}else {
     		$keybook	= uniqid();
     	
-    		$s_keybook	=	pzk_session('keybook', $keybook);
+    		$s_keybook	=	pzk_session()->setKeybook( $keybook);
 			
 			if(pzk_request()->getSoftwareId() == 1) {
 				
@@ -565,7 +565,7 @@ class PzkNgonnguController extends PzkController{
 		    	
 		    	$keybook	= uniqid();
 		    	
-		    	$s_keybook	=	pzk_session('keybook', $keybook);
+		    	$s_keybook	=	pzk_session()->setKeybook( $keybook);
 		    	
 		    	$this->append('question/showTest', $position);
 		    	
@@ -625,7 +625,7 @@ class PzkNgonnguController extends PzkController{
         $this->display();
     }
     public function onchangeTestIdAction() {
-        pzk_session('userBookTestId', pzk_request()->getTestId());
+        pzk_session()->setUserBookTestId( pzk_request()->getTestId());
         $this->redirect('rating');
     }
     public function listTestAction() {
@@ -639,10 +639,10 @@ class PzkNgonnguController extends PzkController{
 
         $userId = pzk_request()->getUserId();
         if(!empty($userId)) {
-            pzk_session('listPageSize', pzk_request()->getPageSize());
+            pzk_session()->setListPageSize( pzk_request()->getPageSize());
             $this->redirect('listTest/'.$userId);
         }else{
-            pzk_session('ratingPageSize', pzk_request()->getPageSize());
+            pzk_session()->setRatingPageSize( pzk_request()->getPageSize());
             $this->redirect('rating');
 
         }

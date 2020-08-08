@@ -169,7 +169,7 @@ class PzkCoreValidator extends PzkObjectLightWeight {
 	 * @param mixed $data
 	 */
 	public function setEditingData($data) {
-		pzk_session('editingData', $data);
+		pzk_session()->setEditingData( $data);
 	}
 	/**
 	 * Lấy ra giá trị cho form nhập
@@ -177,7 +177,7 @@ class PzkCoreValidator extends PzkObjectLightWeight {
 	 */
 	public function getEditingData() {
 		$data = pzk_session('editingData');
-		pzk_session('editingData', false);
+		pzk_session()->setEditingData( false);
 		return $data;
 	}
 }

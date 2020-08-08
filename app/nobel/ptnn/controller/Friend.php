@@ -48,7 +48,7 @@ class PzkFriendController extends PzkFrontendController
 	{
 		$request=pzk_request();
 		$searchfriend=$request->getSearchfriend();
-		pzk_session('searchfriend', $searchfriend);
+		pzk_session()->setSearchfriend( $searchfriend);
 
 		$this->redirect('searchResult');
 	}
