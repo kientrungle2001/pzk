@@ -436,7 +436,7 @@ class PzkAdminOrderTransactionController extends PzkGridAdminController {
     public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-            $row['creatorId']=pzk_session('userId');
+            $row['creatorId']=pzk_session()->getUserId();
             $status= pzk_request()->getStatus();
             $amount= pzk_request()->getAmount();
             $cardAmount= pzk_request()->getCardAmount();
@@ -478,7 +478,7 @@ class PzkAdminOrderTransactionController extends PzkGridAdminController {
     public function editPostAction() {
         $row = $this->getEditData();
         if($this->validateEditData($row)) {
-            $row['modifiedId']=pzk_session('userId');
+            $row['modifiedId']=pzk_session()->getUserId();
             $row['modified']=date("Y-m-d H:i:s");
             
             $this->edit($row);                    

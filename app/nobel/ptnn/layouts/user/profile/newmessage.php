@@ -1,6 +1,6 @@
 <?php 
 	$user = pzk_user();
-	$userId=pzk_session('userId');
+	$userId=pzk_session()->getUserId();
 	$dateVip= $user->CheckDate('1',$userId);
 	$wallets=$user->getWallets($userId);
 	$countInvi= $user->countInvitation();

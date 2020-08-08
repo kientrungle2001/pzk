@@ -6,7 +6,7 @@
 
 <?php 
   $user=_db()->getEntity('User.Account.User');
-  $userId= pzk_session('userId');
+  $userId= pzk_session()->getUserId();
   $user=$user->loadByUserId($userId);
  ?>
  <style>

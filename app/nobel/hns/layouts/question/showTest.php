@@ -108,7 +108,7 @@
 					<button id="finish-choice" class="btn btn-primary" name="finish-choice" onclick="finish_choice();" type="button">
 						Hoàn thành 
 					</button>
-                <?php $check = pzk_session('signActive');
+                <?php $check = pzk_session()->getSignActive();
                     if(1 || !empty($check)) :?>
                     <button id="view-result" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" name="view-result" type="button" style="display:none;">
 						Xem kết quả 
@@ -167,7 +167,7 @@
     	<div class="modal-content">
     		<div class="modal-header">
 	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        	<h3 class="modal-title text-center title-blue" id="myModalLabel">Thứ hạng bài test của bạn : <?=pzk_session('username')?></h3>
+	        	<h3 class="modal-title text-center title-blue" id="myModalLabel">Thứ hạng bài test của bạn : <?=pzk_session()->getUsername()?></h3>
 	      	</div>
 	      	<div class="modal-body">
 	      		<div class="container-fluid">
@@ -267,7 +267,7 @@
 	            caption: 'Phần mềm Full Look - website : www.nextnobels.com',
 	            link: 'http://www.nextnobels.com',
 	            picture: 'http://s1.nextnobels.com/Default/skin/nobel/test/media/1.jpg',
-	            description: 'Đã đạt : '+diem+'/'+tongcau+' điểm - Xếp thứ hạng : '+xephang+ ' - Chúc mừng bạn <?=pzk_session('username')?> đã hoàn thành bài thi! - '+strket,
+	            description: 'Đã đạt : '+diem+'/'+tongcau+' điểm - Xếp thứ hạng : '+xephang+ ' - Chúc mừng bạn <?=pzk_session()->getUsername()?> đã hoàn thành bài thi! - '+strket,
 	        }, function(response){
 					
 					

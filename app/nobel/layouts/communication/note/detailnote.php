@@ -86,9 +86,9 @@
   {
 
     var comment_note= $('#txt_comment_note').val();
-    var avatar1='<?php echo pzk_session('avatar'); ?>';
-    var userId='<?php echo pzk_session('userId'); ?>';
-    var userComment= '<?php echo pzk_session('username'); ?>';
+    var avatar1='<?php echo pzk_session()->getAvatar(); ?>';
+    var userId='<?php echo pzk_session()->getUserId(); ?>';
+    var userComment= '<?php echo pzk_session()->getUsername(); ?>';
     
    // var datetime= '<?php echo $datetime ?>';
    var d = new Date();

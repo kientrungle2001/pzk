@@ -32,7 +32,7 @@ class PzkUserProfileProfileusercontent extends PzkObject
 	public function loadWriteWall($member)
 	{
 			
-			//$username=pzk_session('username');
+			//$username=pzk_session()->getUsername();
 			$loadUserName= $this->loadUserName($member);
 			$username= $loadUserName['username'];
 			$write_wall=_db()->useCB()->select('user_write_wall.*')->from('user_write_wall')->where(array('username',$username))->orderBy('id desc')->limit(3,0)->result();
@@ -46,7 +46,7 @@ class PzkUserProfileProfileusercontent extends PzkObject
 	}*/
 	public function checkMember($member)
 	{
-		$sessionID= pzk_session('userId');
+		$sessionID= pzk_session()->getUserId();
 		if($member == $sessionID)
 		{
 			return '<a class="prf_a" href="/profile/user?member='.$member.'">XEM TẤT CẢ</a> ' ;

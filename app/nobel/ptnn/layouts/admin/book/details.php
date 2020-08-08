@@ -30,7 +30,7 @@
 	
 	<div class="panel-footer">
 		<div class="col-xs-12 ">
-			<?php if(pzk_session('adminLevel') !== 'Administrator'):?>
+			<?php if(pzk_session()->getAdminLevel() !== 'Administrator'):?>
 			<div class="col-xs-6 text-center"><button type="submit" class="btn btn-primary "><span class="glyphicon glyphicon-save"></span> Cập nhật</button></div>
 			<?php else:?>
 				<div class="col-xs-6 text-center"><button type="submit" name="check" value="1" class="btn btn-success "><span class="glyphicon glyphicon-check"></span> Checked</button></div>

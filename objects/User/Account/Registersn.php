@@ -8,6 +8,6 @@ class PzkUserAccountRegistersn extends PzkObject{
 	public $layout = "user/account/register";
 	public $cacheable = true;
 	public function hash() {
-	    return 'userAccountRegistersn' . pzk_session('login');
+	    return 'userAccountRegistersn' . pzk_session()->getLogin();
 	}
 }

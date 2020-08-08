@@ -8,7 +8,7 @@ class PzkProfileController extends PzkFrontendController
 	{
 		$this->initPage();
 		$member= pzk_request()->getMember();
-		$sessionId= pzk_session('userId');	
+		$sessionId= pzk_session()->getUserId();	
 		if($member==$sessionId){
 			$this->append('user/profile/profileuser','right');
 		}else $this->append('user/profile/profileuser1','right');	
@@ -22,10 +22,10 @@ class PzkProfileController extends PzkFrontendController
 	}
 	public function delMessageAction(){
 		$userId= pzk_request()->getUserId();
-		if($userId== pzk_session('userId')){
+		if($userId== pzk_session()->getUserId()){
 			$mess= _db()->select('new_message.*')
 				->from('new_message')
-				->where(array('userId',pzk_session('userId')))
+				->where(array('userId',pzk_session()->getUserId()))
 				->where(array('status',0))
 				->result('user.newmessage');
 			foreach ($mess as $item) {
@@ -37,10 +37,10 @@ class PzkProfileController extends PzkFrontendController
 	public function delOneMessageAction(){
 		$userId= pzk_request()->getUserId();
 		$messageType= pzk_request()->getMessageType();
-		if($userId== pzk_session('userId')){
+		if($userId== pzk_session()->getUserId()){
 			$mess= _db()->select('new_message.*')
 				->from('new_message')
-				->where(array('userId',pzk_session('userId')))
+				->where(array('userId',pzk_session()->getUserId()))
 				->where(array('messageType',$messageType))
 				->where(array('status',0))
 				->result('user.newmessage');
@@ -76,7 +76,7 @@ class PzkProfileController extends PzkFrontendController
 	{
 		$this->initPage();
 		$member= pzk_request()->getMember();
-		$sessionId= pzk_session('userId');	
+		$sessionId= pzk_session()->getUserId();	
 		if($member==$sessionId){
 			$this->append('user/profile/profileuser')->append('user/profile/profileusercontent');
 		}else $this->append('user/profile/profileuser1')->append('user/profile/profileusercontent1');
@@ -101,7 +101,7 @@ class PzkProfileController extends PzkFrontendController
 		$phone=$request->getPhone();
 		$sex=$request->getSex();
 		$editdate = date("Y-m-d H:i:s"); 
-		$userId= pzk_session('userId');
+		$userId= pzk_session()->getUserId();
 		$school=$request->getSchool();
 		$class=$request->getClass1();
 		$area=$request->getAreacode();
@@ -139,7 +139,7 @@ class PzkProfileController extends PzkFrontendController
 				$class1=$request->getClass1();
 				$areacode=$request->getAreacode();
 				$editdate = date("Y-m-d H:i:s"); 
-				$userId= pzk_session('userId');
+				$userId= pzk_session()->getUserId();
 				
 				$user->loadWhere(array('id',$userId));
 				$user->update(array('username' => $username,'areacode' => $areacode,'birthday' => $birthday,'address' => $address,'phone' => $phone,'sex' => $sex,'password' => $password,'email' => $email,'school' => $school,'class1' => $class1,'modified'=>$editdate,'modifiedId'=>$userId));
@@ -171,7 +171,7 @@ class PzkProfileController extends PzkFrontendController
 				$class1=$request->getClass1();
 				$areacode=$request->getAreacode();
 				$editdate = date("Y-m-d H:i:s"); 
-				$userId= pzk_session('userId');
+				$userId= pzk_session()->getUserId();
 				
 				$user->loadWhere(array('id',$userId));
 				$user->update(array('username' => $username,'areacode' => $areacode,'birthday' => $birthday,'address' => $address,'phone' => $phone,'sex' => $sex,'password' => $password,'school' => $school,'class1' => $class1,'modified'=>$editdate,'modifiedId'=>$userId));
@@ -194,7 +194,7 @@ class PzkProfileController extends PzkFrontendController
 		$request = pzk_request();
 		$oldpass=md5($request->getOldpass());
 		$newpass=$request->getNewpass();
-		$username= pzk_session('username');
+		$username= pzk_session()->getUsername();
 		$user=_db()->getEntity('User.Account.User');
 		$user->loadWhere(array('and',array('username',$username),array('password',$oldpass)));
 		if($user->getId())
@@ -242,8 +242,8 @@ class PzkProfileController extends PzkFrontendController
 		$request=pzk_request();
 		$confirm=$request->getChangePassword();
 		$newpassword=$request->getConf();
-		$username=pzk_session('username');
-		$userId= pzk_session('userId');
+		$username=pzk_session()->getUsername();
+		$userId= pzk_session()->getUserId();
 		$editdate = date("Y-m-d H:i:s"); 
 		$user=_db()->getEntity('User.Account.User');
 		$user->loadWhere(array(array('key', $confirm),array('username',$username))); 
@@ -272,7 +272,7 @@ class PzkProfileController extends PzkFrontendController
 	}
 	public function editsignAction()
 	{
-			$username=pzk_session('username');
+			$username=pzk_session()->getUsername();
 			$user=_db()->getEntity('User.Account.User');
 			$user->loadWhere(array('username',$username));
 			//$items=_db()->useCB()->select('user.*')->from('user')->where(array('username',$username))->result_one();
@@ -285,11 +285,11 @@ class PzkProfileController extends PzkFrontendController
 	}
 	public function editsignPostAction()
 	{
-			$username=pzk_session('username');
+			$username=pzk_session()->getUsername();
 			$request = pzk_request();				
 			$newsign=$request->getNewsign();
 			$editdate = date("Y-m-d H:i:s"); 
-			$userId= pzk_session('userId');
+			$userId= pzk_session()->getUserId();
 			$user=_db()->getEntity('User.Account.User');
 			$user->loadWhere(array('username',$username));
 			$user->update(array('sign'=>$newsign,'modified'=>$editdate,'modifiedId'=>$userId));
@@ -417,12 +417,12 @@ public function postAvatarAction(){
 				$image_info = pathinfo($image_name);
 				$image_extension = strtolower($image_info["extension"]); //image extension
 				$image_name_only = strtolower($image_info["filename"]);//file name only, no extension
-				$new_file_name =pzk_session('userId').'.'. $imageFileType;
+				$new_file_name =pzk_session()->getUserId().'.'. $imageFileType;
 				$image_save_folder 	= $target_dir . $new_file_name;
 				$this->normal_resize_image($image_res, $image_save_folder, $image_type, $max_image_size, $image_width, $image_height, $jpeg_quality);
 				imagedestroy($image_res); //freeup memory
-				$username= pzk_session('username');
-				$userId= pzk_session('userId');
+				$username= pzk_session()->getUsername();
+				$userId= pzk_session()->getUserId();
 				$editdate=date("Y-m-d H:i:s");
 				$avatar=BASE_URL.'/uploads/avatar/'.$new_file_name;
 				$user=_db()->getEntity('User.Account.User');

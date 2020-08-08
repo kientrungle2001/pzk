@@ -11,7 +11,7 @@ class PzkCoreLanguage extends PzkObject {
 	 * @return string: văn bản đã được dịch
 	 */
 	public function translateText($module, $text) {
-		$language = pzk_session('language') ? pzk_session('language') : 'en';
+		$language = pzk_session()->getLanguage() ? pzk_session()->getLanguage() : 'en';
 		$data = $this->load($module . '/' . $language);
 		$global = $this->load('global/' . $language);
 		if(isset($data[$text])) {

@@ -10,7 +10,7 @@ class PzkEducationTestTest extends PzkObject {
 	
 	/* public function getDoTest(){
 		
-		$query =  _db()->select('*')->from('user_book')->where(array('and', array('testId','1'), array('userId',pzk_session('userId')) ))->result();
+		$query =  _db()->select('*')->from('user_book')->where(array('and', array('testId','1'), array('userId',pzk_session()->getUserId()) ))->result();
 		
 		return $query;
 	} */

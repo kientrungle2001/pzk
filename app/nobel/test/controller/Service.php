@@ -24,7 +24,7 @@ class PzkServiceController extends PzkFrontendController
 		$price			= 	(double)$price;
 		$datetime		=	date("Y-m-d H:i:s");
 		$wallets		=	_db()->getEntity('user.account.wallets');
-		$wallets->loadWhere(array('username',pzk_session('username')));
+		$wallets->loadWhere(array('username',pzk_session()->getUsername()));
 		$amount			=	$wallets->getAmount();
 		echo $price. '-'.$amount . '<br />';
 		if($price <= $amount)
@@ -37,13 +37,13 @@ class PzkServiceController extends PzkFrontendController
 				$insert			=	_db()->getEntity('table');
 				$insert->setTable('history_payment');
 				$row =	array(
-					'userId'		=>	pzk_session('userId'), 
+					'userId'		=>	pzk_session()->getUserId(), 
 					'paymentDate'	=>	date('Y-m-d H:i:s'), 
 					'paymentStatus'	=> 1,
 					'status'		=> 1,
 					'software'		=> pzk_request()->getSoftwareId(),
 					'amount'		=>	$price,
-					'username'		=>	pzk_session('username'),
+					'username'		=>	pzk_session()->getUsername(),
 					'buySoftware'	=>	pzk_request()->getSoftwareId(),
 					'paymentType'	=>	'Ví điện tử'
 				);
@@ -52,7 +52,7 @@ class PzkServiceController extends PzkFrontendController
 			} else {
 				$insert			=	_db()->getEntity('service.history_buyservice');
 				$row =array(
-						'userId'	=>	pzk_session('userId'), 
+						'userId'	=>	pzk_session()->getUserId(), 
 						'serviceId'	=>	$opt_service_id, 
 						'amount'	=>	$price, 
 						'date'		=>	$datetime);

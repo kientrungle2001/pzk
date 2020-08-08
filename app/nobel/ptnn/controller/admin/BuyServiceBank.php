@@ -351,7 +351,7 @@ class PzkAdminBuyServiceBankController extends PzkGridAdminController {
     public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-            $row['userAdd']=pzk_session('adminId');
+            $row['userAdd']=pzk_session()->getAdminId();
             $row['dateAdd']=date("Y-m-d H:i:s");
             $this->add($row);                    
             pzk_notifier()->addMessage('Cập nhật thành công');
@@ -368,7 +368,7 @@ class PzkAdminBuyServiceBankController extends PzkGridAdminController {
         $row = $this->getEditData();
         if($this->validateEditData($row)) {
         	$date=date("Y-m-d H:i:s");
-            $row['userModified']=pzk_session('adminId');
+            $row['userModified']=pzk_session()->getAdminId();
             $row['dateModified']=date("Y-m-d H:i:s");
             $this->edit($row);
             pzk_notifier()->addMessage('Cập nhật thành công');

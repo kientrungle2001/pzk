@@ -1,10 +1,10 @@
 <?php 
-	$keyword = pzk_session('questionsKeyword');
-	$orderBy = pzk_session('questionsOrderBy');
-	$categoryId = pzk_session('questionsCategoryId');
-    $testId = pzk_session('questionsTestId');
-    $trial = pzk_session('questionsTrial');
-    $questionType = pzk_session('questionsQuestionType');
+	$keyword = pzk_session()->getQuestionsKeyword();
+	$orderBy = pzk_session()->getQuestionsOrderBy();
+	$categoryId = pzk_session()->getQuestionsCategoryId();
+    $testId = pzk_session()->getQuestionsTestId();
+    $trial = pzk_session()->getQuestionsTrial();
+    $questionType = pzk_session()->getQuestionsQuestionType();
 	if($categoryId) {
 		$data->conditions .= " and categoryIds like '%,$categoryId,%'";
 	}
@@ -23,7 +23,7 @@
 		$data->orderBy = $orderBy;
 	}
 
-	$pageSize = pzk_session('questionsPageSize');
+	$pageSize = pzk_session()->getQuestionsPageSize();
 	if($pageSize) {
 		$data->pageSize = $pageSize;
 	}

@@ -29,7 +29,7 @@
 	</div>
 	
 	<div class="col-xs-12 margin-top-20">
-		<?php if(pzk_session('userId')): ?>
+		<?php if(pzk_session()->getUserId()): ?>
 			<p><marquee>Mỗi một bài làm hiện thị tối đa 20 câu hỏi, sau khi hoàn thành bạn hãy bấm vào "Làm tiếp các câu mới" để chọn các câu khác trong cùng môn học</marquee></p>
 		<?php endif; ?>
 	</div>

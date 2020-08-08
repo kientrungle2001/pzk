@@ -38,7 +38,7 @@
 </style>
 <div id="user" style="padding-right: 50px;padding-button: 50px;">
 <?php
-    if(pzk_session('login')){
+    if(pzk_session()->getLogin()){
 
     $data->loadData();
     

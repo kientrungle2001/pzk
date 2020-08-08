@@ -8,7 +8,7 @@ class PzkUserUser extends PzkObject
 	public function loadData()
 	{
 			
-			$username = pzk_session('username');
+			$username = pzk_session()->getUsername();
 			$ip= getRealIPAddress();
 			pzk_session()->setUserIp($ip);
 			$user=_db()->getEntity('User.User');

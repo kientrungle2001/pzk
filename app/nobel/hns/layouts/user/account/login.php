@@ -1,5 +1,5 @@
 <?php
-    if(pzk_session('login')){
+    if(pzk_session()->getLogin()){
 
 ?>
 <?php } else{   

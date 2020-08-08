@@ -12,9 +12,9 @@ $dataTest = $data->getDataTest();
 
 $setting = pzk_controller();
 
-$testId = pzk_session('userBookTestId');
-$keyword = pzk_session('usernameTest');
-$pageSize = pzk_session('ratingPageSize');
+$testId = pzk_session()->getUserBookTestId();
+$keyword = pzk_session()->getUsernameTest();
+$pageSize = pzk_session()->getRatingPageSize();
 
 if($keyword) {
     $data->conditions .= " and username like '%$keyword%'";

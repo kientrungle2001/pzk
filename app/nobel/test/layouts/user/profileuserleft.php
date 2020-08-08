@@ -104,7 +104,7 @@ font-size: 12px;
 <?php  
   $request=pzk_request();
   $member=$request->getMember();
-  $userwritewall=pzk_session('username');
+  $userwritewall=pzk_session()->getUsername();
  
   $user=_db()->getEntity('User.User');
   $user->loadWhere(array('username',$member));
@@ -195,8 +195,8 @@ font-size: 12px;
         {
           <?php $request = pzk_request();  ?>
           var write_wall= $('#pr_post_wall').val();
-          var avatar1='<?php echo pzk_session('avatar'); ?>';
-          var userwritewall= '<?php echo pzk_session('username'); ?>';
+          var avatar1='<?php echo pzk_session()->getAvatar(); ?>';
+          var userwritewall= '<?php echo pzk_session()->getUsername(); ?>';
           var username= '<?php echo $member; ?>';
           $.ajax({
             url:'http://ptnn.vn/user/PostCommentFriend',

@@ -54,7 +54,7 @@ class pzkCommunicationFriendFriendlistuser extends PzkObject
 	}*/
 	public function testOnline($member)
 	{
-		$sessionID= pzk_session('userId');
+		$sessionID= pzk_session()->getUserId();
 		if($member == $sessionID)
 		{
 			$img='<img src="'.BASE_URL.'/default/skin/nobel/ptnn/media/online.png" alt=""> Online' ;

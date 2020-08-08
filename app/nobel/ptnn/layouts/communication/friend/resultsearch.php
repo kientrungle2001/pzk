@@ -3,7 +3,7 @@
    <div class="content">
      <div id="view_result_search" class="prf_note" style="margin-bottom: 50px;">
     <?php 
-      $searchfriend='%'.pzk_session('searchfriend').'%';
+      $searchfriend='%'.pzk_session()->getSearchfriend().'%';
       $items=$data->viewSearch($searchfriend);
       
      ?> 

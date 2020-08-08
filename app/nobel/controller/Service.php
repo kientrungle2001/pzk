@@ -24,7 +24,7 @@ class PzkServiceController extends PzkFrontendController
 		$price=(double)$price;
 		$datetime=date("Y-m-d H:i:s");
 		$wallets=_db()->getEntity('user.account.wallets');
-		$wallets->loadWhere(array('username',pzk_session('username')));
+		$wallets->loadWhere(array('username',pzk_session()->getUsername()));
 		$amount=$wallets->getAmount();
 		if($price < $amount)
 		{
@@ -33,7 +33,7 @@ class PzkServiceController extends PzkFrontendController
 			$amount= $amount- $price;
 			$wallets->update(array('amount'=>$amount));
 			$insert=_db()->getEntity('service.history_buyservice');
-			$row=array('userId'=>pzk_session('userId'), 'serviceId'=>$opt_service_id, 'amount'=>$price, 'date'=>$datetime);
+			$row=array('userId'=>pzk_session()->getUserId(), 'serviceId'=>$opt_service_id, 'amount'=>$price, 'date'=>$datetime);
 			$insert->setData($row);
 			$insert->save();
 			echo 1;

@@ -9,7 +9,7 @@ class PzkTestController extends PzkController {
 		$this->initPage();
 		$subTopicId = pzk_request()->getSegment(3);
 		
-		if(pzk_session('userId')) {
+		if(pzk_session()->getUserId()) {
 		
 			$check = pzk_user()->checkPayment('full');
 			//tai khoan da active
@@ -48,7 +48,7 @@ class PzkTestController extends PzkController {
 				$this->setMasterPage('index');
 				$this->setMasterPosition('wrapper');
 			}
-			if(pzk_session('userId')) {
+			if(pzk_session()->getUserId()) {
 		
 				$check = pzk_user()->checkPayment('full');
 				//tai khoan da active
@@ -96,7 +96,7 @@ class PzkTestController extends PzkController {
 		
 		$this->initPage();
 		$testId = pzk_request()->getSegment(3);
-		if(pzk_session('userId')) {
+		if(pzk_session()->getUserId()) {
 		
 			$check = pzk_user()->checkPayment('full');
 			//tai khoan da active
@@ -126,7 +126,7 @@ class PzkTestController extends PzkController {
 	public function finishAction() {
 		
 		//check dang nhap
-    	$userId	=	pzk_session('userId');
+    	$userId	=	pzk_session()->getUserId();
     	 
     	if($userId == 0 || empty($userId)){
     	

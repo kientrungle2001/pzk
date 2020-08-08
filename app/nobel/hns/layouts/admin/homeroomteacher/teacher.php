@@ -1,18 +1,18 @@
 <?php
 $classroomIds = array();
-$teacherClassroomIds = _db()->select('classroomId')->from('education_classroom_teacher')->whereTeacherId(pzk_session('adminId'))->result();
+$teacherClassroomIds = _db()->select('classroomId')->from('education_classroom_teacher')->whereTeacherId(pzk_session()->getAdminId())->result();
 foreach($teacherClassroomIds as $teacherClassroomId) {
 	$classroomIds[] = $teacherClassroomId['classroomId'];
 }
-/*if(pzk_session('adminLevel') == 'Headmaster' || pzk_session('adminLevel') == 'Administrator') {
+/*if(pzk_session()->getAdminLevel() == 'Headmaster' || pzk_session()->getAdminLevel() == 'Administrator') {
 	$classrooms = _db()->select('*')->from('education_classroom')->result();
 } else {
 	$classrooms = _db()->select('*')->from('education_classroom')->inId($classroomIds)->result();
 }*/
 $classrooms = '';
-if(pzk_session('adminLevel') == 'HomeroomTeacher' || pzk_session('adminLevel') == 'Teacher' || pzk_session('adminLevel') == 'Administrator') {
+if(pzk_session()->getAdminLevel() == 'HomeroomTeacher' || pzk_session()->getAdminLevel() == 'Teacher' || pzk_session()->getAdminLevel() == 'Administrator') {
 
-	$classrooms = _db()->select('*')->from('education_classroom')->whereHomeroomTeacherId(pzk_session('adminId'))->result();
+	$classrooms = _db()->select('*')->from('education_classroom')->whereHomeroomTeacherId(pzk_session()->getAdminId())->result();
 }
 $tree = array();
 pzk_session()->setHomeroomTeacher(0);
@@ -55,7 +55,7 @@ if(isset($classrooms)){
 		</div>
 		<div id="collapseOne" class="panel-collapse collapse in">
 			<div class="panel-body">
-<?php if(pzk_session('homeroomTeacher') == '1' || pzk_session('homeroomTeacher') == 1) :?>
+<?php if(pzk_session()->getHomeroomTeacher() == '1' || pzk_session()->getHomeroomTeacher() == 1) :?>
 <ul id="schoolMenu" class="nav">
 	<?php foreach($tree as $schoolYear => $grades) :?>
 	<li class="padding-left-10 school-year">

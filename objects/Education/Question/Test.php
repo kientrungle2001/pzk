@@ -18,7 +18,7 @@ class PzkEducationQuestionTest extends PzkObject{
 			->whereDisplay(1)
 			->wherePractice($practice)			
 			->orderBy('ordering asc');
-		$class= pzk_session('lop');
+		$class= pzk_session()->getLop();
 		if($class)
 			$query->likeClasses("%,$class,%");
 		if(isset($check ) && ($check == 1)){
@@ -35,7 +35,7 @@ class PzkEducationQuestionTest extends PzkObject{
 			->wherePractice($practice)		
 			->orderBy('ordering asc');
 			
-		$class= pzk_session('lop');
+		$class= pzk_session()->getLop();
 		if($class){
 			$query->likeClasses("%,$class,%");
 		}
@@ -113,7 +113,7 @@ class PzkEducationQuestionTest extends PzkObject{
 	
 	public function getTest(){
 		
-		$check = pzk_session('checkPayment');
+		$check = pzk_session()->getCheckPayment();
 		
 		$listTest = _db()->useCache(1800)->select('*')->from($this->table);
 		
@@ -133,7 +133,7 @@ class PzkEducationQuestionTest extends PzkObject{
 	}
 	public function getPractice(){
 		$class = $this->getClass();
-		$check = pzk_session('checkPayment');
+		$check = pzk_session()->getCheckPayment();
 		
 		$listTest = _db()->useCache(1800)->select('*')->from($this->table);
 		

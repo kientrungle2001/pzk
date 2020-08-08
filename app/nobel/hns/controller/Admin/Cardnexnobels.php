@@ -117,7 +117,7 @@ class PzkAdminCardNexnobelsController extends PzkGridAdminController {
         $pincard=pzk_request()->getPincard();
         if($this->validateEditData($row)) {
             $row['pincard'] = md5($pincard);
-            $row['userModified']=pzk_session('adminId');
+            $row['userModified']=pzk_session()->getAdminId();
             $row['dateModified']=date("Y-m-d H:i:s");
             $this->edit($row);
             pzk_notifier()->addMessage('Cập nhật thành công');
@@ -134,7 +134,7 @@ class PzkAdminCardNexnobelsController extends PzkGridAdminController {
             $pincard = trim(pzk_request()->getPincard());
             if($pincard) {
                 $row['pincard'] = md5($pincard);
-                $row['userAdd']=pzk_session('adminId');
+                $row['userAdd']=pzk_session()->getAdminId();
                 $row['dateAdd']=date("Y-m-d H:i:s");
                 $row['status']=1;
                 $this->add($row);

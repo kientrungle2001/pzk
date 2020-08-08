@@ -13,9 +13,9 @@ $dataTest = $data->getDataTest();
 
 $setting = pzk_controller();
 
-$testId = pzk_session('userBookTestId');
+$testId = pzk_session()->getUserBookTestId();
 
-$pageSize = pzk_session('ratingPageSize');
+$pageSize = pzk_session()->getRatingPageSize();
 
 if($testId) {
     $data->conditions .= " and testId like '%$testId%'";

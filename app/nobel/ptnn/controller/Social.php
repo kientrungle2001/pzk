@@ -42,7 +42,7 @@ class PzkSocialController extends PzkFrontendController
 	public function delInviAction(){
 		$rows= _db()->select('invitation.*')
 				->from('invitation')
-				->where(array('userId',pzk_session('userId')))
+				->where(array('userId',pzk_session()->getUserId()))
 				->where(array('status',0))
 				->result('communication.invitation');
 		

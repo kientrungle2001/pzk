@@ -9,6 +9,6 @@ class PzkUserAccountLoginsn extends PzkObject{
 	public $layout = "user/account/login";
 	public $cacheable = true;
 	public function hash() {
-	    return 'userAccountLoginsn' . pzk_session('login');
+	    return 'userAccountLoginsn' . pzk_session()->getLogin();
 	}
 }

@@ -14,7 +14,7 @@
 
 <?php
 $UserId = pzk_or(pzk_request()->getSegment(3), pzk_session()->getUserId());
-$pageSize = pzk_session('listPageSize');
+$pageSize = pzk_session()->getListPageSize();
 
 if($pageSize) {
     $data->pageSize = $pageSize;

@@ -1,9 +1,9 @@
 <?php 
-	$keyword = pzk_session('questionsKeyword');
-	$orderBy = pzk_session('questionsOrderBy');
-	$categoryId = pzk_session('questionsCategoryId');
-	$type = pzk_session('questionsType');
-	$topic_id	=	pzk_session('questionsTopic_id');
+	$keyword = pzk_session()->getQuestionsKeyword();
+	$orderBy = pzk_session()->getQuestionsOrderBy();
+	$categoryId = pzk_session()->getQuestionsCategoryId();
+	$type = pzk_session()->getQuestionsType();
+	$topic_id	=	pzk_session()->getQuestionsTopic_id();
 
     $data->conditions .= " and software = ".pzk_request()->getSoftwareId();
 
@@ -19,7 +19,7 @@
 	if($orderBy) {
 		$data->orderBy = $orderBy;
 	}
-	$pageSize = pzk_session('questionsPageSize');
+	$pageSize = pzk_session()->getQuestionsPageSize();
 	if($pageSize) {
 		$data->pageSize = $pageSize;
 	}

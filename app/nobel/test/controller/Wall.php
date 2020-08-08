@@ -7,7 +7,7 @@ class PzkWallController extends PzkFrontendController
 	public function PostCommentFriendAction()
 	{
 		$request=pzk_request();
-		if(pzk_session('login')==false)
+		if(pzk_session()->getLogin()==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";
 		}
@@ -18,7 +18,7 @@ class PzkWallController extends PzkFrontendController
 			//echo $content;
 			
 			$username=$request->getUsername();
-			$userwritewall=pzk_session('username');
+			$userwritewall=pzk_session()->getUsername();
 			$write_wall=_db()->getEntity('communication.user_write_wall');
 			//$write_wall->loadWhere(array('username',$username));
 			$datewrite= date("Y-m-d H:i:s");

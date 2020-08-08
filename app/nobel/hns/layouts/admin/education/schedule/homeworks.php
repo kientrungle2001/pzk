@@ -37,8 +37,8 @@ $addHref = BASE_REQUEST . '/Admin_Schedule_Teacher/addHomeworkToClassroom/' . $c
 		<th colspan="2">Hành động</th>
 	</tr>
 {each $homeworks as $homework}
-<?php if(pzk_session('adminLevel') == 'Teacher') : 
-	if(strpos($homework['teacherIds'], ',' . pzk_session('adminId') . ',') === false) 
+<?php if(pzk_session()->getAdminLevel() == 'Teacher') : 
+	if(strpos($homework['teacherIds'], ',' . pzk_session()->getAdminId() . ',') === false) 
 		continue;
 endif;?>
 	<tr>
@@ -62,11 +62,11 @@ endif;?>
 	$addDefaultParams = 'homework=1&hidden_homework=1&hidden_trytest=1&hidden_compability=1&hidden_parent=1';
 	$teacherParams = '';
 	$teacherSubject = null;
-	if(pzk_session('adminLevel') == 'Teacher') {
-		$teacherParams.= '&teacherIds=,' . pzk_session('adminId') . ',&hidden_teacherIds=1';
+	if(pzk_session()->getAdminLevel() == 'Teacher') {
+		$teacherParams.= '&teacherIds=,' . pzk_session()->getAdminId() . ',&hidden_teacherIds=1';
 		$subjects = _db()->select('*')
 			->fromEducation_classroom_teacher()
-			->whereTeacherId(pzk_session('adminId'))
+			->whereTeacherId(pzk_session()->getAdminId())
 			->whereClassroomId($classroom['id'])
 			->orderBy('id desc')->result();
 		if($numOfSubject = count($subjects)) {

@@ -99,7 +99,7 @@ font-size: 12px;
   
   $member=pzk_request()->getMember();
   if(!$member){
-    $member=pzk_session('userId');
+    $member=pzk_session()->getUserId();
   }
   $user=$data->loadUserName($member);
  
@@ -146,7 +146,7 @@ font-size: 12px;
       <div class="prf_content"><?php echo $data->checkMember($member) ?></div>
       <div class="prf_content"> <a href="">Điểm thành tích</a> </div>
       <div class="prf_content"> <a href="/user/lessonhistory?member=<?php echo $member ?>">Lịch sử học tập</a> </div>
-      <div class="prf_content"> <a href="/user/user?member=<?php echo pzk_session('userId'); ?>">Về trang của tôi</a> </div>
+      <div class="prf_content"> <a href="/user/user?member=<?php echo pzk_session()->getUserId(); ?>">Về trang của tôi</a> </div>
       <div class="prf_clear"></div>
     </div>
   </div>

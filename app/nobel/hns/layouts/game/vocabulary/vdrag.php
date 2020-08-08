@@ -931,15 +931,15 @@
 				echo "Drag Vietnamese words into corresponding English words.";
 			echo "</div>";
 		}else if($domain == 'fulllooksongngu.com') {
-			if(pzk_session('language') == 'en') {
+			if(pzk_session()->getLanguage() == 'en') {
 				echo "<div class='alert alert-info mgb0'>";
 					echo "Drag Vietnamese words into corresponding English words.";
 				echo "</div>";
-			}elseif(pzk_session('language') == 'vn'){
+			}elseif(pzk_session()->getLanguage() == 'vn'){
 				echo "<div class='alert alert-info mgb0'>";
 					echo "Kéo từ Tiếng Việt vào từ tiếng Anh tương ứng.";
 				echo "</div>";
-			}elseif(pzk_session('language') == 'ev') {
+			}elseif(pzk_session()->getLanguage() == 'ev') {
 				echo "<div class='alert alert-info mgb0'>";
 					echo "Drag Vietnamese words into corresponding English words.";
 				echo "</div>";

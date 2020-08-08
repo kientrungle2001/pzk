@@ -592,15 +592,15 @@
 				echo "Look at the photos and click on the words that describe it.";
 			echo "</div>";
 		}else if($domain == 'fulllooksongngu.com') {
-			if(pzk_session('language') == 'en') {
+			if(pzk_session()->getLanguage() == 'en') {
 				echo "<div class='alert alert-info mgb0'>";
 					echo "Look at the photos and click on the words that describe it.";
 				echo "</div>";
-			}elseif(pzk_session('language') == 'vn'){
+			}elseif(pzk_session()->getLanguage() == 'vn'){
 				echo "<div class='alert alert-info mgb0'>";
 					echo "Xem ảnh và click vào từ mô tả ảnh.";
 				echo "</div>";
-			}elseif(pzk_session('language') == 'ev') {
+			}elseif(pzk_session()->getLanguage() == 'ev') {
 				echo "<div class='alert alert-info mgb0'>";
 					echo "Look at the photos and click on the words that describe it.";
 				echo "</div>";

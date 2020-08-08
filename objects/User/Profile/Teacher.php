@@ -84,7 +84,7 @@ class PzkUserProfileTeacher extends PzkObject
 	public function getTestSN($class, $weekId=0, $practice){
 	
 		$listTest = _db()->useCache(1800)->select('*')->fromTests();
-		/*if(pzk_session('lop')) $listTest->likeClasses("%,pzk_session('lop'),%");*/
+		/*if(pzk_session()->getLop()) $listTest->likeClasses("%,pzk_session()->getLop(),%");*/
 		$listTest->likeCategoryIds("%,$weekId,%");
 		$listTest->likeClasses("%,$class,%");
 		$listTest->whereStatus(1);

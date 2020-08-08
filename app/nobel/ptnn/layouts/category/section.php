@@ -6,7 +6,7 @@
     if(isset($video)) {
 
 		$time = $_SERVER['REQUEST_TIME'];
-		$username = pzk_session('username');
+		$username = pzk_session()->getUsername();
 		if(!$username) $username = false;
 		$token = md5($time.$username . SECRETKEY);
     ?>

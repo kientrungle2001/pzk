@@ -1,7 +1,7 @@
 <?php
 class PzkEducationQuestionShowtest extends PzkObject {
 	function getWeekTest($subjectId){
-		$check = pzk_session('checkPayment');
+		$check = pzk_session()->getCheckPayment();
 		$query = _db()->useCache(1800)->select('*')
 			->fromCategories()
 			->whereParent($subjectId)

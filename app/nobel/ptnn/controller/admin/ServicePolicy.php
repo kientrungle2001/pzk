@@ -308,7 +308,7 @@ class PzkAdminServicePolicyController extends PzkGridAdminController {
        
         if($this->validateEditData($row)) {
         	
-            $row['modifiedId']=pzk_session('userId');
+            $row['modifiedId']=pzk_session()->getUserId();
             $row['modified']=date("Y-m-d H:i:s");
             $this->edit($row);
             pzk_notifier()->addMessage('Cập nhật thành công');
@@ -322,7 +322,7 @@ class PzkAdminServicePolicyController extends PzkGridAdminController {
     public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-           	$row['creatorId']=pzk_session('userId');
+           	$row['creatorId']=pzk_session()->getUserId();
             $row['created']=date("Y-m-d H:i:s");
             $this->add($row);
             pzk_notifier()->addMessage('Cập nhật thành công');

@@ -1,8 +1,8 @@
 <?php 
-	$keyword = pzk_session('questiontypeKeyword');
-	$orderBy = pzk_session('questiontypeOrderBy');
+	$keyword = pzk_session()->getQuestiontypeKeyword();
+	$orderBy = pzk_session()->getQuestiontypeOrderBy();
 	
-	$pageSize = pzk_session('questiontypePageSize');
+	$pageSize = pzk_session()->getQuestiontypePageSize();
 	if($pageSize) {
 		$data->pageSize = $pageSize;
 	}

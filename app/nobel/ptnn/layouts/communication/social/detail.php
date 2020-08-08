@@ -1,7 +1,7 @@
 <?php
   $socialId= pzk_request()->getSocialId();
   $commentId=pzk_request()->getCommentId();
-  $userId=pzk_session('userId');
+  $userId=pzk_session()->getUserId();
   $social= _db()->getEntity('communication.social');
   /*$alert= $social->countAlert();
   $showAlert= $social->showAlert();
@@ -37,7 +37,7 @@
     <div>
       <div class="comment"><textarea id="note_note{note[id]}" style="min-height:65px;" class="txt_comment_note" required="required" placeholder="Bình luận" rel="false"></textarea></div>
       
-      <div class="btt_comment"><input type="button" class=" btn btn-primary" id="btt_notenote{note[id]}" onclick="pzk_{data.id}.SendNote('<?php echo pzk_session('avatar') ?>','<?php echo pzk_session('userId') ?>','<?php echo pzk_session('username') ?>','{note[id]}','{note[userNote]}')" name="send" value="Bình luận"></div>
+      <div class="btt_comment"><input type="button" class=" btn btn-primary" id="btt_notenote{note[id]}" onclick="pzk_{data.id}.SendNote('<?php echo pzk_session()->getAvatar() ?>','<?php echo pzk_session()->getUserId() ?>','<?php echo pzk_session()->getUsername() ?>','{note[id]}','{note[userNote]}')" name="send" value="Bình luận"></div>
     </div>
 
     <div class="clear"></div>
@@ -76,7 +76,7 @@
      <div>
       <div class="comment"><textarea id="note_note{note[id]}" style="min-height:65px;" class="txt_comment_note" required="required" placeholder="Bình luận" rel="false"></textarea></div>
       
-      <div class="btt_comment"><input type="button" class=" btn btn-primary" id="btt_notenote{note[id]}" onclick="pzk_{data.id}.SendNote('<?php echo pzk_session('avatar') ?>','<?php echo pzk_session('userId') ?>','<?php echo pzk_session('username') ?>','{note[id]}','{note[userNote]}')" name="send" value="Bình luận"></div>
+      <div class="btt_comment"><input type="button" class=" btn btn-primary" id="btt_notenote{note[id]}" onclick="pzk_{data.id}.SendNote('<?php echo pzk_session()->getAvatar() ?>','<?php echo pzk_session()->getUserId() ?>','<?php echo pzk_session()->getUsername() ?>','{note[id]}','{note[userNote]}')" name="send" value="Bình luận"></div>
     </div>
 <!-- 
     <div class="clear"></div>
@@ -109,7 +109,7 @@
      </div>
     <div class="titel_detail">{comment_note[comment]}</div>
     <?php 
-      if($item['userNote']==pzk_session('userId')){
+      if($item['userNote']==pzk_session()->getUserId()){
      ?>
      <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_{data.id}.delComm({comment_note[id]});">[Xoá]</a></div>
      <?php } ?>

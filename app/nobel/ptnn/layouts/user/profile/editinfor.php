@@ -24,7 +24,7 @@
     }
     </style>
 <?php 
-  //$user= $data->loadInfor(pzk_session('userId'));
+  //$user= $data->loadInfor(pzk_session()->getUserId());
   //var_dump($user);die;
   $user = pzk_user();
  ?>

@@ -18,7 +18,7 @@
  <div class="resulsearch" style="height: 100px;">
       <?php 
 
-        $searchfriend='%'.pzk_session('searchfriend').'%';
+        $searchfriend='%'.pzk_session()->getSearchfriend().'%';
              // Đếm số bản ghi
         $countrow=_db()->useCB()->select('count(*) as countfriend')->from('user')->where(array('or',array('like','name',$searchfriend),array('like','username',$searchfriend)))->result_one();
     
@@ -34,7 +34,7 @@
         if(isset($_GET['start']) && (int)$_GET['start']) 
          $start=$_GET['start']; //dòng bắt đầu từ nơi ta muốn lấy 
         else $start=0;
-        $sql="select * from `user` where username !='".pzk_session('username')."'and username like '".$searchfriend."' or name like '".$searchfriend."' order by id asc limit ".$start.",".$row_per_page ;
+        $sql="select * from `user` where username !='".pzk_session()->getUsername()."'and username like '".$searchfriend."' or name like '".$searchfriend."' order by id asc limit ".$start.",".$row_per_page ;
         $items_name= _db()->query($sql); 
         //$searchfriend='%nghia%';
         //$items_name=_db()->useCB()->select('user.*')->from('user')->where(array('or',array('like','email',$searchfriend),array('like','name',$searchfriend),array('like','username',$searchfriend)))->result();
@@ -45,13 +45,13 @@
             $find[$items['username']]=$items;
           }
           //var_dump($find);
-          $items_friend=_db()->useCB()->select('friend.*')->from('friend')->where(array('username',pzk_session('username')))->result();
+          $items_friend=_db()->useCB()->select('friend.*')->from('friend')->where(array('username',pzk_session()->getUsername()))->result();
            $friend=array();
           foreach ($items_friend as $items) {
             $friend[$items['userfriend']]=$items;
           }
           //var_dump($friend);
-          $items_invitation=_db()->useCB()->select('invitation.*')->from('invitation')->where(array('username',pzk_session('username')))->result();
+          $items_invitation=_db()->useCB()->select('invitation.*')->from('invitation')->where(array('username',pzk_session()->getUsername()))->result();
            $invitation=array();
           foreach ($items_invitation as $items) {
             $invitation[$items['userinvitation']]=$items;

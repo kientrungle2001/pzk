@@ -1,7 +1,7 @@
 
     <div style="border-width: 1px;border-style: solid; border-color: #FF7357;  width:80%; ">
     <?php 
-    	if(pzk_session('username') !="")
+    	if(pzk_session()->getUsername() !="")
     	{
 
      ?>

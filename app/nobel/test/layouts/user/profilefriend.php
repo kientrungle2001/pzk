@@ -115,7 +115,7 @@ font-size: 12px;
       <div class="prf_member"> <?php echo $member; ?></div>
       <div class="prf_member">
         <?php 
-          if(pzk_session('username')==$member)
+          if(pzk_session()->getUsername()==$member)
           {
         ?>
         <img src="<?php echo BASE_URL.'/3rdparty/uploads/img/online.png' ; ?>" alt=""> Online
@@ -204,8 +204,8 @@ font-size: 12px;
         {
           <?php $request = pzk_request();  ?>
           var write_wall= $('#pr_post_wall').val();
-          var avatar1='<?php echo pzk_session('avatar'); ?>';
-          var userwritewall= '<?php echo pzk_session('username'); ?>';
+          var avatar1='<?php echo pzk_session()->getAvatar(); ?>';
+          var userwritewall= '<?php echo pzk_session()->getUsername(); ?>';
           var username= '<?php echo $member; ?>';
           var datetime= '<?php echo date("Y-m-d H:i:s"); ?>';
           $.ajax({

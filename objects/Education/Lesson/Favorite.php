@@ -49,7 +49,7 @@ class PzkEducationLessonFavorite extends PzkObject
 	}
 	public function testOnline($member)
 	{
-		$sessionID= pzk_session('userId');
+		$sessionID= pzk_session()->getUserId();
 		if($member == $sessionID)
 		{
 			$img='<img src="/3rdparty/uploads/img/online.png" alt=""> Online' ;

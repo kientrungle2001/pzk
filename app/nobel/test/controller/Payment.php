@@ -45,9 +45,9 @@ class PzkPaymentController extends PzkController
 		$type_card=$request->getPm_typecard();
 		$card_serial=$request->getPm_txt_serialcard();
 		$pin_card=$request->getPm_txt_pincard();
-		$ref_code= pzk_session('username').' '.date("Y-m-d H:i:s");
+		$ref_code= pzk_session()->getUsername().' '.date("Y-m-d H:i:s");
 
-		$client_fullname=pzk_session('username');
+		$client_fullname=pzk_session()->getUsername();
 		$client_mobile=date("Y-m-d H:i:s");
 		$client_email="";
 		$arr_result=$call->CardPay($pin_card,$card_serial,$type_card,$ref_code,$client_fullname,$client_mobile,$client_email);
@@ -235,7 +235,7 @@ class PzkPaymentController extends PzkController
 		$nextnobels_card= pzk_request()->getNextnobels_card();
 		$nextnobels_serial= pzk_request()->getNextnobels_serial();
 		$nextnobels_card=md5($nextnobels_card);
-		$userActive=pzk_session('userId');
+		$userActive=pzk_session()->getUserId();
 		$dateActive= date("y-m-d h:i:s");
 		$card_nextnobels= _db()->getEntity('payment.card_nextnobels');
 		$card_nextnobels->loadWhere(array('and',array('pincard',$nextnobels_card),array('serial',$nextnobels_serial)));

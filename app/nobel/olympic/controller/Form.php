@@ -19,7 +19,7 @@ class PzkFormController extends PzkController {
 		if($header) {
 			$header->setLayout('home/header2');
 		}*/
-		if(pzk_session('userId')) {
+		if(pzk_session()->getUserId()) {
 			
 			$check = pzk_user()->checkPayment('full');
 			//tai khoan da active
@@ -66,7 +66,7 @@ class PzkFormController extends PzkController {
 	//get questions
 	public function setLessonAction() {
 		
-		if(pzk_session('userId')) {
+		if(pzk_session()->getUserId()) {
 			$lessonId = pzk_request()->getLessonId();
 			$category_root = pzk_request()->getCategory_root();
 		
@@ -235,7 +235,7 @@ class PzkFormController extends PzkController {
 	//luu vao vo bai tap
 	public function saveChoiceAction(){
     	//check dang nhap
-    	$userId	=	pzk_session('userId');
+    	$userId	=	pzk_session()->getUserId();
     	 
     	if($userId == 0 || empty($userId)){
     	
@@ -328,7 +328,7 @@ class PzkFormController extends PzkController {
     			'question_type'		=> $question_type,
     	);
     	
-    	$s_keybook	=	pzk_session('keybook');
+    	$s_keybook	=	pzk_session()->getKeybook();
     	
     	if(isset($s_keybook)){
     		
@@ -377,7 +377,7 @@ class PzkFormController extends PzkController {
 	
     public function saveWordAction() {
 		//check dang nhap
-    	$userId	=	pzk_session('userId');
+    	$userId	=	pzk_session()->getUserId();
     	 
     	/*if($userId == 0 || empty($userId)){
     	

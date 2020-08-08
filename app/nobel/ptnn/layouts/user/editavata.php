@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php 
-$items=_db()->useCB()->select('user.*')->from('user')->where(array('username',pzk_session('username')))->result_one();
+$items=_db()->useCB()->select('user.*')->from('user')->where(array('username',pzk_session()->getUsername()))->result_one();
 ?>
 <html>
 <body>

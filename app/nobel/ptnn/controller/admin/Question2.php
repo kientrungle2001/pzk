@@ -808,7 +808,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 		),
 	);		
     public function add($row) {
-        $row['creatorId'] = pzk_session('adminId');
+        $row['creatorId'] = pzk_session()->getAdminId();
         $row['created'] = date(DATEFORMAT,$_SERVER['REQUEST_TIME']);
         if(isset($row['testId']) && is_array($row['testId'])) {
             $testId = $row['testId'];
@@ -843,14 +843,14 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
     }
 
     public function edit($row) {
-        $row['modifiedId'] = pzk_session('adminId');
+        $row['modifiedId'] = pzk_session()->getAdminId();
         $row['modified'] = date(DATEFORMAT,$_SERVER['REQUEST_TIME']);
 		
 		//set index owner
 		$adminmodel = pzk_model('Admin');
 		$controller = pzk_request()->getController();
 		 
-		$checkEditOwner = $adminmodel->checkActionType('editOwner', $controller, pzk_session('adminLevel'));
+		$checkEditOwner = $adminmodel->checkActionType('editOwner', $controller, pzk_session()->getAdminLevel());
 		
 		if($checkEditOwner){
 			

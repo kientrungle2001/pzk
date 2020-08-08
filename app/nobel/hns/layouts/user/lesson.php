@@ -1,5 +1,5 @@
 <?Php
-$user_id = pzk_session('userId');
+$user_id = pzk_session()->getUserId();
 if(isset($user_id)) {
     $lessons = _db()->useCB()->select('*')->from('lessons')->where(array('user_id', $user_id))->result();
     $i = 1;

@@ -55,7 +55,7 @@ class PzkFriendController extends PzkFrontendController
 	public function searchResultAction() 
 	{
 	
-		$searchfriend = pzk_session('searchfriend');
+		$searchfriend = pzk_session()->getSearchfriend();
 		//$items_name=_db()->useCB()->select('user.*')->from('user')->where(array('or',array('like','email',$searchfriend),array('like','name',$searchfriend),array('like','username',$searchfriend)))->result();
 		$this->layout();
 		$pageSearch = pzk_parse(pzk_app()->getPageUri('communication/friend/resultsearch'));
@@ -75,7 +75,7 @@ class PzkFriendController extends PzkFrontendController
 	public function PostCommentFriendAction()
 	{
 		$request=pzk_request();
-		if(pzk_session('login')==false)
+		if(pzk_session()->getLogin()==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";
 		}
@@ -86,7 +86,7 @@ class PzkFriendController extends PzkFrontendController
 			//echo $content;
 			
 			$username=$request->getUsername();
-			$userwritewall=pzk_session('username');
+			$userwritewall=pzk_session()->getUsername();
 			$write_wall=_db()->getEntity('communication.user_write_wall');
 			//$write_wall->loadWhere(array('username',$username));
 			$datewrite= date("Y-m-d H:i:s");
@@ -114,7 +114,7 @@ class PzkFriendController extends PzkFrontendController
 	{
 		$request=pzk_request();
 		$idnote=$request->getDel();
-		$username=pzk_session('username');
+		$username=pzk_session()->getUsername();
 		$user_note=_db()->getEntity('communication.user_note');
 		foreach ($idnote as $id) {
 			$user_note->load($id);
@@ -136,7 +136,7 @@ class PzkFriendController extends PzkFrontendController
 		
 		
 		
-		if(pzk_session('login')==false)
+		if(pzk_session()->getLogin()==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";
 		}
@@ -147,7 +147,7 @@ class PzkFriendController extends PzkFrontendController
 			//echo $content;
 			
 			
-			$userId=pzk_session('userId');
+			$userId=pzk_session()->getUserId();
 			$comment_note=_db()->getEntity('communication.user_note_comment');
 			//$comment_note->loadWhere(array('username',$username));
 			$date= date("Y-m-d H:i:s");
@@ -173,7 +173,7 @@ class PzkFriendController extends PzkFrontendController
 		$titlenote=$request->getNotetitle();
 		$contentnote=$request->getNotecontent();
 		$datenote= date("Y-m-d H:i:s");
-		$username=pzk_session('username');
+		$username=pzk_session()->getUsername();
 		$user_note=_db()->getEntity('communication.user_note');
 		
 		$rownote=array('username'=>$username,'titlenote'=>$titlenote,'contentnote'=>$contentnote,'datenote'=>$datenote);

@@ -20,7 +20,7 @@ class PzkServiceController extends PzkFrontendController
 		}
 
 		$datetime=date("Y-m-d H:i:s");
-		$userId=pzk_session('userId');
+		$userId=pzk_session()->getUserId();
 		$wallets=_db()->getEntity('user.account.wallets');
 		$wallets->loadWhere(array('userId',$userId));
 		if($wallets->getId()){
@@ -31,7 +31,7 @@ class PzkServiceController extends PzkFrontendController
 				$quantity= count($ids);
 				$wallets->update(array('amount'=>$amount));
 				$order=_db()->getEntity('service.order');
-				$row=array('userId'=>pzk_session('userId'),'username'=>pzk_session('username'),'paymentType'=>'wallets_buyservice','software'=>'3','quantity'=>$quantity,'amount'=>$total,'orderDate'=>$datetime,'paymentStatus'=>1,'status'=>1);				
+				$row=array('userId'=>pzk_session()->getUserId(),'username'=>pzk_session()->getUsername(),'paymentType'=>'wallets_buyservice','software'=>'3','quantity'=>$quantity,'amount'=>$total,'orderDate'=>$datetime,'paymentStatus'=>1,'status'=>1);				
 				$order->setData($row);
 				$order->save();
 				$orderId= $order->getId();
@@ -45,12 +45,12 @@ class PzkServiceController extends PzkFrontendController
 					$orderitem->save();	
 					$model->buyService($userId,$id,'wallets_buyservice');
 					// insert table new_message
-					$mess=array('userId'=>pzk_session('userId'),'messageType'=>'payservice','serviceId'=>$id,'date'=>date("Y-m-d H:i:s"),'status'=>0);
+					$mess=array('userId'=>pzk_session()->getUserId(),'messageType'=>'payservice','serviceId'=>$id,'date'=>date("Y-m-d H:i:s"),'status'=>0);
 					
 					$message->create($mess);			
 				}
 				$transaction=_db()->getEntity('payment.transaction');
-				$row_=array('orderId'=>$orderId,'userId'=>pzk_session('userId'),'username'=>pzk_session('username'),'paymentType'=>'wallets','amount'=>$total,'paymentDate'=>$datetime,'reason'=>'mua goi dich vu','status'=>1);		
+				$row_=array('orderId'=>$orderId,'userId'=>pzk_session()->getUserId(),'username'=>pzk_session()->getUsername(),'paymentType'=>'wallets','amount'=>$total,'paymentDate'=>$datetime,'reason'=>'mua goi dich vu','status'=>1);		
 				$transaction->setData($row_);			
 				$transaction->save();
 				echo 1;
@@ -96,7 +96,7 @@ class PzkServiceController extends PzkFrontendController
 		$rowship=array('orderId'=>$orderId ,'name'=>$txtname,'phone'=>$txtphone,'address'=>$txtaddress,'serviceId'=>$opt_service_id,'serviceType'=>$serviceType,'quantity'=>$quantity,'price'=>$opt_service[1],'amount'=>$price,'status'=>1);
 		$shipping->setData($rowship);	
 		$shipping->save();
-		$mess=array('userId'=>pzk_session('userId'),'messageType'=>'ordercard','serviceId'=>$opt_service_id,'date'=>date("Y-m-d H:i:s"),'status'=>0);
+		$mess=array('userId'=>pzk_session()->getUserId(),'messageType'=>'ordercard','serviceId'=>$opt_service_id,'date'=>date("Y-m-d H:i:s"),'status'=>0);
 		$newmessage= _db()->getEntity('user.NewMessage');
 		$newmessage->create($mess);
 		echo 1;

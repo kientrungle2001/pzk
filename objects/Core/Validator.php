@@ -176,7 +176,7 @@ class PzkCoreValidator extends PzkObjectLightWeight {
 	 * @return mixed
 	 */
 	public function getEditingData() {
-		$data = pzk_session('editingData');
+		$data = pzk_session()->getEditingData();
 		pzk_session()->setEditingData( false);
 		return $data;
 	}

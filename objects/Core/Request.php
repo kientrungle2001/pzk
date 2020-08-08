@@ -259,7 +259,7 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	public $_isMobileAndTablet = NULL;
 	public function isMobileAndTablet() {
 		if(NULL === $this->_isMobileAndTablet) {
-			if(($isMobileAndTablet = pzk_session('isMobileAndTablet')) !== NULL) {
+			if(($isMobileAndTablet = pzk_session()->getIsMobileAndTablet()) !== NULL) {
 				return $this->_isMobileAndTablet = $isMobileAndTablet;
 			} else {
 				$isMobileAndTablet = ($this->_isMobileAndTablet = $this->getDetector()->isMobile());
@@ -278,7 +278,7 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	public $_isTablet = NULL;
 	public function isTablet() {
 		if(NULL === $this->_isTablet) {
-			if(($isTablet = pzk_session('isTablet')) !== NULL) {
+			if(($isTablet = pzk_session()->getIsTablet()) !== NULL) {
 				return $this->_isTablet = $isTablet;
 			} else {
 				$isTablet = ($this->_isTablet = $this->getDetector()->isTablet());

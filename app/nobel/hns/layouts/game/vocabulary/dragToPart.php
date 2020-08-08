@@ -9,15 +9,15 @@ if(count($imagesAndWords) > 0) {
 				echo "Drag words on the top into place marked in the diagram.";
 			echo "</div>";
 		}else if($domain == 'fulllooksongngu.com') {
-			if(pzk_session('language') == 'en') {
+			if(pzk_session()->getLanguage() == 'en') {
 				echo "<div class='alert alert-info'>";
 					echo "Drag words on the top into place marked in the diagram.";
 				echo "</div>";
-			}elseif(pzk_session('language') == 'vn'){
+			}elseif(pzk_session()->getLanguage() == 'vn'){
 				echo "<div class='alert alert-info'>";
 					echo "Kéo các từ bên trên vào vị trí được đánh dấu trong sơ đồ.";
 				echo "</div>";
-			}elseif(pzk_session('language') == 'ev') {
+			}elseif(pzk_session()->getLanguage() == 'ev') {
 				echo "<div class='alert alert-info'>";
 					echo "Drag words on the top into place marked in the diagram.";
 				echo "</div>";

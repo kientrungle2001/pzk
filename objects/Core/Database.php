@@ -665,7 +665,7 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 		}
 		$softwareId = 	pzk_request()->getSoftwareId();
 		$siteId		= 	pzk_request()->getSiteId();
-		$refId		=	pzk_session('refId');
+		$refId		=	pzk_session()->getRefId();
 		foreach ($this->options['values'] as $value) {
 			$value['software'] 	= $softwareId;
 			$value['site']		= $siteId;

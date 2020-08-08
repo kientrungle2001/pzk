@@ -1,7 +1,7 @@
 <?php
   $noteId= pzk_request()->getNoteId();
   $commentId=pzk_request()->getCommentId();
-  $userId=pzk_session('userId');
+  $userId=pzk_session()->getUserId();
   $social= _db()->getEntity('communication.social');
 ?>
 <?php
@@ -25,7 +25,7 @@
      </div>
     <div class="titel_detail">{comment_note[comment]}</div>
     <?php 
-      if($item['userNote']==pzk_session('userId')){
+      if($item['userNote']==pzk_session()->getUserId()){
      ?>
      <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_{data.id}.delComm({comment_note[id]});">[Xoá]</a></div>
      <?php } ?>

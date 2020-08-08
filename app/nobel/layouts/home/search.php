@@ -62,9 +62,9 @@ function sw_get_current_weekday() {
 		<div  class="col-xs-6">
 
             <div style="float: right; padding: 8px 0px; margin-right: 20px;">
-            	<?php if(pzk_session('userId') <= 0):?>
+            	<?php if(pzk_session()->getUserId() <= 0):?>
                 	<a id="nobelLogin" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="pd-left-10"> Đăng nhập/ Đăng ký</span></a>
-                <?php elseif(pzk_session('userId') >0 ):?>
+                <?php elseif(pzk_session()->getUserId() >0 ):?>
                 	<span  class="color-white user_name pd-left-10"> Xin chào ( {children [id=userAccountUser]} )</span>
                	 	<a  href="<?=BASE_REQUEST?>/account/logout"><span>Thoát</span></a>
                 <?php endif;?>

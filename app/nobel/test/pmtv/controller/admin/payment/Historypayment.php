@@ -519,7 +519,7 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
 					'amount'	=>	$amount,
 					'class'		=>	$row['class'],
 					'languages'	=>	$row['languages'],
-					'creatorId' =>	pzk_session('adminId'),
+					'creatorId' =>	pzk_session()->getAdminId(),
 					'created' 	=>	date("Y-m-d H:i:s"),
 					'software'	=>	pzk_request()->getSoftwareId(),
 					'site'		=>	pzk_request()->getSiteId(),
@@ -530,7 +530,7 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
 			}
 		}
 		if($this->validateAddData($row)) {            
-            $row['creatorId']=pzk_session('adminId');
+            $row['creatorId']=pzk_session()->getAdminId();
             $row['created']=date("Y-m-d H:i:s");
 			$paymentId 	=	$this->add($row);
 			if($couponUser) {
@@ -582,7 +582,7 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
 					'amount'	=>	$amount,
 					'class'		=>	$row['class'],
 					'languages'	=>	$row['languages'],
-					'modifiedId' =>	pzk_session('adminId'),
+					'modifiedId' =>	pzk_session()->getAdminId(),
 					'modified' 	=>	date("Y-m-d H:i:s"),
 					'software'	=>	pzk_request()->getSoftwareId(),
 					'site'		=>	pzk_request()->getSiteId(),
@@ -595,7 +595,7 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
 		}
 		if($this->validateEditData($row)) {        	
         	$date = date("Y-m-d H:i:s");
-            $row['modifiedId'] = pzk_session('adminId');
+            $row['modifiedId'] = pzk_session()->getAdminId();
             $row['modified'] = date("Y-m-d H:i:s");            
             $row['software'] = pzk_request()->getSoftwareId();
             $row['site'] = pzk_request()->getSiteId();

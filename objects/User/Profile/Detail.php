@@ -8,7 +8,7 @@ class PzkUserProfileDetail extends PzkObject
 	public $css = 'user-info';
 	public $layout = 'user/profile/detail';
 	public function checkIdFacebook() {
-		$user=_db()->useCB()->select('user.*')->from('user')->where(array('id',pzk_session('userId')))->result_one();
+		$user=_db()->useCB()->select('user.*')->from('user')->where(array('id',pzk_session()->getUserId()))->result_one();
 		$idfb = $user['idFacebook'];
 		$email = $user['email'];
 		$password = $user['password'];

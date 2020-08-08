@@ -36,7 +36,7 @@ class PzkFavoriteController extends PzkFrontendController
 		$lessonfavorite=_db()->getEntity('favorite.lesson_favorite');
 		$lessonfavorite->load($id);
 		$lessonfavorite->delete();
-		$this->redirect('lessonfavorite?member='.pzk_session('userId'));
+		$this->redirect('lessonfavorite?member='.pzk_session()->getUserId());
 	}
 	public function viewlessonAction()
 	{

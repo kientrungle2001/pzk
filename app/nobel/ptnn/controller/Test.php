@@ -56,7 +56,7 @@ class PzkTestController extends PzkFrontendController
 		$request = pzk_request();
 		$data_answers=$request->getAnswers();
 		$key_test= $request->getKey();
-		if($key_test==pzk_session('keyTest')){
+		if($key_test==pzk_session()->getKeyTest()){
 			if($this->checkSave($key_test)){
 				$question_id=$data_answers['question_id'];
 				$question_type= $data_answers['question_type'];
@@ -64,7 +64,7 @@ class PzkTestController extends PzkFrontendController
 				$time=$data_answers['time'];
 				$date= date("Y-m-d H:i:s");
 				$quantity_question= $data_answers['quantity'];
-				$userId=pzk_session('userId');
+				$userId=pzk_session()->getUserId();
 				$answerTest= _db()->getEntity('test.answer');
 				$row= array('userId'=>$userId,'categoryId'=>$category_id,'time'=>$time,'quantity'=>$quantity_question,'date'=>$date,'key'=>$key_test);
 				$answerTest->setData($row);

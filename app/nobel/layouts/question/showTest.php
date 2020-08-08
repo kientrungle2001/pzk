@@ -99,7 +99,7 @@
 					<button id="finish-choice" class="btn practice-finish" name="finish-choice" onclick="finish_choice();" type="button">
 						Hoàn thành 
 					</button>
-                <?php $check = pzk_session('signActive');
+                <?php $check = pzk_session()->getSignActive();
                     if(!empty($check)) {
                 ?>
 					<button id="show-answers" class="btn practice-view-result" name="show-answers" onclick="save_choice();" type="button">

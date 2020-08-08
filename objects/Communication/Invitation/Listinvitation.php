@@ -17,7 +17,7 @@ class PzkCommunicationInvitationListinvitation extends PzkObject
 	/*public function viewListInvitation()
 	{
 			
-		$items_invi=_db()->useCB()->select('invitation.*')->from('invitation')->where(array('userinvitation',pzk_session('username')))->result();
+		$items_invi=_db()->useCB()->select('invitation.*')->from('invitation')->where(array('userinvitation',pzk_session()->getUsername()))->result();
 		return $items_invi; 
 	}*/
 	public function testAvatar($avatar)
@@ -33,7 +33,7 @@ class PzkCommunicationInvitationListinvitation extends PzkObject
 	}
 	public function countinvi()
 	{
-		$username= pzk_session('username');
+		$username= pzk_session()->getUsername();
 		$count=_db()->useCB()->select('count(*) as count')->from('invitation')->where(array('userinvitation',$username))->result_one();
 		return $count; 
 	}

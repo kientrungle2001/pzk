@@ -1,14 +1,14 @@
 <?php
-    $keyword = pzk_session('questionsKeyword');
-    $orderBy = pzk_session('questionsOrderBy');
-    $categoryId = pzk_session('questionsCategoryId');
+    $keyword = pzk_session()->getQuestionsKeyword();
+    $orderBy = pzk_session()->getQuestionsOrderBy();
+    $categoryId = pzk_session()->getQuestionsCategoryId();
     if($categoryId) {
         $data->conditions .= " and categoryIds like '%,$categoryId,%'";
     }
     if($orderBy) {
         $data->orderBy = $orderBy;
     }
-    $pageSize = pzk_session('questionsPageSize');
+    $pageSize = pzk_session()->getQuestionsPageSize();
     if($pageSize) {
         $data->pageSize = $pageSize;
     }

@@ -519,7 +519,7 @@ class PzkAdminOrderController extends PzkGridAdminController {
     public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-            $row['creatorId']=pzk_session('userId');
+            $row['creatorId']=pzk_session()->getUserId();
             $row['created']=date("Y-m-d H:i:s");
             $row['software']=3;
             $user= _db()->getEntity('User.Account.User');
@@ -578,7 +578,7 @@ class PzkAdminOrderController extends PzkGridAdminController {
     public function editPostAction() {
         $row = $this->getEditData();
         if(1) {
-            $row['modifiedId']=pzk_session('userId');
+            $row['modifiedId']=pzk_session()->getUserId();
             $row['modified']=date("Y-m-d H:i:s");
             $row['software']=3;
             $user= _db()->getEntity('User.Account.User');

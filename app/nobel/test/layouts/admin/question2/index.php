@@ -1,17 +1,17 @@
 <?php
 	$controller = pzk_controller();
 	$sortFields = $controller->getSortFields();
-	$keyword = pzk_session('questionsKeyword');
-	$orderBy = pzk_session('questionsOrderBy');
-	$categoryId = pzk_session('questionsCategoryId');
-    $testId = pzk_session('questionsTestId');
-    $trial = pzk_session('questionsTrial');
-	$creatorId = pzk_session('questionsselectcreatorId');
-    $questionType = pzk_session('questionsQuestionType');
-    $classes = pzk_session('classes');
-    $check = pzk_session('questionsCheck');
-    $status = pzk_session('questionsStatus');
-    $deleted = pzk_session('questionsDeleted');
+	$keyword = pzk_session()->getQuestionsKeyword();
+	$orderBy = pzk_session()->getQuestionsOrderBy();
+	$categoryId = pzk_session()->getQuestionsCategoryId();
+    $testId = pzk_session()->getQuestionsTestId();
+    $trial = pzk_session()->getQuestionsTrial();
+	$creatorId = pzk_session()->getQuestionsselectcreatorId();
+    $questionType = pzk_session()->getQuestionsQuestionType();
+    $classes = pzk_session()->getClasses();
+    $check = pzk_session()->getQuestionsCheck();
+    $status = pzk_session()->getQuestionsStatus();
+    $deleted = pzk_session()->getQuestionsDeleted();
 	if($categoryId) {
 		$data->conditions .= " and categoryIds like '%,$categoryId,%'";
 	}
@@ -52,7 +52,7 @@
 		$data->conditions .= " and deleted ='0'";
 	}
 	
-	$pageSize = pzk_session('questionsPageSize');
+	$pageSize = pzk_session()->getQuestionsPageSize();
 	if($pageSize) {
 		$data->pageSize = $pageSize;
 	}

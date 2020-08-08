@@ -1,6 +1,6 @@
   
     <?php 
-      $searchfriend='%'.pzk_session('searchfriend').'%';
+      $searchfriend='%'.pzk_session()->getSearchfriend().'%';
 
       $items=$data->viewSearch($searchfriend);
 

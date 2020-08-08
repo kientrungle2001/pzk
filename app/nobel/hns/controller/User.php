@@ -101,7 +101,7 @@ class PzkUserController extends PzkFrontendController {
 		$usernameInvitation=$user->getUsername();
 		$invitation=_db()->getEntity('user.invitation');
 		// kiểm tra nếu đã gửi lời mời kết bạn thì không insert được nữa
-		$invitation->loadWhere(array('and',array('username',pzk_session('username')),array('userinvitation',$usernameInvitation)));
+		$invitation->loadWhere(array('and',array('username',pzk_session()->getUsername()),array('userinvitation',$usernameInvitation)));
 		
 		if($invitation->getId())
 		{
@@ -111,7 +111,7 @@ class PzkUserController extends PzkFrontendController {
 		}
 		else
 		{
-			$rowInvitation=array('username'=>pzk_session('username'),'userinvitation'=>$usernameInvitation,'invitation'=>$txtinvitation);
+			$rowInvitation=array('username'=>pzk_session()->getUsername(),'userinvitation'=>$usernameInvitation,'invitation'=>$txtinvitation);
 			$invitation->setData($rowInvitation);
 			$invitation->save();
 			echo "ok";
@@ -236,7 +236,7 @@ class PzkUserController extends PzkFrontendController {
 		$lessonfavorite=_db()->getEntity('user.lesson_favorite');
 		$lessonfavorite->load($id);
 		$lessonfavorite->delete();
-		$this->redirect('lessonfavorite?member='.pzk_session('userId'));
+		$this->redirect('lessonfavorite?member='.pzk_session()->getUserId());
 	}
 	public function lessonfavoritememberAction()
 	{

@@ -18,15 +18,15 @@ if(count($words) > 0){
 				echo "Click on the word you choose in order or drag from below into the box above.";
 			echo "</div>";
 		}else if($domain == 'fulllooksongngu.com') {
-			if(pzk_session('language') == 'en') {
+			if(pzk_session()->getLanguage() == 'en') {
 				echo "<div class='alert alert-info'>";
 					echo "Click on the word you choose in order or drag from below into the box above.";
 				echo "</div>";
-			}elseif(pzk_session('language') == 'vn'){
+			}elseif(pzk_session()->getLanguage() == 'vn'){
 				echo "<div class='alert alert-info'>";
 					echo "Click vào từ mà bạn chọn theo thứ tự từ đúng hoặc dùng chuột kéo từ bên dưới vào ô trống bên trên.";
 				echo "</div>";
-			}elseif(pzk_session('language') == 'ev') {
+			}elseif(pzk_session()->getLanguage() == 'ev') {
 				echo "<div class='alert alert-info'>";
 					echo "Click on the word you choose in order or drag from below into the box above.";
 				echo "</div>";

@@ -122,7 +122,7 @@ class PzkCategoryController extends PzkFrontendController
         //$subject = $request->getSubject();
         //$tamtime = strtotime($_SERVER['REQUEST_TIME'] - $request->getStart_time()) - 7*3600;
         //echo $tamtime;
-        $userbook=array('userId'=>pzk_session('userId'),
+        $userbook=array('userId'=>pzk_session()->getUserId(),
             'categoryId'=>$request->getParent_id(),
             'quantity_question'=>$request->getNumber(),
             'time'=>$request->getTime(),

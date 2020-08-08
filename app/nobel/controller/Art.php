@@ -34,7 +34,7 @@ class PzkArtController extends PzkFrontendController
 		$request = pzk_request();
 		$data_answers=$request->getAnswers();
 		$key_test= $request->getKey();
-		if($key_test==pzk_session('keyBook')){
+		if($key_test==pzk_session()->getKeyBook()){
 			if($this->checkSave($key_test)){
 				$question_id=$data_answers['question_id'];
 				$question_type= $data_answers['question_type'];
@@ -42,7 +42,7 @@ class PzkArtController extends PzkFrontendController
 				$time=$data_answers['time'];
 				$date= date("Y-m-d H:i:s");
 				$quantity_question= $data_answers['quantity'];
-				$userId=pzk_session('userId');
+				$userId=pzk_session()->getUserId();
 
 				$answerTest= _db()->getTableEntity('user_book');
 

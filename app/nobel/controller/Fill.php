@@ -29,7 +29,7 @@ public function fillPostAction(){
 	$quantity_question= $data_answers['quantity_question'];
 	$userBook= _db()->getEntity('userbook.userbook');
 	$userAnswer= _db()->getEntity('userbook.useranswer');
-	$userId=pzk_session('userId');
+	$userId=pzk_session()->getUserId();
 
 
 	$time= $data_answers['time'];

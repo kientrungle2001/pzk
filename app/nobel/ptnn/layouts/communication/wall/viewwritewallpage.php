@@ -2,8 +2,8 @@
   <?php 
         $member=pzk_request()->getMember();
 
-        $avatar1= pzk_session('avatar');
-        $usercomm= pzk_session('username');
+        $avatar1= pzk_session()->getAvatar();
+        $usercomm= pzk_session()->getUsername();
         $datetime= date("Y-m-d H:i:s");
   ?>
 

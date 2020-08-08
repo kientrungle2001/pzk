@@ -1,7 +1,7 @@
 
 <?php $items = $data->getItems();
 	$items = buildArr($items,'parent',0);
-	$keyword = pzk_session('questionsKeyword');
+	$keyword = pzk_session()->getQuestionsKeyword();
 	$countItems = $data->getCountItems($keyword, array('name'));
 	$pages = ceil($countItems / $data->pageSize);	
 ?>

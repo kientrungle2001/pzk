@@ -6,7 +6,7 @@ class PzkNgonnguController extends PzkFrontendController{
     
 
     public function questionAction(){
-        $check = pzk_session('signActive');
+        $check = pzk_session()->getSignActive();
         $category_id = pzk_request()->getSegment(3);
 
     	$this->initPage();
@@ -129,7 +129,7 @@ class PzkNgonnguController extends PzkFrontendController{
     	
     	$userAnswer	= _db()->getEntity('userbook.useranswer');
     	
-    	$userId	=	pzk_session('userId');
+    	$userId	=	pzk_session()->getUserId();
     	
     	if(isset($data_answers['start_time'])) {
     		
@@ -176,7 +176,7 @@ class PzkNgonnguController extends PzkFrontendController{
     			'duringTime'		=> $duringTime
     	);
     	
-    	$s_keybook	=	pzk_session('keybook');
+    	$s_keybook	=	pzk_session()->getKeybook();
     	
     	if(isset($s_keybook)){
     		
@@ -265,7 +265,7 @@ class PzkNgonnguController extends PzkFrontendController{
     
     function testAction(){
     	
-    	$check = pzk_session('signActive');
+    	$check = pzk_session()->getSignActive();
     	
     	$this->initPage();
     	

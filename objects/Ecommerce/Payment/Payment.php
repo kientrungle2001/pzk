@@ -14,7 +14,7 @@ class PzkEcommercePaymentPayment extends PzkObject
     	require(BASE_DIR.'/3rdparty/nganluong/config.php');
     	$inputs = array(
     					'receiver'    => RECEIVER,
-    					'order_code'  => pzk_session('username').'/'.date("Y-m-d H:i:s"),
+    					'order_code'  => pzk_session()->getUsername().'/'.date("Y-m-d H:i:s"),
     					'return_url'  => BASE_URL.'/payment/confirmpayment',
     					'cancel_url'  => BASE_URL.'/payment/payment',
     					'language'    => 'vn'

@@ -182,7 +182,7 @@ font-size: 12px;
 <script>
 // Kiểm tra member=session(userId)
 var member= "<?php echo pzk_request()->getMember(); ?>";
-var sessionID= "<?php echo pzk_session('userId'); ?>";
+var sessionID= "<?php echo pzk_session()->getUserId(); ?>";
 if(member != sessionID){
     $('input[name=ckbdel]').hide();
     $('#btt_viewnote_add').hide();

@@ -134,7 +134,7 @@ class PzkNgonnguController extends PzkController{
     
     public function saveChoiceAction(){
     	
-    	$userId	=	pzk_session('userId');
+    	$userId	=	pzk_session()->getUserId();
     	 
     	if($userId == 0 || empty($userId)){
     	
@@ -226,7 +226,7 @@ class PzkNgonnguController extends PzkController{
     			'question_type'		=> $question_type,
     	);
     	
-    	$s_keybook	=	pzk_session('keybook');
+    	$s_keybook	=	pzk_session()->getKeybook();
     	
     	if(isset($s_keybook)){
     		
@@ -569,7 +569,7 @@ class PzkNgonnguController extends PzkController{
     
     function requestChoiceAction(){
     	
-    	$userId	=	pzk_session('userId');
+    	$userId	=	pzk_session()->getUserId();
     	 
     	if($userId != 0 || !empty($userId)){
     	

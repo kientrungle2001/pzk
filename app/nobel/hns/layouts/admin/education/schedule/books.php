@@ -10,8 +10,8 @@ $homeworks = $data->getHomeworks();
 <h2>Phiếu bài tập</h2>
 <table class="table table-bordered">
 {each $homeworks as $homework}
-<?php if(pzk_session('adminLevel') == 'Teacher') : 
-	if(strpos($homework['teacherIds'], ',' . pzk_session('adminId') . ',') === false) 
+<?php if(pzk_session()->getAdminLevel() == 'Teacher') : 
+	if(strpos($homework['teacherIds'], ',' . pzk_session()->getAdminId() . ',') === false) 
 		continue;
 endif;?>
 	<tr>

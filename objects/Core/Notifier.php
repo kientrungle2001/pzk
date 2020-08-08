@@ -16,7 +16,7 @@ class PzkCoreNotifier extends PzkObjectLightWeight {
 	 * @return array
 	 */
 	public function getMessages() {
-		$messages = pzk_session('messages');
+		$messages = pzk_session()->getMessages();
 		if(!$messages) {
 			$messages = array();
 		}

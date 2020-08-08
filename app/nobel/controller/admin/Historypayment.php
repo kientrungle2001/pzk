@@ -394,7 +394,7 @@ class PzkAdminHistorypaymentController extends PzkGridAdminController {
 			} else {
 				$row['paymentStatus'] = 0;
 			}
-            $row['creatorId']=pzk_session('adminId');
+            $row['creatorId']=pzk_session()->getAdminId();
             $row['created']=date("Y-m-d H:i:s");
             $this->add($row);                    
             pzk_notifier()->addMessage('Cập nhật thành công');
@@ -422,7 +422,7 @@ class PzkAdminHistorypaymentController extends PzkGridAdminController {
 				$row['paymentStatus'] = 0;
 			}
         	$date=date("Y-m-d H:i:s");
-            $row['modifiedId']=pzk_session('adminId');
+            $row['modifiedId']=pzk_session()->getAdminId();
             $row['modified']=date("Y-m-d H:i:s");
             $this->edit($row);
             pzk_notifier()->addMessage('Cập nhật thành công');

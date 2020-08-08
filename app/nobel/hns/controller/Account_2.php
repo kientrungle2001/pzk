@@ -313,7 +313,7 @@ class PzkAccountController extends  PzkController
 	public function loginfacebookAction() 
 	{
 
-		if(pzk_session('login')){
+		if(pzk_session()->getLogin()){
 
 		} else{ 
 

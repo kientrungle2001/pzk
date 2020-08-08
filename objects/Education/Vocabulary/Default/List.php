@@ -4,7 +4,7 @@ pzk_import('Education.Vocabulary.List');
 class PzkEducationVocabularyDefaultList extends PzkEducationVocabularyList{
 	
 	public function hash() {
-		return md5(pzk_session('login').pzk_user()->checkPayment('full'). parent::hash());
+		return md5(pzk_session()->getLogin().pzk_user()->checkPayment('full'). parent::hash());
 	}
 	public $cacheable 	=	'true';
 	public $cacheParams =	'layout,table,position,parentId';

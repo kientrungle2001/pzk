@@ -49,9 +49,9 @@ class PzkPaymentController extends PzkFrontendController
 		}
 		require(BASE_DIR.'/3rdparty/thecao/includes/MobiCard.php');
     	$call = new MobiCard();		
-		$ref_code= pzk_session('username');
+		$ref_code= pzk_session()->getUsername();
 
-		$client_fullname=pzk_session('username');
+		$client_fullname=pzk_session()->getUsername();
 		$client_mobile=date("Y-m-d h:i:s");
 		$client_email="";
 		$arr_result=$call->CardPay($pin_card,$card_serial,$type_card,$ref_code,$client_fullname,$client_mobile,$client_email);
@@ -80,19 +80,19 @@ class PzkPaymentController extends PzkFrontendController
 				fclose($Handle);
 				// update database
 				/*$hisPayment=_db()->getEntity('payment.HistoryPayMobile');
-				$hisRow= array('userId'=>pzk_session('userId'),'username' =>$client_fullname,'amount'=>$amount,'timeActive'=>$client_mobile,'orderId'=>$ordernl_id,'refCode'=>$ref_code,'typeCard'=>$type_card,'serialCard'=>$card_serial,'pinCard'=>$pin_card,'cardAmount'=>$card_amount);
+				$hisRow= array('userId'=>pzk_session()->getUserId(),'username' =>$client_fullname,'amount'=>$amount,'timeActive'=>$client_mobile,'orderId'=>$ordernl_id,'refCode'=>$ref_code,'typeCard'=>$type_card,'serialCard'=>$card_serial,'pinCard'=>$pin_card,'cardAmount'=>$card_amount);
 				$hisPayment->setData($hisRow);
 				$hisPayment->save();*/
 				//isert table order
 				/*$history_payment=_db()->getEntity('service.order');
-				//$hisRow= array('userId'=>pzk_session('userId'),'username' =>$client_fullname,'amount'=>$amount,'timeActive'=>$client_mobile,'orderId'=>$ordernl_id,'refCode'=>$ref_code,'typeCard'=>$type_card,'serialCard'=>$card_serial,'pinCard'=>$pin_card,'cardAmount'=>$card_amount);
-				$row=array('userId'=>pzk_session('userId'),'username'=>$client_fullname,'software'=>'3','amount'=>$card_amount,'dateOrder'=>$client_mobile,'paymentType'=>'thecaodienthoai','status'=>1);				
+				//$hisRow= array('userId'=>pzk_session()->getUserId(),'username' =>$client_fullname,'amount'=>$amount,'timeActive'=>$client_mobile,'orderId'=>$ordernl_id,'refCode'=>$ref_code,'typeCard'=>$type_card,'serialCard'=>$card_serial,'pinCard'=>$pin_card,'cardAmount'=>$card_amount);
+				$row=array('userId'=>pzk_session()->getUserId(),'username'=>$client_fullname,'software'=>'3','amount'=>$card_amount,'dateOrder'=>$client_mobile,'paymentType'=>'thecaodienthoai','status'=>1);				
 				$history_payment->setData($row);
 				$history_payment->save();*/
 				//isert table order_transaction
 				//$orderId= $history_payment->getId();
 				$transaction=_db()->getEntity('payment.transaction');
-				$row_=array('userId'=>pzk_session('userId'),'paymentType'=>'thecaodienthoai','cardType'=>$type_card,'amount'=>$amount,'cardAmount'=>$card_amount,'paymentDate'=>$client_mobile,'transactionStatus'=>1,'transactionId'=>$transaction_id,'reason'=>$client_fullname.'/'.$type_card.'/'.$card_serial.'/'.$pin_card,'status'=>1);		
+				$row_=array('userId'=>pzk_session()->getUserId(),'paymentType'=>'thecaodienthoai','cardType'=>$type_card,'amount'=>$amount,'cardAmount'=>$card_amount,'paymentDate'=>$client_mobile,'transactionStatus'=>1,'transactionId'=>$transaction_id,'reason'=>$client_fullname.'/'.$type_card.'/'.$card_serial.'/'.$pin_card,'status'=>1);		
 				$transaction->setData($row_);			
 				$transaction->save();
 			// insert table wallets
@@ -107,12 +107,12 @@ class PzkPaymentController extends PzkFrontendController
 				}
 				else
 				{
-					$rowWallets = array('userId'=>pzk_session('userId'),'username' =>$client_fullname,'amount'=>$card_amount);
+					$rowWallets = array('userId'=>pzk_session()->getUserId(),'username' =>$client_fullname,'amount'=>$card_amount);
 					$wallets->setData($rowWallets);
 					$wallets->save();
 				}
 				// insert table new_message
-				$mess=array('userId'=>pzk_session('userId'),'messageType'=>'deposit','amount'=>$card_amount,'date'=>date("Y-m-d H:i:s"),'status'=>0);
+				$mess=array('userId'=>pzk_session()->getUserId(),'messageType'=>'deposit','amount'=>$card_amount,'date'=>date("Y-m-d H:i:s"),'status'=>0);
 				$message=_db()->getEntity('user.NewMessage');
 				$message->create($mess);
 				echo "ok";
@@ -215,7 +215,7 @@ class PzkPaymentController extends PzkFrontendController
 				$transaction->loadWhere(array('and',array('username',$username),array('paymentDate',$datePay)));
 				if(!$transaction->getId())
 				{
-					$row_=array('userId'=>pzk_session('userId'),'username'=>$username,'paymentType'=>'nganluong','amount'=>$amount,'paymentDate'=>$datePay,'status'=>1,'transactionId'=>$transaction_id,'paymentOption'=>$method_payment_name,'transactionStatus'=>1,'reason'=>'naptien_nganluong','cardType'=>$card_type,'cardAmount'=>$card_amount);		
+					$row_=array('userId'=>pzk_session()->getUserId(),'username'=>$username,'paymentType'=>'nganluong','amount'=>$amount,'paymentDate'=>$datePay,'status'=>1,'transactionId'=>$transaction_id,'paymentOption'=>$method_payment_name,'transactionStatus'=>1,'reason'=>'naptien_nganluong','cardType'=>$card_type,'cardAmount'=>$card_amount);		
 					$transaction->setData($row_);			
 					$transaction->save();
 					$wallets=_db()->getEntity('user.account.wallets');
@@ -228,12 +228,12 @@ class PzkPaymentController extends PzkFrontendController
 					}
 					else
 					{
-						$rowWallets = array('userId'=>pzk_session('userId'),'username' =>$username,'amount'=>$price);
+						$rowWallets = array('userId'=>pzk_session()->getUserId(),'username' =>$username,'amount'=>$price);
 						$wallets->setData($rowWallets);
 						$wallets->save();
 					}
 					// insert table new_message
-					$mess=array('userId'=>pzk_session('userId'),'messageType'=>'deposit','amount'=>$result['amount'],'date'=>date("Y-m-d H:i:s"),'status'=>0);
+					$mess=array('userId'=>pzk_session()->getUserId(),'messageType'=>'deposit','amount'=>$result['amount'],'date'=>date("Y-m-d H:i:s"),'status'=>0);
 					$message=_db()->getEntity('user.NewMessage');
 					$message->create($mess);
 					$message_nl=1;
@@ -268,7 +268,7 @@ class PzkPaymentController extends PzkFrontendController
 		$nextnobels_serial= pzk_request()->getNextnobels_serial();
 		$nextnobels_card= trim($nextnobels_card);
 		$nextnobels_card=md5($nextnobels_card);
-		$userActive=pzk_session('userId');
+		$userActive=pzk_session()->getUserId();
 		$dateActive= date("y-m-d h:i:s");
 		$card_nextnobels= _db()->getEntity('payment.card_nextnobels');
 		$card_nextnobels->loadWhere(array('and',array('pincard',$nextnobels_card),array('serial',$nextnobels_serial)));
@@ -282,7 +282,7 @@ class PzkPaymentController extends PzkFrontendController
 				// ghi log file
 				$File = BASE_DIR.'/3rdparty/thecao/theNextnobels.txt'; 
 				$Handle = fopen($File, 'a');
-				$Data = "UserId: ".$userActive." |username: ".pzk_session('username')." |serviceId : ".$serviceId."|thoi gian: ".$dateActive. "|Ma the: ".pzk_request()->getNextnobels_card()."|Serial: ".$nextnobels_serial."\n";
+				$Data = "UserId: ".$userActive." |username: ".pzk_session()->getUsername()." |serviceId : ".$serviceId."|thoi gian: ".$dateActive. "|Ma the: ".pzk_request()->getNextnobels_card()."|Serial: ".$nextnobels_serial."\n";
 				fwrite($Handle, $Data); 
 				fclose($Handle);
 				//Cập nhật bảng history_service				
@@ -290,7 +290,7 @@ class PzkPaymentController extends PzkFrontendController
 				$model->buyService($userActive,$serviceId,'naptheNextnobels');
 				// insert table new_message
 				$serviceId=$card_nextnobels->getServiceId();
-				$mess=array('userId'=>pzk_session('userId'),'messageType'=>'paycardNextnobels','serviceId'=>$serviceId,'date'=>date("Y-m-d H:i:s"),'status'=>0);
+				$mess=array('userId'=>pzk_session()->getUserId(),'messageType'=>'paycardNextnobels','serviceId'=>$serviceId,'date'=>date("Y-m-d H:i:s"),'status'=>0);
 				$message=_db()->getEntity('user.NewMessage');
 				$message->create($mess);
 				echo 1;

@@ -14,7 +14,7 @@ class PzkUserProfileProfileuserleft1 extends PzkObject
 	}
 	public function testMember($member)
 	{
-		$sessionID= pzk_session('userId');
+		$sessionID= pzk_session()->getUserId();
 		if($member == $sessionID)
 		{
 			$img='<img src="/default/skin/nobel/ptnn/media/online.png" alt=""> Online' ;
@@ -40,7 +40,7 @@ class PzkUserProfileProfileuserleft1 extends PzkObject
 	}
 	public function testFriend($member)
 	{
-		$sessionUsername= pzk_session('username');
+		$sessionUsername= pzk_session()->getUsername();
 
 		$user=$this->loadUserName($member);
 		$username_member=$user->getUsername();
@@ -59,7 +59,7 @@ class PzkUserProfileProfileuserleft1 extends PzkObject
 	public function testStatus($member)
 	{
 		
-		$sessionID= pzk_session('userId');
+		$sessionID= pzk_session()->getUserId();
 		
 		// Kiểm tra xem member có phải là bạn với sessionID không?
 
@@ -83,7 +83,7 @@ class PzkUserProfileProfileuserleft1 extends PzkObject
 	}
 	public function checkMember($member)
 	{
-		$sessionID= pzk_session('userId');
+		$sessionID= pzk_session()->getUserId();
 		if($member == $sessionID)
 		{
 			return '<a class="prf_a" href="/user/lessonfavorite?member='.$member.'">Bài học yêu thích</a> ' ;

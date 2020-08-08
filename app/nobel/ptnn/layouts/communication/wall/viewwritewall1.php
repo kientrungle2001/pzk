@@ -6,9 +6,9 @@
     <?php 
         $member=pzk_request()->getMember();
 
-        $avatar1= pzk_session('avatar');
-        $usercomm= pzk_session('username');
-        $usercommId= pzk_session('userId');
+        $avatar1= pzk_session()->getAvatar();
+        $usercomm= pzk_session()->getUsername();
+        $usercommId= pzk_session()->getUserId();
         $datetime= date("Y-m-d H:i:s");
     ?>
     <div class="clearfix">

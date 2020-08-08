@@ -4,7 +4,7 @@ pzk_import('Core.Db.List');
 class PzkEducationTestList extends PzkCoreDbList{
 	
 	public function hash() {
-		return md5(pzk_session('login').pzk_user()->checkPayment('full'). parent::hash());
+		return md5(pzk_session()->getLogin().pzk_user()->checkPayment('full'). parent::hash());
 	}
 	public $table ='categories';
 	public $cacheable ='true';

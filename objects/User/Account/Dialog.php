@@ -9,6 +9,6 @@ class PzkUserAccountDialog extends PzkObject{
 	public $layout = "user/account/dialog";
 	public $cacheable = true;
 	public function hash() {
-	    return 'userAccountDialog' . pzk_session('login');
+	    return 'userAccountDialog' . pzk_session()->getLogin();
 	}
 }

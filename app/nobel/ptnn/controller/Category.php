@@ -136,7 +136,7 @@ class PzkCategoryController extends PzkController
         //$subject = $request->getSubject();
         //$tamtime = strtotime($_SERVER['REQUEST_TIME'] - $request->getStart_time()) - 7*3600;
         //echo $tamtime;
-        $userbook=array('userId'=>pzk_session('userId'),
+        $userbook=array('userId'=>pzk_session()->getUserId(),
             'categoryId'=>$postQuestion['parent_id'],
             'quantity_question'=>$postQuestion['number'],
             'time'=>$postQuestion['time'],
@@ -146,7 +146,7 @@ class PzkCategoryController extends PzkController
             'keybook'=>$key_test,
             'date' => date("Y-m-d H:i:s")
         );
-        if($key_test==pzk_session('keyBook')){
+        if($key_test==pzk_session()->getKeyBook()){
             if($this->checkSave($key_test)){
             //add user_book
                 $frontendmodel = pzk_model('Frontend');

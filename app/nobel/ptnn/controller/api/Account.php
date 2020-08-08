@@ -378,7 +378,7 @@ class PzkApiAccountController extends PzkController {
 		
 		$checkLogin = pzk_request()->getCheckLogin();
 		
-		$login = pzk_session('userId');
+		$login = pzk_session()->getUserId();
 		
 		$results = '';
 		

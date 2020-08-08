@@ -160,8 +160,8 @@ font-size: 12px;
           <?php $request = pzk_request();  ?>
           var member= '<?php echo $request->getMember(); ?>';
           var write_wall= $('#viewall_post_wall').val();
-          var avatar1='<?php echo pzk_session('avatar'); ?>';
-          var userwritewall= '<?php echo pzk_session('username'); ?>';
+          var avatar1='<?php echo pzk_session()->getAvatar(); ?>';
+          var userwritewall= '<?php echo pzk_session()->getUsername(); ?>';
           var username= '<?php echo $username; ?>';
           var datewrite= '<?php echo date("Y-m-d H:i:s"); ?>';
           

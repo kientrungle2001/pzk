@@ -22,7 +22,7 @@
 		<a class="btn btn-danger" href="<?=BASE_REQUEST?>/Online-Examination">Online Test (Thi trực tuyến)</a>
 	</div>
 </div>
-<?php if(pzk_session('userId')): ?>
+<?php if(pzk_session()->getUserId()): ?>
 <div class="col-xs-12 margin-top-20">
 	<p><marquee>Mỗi một bài làm hiện thị tối đa 20 câu hỏi, sau khi hoàn thành bạn hãy bấm vào "Làm tiếp các câu mới" để chọn các câu khác trong cùng môn học</marquee></p>
 </div>

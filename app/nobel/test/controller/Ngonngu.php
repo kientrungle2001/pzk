@@ -151,17 +151,17 @@ class PzkNgonnguController extends PzkController{
     
     public function saveChoiceAction(){
     	
-    	$userId	=	pzk_session('userId');
+    	$userId	=	pzk_session()->getUserId();
 		
 		$lang = 'en';
 		$domain = $_SERVER['SERVER_NAME'];
 		if($domain == 'fulllooksongngu.com' or $domain == 'test1sn.vn'){
-			if(pzk_session('language')){
-				$lang = pzk_session('language');
+			if(pzk_session()->getLanguage()){
+				$lang = pzk_session()->getLanguage();
 			}
 		}else{
-			if(pzk_session('language_tdn')){
-				$lang = pzk_session('language_tdn');
+			if(pzk_session()->getLanguage_tdn()){
+				$lang = pzk_session()->getLanguage_tdn();
 			}
 		}
     	
@@ -172,15 +172,15 @@ class PzkNgonnguController extends PzkController{
     		return ;
     	}
     	//session user
-		$username = pzk_session('username');
-		$name = pzk_session('name');
-		$areacode = pzk_session('areacode');
-		$district = pzk_session('district');
-		$school = pzk_session('school');
-		$class = pzk_session('class');
-		$className = pzk_session('classname');
-		$checkUser = pzk_session('checkUser');
-		$servicePackage = pzk_session('servicePackage');
+		$username = pzk_session()->getUsername();
+		$name = pzk_session()->getName();
+		$areacode = pzk_session()->getAreacode();
+		$district = pzk_session()->getDistrict();
+		$school = pzk_session()->getSchool();
+		$class = pzk_session()->getClass();
+		$className = pzk_session()->getClassname();
+		$checkUser = pzk_session()->getCheckUser();
+		$servicePackage = pzk_session()->getServicePackage();
 		
 		
     	$request 			= pzk_request();
@@ -275,7 +275,7 @@ class PzkNgonnguController extends PzkController{
 				'lang' 				=> $lang
     	);
     	
-    	$s_keybook	=	pzk_session('keybook');
+    	$s_keybook	=	pzk_session()->getKeybook();
     	//debug($row);die();
     	if(isset($s_keybook)){
     		
@@ -338,7 +338,7 @@ class PzkNgonnguController extends PzkController{
 								'mark'			=> $totaltrue,
 								'duringTime'              => $duringTime,
 								'testId'			=> $testId,
-								'username'        => pzk_session('username'),
+								'username'        => pzk_session()->getUsername(),
 								'name' 			=> $dataTest['name'],
 								'name_sn'			=> $dataTest['name_sn'],
 								'software'		=> pzk_request()->getSoftwareId(),
@@ -676,7 +676,7 @@ class PzkNgonnguController extends PzkController{
     				'password'		=>md5($password),
     				'status'		=>1,
     				'registered'	=>date(DATEFORMAT),
-    				'creatorId'		=>pzk_session('adminId')
+    				'creatorId'		=>pzk_session()->getAdminId()
     		);
     		
     		$data_payment = array(
@@ -688,7 +688,7 @@ class PzkNgonnguController extends PzkController{
     				'software'			=>1,
     				'buySoftware'		=>1,
     				'created'			=>date(DATEFORMAT),
-    				'creatorId'			=>pzk_session('adminId')
+    				'creatorId'			=>pzk_session()->getAdminId()
     		);
     		
     		$query_user			= _db()->insert('user')->fields('username, password, status, registered, creatorId')->values(array($data_user))->result();

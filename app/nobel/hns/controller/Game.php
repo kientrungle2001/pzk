@@ -40,7 +40,7 @@ class PzkGameController extends PzkController {
 			pzk_page()->setDescription( 'Cùng chơi game với Next Nobels');
 			pzk_page()->setImg( '/Default/skin/nobel/themes/story/media/logo.png');
 			pzk_page()->setBrief( 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-		if(pzk_session('userId')){
+		if(pzk_session()->getUserId()){
 			
 			if(isset($check) and $check==1) {
 				$this->setMasterPage( 'index');
@@ -361,15 +361,15 @@ class PzkGameController extends PzkController {
 		$frontendmodel->save($data, 'gamescore');
 		//log game
 		//session user
-		$username = pzk_session('username');
-		$name = pzk_session('name');
-		$areacode = pzk_session('areacode');
-		$district = pzk_session('district');
-		$school = pzk_session('school');
-		$class = pzk_session('class');
-		$className = pzk_session('classname');
-		$checkUser = pzk_session('checkUser');
-		$servicePackage = pzk_session('servicePackage');
+		$username = pzk_session()->getUsername();
+		$name = pzk_session()->getName();
+		$areacode = pzk_session()->getAreacode();
+		$district = pzk_session()->getDistrict();
+		$school = pzk_session()->getSchool();
+		$class = pzk_session()->getClass();
+		$className = pzk_session()->getClassname();
+		$checkUser = pzk_session()->getCheckUser();
+		$servicePackage = pzk_session()->getServicePackage();
 		pzk_stat()->logGame($userId, $username, $name, $score, $totalWord, $areacode, $district, $school, $class, $className, $checkUser);
 		
 		$data = json_encode(array(

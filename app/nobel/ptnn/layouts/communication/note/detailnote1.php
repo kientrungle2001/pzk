@@ -23,7 +23,7 @@
     <div>
       <div><textarea id="txt_comment_note1" class="txt_comment_note" required="required" placeholder="Bình luận" rel="false"></textarea></div>
       <div class="clear"></div>
-      <div><input type="button" class=" btn btn-primary" id="btt_comment_note" onclick="pzk_{data.id}.Send1('<?php echo pzk_session('avatar') ?>','<?php echo pzk_session('userId') ?>','<?php echo pzk_session('username') ?>','{id}','{member}')" name="send" value="Bình luận"></div>
+      <div><input type="button" class=" btn btn-primary" id="btt_comment_note" onclick="pzk_{data.id}.Send1('<?php echo pzk_session()->getAvatar() ?>','<?php echo pzk_session()->getUserId() ?>','<?php echo pzk_session()->getUsername() ?>','{id}','{member}')" name="send" value="Bình luận"></div>
     </div>
 
   </div>

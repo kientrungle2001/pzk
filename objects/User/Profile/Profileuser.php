@@ -56,7 +56,7 @@ class PzkUserProfileProfileuser extends PzkObject
 	}
 	public function checkMember($member)
 	{
-		$sessionID= pzk_session('userId');
+		$sessionID= pzk_session()->getUserId();
 		if($member == $sessionID)
 		{
 			return '<a class="prf_a" href="/favorite/lessonfavorite?member='.$member.'">Bài học yêu thích</a> ' ;

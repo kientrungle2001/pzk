@@ -163,7 +163,7 @@ class PzkAdminHistoryBuyserviceController extends PzkGridAdminController {
         if($this->validateEditData($row)) {
         	$row['userId']=pzk_request()->getUserId();
         	$row['serviceId']=pzk_request()->getServiceId();
-            $row['userModified']=pzk_session('adminId');
+            $row['userModified']=pzk_session()->getAdminId();
             $row['dateModified']=date("Y-m-d H:i:s");
             $this->edit($row);
             pzk_notifier()->addMessage('Cập nhật thành công');
@@ -179,7 +179,7 @@ class PzkAdminHistoryBuyserviceController extends PzkGridAdminController {
         if($this->validateAddData($row)) {
            	$row['userId']=pzk_request()->getUserId();
         	$row['serviceId']=pzk_request()->getServiceId();
-            $row['userAdd']=pzk_session('adminId');
+            $row['userAdd']=pzk_session()->getAdminId();
             $row['dateAdd']=date("Y-m-d H:i:s");
             $this->add($row);
             pzk_notifier()->addMessage('Cập nhật thành công');

@@ -40,7 +40,7 @@
     require(BASE_DIR.'/3rdparty/nganluong/config.php');
     $inputs = array(
     'receiver'    => RECEIVER,
-    'order_code'  => 'username : '.pzk_session('username').'DH : '.date('His-dmY'),
+    'order_code'  => 'username : '.pzk_session()->getUsername().'DH : '.date('His-dmY'),
     'return_url'  => 'http://ptnn.vn/user/payment',
     'cancel_url'  => 'http://ptnn.vn/user/payment',
     'language'    => 'vn'
@@ -114,7 +114,7 @@
     }); 
     $('#btt_nganluong').click(function(){
       // gửi lên hệ thống
-      $.ajax({url:'http://ptnn.vn/user/PostPaymentNL',data:{username: '<?php echo pzk_session('username'); ?>', code: '<?php echo $token_key;  ?>'}, success:function(resp){alert(resp);}});
+      $.ajax({url:'http://ptnn.vn/user/PostPaymentNL',data:{username: '<?php echo pzk_session()->getUsername(); ?>', code: '<?php echo $token_key;  ?>'}, success:function(resp){alert(resp);}});
       
 
     });

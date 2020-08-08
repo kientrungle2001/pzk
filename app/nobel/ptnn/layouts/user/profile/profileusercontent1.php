@@ -39,9 +39,9 @@
     <div class="prf_title" style="width:30%; margin-bottom: 30px;">Viết lên tường</div>
   <?php       
         $datetime= date("Y-m-d H:i:s");
-        $avatar1= pzk_session('avatar');
-        $usercomm= pzk_session('username');
-        $userCommId=pzk_session('userId');
+        $avatar1= pzk_session()->getAvatar();
+        $usercomm= pzk_session()->getUsername();
+        $userCommId=pzk_session()->getUserId();
       ?>
     
     <div class="prf_clear" style="width: 100%; height: 50px; margin-bottom: 100px;">

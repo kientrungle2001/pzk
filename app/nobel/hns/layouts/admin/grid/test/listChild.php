@@ -39,12 +39,12 @@ $testId = $data->parentId;
     });
 </script>
 <?php
-$testQuestionOrderBy = pzk_session('testQuestionOrderBy');
+$testQuestionOrderBy = pzk_session()->getTestQuestionOrderBy();
 if($testQuestionOrderBy) {
     $data->orderBy = $testQuestionOrderBy;
 }
 
-$keyword = pzk_session('detailTestKeyword');
+$keyword = pzk_session()->getDetailTestKeyword();
 $sttt = 1;
 $pageSize = 100;
 if($pageSize) {

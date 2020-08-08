@@ -1,6 +1,6 @@
 <?php
 $classroomIds = array();
-$teacherClassroomIds = _db()->select('classroomId')->from('education_classroom_teacher')->whereTeacherId(pzk_session('adminId'))->result();
+$teacherClassroomIds = _db()->select('classroomId')->from('education_classroom_teacher')->whereTeacherId(pzk_session()->getAdminId())->result();
 $classroomId = $data->getClassroomId();
 $activeClassroom = null;
 if($classroomId) {
@@ -9,7 +9,7 @@ if($classroomId) {
 foreach($teacherClassroomIds as $teacherClassroomId) {
 	$classroomIds[] = $teacherClassroomId['classroomId'];
 }
-if(pzk_session('adminLevel') == 'Headmaster' || pzk_session('adminLevel') == 'Administrator') {
+if(pzk_session()->getAdminLevel() == 'Headmaster' || pzk_session()->getAdminLevel() == 'Administrator') {
 	$classrooms = _db()->select('*')->from('education_classroom')->orderBy('schoolYear desc, gradeNum desc, className asc')->result();
 } else {
 	$classrooms = _db()->select('*')->from('education_classroom')->inId($classroomIds)->orderBy('schoolYear desc, gradeNum desc, className asc')->result();
@@ -66,7 +66,7 @@ foreach($classrooms as $classroom) {
 				<li class="padding-left-10 school-class <?php if($activeClassroom && $activeClassroom['schoolYear'] == $schoolYear && $activeClassroom['gradeNum'] == $gradeNum && $activeClassroom['className'] == $className):?>active<?php endif;?>"><a href="#" class="bg-success">Lớp {className}</a>
 				<ul class="nav">
 					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/students/{classroomId}">Học sinh</a></li>
-					<?php if(pzk_session('adminLevel') !== 'Teacher'):?>
+					<?php if(pzk_session()->getAdminLevel() !== 'Teacher'):?>
 					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/teachers/{classroomId}">Giáo viên</a></li>
 					<?php endif; ?>
 					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/homeworks/{classroomId}">Phiếu bài tập</a></li>

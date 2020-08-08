@@ -66,7 +66,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 		$this->display();
 	}
     public function add($row) {
-        $row['createdId'] = pzk_session('adminId');
+        $row['createdId'] = pzk_session()->getAdminId();
         $row['created'] = date(DATEFORMAT,$_SERVER['REQUEST_TIME']);
         if(isset($row['testId']) && is_array($row['testId'])) {
             $testId = $row['testId'];
@@ -101,7 +101,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
     }
 
     public function edit($row) {
-        $row['modifiedId'] = pzk_session('adminId');
+        $row['modifiedId'] = pzk_session()->getAdminId();
         $row['modified'] = date(DATEFORMAT,$_SERVER['REQUEST_TIME']);
         if(isset($row['testId']) && is_array($row['testId'])) {
             $testId = $row['testId'];

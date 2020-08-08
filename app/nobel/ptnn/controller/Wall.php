@@ -7,7 +7,7 @@ class PzkWallController extends PzkFrontendController
 	public function PostComAction()
 	{
 		$request=pzk_request();
-		if(pzk_session('login')==false)
+		if(pzk_session()->getLogin()==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";
 		}
@@ -18,7 +18,7 @@ class PzkWallController extends PzkFrontendController
 			//echo $content;
 			
 			$userId=$request->getUserId();
-			$userWrite=pzk_session('userId');
+			$userWrite=pzk_session()->getUserId();
 			$write_wall=_db()->getEntity('communication.user_write_wall');
 			//$write_wall->loadWhere(array('username',$username));
 			$datewrite= date("Y-m-d H:i:s");
@@ -45,7 +45,7 @@ class PzkWallController extends PzkFrontendController
 	public function viewAction()
 	{
 		$member= pzk_request()->getMember();
-		$sessionId= pzk_session('userId');
+		$sessionId= pzk_session()->getUserId();
 		$this->layout();
 		if($member==$sessionId){
 			$this->append('user/profile/profileuser')->append('communication/wall/viewwritewall');
@@ -66,7 +66,7 @@ class PzkWallController extends PzkFrontendController
 	}
 	public function delWriteAction(){
 		$id=pzk_request()->getId();
-		$userId= pzk_session('userId');
+		$userId= pzk_session()->getUserId();
 		$ett_comm= _db()->getEntity('communication.social');
 		$ett_comm->loadWhere(array('writeWallId',$id));
 		if($ett_comm->getId()){

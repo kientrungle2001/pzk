@@ -1,11 +1,11 @@
 
 <?php 
-  if(pzk_session('username')){
+  if(pzk_session()->getUsername()){
   // Load user
   $request=pzk_request();
   $member= $request->getMember();
   if(!$member){
-    $member=pzk_session('userId');
+    $member=pzk_session()->getUserId();
   }
   $user = null;
   if($member == pzk_session()->getUserId()) {

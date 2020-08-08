@@ -357,7 +357,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
         }
     }*/
     function getWeekTest($subjectId, $practice, $check){
-        $class = pzk_session('lop');
+        $class = pzk_session()->getLop();
         $query = _db()->useCache(1800)->select('*')
             ->fromCategories()
             ->whereParent($subjectId)
@@ -390,7 +390,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
     
         $listTest = _db()->useCache(1800)->select('*')->fromTests();
         
-        $class = pzk_session('lop');
+        $class = pzk_session()->getLop();
         $listTest->whereStatus(1);
         if($class)
             $listTest->likeClasses("%,$class,%");

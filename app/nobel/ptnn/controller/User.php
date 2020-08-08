@@ -95,14 +95,14 @@ class PzkUserController extends PzkFrontendController {
 		$txtinvi=pzk_request()->getInvitation();
 		$userInvi=pzk_request()->getMember();
 		$invitation=_db()->getEntity('communication.invitation');
-		$invitation->loadWhere(array('and',array('userId',$userInvi),array('userinvitation',pzk_session('userId'))));
+		$invitation->loadWhere(array('and',array('userId',$userInvi),array('userinvitation',pzk_session()->getUserId())));
 		if($invitation->getId())
 		{
 			echo "fail";
 		}
 		else
 		{
-			$rowInvitation=array('userinvitation'=>pzk_session('userId'),'userId'=>$userInvi,'invitation'=>$txtinvi);
+			$rowInvitation=array('userinvitation'=>pzk_session()->getUserId(),'userId'=>$userInvi,'invitation'=>$txtinvi);
 			$invitation->setData($rowInvitation);
 			$invitation->save();
 			echo "ok";
@@ -227,7 +227,7 @@ class PzkUserController extends PzkFrontendController {
 		$lessonfavorite=_db()->getEntity('user.lesson_favorite');
 		$lessonfavorite->load($id);
 		$lessonfavorite->delete();
-		$this->redirect('lessonfavorite?member='.pzk_session('userId'));
+		$this->redirect('lessonfavorite?member='.pzk_session()->getUserId());
 	}
 	public function lessonfavoritememberAction()
 	{

@@ -52,9 +52,9 @@
 </style>
 <?php 
 $user=_db()->getEntity('user.user');
-$user->loadWhere(array('username',pzk_session('username')));
-//$items=_db()->useCB()->select('user.*')->from('user')->where(array('username',pzk_session('username')))->result_one();
-$items=_db()->useCB()->select('count(*) as invi')->from('invitation')->where(array('userinvitation',pzk_session('username')))->result_one();
+$user->loadWhere(array('username',pzk_session()->getUsername()));
+//$items=_db()->useCB()->select('user.*')->from('user')->where(array('username',pzk_session()->getUsername()))->result_one();
+$items=_db()->useCB()->select('count(*) as invi')->from('invitation')->where(array('userinvitation',pzk_session()->getUsername()))->result_one();
 
 ?>
 <div id="profileuser" >
@@ -68,7 +68,7 @@ $items=_db()->useCB()->select('count(*) as invi')->from('invitation')->where(arr
        <img src="<?php echo $user->getAvatar(); ?>"alt="" width="100px" height="100px"> 
      </div>
      <div>
-       <p align="center"> <strong >xin chào <?php echo pzk_session('name'); ?></strong></p>
+       <p align="center"> <strong >xin chào <?php echo pzk_session()->getName(); ?></strong></p>
      </div>
         
      </div>
@@ -118,12 +118,12 @@ $items=_db()->useCB()->select('count(*) as invi')->from('invitation')->where(arr
        <div class="title" style="height: 450px;">
       <?php 
 
-        //$friends=_db()->useCB()->select('friend.*')->from('friend')->where(array('username',pzk_session('username')))->result();
-        $sql="select * from `friend` where username='".pzk_session('username')."' order by id asc limit 0,3 ";
+        //$friends=_db()->useCB()->select('friend.*')->from('friend')->where(array('username',pzk_session()->getUsername()))->result();
+        $sql="select * from `friend` where username='".pzk_session()->getUsername()."' order by id asc limit 0,3 ";
         $friend= _db()->query($sql);
-        //$friends=_db()->useCB()->select('friend.*')->from('friend')->where(array('username',pzk_session('username')))->result();  
+        //$friends=_db()->useCB()->select('friend.*')->from('friend')->where(array('username',pzk_session()->getUsername()))->result();  
          // $friend=_db()->getEntity('user.friend');
-          //$friend->loadWhere(array('username',pzk_session('username')));
+          //$friend->loadWhere(array('username',pzk_session()->getUsername()));
       
           foreach ($friend as $items) { 
            

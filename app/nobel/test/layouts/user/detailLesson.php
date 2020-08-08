@@ -1,5 +1,5 @@
 <?php
-$user_id = pzk_session('userId');
+$user_id = pzk_session()->getUserId();
 if(isset($user_id)) {
 $lesson_id = pzk_request()->getSegment(3);
 $lesson = _db()->useCB()->select('*')->from('lessons')->where(array('and', array('user_id', $user_id), array('id', $lesson_id)))->result_one();

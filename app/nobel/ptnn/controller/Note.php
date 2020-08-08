@@ -7,7 +7,7 @@ class PzkNoteController extends PzkFrontendController
 	public function PostCommentAction()
 	{
 		$request=pzk_request();
-		if(pzk_session('login')==false)
+		if(pzk_session()->getLogin()==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";
 		}
@@ -15,7 +15,7 @@ class PzkNoteController extends PzkFrontendController
 		{
 			$content=$request->getWrite_wall();//echo $content;			
 			$userId=$request->getUserId();
-			$userwritewall=pzk_session('userId');
+			$userwritewall=pzk_session()->getUserId();
 			$write_wall=_db()->getEntity('communication.user_write_wall');
 			//$write_wall->loadWhere(array('username',$username));
 			$datewrite= date("Y-m-d H:i:s");
@@ -35,7 +35,7 @@ class PzkNoteController extends PzkFrontendController
 	public function viewnoteAction()
 	{	
 		$member= pzk_request()->getMember();
-		$sessionId= pzk_session('userId');
+		$sessionId= pzk_session()->getUserId();
 		$this->layout();
 		//$this->append('user/profile/profileuser')->append('communication/note/viewnote');
 		if($member==$sessionId){
@@ -61,8 +61,8 @@ class PzkNoteController extends PzkFrontendController
 	{
 		$request=pzk_request();
 		$idnote=$request->getDel();
-		$username=pzk_session('username');
-		$userId= pzk_session('userId');
+		$username=pzk_session()->getUsername();
+		$userId= pzk_session()->getUserId();
 		$user_note=_db()->getEntity('communication.user_note');
 		foreach ($idnote as $id) {
 			$user_note->load($id);
@@ -74,7 +74,7 @@ class PzkNoteController extends PzkFrontendController
 	{
 		$sctiptable= false;
 		$member= pzk_request()->getMember();
-		$sessionId= pzk_session('userId');
+		$sessionId= pzk_session()->getUserId();
 		$this->layout();
 		//$this->append('user/profile/profileuser')->append('communication/note/viewnote');
 		if($member==$sessionId){
@@ -88,7 +88,7 @@ class PzkNoteController extends PzkFrontendController
 	public function PostCommentNoteAction()
 	{
 		$note_id=pzk_request()->getNote_id();
-		if(pzk_session('login')==false)
+		if(pzk_session()->getLogin()==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";
 		}
@@ -96,7 +96,7 @@ class PzkNoteController extends PzkFrontendController
 		{
 
 			$comment_note1=pzk_request()->getComment_note();
-			$userId=pzk_session('userId');
+			$userId=pzk_session()->getUserId();
 			$userNote=pzk_request()->getMember();
 			
 			$comment_note=_db()->getEntity('communication.user_note_comment');
@@ -114,7 +114,7 @@ class PzkNoteController extends PzkFrontendController
 	public function PostCommentNote1Action()
 	{
 		$note_id=pzk_request()->getNote_id();
-		if(pzk_session('login')==false)
+		if(pzk_session()->getLogin()==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";
 		}
@@ -122,7 +122,7 @@ class PzkNoteController extends PzkFrontendController
 		{
 			
 			$comment_note1=pzk_request()->getComment_note();
-			$userId=pzk_session('userId');
+			$userId=pzk_session()->getUserId();
 			$userNote=pzk_request()->getUserNote();
 			
 			$comment_note=_db()->getEntity('communication.user_note_comment');
@@ -149,8 +149,8 @@ class PzkNoteController extends PzkFrontendController
 		$titlenote=$request->getNotetitle();
 		$contentnote=$request->getNotecontent();
 		$datenote= date("Y-m-d H:i:s");
-		$username=pzk_session('username');
-		$userId=pzk_session('userId');
+		$username=pzk_session()->getUsername();
+		$userId=pzk_session()->getUserId();
 		$user_note=_db()->getEntity('communication.user_note');
 		$rownote=array('userId'=>$userId,'username'=>$username,'titlenote'=>$titlenote,'contentnote'=>$contentnote,'datenote'=>$datenote);
 		$user_note->setData($rownote);
@@ -176,7 +176,7 @@ class PzkNoteController extends PzkFrontendController
 
 	public function delNoteAction(){
 		$idnote=pzk_request()->getNoteId();
-		$userId= pzk_session('userId');
+		$userId= pzk_session()->getUserId();
 		$comms =_db()->useCB()->select('user_communication.*')
 					->from('user_communication')
 					->where(array('noteId',$idnote))		
@@ -202,7 +202,7 @@ class PzkNoteController extends PzkFrontendController
 
 	public function delWriteAction(){
 		$id=pzk_request()->getId();
-		$userId= pzk_session('userId');
+		$userId= pzk_session()->getUserId();
 		$ett_comm=_db()->getEntity('communication.social');
 		$ett_comm->loadWhere(array('writeWallId',$id));
 		if($ett_comm->getId()){

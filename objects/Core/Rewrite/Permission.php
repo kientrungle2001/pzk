@@ -3,7 +3,7 @@ class PzkCoreRewritePermission extends PzkObjectLightWeight {
 	public $user = false;
 	public function init() {
 		$request = pzk_request();
-		$loginId = pzk_session('loginId');
+		$loginId = pzk_session()->getLoginId();
 		if(!$loginId) {
 			$loginId = 3;
 		}

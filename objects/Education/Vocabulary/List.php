@@ -54,7 +54,7 @@ class PzkEducationVocabularyList extends PzkCoreDbList{
 		}
 	}
 	function getItemsVocabularySN($subjectId, $check, $class){
-		$check = pzk_session('checkPayment');
+		$check = pzk_session()->getCheckPayment();
 		$query = _db()->useCache(1800)
 			->useCacheKey('education_vocabulary_getItemsVocabularySN_'.$subjectId.'_' .$check . '_' . $class)
 			->select('*')
@@ -68,7 +68,7 @@ class PzkEducationVocabularyList extends PzkCoreDbList{
 		return $query;
 	}
 	function getItemsVocabulary($subjectId, $check){
-		$check = pzk_session('checkPayment');
+		$check = pzk_session()->getCheckPayment();
 		$query = _db()->useCache(1800)->select('*')
 			->fromDocument()
 			->likeCategoryIds("%,$subjectId,%")
@@ -150,7 +150,7 @@ class PzkEducationVocabularyList extends PzkCoreDbList{
 		}*/
 	}
 	public function hash() {
-		return md5(pzk_session('login').pzk_user()->checkPayment('full'). parent::hash());
+		return md5(pzk_session()->getLogin().pzk_user()->checkPayment('full'). parent::hash());
 	}
 }
  ?>

@@ -31,12 +31,12 @@
 	<div class="row margin-top-5">
 		<h2 class="title-test margin-top-5"> THI THỬ TRẮC NGHIỆM ONLINE VÀO LỚP 6 THPT TRẦN ĐẠI NGHĨA  </h2>
 		<h4 class="text-center">Full Look còn phù hợp với học sinh lớp 6 khi học Toán và Khoa học bằng tiếng Anh</h4>
-		<?php if(pzk_session('userId')): ?>
+		<?php if(pzk_session()->getUserId()): ?>
 		<p style="padding-left:20px; padding-right: 20px;"><marquee>Để tra nghĩa một từ, bạn hãy click chuột hai lần vào từ đó - Tham khảo phần dịch và lí giải bằng tiếng Việt trong mục "Xem đáp án".</marquee></p>
 		<?php endif; ?>
 	</div>
 	<div class="col-xs-12 margin-top-20">
-		<?php if(!pzk_session('userId')): ?>
+		<?php if(!pzk_session()->getUserId()): ?>
 			<form class="form_search_test" style="margin: 15px 0px" action="<?=BASE_REQUEST?>/Ngonngu/doTest/" method="post" onsubmit = "return check_select_test()">
 				<div class="col-xs-12 border-question" style="z-index: 9">
 					<div class="question_content pd-0 margin-top-20">

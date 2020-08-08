@@ -5,7 +5,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 	public function __construct(){
 		parent::__construct();
 	
-		$adminLevel = pzk_session('adminLevel');
+		$adminLevel = pzk_session()->getAdminLevel();
 	
 		if($adminLevel === 'Administrator'){
 				
@@ -156,7 +156,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 	public function prepareListDisplay() {
 		$list = pzk_element ( 'list' );
 		
-		$adminLevel = pzk_session('adminLevel');
+		$adminLevel = pzk_session()->getAdminLevel();
 		
 		if ($list) {
 			if($adminLevel !== 'Administrator'){
@@ -181,9 +181,9 @@ class PzkAdminBookController extends PzkGridAdminController {
 		
 		$userBookModel 	= pzk_model('Userbook');
 		
-		$adminId = pzk_session('adminId');
+		$adminId = pzk_session()->getAdminId();
 		
-		$adminLevel = pzk_session('adminLevel');
+		$adminLevel = pzk_session()->getAdminLevel();
 		
 		if($userBookModel->isOwner($userBookId, 'teacherId', $adminId, $this->table ) || $adminLevel == 'Administrator'){
 			
@@ -232,7 +232,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 		
 		$statusUserbook = $userBook->get('status'$row['user_book_id']);
 		
-		$condition = ($statusUserbook == '0' || $statusUserbook == '1') ? ($userBookModel->isOwner($row['user_book_id'], 'teacherId', pzk_session('adminId'), $this->table ) || pzk_session('adminLevel') === 'Administrator'):(pzk_session('adminLevel') === 'Administrator');
+		$condition = ($statusUserbook == '0' || $statusUserbook == '1') ? ($userBookModel->isOwner($row['user_book_id'], 'teacherId', pzk_session()->getAdminId(), $this->table ) || pzk_session()->getAdminLevel() === 'Administrator'):(pzk_session()->getAdminLevel() === 'Administrator');
 		
 		if($condition){
 			
@@ -277,7 +277,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 						'teacherMark'	=> $total_mark,
 						'status'		=> (isset($row['check']) && $row['check'] == 1) ? MARK_CHECKED : MARKED, // đã chấm
 						'modified'		=> date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
-						'modifiedId'	=> pzk_session('adminId'),
+						'modifiedId'	=> pzk_session()->getAdminId(),
 				);
 				
 				$userBook->setData($dataUserBook);
@@ -289,7 +289,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 				$newmessage= _db()->getEntity('user.NewMessage');
 				$newmessage->create($mess);
 				
-				if(pzk_session('adminLevel') === 'Administrator' && isset($row['answers']) && !empty($row['answers'])){
+				if(pzk_session()->getAdminLevel() === 'Administrator' && isset($row['answers']) && !empty($row['answers'])){
 					foreach( $row['question_id'] as $kq => $vq ){
 						foreach( $row['answers'][$kq] as $ka => $va ){
 							$dataAnswerAdmin = array(
@@ -342,7 +342,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 								
 								$sign = SIGN_SUM;
 								
-								$checkTransaction = $userBookModel->adminTransactionUserbook($adminTeacherId, $service, $amount, $reason, $dataUserBook['id'], pzk_session('adminId'), $sign);
+								$checkTransaction = $userBookModel->adminTransactionUserbook($adminTeacherId, $service, $amount, $reason, $dataUserBook['id'], pzk_session()->getAdminId(), $sign);
 							}
 						}
 						

@@ -44,7 +44,7 @@ class PzkCommunicationFriendResultsearch extends PzkObject
 	}
 	/*public function testOnline($member)
 	{
-		$sessionID= pzk_session('userId');
+		$sessionID= pzk_session()->getUserId();
 		if($member == $sessionID)
 		{
 			$img='<img src="'.BASE_URL.'/default/skin/nobel/ptnn/media/online.png" alt=""> Online' ;
@@ -59,7 +59,7 @@ class PzkCommunicationFriendResultsearch extends PzkObject
 	
 	/*public function testFriend($member)
 	{
-		$sessionUsername= pzk_session('username');
+		$sessionUsername= pzk_session()->getUsername();
 
 		$user=$this->loadUserName($member);
 		$username_member=$user['username'];
@@ -77,7 +77,7 @@ class PzkCommunicationFriendResultsearch extends PzkObject
 	}*/
 	/*public function testInivitation($member)
 	{
-		$sessionUsername= pzk_session('username');
+		$sessionUsername= pzk_session()->getUsername();
 
 		$user=$this->loadUserName($member);
 		$username_member=$user['username'];
@@ -96,7 +96,7 @@ class PzkCommunicationFriendResultsearch extends PzkObject
 	/*public function testStatus($member)
 	{
 		
-		$sessionID= pzk_session('userId');
+		$sessionID= pzk_session()->getUserId();
 		
 		// Kiểm tra xem member có phải là bạn với sessionID không?
 

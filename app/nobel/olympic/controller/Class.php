@@ -10,7 +10,7 @@ class PzkClassController extends PzkController {
 		$classId = pzk_request()->getSegment(3);
     	
     	$this->initPage();
-    	if(pzk_session('userId')){
+    	if(pzk_session()->getUserId()){
 			
 			$check = pzk_user()->checkPayment('full');
 			//tai khoan da active
