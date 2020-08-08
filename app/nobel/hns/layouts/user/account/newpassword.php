@@ -8,7 +8,7 @@
       }
     </style>
     <?php 
-      if($data->get('username') !="")
+      if($data->getUsername() !="")
       {
 
 
@@ -18,8 +18,8 @@
 
     <p align="center" style="color:green;"><strong>Tài khoản và mật khẩu của bạn</strong></p>
     </div> 
-    Tài khoản của bạn là: <?php echo $data->get('username');?><br />
-      Mật khẩu là: <?php echo $data->get('password');?><br />
+    Tài khoản của bạn là: <?php echo $data->getUsername();?><br />
+      Mật khẩu là: <?php echo $data->getPassword();?><br />
     </div>
     <?php 
       }else{

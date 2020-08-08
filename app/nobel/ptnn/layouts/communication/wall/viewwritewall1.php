@@ -4,7 +4,7 @@
 
     <div class="prf_title" style="width:30%; margin-bottom: 30px;">Viết lên tường</div>
     <?php 
-        $member=pzk_request('member');
+        $member=pzk_request()->getMember();
 
         $avatar1= pzk_session('avatar');
         $usercomm= pzk_session('username');

@@ -1,8 +1,8 @@
 <?php
 
 $post = pzk_request();
-$getGameType = $post->get('gameType');
-$getTopic = $post->get('gameTopic');
+$getGameType = $post->getGameType();
+$getTopic = $post->getGameTopic();
 ?>
 
     ﻿<?php

@@ -68,7 +68,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 						 ->append('admin/'.pzk_or($this->customModule, $this->module).'/menu', 'right');
 		$this->fireEvent('index.after', $this);
 		
-		$question	= pzk_element('question');
+		$question	= pzk_element()->getQuestion();
 		
 		$question->setQuestionType($data);
 		
@@ -79,8 +79,8 @@ class PzkAdminQuestionsController extends PzkAdminController {
 	
 	public function onchangeTrialAction() {
 		$id = pzk_request ('id');
-		$field = pzk_request('field');
-		$value = pzk_request('value');
+		$field = pzk_request()->getField();
+		$value = pzk_request()->getValue();
 		$entity = _db ()->getTableEntity ( $this->table )->load ( $id );
 		$entity->update ( array (
 				$field => $value
@@ -90,12 +90,12 @@ class PzkAdminQuestionsController extends PzkAdminController {
 	
 	public function onchangeStatusAction() {
 		$id = pzk_request ('id');
-		$field = pzk_request('field');
+		$field = pzk_request()->getField();
 		$entity = _db ()->getTableEntity ( $this->table )->load ( $id );
 		$entity->update ( array (
 				$field => 1 - $entity->get($field)
 		) );
-		$page = pzk_request('page');
+		$page = pzk_request()->getPage();
 		if($page) {
 			$this->redirect('index?page='.$page);
 		}else {
@@ -118,7 +118,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 		->append('admin/'.pzk_or($this->customModule, $this->module).'/add')
 		->append('admin/'.pzk_or($this->customModule, $this->module).'/menu', 'right');
 		
-		$question	= pzk_element('question_add');
+		$question	= pzk_element()->getQuestion_add();
 		
 		$question->setQuestionType($data);
 		
@@ -134,7 +134,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 		->append($module)
 		->append('admin/'.pzk_or($this->customModule, $this->module).'/menu', 'right');
 		
-		$question	= pzk_element('question_edit');
+		$question	= pzk_element()->getQuestion_edit();
 		
 		$data = array();
 		
@@ -182,7 +182,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 			
-			$question	= pzk_element('question_answers');
+			$question	= pzk_element()->getQuestion_answers();
 			
 			$question_answers = pzk_model('AdminQuestion');
 			
@@ -198,7 +198,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 				
-			$question	= pzk_element('question_answers20');
+			$question	= pzk_element()->getQuestion_answers20();
 				
 			$question_answers = pzk_model('AdminQuestion');
 				
@@ -214,7 +214,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 			
-			$question	= pzk_element('question_answers');
+			$question	= pzk_element()->getQuestion_answers();
 			
 			$question_answers = pzk_model('AdminQuestion');
 			
@@ -230,7 +230,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 				
-			$question	= pzk_element('question_answers');
+			$question	= pzk_element()->getQuestion_answers();
 				
 			$question_answers = pzk_model('AdminQuestion');
 				
@@ -246,7 +246,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 			
-			$question	= pzk_element('question_answers');
+			$question	= pzk_element()->getQuestion_answers();
 			
 			$question_answers = pzk_model('AdminQuestion');
 			
@@ -263,7 +263,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 				
-			$question			= pzk_element('question_answers');
+			$question			= pzk_element()->getQuestion_answers();
 				
 			$question_answers 	= pzk_model('AdminQuestion');
 				
@@ -279,7 +279,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 			
-			$question			= pzk_element('question_answers');
+			$question			= pzk_element()->getQuestion_answers();
 			
 			$question_answers 	= pzk_model('AdminQuestion');
 			
@@ -294,7 +294,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 			
-			$question			= pzk_element('question_answers');
+			$question			= pzk_element()->getQuestion_answers();
 			
 			$question_answers 	= pzk_model('AdminQuestion');
 			
@@ -348,11 +348,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
 				if($result !=false){
 					
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 					
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
@@ -387,11 +387,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			if($result !=false){
 					
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}else{
 					
 				pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}
 		}
 	}
@@ -434,11 +434,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
 				if($result !=false){
 						
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 						
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
@@ -517,11 +517,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
 				if($result != false){
 					
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 	
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
@@ -533,19 +533,19 @@ class PzkAdminQuestionsController extends PzkAdminController {
 	}
 	
 	public function changeCategoryIdAction() {
-		pzk_session($this->table.'CategoryId', pzk_request('categoryId'));
+		pzk_session($this->table.'CategoryId', pzk_request()->getCategoryId());
 		$this->redirect('index');
 	}
 	public function changeQuestionTypeAction() {
-		pzk_session($this->table.'QuestionType', pzk_request('questionType'));
+		pzk_session($this->table.'QuestionType', pzk_request()->getQuestionType());
 		$this->redirect('index');
 	}
 	public function changeTypeAction() {
-		pzk_session($this->table.'Type', pzk_request('type'));
+		pzk_session($this->table.'Type', pzk_request()->getType());
 		$this->redirect('index');
 	}
 	public function changeTopicsAction() {
-		pzk_session($this->table.'Topic_id', pzk_request('topic_id'));
+		pzk_session($this->table.'Topic_id', pzk_request()->getTopic_id());
 		$this->redirect('index');
 	}
 	

@@ -1,10 +1,10 @@
 <?php if(pzk_session()->getLogin()):?>
 	<span id="menu_user">
 	<span class="color-white" ><b>
-	<?php if(!pzk_session()->get('name')) :?> 
-		<?=pzk_session()->get('username')?> 
+	<?php if(!pzk_session()->getName()) :?> 
+		<?=pzk_session()->getUsername()?> 
 	<?php else:?> 
-		<?=pzk_session()->get('name')?> 
+		<?=pzk_session()->getName()?> 
 	<?php endif;?> 
 	</b></span>
 	</span>

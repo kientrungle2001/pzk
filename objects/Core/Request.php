@@ -146,7 +146,7 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * @return string đường dẫn cần tạo
 	 */
 	public function buildAction($action = false, $query = false, $options = false) {
-		$route = $this->get('controller') . '/' . $action;
+		$route = $this->getController() . '/' . $action;
 		return $this->build($route, $query, $options);
 	}
 	
@@ -237,7 +237,7 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	public function getAppPath() {
 		static $path;
 		if($path) return $path;
-		$path = str_replace('_', '/', $this->get('app'));
+		$path = str_replace('_', '/', $this->getApp());
 		return $path;
 	}
 	

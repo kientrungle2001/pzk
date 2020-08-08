@@ -30,7 +30,7 @@ class PzkEducationTestList extends PzkCoreDbList{
 		if($weekId)
 			$listTest->likeCategoryIds("%,$weekId,%");
 		$listTest->wherePractice($practice);
-		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         
         $listTest->orderBy('ordering asc');
 		return $listTest->result();
@@ -84,7 +84,7 @@ class PzkEducationTestList extends PzkCoreDbList{
 		if($weekId)
 			$listTest->likeCategoryIds("%,$weekId,%");
 		$listTest->wherePractice($practice);
-		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         
         $listTest->orderBy('ordering asc');
 		$listTest->limit(1);
@@ -106,7 +106,7 @@ class PzkEducationTestList extends PzkCoreDbList{
 		if($weekId)
 			$listTest->likeCategoryIds("%,$weekId,%");
 		$listTest->wherePractice($practice);
-		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         $listTest->limit(2);
         $listTest->orderBy('ordering asc');
 		

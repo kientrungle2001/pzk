@@ -1,6 +1,6 @@
       <?php 
         $request=pzk_request();
-        $member=$request->get('member');
+        $member=$request->getMember();
         //$_REQUEST['showSQL']=1;
         $notes=$data->viewNote($member);
         
@@ -43,7 +43,7 @@
     <?php } ?>
 <script>
 // Kiểm tra member=session(userId)
-var member= "<?php echo pzk_request('member'); ?>";
+var member= "<?php echo pzk_request()->getMember(); ?>";
 var sessionID= "<?php echo pzk_session('userId'); ?>";
 if(member != sessionID){
     $('input[name=ckbdel]').hide();

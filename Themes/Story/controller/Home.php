@@ -36,7 +36,7 @@ class PzkHomeController extends PzkController{
 			->append('newsdetail', 'wrapper');
 			$id = pzk_request('id');
 			$parentid = pzk_request('parentid');
-			$detail = pzk_element('detail');
+			$detail = pzk_element()->getDetail();
 			$detail->set('itemId', $id);
 			$parent = pzk_element('parent');
 			$parent->set('parentId', $parentid);

@@ -2,7 +2,7 @@
    
     <div class="show_message_active"> 
     <?php 
-    	if($data->get('username') !="")
+    	if($data->getUsername() !="")
     	{
 
     	

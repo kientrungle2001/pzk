@@ -4,7 +4,7 @@
   <li><a href="{url /admin_questions/add}">Thêm câu hỏi</a></li>
 </ul>
 <?php
-if(pzk_request('action') == 'index') {
+if(pzk_request()->getAction() == 'index') {
 $categories = _db()->select('*')->from('categories')->result();
 $categories = buildArr($categories,'parent',0);
 

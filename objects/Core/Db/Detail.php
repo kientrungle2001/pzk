@@ -70,13 +70,13 @@ class PzkCoreDbDetail extends PzkObject {
 		Lay du lieu
 	*/
 	public function getItem() {
-		if(!$this->get('itemId')) {
+		if(!$this->getItemId()) {
 			$request = pzk_request();
-			$this->set('itemId', $request->getSegment(3));
+			$this->setItemId( $request->getSegment(3));
 		}
 		
 		$query = _db()->select($this->fields)->from($this->table)
-				->where(array('equal', array('column', $this->get('table'), 'id'), $this->get('itemId')));
+				->where(array('equal', array('column', $this->getTable(), 'id'), $this->getItemId()));
 		if(is_string($this->joins))
             $this->joins = json_decode($this->joins, true);
         $join = $this->joins;

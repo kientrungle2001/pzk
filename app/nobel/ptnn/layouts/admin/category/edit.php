@@ -11,7 +11,7 @@ $question_types = explode(',', $item['question_types']);
 ?>
 <form role="form" method="post" action="{url /admin_category/editPost}">
   	<input type="hidden" name="id" value="{item[id]}" />
-    <input type="hidden" name="software" value="<?php echo pzk_request('softwareId'); ?>" />
+    <input type="hidden" name="software" value="<?php echo pzk_request()->getSoftwareId(); ?>" />
  	<div class="form-group col-xs-12">
 	  	<div class="col-xs-3">
 	    	<label for="name">Tên dạng bài tập </label>

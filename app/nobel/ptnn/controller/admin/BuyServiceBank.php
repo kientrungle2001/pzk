@@ -364,7 +364,7 @@ class PzkAdminBuyServiceBankController extends PzkGridAdminController {
     }
 
     public function editPostAction() {
-    	$id= pzk_request('id');
+    	$id= pzk_request()->getId();
         $row = $this->getEditData();
         if($this->validateEditData($row)) {
         	$date=date("Y-m-d H:i:s");
@@ -376,7 +376,7 @@ class PzkAdminBuyServiceBankController extends PzkGridAdminController {
         
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 }

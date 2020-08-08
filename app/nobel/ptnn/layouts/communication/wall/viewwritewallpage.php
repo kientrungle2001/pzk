@@ -1,6 +1,6 @@
 
   <?php 
-        $member=pzk_request('member');
+        $member=pzk_request()->getMember();
 
         $avatar1= pzk_session('avatar');
         $usercomm= pzk_session('username');

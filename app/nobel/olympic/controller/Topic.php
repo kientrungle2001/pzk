@@ -11,13 +11,13 @@ class PzkTopicController extends PzkController {
 		$topicId = pzk_request()->getSegment(3);
     	
     	$this->initPage();
-		$header = pzk_element('header');
+		$header = pzk_element()->getHeader();
 		if($header) {
 			$header->setLayout('home/header2');
 		}
     	$this->append('education/topic/subTopicList');
     	
-    	$subTopicList = pzk_element('subTopicList');
+    	$subTopicList = pzk_element()->getSubTopicList();
     	
     	$mCate = pzk_model('Category');
     	

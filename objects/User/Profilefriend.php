@@ -8,7 +8,7 @@ class PzkUserProfilefriend extends PzkObject
 	public function loadNote()
 	{
 			$request=pzk_request();
-			$username= mysql_escape_string($request->get('member'));
+			$username= mysql_escape_string($request->getMember());
 			$note= _db()->selectAll()->fromUser_note()->whereUsername($username)->orderBy('id asc')->limit(8)->result();
 			return ($note); 
 	}
@@ -16,7 +16,7 @@ class PzkUserProfilefriend extends PzkObject
 	public function loadWriteWall()
 	{
 			$request=pzk_request();
-			$username= mysql_escape_string($request->get('member'));
+			$username= mysql_escape_string($request->getMember());
 			$write_wall= _db()->selectAll()->fromUser_write_wall()
 			->whereUsername($username)->orderBy('id asc')->limit(8)->result();
 			return ($write_wall); 

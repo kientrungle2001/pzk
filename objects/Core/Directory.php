@@ -9,14 +9,14 @@ class PzkCoreDirectory extends PzkCoreDbList {
 	public $parentWhere 	= 'equal';
 	public $orderBy			= 'ordering asc, id asc';
 	public function getParentItem() {
-		if($this->get('parentId'))
-			return _db()->selectAll()->from($this->get('table'))->whereId($this->get('parentId'))->result_one();
+		if($this->getParentId())
+			return _db()->selectAll()->from($this->getTable())->whereId($this->getParentId())->result_one();
 		return NULL;
 	}
 	public function getAllNews (){
-		return _db()->selectAll()->from('news')->whereCategoryId($this->get('parentId'))->orderBy('ordering asc, id asc')->result();
+		return _db()->selectAll()->from('news')->whereCategoryId($this->getParentId())->orderBy('ordering asc, id asc')->result();
 	}
 	public function getAllQuestions() {
-		return _db()->selectAll()->from('questions')->likeCategoryIds('%,'.$this->get('parentId').',%%')->orderBy('ordering asc, id asc')->result();
+		return _db()->selectAll()->from('questions')->likeCategoryIds('%,'.$this->getParentId().',%%')->orderBy('ordering asc, id asc')->result();
 	}
 }

@@ -65,7 +65,7 @@ $items=_db()->useCB()->select('count(*) as invi')->from('invitation')->where(arr
      <div class="profile_user" >
 
      <div style="float:left; padding-top: 20px;padding-bottom: 20px;padding-left: 20px;">
-       <img src="<?php echo $user->get('avatar'); ?>"alt="" width="100px" height="100px"> 
+       <img src="<?php echo $user->getAvatar(); ?>"alt="" width="100px" height="100px"> 
      </div>
      <div>
        <p align="center"> <strong >xin chào <?php echo pzk_session('name'); ?></strong></p>

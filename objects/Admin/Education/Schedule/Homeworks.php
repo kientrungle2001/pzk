@@ -5,7 +5,7 @@ class PzkAdminEducationScheduleHomeworks extends PzkObject {
 	private $_classroom = false;
 	public function getClassroom() {
 		if($this->_classroom) return $this->_classroom;
-		$this->_classroom = _db()->select('*')->from('education_classroom')->whereId($this->get('classroomId'))->result_one();
+		$this->_classroom = _db()->select('*')->from('education_classroom')->whereId($this->getClassroomId())->result_one();
 		return $this->_classroom;
 	}
 	
@@ -18,7 +18,7 @@ class PzkAdminEducationScheduleHomeworks extends PzkObject {
 		->from('education_classroom_homework')
 		->join('tests', 'education_classroom_homework.homeworkId = tests.id')
 		->leftJoin('categories', 'tests.subjectId=categories.id')
-		->whereClassroomId($this->get('classroomId'))
+		->whereClassroomId($this->getClassroomId())
 		->orderBy('tests.id desc')
 		->result();
 	}

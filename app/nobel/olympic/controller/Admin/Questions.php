@@ -387,7 +387,7 @@ class PzkAdminQuestionsController extends PzkGridAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 			
-			$question	= pzk_element('question_answers');
+			$question	= pzk_element()->getQuestion_answers();
 			
 			$question_answers = pzk_model('AdminQuestion');
 			
@@ -403,7 +403,7 @@ class PzkAdminQuestionsController extends PzkGridAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 				
-			$question	= pzk_element('question_answers');
+			$question	= pzk_element()->getQuestion_answers();
 				
 			$question_answers = pzk_model('AdminQuestion');
 				
@@ -458,11 +458,11 @@ class PzkAdminQuestionsController extends PzkGridAdminController {
 				if($result !=false){
 					
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 					
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
@@ -497,11 +497,11 @@ class PzkAdminQuestionsController extends PzkGridAdminController {
 			if($result !=false){
 					
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}else{
 					
 				pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}
 		}
 	}
@@ -544,11 +544,11 @@ class PzkAdminQuestionsController extends PzkGridAdminController {
 				if($result !=false){
 						
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 						
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
@@ -627,11 +627,11 @@ class PzkAdminQuestionsController extends PzkGridAdminController {
 				if($result != false){
 					
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 	
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}

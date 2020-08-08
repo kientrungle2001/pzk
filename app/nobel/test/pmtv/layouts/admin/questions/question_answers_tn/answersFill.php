@@ -1,6 +1,6 @@
 <?php
-$item = $data->get('item');
-$itemAnswers = $data->get('itemAnswers');
+$item = $data->getItem();
+$itemAnswers = $data->getItemAnswers();
 ?>
 <div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> {item[request]}</div></div>
 

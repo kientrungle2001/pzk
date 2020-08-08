@@ -142,7 +142,7 @@ $itemAnswers = $data->getItemAnswers();$controller = pzk_controller();
 	$("#content").on("click", '.remove-input', function(e){
 		 $(this).parent().remove();
 	});
-    <?php if(pzk_request('softwareId') == 1) { ?>
+    <?php if(pzk_request()->getSoftwareId() == 1) { ?>
 	    setInputTinymce(2);
     <?php } else { ?>
         setInputTinymce();

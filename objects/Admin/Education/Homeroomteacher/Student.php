@@ -5,7 +5,7 @@ class PzkAdminEducationHomeroomteacherStudent extends PzkObject {
 	private $_classroom = false;
 	public function getClassroom() {
 		if($this->_classroom) return $this->_classroom;
-		return $this->_classroom = _db()->select('*')->from('education_classroom')->where(array('id', $this->get('classroomId')))->result_one();
+		return $this->_classroom = _db()->select('*')->from('education_classroom')->where(array('id', $this->getClassroomId()))->result_one();
 	}
 	
 	public function getClassrooms() {
@@ -15,16 +15,16 @@ class PzkAdminEducationHomeroomteacherStudent extends PzkObject {
 	public function getStudents() {
 		return _db()->select('education_classroom_student.id,user.id as studentId, user.name, user.username, user.birthday, user.phone')->from('education_classroom_student')
 		->join('user', 'education_classroom_student.studentId=user.id')
-		->whereClassroomId($this->get('classroomId'))->result();
+		->whereClassroomId($this->getClassroomId())->result();
 	}
 	public function getStudent() {
-		return _db()->select('*')->from('user')->whereId($this->get('studentId'))->result_one();
+		return _db()->select('*')->from('user')->whereId($this->getStudentId())->result_one();
 	}
 	public function getHomeworks() {
 		return _db()->select('user_book.*, tests.name as homeworkName, tests.week, tests.month, tests.semester, categories.name as subject')->from('user_book')
 			->join('tests', 'user_book.testId=tests.id')
 			->join('categories', 'tests.subjectId=categories.id')
-			->where('user_book.userId='.$this->get('studentId'))
+			->where('user_book.userId='.$this->getStudentId())
 			->where('tests.homework=1')
 			->orderBy('tests.subjectId asc, tests.week asc')
 			->result();
@@ -34,7 +34,7 @@ class PzkAdminEducationHomeroomteacherStudent extends PzkObject {
 		return _db()->select('user_book.*, tests.name as testName, tests.week, tests.month, tests.semester, categories.name as subject')->from('user_book')
 			->join('tests', 'user_book.testId=tests.id')
 			->join('categories', 'tests.subjectId=categories.id')
-			->where('user_book.userId='.$this->get('studentId'))
+			->where('user_book.userId='.$this->getStudentId())
 			->where('tests.homework=0')
 			->orderBy('tests.subjectId asc, tests.week asc')
 			->result();

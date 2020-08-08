@@ -8,14 +8,14 @@ class PzkCoreRewritePermission extends PzkObjectLightWeight {
 			$loginId = 3;
 		}
 		$this->user = _db()->getEntity('Profile.Profile')->load($loginId, 900);
-		$action = $request->get('action');
+		$action = $request->getAction();
 		if($request->host == 'phongthuyhoangtra.vn' || $request->host == 'www.phongthuyhoangtra.vn') {
 			return ;
 		}
 		if($action == 'logout' || $action == 'login' || $action == 'loginPost') {
 			return ;
 		}
-		if(!$this->user->getPermission($request->get('controller'), $request->get('action'))) {
+		if(!$this->user->getPermission($request->getController(), $request->getAction())) {
 			header('Location: '.BASE_URL.'/index.php/demo/login'); die();
 		}
 	}

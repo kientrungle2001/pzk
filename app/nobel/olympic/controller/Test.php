@@ -19,7 +19,7 @@ class PzkTestController extends PzkController {
 				$mcate = pzk_model('Category');
 				//list lesson
 				$dataLessons = $mcate->get_category_all($subTopicId); 
-				$formLesson = pzk_element('test');
+				$formLesson = pzk_element()->getTest();
 				//define time
 				$formLesson->setSubTopicId($subTopicId);
 				$formLesson->setDataLessons($dataLessons);
@@ -28,7 +28,7 @@ class PzkTestController extends PzkController {
 				$mcate = pzk_model('Category');
 				//list lesson
 				$dataLessons = $mcate->get_category_all($subTopicId); 
-				$formLesson = pzk_element('test');
+				$formLesson = pzk_element()->getTest();
 				//define time
 				$formLesson->setSubTopicId($subTopicId);
 				$formLesson->setDataLessons($dataLessons);
@@ -42,7 +42,7 @@ class PzkTestController extends PzkController {
 		$this->display();
 	}
 	public function setTestAction() {
-		$testId = pzk_request()->get('testId');
+		$testId = pzk_request()->getTestId();
 		if($testId) {
 			if(pzk_themes('olympic')) {
 				$this->setMasterPage('index');
@@ -57,7 +57,7 @@ class PzkTestController extends PzkController {
 					$obj->setTestId($testId);
 				}else {
 					$education = pzk_model('Education');
-					$class = pzk_request()->get('currentclass');
+					$class = pzk_request()->getCurrentclass();
 					$testIdTester = $education->getTestByTester($class);
 					if($testId == $testIdTester['id']){
 						$obj = $this->parse('education/test/setTest');
@@ -79,7 +79,7 @@ class PzkTestController extends PzkController {
 	}
 	
 	function getTimeAction() {
-		$testId = pzk_request()->get('testId');
+		$testId = pzk_request()->getTestId();
 		$test = $data = _db()->selectAll()
 			->fromTests()
 			->where(array('id', $testId))
@@ -104,14 +104,14 @@ class PzkTestController extends PzkController {
 				$this->append('education/test/getTest');
 				$mcate = pzk_model('Category');
 				 
-				$formLesson = pzk_element('getTest');
+				$formLesson = pzk_element()->getGetTest();
 				//define time
 				$formLesson->setTestId($testId);
 			}else {
 				$this->append('education/test/testerGetTest');
 				$mcate = pzk_model('Category');
 				 
-				$formLesson = pzk_element('getTest');
+				$formLesson = pzk_element()->getGetTest();
 				//define time
 				$formLesson->setTestId($testId);
 			}
@@ -136,7 +136,7 @@ class PzkTestController extends PzkController {
 		
 		$request 			= pzk_request();
     	 
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getAnswers();
     	
     	//debug($data_answers);die;
     	
@@ -234,7 +234,7 @@ class PzkTestController extends PzkController {
     			'mark'              => $questionTrue,
     			'duringTime'		=> $duringTime,
 				'status'			=> 1,
-				'software' 			=> pzk_request()->get('softwareId')
+				'software' 			=> pzk_request()->getSoftwareId()
     	);
 		$userBook->setData($row);
 		    	

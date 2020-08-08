@@ -1,8 +1,8 @@
 
 <?php
 $showPoints = $data->ShowPoint();
-$classroomId = $data->get('classroomId');
-$schoolYear = $data->get('schoolYear');
+$classroomId = $data->getClassroomId();
+$schoolYear = $data->getSchoolYear();
 $students = $data->getStudents();
 // tao danh sach lop
 $classStudents = array();

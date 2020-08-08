@@ -14,10 +14,10 @@ class PzkWallController extends PzkFrontendController
 		else
 		{
 
-			$content=$request->get('write_wall');
+			$content=$request->getWrite_wall();
 			//echo $content;
 			
-			$userId=$request->get('userId');
+			$userId=$request->getUserId();
 			$userWrite=pzk_session('userId');
 			$write_wall=_db()->getEntity('communication.user_write_wall');
 			//$write_wall->loadWhere(array('username',$username));
@@ -25,7 +25,7 @@ class PzkWallController extends PzkFrontendController
 			$row=array('userId'=>$userId, 'userWrite'=>$userWrite,'content'=>$content,'datewrite'=>$datewrite);
 			$write_wall->setData($row);
 			$write_wall->save();
-			$id= $write_wall->get('id');
+			$id= $write_wall->getId();
 			$str = str_replace( array('-', ':',' ') , '', $datewrite );
 			$str=$userId.$str;
 			$ett_comm= _db()->getEntity('communication.social');
@@ -37,14 +37,14 @@ class PzkWallController extends PzkFrontendController
 
 	public function viewCommentAction()
 	{
-		$commentId= pzk_request('commentId');
+		$commentId= pzk_request()->getCommentId();
 		$detailnotepage=$this->parse('communication/friend/detailnotepage')	;
 		$detailnotepage->display();
 
 	}
 	public function viewAction()
 	{
-		$member= pzk_request('member');
+		$member= pzk_request()->getMember();
 		$sessionId= pzk_session('userId');
 		$this->layout();
 		if($member==$sessionId){
@@ -65,16 +65,16 @@ class PzkWallController extends PzkFrontendController
 		$viewwritewallpage->display();	
 	}
 	public function delWriteAction(){
-		$id=pzk_request('id');
+		$id=pzk_request()->getId();
 		$userId= pzk_session('userId');
 		$ett_comm= _db()->getEntity('communication.social');
 		$ett_comm->loadWhere(array('writeWallId',$id));
-		if($ett_comm->get('id')){
+		if($ett_comm->getId()){
 			$ett_comm->delete();
 		}
 		$userWrite=_db()->getEntity('communication.user_write_wall');
 		$userWrite->load($id);
-		if($userWrite->get('id')){
+		if($userWrite->getId()){
 			$userWrite->delete();
 			echo $userId;
 		}

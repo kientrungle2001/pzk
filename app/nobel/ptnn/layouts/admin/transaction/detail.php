@@ -3,25 +3,25 @@
 
 	$id=pzk_request()->getSegment(3);
 	$transaction->loadWhere(array('id',$id));
-	$orderId=$transaction->getorderId();
-	$username=$transaction->get('username');
-	$userId=$transaction->getuserId();	
-	$serviceId=$transaction->getservice();
+	$orderId=$transaction->getOrderId();
+	$username=$transaction->getUsername();
+	$userId=$transaction->getUserId();	
+	$serviceId=$transaction->getService();
 	$service= _db()->getEntity('service.service');
 	if($serviceId){
 		$service->loadWhere(array('id',$serviceId));
 		$serviceName= $service->getServiceName();
 	}else $serviceName='';	
-	$amount=$transaction->getamount();
-	$paymentType=$transaction->getpaymentType();
-	$paymentDate=$transaction->getpaymentDate();
-	$transactionId=$transaction->gettransactionId();
-	$paymentOption=$transaction->getpaymentOption();
-	$transactionStatus=$transaction->gettransactionStatus();
-	$reason=$transaction->getreason();
-	$cardType=$transaction->getcardType();
-	$cardAmount=$transaction->getcardAmount();
-	$status=$transaction->getstatus();
+	$amount=$transaction->getAmount();
+	$paymentType=$transaction->getPaymentType();
+	$paymentDate=$transaction->getPaymentDate();
+	$transactionId=$transaction->getTransactionId();
+	$paymentOption=$transaction->getPaymentOption();
+	$transactionStatus=$transaction->getTransactionStatus();
+	$reason=$transaction->getReason();
+	$cardType=$transaction->getCardType();
+	$cardAmount=$transaction->getCardAmount();
+	$status=$transaction->getStatus();
 	if($status==0){
 		$status='Chưa thành công';
 	}else if($status==1){

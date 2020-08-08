@@ -29,7 +29,7 @@ class PzkUserProfileProfileuserleft1 extends PzkObject
 	public function testAvatar($member)
 	{
 		$user=$this->loadUserName($member);
-		$avatar= $user->get('avatar');
+		$avatar= $user->getAvatar();
 		if($avatar == "")
 		{
 			$avatar='/3rdparty/uploads/img/noavatar.gif' ;
@@ -43,10 +43,10 @@ class PzkUserProfileProfileuserleft1 extends PzkObject
 		$sessionUsername= pzk_session('username');
 
 		$user=$this->loadUserName($member);
-		$username_member=$user->get('username');
+		$username_member=$user->getUsername();
 		$friend= _db()->getEntity('Communication.Friend');
 		$friend->loadWhere(array(array('username',$sessionUsername),array('userfriend',$username_member)));
-		if($friend->get('id'))
+		if($friend->getId())
 		{
 			 return true;
 		}

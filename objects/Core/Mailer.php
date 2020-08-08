@@ -66,5 +66,5 @@ class PzkCoreMailer extends PzkObjectLightWeight {
  * @return PHPMailer
  */
 function pzk_mailer() {
-	return pzk_element('mailer')->getMail();
+	return pzk_element()->getMailer()->getMail();
 }

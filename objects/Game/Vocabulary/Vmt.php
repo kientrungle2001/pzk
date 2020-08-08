@@ -6,8 +6,8 @@ class PzkGameVocabularyVmt extends PzkObject
 	
 	public function getDataWords() {
 		
-		$lesson = _db()->select('*')->from('game')->whereGamecode($this->get('gameCode'))
-			->whereDocumentId($this->get('documentId'))->result_one();
+		$lesson = _db()->select('*')->from('game')->whereGamecode($this->getGameCode())
+			->whereDocumentId($this->getDocumentId())->result_one();
 		
 		if($lesson['question'] != '') {
 			$content = explode('*****', $lesson['question']);

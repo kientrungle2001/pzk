@@ -6,8 +6,8 @@ class PzkGameVocabularyVdrag extends PzkObject
 	
 	public function getPairWords() {
 		
-		$lesson = _db()->select('*')->from('game')->where(array('gamecode', $this->get('gameCode')))
-			->where(array('documentId', $this->get('documentId')))->result_one();
+		$lesson = _db()->select('*')->from('game')->where(array('gamecode', $this->getGameCode()))
+			->where(array('documentId', $this->getDocumentId()))->result_one();
 		
 		if($lesson['question'] != '') {
 			$content = explode('*****', $lesson['question']);

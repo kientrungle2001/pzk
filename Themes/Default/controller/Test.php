@@ -23,7 +23,7 @@ class PzkTestController extends PzkController{
 		
 		$this->append('education/test/test');
 		
-		$test 	= pzk_element('test');
+		$test 	= pzk_element()->getTest();
 		$test->set('class', $class);
 		$test->set('type', $type);
 		$test->set('isContest', $this->isContest);
@@ -164,7 +164,7 @@ class PzkTestController extends PzkController{
 		    	}else{		    		
 		    		$result_search = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 		    	}    	
-		    	$data_showQuestion	= pzk_element('showTest');		    	
+		    	$data_showQuestion	= pzk_element()->getShowTest();		    	
 		    	$data_showQuestion->set('data_showQuestion', $result_search);		    	
 		    	$data_showQuestion->set('data_criteria', $test_detail);		    	 
 		    	$this->display();
@@ -191,7 +191,7 @@ class PzkTestController extends PzkController{
 		
 		$this->append('education/test/test');
 		
-		$test 	= pzk_element('test');
+		$test 	= pzk_element()->getTest();
 		$test->set('class', $class);
 		$test->set('type', $type);
 		$test->set('isContest', $this->isContest);
@@ -286,7 +286,7 @@ class PzkTestController extends PzkController{
 		    	}else{		    		
 		    		$result_search = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 		    	}    	
-		    	$data_showQuestion	= pzk_element('showTest');		    	
+		    	$data_showQuestion	= pzk_element()->getShowTest();		    	
 		    	$data_showQuestion->set('data_showQuestion', $result_search);		    	
 		    	$data_showQuestion->set('data_criteria', $test_detail);		    	 
 		    	$this->display();

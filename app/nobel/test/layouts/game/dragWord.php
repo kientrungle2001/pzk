@@ -1,5 +1,5 @@
 <?php
-	$questionId = pzk_request()->get('gameTopic');
+	$questionId = pzk_request()->getGameTopic();
 	
 	$allwords = $data->getPairWords($questionId);
 	

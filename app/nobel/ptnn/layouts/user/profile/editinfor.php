@@ -43,7 +43,7 @@
                                 <div class="clearfix"></div>
                                 <div class="col-xs-4 margin-top-10">
                                     <label for="username">Họ và Tên(*) :</label>
-                                    <input type="text" class="form-control" id="editinfor_name" name="editinfor_name" value=" <?php echo $user->getname();?>" placeholder="Họ và Tên" data-toggle="tooltip" data-placement="top" title="Họ và Tên">
+                                    <input type="text" class="form-control" id="editinfor_name" name="editinfor_name" value=" <?php echo $user->getName();?>" placeholder="Họ và Tên" data-toggle="tooltip" data-placement="top" title="Họ và Tên">
                                 </div>
                                 
                                 
@@ -56,12 +56,12 @@
                                 </div>
                                 <div class="col-xs-3 margin-top-10">
                                     <label for="phone">Điện thoại (*) :</label>
-                                    <input type="text" class="form-control" id="editinfor_phone" name="editinfor_phone" value=" <?php echo $user->getphone();?>" placeholder="Điện thoại" data-toggle="tooltip" data-placement="top" title="Điện thoại phải là số">
+                                    <input type="text" class="form-control" id="editinfor_phone" name="editinfor_phone" value=" <?php echo $user->getPhone();?>" placeholder="Điện thoại" data-toggle="tooltip" data-placement="top" title="Điện thoại phải là số">
                                 </div>
                                 <div class="clearfix" style="padding-bottom:10px;"></div>
                                 <div class="col-xs-4 margin-top-10">
                                     <label for="username">Địa chỉ :</label>
-                                    <input type="text" class="form-control" id="editinfor_address" name="editinfor_address" value="<?php echo $user->getaddress();?>" placeholder="Địa chỉ" data-toggle="tooltip" data-placement="top" title="Địa chỉ của bạn">
+                                    <input type="text" class="form-control" id="editinfor_address" name="editinfor_address" value="<?php echo $user->getAddress();?>" placeholder="Địa chỉ" data-toggle="tooltip" data-placement="top" title="Địa chỉ của bạn">
                                 </div>
                                 <div class="col-xs-8 margin-top-10">
                                     <label for="username">Ngày sinh (*) :</label>
@@ -69,7 +69,7 @@
 						    			<div class="col-xs-2" style="padding-left: 0px; padding-right: 0px; margin: auto; margin-right: 28px;">
                         <select id="editinfor_day" class="form-control" title="Ngày" name="birthday_day" aria-label="Ngày" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
                         <?php 
-                        	$birthday= $user->get('birthday'); 
+                        	$birthday= $user->getBirthday(); 
                         	if($birthday !=''){
                         		$arr= explode("-",$birthday);
 
@@ -116,12 +116,12 @@
                                 <div class="clearfix"></div>
                                 <div class="col-xs-4 margin-top-10">
                                     <label for="school">Trường :</label>
-                                    <input type="text" class="form-control" id="editinfor_school" name="editinfor_school" value=" <?php echo $user->getschool();?>" placeholder="Trường học" data-toggle="tooltip" data-placement="top" title="Trường học">
+                                    <input type="text" class="form-control" id="editinfor_school" name="editinfor_school" value=" <?php echo $user->getSchool();?>" placeholder="Trường học" data-toggle="tooltip" data-placement="top" title="Trường học">
                                 </div>                            
                                
                                 <div class="col-xs-2 margin-top-10">
                                     <label for="class">Lớp học :</label>
-                                    <input type="text" class="form-control" id="editinfor_class" name="editinfor_class" value=" <?php echo $user->getclass();?>" placeholder="Lớp học" data-toggle="tooltip" data-placement="top" title="Lớp học">
+                                    <input type="text" class="form-control" id="editinfor_class" name="editinfor_class" value=" <?php echo $user->getClass();?>" placeholder="Lớp học" data-toggle="tooltip" data-placement="top" title="Lớp học">
                                 </div> 
                                 <?php
                                   $areas= $user->loadArea();
@@ -130,7 +130,7 @@
                                 <div class="col-xs-3 margin-top-10">
                                     <label for="area">Tỉnh/TP :</label>
                                     <select  class="form-control" id="editinfor_areacode" title="Tỉnh/ Thành phố" name="editinfor_areacode" aria-label="Tỉnh/tp" data-toggle="tooltip" data-placement="top" title="Tỉnh/ Thành phố" >
-                                       <option selected="1" value="{user.getareacode()}"><?php echo $user->loadByAreacode($user->getareacode()); ?></option>
+                                       <option selected="1" value="{user.getareacode()}"><?php echo $user->loadByAreacode($user->getAreacode()); ?></option>
                                                 
                                                 {each $areas as $area}
                                                 <option value="<?php echo $area['id']; ?>"><?php   echo $area['name']; ?></option>

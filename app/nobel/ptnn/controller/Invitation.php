@@ -19,7 +19,7 @@ class PzkInvitationController extends PzkFrontendController
 	}
 	public function agreeAction()
 	{
-		$usersendinvi = trim(pzk_request()->get('member'));
+		$usersendinvi = trim(pzk_request()->getMember());
 		$invi = _db()->getEntity('communication.invitation');
 		$invi->loadWhere(array('and',array('userId',pzk_session('userId')),array('userinvitation',$usersendinvi)));
 		pzk_user()->acceptInvitation($invi);
@@ -28,7 +28,7 @@ class PzkInvitationController extends PzkFrontendController
 	
 	public function denyAction()
 	{
-		$usersendinvi = pzk_request()->get('member');
+		$usersendinvi = pzk_request()->getMember();
 		$invitation=_db()->getEntity('communication.invitation');
 		$invitation->loadWhere(array('and',array('userId',pzk_session('userId')),array('userinvitation',$usersendinvi)));
 		pzk_user()->denyInvitation($invitation);
@@ -36,14 +36,14 @@ class PzkInvitationController extends PzkFrontendController
 	}
 	public function agree1Action()
 	{
-		$userInvi = trim(pzk_request()->get('member'));
+		$userInvi = trim(pzk_request()->getMember());
 		$invi = _db()->getEntity('communication.invitation');
 		$invi->loadWhere(array('and',array('userId',pzk_session('userId')),array('userinvitation',$userInvi)));
 		pzk_user()->acceptInvitation($invi);
 	}
 	public function deny1Action()
 	{
-		$usersendinvi = pzk_request()->get('member');
+		$usersendinvi = pzk_request()->getMember();
 		$invitation=_db()->getEntity('communication.invitation');
 		$invitation->loadWhere(array('and',array('userId',pzk_session('userId')),array('userinvitation',$usersendinvi)));
 		pzk_user()->denyInvitation($invitation);

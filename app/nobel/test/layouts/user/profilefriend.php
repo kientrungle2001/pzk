@@ -103,7 +103,7 @@ font-size: 12px;
 </style>
 <?php  
   $request=pzk_request();
-  $member=$request->get('member');
+  $member=$request->getMember();
  
   $user=_db()->getEntity('User.User');
   $user->loadWhere(array('username',$member));
@@ -132,17 +132,17 @@ font-size: 12px;
        
       </div>
       <div class="prf_avatar">
-        <img src=" <?php if($user->get('avatar')=="")
+        <img src=" <?php if($user->getAvatar()=="")
         {
           echo BASE_URL.'/3rdparty/uploads/img/noavatar.gif' ;
-        }else echo $user->get('avatar');
+        }else echo $user->getAvatar();
         ?>" alt="avatar" width="100px" height="100px;">
       </div>
       <div class="prf_member">
-        <a href="/user/denyfriend?userfriend=<?php echo $user->get('username'); ?>"><img src="<?php echo BASE_URL.'/3rdparty/uploads/img/huyketban.png' ; ?>" alt="Bạn bè"></a>
+        <a href="/user/denyfriend?userfriend=<?php echo $user->getUsername(); ?>"><img src="<?php echo BASE_URL.'/3rdparty/uploads/img/huyketban.png' ; ?>" alt="Bạn bè"></a>
       </div>
-      <div class="prf_content" style="background-color:#F0FFFF;"> Ngày sinh: <strong><?php echo $user->get('birthday'); ?> </strong> </div>
-      <div class="prf_content" style="background-color:#FFF8DC;"> Giới tính: <strong><?php echo $user->get('sex'); ?></strong></div>
+      <div class="prf_content" style="background-color:#F0FFFF;"> Ngày sinh: <strong><?php echo $user->getBirthday(); ?> </strong> </div>
+      <div class="prf_content" style="background-color:#FFF8DC;"> Giới tính: <strong><?php echo $user->getSex(); ?></strong></div>
       <div class="prf_content" style="background-color:#F0FFFF;"> Điểm thành tích:  </div>
       <div class="prf_content" style="background-color:#FFF8DC;"> Sổ học bạ:</div>
       <div class="prf_content" style="background-color:#F0FFFF;"> Tham gia được:  </div>

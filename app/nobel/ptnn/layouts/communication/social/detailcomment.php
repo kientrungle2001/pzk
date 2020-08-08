@@ -1,6 +1,6 @@
 <?php
-  $noteId= pzk_request('noteId');
-  $commentId=pzk_request('commentId');
+  $noteId= pzk_request()->getNoteId();
+  $commentId=pzk_request()->getCommentId();
   $userId=pzk_session('userId');
   $social= _db()->getEntity('communication.social');
 ?>

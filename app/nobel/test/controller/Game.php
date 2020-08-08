@@ -8,11 +8,11 @@ class PzkGameController extends PzkController {
 	
 	public function getTopicByTypeAction() {
 		$request = pzk_request();
-		$gametype = $request->get('gametype');
+		$gametype = $request->getGametype();
 		
 		$this->parse('game/topic');
-		$topic = pzk_element('topic');	
-		$topic->set('typeGame', $gametype);
+		$topic = pzk_element()->getTopic();	
+		$topic->setTypeGame( $gametype);
 		$topic->display();
 		
 			
@@ -20,31 +20,31 @@ class PzkGameController extends PzkController {
 	}
 	public function getTryTopicByTypeAction() {
 		$request = pzk_request();
-		$gametype = $request->get('gametype');
+		$gametype = $request->getGametype();
 		
 		$this->parse('game/trytopic');
-		$topic = pzk_element('trytopic');	
-		$topic->set('typeGame', $gametype);
+		$topic = pzk_element()->getTrytopic();	
+		$topic->setTypeGame( $gametype);
 		$topic->display();
 	}
     public function ptnnAction()
     {
         
 		$request = pzk_request();
-        $gameType = $request->get('gameType');
+        $gameType = $request->getGameType();
 		$check = pzk_user()->checkPayment('full');
 
         $this->initPage();
-			pzk_page()->set('title', 'Trò chơi');
-			pzk_page()->set('keywords', 'Trò chơi');
-			pzk_page()->set('description', 'Cùng chơi game với Next Nobels');
-			pzk_page()->set('img', '/Default/skin/nobel/themes/story/media/logo.png');
-			pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+			pzk_page()->setTitle( 'Trò chơi');
+			pzk_page()->setKeywords( 'Trò chơi');
+			pzk_page()->setDescription( 'Cùng chơi game với Next Nobels');
+			pzk_page()->setImg( '/Default/skin/nobel/themes/story/media/logo.png');
+			pzk_page()->setBrief( 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 		if(pzk_session('userId')){
 			
 			if(isset($check) and $check==1) {
-				$this->set('masterPage', 'index');
-				$this->set('masterPosition', 'wrapper');
+				$this->setMasterPage( 'index');
+				$this->setMasterPosition( 'wrapper');
 				$this->append('game/formGame', 'wrapper');
 				if($gameType) {
 					if ($gameType == 'muatu') {
@@ -66,15 +66,15 @@ class PzkGameController extends PzkController {
 				
 			} else {
 				if(1 || pzk_themes('default')) {
-					$this->set('masterPage', 'index');
-					$this->set('masterPosition', 'wrapper');
+					$this->setMasterPage( 'index');
+					$this->setMasterPosition( 'wrapper');
 					$this->append("game/tryGame", 'wrapper');
 					if($gameType) {
 						if ($gameType == 'muatu') {
 							$frontend = pzk_model('Frontend');
 							$gameTopics = $frontend->getGameTopic();
 							$gameTopic = $gameTopics[0]['id']; 
-							$gameRqTopic = $request->get('gameTopic');
+							$gameRqTopic = $request->getGameTopic();
 							if($gameTopic == $gameRqTopic) {
 								$this->append('game/ptnn', 'wrapper');
 							}
@@ -82,7 +82,7 @@ class PzkGameController extends PzkController {
 							if(pzk_request()->isMobile()) {
 								$this->append('game/vocabulary/nosupport', 'wrapper');
 							}else{
-								$gameRqTopic = $request->get('gameTopic');
+								$gameRqTopic = $request->getGameTopic();
 								if($gameRqTopic == 19) {
 									$this->append('game/dragWord', 'wrapper');
 								}
@@ -97,8 +97,8 @@ class PzkGameController extends PzkController {
 			}
 		}else{
 			if(1 || pzk_themes('default')) {
-				$this->set('masterPage', 'index');
-				$this->set('masterPosition', 'wrapper');
+				$this->setMasterPage( 'index');
+				$this->setMasterPosition( 'wrapper');
 				$this->append("game/nologin", 'wrapper');
 			}else {
 				$this->append("game/nologin", 'left');
@@ -110,7 +110,7 @@ class PzkGameController extends PzkController {
 	}
 	public function gameTypeAction() {
 		$request = pzk_request();
-		$gameType = $request->get('gameType');
+		$gameType = $request->getGameType();
 		$this->initPage();
 		//echo $gameType;
 		if($gameType == 'muatu') {
@@ -122,16 +122,16 @@ class PzkGameController extends PzkController {
     }
     public function saveAction() {
         $request = pzk_request();
-        if($request->get('check') == 1){
-            $topicId = $request->get('gameTopic');
-            $gameCode =  $request->get('gamecode');
+        if($request->getCheck() == 1){
+            $topicId = $request->getGameTopic();
+            $gameCode =  $request->getGamecode();
             $data = array(
                 'gamecode'=> $gameCode,
-                'score'=> $request->get('score'),
-                'live'=> $request->get('live'),
+                'score'=> $request->getScore(),
+                'live'=> $request->getLive(),
                 'gametopic'=> $topicId,
-                'userId'=> pzk_session()->get('userId'),
-                'software'=> pzk_request('software'),
+                'userId'=> pzk_session()->getUserId(),
+                'software'=> pzk_request()->getSoftware(),
                 'created'=> date('d:m:y H:i:s', time())
             );
 
@@ -144,74 +144,74 @@ class PzkGameController extends PzkController {
 	
 	public function gameVocabularyAction() {
 		
-		$id = Pzk_request()->get('id');
-		$type = Pzk_request()->get('type');
-		$cateId = Pzk_request()->get('cateId');
+		$id = Pzk_request()->getId();
+		$type = Pzk_request()->getType();
+		$cateId = Pzk_request()->getCateId();
 		if($id && $type) {
 			if($type == 'sortword') {
 				if(pzk_request()->isMobile()) {
 					$this->parse('game/vocabulary/nosupport');
-					$nosupport = pzk_element('nosupport');
+					$nosupport = pzk_element()->getNosupport();
 					$nosupport->display();
 				}else{
 					$this->parse('game/vocabulary/sortword');
-					$sortword = pzk_element('sortword');
-					$sortword->set('documentId', $id);
-					$sortword->set('cateId', $cateId);
-					$sortword->set('gameCode', $type);
+					$sortword = pzk_element()->getSortword();
+					$sortword->setDocumentId( $id);
+					$sortword->setCateId( $cateId);
+					$sortword->setGameCode( $type);
 					$sortword->display();	
 				}
 				
 			}elseif($type == 'dragToPart') {
 				if(pzk_request()->isMobile()) {
 					$this->parse('game/vocabulary/nosupport');
-					$nosupport = pzk_element('nosupport');
+					$nosupport = pzk_element()->getNosupport();
 					$nosupport->display();
 				}else{
 					
 					$this->parse('game/vocabulary/dragToPart');
-					$dragToPart = pzk_element('dragToPart');
-					$dragToPart->set('documentId',$id);
-					$dragToPart->set('cateId',$cateId);
-					$dragToPart->set('gameCode', $type);
+					$dragToPart = pzk_element()->getDragToPart();
+					$dragToPart->setDocumentId($id);
+					$dragToPart->setCateId($cateId);
+					$dragToPart->setGameCode( $type);
 					$dragToPart->display();
 				}
 			}elseif($type == 'vdt') {
 				$this->parse('game/vocabulary/vdt');
-				$vdt = pzk_element('vdt');
-				$vdt->set('documentId', $id);
-				$vdt->set('cateId', $cateId);
-				$vdt->set('gameCode', $type);
+				$vdt = pzk_element()->getVdt();
+				$vdt->setDocumentId( $id);
+				$vdt->setCateId( $cateId);
+				$vdt->setGameCode( $type);
 				$vdt->display();
 			}elseif($type == 'vmt') {
 				$this->parse('game/vocabulary/vmt');
-				$vmt = pzk_element('vmt');
-				$vmt->set('documentId', $id);
-				$vmt->set('cateId', $cateId);
-				$vmt->set('gameCode', $type);
-				$vmt->set('pageGame', 1);
+				$vmt = pzk_element()->getVmt();
+				$vmt->setDocumentId( $id);
+				$vmt->setCateId( $cateId);
+				$vmt->setGameCode( $type);
+				$vmt->setPageGame( 1);
 				$vmt->display();
 			}elseif($type == 'vdrag') {
 				
 				$this->parse('game/vocabulary/vdrag');
-				$vdrag = pzk_element('vdrag');
-				$vdrag->set('documentId', $id);
-				$vdrag->set('cateId', $cateId);
-				$vdrag->set('gameCode', $type);
+				$vdrag = pzk_element()->getVdrag();
+				$vdrag->setDocumentId( $id);
+				$vdrag->setCateId( $cateId);
+				$vdrag->setGameCode( $type);
 				$vdrag->display();
 				
 			}elseif($type == 'vdragimg') {
 				if(pzk_request()->isMobile()) {
 					$this->parse('game/vocabulary/nosupport');
-					$nosupport = pzk_element('nosupport');
+					$nosupport = pzk_element()->getNosupport();
 					$nosupport->display();
 				}else{
 					
 					$this->parse('game/vocabulary/vdragimg');
-					$vdragimg = pzk_element('vdragimg');
-					$vdragimg->set('documentId', $id);
-					$vdragimg->set('cateId', $cateId);
-					$vdragimg->set('gameCode', $type);
+					$vdragimg = pzk_element()->getVdragimg();
+					$vdragimg->setDocumentId( $id);
+					$vdragimg->setCateId( $cateId);
+					$vdragimg->setGameCode( $type);
 					$vdragimg->display();
 				}
 			}else{
@@ -222,60 +222,60 @@ class PzkGameController extends PzkController {
 	}
 	public function pageVdragAction() {
 		$request = pzk_request();
-		$id = $request->get('id');
-		$type = $request->get('type');
-		$cateId = $request->get('cateId');
-		$page = $request->get('page');
+		$id = $request->getId();
+		$type = $request->getType();
+		$cateId = $request->getCateId();
+		$page = $request->getPage();
 		if($id && $type && $page) {
 			$this->parse('game/vocabulary/vdrag');
-				$vdrag = pzk_element('vdrag');
-				$vdrag->set('documentId', $id);
-				$vdrag->set('gameCode', $type);
-				$vdrag->set('cateId', $cateId);
-				$vdrag->set('pageGame', $page);
+				$vdrag = pzk_element()->getVdrag();
+				$vdrag->setDocumentId( $id);
+				$vdrag->setGameCode( $type);
+				$vdrag->setCateId( $cateId);
+				$vdrag->setPageGame( $page);
 				$vdrag->display();
 		}
 	}
 	public function pageVdragimgAction() {
 		$request = pzk_request();
-		$id = $request->get('id');
-		$type = $request->get('type');
-		$page = $request->get('page');
-		$cateId = $request->get('cateId');
+		$id = $request->getId();
+		$type = $request->getType();
+		$page = $request->getPage();
+		$cateId = $request->getCateId();
 		if($id && $type && $page) {
 			$this->parse('game/vocabulary/vdragimg');
-				$vdragimg = pzk_element('vdragimg');
-				$vdragimg->set('documentId', $id);
-				$vdragimg->set('gameCode', $type);
-				$vdragimg->set('cateId', $cateId);
-				$vdragimg->set('pageGame', $page);
+				$vdragimg = pzk_element()->getVdragimg();
+				$vdragimg->setDocumentId( $id);
+				$vdragimg->setGameCode( $type);
+				$vdragimg->setCateId( $cateId);
+				$vdragimg->setPageGame( $page);
 				$vdragimg->display();
 		}
 	}
 	public function pageVmtAction() {
 		$request = pzk_request();
-		$id = $request->get('id');
-		$type = $request->get('type');
-		$page = $request->get('page');
-		$cateId = $request->get('cateId');
+		$id = $request->getId();
+		$type = $request->getType();
+		$page = $request->getPage();
+		$cateId = $request->getCateId();
 		if($id && $type && $page) {
 			$this->parse('game/vocabulary/vmt');
-				$vmt = pzk_element('vmt');
-				$vmt->set('documentId', $id);
-				$vmt->set('gameCode', $type);
-				$vmt->set('cateId', $cateId);
-				$vmt->set('pageGame', $page);
+				$vmt = pzk_element()->getVmt();
+				$vmt->setDocumentId( $id);
+				$vmt->setGameCode( $type);
+				$vmt->setCateId( $cateId);
+				$vmt->setPageGame( $page);
 				$vmt->display();
 		}
 	}
 	public function saveGameVocabunaryAction(){
 		$request = pzk_request();
-		$gameCode = $request->get('gameCode');
-		$trueWords = $request->get('trueWords');
-		$score = $request->get('score');
-		$totalWord = $request->get('totalWord');
-		$userId = pzk_session()->get('userId');
-		$cateId= $request->get('cateId');
+		$gameCode = $request->getGameCode();
+		$trueWords = $request->getTrueWords();
+		$score = $request->getScore();
+		$totalWord = $request->getTotalWord();
+		$userId = pzk_session()->getUserId();
+		$cateId= $request->getCateId();
 		
 		if($gameCode == 'vdt'){
 			if(count($trueWords)> 0){
@@ -344,8 +344,8 @@ class PzkGameController extends PzkController {
 			'gamecode' => $gameCode,
 			'score' => $score,
 			'userId' => $userId,
-			'software' => pzk_request('software'),
-			'documentId' =>  pzk_request()->get('documentId'),
+			'software' => pzk_request()->getSoftware(),
+			'documentId' =>  pzk_request()->getDocumentId(),
 			'trueWords' =>  $trueWords,
 			'totalWord' => $totalWord,
 			'categoryId' => $cateId,

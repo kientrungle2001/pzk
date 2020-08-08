@@ -49,7 +49,7 @@ class PzkContestController extends PzkController{
 		pzk_page()->set('brief', $catEntity->get('name'));
     	if(isset($check) && $check == 1) {
 			$this->append('thitai/test');
-    		$test = pzk_element('test');
+    		$test = pzk_element()->getTest();
 			$test->set('class', $class);
 			$test->set('type', $type);
     		if($testId !== 0){
@@ -103,7 +103,7 @@ class PzkContestController extends PzkController{
 		    	}else{		    		
 		    		$result_search = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 		    	}    	
-		    	$data_showQuestion	= pzk_element('showTest');		    	
+		    	$data_showQuestion	= pzk_element()->getShowTest();		    	
 		    	$data_showQuestion->set('data_showQuestion', $result_search);		    	
 		    	$data_showQuestion->set('data_criteria', $test_detail);		    	 
 		    	$this->display();
@@ -398,7 +398,7 @@ class PzkContestController extends PzkController{
 		pzk_page()->set('brief', $newsEntity->get('brief'));
 		
 		$news = $this->parse('cms/news/chitiet');
-		$detail = pzk_element('detail');
+		$detail = pzk_element()->getDetail();
 		
 		if($detail) {
 			$detail->set('itemId', $newsId);

@@ -65,7 +65,7 @@
      <br> 
      <p>Bạn hãy điền địa chỉ email của bạn vào ô bên dưới, một mật khẩu mới sẽ được gửi đến mail của bạn, sau khi xác nhận mật khẩu mới thành công bạn có thể đăng nhập vào bình thường.</p>
       <label for="email">Email:</label>
-      <input type="text" name="email" id="email" value="<?php echo $request->get('email') ;  ?>">
+      <input type="text" name="email" id="email" value="<?php echo $request->getEmail() ;  ?>">
       
       <br>
 

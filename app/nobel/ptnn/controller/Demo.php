@@ -40,7 +40,7 @@ class PzkDemoController extends PzkController {
 		
 		$entity = _db()->getEntity('user');
 		$entity->loadWhere(array('username', $username));
-		$entity->set('name', 'Kieu Nghia');
+		$entity->setName( 'Kieu Nghia');
 		$entity->save();
 	}
 	
@@ -155,13 +155,13 @@ class PzkDemoController extends PzkController {
 	public function registerPostAction(){
 		echo "register";
 		$request= pzk_request();
-		$name= $request->get('name');
-		$username=$request->get('username');
-		$testUser= _db()->useCB()->select('user.*')->from('user')->where(array('equal','username',$request->get('username')))->result();
+		$name= $request->getName();
+		$username=$request->getUsername();
+		$testUser= _db()->useCB()->select('user.*')->from('user')->where(array('equal','username',$request->getUsername()))->result();
 		if($testUser){
 			echo 'user đã tồn tại trên hệ thống';
 		}else{
-		$password=$request->get('password');
+		$password=$request->getPassword();
 		$row = array('name' =>$name,'username'=>$username,'password'=>md5($password) );
 		$items= _db()->insert('user')->fields('name,username,password')->values(array($row))->result();
 	}
@@ -171,13 +171,13 @@ class PzkDemoController extends PzkController {
 	public function loginpostAction(){
 		echo "hello";
 		$request = pzk_request();
-		//echo $request->get('login');
-		$items = _db()->useCB()->select('user.*')->from('user')->where(array('and', array('equal', 'username', $request->get('login')), array('equal','password',$request->get('password')) ))->result_one();
+		//echo $request->getLogin();
+		$items = _db()->useCB()->select('user.*')->from('user')->where(array('and', array('equal', 'username', $request->getLogin()), array('equal','password',$request->getPassword()) ))->result_one();
 		if($items){
 			//echo 'dang nhap thanh cong';
 			//echo $items['id'];
 			pzk_session('login', true);
-			pzk_session('username', $request->get('login'));
+			pzk_session('username', $request->getLogin());
 			pzk_session('userId',$items['id']);
 			header('location:/demo/index');
 
@@ -198,7 +198,7 @@ class PzkDemoController extends PzkController {
 		// cach 1: su dung php $_SESSION
 		// cach 2: su dung database
 		// cach 3: su dung file
-		session_set('abc', '123', 'SessionVar');
+		session_->setAbc( '123', 'SessionVar');
 		$abc = session_get('abc', 'SessionVar');
 		
 	}
@@ -331,7 +331,7 @@ class PzkDemoController extends PzkController {
 		
 		//$rssItem = _db()->getTableEntity('rss_feed')->loadWhere(array('posted', 0));
 		
-		//if(!$rssItem->get('id')) return false;
+		//if(!$rssItem->getId()) return false;
 		$linkData = [
 		  'link' => 'http://nextnobels.com/Chuong-trinh-hoc-he-mon-TIENG-ANH-nam-hoc-2015-2016',
 		  'message' => 'Tiếng Anh và Ẩm thực - Chủ đề này nằm trong hệ thống chương trình học Tiếng Anh trải nghiệm thực tế của Trung tâm phát triển Ngôn ngữ - Công ty CP Giáo dục Phát triển Trí tuệ & Sáng tạo Next Nobels.',

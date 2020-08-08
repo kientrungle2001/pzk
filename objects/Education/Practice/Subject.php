@@ -2,13 +2,13 @@
 class PzkEducationPracticeSubject extends PzkObject {
 	public $layout = 'education/practice/subject';
 	public function getCategory(){
-		$categoryId = $this->get('categoryId');
+		$categoryId = $this->getCategoryId();
 		$category 	= _db()->selectAll()->fromCategories()->whereId($categoryId)->result_one();
 		return $category;
 	}
 	
 	public function getTopicTree() {
-		$categoryId = $this->get('categoryId');
+		$categoryId = $this->getCategoryId();
 		$items = array();
 		
 		$class 		= 3;
@@ -20,7 +20,7 @@ class PzkEducationPracticeSubject extends PzkObject {
 
 		foreach($items3 as $item) {
 			if($item['hidden']) continue;
-			if(($item['displayAtSite'] != 0) && ($item['displayAtSite'] != pzk_request('siteId')))
+			if(($item['displayAtSite'] != 0) && ($item['displayAtSite'] != pzk_request()->getSiteId()))
 				continue;
 			$items[] = $item;
 		}
@@ -34,7 +34,7 @@ class PzkEducationPracticeSubject extends PzkObject {
 		
 		foreach($items4 as $item) {
 			if($item['hidden']) continue;
-			if(($item['displayAtSite'] != 0) && ($item['displayAtSite'] != pzk_request('siteId')))
+			if(($item['displayAtSite'] != 0) && ($item['displayAtSite'] != pzk_request()->getSiteId()))
 				continue;
 			$items[] = $item;
 		}		
@@ -48,7 +48,7 @@ class PzkEducationPracticeSubject extends PzkObject {
 
 		foreach($items5 as $item) {
 			if($item['hidden']) continue;
-			if(($item['displayAtSite'] != 0) && ($item['displayAtSite'] != pzk_request('siteId')))
+			if(($item['displayAtSite'] != 0) && ($item['displayAtSite'] != pzk_request()->getSiteId()))
 				continue;
 			$items[] = $item;
 		}

@@ -246,7 +246,7 @@ class PzkAdminCardNexnobelsController extends PzkGridAdminController {
     );
     public function editPostAction() {
         $row = $this->getEditData();
-        //$pincard=trim(pzk_request('pincard'));
+        //$pincard=trim(pzk_request()->getPincard());
         if($this->validateEditData($row)) {       
             $row['modifiedId']=pzk_session('userId');
             $row['modified']=date("Y-m-d H:i:s");
@@ -256,13 +256,13 @@ class PzkAdminCardNexnobelsController extends PzkGridAdminController {
         
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
     public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-            $pincard = trim(pzk_request('pincard'));
+            $pincard = trim(pzk_request()->getPincard());
             if($pincard) {
                 $row['pincard'] = md5($pincard);
                 $row['creatorId']=pzk_session('userId');

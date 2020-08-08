@@ -190,7 +190,7 @@ class PzkAdminServiceContestController extends PzkGridAdminController {
     public function editPostAction() {
         $row = $this->getEditData();
         if($this->validateEditData($row)) {
-        	if(pzk_request('softwareId')){
+        	if(pzk_request()->getSoftwareId()){
 	            $row['modified'] = date("Y-m-d h:i:s");
 	            
 	            $this->edit($row);
@@ -200,16 +200,16 @@ class PzkAdminServiceContestController extends PzkGridAdminController {
            
         } else {
             pzk_validator()->setEdittingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
     public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-        	if(pzk_request('softwareId')){
+        	if(pzk_request()->getSoftwareId()){
         		$row['created'] = date("Y-m-d h:i:s");
             	$row['status'] =1;
-            	$row['software']= pzk_request('softwareId');
+            	$row['software']= pzk_request()->getSoftwareId();
                 $this->add($row);
                 pzk_notifier()->addMessage('Cập nhật thành công');
            		$this->redirect('index');

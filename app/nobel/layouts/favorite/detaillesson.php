@@ -7,14 +7,14 @@
         <div class="lesson_favorite_list">
             <div class="list_lesson_favorite">
 
-                <h4>Bài <?php echo pzk_request('lesson'); ?></h4>
+                <h4>Bài <?php echo pzk_request()->getLesson(); ?></h4>
 
             </div>
             <div id="add_more_history"></div>
             <div id="show_empty_history" class="show_empty"></div>
             <?php
-            $member=pzk_request('member');
-            $lessonId = pzk_request('lesson');
+            $member=pzk_request()->getMember();
+            $lessonId = pzk_request()->getLesson();
             $listlessions = $data->detailLesson($lessonId);
             ?>
             <div class="list_lesson_row">

@@ -15,7 +15,7 @@ class PzkTestController extends PzkFrontendController
 	}
 	public function testAction()
 	{
-		$id = pzk_request('id');
+		$id = pzk_request()->getId();
 		$key_test= uniqid();
 		pzk_session('keyTest',$key_test);
 		$this->initPage();	
@@ -26,7 +26,7 @@ class PzkTestController extends PzkFrontendController
 	}
 	public function lessonAction()
 	{
-		$id = pzk_request('id');
+		$id = pzk_request()->getId();
 		$this->initPage();	
 		$test = $this->parse('test/lesson');
 		$test->setTestId($id);
@@ -42,7 +42,7 @@ class PzkTestController extends PzkFrontendController
 	public function checkSave($key){
 		$check= _db()->getTableEntity('user_test_answer');
 		$check->loadWhere(array('key', $key));
-		if($check->get('id')){
+		if($check->getId()){
 			return false;
 		}else return true;
 	}
@@ -54,8 +54,8 @@ class PzkTestController extends PzkFrontendController
 	}
 	public function saveTestAction(){
 		$request = pzk_request();
-		$data_answers=$request->get('answers');
-		$key_test= $request->get('key');
+		$data_answers=$request->getAnswers();
+		$key_test= $request->getKey();
 		if($key_test==pzk_session('keyTest')){
 			if($this->checkSave($key_test)){
 				$question_id=$data_answers['question_id'];
@@ -69,7 +69,7 @@ class PzkTestController extends PzkFrontendController
 				$row= array('userId'=>$userId,'categoryId'=>$category_id,'time'=>$time,'quantity'=>$quantity_question,'date'=>$date,'key'=>$key_test);
 				$answerTest->setData($row);
 				$answerTest->save();
-				$answerTestId=$answerTest->get('id');
+				$answerTestId=$answerTest->getId();
 				$frontendmodel = pzk_model('Frontend');
 				$answerDetail= _db()->getEntity('test.answerDetail');
 				$answerDetailText= _db()->getEntity('test.answerDetailText');
@@ -152,7 +152,7 @@ class PzkTestController extends PzkFrontendController
 
 	}
 	public function sendTestMarkAction(){
-		$user_test_id=pzk_request()->get('user_test_id');
+		$user_test_id=pzk_request()->getUser_test_id();
 		$user_test_id = decrypt(base64_decode($user_test_id),SECRETKEY);
 		$answerTest= _db()->getEntity('test.answer');
 		$answerTest->loadWhere(array('id',$user_test_id));
@@ -161,7 +161,7 @@ class PzkTestController extends PzkFrontendController
 	}
 	public function showAnswerTestAction(){
     $request = pzk_request();
-    $data_answers=$request->get('answers');
+    $data_answers=$request->getAnswers();
 	$tam=$data_answers['question_id'];
     
     $frontendmodel = pzk_model('Frontend');

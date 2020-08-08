@@ -75,7 +75,7 @@ font-size: 12px;
       <textarea id="viewall_post_wall" style="border:1px solid #cecece; min-height:110px;width:100%;" placeholder="Nhập nội dung... (Nội dung ít nhất 10 kí tự)" rel="false"></textarea>
       <input type="button" id="btt_viewall_write_wall" name="send" value="Gửi">
       <?php 
-        $member=pzk_request('member');
+        $member=pzk_request()->getMember();
         $loadUserName=$data->loadUserName($member);
         $username=$loadUserName['username'];
        ?>
@@ -86,7 +86,7 @@ font-size: 12px;
     
     <div id="viewall_write_wall" class="prf_note" style="margin-bottom: 50px;">
       <?php 
-          $member=pzk_request('member');
+          $member=pzk_request()->getMember();
           $write_walls=$data->viewWriteWall($member);
 
       ?>
@@ -158,7 +158,7 @@ font-size: 12px;
      $('#btt_viewall_write_wall').click(function()
         {
           <?php $request = pzk_request();  ?>
-          var member= '<?php echo $request->get('member'); ?>';
+          var member= '<?php echo $request->getMember(); ?>';
           var write_wall= $('#viewall_post_wall').val();
           var avatar1='<?php echo pzk_session('avatar'); ?>';
           var userwritewall= '<?php echo pzk_session('username'); ?>';

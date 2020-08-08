@@ -184,7 +184,7 @@ class PzkAdminServicePackagesController extends PzkGridAdminController {
 		$this->render('admin/service_packages/import');
 	}
 	public function importCardPostAction($id) {
-		$content 			= pzk_request('content');
+		$content 			= pzk_request()->getContent();
 		$lines 				= preg_split('/[\r\n]+/', $content);
 		foreach($lines as $line) {
 			$line 			= trim($line);

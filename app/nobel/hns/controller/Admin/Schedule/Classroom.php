@@ -9,7 +9,7 @@ class PzkAdminScheduleClassroomController extends PzkBackendController {
 	public function teachersAction($classroomId) {
 		$this->initPage();
 		$teachers = $this->parse('admin/schedule/classroom/teachers');
-		$teachers->set('classroomId', $classroomId);
+		$teachers->setClassroomId( $classroomId);
 		$this->append($teachers);
 		$this->display();
 	}

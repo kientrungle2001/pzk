@@ -1,7 +1,7 @@
   <?php 
-    $member=pzk_request('member');
+    $member=pzk_request()->getMember();
 
-    $lesson_favorite_id=pzk_request('lesson_favoriteId_member');
+    $lesson_favorite_id=pzk_request()->getLesson_favoriteId_member();
     
     $listlessions=$data->viewListLesson($member,$lesson_favorite_id);
 

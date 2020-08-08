@@ -126,7 +126,7 @@
 	?>
 	<script>
 	$('#questionsEditForm').validate({editValidator});
-    <?php if(pzk_request('softwareId') == 1) { ?>
+    <?php if(pzk_request()->getSoftwareId() == 1) { ?>
         setTinymce(2);
     <?php } else { ?>
         setTinymce();

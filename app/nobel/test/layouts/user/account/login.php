@@ -15,7 +15,7 @@
     
       <?php 
       
-       echo @$data->get('error');
+       echo @$data->getError();
        $request = pzk_request();
        ?>
      <br> 

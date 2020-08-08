@@ -89,7 +89,7 @@ class PzkUserProfileTeacher extends PzkObject
 		$listTest->likeClasses("%,$class,%");
 		$listTest->whereStatus(1);
 		$listTest->wherePractice($practice);
-		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         
         $listTest->orderBy('ordering asc');
         return $listTest->result();

@@ -36,7 +36,7 @@ class PzkNgonnguController extends PzkController{
     	 
     	$this->append('question/ngonngu', 'left');
     	 
-    	$ngonngu = pzk_element('ngonngu');
+    	$ngonngu = pzk_element()->getNgonngu();
     	 
     	$keybook	= uniqid();
     
@@ -99,7 +99,7 @@ class PzkNgonnguController extends PzkController{
 	    	
 	    	$result_search = $data_question_model->search_criteria($data_criteria);
 	    	
-	    	$data_showQuestion	= pzk_element('showQuestion');
+	    	$data_showQuestion	= pzk_element()->getShowQuestion();
 	    	
 	    	$data_showQuestion->set('data_showQuestion', $result_search);
 	    	

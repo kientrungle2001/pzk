@@ -97,7 +97,7 @@
 						    			<div class="col-xs-2" style="padding-left: 0px; padding-right: 0px; margin-right: 25px;">
 								    		<select id="add_day" class="form-control" title="Ngày" name="birthday_day" aria-label="Ngày" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
 												<?php 
-                          $birthday= $data->get('birthday'); 
+                          $birthday= $data->getBirthday(); 
                           if($birthday !='0000-00-00'){
                             $arr= explode("/",$birthday);
 

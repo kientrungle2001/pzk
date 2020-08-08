@@ -186,7 +186,7 @@ class PzkCoreValidator extends PzkObjectLightWeight {
  * @return PzkCoreValidator
  */
 function pzk_validator() {
-	return pzk_element('validator');
+	return pzk_element()->getValidator();
 }
 /**
  * Validate dữ liệu

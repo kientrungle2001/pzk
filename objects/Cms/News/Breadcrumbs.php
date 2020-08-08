@@ -10,7 +10,7 @@ class PzkCmsNewsBreadcrumbs extends PzkCoreDbDetail {
 	public function getCategories() {
 		$item = $this->getItem();
 		$category = _db()->getEntity('Cms.Category')->load($item['categoryId']);
-		if($category->get('parents')) {
+		if($category->getParents()) {
 			return $category->getParentCategories();
 		} else {
 			return array();

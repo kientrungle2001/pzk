@@ -327,7 +327,7 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 	 * @return string điều kiện sql
 	 */
 	public function buildCondition($conds) {
-		$builder = pzk_element('conditionBuilder');
+		$builder = pzk_element()->getConditionBuilder();
 		if($builder) {
 			return $this->prefixify($builder->build($conds));
 		}
@@ -588,7 +588,7 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 		$table = $this->getTable();
 		$tablefields = $this->getTableFields();
 		if(in_array('software', $tablefields)) {
-			$softwareId = pzk_request('softwareId');
+			$softwareId = pzk_request()->getSoftwareId();
 			
 			$softwareConds = "`$table`.`software`=$softwareId";
 			if(in_array('global', $tablefields)) {
@@ -601,7 +601,7 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 			}
 			
 			if(in_array('site', $tablefields)) {
-				$siteId = pzk_request('siteId');
+				$siteId = pzk_request()->getSiteId();
 				if($siteId) {
 					$softwareConds = "($softwareConds) and (`$table`.`site`=$siteId or `$table`.`site`=0)";
 				} else {
@@ -663,8 +663,8 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 			$columns = $this->getTableFields();
 			$this->options['fields'] = implode(',', $this->getTableFields());
 		}
-		$softwareId = 	pzk_request('softwareId');
-		$siteId		= 	pzk_request('siteId');
+		$softwareId = 	pzk_request()->getSoftwareId();
+		$siteId		= 	pzk_request()->getSiteId();
 		$refId		=	pzk_session('refId');
 		foreach ($this->options['values'] as $value) {
 			$value['software'] 	= $softwareId;
@@ -709,7 +709,7 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 	public function getUpdateQuery() {
 		$columns = $this->getTableFields();
 		$vals = array();
-		$this->options['values']['software'] = pzk_request('softwareId');
+		$this->options['values']['software'] = pzk_request()->getSoftwareId();
 		foreach ($this->options['values'] as $key => $value) {
 
 			if (in_array($key, $columns)) {

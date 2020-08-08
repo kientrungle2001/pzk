@@ -36,7 +36,7 @@ class PzkUserProfileDetail extends PzkObject
 		}
 	}
 	public function  getTestByUserId($userId) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
         $data = _db()->useCB()->select('ub.id, ub.startTime, ub.userId, ub.mark, ub.duringTime, ub.testId, u.username, t.name')
             ->from('user_book ub')
             ->join('user u', 'ub.userId = u.id', 'left')
@@ -50,7 +50,7 @@ class PzkUserProfileDetail extends PzkObject
     }
 
     public function countTestByUserId($userId) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
         $row = _db()->useCB()->select('count(*) as c')
             ->from('user_book ub')
             ->from('user_book ub')

@@ -19,7 +19,7 @@ class PzkMenurightController extends  PzkController
 	{
 		$this->render(self::PAGE_VNSUPPORT);
 	}	
-	public function coursetAction() 
+	public function cour->setAction() 
 	{
 		$this->render(self::PAGE_COURSE);
 	}

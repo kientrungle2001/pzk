@@ -9,7 +9,7 @@
 		public $cacheParams	= 'layout';
 		
 		public function hash() {
-			$addInfo = (pzk_session()->get('userId') && (pzk_request('softwareId') ==1) && (pzk_session('email') =='' || pzk_session('phone') == ''));
+			$addInfo = (pzk_session()->getUserId() && (pzk_request()->getSoftwareId() ==1) && (pzk_session('email') =='' || pzk_session('phone') == ''));
 			return md5($addInfo . parent::hash());
 		}
 	}

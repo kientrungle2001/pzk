@@ -55,5 +55,5 @@ class PzkCoreLanguage extends PzkObject {
  * @return PzkCoreLanguage
  */
 function pzk_language() {
-	return pzk_element('language');
+	return pzk_element()->getLanguage();
 }

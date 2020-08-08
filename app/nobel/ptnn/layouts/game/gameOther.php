@@ -1,7 +1,7 @@
 <?php
 $post = pzk_request();
-$getGameType = $post->get('gameType');
-$getTopic = $post->get('gameTopic');
+$getGameType = $post->getGameType();
+$getTopic = $post->getGameTopic();
 $game = $data->getFrameGame($getGameType, "game");
 $linkgame = $game['linkgame'];
 if($linkgame) {

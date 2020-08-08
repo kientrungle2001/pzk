@@ -5,7 +5,7 @@ class PzkLectureController extends PzkController {
 	public function indexAction($mainMenuId, $menuId) {
 		$this->layout();
 		$this->append('lecture/index');
-		$lectureMenu = pzk_element('lectureMenu');
+		$lectureMenu = pzk_element()->getLectureMenu();
 		$lectureMenu->set('parentId', $mainMenuId);
 		$lectureMenu->set('menuId', $menuId);
 		$this->display();
@@ -14,7 +14,7 @@ class PzkLectureController extends PzkController {
 	public function luyentuvacauAction($mainMenuId, $menuId) {
 		$this->layout();
 		$this->append('lecture/index');
-		$lectureMenu = pzk_element('lectureMenu');
+		$lectureMenu = pzk_element()->getLectureMenu();
 		$lectureMenu->set('layout', 'lecture/luyentuvacau');
 		$lectureMenu->set('parentId', $mainMenuId);
 		$lectureMenu->set('menuId', $menuId);
@@ -23,7 +23,7 @@ class PzkLectureController extends PzkController {
 	public function daucauAction($mainMenuId, $menuId) {
 		$this->layout();
 		$this->append('lecture/index');
-		$lectureMenu = pzk_element('lectureMenu');
+		$lectureMenu = pzk_element()->getLectureMenu();
 		$lectureMenu->set('layout', 'lecture/daucau');
 		$lectureMenu->set('parentId', $mainMenuId);
 		$lectureMenu->set('menuId', $menuId);
@@ -33,7 +33,7 @@ class PzkLectureController extends PzkController {
 	public function chinhtaAction($mainMenuId, $menuId) {
 		$this->layout();
 		$this->append('lecture/index');
-		$lectureMenu = pzk_element('lectureMenu');
+		$lectureMenu = pzk_element()->getLectureMenu();
 		$lectureMenu->set('layout', 'lecture/chinhta');
 		$lectureMenu->set('parentId', $mainMenuId);
 		$lectureMenu->set('menuId', $menuId);
@@ -43,7 +43,7 @@ class PzkLectureController extends PzkController {
 	public function morongvontuAction($mainMenuId, $menuId) {
 		$this->layout();
 		$this->append('lecture/index');
-		$lectureMenu = pzk_element('lectureMenu');
+		$lectureMenu = pzk_element()->getLectureMenu();
 		$lectureMenu->set('layout', 'lecture/morongvontu');
 		$lectureMenu->set('parentId', $mainMenuId);
 		$lectureMenu->set('menuId', $menuId);
@@ -53,7 +53,7 @@ class PzkLectureController extends PzkController {
 	public function taplamvanAction($mainMenuId, $menuId) {
 		$this->layout();
 		$this->append('lecture/index');
-		$lectureMenu = pzk_element('lectureMenu');
+		$lectureMenu = pzk_element()->getLectureMenu();
 		$lectureMenu->set('layout', 'lecture/taplamvan');
 		$lectureMenu->set('parentId', $mainMenuId);
 		$lectureMenu->set('menuId', $menuId);
@@ -63,7 +63,7 @@ class PzkLectureController extends PzkController {
 	public function tapdochieuAction($mainMenuId, $menuId) {
 		$this->layout();
 		$this->append('lecture/index');
-		$lectureMenu = pzk_element('lectureMenu');
+		$lectureMenu = pzk_element()->getLectureMenu();
 		$lectureMenu->set('layout', 'lecture/tapdochieu');
 		$lectureMenu->set('parentId', $mainMenuId);
 		$lectureMenu->set('menuId', $menuId);
@@ -73,7 +73,7 @@ class PzkLectureController extends PzkController {
 	public function dethitonghopAction($mainMenuId, $menuId) {
 		$this->layout();
 		$this->append('lecture/index');
-		$lectureMenu = pzk_element('lectureMenu');
+		$lectureMenu = pzk_element()->getLectureMenu();
 		$lectureMenu->set('layout', 'lecture/dethitonghop2');
 		$lectureMenu->set('parentId', $mainMenuId);
 		$lectureMenu->set('menuId', $menuId);
@@ -83,7 +83,7 @@ class PzkLectureController extends PzkController {
 	public function detailAction($mainMenuId, $menuId, $lectureId) {
 		$this->layout();
 		$this->append('lecture/detail');
-		$detail = pzk_element('detail');
+		$detail = pzk_element()->getDetail();
 		if($detail) {
 			$detail->set('mainMenuId', $mainMenuId);
 			$detail->set('menuId', $menuId);
@@ -217,7 +217,7 @@ class PzkLectureController extends PzkController {
 	public function testAction($mainMenuId, $menuId, $catId, $testId) {
 		$this->layout();
 		$this->append('lecture/test');
-		$test = pzk_element('test');
+		$test = pzk_element()->getTest();
 		if($test) {
 			$test->set('mainMenuId', $mainMenuId);
 			$test->set('menuId',$menuId);

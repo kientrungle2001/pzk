@@ -1,4 +1,4 @@
-<?php pzk_store_instance("nobel/test")->set('config', array (
+<?php pzk_store_instance("nobel/test")->setConfig( array (
   'db_host' => '192.168.1.12',
   'db_user' => 'root',
   'db_password' => '',

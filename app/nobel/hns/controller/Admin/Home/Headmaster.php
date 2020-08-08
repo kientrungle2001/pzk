@@ -16,7 +16,7 @@ class PzkAdminHomeHeadmasterController extends PzkBackendController {
 		$this->display();
 	}
 	public function getSubjectAction(){
-		$grade = pzk_request('grade');
+		$grade = pzk_request()->getGrade();
 		$subjects = _db()->select('*')->from('categories')->whereType('subject')->likeClasses('%,'.$grade. ',%')->result();
 		$html = '';
 		if($subjects){
@@ -34,9 +34,9 @@ class PzkAdminHomeHeadmasterController extends PzkBackendController {
 		$this->initPage();
 			$frame 	= 	$this->parse('admin/home/headmaster/student');
 			$students = $this->parse('admin/home/headmaster/listStudent');
-			$students->set('schoolYear', pzk_request('schoolYear'));
-			$students->set('class', pzk_request('class'));
-			$students->set('className', pzk_request('className'));
+			$students->setSchoolYear( pzk_request()->getSchoolYear());
+			$students->setClass( pzk_request()->getClass());
+			$students->setClassName( pzk_request()->getClassName());
 			$frame->append($students);
 			$this->append($frame);
 		$this->display();
@@ -45,11 +45,11 @@ class PzkAdminHomeHeadmasterController extends PzkBackendController {
 		$this->initPage();
 			$frame 	= 	$this->parse('admin/home/headmaster/student');
 			$listresults = $this->parse('admin/home/headmaster/listresult');
-			$listresults->set('schoolYear', pzk_request('schoolYear'));
-			$listresults->set('week', pzk_request('week'));
-			$listresults->set('grade', pzk_request('grade'));
-			$listresults->set('nameOfClass', pzk_request('nameOfClass'));
-			$listresults->set('subject', pzk_request('subject'));
+			$listresults->setSchoolYear( pzk_request()->getSchoolYear());
+			$listresults->setWeek( pzk_request()->getWeek());
+			$listresults->setGrade( pzk_request()->getGrade());
+			$listresults->setNameOfClass( pzk_request()->getNameOfClass());
+			$listresults->setSubject( pzk_request()->getSubject());
 
 			$frame->append($listresults);
 			$this->append($frame);
@@ -60,9 +60,9 @@ class PzkAdminHomeHeadmasterController extends PzkBackendController {
 			$frame 	= 	$this->parse('admin/home/headmaster/student');
 			$listcompletes = $this->parse('admin/home/headmaster/listcomplete');
 			
-			$listcompletes->set('schoolYear', pzk_request('schoolYear'));
-			$listcompletes->set('grade', pzk_request('grade'));
-			$listcompletes->set('nameOfClass', pzk_request('nameOfClass'));
+			$listcompletes->setSchoolYear( pzk_request()->getSchoolYear());
+			$listcompletes->setGrade( pzk_request()->getGrade());
+			$listcompletes->setNameOfClass( pzk_request()->getNameOfClass());
 		
 			
 			$frame->append($listcompletes);
@@ -73,9 +73,9 @@ class PzkAdminHomeHeadmasterController extends PzkBackendController {
 		$this->initPage();
 			$workcomplete 	= 	$this->parse('admin/home/headmaster/workcomplete');
 			
-			$workcomplete->set('schoolYear', pzk_request('schoolYear'));
-			$workcomplete->set('grade', pzk_request('grade'));
-			$workcomplete->set('nameOfClass', pzk_request('nameOfClass'));
+			$workcomplete->setSchoolYear( pzk_request()->getSchoolYear());
+			$workcomplete->setGrade( pzk_request()->getGrade());
+			$workcomplete->setNameOfClass( pzk_request()->getNameOfClass());
 			
 			$this->append($workcomplete);
 		$this->display();
@@ -83,17 +83,17 @@ class PzkAdminHomeHeadmasterController extends PzkBackendController {
 	public function listTeacherAction(){
 		$this->initPage();
 			$frame 	= 	$this->parse('admin/home/headmaster/contentteacher');
-			$frame->set('schoolYear', pzk_request('schoolYear'));
-			$frame->set('class', pzk_request('class'));
-			$frame->set('nameOfClass', pzk_request('className'));
-			$frame->set('subject', pzk_request('subject'));
+			$frame->setSchoolYear( pzk_request()->getSchoolYear());
+			$frame->setClass( pzk_request()->getClass());
+			$frame->setNameOfClass( pzk_request()->getClassName());
+			$frame->setSubject( pzk_request()->getSubject());
 			
 			
 			$listteachers = $this->parse('admin/home/headmaster/listteacher');
-			$listteachers->set('schoolYear', pzk_request('schoolYear'));
-			$listteachers->set('class', pzk_request('class'));
-			$listteachers->set('nameOfClass', pzk_request('className'));
-			$listteachers->set('subject', pzk_request('subject'));
+			$listteachers->setSchoolYear( pzk_request()->getSchoolYear());
+			$listteachers->setClass( pzk_request()->getClass());
+			$listteachers->setNameOfClass( pzk_request()->getClassName());
+			$listteachers->setSubject( pzk_request()->getSubject());
 			$frame->append($listteachers);
 			$this->append($frame);
 		$this->display();

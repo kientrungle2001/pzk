@@ -1,5 +1,5 @@
  <?php 
- $gametype = $data->get('typeGame');
+ $gametype = $data->getTypeGame();
  
  if($gametype == 'muatu') {
 $gameTopic = $data->getGameTopic();

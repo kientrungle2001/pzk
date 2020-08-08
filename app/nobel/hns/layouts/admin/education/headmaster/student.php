@@ -25,9 +25,9 @@
 				  <div class="panel-body">
 						<div class="list-group">
 						  
-						  <a href="/Admin_Home_Headmaster/study" class="list-group-item <?php if(pzk_request()->get('action') == 'study'){ echo 'active';} ?>">Kết quả học tập</a>
-						  <a href="/Admin_Home_Headmaster/complete" class="list-group-item <?php if(pzk_request()->get('action') == 'complete'){ echo 'active';} ?>">Mức độ hoàn thành</a>
-						  <a href="/Admin_Home_Headmaster/listStudent" class="list-group-item <?php if(pzk_request()->get('action') == 'listStudent'){ echo 'active';} ?>">Danh sách học sinh</a>
+						  <a href="/Admin_Home_Headmaster/study" class="list-group-item <?php if(pzk_request()->getAction() == 'study'){ echo 'active';} ?>">Kết quả học tập</a>
+						  <a href="/Admin_Home_Headmaster/complete" class="list-group-item <?php if(pzk_request()->getAction() == 'complete'){ echo 'active';} ?>">Mức độ hoàn thành</a>
+						  <a href="/Admin_Home_Headmaster/listStudent" class="list-group-item <?php if(pzk_request()->getAction() == 'listStudent'){ echo 'active';} ?>">Danh sách học sinh</a>
 					
 						</div>
 				  </div>

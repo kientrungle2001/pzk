@@ -1,5 +1,5 @@
 <div id="content_home">
-    <?php if(pzk_request('softwareId') == 4) :?>
+    <?php if(pzk_request()->getSoftwareId() == 4) :?>
 		<div class="row">
 			<div class="col-xs-12">
 			
@@ -71,7 +71,7 @@
 					<div class="newshot">
 					<?php 
 						$newshot  = pzk_obj('cms.news.index');
-						$pageNews = pzk_request('pageNews');
+						$pageNews = pzk_request()->getPageNews();
 						
 						$dataNews = $newshot->getHotNews(5, $pageNews);
 					?>
@@ -128,7 +128,7 @@
 					$categoryId  = 36;
 					$category36 = $newshot->getCategory($categoryId);
 					
-					//$pageNews = pzk_request('pageNews');
+					//$pageNews = pzk_request()->getPageNews();
 					
 					$pageNews36 = 0;
 					$data36 = $newshot->getHotNews(3, $pageNews36, $categoryId);
@@ -159,7 +159,7 @@
 					$categoryId  = 37;
 					$category37 = $newshot->getCategory($categoryId);
 					
-					//$pageNews = pzk_request('pageNews');
+					//$pageNews = pzk_request()->getPageNews();
 					
 					$pageNews37 = 0;
 					$data37 = $newshot->getHotNews(3, $pageNews37, $categoryId);
@@ -189,7 +189,7 @@
 				<?php 
 					$category38 = $newshot->getCategory(38);
 					
-					//$pageNews = pzk_request('pageNews');
+					//$pageNews = pzk_request()->getPageNews();
 					
 					$pageNews38 = 0;
 					$data38 = $newshot->getHotNews(3, $pageNews38, 38);

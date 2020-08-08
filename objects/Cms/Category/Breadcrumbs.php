@@ -7,8 +7,8 @@ class PzkCmsCategoryBreadcrumbs extends PzkCoreDbDetail {
 	public $delimiter = '&gt;';
 	public $table = 'categories';
 	public function getCategories() {
-		$category = _db()->getEntity('Cms.Category')->load($this->get('itemId'));
-		if($category->get('parents')) {
+		$category = _db()->getEntity('Cms.Category')->load($this->getItemId());
+		if($category->getParents()) {
 			return $category->getParentCategories();
 		} else {
 			return array();

@@ -1,7 +1,7 @@
 <?php
 $testId = $data->parentId;
 $data->setConditions(array('and', $data->getConditions(), array('notlike', 'testId', "%,$testId,%") ));
-$keyword = pzk_request('namequestion');
+$keyword = pzk_request()->getNamequestion();
 $sttt = 1;
 $pageSize = 30;
 if($pageSize) {

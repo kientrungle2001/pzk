@@ -5,7 +5,7 @@ class PzkAdminEducationScheduleLecture extends PzkObject {
 	private $_classroom = false;
 	public function getClassroom() {
 		if($this->_classroom) return $this->_classroom;
-		return $this->_classroom = _db()->select('*')->from('education_classroom')->where(array('id', $this->get('classroomId')))->result_one();
+		return $this->_classroom = _db()->select('*')->from('education_classroom')->where(array('id', $this->getClassroomId()))->result_one();
 	}
 	
 	public function getSubjects() {

@@ -1,6 +1,6 @@
 <?php 
-    $id= pzk_request('id');
-    $commentId=pzk_request('commentId');
+    $id= pzk_request()->getId();
+    $commentId=pzk_request()->getCommentId();
     $comment_notes=$data->loadCommentNote($id,$commentId);
     $comment_notes= array_reverse($comment_notes);
     $count_arr= count($comment_notes); 

@@ -16,7 +16,7 @@
 		}
 		
 		public function hash() {
-			return md5(parent::hash(). '_' . pzk_session()->get('username'));
+			return md5(parent::hash(). '_' . pzk_session()->getUsername());
 		}
 	}
  ?>

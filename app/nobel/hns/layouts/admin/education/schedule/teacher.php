@@ -1,7 +1,7 @@
 <?php
 $classroomIds = array();
 $teacherClassroomIds = _db()->select('classroomId')->from('education_classroom_teacher')->whereTeacherId(pzk_session('adminId'))->result();
-$classroomId = $data->get('classroomId');
+$classroomId = $data->getClassroomId();
 $activeClassroom = null;
 if($classroomId) {
 	$activeClassroom = _db()->select('*')->from('education_classroom')->whereId($classroomId)->result_one();

@@ -11,7 +11,7 @@ class PzkCmsStat extends PzkObject
 		$this->logVisitor();
 	}
 	public function logVisitor() {
-		$userId = pzk_session()->get('userId');
+		$userId = pzk_session()->getUserId();
 		if($userId == NULL){
 			
 			$userId = 0;
@@ -42,7 +42,7 @@ class PzkCmsStat extends PzkObject
 						  'm_time'		=>	$month,
 						  'd_time'		=>	$day,
 						  'userId'		=>	$userId,
-						  'username'	=>	pzk_session()->get('username'),
+						  'username'	=>	pzk_session()->getUsername(),
 						  'country'		=>	$country,
 						  'city'		=>	$city,
 						  'visited'		=>	$date);

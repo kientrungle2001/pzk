@@ -5,7 +5,7 @@ class PzkEducationPracticeHomework extends PzkCoreDbDetail {
 	
 	public function getQuestions() {
 		$questions 	=	_db()->selectAll()->from('questions')
-			->likeTestId('%,'.$this->get('itemId').',%')
+			->likeTestId('%,'.$this->getItemId().',%')
 			->whereStatus(1)
 			->whereDeleted(0)
 			->orderBy('ordering asc, id asc')

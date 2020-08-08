@@ -3,36 +3,36 @@
 
 	$id=pzk_request()->getSegment(3);
 	$order->loadWhere(array('id',$id));
-	$username=$order->get('username');
-	$userId=$order->getuserId();	
-	$name=$order->getname();
-	$phone=$order->getphone();
-	$address=$order->getaddress();
-	$serviceId=$order->getserviceId();
+	$username=$order->getUsername();
+	$userId=$order->getUserId();	
+	$name=$order->getName();
+	$phone=$order->getPhone();
+	$address=$order->getAddress();
+	$serviceId=$order->getServiceId();
 	$service= _db()->getEntity('service.service');
 	if($serviceId){
 		$service->loadWhere(array('id',$serviceId));
 		$serviceName= $service->getServiceName();
 	}else $serviceName='';
-	$quantity=$order->getquantity();
-	$amount=$order->getamount();
-	$paymentType=$order->getpaymentType();
-	$bank=$order->getbank();
-	$orderDate=$order->getorderDate();
-	$paymentStatus=$order->getpaymentStatus();
+	$quantity=$order->getQuantity();
+	$amount=$order->getAmount();
+	$paymentType=$order->getPaymentType();
+	$bank=$order->getBank();
+	$orderDate=$order->getOrderDate();
+	$paymentStatus=$order->getPaymentStatus();
 	if($paymentStatus==0){
 		$paymentStatus='Chưa thành công';
 	}else if ($paymentStatus==1){
 		$paymentStatus='Thành công';
 	}
-	$note=$order->getnote();
+	$note=$order->getNote();
 	if($note){
 		$service_= _db()->getEntity('service.service');
 		$service_->loadWhere(array('id',$note));
 		$note= $service_->getServiceName();
 	}
-	$activeUser=$order->getactiveUser();
-	$status=$order->getstatus();
+	$activeUser=$order->getActiveUser();
+	$status=$order->getStatus();
 	if($status==0){
 		$status='chờ xử lý';
 	}else if($status==1){

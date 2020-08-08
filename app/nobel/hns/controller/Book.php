@@ -233,7 +233,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 	}*/
 	public function changeLangAction() {
 		$this->getSession()->setLang(pzk_request()->getLang());
-		$this->redirect('admin_book/details/'.pzk_request()->get('id'));
+		$this->redirect('admin_book/details/'.pzk_request()->getId());
 	}
 	public function detailsAction() {
 		
@@ -243,7 +243,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 		
 		$this->append($user_book_view);
 		
-		$user_book_view	= pzk_element('user_book');
+		$user_book_view	= pzk_element()->getUser_book();
 		
 		$userBookModel 	= pzk_model('Userbook');
 		
@@ -255,7 +255,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 			
 			//$this->initPage()->append('admin/book/details');
 				
-			// $user_book_view	= pzk_element('user_book');
+			// $user_book_view	= pzk_element()->getUser_book();
 				
 			$adminQuestionModel 	= pzk_model('AdminQuestion');
 				
@@ -290,7 +290,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 				
 			$user_book_view->setDataUserAnswers($dataUserAnswers);
 		//}
-		if(pzk_request('isAjax')) {
+		if(pzk_request()->getIsAjax()) {
 			$user_book_view->display();
 		} else {
 			$this->display();
@@ -461,7 +461,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 							'duringTime' => $duringTime,
 							'choiceId' => $dataUserBookTn['id'],
 							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
+							'software' =>  pzk_request()->getSoftwareId(),
 							'modified' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
 							'modifiedId'	=> pzk_session('adminId')
 						);
@@ -479,7 +479,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 							'duringTime' => $duringTime,
 							'choiceId' => $dataUserBookTn['id'],
 							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
+							'software' =>  pzk_request()->getSoftwareId(),
 							'created' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
 							'modifiedId'	=> pzk_session('adminId')
 						);
@@ -555,7 +555,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 					}
 				}
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				if(pzk_request('btn_update_and_close')) {
+				if(pzk_request()->getBtn_update_and_close()) {
 					$this->redirect('index', array('selectedId' => $row['user_book_id']));
 				} else {
 					$this->redirect('details/' . $row['user_book_id']);

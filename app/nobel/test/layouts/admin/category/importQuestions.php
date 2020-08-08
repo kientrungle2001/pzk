@@ -140,8 +140,8 @@ $content = file_get_contents(BASE_DIR . '/tmp/cauhoi.txt');
 			var $level = ($levelMatch[1] && $levelMatch[1][0]) || 0;
 			var $nameRepaired = $nameRegion.replace(/^[^\:\.]*[\:\.]\s*/g, '');
 			$nameRepaired = $.trim(nl2br($nameRepaired));
-			//$this->set('name', trim($name));
-			this.set('name', $nameRepaired);
+			//$this->setName( trim($name));
+			this.setname( $nameRepaired);
 			if($answerContents) {
 				for(var i = 0; i < $answerContents.length; i++) {
 					var $answerContent = $answerContents[i];

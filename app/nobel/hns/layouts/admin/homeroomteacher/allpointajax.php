@@ -3,7 +3,7 @@
 $showPoints = $data->ShowAllPoint();
 $showsTudents = $data->getStudents();
 $getPointTest= $data->getPointTestHomework();
-$classroomId = $data->get('classroomId');
+$classroomId = $data->getClassroomId();
 $pointTests= array();
 foreach ($getPointTest as $point) {
 	if($point['testMark'] == '' || $point['testMark'] == 0 ){

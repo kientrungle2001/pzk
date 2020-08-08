@@ -541,7 +541,7 @@ class PzkAdminController extends PzkBackendController {
 		$this->display();
 	}
 	public function prepareDetailDisplay() {
-		if($detail = pzk_element('detail')) {
+		if($detail = pzk_element()->getDetail()) {
 			if($fieldSettings = $this->get('detailFieldSettings')) {
 				$detail->set('displayFields', $fieldSettings['displayFields']);
 			}

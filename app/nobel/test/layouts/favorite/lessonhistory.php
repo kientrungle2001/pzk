@@ -16,8 +16,8 @@
    <div id="add_more_history"></div>
    <div id="show_empty_history" class="show_empty"></div>
   <?php 
-    $member=pzk_request('member');
-    $lesson_historyId = pzk_request('lesson_historyId');
+    $member=pzk_request()->getMember();
+    $lesson_historyId = pzk_request()->getLesson_historyId();
     $listlessions = $data->viewListLesson($member, $lesson_historyId);
      $listlessions = array_reverse($listlessions);
    ?>

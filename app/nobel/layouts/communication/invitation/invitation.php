@@ -6,7 +6,7 @@
       <form method="post" action="" >   
     <?php 
           //$request=pzk_request();
-          $member=pzk_request('member');
+          $member=pzk_request()->getMember();
           $user= $data->loadUserName($member);
     ?>
      <div class="note" >

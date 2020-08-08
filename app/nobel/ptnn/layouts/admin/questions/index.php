@@ -5,7 +5,7 @@
 	$type = pzk_session('questionsType');
 	$topic_id	=	pzk_session('questionsTopic_id');
 
-    $data->conditions .= " and software = ".pzk_request('softwareId');
+    $data->conditions .= " and software = ".pzk_request()->getSoftwareId();
 
 	if($categoryId) {
 		$data->conditions .= " and categoryIds like '%,$categoryId,%'";
@@ -23,12 +23,12 @@
 	if($pageSize) {
 		$data->pageSize = $pageSize;
 	}
-	$data->pageNum = pzk_request('page');
+	$data->pageNum = pzk_request()->getPage();
 	$items = $data->getItems($keyword, array('name'));
 	$countItems = $data->getCountItems($keyword, array('name'));
 	$pages = ceil($countItems / $data->pageSize);
 
-	$categories = _db()->select('*')->from('categories')->where(array('software', pzk_request('softwareId')))->result();
+	$categories = _db()->select('*')->from('categories')->where(array('software', pzk_request()->getSoftwareId()))->result();
 
     $questionTypes = _db()->select('*')->from('questiontype')->result();
     

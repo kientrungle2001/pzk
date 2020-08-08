@@ -1,6 +1,6 @@
  <script src="https://code.createjs.com/createjs-2015.05.21.min.js"></script>
 <?php
-	$class = pzk_request()->get('class');
+	$class = pzk_request()->getClass();
 	$lessons = $data->getDataLessons();
 	$tests = $data->getTestByClass($class);
 	$subTopicId = $data->getSubTopicId();

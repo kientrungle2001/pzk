@@ -17,8 +17,8 @@ class PzkEducationQuestionNgonngu extends PzkObject{
 		parent::init();
 	}
 	public function hash() {
-		$id			= 	pzk_request('id');
-		$class		=	pzk_request('class');
+		$id			= 	pzk_request()->getId();
+		$class		=	pzk_request()->getClass();
 		return parent::hash() . '_id_' . $id . '_class_' .$class.'_check_' . pzk_user()->checkPayment('full');
 	}
 	function getPractices($class = '', $subject='',$check = 0, $questionType = 1){

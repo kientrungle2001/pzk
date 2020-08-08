@@ -42,9 +42,9 @@ class PzkPaymentController extends PzkController
 		require(BASE_DIR.'/3rdparty/thecao/includes/MobiCard.php');
     	$call = new MobiCard();
 		$request=pzk_request();
-		$type_card=$request->get('pm_typecard');
-		$card_serial=$request->get('pm_txt_serialcard');
-		$pin_card=$request->get('pm_txt_pincard');
+		$type_card=$request->getPm_typecard();
+		$card_serial=$request->getPm_txt_serialcard();
+		$pin_card=$request->getPm_txt_pincard();
 		$ref_code= pzk_session('username').' '.date("Y-m-d H:i:s");
 
 		$client_fullname=pzk_session('username');
@@ -78,7 +78,7 @@ class PzkPaymentController extends PzkController
 			// insert table wallets
 				$wallets=_db()->getEntity('user.account.wallets');
 				$wallets->loadWhere(array('username',$client_fullname));
-				if($wallets->get('id'))
+				if($wallets->getId())
 				{
 					$amount= $wallets->getAmount();
 					$price= $card_amount+ $amount;
@@ -190,7 +190,7 @@ class PzkPaymentController extends PzkController
 					// insert table wallets
 					$wallets=_db()->getEntity('user.account.wallets');
 					$wallets->loadWhere(array('username',$username));
-					if($wallets->get('id'))
+					if($wallets->getId())
 					{
 						$itme= $wallets->getAmount();
 						$price= $price+ $wallets->getAmount();
@@ -227,13 +227,13 @@ class PzkPaymentController extends PzkController
 	}
 		public function PaymentNganLuongAction()
 	{
-		$nganluong= pzk_request('username');
+		$nganluong= pzk_request()->getUsername();
 		echo "ok".$nganluong;
 	}
 	public function PaymentNextNobelsAction()
 	{
-		$nextnobels_card= pzk_request('nextnobels_card');
-		$nextnobels_serial= pzk_request('nextnobels_serial');
+		$nextnobels_card= pzk_request()->getNextnobels_card();
+		$nextnobels_serial= pzk_request()->getNextnobels_serial();
 		$nextnobels_card=md5($nextnobels_card);
 		$userActive=pzk_session('userId');
 		$dateActive= date("y-m-d h:i:s");
@@ -241,9 +241,9 @@ class PzkPaymentController extends PzkController
 		$card_nextnobels->loadWhere(array('and',array('pincard',$nextnobels_card),array('serial',$nextnobels_serial)));
 		
 
-		if($card_nextnobels->get('id'))
+		if($card_nextnobels->getId())
 		{
-			if($card_nextnobels->get('status')==1){
+			if($card_nextnobels->getStatus()==1){
 				// Cap nhat du lieu
 				$row=array('userActive'=>$userActive,'dateActive'=>$dateActive, 'status'=>0 );
 				$card_nextnobels->update($row);

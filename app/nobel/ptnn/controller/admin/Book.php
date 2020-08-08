@@ -177,7 +177,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 		
 		$this->initPage()->append('admin/book/details');
 		
-		$user_book_view	= pzk_element('user_book');
+		$user_book_view	= pzk_element()->getUser_book();
 		
 		$userBookModel 	= pzk_model('Userbook');
 		
@@ -189,7 +189,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 			
 			$this->initPage()->append('admin/book/details');
 				
-			$user_book_view	= pzk_element('user_book');
+			$user_book_view	= pzk_element()->getUser_book();
 				
 			$adminQuestionModel 	= pzk_model('AdminQuestion');
 				

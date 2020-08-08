@@ -4,8 +4,8 @@ class PzkGameVocabularySortword extends PzkObject
 	public $documentId;
 	public $gameCode;
 	public function getGame() {
-		return _db()->select('*')->from('game')->whereGamecode($this->get('gameCode'))
-			->whereDocumentId($this->get('documentId'))->result_one();
+		return _db()->select('*')->from('game')->whereGamecode($this->getGameCode())
+			->whereDocumentId($this->getDocumentId())->result_one();
 	}
 	public function getWords () {
 		$result = array();

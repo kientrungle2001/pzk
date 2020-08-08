@@ -2,10 +2,10 @@
 pzk_import('Education.Practice.Subject');
 class PzkEducationPracticeSubjectDoing extends PzkEducationPracticeSubject {
 	public function getQuestions() {
-		$class 			=	$this->get('class');
-		$topicId		=	$this->get('topicId');
-		$exerciseNumber	=	$this->get('exerciseNumber');
-		$check			=	$this->get('checkPayment');
+		$class 			=	$this->getClass();
+		$topicId		=	$this->getTopicId();
+		$exerciseNumber	=	$this->getExerciseNumber();
+		$check			=	$this->getCheckPayment();
 		
 		$query = _db()->useCache(1800)->select('q.*')->from('questions q');
 		
@@ -25,6 +25,6 @@ class PzkEducationPracticeSubjectDoing extends PzkEducationPracticeSubject {
 	}
 	
 	public function getTopic(){
-		return _db()->selectAll()->fromCategories()->whereId($this->get('topicId'))->result_one();
+		return _db()->selectAll()->fromCategories()->whereId($this->getTopicId())->result_one();
 	}
 }

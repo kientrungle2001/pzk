@@ -17,28 +17,28 @@ class PzkClassController extends PzkController {
 			
 			if(isset($check) && $check == 1) {
 				$this->append('education/class/topiclist');
-				$topicList = pzk_element('topicList');
+				$topicList = pzk_element()->getTopicList();
     	
 				$mCate = pzk_model('Category');
     	
 				$dataClass = $mCate->get_category_all($classId);
     	
-				$topicList->set('dataClass', $dataClass);
+				$topicList->setDataClass( $dataClass);
     	
-				$topicList->set('classId', $classId);
+				$topicList->setClassId( $classId);
 			
 			}else{
 				//tai khoan dung thu
 				$this->append('education/class/tester');
-				$topicList = pzk_element('topicList');
+				$topicList = pzk_element()->getTopicList();
     	
 				$mCate = pzk_model('Category');
     	
 				$dataClass = $mCate->get_category_all($classId);
     	
-				$topicList->set('dataClass', $dataClass);
+				$topicList->setDataClass( $dataClass);
     	
-				$topicList->set('classId', $classId);
+				$topicList->setClassId( $classId);
 			}
 			
 			

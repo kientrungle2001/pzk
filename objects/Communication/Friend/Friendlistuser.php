@@ -39,7 +39,7 @@ class pzkCommunicationFriendFriendlistuser extends PzkObject
 	}
 	/*public function viewListFriend($member)
 	{
-		$page=pzk_request('page');
+		$page=pzk_request()->getPage();
 		if(!$page){
 			$page=1;
 		}		

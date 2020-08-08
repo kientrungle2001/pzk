@@ -4,7 +4,7 @@ class PzkEducationLecturePracticeHistory extends PzkCoreDbList {
 	public $table 		= 	'pmtv_user_book';
 	public $layout		=	'education/lecture/practice/history';
 	public function init() {
-		$userId 		=	pzk_user()->get('id');
+		$userId 		=	pzk_user()->getId();
 		$this->addFilter(array('column', 'pmtv_user_book', 'userId'), $userId);
 		parent::init();
 	}

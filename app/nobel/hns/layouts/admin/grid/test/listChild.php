@@ -51,7 +51,7 @@ if($pageSize) {
     $data->pageSize = $pageSize;
 }
 
-$data->pageNum = pzk_request('page');
+$data->pageNum = pzk_request()->getPage();
 
 $items = $data->getItems($keyword, array('id', 'name'));
 $countItems = $data->getCountItems($keyword, array('id', 'name'));

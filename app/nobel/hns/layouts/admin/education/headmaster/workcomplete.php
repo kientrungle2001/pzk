@@ -1,10 +1,10 @@
 <?php 
-$schoolYear = pzk_or($data->get('schoolYear'), pzk_request()->get('schoolYear'));
-$grade = pzk_or($data->get('grade'), pzk_request()->get('grade'));
-$nameOfClass = pzk_or($data->get('nameOfClass'), pzk_request()->get('nameOfClass'));
+$schoolYear = pzk_or($data->getSchoolYear(), pzk_request()->getSchoolYear());
+$grade = pzk_or($data->getGrade(), pzk_request()->getGrade());
+$nameOfClass = pzk_or($data->getNameOfClass(), pzk_request()->getNameOfClass());
 $classroom = _db()->select('*')->fromEducation_classroom()->whereSchoolYear($schoolYear)->whereGradeNum($grade)->whereClassName($nameOfClass)->result_one();
 $allClasses = _db()->select('name')->fromEducation_class()->orderBy('name asc')->result();
-$data->set('classroomId', $classroom['id']);
+$data->setClassroomId( $classroom['id']);
 
 ?>
 
@@ -35,8 +35,8 @@ $data->set('classroomId', $classroom['id']);
 				  <div class="panel-body">
 						<div class="list-group">
 						  
-						  <a href="/Admin_Home_Headmaster/workComplete" class="list-group-item <?php if(pzk_request()->get('action') == 'workComplete'){ echo 'active';} ?>">Mức độ hoàn thành công việc</a>
-						  <a href="/Admin_Home_Headmaster/listTeacher" class="list-group-item <?php if(pzk_request()->get('action') == 'listTeacher'){ echo 'active';} ?>">Danh sách giáo viên</a>
+						  <a href="/Admin_Home_Headmaster/workComplete" class="list-group-item <?php if(pzk_request()->getAction() == 'workComplete'){ echo 'active';} ?>">Mức độ hoàn thành công việc</a>
+						  <a href="/Admin_Home_Headmaster/listTeacher" class="list-group-item <?php if(pzk_request()->getAction() == 'listTeacher'){ echo 'active';} ?>">Danh sách giáo viên</a>
 					
 						</div>
 				  </div>
@@ -110,8 +110,8 @@ $data->set('classroomId', $classroom['id']);
 							$pageNum = 5;
 							$curentPage = 0;
 							$totalPage = ceil(36/$pageNum);
-							if(pzk_request()->get('page')){
-								$curentPage = pzk_request()->get('page');
+							if(pzk_request()->getPage()){
+								$curentPage = pzk_request()->getPage();
 							}
 							$tam = $curentPage*$pageNum;
 							$max = ($curentPage*$pageNum+$pageNum);

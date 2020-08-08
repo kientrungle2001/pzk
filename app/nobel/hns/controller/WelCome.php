@@ -8,7 +8,7 @@
 		/*
 		public function __construct() {
 			
-			$login = pzk_session()->get('login');
+			$login = pzk_session()->getLogin();
 		
 			if($login) {
 				$this->redirect('Home/index');

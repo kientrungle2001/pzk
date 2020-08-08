@@ -1,7 +1,7 @@
 <?php
-$category = $data->get('category');
+$category = $data->getCategory();
 
-$category_id = $data->get('categoryId');
+$category_id = $data->getCategoryId();
 ?>
 <div class="left-content">
 	<div class="guide">

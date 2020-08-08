@@ -24,8 +24,8 @@
 				  <div class="panel-body">
 						<div class="list-group">
 						  
-						  <a href="/Admin_Home_Headmaster/workComplete" class="list-group-item <?php if(pzk_request()->get('action') == 'workComplete'){ echo 'active';} ?>">Mức độ hoàn thành công việc</a>
-						  <a href="/Admin_Home_Headmaster/listTeacher" class="list-group-item <?php if(pzk_request()->get('action') == 'listTeacher'){ echo 'active';} ?>">Danh sách giáo viên</a>
+						  <a href="/Admin_Home_Headmaster/workComplete" class="list-group-item <?php if(pzk_request()->getAction() == 'workComplete'){ echo 'active';} ?>">Mức độ hoàn thành công việc</a>
+						  <a href="/Admin_Home_Headmaster/listTeacher" class="list-group-item <?php if(pzk_request()->getAction() == 'listTeacher'){ echo 'active';} ?>">Danh sách giáo viên</a>
 					
 						</div>
 				  </div>

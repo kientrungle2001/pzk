@@ -7,7 +7,7 @@ class PzkEducationTestLesson extends PzkObject
     public $layout = 'test/lesson';
     public $testId=false;
     public function getTest() {
-        return _db()->getEntity('Test.Test')->load($this->get('testId'));
+        return _db()->getEntity('Test.Test')->load($this->getTestId());
     }
     public function checkLevel($level){
         if($level=='1'){

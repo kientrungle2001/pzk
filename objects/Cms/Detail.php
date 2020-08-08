@@ -16,7 +16,7 @@ class PzkCmsDetail extends PzkCoreDbDetail {
 	
 	public function getRelateds(){
 		$item = $this->getItem();
-		$lists = _db()->select('*')->from($this->get('table'))
+		$lists = _db()->select('*')->from($this->getTable())
 				->where(array('categoryId', $item['categoryId']))
 				->limit(5)
 				->orderBy('id asc')->result();

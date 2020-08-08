@@ -16,7 +16,7 @@ class PzkCategoryController extends PzkController
     {
         $this->layout();
         $category = pzk_parse('<home.category table="categories" layout="home/category"/>');
-        $left = pzk_element('left');
+        $left = pzk_element()->getLeft();
         $left->append($category);
         $this->page->display();
     }
@@ -25,7 +25,7 @@ class PzkCategoryController extends PzkController
         $parent_id = pzk_request()->getSegment(3);
         $this->initPage();
         $this->append('category/section', 'left');
-        $category = pzk_element('parent_category');
+        $category = pzk_element()->getParent_category();
         $category->setParentCategoryId($parent_id);
 
         $this->display();
@@ -37,7 +37,7 @@ class PzkCategoryController extends PzkController
 
         $this->initPage();
         $this->append('category/section', 'left');
-        $category = pzk_element('parent_category');
+        $category = pzk_element()->getParent_category();
         $category->setParentCategoryId($parent_id);
 
         $this->display();
@@ -49,7 +49,7 @@ class PzkCategoryController extends PzkController
 
         $this->initPage();
         $this->append('category/lesson', 'left');
-        $category = pzk_element('parent_category');
+        $category = pzk_element()->getParent_category();
 
         $config_category = array(
             '29'=> array(
@@ -121,20 +121,20 @@ class PzkCategoryController extends PzkController
     public function checkSave($key){
         $check= _db()->getTableEntity('user_book');
         $check->loadWhere(array('keybook', $key));
-        if($check->get('id')){
+        if($check->getId()){
             return false;
         }else return true;
     }
     public function ajaxAction() {
         $request = pzk_request();
-        $postQuestion = $request->get('answers');
-        $key_test= $request->get('key');
+        $postQuestion = $request->getAnswers();
+        $key_test= $request->getKey();
 
         $startime = $postQuestion['stop_timer'];
         $realTime = ($postQuestion['time']*60) - (strtotime($startime) - 7*3600);
         debug($postQuestion);die();
-        //$subject = $request->get('subject');
-        //$tamtime = strtotime($_SERVER['REQUEST_TIME'] - $request->get('start_time')) - 7*3600;
+        //$subject = $request->getSubject();
+        //$tamtime = strtotime($_SERVER['REQUEST_TIME'] - $request->getStart_time()) - 7*3600;
         //echo $tamtime;
         $userbook=array('userId'=>pzk_session('userId'),
             'categoryId'=>$postQuestion['parent_id'],
@@ -175,7 +175,7 @@ class PzkCategoryController extends PzkController
     }
     public function markAction() {
         $request = pzk_request();
-        $tam = $request->get('bookid');
+        $tam = $request->getBookid();
         $bookid = trim(decrypt(base64_decode($tam),SECRETKEY));
         if(is_numeric($bookid)) {
             $frontendmodel = pzk_model('Frontend');
@@ -187,7 +187,7 @@ class PzkCategoryController extends PzkController
     }
     public function seeAnswerAction() {
         $request = pzk_request();
-        $tam = $request->get('ids');
+        $tam = $request->getIds();
         $arIds = explode(',', $tam);
         $frontendmodel = pzk_model('Frontend');
         $arResult = array();

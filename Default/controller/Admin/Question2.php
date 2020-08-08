@@ -1078,7 +1078,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 	        $module->set('itemId', pzk_request()->getSegment(3));
 	        $this->initPage() ->append($module);
 	
-	        $question	= pzk_element('question_answers');
+	        $question	= pzk_element()->getQuestion_answers();
 	
 	        $question_answers = pzk_model('AdminQuestion');
 	
@@ -1093,7 +1093,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			$module->set('itemId', pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 				
-			$question	= pzk_element('question_answersFill');
+			$question	= pzk_element()->getQuestion_answersFill();
 				
 			$question_answers = pzk_model('AdminQuestion');
 				

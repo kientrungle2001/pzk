@@ -33,7 +33,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
     }
 
     public function  getTestByUserId($userId) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
         $data = _db()->useCache(1800)->select('user_book.*, u.username, t.name, ca.name as cateName')
             ->from('user_book')
             ->join('user u', 'user_book.userId = u.id', 'left')
@@ -49,7 +49,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
 	 
 	
 	 public function  getHistoryTest($userId, $practice) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
 		//$time = '2016-03-01';
         $data = _db()->useCache(1800)->select('user_book.*, u.username, t.name, t.practice')
             ->from('user_book')
@@ -66,7 +66,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
     }
 	
 	public function  countHistoryTest($userId, $practice) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
 		//$time = '2016-03-01';
         $data = _db()->useCache(1800)->select('user_book.*, u.username, t.name, t.practice')
             ->from('user_book')
@@ -81,7 +81,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
 	
 	//history test song ngu
 	public function  getHistoryTestSn($userId, $practice, $startDate, $endDate) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
 		//$time = '2016-03-01';
         $data = _db()->useCache(1800)->select('user_book.*, u.username, t.name, t.practice, ca.name as cateName')
             ->from('user_book')
@@ -102,7 +102,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
     }
 	
 	public function  countHistoryTestSn($userId, $practice, $startDate, $endDate) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
 		//$time = '2016-03-01';
         $data = _db()->useCache(1800)->select('user_book.*, u.username, t.name, t.practice')
             ->from('user_book')
@@ -119,7 +119,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
 	
 	
 	public function  countQuestionPraticeByWeek($userId, $startDate, $endDate) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
 		//$time = '2016-03-01';
         $data = _db()->useCache(1800)->select('quantity_question')
             ->from('user_book')
@@ -222,7 +222,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
 	}
 	
 	public function  getTrueQuestionPraticeByWeek($userId, $startDate, $endDate) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
         $data = _db()->useCache(1800)->select('*')
             ->from('user_book')
             ->where("userId = $userId")
@@ -245,7 +245,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
     }
 	
 	public function  getHistoryPratice($userId) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
 		//$time = '2016-03-01';
         $data = _db()->useCache(1800)->select('user_book.*, u.username, t.name, c.name as namecate, tp.name as topicname')
             ->from('user_book')
@@ -262,7 +262,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
     }
 	
 	public function  countHistoryPratice($userId) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
 		//$time = '2016-03-01';
         $data = _db()->useCache(1800)->select('user_book.*, u.username, t.name, c.name as namecate')
             ->from('user_book')
@@ -277,7 +277,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
 	
 	//history practice song ngu
 	public function  getHistoryPraticeSn($userId, $startDate, $endDate) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
 		//$time = '2016-03-01';
         $data = _db()->useCache(1800)->select('user_book.*, u.username, t.name, c.name as namecate, c.name_vn as namecatevn, tp.name as topicname')
             ->from('user_book')
@@ -296,7 +296,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
     }
 	
 	public function getParentCompabilities() {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
         $data = _db()->useCache(1800)->select('id, name, name_sn, name_en')
             ->from('tests')
 			->where('compability = 1')
@@ -304,7 +304,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
         return $data->result();
     }
 	public function getCompabilities($userId, $startDate, $endDate) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
         $data = _db()->useCache(1800)->select('user_book.*, t.parent as parentTest')
             ->from('user_book')
             ->join('tests t', 'user_book.testId = t.id', 'left')
@@ -316,7 +316,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
     }
 	
 	public function  countHistoryPraticeSn($userId, $startDate, $endDate) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
 		//$time = '2016-03-01';
         $data = _db()->useCache(1800)->select('user_book.*, u.username, t.name, c.name as namecate')
             ->from('user_book')
@@ -332,7 +332,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
     }
 	
     public function countTestByUserId($userId) {
-        $software = pzk_request('softwareId');
+        $software = pzk_request()->getSoftwareId();
         $row = _db()->useCache(1800)->select('count(*) as c')
             ->from('user_book ub')
             ->join('user u', 'ub.userId = u.id', 'left')
@@ -397,7 +397,7 @@ class PzkEducationQuestionShowRating extends PzkObject {
         if($weekId)
             $listTest->likeCategoryIds("%,$weekId,%");
         $listTest->wherePractice($practice);
-        $listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+        $listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         
         $listTest->orderBy('ordering asc');
         if(isset($check ) && ($check == 1)){

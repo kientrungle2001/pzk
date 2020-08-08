@@ -68,7 +68,7 @@ class PzkUserProfileProfileuser extends PzkObject
 	}
 
 	public function hash() {
-		return md5($this->get('id') . pzk_session()->get('username'));
+		return md5($this->getId() . pzk_session()->getUsername());
 	}
 	
 }

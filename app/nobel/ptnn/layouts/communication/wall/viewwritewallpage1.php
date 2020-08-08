@@ -1,7 +1,7 @@
 
  <?php 
     
-  $member=pzk_request('member');
+  $member=pzk_request()->getMember();
   $entt= _db()->getEntity('communication.user_write_wall');      
       $write_walls=$entt->loadWriteWall($member);
       $i=0;

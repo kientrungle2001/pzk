@@ -25,27 +25,27 @@
     <div class="pfr_infor">
       <div class="prf_label">
         <span class="prf_labels">Họ tên :</span>
-        <span>{? echo $user->get('name');?}</span>
+        <span>{? echo $user->getName();?}</span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Nickname :</span>
-        <span>{? echo $user->get('username');?}</span>
+        <span>{? echo $user->getUsername();?}</span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Ngày sinh :</span>
-        <span>{? echo $user->get('birthday');?}</span>
+        <span>{? echo $user->getBirthday();?}</span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Giới tính :</span>
-        <span>{? $data->checkSex($user->get('sex')) ;?}</span>
+        <span>{? $data->checkSex($user->getSex()) ;?}</span>
       </div>
       <div class="prf_label2">
         <span class="prf_labels">Địa chỉ :</span>
-        <span>{? echo $user->get('address');?}</span>
+        <span>{? echo $user->getAddress();?}</span>
       </div>
       <div class="prf_label3">
         <span class="prf_labels">Trường :</span>
-        <span>{? echo $user->get('school');?}</span>
+        <span>{? echo $user->getSchool();?}</span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Thời hạn sản phẩm :</span>
@@ -55,7 +55,7 @@
     <div class="pfr_imgavatar">
       <div class="pfravatar">
         <div class="pfravatar_img">
-          <img src="{? echo $user->get('avatar');?}" alt="" width="197px" height="192px">
+          <img src="{? echo $user->getAvatar();?}" alt="" width="197px" height="192px">
         </div>
       </div>
       <div class="pfrbutton">
@@ -77,13 +77,13 @@
         <h2 style="color: #0066b3; font-family:UTM Neo Sans Intel; text-align: center; font-weight: bold; font-size: 20px; margin: 4px 0px 10px 0px;">Danh sách các bài thi</h2>
     </div>
 <?php
-$UserId =  pzk_session()->get('userId');
+$UserId =  pzk_session()->getUserId();
 $pageSize = 6;
 
 if($pageSize) {
     $data->pageSize = $pageSize;
 }
-$page=pzk_request('page');
+$page=pzk_request()->getPage();
 $data->pageNum =$page ;
 
 $items = $data->getTestByUserId($UserId);
@@ -176,7 +176,7 @@ if($items) {
             <div class="show_note">
             <form action="/Profile/editavatarPost" method="post" id="frmuploadavatar" enctype="multipart/form-data" runat="server">
             <div class="avatar">
-              <img id="img_avatar" src="<?php echo $user->get('avatar'); ?>"alt="" width="150px" height="148px">
+              <img id="img_avatar" src="<?php echo $user->getAvatar(); ?>"alt="" width="150px" height="148px">
             </div>
                 <span class="show_note">Upload ảnh lên từ máy của bạn:Chỉ chấp nhận định dạng ảnh .JPG và .JPEG dung lượng ảnh tối đa 488kb.</span>
                 <input  style="float: left;" name="fileToUpload" id="fileToUpload" type="file" />

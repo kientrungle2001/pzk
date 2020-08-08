@@ -15,7 +15,7 @@
 
      <br> 
       <label for="sign">Chữ ký hiện tại:</label><br>
-      <lable style="float:left;"><?php echo $data->get('sign'); ?></lable>
+      <lable style="float:left;"><?php echo $data->getSign(); ?></lable>
       <br>    
       <label for="newsign">Chữ ký mới:</label>
       <textarea name="newsign" id="newsign"class="form-control" rows="3" value=""></textarea>

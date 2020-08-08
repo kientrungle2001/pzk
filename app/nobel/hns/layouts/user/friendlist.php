@@ -6,7 +6,7 @@
  <div id="userfriendlist" style="height: 100px;">
       <?php 
         $request=pzk_request();
-        $member=$request->get('member');
+        $member=$request->getMember();
         // Đếm số bản ghi
         $countrow=_db()->useCB()->select('count(*) as countfriend')->from('friend')->where(array('username',$member))->result_one();
     

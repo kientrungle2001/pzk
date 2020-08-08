@@ -97,7 +97,7 @@ font-size: 12px;
 </style>
 <?php  
   
-  $member=pzk_request('member');
+  $member=pzk_request()->getMember();
   if(!$member){
     $member=pzk_session('userId');
   }
@@ -106,7 +106,7 @@ font-size: 12px;
 ?>
 <div id="profilefriend_left">
     <div class="prf_profile">
-      <div class="prf_member"><?php echo $user->get('username'); ?></div>
+      <div class="prf_member"><?php echo $user->getUsername(); ?></div>
       <div class="prf_member">
        <?php 
           $check= $data->testMember($member);
@@ -132,8 +132,8 @@ font-size: 12px;
      
       </div>
       <div class="prf_clear"></div>
-      <div class="prf_content" style="background-color:#F0FFFF;"> Ngày sinh: <strong><?php echo $user->get('birthday'); ?> </strong> </div>
-      <div class="prf_content" style="background-color:#FFF8DC;"> Giới tính: <strong><?php echo $user->get('sex'); ?></strong></div>
+      <div class="prf_content" style="background-color:#F0FFFF;"> Ngày sinh: <strong><?php echo $user->getBirthday(); ?> </strong> </div>
+      <div class="prf_content" style="background-color:#FFF8DC;"> Giới tính: <strong><?php echo $user->getSex(); ?></strong></div>
       <div class="prf_content" style="background-color:#F0FFFF;"> Điểm thành tích:  </div>
       <div class="prf_content" style="background-color:#FFF8DC;"> Sổ học bạ:</div>
       <div class="prf_content" style="background-color:#F0FFFF;"> Tham gia được:  </div>

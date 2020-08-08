@@ -29,7 +29,7 @@ class PzkNgonnguController extends PzkController{
 				$this->append('question/ngonngu', 'left');
 			}
 
-				$ngonngu = pzk_element('ngonngu');
+				$ngonngu = pzk_element()->getNgonngu();
 
 				$data_category = pzk_model('Category');
 				
@@ -79,35 +79,35 @@ class PzkNgonnguController extends PzkController{
 
 	    	$data_AdminQuestion_model = pzk_model('AdminQuestion');
 	    	
-	    	(int)$category_type = pzk_request()->get('category_type');
+	    	(int)$category_type = pzk_request()->getCategory_type();
 	    	
 	    	$category_type_name = $data_AdminQuestion_model->get_category_type_name($category_type);
 	    	
 	    	
-	    	$question_limit = pzk_request()->get('number_question');
+	    	$question_limit = pzk_request()->getNumber_question();
 	    	
-	    	if(pzk_request()->get('number_question') == 0){
+	    	if(pzk_request()->getNumber_question() == 0){
 	    		
 	    		$question_limit = NUMBER_QUESTION20;
 	    	}
 	    	
 	    	$data_criteria = array(
-	    		'category_id'		=> pzk_request()->get('category_id'),
-	    		'category_name'		=> pzk_request()->get('category_name'),
+	    		'category_id'		=> pzk_request()->getCategory_id(),
+	    		'category_name'		=> pzk_request()->getCategory_name(),
 		    	'question_limit' 	=> $question_limit,
-		    	'question_time'		=> pzk_request()->get('work_time'),
-		    	'question_level' 	=> pzk_request()->get('level'),
+		    	'question_time'		=> pzk_request()->getWork_time(),
+		    	'question_level' 	=> pzk_request()->getLevel(),
 	    		'keybook'			=> $keybook,
 	    		'category_type'		=> $category_type,
 	    		'category_type_name'=> $category_type_name['name']
 	    	);
 	    	
 	    	$data_cache = array(
-	    			'category_id'		=> pzk_request()->get('category_id'),
-	    			'category_name'		=> pzk_request()->get('category_name'),
+	    			'category_id'		=> pzk_request()->getCategory_id(),
+	    			'category_name'		=> pzk_request()->getCategory_name(),
 	    			'question_limit' 	=> $question_limit,
-	    			'question_time'		=> pzk_request()->get('work_time'),
-	    			'question_level' 	=> pzk_request()->get('level'),
+	    			'question_time'		=> pzk_request()->getWork_time(),
+	    			'question_level' 	=> pzk_request()->getLevel(),
 	    			'category_type'		=> $category_type,
 	    			'category_type_name'=> $category_type_name['name']
 	    	);
@@ -137,13 +137,13 @@ class PzkNgonnguController extends PzkController{
 	    	
 	    	$data_criteria['question_limit'] = count($result_search);
 	    	
-	    	$data_showQuestion	= pzk_element('showQuestion');
+	    	$data_showQuestion	= pzk_element()->getShowQuestion();
 	    	
-	    	$data_showQuestion->set('dataRow',$dataRow);
+	    	$data_showQuestion->setDataRow($dataRow);
 	    	
-	    	$data_showQuestion->set('data_showQuestion', $result_search);
+	    	$data_showQuestion->setData_showQuestion( $result_search);
 	    	
-	    	$data_showQuestion->set('data_criteria', $data_criteria);
+	    	$data_showQuestion->setData_criteria( $data_criteria);
     	}
     	
     	$this->display();
@@ -185,10 +185,10 @@ class PzkNgonnguController extends PzkController{
 		
     	$request 			= pzk_request();
     	
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getAnswers();
     	
-    	$user_book_key	= $request->get('keybook');
-    	$week = $request->get('week');
+    	$user_book_key	= $request->getKeybook();
+    	$week = $request->getWeek();
     	$question_id 	= $data_answers['questions'];
 		//debug($data_answers['answers']);
     	//debug($question_id);die();
@@ -269,7 +269,7 @@ class PzkNgonnguController extends PzkController{
                 'mark'              => $totaltrue,
     			'testId'			=> $testId,
                 'categoryId'        => $week,
-				'software' 			=> pzk_request()->get('softwareId'),
+				'software' 			=> pzk_request()->getSoftwareId(),
 				'created'			=> date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
     			'duringTime'		=> $duringTime,
 				'lang' 				=> $lang
@@ -294,7 +294,7 @@ class PzkNgonnguController extends PzkController{
                 //hight score
 
     			 
-    			$userbookId=$userBook->get('id');
+    			$userbookId=$userBook->getId();
 
     			foreach($question_id as $key => $value){
     				if(empty($answers[$key])){
@@ -341,7 +341,7 @@ class PzkNgonnguController extends PzkController{
 								'username'        => pzk_session('username'),
 								'name' 			=> $dataTest['name'],
 								'name_sn'			=> $dataTest['name_sn'],
-								'software'		=> pzk_request('softwareId'),
+								'software'		=> pzk_request()->getSoftwareId(),
 								'areacode' => $areacode,
 								'district' => $district,
 								'school' => $school,
@@ -408,7 +408,7 @@ class PzkNgonnguController extends PzkController{
     	
     	$request 			= pzk_request();
     	
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getAnswers();
     	
     	$question_id 		= $data_answers['questions'];
     	
@@ -425,7 +425,7 @@ class PzkNgonnguController extends PzkController{
     	 
     	$request 			= pzk_request();
     
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getAnswers();
     	 
     	$question_id 		= $data_answers['questions'];
     	
@@ -505,7 +505,7 @@ class PzkNgonnguController extends PzkController{
     		
     		$this->append('question/test', $position);
     	
-    		$test = pzk_element('test');
+    		$test = pzk_element()->getTest();
     		
     		if($testId !== 0){
     			$testModel = pzk_model('Question');
@@ -519,11 +519,11 @@ class PzkNgonnguController extends PzkController{
     	
     		$s_keybook	=	pzk_session('keybook', $keybook);
 			
-			if(pzk_request()->get('softwareId') == 1) {
+			if(pzk_request()->getSoftwareId() == 1) {
 				
 				$this->append('question/test', $position);
 				
-				$test = pzk_element('test');
+				$test = pzk_element()->getTest();
 				
 				if($testId !== 0){
 					
@@ -553,7 +553,7 @@ class PzkNgonnguController extends PzkController{
 		}
     	if( pzk_request()->is('POST')){
     		
-	    	$testId = (int) pzk_request()->get('test');
+	    	$testId = (int) pzk_request()->getTest();
 	    	
 	    	if(isset($testId)){
 	    		
@@ -585,7 +585,7 @@ class PzkNgonnguController extends PzkController{
 		    		$result_search = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 		    	}
 		    	
-		    	$data_showQuestion	= pzk_element('showTest');
+		    	$data_showQuestion	= pzk_element()->getShowTest();
 		    	
 		    	$data_showQuestion->setData_showQuestion($result_search);
 		    	
@@ -616,7 +616,7 @@ class PzkNgonnguController extends PzkController{
 
         $userBook	= pzk_model('Frontend');
 
-        $showRating	= pzk_element('showRatings');
+        $showRating	= pzk_element()->getShowRatings();
 
         $dataTest = $userBook->getAllTest();
 
@@ -625,7 +625,7 @@ class PzkNgonnguController extends PzkController{
         $this->display();
     }
     public function onchangeTestIdAction() {
-        pzk_session('userBookTestId', pzk_request('testId'));
+        pzk_session('userBookTestId', pzk_request()->getTestId());
         $this->redirect('rating');
     }
     public function listTestAction() {
@@ -637,12 +637,12 @@ class PzkNgonnguController extends PzkController{
 
     public function changePageSizeAction() {
 
-        $userId = pzk_request('userId');
+        $userId = pzk_request()->getUserId();
         if(!empty($userId)) {
-            pzk_session('listPageSize', pzk_request('pageSize'));
+            pzk_session('listPageSize', pzk_request()->getPageSize());
             $this->redirect('listTest/'.$userId);
         }else{
-            pzk_session('ratingPageSize', pzk_request('pageSize'));
+            pzk_session('ratingPageSize', pzk_request()->getPageSize());
             $this->redirect('rating');
 
         }

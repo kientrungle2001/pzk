@@ -128,7 +128,7 @@ class PzkCoreSystem extends PzkObjectLightWeight {
 				$request->set($key, $val);
 			}
 			if(isset($config['language']) && $config['language']) {
-				$language = pzk_session()->get('language');
+				$language = pzk_session()->getLanguage();
 				if($language == 'vn' || $language == '') {
 					require_once BASE_DIR .'/Themes/Songngu/language/vn.php';
 				} else if($language == 'ev'){
@@ -148,8 +148,8 @@ class PzkCoreSystem extends PzkObjectLightWeight {
 	public function getApp() {
 		if($this->app) return $this->app;
 		$request 	= 	pzk_request();
-		$software 	= 	$request->get('softwareId');
-		$site 		= 	$request->get('siteId');
+		$software 	= 	$request->getSoftwareId();
+		$site 		= 	$request->getSiteId();
 		$app 		= 	null;
 		if(is_file(BASE_DIR . '/' . ($bootstrap = 'app/'. $request->getAppPath() . '/' . $this->bootstrap . '.' . $software . '.' . $site) . '.php' )) {
 			$app 		= 	PzkParser::parse($bootstrap);
@@ -186,7 +186,7 @@ class PzkCoreSystem extends PzkObjectLightWeight {
 	 * @param string $message
 	 */
 	public function halt($message = null) {
-		if($db = pzk_element('db')) {
+		if($db = pzk_element()->getDb()) {
 			$db->close();
 		}
 		if(function_exists('pzk_session')) {
@@ -211,6 +211,6 @@ class PzkCoreSystem extends PzkObjectLightWeight {
  * @return PzkCoreSystem
  */
 function pzk_system() {
-	return pzk_element('system');
+	return pzk_element()->getSystem();
 }
 ?>

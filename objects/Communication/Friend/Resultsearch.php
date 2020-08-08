@@ -29,7 +29,7 @@ class PzkCommunicationFriendResultsearch extends PzkObject
 	}
 	public function viewSearch($searchfriend)
 	{
-		$page=pzk_request('page');
+		$page=pzk_request()->getPage();
 		if(!$page)
 		{
 			$page=1;
@@ -65,7 +65,7 @@ class PzkCommunicationFriendResultsearch extends PzkObject
 		$username_member=$user['username'];
 		$friend= _db()->getEntity('communication.friend');
 		$friend->loadWhere(array(array('username',$sessionUsername),array('userfriend',$username_member)));
-		if($friend->get('id'))
+		if($friend->getId())
 		{
 			 return true;
 		}
@@ -83,7 +83,7 @@ class PzkCommunicationFriendResultsearch extends PzkObject
 		$username_member=$user['username'];
 		$invitation= _db()->getEntity('communication.invitation');
 		$invitation->loadWhere(array(array('username',$sessionUsername),array('userinvitation',$username_member)));
-		if($invitation->get('id'))
+		if($invitation->getId())
 		{
 			 return true;
 		}

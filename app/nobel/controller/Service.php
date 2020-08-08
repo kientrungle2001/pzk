@@ -15,7 +15,7 @@ class PzkServiceController extends PzkFrontendController
 	}
 	public function BuyServiceAction()
 	{
-		$opt_service= pzk_request('opt_service_type');
+		$opt_service= pzk_request()->getOpt_service_type();
 		$opt_service= explode(" ",$opt_service);
 		$opt_service_id= $opt_service[0];
 		$price= $opt_service[1];
@@ -53,12 +53,12 @@ class PzkServiceController extends PzkFrontendController
 	public function OrderCardNexnobelsAction()
 	{
 		
-		$ordercard_txtname= pzk_request('ordercard_txtname');
-		$ordercard_txtphone= pzk_request('ordercard_txtphone');
-		$ordercard_txtaddress= pzk_request('ordercard_txtaddress');
-		$ordercard_quantity= pzk_request('ordercard_quantity');
+		$ordercard_txtname= pzk_request()->getOrdercard_txtname();
+		$ordercard_txtphone= pzk_request()->getOrdercard_txtphone();
+		$ordercard_txtaddress= pzk_request()->getOrdercard_txtaddress();
+		$ordercard_quantity= pzk_request()->getOrdercard_quantity();
 		$ordercard_quantity= (int)$ordercard_quantity;
-		$ordercard_selectcard= pzk_request('ordercard_selectcard');
+		$ordercard_selectcard= pzk_request()->getOrdercard_selectcard();
 		$opt_service= explode(" ",$ordercard_selectcard);
 		$opt_service_id= $opt_service[0];
 		$price= $opt_service[1];

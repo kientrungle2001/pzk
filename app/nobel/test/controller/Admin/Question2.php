@@ -21,27 +21,27 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 	
 	public function getLinks() {
 		$currentCategories = ',47,';
-		$currentCategoryId = $this->getFilterSession()->get('categoryIds');
+		$currentCategoryId = $this->getFilterSession()->getCategoryIds();
 		if($currentCategoryId) {
 			$currentCategory = _db()->getTableEntity('categories')->load($currentCategoryId);
-			if($currentCategory->get('id')) {
-				$currentCategories = $currentCategory->get('parents');
+			if($currentCategory->getId()) {
+				$currentCategories = $currentCategory->getParents();
 			}
 		}
 		
 		$currentClasses = ',5,';
-		$currentClass = $this->getFilterSession()->get('classes');
+		$currentClass = $this->getFilterSession()->getClasses();
 		if($currentClass) {
 			$currentClasses = ','.$currentClass.',';
 		}
 		
 		$currentTest = '';
 		$questionType = '1';
-		$currentTestId = $this->getFilterSession()->get('testId');
+		$currentTestId = $this->getFilterSession()->getTestId();
 		if($currentTestId) {
 			$currentTestObj = _db()->getTableEntity('tests')->load($currentTestId);
 			$currentTest = ",$currentTestId,";
-			if($currentTestObj->get('trytest') == '2') {
+			if($currentTestObj->getTrytest() == '2') {
 				$questionType = '4';
 			}
 		}
@@ -931,15 +931,15 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
         if($this->logable) {
             $logEntity = _db()->getTableEntity('admin_log');
             $logFields = explodetrim(',', $this->logFields);
-            $brief = pzk_session()->get('adminUser') . ' Thêm mới bản ghi: ' . $this->get('module');
+            $brief = pzk_session()->getAdminUser() . ' Thêm mới bản ghi: ' . $this->getModule();
             foreach ($logFields as $field) {
                 $brief .= '[' . $field . ': ' . @$row[$field] . ']';
             }
-            $logEntity->set('userId', pzk_session()->get('adminId'));
-            $logEntity->set('created', date('Y-m-d H:i:s'));
-            $logEntity->set('actionType', 'add');
-            $logEntity->set('admin_controller', 'Admin_'.$this->get('module'));
-            $logEntity->set('brief', $brief);
+            $logEntity->setUserId( pzk_session()->getAdminId());
+            $logEntity->setCreated( date('Y-m-d H:i:s'));
+            $logEntity->setActionType( 'add');
+            $logEntity->setAdmin_controller( 'Admin_'.$this->getModule());
+            $logEntity->setBrief( $brief);
             $logEntity->save();
         }
 
@@ -951,16 +951,16 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 		
 		//set index owner
 		$adminmodel = pzk_model('Admin');
-		$controller = pzk_request('controller');
+		$controller = pzk_request()->getController();
 		 
 		$checkEditOwner = $adminmodel->checkActionType('editOwner', $controller, pzk_session('adminLevel'));
 		
 		if($checkEditOwner){
 			
 			$entity = _db()->getEntity('Table')->setTable($this->table);
-			$entity->load(pzk_request('id'));
+			$entity->load(pzk_request()->getId());
 			
-			if($entity->getCreatorId() == pzk_session()->get('adminId')) {
+			if($entity->getCreatorId() == pzk_session()->getAdminId()) {
 				
 				if(isset($row['testId']) && is_array($row['testId'])) {
 					$testId = $row['testId'];
@@ -992,7 +992,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			}
 			
 			$entity = _db()->getEntity('Table')->setTable($this->table);
-			$entity->load(pzk_request('id'));
+			$entity->load(pzk_request()->getId());
 			$entity->update($row);
 			$entity->save();
 		}
@@ -1003,7 +1003,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			if($this->logable) {
 				$logEntity = _db()->getTableEntity('admin_log');
 				$logFields = explodetrim(',', $this->logFields);
-				$brief = pzk_session()->get('adminUser') . ' Sửa bản ghi: ' . $this->get('module');
+				$brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
 				foreach ($logFields as $field) {
 					$brief .= '[' . $field . ': ' . $entity->get($field) . ']';
 				}
@@ -1011,11 +1011,11 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 				foreach ($logFields as $field) {
 					$brief .= '[' . $field . ': ' . @$row[$field] . ']';
 				}
-				$logEntity->set('userId', pzk_session()->get('adminId'));
-				$logEntity->set('created', date('Y-m-d H:i:s'));
-				$logEntity->set('actionType', 'edit');
-				$logEntity->set('admin_controller', 'Admin_'.$this->get('module'));
-				$logEntity->set('brief', $brief);
+				$logEntity->setUserId( pzk_session()->getAdminId());
+				$logEntity->setCreated( date('Y-m-d H:i:s'));
+				$logEntity->setActionType( 'edit');
+				$logEntity->setAdmin_controller( 'Admin_'.$this->getModule());
+				$logEntity->setBrief( $brief);
 				$logEntity->save();
 			}	
 		}
@@ -1029,7 +1029,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 	
 		$question_id = pzk_request()->getSegment(3);
 		
-		if(pzk_session()->get('adminLevel') === 'Administrator'){
+		if(pzk_session()->getAdminLevel() === 'Administrator'){
 			
 			$entity = _db()->getEntity('Table')->setTable($this->table);
 			$entity->load($question_id);
@@ -1071,37 +1071,37 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 		if($type == QUESTION_TYPE_CHOICE){
 		
 	        $module = $this->parse('admin/'.pzk_or($this->customModule, $this->module).'/question_answers_tn/answers');
-	        $module->set('itemId', pzk_request()->getSegment(3));
+	        $module->setItemId( pzk_request()->getSegment(3));
 	        $this->initPage() ->append($module);
 	
-	        $question	= pzk_element('question_answers');
+	        $question	= pzk_element()->getQuestion_answers();
 	
 	        $question_answers = pzk_model('AdminQuestion');
 	
 	        $itemAnswers = $question_answers->get_question_answers_test($question_id);
 	
-	        $question->set('itemAnswers', $itemAnswers);
+	        $question->setItemAnswers( $itemAnswers);
 	
 	        $this->display();
 		}elseif($type == QUESTION_TYPE_FILL || $type == QUESTION_TYPE_FILL_JOIN){
 			
 			$module = $this->parse('admin/'.pzk_or($this->customModule, $this->module).'/question_answers_tn/answersFill');
-			$module->set('itemId', pzk_request()->getSegment(3));
+			$module->setItemId( pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 				
-			$question	= pzk_element('question_answersFill');
+			$question	= pzk_element()->getQuestion_answersFill();
 				
 			$question_answers = pzk_model('AdminQuestion');
 				
 			$itemAnswers = $question_answers->get_question_answersFill($question_id);
 				
-			$question->set('itemAnswers', $itemAnswers);
+			$question->setItemAnswers( $itemAnswers);
 			
 			$this->display();
 			
 		} elseif($type == QUESTION_TYPE_TULUAN) {
 			$module = $this->parse('admin/'.pzk_or($this->customModule, $this->module).'/question_answers_tl/answersTuluan');
-			$module->set('itemId', pzk_request()->getSegment(3));
+			$module->setItemId( pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 			$this->display();
 		}
@@ -1182,24 +1182,24 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 				if($result !=false){
 					
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 					
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
 	}
 	
 	function edit_tlPostAction() {
-		$question_id = pzk_request('id');
+		$question_id = pzk_request()->getId();
 		$row = $this->getEditData();
 		$answers = $row['answers'];
 		_db()->update('questions')
 			->set(array('teacher_answers' => json_encode($answers)))
 			->whereId($question_id)->result();
-		if($backHref = pzk_request('backHref')) {
+		if($backHref = pzk_request()->getBackHref()) {
 			$this->redirect($backHref);
 		} else {
 			$this->redirect('detail/' . $question_id);
@@ -1266,11 +1266,11 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			if($result !=false){
 					
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}else{
 					
 				pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}
 		}
 	}
@@ -1282,8 +1282,8 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 	
 	public function verifyAction() {
 		$arr = array();
-		$ids = pzk_request()->get('ids');
-		$rows = _db()->selectAll()->from($this->get('table'))->inId($ids)->result();
+		$ids = pzk_request()->getIds();
+		$rows = _db()->selectAll()->from($this->getTable())->inId($ids)->result();
 		foreach ($rows as $row) {
 			if(!$row['classes']) {
 				$arr[] = array(

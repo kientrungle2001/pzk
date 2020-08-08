@@ -17,8 +17,8 @@
       {each $items as $user}
       <?php 
         $date=$user->dateRegister($user->getRegistered());
-        $learnPoint= $user->learnPoint($user->get('id'));
-        $hieghtPoint=$user->hieghtPoint($user->get('id'));
+        $learnPoint= $user->learnPoint($user->getId());
+        $hieghtPoint=$user->hieghtPoint($user->getId());
         $sortPoint=$user->sortPoint($learnPoint, $hieghtPoint);
         $sortTrophies=$user->sortTrophies($learnPoint, $hieghtPoint);
         

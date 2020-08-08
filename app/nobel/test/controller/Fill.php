@@ -20,7 +20,7 @@ class PzkFillController extends PzkFrontendController
 public function fillPostAction(){
 
 	$request = pzk_request();
-	$data_answers=$request->get('answers');
+	$data_answers=$request->getAnswers();
 	
 	$question_id=$data_answers['question_id'];
 	$answers=$data_answers['answers'];
@@ -42,7 +42,7 @@ public function fillPostAction(){
 	$row= array('userId'=>$userId,'categoryId'=>$category_id,'time'=>$time,'quantity_question'=>$quantity_question,'mark_status'=>0,'date'=>$date,'time_real'=>$time_real);
 	$userBook->setData($row);
 	$userBook->save();
-	$userbookId=$userBook->get('id');
+	$userbookId=$userBook->getId();
 	for($i=0; $i< $quantity_question; $i++){
 		$count=count($answers[$i]);
 		$answer[$i]='';
@@ -68,7 +68,7 @@ public function fillPostAction(){
 
         $this->initPage();
         $this->append('question/lesson', 'left');
-        $category = pzk_element('parent_category');
+        $category = pzk_element()->getParent_category();
         $category->setParentCategoryId($parent_id);
 
         $this->display();
@@ -77,13 +77,13 @@ public function fillPostAction(){
     public function questionAction(){
 
         $this->initPage();
-        $id_category=pzk_request()->get('id_category');
+        $id_category=pzk_request()->getId_category();
         $this->append('question/question', 'left');
         $this->display();
     }
 
 public function fillPostMarkAction(){
-	$user_book_id=pzk_request()->get('user_book_id');
+	$user_book_id=pzk_request()->getUser_book_id();
 	$user_book_id = decrypt(base64_decode($user_book_id),SECRETKEY);
 	$userBook= _db()->getEntity('userbook.userbook');
 	$userBook->loadWhere(array('id',$user_book_id));
@@ -92,7 +92,7 @@ public function fillPostMarkAction(){
 }
 public function nextPageAction(){
 	$request = pzk_request();
-	$page=$request->get('page');
+	$page=$request->getPage();
 
 	if(isset($page)){
 		echo "1";
@@ -103,7 +103,7 @@ public function nextPageAction(){
 }
 public function showAnswerAction() {
     $request = pzk_request();
-    $data_answers=$request->get('answers');
+    $data_answers=$request->getAnswers();
 	$tam=$data_answers['question_id'];
     
     $frontendmodel = pzk_model('Frontend');

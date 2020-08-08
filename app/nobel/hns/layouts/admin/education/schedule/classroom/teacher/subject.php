@@ -1,13 +1,13 @@
 <?php
-$classroomId = $data->get('classroomId');
-$subjectId = $data->get('subjectId');
+$classroomId = $data->getClassroomId();
+$subjectId = $data->getSubjectId();
 
 $classroom = $data->getClassroom();
 
 $topics = $data->getTopics();
 $topics = treefy($topics);
 $schedules = $data->getSchedules();
-$teacherScheduleId = $data->get('teacherScheduleId');
+$teacherScheduleId = $data->getTeacherScheduleId();
 ?>
 <h1>Lớp {classroom[gradeNum]}{classroom[className]} năm {classroom[schoolYear]}</h1>
 {each $topics as $topic}

@@ -1,14 +1,14 @@
       <?php 
         
-        $member=pzk_request('member');
+        $member=pzk_request()->getMember();
         $user_note=_db()->getEntity('communication.user_note'); 
         $notes=$user_note->loadNote($member);      
         $pages= $user_note->arrPage($member);      
       ?>
       {each $notes as $note}
       <?php 
-        $countComment=$user_note->countComment($note->get('id'));
-        $date= $user_note->formatDate($note->getdatenote());
+        $countComment=$user_note->countComment($note->getId());
+        $date= $user_note->formatDate($note->getDatenote());
        ?>
      <div class="{note.get('id')}">
       

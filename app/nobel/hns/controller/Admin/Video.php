@@ -138,7 +138,7 @@ class PzkAdminVideoController extends PzkGridAdminController {
 
     public function editPostAction() {
         $row = $this->getEditData();
-        $id = pzk_request()->get('id');
+        $id = pzk_request()->getId();
 
         if($this->validateEditData($row)) {
             $data = _db()->useCB()->select('url')->from('video')->where(array('id', $id))->result_one();
@@ -151,12 +151,12 @@ class PzkAdminVideoController extends PzkGridAdminController {
             $this->redirect('index');
         } else {
             pzk_validator()->setEdittingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 
     public function delPostAction() {
-        $id = pzk_request()->get('id');
+        $id = pzk_request()->getId();
         $data = _db()->useCB()->select('url')->from('video')->where(array('id', $id))->result_one();
         if($data['url']) {
             $tam = explode("/",$data['url']);
@@ -173,8 +173,8 @@ class PzkAdminVideoController extends PzkGridAdminController {
         $this->redirect('index');
     }
     public function delAllAction() {
-        if(pzk_request('ids')) {
-            $arrIds = json_decode(pzk_request('ids'));
+        if(pzk_request()->getIds()) {
+            $arrIds = json_decode(pzk_request()->getIds());
             if(count($arrIds) >0) {
                 _db()->useCB()->delete()->from($this->table)
                     ->where(array('in', 'id', $arrIds))->result();

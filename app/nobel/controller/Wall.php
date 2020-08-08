@@ -14,10 +14,10 @@ class PzkWallController extends PzkFrontendController
 		else
 		{
 
-			$content=$request->get('write_wall');
+			$content=$request->getWrite_wall();
 			//echo $content;
 			
-			$username=$request->get('username');
+			$username=$request->getUsername();
 			$userwritewall=pzk_session('username');
 			$write_wall=_db()->getEntity('communication.user_write_wall');
 			//$write_wall->loadWhere(array('username',$username));
@@ -32,7 +32,7 @@ class PzkWallController extends PzkFrontendController
 
 	public function viewCommentAction()
 	{
-		$commentId= pzk_request('commentId');
+		$commentId= pzk_request()->getCommentId();
 		$detailnotepage=$this->parse('communication/friend/detailnotepage')	;
 		$detailnotepage->display();
 

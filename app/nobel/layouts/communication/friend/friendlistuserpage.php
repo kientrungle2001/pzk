@@ -1,7 +1,7 @@
 
 
  <?php 
-      $member=pzk_request('member');
+      $member=pzk_request()->getMember();
      // $member=99;
 
       $items=$data->viewListFriend($member);

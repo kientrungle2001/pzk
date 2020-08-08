@@ -1,6 +1,6 @@
 <?php
-  $socialId= pzk_request('socialId');
-  $commentId=pzk_request('commentId');
+  $socialId= pzk_request()->getSocialId();
+  $commentId=pzk_request()->getCommentId();
   $userId=pzk_session('userId');
   $social= _db()->getEntity('communication.social');
   /*$alert= $social->countAlert();

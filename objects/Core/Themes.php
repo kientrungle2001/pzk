@@ -20,12 +20,12 @@ class PzkCoreThemes extends PzkObjectLightWeight {
 		$request = pzk_request();
 		$allThemes 	= array();
 		$layoutcache = pzk_layoutcache();
-		if(!($themes = $layoutcache->get('themes'))) {
+		if(!($themes = $layoutcache->getThemes())) {
 			$themes = $this->getThemesOnToday();
 			foreach($themes as &$t) {
 				$t['name'] = ucfirst($t['name']);
 			}
-			$layoutcache->set('themes', $themes);
+			$layoutcache->setThemes( $themes);
 		}
 		
 		
@@ -37,32 +37,32 @@ class PzkCoreThemes extends PzkObjectLightWeight {
 				$default = $theme['name'];
 			}
 			
-			if(null === ($allClasses = $layoutcache->get('cssClasses'))) {
-				$allClasses = pzk_or(pzk_global()->get('cssClasses'), array());
+			if(null === ($allClasses = $layoutcache->getCssClasses())) {
+				$allClasses = pzk_or(pzk_global()->getCssClasses(), array());
 				$fileName = BASE_DIR . '/Themes/' . $theme['name'] . '/skin/css/maps.json';
 				if(is_file($fileName)) {
 					$content = file_get_contents(BASE_DIR . '/Themes/' . $theme['name'] . '/skin/css/maps.json');
 					$classes = json_decode($content, true);
 					$allClasses = merge_array($allClasses, $classes);
 				}
-				$layoutcache->set('cssClasses', $allClasses);
+				$layoutcache->setCssClasses( $allClasses);
 			}
-			pzk_global()->set('cssClasses', $allClasses);
+			pzk_global()->setCssClasses( $allClasses);
 			
-			if(null === ($allTags = $layoutcache->get('htmlTags'))) {
-				$allTags = pzk_or(pzk_global()->get('htmlTags'), array());
+			if(null === ($allTags = $layoutcache->getHtmlTags())) {
+				$allTags = pzk_or(pzk_global()->getHtmlTags(), array());
 				$fileName = BASE_DIR . '/Themes/' . $theme['name'] . '/skin/css/html.json';
 				if(is_file($fileName)) {
 					$content = file_get_contents(BASE_DIR . '/Themes/' . $theme['name'] . '/skin/css/html.json');
 					$tags = json_decode($content, true);
 					$allTags = merge_array($allTags, $tags);
 				}
-				$layoutcache->set('htmlTags', $allTags);
+				$layoutcache->setHtmlTags( $allTags);
 			}
-			pzk_global()->set('htmlTags', $allTags);
+			pzk_global()->setHtmlTags( $allTags);
 		}
-		$request->set('themes', $allThemes);
-		$request->set('defaultTheme', $default);
+		$request->setThemes( $allThemes);
+		$request->setDefaultTheme( $default);
 	}
 	
 	public function getThemesOnToday() {
@@ -80,7 +80,7 @@ class PzkCoreThemes extends PzkObjectLightWeight {
 	
 	public function themes($name = ''){
 		
-		$themes = pzk_request()->get('themes');
+		$themes = pzk_request()->getThemes();
 		
 		if(in_array($name, $themes)){
 			
@@ -101,18 +101,18 @@ class PzkCoreThemes extends PzkObjectLightWeight {
 
 function pzk_themes($name = ''){
 	
-	$obj = pzk_element('themes');
+	$obj = pzk_element()->getThemes();
 	
 	return $obj->themes($name);
 }
 
 function pzk_hook($path) {
-	$themes = pzk_request()->get('themes');
+	$themes = pzk_request()->getThemes();
 	foreach($themes as $theme) {
-		if(is_file($fileName = BASE_DIR . '/themes/'. $theme . '/hook/' . $path. '.'.pzk_request('softwareId'). '.'.pzk_request('siteId').'.php')) {
+		if(is_file($fileName = BASE_DIR . '/themes/'. $theme . '/hook/' . $path. '.'.pzk_request()->getSoftwareId(). '.'.pzk_request()->getSiteId().'.php')) {
 			return $fileName;
 		}
-		if(is_file($fileName = BASE_DIR . '/themes/'. $theme . '/hook/' . $path. '.'.pzk_request('softwareId').'.php')) {
+		if(is_file($fileName = BASE_DIR . '/themes/'. $theme . '/hook/' . $path. '.'.pzk_request()->getSoftwareId().'.php')) {
 			return $fileName;
 		}
 		if(is_file($fileName = BASE_DIR . '/themes/'. $theme . '/hook/' . $path. '.php')) {
@@ -123,7 +123,7 @@ function pzk_hook($path) {
 }
 
 function pzk_theme_css_class($class) {
-	$classes = pzk_global()->get('cssClasses');
+	$classes = pzk_global()->getCssClasses();
 	if(isset($classes[$class])) {
 		return $classes[$class];
 	}
@@ -131,7 +131,7 @@ function pzk_theme_css_class($class) {
 }
 
 function pzk_theme_html_open_tag($tag) {
-	$tags = pzk_global()->get('htmlTags');
+	$tags = pzk_global()->getHtmlTags();
 	if(isset($tags[$tag])) {
 		$config =  $tags[$tag];
 		$str = '<' . $config['tagName'] . ' ';
@@ -148,7 +148,7 @@ function pzk_theme_html_open_tag($tag) {
 }
 
 function pzk_theme_html_close_tag($tag) {
-	$tags = pzk_global()->get('htmlTags');
+	$tags = pzk_global()->getHtmlTags();
 	if(isset($tags[$tag])) {
 		$config =  	$tags[$tag];
 		$str	=	'';

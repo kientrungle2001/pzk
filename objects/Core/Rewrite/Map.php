@@ -11,16 +11,16 @@ class PzkCoreRewriteMap extends PzkObjectLightweight{
 		$route = $request->getStrippedSlashRoute();
 		switch($route) {
 			case 'game':
-				$request->set('controller', 'Game');
-				$request->set('action', 'ptnn');
+				$request->setController( 'Game');
+				$request->setAction( 'ptnn');
 			break;
 			case 'rating':
-				$request->set('controller', 'Home');
-				$request->set('action', 'rating');
+				$request->setController( 'Home');
+				$request->setAction( 'rating');
 			break;
 			case 'gift':
-				$request->set('controller', 'Relax');
-				$request->set('action', 'home');
+				$request->setController( 'Relax');
+				$request->setAction( 'home');
 			break;
 			default:
 				

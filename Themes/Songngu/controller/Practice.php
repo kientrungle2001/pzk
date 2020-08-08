@@ -17,7 +17,7 @@ class PzkPracticeController extends PzkController{
 			pzk_page()->set('img', $catEntity->get('img'));
 			pzk_page()->set('brief', $catEntity->get('brief'));
 				$this->append('education/practice/detail', 'wrapper');
-				$ngonngu = pzk_element('ngonngu');
+				$ngonngu = pzk_element()->getNgonngu();
 				
 
 				$data_category = pzk_model('Category');
@@ -42,7 +42,7 @@ class PzkPracticeController extends PzkController{
 				$ngonngu->set('checkPayment', $check);
 				
 			
-		$vocabularyList = pzk_element('vocabularyList');
+		$vocabularyList = pzk_element()->getVocabularyList();
 		if(pzk_request('siteId') == 2) {
 			if($vocabularyList){
 				$vocabularyList->set('checkPayment', $check);
@@ -153,7 +153,7 @@ class PzkPracticeController extends PzkController{
 	    
 	    	$data_criteria['question_limit'] = count($result_search);
 	    	
-	    	$data_showQuestion	= pzk_element('showQuestion');
+	    	$data_showQuestion	= pzk_element()->getShowQuestion();
 	    	$data_showQuestion->set('checkPayment', $check);
 	    	$data_showQuestion->set('dataRow', $dataRow);
 	    	
@@ -165,7 +165,7 @@ class PzkPracticeController extends PzkController{
 
 			$data_showQuestion->set('categoryCurrentObservation', $categoryCurrentObservation);
     	}
-		$vocabularyList = pzk_element('vocabularyList');
+		$vocabularyList = pzk_element()->getVocabularyList();
 		$vocabularyList->set('checkPayment', $check);
     	$this->display();
     }
@@ -269,7 +269,7 @@ class PzkPracticeController extends PzkController{
 	    
 	    	$data_criteria['question_limit'] = count($result_search);
 	    	
-	    	$data_showQuestion	= pzk_element('showQuestion');
+	    	$data_showQuestion	= pzk_element()->getShowQuestion();
 	    	$data_showQuestion->set('checkPayment', $check);
 	    	$data_showQuestion->set('dataRow', $dataRow);
 	    	
@@ -281,7 +281,7 @@ class PzkPracticeController extends PzkController{
 
 			$data_showQuestion->set('categoryCurrentObservation', $categoryCurrentObservation);
     	}
-		$vocabularyList = pzk_element('vocabularyList');
+		$vocabularyList = pzk_element()->getVocabularyList();
 		$vocabularyList->set('checkPayment', $check);
     	
     	$this->display();
@@ -313,7 +313,7 @@ class PzkPracticeController extends PzkController{
 		pzk_page()->set('brief', $catEntity->get('brief'));
 		$this->append('education/practice/showVocabulary', 'wrapper');	
 
-		$vocabularyList = pzk_element('vocabularyList');
+		$vocabularyList = pzk_element()->getVocabularyList();
 		$vocabularyList->set('checkPayment', $check);
     	
     	$this->display();

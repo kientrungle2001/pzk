@@ -31,7 +31,7 @@ class PzkGameController extends PzkController {
     public function ptnnAction()
     {
         $request = pzk_request();
-        $gameType = $request->get('gameType');
+        $gameType = $request->getGameType();
 
         $this->initPage();
         $this->append('game/formGame', 'left');
@@ -46,7 +46,7 @@ class PzkGameController extends PzkController {
     }
     public function gameTypeAction() {
         $request = pzk_request();
-        $gameType = $request->get('gameType');
+        $gameType = $request->getGameType();
         $this->initPage();
         //echo $gameType;
         if($gameType == 'muatu') {
@@ -58,16 +58,16 @@ class PzkGameController extends PzkController {
     }
     public function saveAction() {
         $request = pzk_request();
-        if($request->get('check') == 1){
-            $topicId = $request->get('gameTopic');
-            $gameCode =  $request->get('gamecode');
+        if($request->getCheck() == 1){
+            $topicId = $request->getGameTopic();
+            $gameCode =  $request->getGamecode();
             $data = array(
                 'gamecode'=> $gameCode,
-                'score'=> $request->get('score'),
-                'live'=> $request->get('live'),
+                'score'=> $request->getScore(),
+                'live'=> $request->getLive(),
                 'gametopic'=> $topicId,
                 'userId'=> pzk_session()->getUserId(),
-                'software'=> pzk_request('software'),
+                'software'=> pzk_request()->getSoftware(),
                 'created'=> date('d:m:y H:i:s', time())
             );
 

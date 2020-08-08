@@ -21,7 +21,7 @@ class PzkCommunicationFriendViewwritewall extends PzkObject
 	{
 			$loadUserName= $this->loadUserName($member);
 			$username= $loadUserName['username'];
-			$page=pzk_request('page_wall');
+			$page=pzk_request()->getPage_wall();
 			if(!$page){
 				$page=1;
 			}

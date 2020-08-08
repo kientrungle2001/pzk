@@ -56,7 +56,7 @@ class PzkDocumentController extends PzkController{
 		pzk_page()->set('brief', $documentEntity->get('	brief'));
 		
 		
-		$detail 	= pzk_element('detail');
+		$detail 	= pzk_element()->getDetail();
 		
 		if($detail) {
 			$detail->set('itemId', pzk_request()->get('id'));

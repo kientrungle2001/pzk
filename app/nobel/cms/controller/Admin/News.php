@@ -122,7 +122,7 @@ class PzkAdminNewsController extends PzkGridAdminController {
 	public function verifyAction() {
 		$arr = array();
 		$ids = pzk_request()->getIds();
-		$rows = _db()->selectAll()->from($this->get('table'))->inId($ids)->result();
+		$rows = _db()->selectAll()->from($this->getTable())->inId($ids)->result();
 		foreach ($rows as $row) {
 			if(!$row['meta_keywords']) {
 				$arr[] = array(

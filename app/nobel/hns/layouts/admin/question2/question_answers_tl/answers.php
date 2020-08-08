@@ -14,17 +14,17 @@ $teacher_answers = null;
 if($item['teacher_answers']) {
 	$teacher_answers = json_decode($item['teacher_answers'], true);
 }
-pzk_global()->set('teacher_answers', $teacher_answers);
+pzk_global()->setTeacher_answers( $teacher_answers);
 
 $pattern = '/\[(input|i)([\d]+)(\[([\d]+)\])?\]/';
 $content = preg_replace_callback($pattern, function($matches) {
-		$teacher_answers = pzk_global()->get('teacher_answers');		
+		$teacher_answers = pzk_global()->getTeacher_answers();		
 		return '<input size="' . @$matches[4] . '" name="answers[i]['.$matches[2].']" value="'.html_escape(@$teacher_answers['i'][$matches[2]]).'" />'.'<input placeholder="Điểm" size="' . @$matches[4] . '" name="answers[i_m]['.$matches[2].']" value="'.html_escape(@$teacher_answers['i_m'][$matches[2]]).'" />';
 	}, $item['name_vn']);
 	
 	$pattern = '/\[(tput|tp)([\d]+)(\[([\d]+)\])?\]/';
 $content = preg_replace_callback($pattern, function($matches) {
-		$teacher_answers = pzk_global()->get('teacher_answers');		
+		$teacher_answers = pzk_global()->getTeacher_answers();		
 		return '<input class="input_dt" size="' . @$matches[4] . '" name="answers[i]['.$matches[2].']" value="'.html_escape(@$teacher_answers['i'][$matches[2]]).'" />'.'<input placeholder="Điểm" size="' . @$matches[4] . '" name="answers[i_m]['.$matches[2].']" value="'.html_escape(@$teacher_answers['i_m'][$matches[2]]).'" />';
 	}, $content);
 
@@ -33,7 +33,7 @@ $content = preg_replace_callback($pattern, function($matches) {
 	$pattern = '/\[(textarea|t)([\d]+)\]/';
 	
 	$content = preg_replace_callback($pattern, function($matches) {
-		$teacher_answers = pzk_global()->get('teacher_answers');
+		$teacher_answers = pzk_global()->getTeacher_answers();
 		return '<textarea class="item tinymce_input" name="answers[t]['.$matches[2].']">'.html_escape(@$teacher_answers['t'][$matches[2]]).'</textarea>';
 	}, $content);
 
@@ -57,18 +57,18 @@ $content = preg_replace_callback($pattern, function($matches) {
   	<div class="margin-top-20">
 	  	<div class="col-xs-4">
 			<button type="submit" class="btn btn-primary" onclick = "return validate_answers()" ><span class="glyphicon glyphicon-save"></span> Cập nhật</button>
-			<?php if($backHref = pzk_request('backHref')):?>
+			<?php if($backHref = pzk_request()->getBackHref()):?>
 				<input type="hidden" name="backHref" value="<?php echo html_escape($backHref);?>" />
 				<a class="btn btn-default" href="{backHref}">Quay Lại</a>
 			<?php else: ?>
-				<a class="btn btn-default" href="{url /}{? echo pzk_request()->get('controller'); ?}/{item[questionId]}">Quay Lại</a>
+				<a class="btn btn-default" href="{url /}{? echo pzk_request()->getController(); ?}/{item[questionId]}">Quay Lại</a>
 			<?php endif; ?>
 		</div>
 	</div>
 </form>
 
 <script>
-    <?php if(pzk_request('softwareId') == 1) { ?>
+    <?php if(pzk_request()->getSoftwareId() == 1) { ?>
 	    setInputTinymce(2);
     <?php } else { ?>
         setInputTinymce();

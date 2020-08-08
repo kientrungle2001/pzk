@@ -35,7 +35,7 @@
 					<?php } }?>
 			<?php
 				} elseif(substr($topic['router'],0,4) == 'test') {
-					$class = pzk_request()->get('class');		
+					$class = pzk_request()->getClass();		
 				$subjects = $data->getTests($class);
 					if($subjects) { 
 						foreach($subjects as $subject){

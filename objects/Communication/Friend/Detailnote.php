@@ -50,7 +50,7 @@ class PzkCommunicationFriendDetailnote extends PzkObject
 	public function loadCommentNote($noteId,$id)
 	{
 			
-			$page=pzk_request('page');
+			$page=pzk_request()->getPage();
 			if(!$page){
 				$page=1;
 			}

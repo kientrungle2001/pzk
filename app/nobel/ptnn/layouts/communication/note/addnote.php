@@ -1,4 +1,4 @@
-<?php $member= pzk_request('member'); ?>
+<?php $member= pzk_request()->getMember(); ?>
 <div class="profilefriend_right">
     <div class="prf_hello">Chào mừng bạn đã ghé thăm góc học tập của tôi</div>
     

@@ -6,9 +6,9 @@ class PzkNewsController extends PzkController {
 	}
 	public function detailAction($id) {
 		$this->loadLayout();
-		$detail = pzk_element('detail');
+		$detail = pzk_element()->getDetail();
 		$detail->setItemId($id);
-		$breadcrumbs = pzk_element('breadcrumbs');
+		$breadcrumbs = pzk_element()->getBreadcrumbs();
 		if($breadcrumbs) {
 			$breadcrumbs->setItemId($id);
 		}

@@ -8,8 +8,8 @@ class PzkEducationTestFormStart extends PzkObject {
 	public $_tests		= false;
 	public $testId		= false;
 	public function getTest() {
-		if($this->get('testId')) {
-			return _db()->getEntity('Education.Test')->load($this->get('testId'), 1800);
+		if($this->getTestId()) {
+			return _db()->getEntity('Education.Test')->load($this->getTestId(), 1800);
 		}
 		return null;
 	}
@@ -17,20 +17,20 @@ class PzkEducationTestFormStart extends PzkObject {
 		
 		if($this->_tests !== false) return $this->_tests;
 		
-		$listTest = _db()->selectAll()->from($this->get('table'));
+		$listTest = _db()->selectAll()->from($this->getTable());
 		
-        if($this->get('trial')){
+        if($this->getTrial()){
             $listTest->whereTrial('1');
         }
 		
 		$listTest->whereStatus('1');
 		
-		$class = $this->get('class');
+		$class = $this->getClass();
 		if($class) {
 			$listTest->likeClasses("%,$class,%");
 		}
 		
-		$listTest->wherePractice($this->get('practice'));
+		$listTest->wherePractice($this->getPractice());
         
 		$listTest->orderBy('ordering asc');
 		

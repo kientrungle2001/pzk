@@ -40,7 +40,7 @@ class PzkUserController extends PzkFrontendController {
 		$confirm= md5($strConfirm);
 		$user=_db()->getEntity('user.user');
 		$user->loadWhere(array('username',$username));
-		//var_dump($user->get('id'));
+		//var_dump($user->getId());
 		$user->update(array('key' => $confirm));
 		//_db()->useCB()->update('user')->set(array('key' => $confirm))->where(array('username',$username))->result();
 		$arr=array('active'=>$confirm);
@@ -92,18 +92,18 @@ class PzkUserController extends PzkFrontendController {
 	public function invitationPostAction()
 	{
 		$request=pzk_request();
-		$txtinvitation=$request->get('invitation');
-		$userIdInvitation=$request->get('member');
+		$txtinvitation=$request->getInvitation();
+		$userIdInvitation=$request->getMember();
 		
 		
 		$user=_db()->getEntity('user.user');
 		$user->loadWhere(array('id',$userIdInvitation));
-		$usernameInvitation=$user->get('username');
+		$usernameInvitation=$user->getUsername();
 		$invitation=_db()->getEntity('user.invitation');
 		// kiểm tra nếu đã gửi lời mời kết bạn thì không insert được nữa
 		$invitation->loadWhere(array('and',array('username',pzk_session('username')),array('userinvitation',$usernameInvitation)));
 		
-		if($invitation->get('id'))
+		if($invitation->getId())
 		{
 			//$showinvitation = pzk_parse(pzk_app()->getPageUri('user/showinvitation'));
 			echo "fail";

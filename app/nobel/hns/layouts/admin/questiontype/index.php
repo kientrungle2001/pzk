@@ -6,7 +6,7 @@
 	if($pageSize) {
 		$data->pageSize = $pageSize;
 	}
-	$data->pageNum = pzk_request('page');
+	$data->pageNum = pzk_request()->getPage();
 	$items = $data->getItems($keyword, array('name'));
 	$countItems = $data->getCountItems($keyword, array('name'));
 	$pages = ceil($countItems / $data->pageSize);	

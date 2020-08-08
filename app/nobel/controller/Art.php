@@ -11,8 +11,8 @@ class PzkArtController extends PzkFrontendController
 	public function artAction()
 	{
 		$categoryId = pzk_request()->getSegment(3);
-		$quantity = pzk_request('number');
-		$level= pzk_request('level');
+		$quantity = pzk_request()->getNumber();
+		$level= pzk_request()->getLevel();
 		$key_book= uniqid();
 		pzk_session('keyBook',$key_book);
 		$this->initPage();
@@ -26,14 +26,14 @@ class PzkArtController extends PzkFrontendController
 	public function checkSave($key){
 		$check= _db()->getTableEntity('user_book');
 		$check->loadWhere(array('keybook', $key));
-		if($check->get('id')){
+		if($check->getId()){
 			return false;
 		}else return true;
 	}
 	public function saveBookAction(){
 		$request = pzk_request();
-		$data_answers=$request->get('answers');
-		$key_test= $request->get('key');
+		$data_answers=$request->getAnswers();
+		$key_test= $request->getKey();
 		if($key_test==pzk_session('keyBook')){
 			if($this->checkSave($key_test)){
 				$question_id=$data_answers['question_id'];
@@ -50,7 +50,7 @@ class PzkArtController extends PzkFrontendController
 				$answerTest->setData($row);
 				$answerTest->save();
 
-				$answerTestId=$answerTest->get('id');
+				$answerTestId=$answerTest->getId();
 				$frontendmodel = pzk_model('Frontend');
 
 				$answerDetail=_db()->getTableEntity('user_answers');
@@ -138,14 +138,14 @@ class PzkArtController extends PzkFrontendController
 
 	}
 	public function sendTestMarkAction(){
-		$user_test_id=pzk_request()->get('user_test_id');
+		$user_test_id=pzk_request()->getUser_test_id();
 		$user_test_id = decrypt(base64_decode($user_test_id),SECRETKEY);
 		$rs= _db()->update('user_book')->set(array('mark_status' => '1'))->where(array('id',$user_test_id))->result();
 		echo "1";
 	}
 	public function showAnswerTestAction(){
     $request = pzk_request();
-    $data_answers=$request->get('answers');
+    $data_answers=$request->getAnswers();
 	$tam=$data_answers['question_id'];
     
     $frontendmodel = pzk_model('Frontend');
@@ -215,13 +215,13 @@ class PzkArtController extends PzkFrontendController
         $parent_id = pzk_request()->getSegment(3);
         $this->initPage();
         $this->append('question/art/lesson', 'left');
-        $category = pzk_element('parent_category');
+        $category = pzk_element()->getParent_category();
         $category->setParentCategoryId($parent_id);
         $this->display();
     }
     public function questionAction(){
         $this->initPage();
-        $id_category=pzk_request()->get('id_category');
+        $id_category=pzk_request()->getId_category();
         $this->append('question/question', 'left');
         $this->display();
     }
@@ -229,7 +229,7 @@ class PzkArtController extends PzkFrontendController
 
 public function nextPageAction(){
 	$request = pzk_request();
-	$page=$request->get('page');
+	$page=$request->getPage();
 
 	if(isset($page)){
 		echo "1";

@@ -4,9 +4,9 @@
   <div class="detail_note">
      <?php 
 
-        $id= pzk_request('id');
-        $commentId=pzk_request('commentId');
-       $member= pzk_request('member');
+        $id= pzk_request()->getId();
+        $commentId=pzk_request()->getCommentId();
+       $member= pzk_request()->getMember();
        $count= $data->countComment($id);
        $numberrow=$count['count'];
         $note=$data->loadDetailNote($id);

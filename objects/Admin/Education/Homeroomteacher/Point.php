@@ -5,14 +5,14 @@ class PzkAdminEducationHomeroomteacherPoint extends PzkObject {
 	private $_classroom = false;
 	public function getClassroom() {
 		if($this->_classroom) return $this->_classroom;
-		return $this->_classroom = _db()->select('*')->from('education_classroom')->where(array('id', $this->get('classroomId')))->result_one();
+		return $this->_classroom = _db()->select('*')->from('education_classroom')->where(array('id', $this->getClassroomId()))->result_one();
 	}
 	
 	public function getClassrooms() {
 		return _db()->select('*')->from('education_classroom')->result();
 	}
 	public function getSubjects() {
-		return _db()->select('categories.id as subjectId, categories.name as subjectName')->from('categories')->whereType('subject')->likeClasses('%'.$this->get('classes').'%')->result();
+		return _db()->select('categories.id as subjectId, categories.name as subjectName')->from('categories')->whereType('subject')->likeClasses('%'.$this->getClasses().'%')->result();
 	}
 	public function getSubject($classes) {
 		return _db()->select('categories.id as subjectId, categories.name as subjectName')->from('categories')->whereType('subject')->likeClasses('%'.$classes.'%')->result();
@@ -20,14 +20,14 @@ class PzkAdminEducationHomeroomteacherPoint extends PzkObject {
 	public function getStudents() {
 		return  _db()->select('education_classroom_student.id,user.id as studentId, user.name, user.username, user.birthday')->from('education_classroom_student')
 		->join('user', 'education_classroom_student.studentId=user.id')
-		->whereClassroomId($this->get('classroomId'))->result();
+		->whereClassroomId($this->getClassroomId())->result();
 		
 	}
 	// lay diem cua tat ca bai test trong lop
 	public function getPointTestHomework() {
 		return  _db()->select('education_classroom_homework.homeworkId as testId,tests.testMark as testMark')->from('education_classroom_homework')
 		->join('tests', 'education_classroom_homework.homeworkId=tests.id')
-		->whereClassroomId($this->get('classroomId'))->result();
+		->whereClassroomId($this->getClassroomId())->result();
 		
 	}
 	//Lay diem tu testId
@@ -38,17 +38,17 @@ class PzkAdminEducationHomeroomteacherPoint extends PzkObject {
 	// Lấy điểm các HS
 	public function getPoint($studentIds){
 		$getPoints =  _db()->select('user_book. userId as userId,user_book. testId as testId,user_book. created as created, user_book. id as userBookId, user_book. totalMark as totalMark, user_book.status as status, user_book.homeworkStatus as homeworkStatus, user_book.homework as homework')->from('user_book')-> inUserId ($studentIds)->whereHomeworkStatus(1); 
-		$getPoints->whereSchoolYear($this->get('schoolYear'));
-		if($this->get('subjectId')){
-			$getPoints-> whereCategoryId($this->get('subjectId'));
+		$getPoints->whereSchoolYear($this->getSchoolYear());
+		if($this->getSubjectId()){
+			$getPoints-> whereCategoryId($this->getSubjectId());
 		}
 
-		if($this->get('weeks')){
-			$getPoints-> whereHomework(1) -> whereWeek($this->get('weeks'));
-		}else if($this->get('months')) {
-			$getPoints-> whereHomework(2) -> whereMonth($this->get('months'));
-		}else if($this->get('semesters')){
-			$getPoints-> whereHomework(3) -> whereSemester($this->get('semesters'));
+		if($this->getWeeks()){
+			$getPoints-> whereHomework(1) -> whereWeek($this->getWeeks());
+		}else if($this->getMonths()) {
+			$getPoints-> whereHomework(2) -> whereMonth($this->getMonths());
+		}else if($this->getSemesters()){
+			$getPoints-> whereHomework(3) -> whereSemester($this->getSemesters());
 		}
 		/*echo $getPoints->getQuery();*/
 		return $getPoints->result();
@@ -136,13 +136,13 @@ class PzkAdminEducationHomeroomteacherPoint extends PzkObject {
 	
 					
 			$getPoints =  _db()->select('user_book. userId as userId, user_book. categoryId, user_book. totalMark as totalMark, user_book.status as status, user_book. testId as testId, user_book.homeworkStatus as homeworkStatus, user_book.homework as homework')->from('user_book')-> inUserId ($studentIds)->whereHomeworkStatus(1); 
-			$getPoints-> whereCategoryId($subjectId)->whereSchoolYear($this->get('schoolYear'));
-			if($this->get('weeks')){
-				$getPoints-> whereHomework(1)-> whereWeek($this->get('weeks'));
-			}else if($this->get('months')) {
-				$getPoints-> whereHomework(2)-> whereMonth($this->get('months'));
-			}else if($this->get('semesters')){
-				$getPoints-> whereHomework(3)-> whereSemester($this->get('semesters'));
+			$getPoints-> whereCategoryId($subjectId)->whereSchoolYear($this->getSchoolYear());
+			if($this->getWeeks()){
+				$getPoints-> whereHomework(1)-> whereWeek($this->getWeeks());
+			}else if($this->getMonths()) {
+				$getPoints-> whereHomework(2)-> whereMonth($this->getMonths());
+			}else if($this->getSemesters()){
+				$getPoints-> whereHomework(3)-> whereSemester($this->getSemesters());
 			}
 			
 			$arrayPoints= array();
@@ -157,7 +157,7 @@ class PzkAdminEducationHomeroomteacherPoint extends PzkObject {
 	public function showAllPoint() {
 		
 		$marks = array();
-		$subjectIds = $this->getSubjects($this->get('classes')); 
+		$subjectIds = $this->getSubjects($this->getClasses()); 
 		//$points = array();
 		$studentIds= array();
 		

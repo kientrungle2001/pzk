@@ -13,13 +13,13 @@
   } else {
   	$user= _db()->getEntity('User.Account.User')->load($member);
   }
-  //$userId=$user->get('id');
-  $username=$user->get('username');
+  //$userId=$user->getId();
+  $username=$user->getUsername();
   $countInvi= $user->countInvitation();
-  $avatar=$user->get('avatar');
+  $avatar=$user->getAvatar();
   $dateVip= $user->CheckDate('1',$member);
   $learnPoint= $user->learnPoint($member);
-  $sex= $user->checkSex($user->get('sex'));
+  $sex= $user->checkSex($user->getSex());
   $hieghtPoint=$user->hieghtPoint($member);
   $sortPoint=$user->sortPoint($learnPoint, $hieghtPoint);
   $sortTrophies=$user->sortTrophies($learnPoint, $hieghtPoint);
@@ -69,8 +69,8 @@
     <?php 
           $friends= $user->getFriends();
           foreach ($friends as $friend) { 
-           $userfriend=$friend->get('username');
-           $avatar_friend=$friend->get('avatar');
+           $userfriend=$friend->getUsername();
+           $avatar_friend=$friend->getAvatar();
       ?>
     <div class="prf_friend">
       <div class="prf_avatar_friend">

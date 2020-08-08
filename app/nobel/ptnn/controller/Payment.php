@@ -41,9 +41,9 @@ class PzkPaymentController extends PzkFrontendController
 	public function paycardPostAction()
 	{
 		$request=pzk_request();
-		$type_card=$request->get('pm_typecard');
-		$card_serial=$request->get('pm_txt_serialcard');
-		$pin_card=$request->get('pm_txt_pincard');
+		$type_card=$request->getPm_typecard();
+		$card_serial=$request->getPm_txt_serialcard();
+		$pin_card=$request->getPm_txt_pincard();
 		if($type_card=='' || $card_serial=='' || $pin_card==''){
 			return false;
 		}
@@ -90,7 +90,7 @@ class PzkPaymentController extends PzkFrontendController
 				$history_payment->setData($row);
 				$history_payment->save();*/
 				//isert table order_transaction
-				//$orderId= $history_payment->get('id');
+				//$orderId= $history_payment->getId();
 				$transaction=_db()->getEntity('payment.transaction');
 				$row_=array('userId'=>pzk_session('userId'),'paymentType'=>'thecaodienthoai','cardType'=>$type_card,'amount'=>$amount,'cardAmount'=>$card_amount,'paymentDate'=>$client_mobile,'transactionStatus'=>1,'transactionId'=>$transaction_id,'reason'=>$client_fullname.'/'.$type_card.'/'.$card_serial.'/'.$pin_card,'status'=>1);		
 				$transaction->setData($row_);			
@@ -98,7 +98,7 @@ class PzkPaymentController extends PzkFrontendController
 			// insert table wallets
 				$wallets=_db()->getEntity('user.account.wallets');
 				$wallets->loadWhere(array('username',$client_fullname));
-				if($wallets->get('id'))
+				if($wallets->getId())
 				{
 					//$card_amount= 10000;
 					$amountWall= $wallets->getAmount();
@@ -213,14 +213,14 @@ class PzkPaymentController extends PzkFrontendController
 				// Kiểm tra xem giao dịch đã tồn tại hay chưa trong banng order_transaction
 				$transaction=_db()->getEntity('payment.transaction');
 				$transaction->loadWhere(array('and',array('username',$username),array('paymentDate',$datePay)));
-				if(!$transaction->get('id'))
+				if(!$transaction->getId())
 				{
 					$row_=array('userId'=>pzk_session('userId'),'username'=>$username,'paymentType'=>'nganluong','amount'=>$amount,'paymentDate'=>$datePay,'status'=>1,'transactionId'=>$transaction_id,'paymentOption'=>$method_payment_name,'transactionStatus'=>1,'reason'=>'naptien_nganluong','cardType'=>$card_type,'cardAmount'=>$card_amount);		
 					$transaction->setData($row_);			
 					$transaction->save();
 					$wallets=_db()->getEntity('user.account.wallets');
 					$wallets->loadWhere(array('username',$username));
-					if($wallets->get('id'))
+					if($wallets->getId())
 					{
 						$itme= $wallets->getAmount();
 						$price= $price+ $wallets->getAmount();
@@ -259,22 +259,22 @@ class PzkPaymentController extends PzkFrontendController
 	}
 	public function PaymentNganLuongAction()
 	{
-		$nganluong= pzk_request('username');
+		$nganluong= pzk_request()->getUsername();
 		echo "ok".$nganluong;
 	}
 	public function PaymentNextNobelsAction()
 	{
-		$nextnobels_card= pzk_request('nextnobels_card');
-		$nextnobels_serial= pzk_request('nextnobels_serial');
+		$nextnobels_card= pzk_request()->getNextnobels_card();
+		$nextnobels_serial= pzk_request()->getNextnobels_serial();
 		$nextnobels_card= trim($nextnobels_card);
 		$nextnobels_card=md5($nextnobels_card);
 		$userActive=pzk_session('userId');
 		$dateActive= date("y-m-d h:i:s");
 		$card_nextnobels= _db()->getEntity('payment.card_nextnobels');
 		$card_nextnobels->loadWhere(array('and',array('pincard',$nextnobels_card),array('serial',$nextnobels_serial)));
-		if($card_nextnobels->get('id'))
+		if($card_nextnobels->getId())
 		{
-			if($card_nextnobels->get('status')==1){
+			if($card_nextnobels->getStatus()==1){
 				// Cap nhat du lieu
 				$serviceId=$card_nextnobels->getServiceId();
 				$row=array('userActive'=>$userActive,'dateActive'=>$dateActive, 'status'=>0 );
@@ -282,7 +282,7 @@ class PzkPaymentController extends PzkFrontendController
 				// ghi log file
 				$File = BASE_DIR.'/3rdparty/thecao/theNextnobels.txt'; 
 				$Handle = fopen($File, 'a');
-				$Data = "UserId: ".$userActive." |username: ".pzk_session('username')." |serviceId : ".$serviceId."|thoi gian: ".$dateActive. "|Ma the: ".pzk_request('nextnobels_card')."|Serial: ".$nextnobels_serial."\n";
+				$Data = "UserId: ".$userActive." |username: ".pzk_session('username')." |serviceId : ".$serviceId."|thoi gian: ".$dateActive. "|Ma the: ".pzk_request()->getNextnobels_card()."|Serial: ".$nextnobels_serial."\n";
 				fwrite($Handle, $Data); 
 				fclose($Handle);
 				//Cập nhật bảng history_service				

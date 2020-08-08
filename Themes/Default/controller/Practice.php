@@ -35,7 +35,7 @@ class PzkThemesDefaultPracticeController extends PzkController{
 		$subjectPractice->set('checkPayment', $check);
 				
 			
-		$vocabularyList = pzk_element('vocabularyList');
+		$vocabularyList = pzk_element()->getVocabularyList();
 		if(pzk_request('siteId') == 2) {
 			if($vocabularyList){
 				$vocabularyList->set('checkPayment', $check);
@@ -135,7 +135,7 @@ class PzkThemesDefaultPracticeController extends PzkController{
 			
 	    }
 		
-		$vocabularyList = pzk_element('vocabularyList');
+		$vocabularyList = pzk_element()->getVocabularyList();
 		if(pzk_request('siteId') == 2) {
 			if($vocabularyList){
 				$vocabularyList->set('checkPayment', $check);

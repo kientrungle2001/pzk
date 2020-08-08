@@ -27,9 +27,9 @@ class PzkHomeController extends PzkController{
 		$categories = _db()->selectNone()->selectId()->fromCategories()->result();
 		foreach($categories as $category) {
 			$categoryEntity = _db()->getTableEntity('categories')->load($category['id']);
-			echo $categoryEntity->get('name') . '<br />';
-			echo bodau(trim($categoryEntity->get('name'))) . '<br />';
-			$categoryEntity->update(array('alias' => bodau(trim($categoryEntity->get('name')))));
+			echo $categoryEntity->getName() . '<br />';
+			echo bodau(trim($categoryEntity->getName())) . '<br />';
+			$categoryEntity->update(array('alias' => bodau(trim($categoryEntity->getName()))));
 			//$categoryEntity->save();
 		}
 		$categories = _db()->selectNone()->selectId()->fromNews()->result();

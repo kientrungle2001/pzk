@@ -15,7 +15,7 @@ class PzkFormController extends PzkController {
 		
 		$subTopicId = pzk_request()->getSegment(3);
 		$this->initPage();
-		/*$header = pzk_element('header');
+		/*$header = pzk_element()->getHeader();
 		if($header) {
 			$header->setLayout('home/header2');
 		}*/
@@ -29,7 +29,7 @@ class PzkFormController extends PzkController {
 				$mcate = pzk_model('Category');
 				//list lesson
 				$dataLessons = $mcate->get_category_all($subTopicId); 
-				$formLesson = pzk_element('formLesson');
+				$formLesson = pzk_element()->getFormLesson();
 				//define 
 				$formLesson->setLessonTime(QUESTIONTIME);
 				$formLesson->setKeybook($keybook);
@@ -40,7 +40,7 @@ class PzkFormController extends PzkController {
 				$mcate = pzk_model('Category');
 				//list lesson
 				$dataLessons = $mcate->get_category_all($subTopicId); 
-				$formLesson = pzk_element('formLesson');
+				$formLesson = pzk_element()->getFormLesson();
 				//define 
 				$formLesson->setLessonTime(QUESTIONTIME);
 				$formLesson->setKeybook($keybook);
@@ -67,8 +67,8 @@ class PzkFormController extends PzkController {
 	public function setLessonAction() {
 		
 		if(pzk_session('userId')) {
-			$lessonId = pzk_request()->get('lessonId');
-			$category_root = pzk_request()->get('category_root');
+			$lessonId = pzk_request()->getLessonId();
+			$category_root = pzk_request()->getCategory_root();
 		
 			$check = pzk_user()->checkPayment('full');
 			//tai khoan da active
@@ -163,7 +163,7 @@ class PzkFormController extends PzkController {
     	
     	$request 			= pzk_request();
     	 
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getAnswers();
     	
     	//debug($data_answers);die;
     	
@@ -245,19 +245,19 @@ class PzkFormController extends PzkController {
     	
     	$request 			= pzk_request();
     	
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getAnswers();
     	//debug($data_answers);die();
     	if(!isset($data_answers)){
     		die;
     	}
     	
-    	$user_book_key	= $request->get('keybook');
+    	$user_book_key	= $request->getKeybook();
     	
     	$question_id 	= $data_answers['questions'];
     	
     	//$exercise_number	= $data_answers['num_exercise'];
     	
-    	$totaltrue      = $request->get('totaltrue');
+    	$totaltrue      = $request->getTotaltrue();
     	
     	$question_types = $data_answers['questionType'];
     	$question_type  = '';
@@ -323,7 +323,7 @@ class PzkFormController extends PzkController {
     			'mark'              => $totaltrue,
     			'testId'			=> $testId,
     			'duringTime'		=> $duringTime,
-				'software' 			=> pzk_request()->get('softwareId'),
+				'software' 			=> pzk_request()->getSoftwareId(),
     			//'exercise_number'	=> $exercise_number,
     			'question_type'		=> $question_type,
     	);
@@ -344,7 +344,7 @@ class PzkFormController extends PzkController {
 		    	
 		    	$userBook->save();
 		    	
-		    	$userbookId=$userBook->get('id');
+		    	$userbookId=$userBook->getId();
 		    	
 		    	if(setSuperType($question_type) == "choice"){
 		    		
@@ -385,12 +385,12 @@ class PzkFormController extends PzkController {
     		die;
     	}*/
     	
-		$lessonId = pzk_request()->get('lessonId');
-		$time = pzk_request()->get('time');
-		$score = pzk_request()->get('score');
-		$lessonType = pzk_request()->get('lessonType');
-		$startTime = pzk_request()->get('startTime');
-		$endTime = pzk_request()->get('endTime');
+		$lessonId = pzk_request()->getLessonId();
+		$time = pzk_request()->getTime();
+		$score = pzk_request()->getScore();
+		$lessonType = pzk_request()->getLessonType();
+		$startTime = pzk_request()->getStartTime();
+		$endTime = pzk_request()->getEndTime();
 		
 		
 		if($lessonId && $time) {
@@ -404,7 +404,7 @@ class PzkFormController extends PzkController {
     			'mark'              => $score,
     			//'testId'			=> $testId,
     			'duringTime'		=> $time,
-				'software' 			=> pzk_request()->get('softwareId'),
+				'software' 			=> pzk_request()->getSoftwareId(),
     			//'exercise_number'	=> $exercise_number,
     			'question_type'		=> $lessonType,
 				'status' => 1

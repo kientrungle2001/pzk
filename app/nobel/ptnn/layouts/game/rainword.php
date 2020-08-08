@@ -1,7 +1,7 @@
 ﻿﻿<?php
 $post = pzk_request();
-$gameType = $post->get('gameType');
-$topic = $post->get('gameTopic');
+$gameType = $post->getGameType();
+$topic = $post->getGameTopic();
 $dataWord = $data->getWordGame($gameType, $topic);
 if($dataWord){
 $arrWordTrue = explode(',', $dataWord['datatrue']);

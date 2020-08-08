@@ -1,6 +1,6 @@
 
  <?php 
-    $member=pzk_request('member');
+    $member=pzk_request()->getMember();
     $write_walls=$data->viewWriteWall($member);
 
   ?>

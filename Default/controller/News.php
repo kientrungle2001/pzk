@@ -34,7 +34,7 @@ class PzkNewsController extends PzkController {
 		pzk_page()->set('brief', $newsEntity->get('brief'));
 		
 		$news = $this->parse('cms/news/detail');
-		$detail = pzk_element('detail');
+		$detail = pzk_element()->getDetail();
 		
 		if($detail) {
 			$detail->set('itemId', $newsId);

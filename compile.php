@@ -166,7 +166,7 @@ compileLayouts();
 //compileXmlFile('system/full.php', regenerate);
 //compileXmlFile('app/ptnn/offapplication.php', regenerate);
 //compileXmlFile('app/cms/pages/home/index.php', regenerate);
-//pzk_element('page')->display();
+//pzk_element()->getPage()->display();
 //require_once 'compile/pages/system_full.php';
 //require_once 'compile/pages/app_ptnn_offapplication.php';
 */

@@ -22,8 +22,8 @@ class PzkEducationQuestionTypeFill_one_text extends PzkObject{
 			->where("q.id='$this->questionId'");
 			$question = $query->result_one('Question.Choice');
 		
-			$this->set('type', $question->get('type'));
-			$this->set('question', $question);
+			$this->setType( $question->getType());
+			$this->setQuestion( $question);
 			
 			return $question;
 		}

@@ -67,7 +67,7 @@
               notecontent:notecontent }, 
             success:function(result){
               
-              window.location = "/note/viewnote?member=<?php echo pzk_request('member'); ?>";
+              window.location = "/note/viewnote?member=<?php echo pzk_request()->getMember(); ?>";
                          
             }
           });
@@ -79,7 +79,7 @@
     });
     $('#note_back').click(function()
     {
-      window.location="/note/viewnote?member=<?php echo pzk_request('member'); ?>";
+      window.location="/note/viewnote?member=<?php echo pzk_request()->getMember(); ?>";
     });
     </script>   
 </div>

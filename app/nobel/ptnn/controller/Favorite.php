@@ -40,21 +40,21 @@ class PzkFavoriteController extends PzkFrontendController
 	}
 	public function viewlessonAction()
 	{
-		//$lesson_favoriteId= pzk_request('lesson_favoriteId');
+		//$lesson_favoriteId= pzk_request()->getLesson_favoriteId();
 		$detailnotepage=$this->parse('favorite/lessonfavoritepage')	;
 		$detailnotepage->display();
 
 	}
 	public function viewlessonmemberAction()
 	{
-		//$lesson_favoriteId= pzk_request('lesson_favoriteId');
+		//$lesson_favoriteId= pzk_request()->getLesson_favoriteId();
 		$detailnotepage=$this->parse('favorite/lessonfavoritememberpage')	;
 		$detailnotepage->display();
 
 	}
 	public function viewhistoryAction()
 	{
-		$lesson_favoriteId= pzk_request('lesson_historyId');
+		$lesson_favoriteId= pzk_request()->getLesson_historyId();
 		$detailnotepage=$this->parse('favorite/lessonhistorypage')	;
 		$detailnotepage->display();
 

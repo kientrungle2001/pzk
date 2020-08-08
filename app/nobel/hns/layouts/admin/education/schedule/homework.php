@@ -18,7 +18,7 @@ $totalDoneHomeworks 	=	count($homeworks);
 		continue;
 endif;?>
 	<tr>
-		<td <?php if($homework['homeworkId'] == $data->get('homeworkId')):?>class="bg-success"<?php endif;?>><a href="/Admin_Schedule_Teacher/showHomework/{classroom[id]}/{homework[homeworkId]}">{homework[name]}</a></td>
+		<td <?php if($homework['homeworkId'] == $data->getHomeworkId()):?>class="bg-success"<?php endif;?>><a href="/Admin_Schedule_Teacher/showHomework/{classroom[id]}/{homework[homeworkId]}">{homework[name]}</a></td>
 	</tr>
 {/each}
 </table>

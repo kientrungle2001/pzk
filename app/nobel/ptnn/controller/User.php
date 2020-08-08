@@ -40,7 +40,7 @@ class PzkUserController extends PzkFrontendController {
 		$confirm= md5($strConfirm);
 		$user=_db()->getEntity('user.user');
 		$user->loadWhere(array('username',$username));
-		//var_dump($user->get('id'));
+		//var_dump($user->getId());
 		$user->update(array('key' => $confirm));
 		//_db()->useCB()->update('user')->set(array('key' => $confirm))->where(array('username',$username))->result();
 		$arr=array('active'=>$confirm);
@@ -92,11 +92,11 @@ class PzkUserController extends PzkFrontendController {
 	public function invitationPostAction()
 	{
 		
-		$txtinvi=pzk_request('invitation');
-		$userInvi=pzk_request('member');
+		$txtinvi=pzk_request()->getInvitation();
+		$userInvi=pzk_request()->getMember();
 		$invitation=_db()->getEntity('communication.invitation');
 		$invitation->loadWhere(array('and',array('userId',$userInvi),array('userinvitation',pzk_session('userId'))));
-		if($invitation->get('id'))
+		if($invitation->getId())
 		{
 			echo "fail";
 		}

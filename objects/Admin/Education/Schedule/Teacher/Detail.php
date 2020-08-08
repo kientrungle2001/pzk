@@ -4,23 +4,23 @@ class PzkAdminEducationScheduleTeacherDetail extends PzkObject {
 	private $_classroom = false;
 	public function getClassroom() {
 		if($this->_classroom) return $this->_classroom;
-		return $this->_classroom = _db()->select('*')->from('education_classroom')->where(array('id', $this->get('classroomId')))->result_one();
+		return $this->_classroom = _db()->select('*')->from('education_classroom')->where(array('id', $this->getClassroomId()))->result_one();
 	}
 	public function getClassrooms() {
 		return _db()->select('education_classroom.*, categories.name as subject')
 			->from('education_classroom_teacher')
 			->join('education_classroom', 'education_classroom_teacher.classroomId=education_classroom.id')
 			->join('categories', 'education_classroom_teacher.subjectId=categories.id')
-			->whereTeacherId($this->get('teacherId'))->result();
+			->whereTeacherId($this->getTeacherId())->result();
 	}
 	
 	public function getTeacher() {
-		return _db()->select('*')->from('admin')->whereId($this->get('teacherId'))->result_one();
+		return _db()->select('*')->from('admin')->whereId($this->getTeacherId())->result_one();
 	}
 	
 	public function getHomeworks() {
 		return _db()->select('tests.*, categories.name as subject')->from('tests')
-			->likeTeacherIds('%,'. $this->get('teacherId').',%')
+			->likeTeacherIds('%,'. $this->getTeacherId().',%')
 			->join('categories', 'tests.subjectId=categories.id')
 			->whereHomework('1')
 			->result();
@@ -28,7 +28,7 @@ class PzkAdminEducationScheduleTeacherDetail extends PzkObject {
 	
 	public function getTests() {
 		return _db()->select('tests.*, categories.name as subject')->from('tests')
-			->likeTeacherIds('%,'. $this->get('teacherId').',%')
+			->likeTeacherIds('%,'. $this->getTeacherId().',%')
 			->join('categories', 'tests.subjectId=categories.id')
 			->whereHomework('0')
 			->result();
@@ -42,7 +42,7 @@ class PzkAdminEducationScheduleTeacherDetail extends PzkObject {
 			->join('tests', 'user_book.testId=tests.id')
 			->join('categories', 'user_book.categoryId=categories.id')
 			->join('user', 'user_book.userId=user.id')
-			->where('tests.teacherIds like "%,'.$this->get('teacherId').',%"')
+			->where('tests.teacherIds like "%,'.$this->getTeacherId().',%"')
 			->where('tests.homework=1')
 			->orderBy('startTime desc')
 			->result();

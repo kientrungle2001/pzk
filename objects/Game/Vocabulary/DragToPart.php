@@ -4,12 +4,12 @@ class PzkGameVocabularyDragToPart extends PzkObject
 	public $documentId;
 	public $gameCode;
 	public function getGame() {
-		return _db()->select('*')->from('game')->whereGamecode($this->get('gameCode'))
-			->whereDocumentId($this->get('documentId'))->result_one();
+		return _db()->select('*')->from('game')->whereGamecode($this->getGameCode())
+			->whereDocumentId($this->getDocumentId())->result_one();
 	}
 	public function getImagesAndWords () {
 		$result = array();
-		$game = $this->get('game');
+		$game = $this->getGame();
 		if(!$game) return $result;
 		$content = $game['question'];
 		$words = explode('-----', $content);

@@ -113,7 +113,7 @@ class PzkTrytestController extends PzkController{
 								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 								
 								$this->append('trytest/alert', 'wrapper');
-								$alert = pzk_element('alert');
+								$alert = pzk_element()->getAlert();
 								$alert->set('title', 'Bạn đã hoàn thành bài thi! <br> Mỗi tài khoản chỉ được thi một lần.');
 								$this->display();
 							pzk_system()->halt();
@@ -147,7 +147,7 @@ class PzkTrytestController extends PzkController{
 				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
-				$login = pzk_element('login');
+				$login = pzk_element()->getLogin();
 				$login->set('rel', "/trytest/showtn/".$camp);
 				$login->set('title', 'thì mới được vào thi thử');
 			$this->display();			
@@ -249,7 +249,7 @@ class PzkTrytestController extends PzkController{
 								$finish->setCamp($camp);
 								$finish->setDateFinish(DATEFINISH1);*/
 								$this->append('trytest/alert', 'wrapper');
-								$alert = pzk_element('alert');
+								$alert = pzk_element()->getAlert();
 								$alert->set('title', 'Bạn đã hoàn thành bài thi! <br> Mỗi tài khoản chỉ được thi một lần.');
 								$this->display();
 							
@@ -282,7 +282,7 @@ class PzkTrytestController extends PzkController{
 				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
-				$login = pzk_element('login');
+				$login = pzk_element()->getLogin();
 				$login->set('rel', "/trytest/showtl/".$camp);
 				$login->set('title', 'thì mới được vào thi thử');
 			$this->display();
@@ -601,7 +601,7 @@ class PzkTrytestController extends PzkController{
 					pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 					pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 					$this->append('trytest/alert', 'wrapper');
-					$alert = pzk_element('alert');
+					$alert = pzk_element()->getAlert();
 					$alert->set('title', 'Đã hết thời gian xem kết quả thi');
 					
 				$this->display();
@@ -631,7 +631,7 @@ class PzkTrytestController extends PzkController{
 							pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 							pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 							$this->append('trytest/alert', 'wrapper');
-							$alert = pzk_element('alert');
+							$alert = pzk_element()->getAlert();
 							$html = 'Bạn chưa thi thử! <br/> <br/>Phải hoàn thành xong 2 bài thi(trắc nghiệm và tự luận) mới được xem đáp án!<br/><br/> Click <a href="/trytest/showtn/'.$contestId.'">vào đây</a> để thi thử!';
 							$alert->set('title', $html);
 							
@@ -646,7 +646,7 @@ class PzkTrytestController extends PzkController{
 							pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 							pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 							$this->append('trytest/alert', 'wrapper');
-							$alert = pzk_element('alert');
+							$alert = pzk_element()->getAlert();
 							$html = 'Bạn chưa thi thử tự luận! <br/> <br/>Phải hoàn thành xong 2 bài thi(trắc nghiệm và tự luận) mới được xem đáp án!<br/><br/> Click <a href="/trytest/showtl/'.$contestId.'">vào đây</a> để thi thử tự luận';
 							$alert->set('title', $html);
 							
@@ -737,7 +737,7 @@ class PzkTrytestController extends PzkController{
 				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
-				$login = pzk_element('login');
+				$login = pzk_element()->getLogin();
 				$login->set('rel', "/trytest/showresult/".$camp);
 				$login->set('title', 'thì mới xem được kết quả!');
 			$this->display();
@@ -808,7 +808,7 @@ class PzkTrytestController extends PzkController{
 						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('trytest/alert', 'wrapper');
-						$login = pzk_element('alert');
+						$login = pzk_element()->getAlert();
 						$contestname = strtolower($dataContest['name']);
 						$alert = 'Bạn chưa mua gói xem đề '. $contestname .' <br/>';
 						$login->set('title', $alert);
@@ -829,7 +829,7 @@ class PzkTrytestController extends PzkController{
 				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
-				$login = pzk_element('login');
+				$login = pzk_element()->getLogin();
 				$login->set('rel', "/trytest/showtestanswer/".$contestId);
 				$login->set('title', 'thì mới xem được đáp án');
 			$this->display();
@@ -900,7 +900,7 @@ class PzkTrytestController extends PzkController{
 						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('trytest/alert', 'wrapper');
-						$login = pzk_element('alert');
+						$login = pzk_element()->getAlert();
 						$contestname = strtolower($dataContest['name']);
 						$alert = '<div class="bg bg-success padding-10">Bạn chưa mua gói xem đề '. $contestname .' <br/><br/> <a href="/contest/about">Vào đây</a> để mua</a>';
 						$login->set('title', $alert);
@@ -921,7 +921,7 @@ class PzkTrytestController extends PzkController{
 				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
-				$login = pzk_element('login');
+				$login = pzk_element()->getLogin();
 				$login->set('rel',"/trytest/showtest/".$contestId);
 				$login->set('title', 'thì mới xem được đề!');
 			$this->display();

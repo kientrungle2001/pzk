@@ -225,7 +225,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 		
 		$userBookId		=	pzk_request()->getSegment(3);
 		
-		$user_book_view	= pzk_element('user_book');
+		$user_book_view	= pzk_element()->getUser_book();
 		
 		$userBookModel 	= pzk_model('Userbook');
 		

@@ -183,8 +183,8 @@ class PzkPage extends PzkObject {
 	}
 	
 	public function getTemplatePath($path) {
-		$app = pzk_element('app');
-		$page = pzk_element('page');
+		$app = pzk_app();
+		$page = pzk_page();
 		return BASE_URL . '/design/' . $app->name . '/' . $page->template . '/' . $path;
 	}
 }
@@ -195,6 +195,6 @@ class PzkPage extends PzkObject {
  * @return PzkPage
  */
 function pzk_page() {
-	return pzk_element('page');
+	return pzk_element()->getPage();
 }
 ?>

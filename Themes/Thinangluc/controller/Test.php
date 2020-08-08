@@ -28,7 +28,7 @@ class PzkTestController extends PzkThemesDefaultTestController {
 				if(!in_array($testId, $istest)){
 					$this->initPage();
 					$this->append('home/login', 'wrapper');
-					pzk_element('login')->set('message', 'Bạn cần mua phần mềm mới có thể làm bài này');
+					pzk_element()->getLogin()->set('message', 'Bạn cần mua phần mềm mới có thể làm bài này');
 					$this->display();
 					pzk_system()->halt();
 				}
@@ -64,7 +64,7 @@ class PzkTestController extends PzkThemesDefaultTestController {
 		    	}else{		    		
 		    		$result_search = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 		    	}    	
-		    	$data_showQuestion	= pzk_element('showTest');		    	
+		    	$data_showQuestion	= pzk_element()->getShowTest();		    	
 		    	$data_showQuestion->set('data_showQuestion', $result_search);		    	
 		    	$data_showQuestion->set('data_criteria', $test_detail);		    	 
 		    	$this->display();
@@ -75,7 +75,7 @@ class PzkTestController extends PzkThemesDefaultTestController {
 		$class = pzk_request()->get('lop');
 		$this->parse('education/test/ajaxtest');
 		
-		$ajaxtest = pzk_element('ajaxtest');
+		$ajaxtest = pzk_element()->getAjaxtest();
 		$ajaxtest->set('page', $page);
 		$ajaxtest->set('class', $class);
 		$ajaxtest->display();

@@ -49,8 +49,8 @@ class PzkAdminQuestionsController extends PzkAdminController {
 	}
 	public function onchangeTrialAction() {
         $id = pzk_request ('id');
-        $field = pzk_request('field');
-        $value = pzk_request('value');
+        $field = pzk_request()->getField();
+        $value = pzk_request()->getValue();
         $entity = _db ()->getTableEntity ( $this->table )->load ( $id );
         $entity->update ( array (
             $field => $value
@@ -86,11 +86,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
         if($this->logable) {
             $logEntity = _db()->getTableEntity('admin_log');
             $logFields = explodetrim(',', $this->logFields);
-            $brief = pzk_session()->get('adminUser') . ' Thêm mới bản ghi: ' . $this->getModule();
+            $brief = pzk_session()->getAdminUser() . ' Thêm mới bản ghi: ' . $this->getModule();
             foreach ($logFields as $field) {
                 $brief .= '[' . $field . ': ' . @$row[$field] . ']';
             }
-            $logEntity->set('userId', pzk_session()->getAdminId());
+            $logEntity->setUserId( pzk_session()->getAdminId());
             $logEntity->setCreated(date('Y-m-d H:i:s'));
             $logEntity->setActionType('add');
             $logEntity->setAdmin_controller('admin_'.$this->getModule());
@@ -116,11 +116,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
         }
 
         $entity = _db()->getEntity('table')->setTable($this->table);
-        $entity->load(pzk_request('id'));
+        $entity->load(pzk_request()->getId());
         if($this->logable) {
             $logEntity = _db()->getTableEntity('admin_log');
             $logFields = explodetrim(',', $this->logFields);
-            $brief = pzk_session()->get('adminUser') . ' Sửa bản ghi: ' . $this->getModule();
+            $brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
             foreach ($logFields as $field) {
                 $brief .= '[' . $field . ': ' . $entity->get($field) . ']';
             }
@@ -128,7 +128,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
             foreach ($logFields as $field) {
                 $brief .= '[' . $field . ': ' . @$row[$field] . ']';
             }
-            $logEntity->set('userId', pzk_session()->getAdminId());
+            $logEntity->setUserId( pzk_session()->getAdminId());
             $logEntity->setCreated(date('Y-m-d H:i:s'));
             $logEntity->setActionType('edit');
             $logEntity->setAdmin_controller('admin_'.$this->getModule());
@@ -180,7 +180,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 	        $module->setItemId(pzk_request()->getSegment(3));
 	        $this->initPage() ->append($module);
 	
-	        $question	= pzk_element('question_answers');
+	        $question	= pzk_element()->getQuestion_answers();
 	
 	        $question_answers = pzk_model('AdminQuestion');
 	
@@ -195,7 +195,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 				
-			$question	= pzk_element('question_answersFill');
+			$question	= pzk_element()->getQuestion_answersFill();
 				
 			$question_answers = pzk_model('AdminQuestion');
 				
@@ -250,11 +250,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
 				if($result !=false){
 					
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 					
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
@@ -290,19 +290,19 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			if($result !=false){
 					
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}else{
 					
 				pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}
 		}
 	}
 
 	public function updateCategoryAction() {
-        if(pzk_request('ids')) {
-            $arrIds = json_decode(pzk_request('ids'));
-            $categories = json_decode(pzk_request('categories'));
+        if(pzk_request()->getIds()) {
+            $arrIds = json_decode(pzk_request()->getIds());
+            $categories = json_decode(pzk_request()->getCategories());
             if(!empty($categories)) {
                 $strCateIds = ','.implode(',', $categories).',';
             }else{

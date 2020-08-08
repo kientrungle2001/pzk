@@ -66,9 +66,9 @@ class PzkAccountController extends  PzkController
 		$username=$request->getUserlogin();
 		
 		// Đăng nhập bằng form login
-		if($request->get('passwordlogin') !="" || $request->getLogin() !="") {
+		if($request->getPasswordlogin() !="" || $request->getLogin() !="") {
 			
-			$password=md5($request->get('passwordlogin'));
+			$password=md5($request->getPasswordlogin());
 			$username=$request->getLogin();
 		}
 
@@ -81,10 +81,10 @@ class PzkAccountController extends  PzkController
 			$user=_db()->getEntity('User.Account.User');
 			$user->loadByUsername($username);
 		
-			if($user->get('id')) {
+			if($user->getId()) {
 				
-				if($user->get('password') == $password) {
-					if($user->get('status')==1) {
+				if($user->getPassword() == $password) {
+					if($user->getStatus()==1) {
 						$user->login();
 						$error = self::LOGIN_SUCCESS;
 					}else {
@@ -128,31 +128,31 @@ class PzkAccountController extends  PzkController
 	{	
 		$error ="";	
 		$request=pzk_request();
-		$username=$request->get('username');
+		$username=$request->getUsername();
 		$password=$request->getPassword1();
-		$email=$request->get('email');
+		$email=$request->getEmail();
 		$captcha= $request->getCaptcha();
 		$user=_db()->getTableEntity('user');
 		if($captcha==$_SESSION['security_code']) {
 			$user->loadWhere(array('username', $username));
-			if($user->get('id')) {
+			if($user->getId()) {
 				//$error="Tên đăng nhập đã tồn tại trên hệ thống";
 				$error = self::REGISTER_ERROR_USERNAME_EXISTED; //-1
 			} else {
 				$user->loadWhere(array('username', $email));
-				if($user->get('id')) {
+				if($user->getId()) {
 					//$error= "Email đã tồn tại trên hệ thống";
 					$error = self::REGISTER_ERROR_EMAIL_EXISTED;
 				}else {
 					
 					$user->setUsername($username);
 					$user->setPassword(md5($password));
-					$user->set('email', $email);
-					$user->set('name', $request->get('name'));
-					$user->setBirthday($request->get('birthday'));
-					$user->set('sex', $request->get('sex'));
-					$user->set('phone', $request->get('phone'));
-					$user->set('areacode', $request->get('areacode'));
+					$user->setEmail( $email);
+					$user->setName( $request->getName());
+					$user->setBirthday($request->getBirthday());
+					$user->setSex( $request->getSex());
+					$user->setPhone( $request->getPhone());
+					$user->setAreacode( $request->getAreacode());
 					$user->setRegistered(date("Y-m-d H:i:s"));
 					$user->save();
 					$this->sendMail($username,$password,$email);
@@ -183,7 +183,7 @@ class PzkAccountController extends  PzkController
 		$confirm=$request->getActive();
 		$user=_db()->getEntity('User.Account.User');
 		$user->loadByKey($confirm);
-		if($user->get('id'))
+		if($user->getId())
 		{	
 			$user->activate();
 			$user->login();
@@ -216,18 +216,18 @@ class PzkAccountController extends  PzkController
 	{
 		$error="";
 		$request = pzk_request();
-		$email= $request->get('email');
+		$email= $request->getEmail();
 		$captcha= $request->getCaptcha();
 		if($captcha==$_SESSION['security_code'])
 		{	
 			
 			$user=_db()->getEntity('User.Account.User');
 			$user->loadByEmail($email);
-			if($user->get('id'))
+			if($user->getId())
 			{
-				if($user->get('status')==1)
+				if($user->getStatus()==1)
 				{
-					$password=$user->get('password');
+					$password=$user->getPassword();
 					$this->sendMailForgotpassword($email,$password);
 					return $this->render(self::PAGE_FORGOT_PASSWORD_SUCCESS);
 				}
@@ -261,11 +261,11 @@ class PzkAccountController extends  PzkController
 		$confirm = $request->getForgotpassword();
 		$user = _db()->getEntity('User.Account.User');
 		$user->loadByKey($confirm);
-		if($user->get('id'))
+		if($user->getId())
 		{
 			$password = $user->resetPasssword();
 			$newpassword = $this->parse(self::PAGE_RESET_PASSWORD);
-			$newpassword->setUsername($user->get('username'));
+			$newpassword->setUsername($user->getUsername());
 			$newpassword->setPassword($password);
 			$this->render($newpassword);
 		
@@ -292,7 +292,7 @@ class PzkAccountController extends  PzkController
 		if($id){
 			$user->loadWhere(array('idFacebook',$id));
 			$loginLog = _db()->getEntity('login_log');
-			if($user->get('id')){
+			if($user->getId()){
 				$user->login();
 				$ipClient = $this->getClientIP();
 				pzk_session('ipClient', $ipClient);
@@ -355,7 +355,7 @@ class PzkAccountController extends  PzkController
 		if($id){
 			$userlogin->loadWhere(array('idGoogle',$id));
 			$loginLog = _db()->getEntity('login_log');
-			if($userlogin->get('id')){
+			if($userlogin->getId()){
 				$userlogin->login();
 				$ipClient = $this->getClientIP();
 				pzk_session('ipClient', $ipClient);

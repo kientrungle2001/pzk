@@ -7,7 +7,7 @@ class PzkThitaiContest extends PzkObject{
 		$data = _db()->useCache(1800)
 			->selectAll()
 			->from('contest')
-			->whereId($this->get('contestId'))
+			->whereId($this->getContestId())
 			->result_one();
 		return $data;
 	}

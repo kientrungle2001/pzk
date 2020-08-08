@@ -1,6 +1,6 @@
 
 <?php 
-  $member= pzk_request('member');
+  $member= pzk_request()->getMember();
   $ettUser= _db()->getEntity('User.Account.User');
   $quanttMess=$ettUser->countMessage();  
 ?>
@@ -21,7 +21,7 @@
       {each $notes as $note}
       <?php
         $i++; 
-        $countComment=$user_note->countComment($note->get('id'));
+        $countComment=$user_note->countComment($note->getId());
         $date= $user_note->formatDate($note->getDatenote());
        ?>
      <div id="listnote{note.get('id')}">

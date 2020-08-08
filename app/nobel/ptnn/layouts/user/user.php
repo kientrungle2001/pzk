@@ -46,7 +46,7 @@
 
 <div class="menu">
 <ul>
-  <li> <a href="/user/profileusercontent?member=<?php echo  pzk_session('username');  ?>"><?php echo "Xin chào: ". $data->get('name');     ?></a>
+  <li> <a href="/user/profileusercontent?member=<?php echo  pzk_session('username');  ?>"><?php echo "Xin chào: ". $data->getName();     ?></a>
   <ul>
     <li><a href="#">Tài khoản hiện có :<?php if( $data->getAmount()==0) echo 0; else echo $data->getAmount(); ?>vnđ</a></li>
     <li><a href="/user/profileusercontent?member=<?php echo  pzk_session('username');  ?>">Vào trang cá nhân</a></li>

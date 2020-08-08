@@ -113,7 +113,7 @@ font-size: 12px;
       <?php 
 
         $request=pzk_request();
-        $member=$request->get('member');
+        $member=$request->getMember();
         $countnote= $data->countNote($member);
         // số bản ghi
         $rownote= $countnote['count'];
@@ -181,7 +181,7 @@ font-size: 12px;
 </div>     
 <script>
 // Kiểm tra member=session(userId)
-var member= "<?php echo pzk_request('member'); ?>";
+var member= "<?php echo pzk_request()->getMember(); ?>";
 var sessionID= "<?php echo pzk_session('userId'); ?>";
 if(member != sessionID){
     $('input[name=ckbdel]').hide();

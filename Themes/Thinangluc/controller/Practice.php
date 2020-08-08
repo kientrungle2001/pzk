@@ -24,7 +24,7 @@ class PzkPracticeController extends PzkController{
 			# render page content
 			$this->append('education/practice/detail', 'wrapper');
 			
-			$course = pzk_element('course');
+			$course = pzk_element()->getCourse();
 			
 			if($course) {
 				$course->set('itemId', $courseId);

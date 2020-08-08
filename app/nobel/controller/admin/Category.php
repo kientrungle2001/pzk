@@ -236,7 +236,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 
     public function editPostAction() {
         $row = $this->getEditData();
-        $id = pzk_request()->get('id');
+        $id = pzk_request()->getId();
 
         if($this->validateEditData($row)) {
             $data = _db()->useCB()->select('img')->from('categories')->where(array('id', $id))->result_one();
@@ -249,12 +249,12 @@ class PzkAdminCategoryController extends PzkGridAdminController {
             $this->redirect('index');
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 
     public function delPostAction() {
-        $id = pzk_request()->get('id');
+        $id = pzk_request()->getId();
         $data = _db()->useCB()->select('img')->from($this->table)->where(array('id', $id))->result_one();
         if($data['img']) {
             unlink($data['img']);
@@ -267,8 +267,8 @@ class PzkAdminCategoryController extends PzkGridAdminController {
     }
 
     public function delAllAction() {
-        if(pzk_request('ids')) {
-            $arrIds = json_decode(pzk_request('ids'));
+        if(pzk_request()->getIds()) {
+            $arrIds = json_decode(pzk_request()->getIds());
             if(count($arrIds) >0) {
                 _db()->useCB()->delete()->from($this->table)
                     ->where(array('in', 'id', $arrIds))->result();
@@ -316,8 +316,8 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 		$categoryIds = $model->getCategoryIds();
 		foreach($questions as $question) {
 			$question->import();
-			$existed = $question->getOne(array('name', $question->get('name')));
-			if($existed && $existed->get('id')) {
+			$existed = $question->getOne(array('name', $question->getName()));
+			if($existed && $existed->getId()) {
 				continue;
 			}
 			$question->setCategoryIds($categoryIds);
@@ -326,7 +326,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 			$question->save();
 			$answers = $question->getAnswers();
 			foreach($answers as $answer) {
-				$answer->setQuestion_id($question->get('id'));
+				$answer->setQuestion_id($question->getId());
 				$answer->setDate_modify(date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
 				$answer->setAdmin_modify(pzk_session()->getAdminId());
 				$answer->save();

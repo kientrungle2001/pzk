@@ -41,7 +41,7 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 		$fileName = null;
 		
 		// tim kiem model trong themes
-		$themes = pzk_request()->get('themes');
+		$themes = pzk_request()->getThemes();
 		if($themes) {
 			foreach($themes as $theme) {
 				$modelFindPaths[]	=	'Themes/' . $theme. '/model/';
@@ -168,7 +168,7 @@ class PzkCoreLoader extends PzkObjectLightWeight{
  * @return PzkCoreLoader
  */
 function pzk_loader() {
-	return pzk_element('loader');
+	return pzk_element()->getLoader();
 }
 
 /**

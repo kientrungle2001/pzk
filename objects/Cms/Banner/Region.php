@@ -10,7 +10,7 @@ class PzkCmsBannerRegion extends PzkCoreDbList
 	public $cacheParams = 'layout, position';
 	public function init() {
 		parent::init();
-		$this->addCondition('`position`=\'' . $this->get('position') . '\'');
+		$this->addCondition('`position`=\'' . $this->getPosition() . '\'');
 		$this->addCondition('`status`=\'1\'');
 	}
 }

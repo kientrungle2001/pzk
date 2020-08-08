@@ -270,8 +270,8 @@ class PzkAdminServiceServicepackagesController extends PzkGridAdminController {
     public function editPostAction() {
         $row 		= $this->getEditData();
         if($this->validateEditData($row)) {
-        	if(pzk_request('siteId')){
-        		$row['site']	= pzk_request('siteId');
+        	if(pzk_request()->getSiteId()){
+        		$row['site']	= pzk_request()->getSiteId();
         	}
 			$row['modified'] 	= date("Y-m-d h:i:s");            
 			$this->edit($row);
@@ -279,14 +279,14 @@ class PzkAdminServiceServicepackagesController extends PzkGridAdminController {
 			$this->redirect('index');
         } else {
             pzk_validator()->setEdittingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
     public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-        	if(pzk_request('siteId')){
-        		$row['site']	= pzk_request('siteId');
+        	if(pzk_request()->getSiteId()){
+        		$row['site']	= pzk_request()->getSiteId();
         	}
         		$row['created'] = date("Y-m-d h:i:s");
             	$row['status'] 	=1;

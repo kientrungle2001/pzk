@@ -568,8 +568,8 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 
     public function editPostAction() {
         $row = $this->getEditData();
-        $id = pzk_request()->get('id');
-		$backHref 	= pzk_request('backHref');
+        $id = pzk_request()->getId();
+		$backHref 	= pzk_request()->getBackHref();
 
         if($this->validateEditData($row)) {
             $data = _db()->useCB()->select('img')->from('categories')->where(array('id', $id))->result_one();
@@ -586,12 +586,12 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 			}
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'), array('backHref' => $backHref));
+            $this->redirect('edit/' . pzk_request()->getId(), array('backHref' => $backHref));
         }
     }
 
     public function delPostAction() {
-        $id = pzk_request()->get('id');
+        $id = pzk_request()->getId();
         $data = _db()->useCB()->select('img')->from($this->table)->where(array('id', $id))->result_one();
         if($data['img']) {
             unlink($data['img']);
@@ -604,8 +604,8 @@ class PzkAdminCategoryController extends PzkGridAdminController {
     }
 
     public function delAllAction() {
-        if(pzk_request('ids')) {
-            $arrIds = json_decode(pzk_request('ids'));
+        if(pzk_request()->getIds()) {
+            $arrIds = json_decode(pzk_request()->getIds());
             if(count($arrIds) >0) {
                 _db()->useCB()->delete()->from($this->table)
                     ->where(array('in', 'id', $arrIds))->result();

@@ -1,5 +1,5 @@
 <div id="content_home">
-    <?php $software = pzk_request('softwareId');?>
+    <?php $software = pzk_request()->getSoftwareId();?>
 	<?php if($software == 2) : ?>
 
 	<img src="/Default/skin/nobel/test/media/content.jpg" usemap="#home_Map"/>

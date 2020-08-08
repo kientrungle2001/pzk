@@ -98,7 +98,7 @@
 						    			<div class="col-xs-2" style="padding-left: 0px; padding-right: 0px; margin-right: 25px;">
 								    		<select id="add_day" class="form-control" title="Ngày" name="birthday_day" aria-label="Ngày" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
 												<?php 
-                          $birthday= $data->get('birthday'); 
+                          $birthday= $data->getBirthday(); 
                           if($birthday !='0000-00-00'){
                             $arr= explode("/",$birthday);
 
@@ -187,8 +187,8 @@
                                 </div>
                                 <div class="col-xs-8 margin-top-10">
                                     <label for="username"></label>
-                                    <div class="show_ok"><span><?php echo $data->get('message'); ?></span></div>
-                                    <div class="show_error"><span><?php echo $data->get('error'); ?></span></div>
+                                    <div class="show_ok"><span><?php echo $data->getMessage(); ?></span></div>
+                                    <div class="show_error"><span><?php echo $data->getError(); ?></span></div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-xs-2 margin-top-33 " style="margin-top: 10px;" >

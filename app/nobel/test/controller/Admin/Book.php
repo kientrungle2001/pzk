@@ -232,8 +232,8 @@ class PzkAdminBookController extends PzkGridAdminController {
 		parent::prepareListDisplay();
 	}*/
 	public function changeLangAction() {
-		$this->getSession()->set('lang', pzk_request()->get('lang'));
-		$this->redirect('admin_book/details/'.pzk_request()->get('id'));
+		$this->getSession()->setLang( pzk_request()->getLang());
+		$this->redirect('admin_book/details/'.pzk_request()->getId());
 	}
 	public function detailsAction() {
 		
@@ -243,7 +243,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 		
 		$this->append($user_book_view);
 		
-		$user_book_view	= pzk_element('user_book');
+		$user_book_view	= pzk_element()->getUser_book();
 		
 		$userBookModel 	= pzk_model('Userbook');
 		
@@ -271,11 +271,11 @@ class PzkAdminBookController extends PzkGridAdminController {
 			
 		$dataUserAnswers 	= $userBookModel->getUserAnswerAdmin($userBookId);	
 		
-		$user_book_view->set('dataShowUserBook', $dataShowUserBook);
+		$user_book_view->setDataShowUserBook( $dataShowUserBook);
 			
-		$user_book_view->set('dataUserAnswers', $dataUserAnswers);
+		$user_book_view->setDataUserAnswers( $dataUserAnswers);
 		
-		if(pzk_request('isAjax')) {
+		if(pzk_request()->getIsAjax()) {
 			$user_book_view->display();
 		} else {
 			$this->display();
@@ -454,7 +454,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 							'duringTime' => $duringTime,
 							'choiceId' => $dataUserBookTn['id'],
 							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
+							'software' =>  pzk_request()->getSoftwareId(),
 							'modified' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
 							'modifiedId'	=> pzk_session('adminId')
 						);
@@ -473,7 +473,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 							'duringTime' => $duringTime,
 							'choiceId' => $dataUserBookTn['id'],
 							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
+							'software' =>  pzk_request()->getSoftwareId(),
 							'created' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
 							'modifiedId'	=> pzk_session('adminId')
 						);
@@ -485,7 +485,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 				}
 				
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				if(pzk_request('btn_update_and_close')) {
+				if(pzk_request()->getBtn_update_and_close()) {
 					$this->redirect('index', array('selectedId' => $row['user_book_id']));
 				} else {
 					$this->redirect('details/' . $row['user_book_id']);
@@ -659,7 +659,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 							'duringTime' => $duringTime,
 							'choiceId' => $dataUserBookTn['id'],
 							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
+							'software' =>  pzk_request()->getSoftwareId(),
 							'modified' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
 							'modifiedId'	=> pzk_session('adminId')
 						);
@@ -677,7 +677,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 							'duringTime' => $duringTime,
 							'choiceId' => $dataUserBookTn['id'],
 							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
+							'software' =>  pzk_request()->getSoftwareId(),
 							'created' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
 							'modifiedId'	=> pzk_session('adminId')
 						);
@@ -753,7 +753,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 					}
 				}
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				if(pzk_request('btn_update_and_close')) {
+				if(pzk_request()->getBtn_update_and_close()) {
 					$this->redirect('index', array('selectedId' => $row['user_book_id']));
 				} else {
 					$this->redirect('details/' . $row['user_book_id']);

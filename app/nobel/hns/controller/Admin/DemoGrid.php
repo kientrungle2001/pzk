@@ -324,7 +324,7 @@ class pzkAdminDemoGridController extends pzkGridAdminController {
     public function editPostAction() {
         $row = $this->getEditData();
         if($this->validateEditData($row)) {
-            $password = trim(pzk_request('password'));
+            $password = trim(pzk_request()->getPassword());
             if($password) {
                 $row['password'] = md5($password);
                 $this->edit($row);
@@ -338,13 +338,13 @@ class pzkAdminDemoGridController extends pzkGridAdminController {
             }
         } else {
             pzk_validator()->setEdittingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
     public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-            $password = trim(pzk_request('password'));
+            $password = trim(pzk_request()->getPassword());
             if($password) {
                 $row['password'] = md5($password);
 

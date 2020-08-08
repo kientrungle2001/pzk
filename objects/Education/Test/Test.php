@@ -5,7 +5,7 @@ class PzkEducationTestTest extends PzkObject {
 	public $lessonId = '';
 
 	public function getTest() {
-		return _db()->getEntity('Test.Test')->load($this->get('testId'));
+		return _db()->getEntity('Test.Test')->load($this->getTestId());
 	}
 	
 	/* public function getDoTest(){
@@ -40,7 +40,7 @@ class PzkEducationTestTest extends PzkObject {
 	public function getQuestionsByType($type) {
 		$data = _db()->selectAll()
 			->fromQuestions()
-			->likeTestId('%,'.$this->get('testId').',%')
+			->likeTestId('%,'.$this->getTestId().',%')
 			->where(array('type', $type))
 			->result();
 		return $data;
@@ -49,7 +49,7 @@ class PzkEducationTestTest extends PzkObject {
 	public function getClickWord() {
 		$lesson = _db()->selectAll()
 			->fromWord()
-			->likeTestId('%,'.$this->get('testId').',%')
+			->likeTestId('%,'.$this->getTestId().',%')
 			->where(array('type', 'clickWord'))
 			->result_one();
 		$content = $lesson['content'];
@@ -69,7 +69,7 @@ class PzkEducationTestTest extends PzkObject {
 	public function getPairWords() {
 		$lesson = _db()->selectAll()
 			->fromWord()
-			->likeTestId('%,'.$this->get('testId').',%')
+			->likeTestId('%,'.$this->getTestId().',%')
 			->where(array('type', 'dragWord'))
 			->result_one();
 		if($lesson['content'] != '') {

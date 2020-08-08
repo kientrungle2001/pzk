@@ -1,5 +1,5 @@
 <div class="item bg_section">
-<form class="item" style="margin: 15px 0px;" action="/test/test?id=<?php echo pzk_request('id');?>" method="post">
+<form class="item" style="margin: 15px 0px;" action="/test/test?id=<?php echo pzk_request()->getId();?>" method="post">
     <table class="tb_lesson" border="1px" cellpadding="0" cellspacing="0">
     <?php 
         $test= $data->getTest();

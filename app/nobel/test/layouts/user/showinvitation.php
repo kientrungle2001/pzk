@@ -8,18 +8,18 @@
     <div> 
     <p align="center"><strong> Kết bạn</strong></p>
     </div> 
-     <?php if($data->get('message')=='ok')   
+     <?php if($data->getMessage()=='ok')   
      {
       ?>
 
      <br> 
-      <label for="invitation">Bạn đã gửi một yêu cầu kết bạn đến  <a href="#"> <?php echo $data->get('username'); ?></a></label><br>
+      <label for="invitation">Bạn đã gửi một yêu cầu kết bạn đến  <a href="#"> <?php echo $data->getUsername(); ?></a></label><br>
     
       <br>  
     <?php }else { ?>  
       <br> 
-      <label for="invitation">Bạn đã yêu cầu kết bạn đến  <a href="#"> <?php echo $data->get('username'); ?></a><br>
-      Xin vui lòng chờ xác nhận của <?php echo $data->get('username'); ?></label><br>
+      <label for="invitation">Bạn đã yêu cầu kết bạn đến  <a href="#"> <?php echo $data->getUsername(); ?></a><br>
+      Xin vui lòng chờ xác nhận của <?php echo $data->getUsername(); ?></label><br>
     
       <br> 
       <?php } ?>

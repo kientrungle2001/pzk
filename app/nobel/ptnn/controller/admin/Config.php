@@ -627,7 +627,7 @@ class PzkAdminConfigController extends PzkConfigAdminController {
 		
         $allfile = array_merge($parent_files?$parent_files: array(), $sub_files1?$sub_files1: array(), $sub_files2?$sub_files2: array(),$parentUploadFiles?$parentUploadFiles: array(),$subUploadFiles?$subUploadFiles: array());
         // increase script timeout value
-        ini_set('max_execution_time', 5000);
+        ini_setmax_execution_time( 5000);
 
         // create object
         $zip = new ZipArchive();

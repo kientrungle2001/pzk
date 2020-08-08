@@ -5,7 +5,7 @@
 	class PzkHomeContent extends PzkObject{
 		public $scriptable = true;
 		public function hash() {
-			return md5(pzk_request()->get('pageNews').parent::hash());
+			return md5(pzk_request()->getPageNews().parent::hash());
 		}
 		public function getClass(){
 			

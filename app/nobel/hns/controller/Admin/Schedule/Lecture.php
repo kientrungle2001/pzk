@@ -3,7 +3,7 @@ class PzkAdminScheduleLectureController extends PzkBackendController {
 	public function indexAction($classroomId) {
 		$this->initPage();
 		$schedule = $this->parse('admin/schedule/lecture');
-		$schedule->set('classroomId', $classroomId);
+		$schedule->setClassroomId( $classroomId);
 		$this->append($schedule);
 		$this->display();
 	}
@@ -11,8 +11,8 @@ class PzkAdminScheduleLectureController extends PzkBackendController {
 	public function topicsAction($classroomId, $subjectId) {
 		//$this->initPage();
 		$schedule = $this->parse('admin/schedule/lecture/subject');
-		$schedule->set('classroomId', $classroomId);
-		$schedule->set('subjectId', $subjectId);
+		$schedule->setClassroomId( $classroomId);
+		$schedule->setSubjectId( $subjectId);
 		$schedule->display();
 		//$this->display();
 	}

@@ -113,7 +113,7 @@ $addValidator = json_encode(pzk_controller()->addValidator);
 ?>
 <script>
 	$('#questionsAddForm').validate({addValidator});
-    <?php if(pzk_request('softwareId') == 1) { ?>
+    <?php if(pzk_request()->getSoftwareId() == 1) { ?>
         setTinymce(2);
     <?php } else { ?>
         setTinymce();

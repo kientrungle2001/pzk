@@ -387,7 +387,7 @@ class PzkAdminHistorypaymentController extends PzkGridAdminController {
             $user =_db()->getEntity('User.Account.User');
             if($username){
             	$user->loadWhere(array('username',$username));
-            	$row['userId'] = $user->get('id');
+            	$row['userId'] = $user->getId();
             }
 			if($row['status']) {
 				$row['paymentStatus'] = 1;
@@ -407,14 +407,14 @@ class PzkAdminHistorypaymentController extends PzkGridAdminController {
     }
 
     public function editPostAction() {
-    	$id= pzk_request('id');
+    	$id= pzk_request()->getId();
         $row = $this->getEditData();
         if($this->validateEditData($row)) {
         	$username = $row['username'];            
             $user =_db()->getEntity('User.Account.User');
             if($username){
             	$user->loadWhere(array('username',$username));
-            	$row['userId'] = $user->get('id');
+            	$row['userId'] = $user->getId();
             }
 			if($row['status']) {
 				$row['paymentStatus'] = 1;
@@ -430,7 +430,7 @@ class PzkAdminHistorypaymentController extends PzkGridAdminController {
         
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 }

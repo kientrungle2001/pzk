@@ -83,7 +83,7 @@ class PzkEducationQuestionTest extends PzkObject{
 		if($weekId)
 			$listTest->likeCategoryIds("%,$weekId,%");
 		$listTest->wherePractice($practice);
-		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         
         $listTest->orderBy('ordering asc');
 		return $listTest->result();
@@ -100,7 +100,7 @@ class PzkEducationQuestionTest extends PzkObject{
 		if($weekId)
 			$listTest->likeCategoryIds("%,$weekId,%");
 		$listTest->wherePractice($practice);
-		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         
         $listTest->orderBy('ordering asc');
 		$listTest->limit(1);
@@ -121,18 +121,18 @@ class PzkEducationQuestionTest extends PzkObject{
         	
             $listTest->where('trial = 1');
         }
-		$class = $this->get('class');
+		$class = $this->getClass();
 		$listTest->where('status = 1');
 		if($class)
 			$listTest->likeClasses("%,$class,%");
 		$listTest->where('trytest = 0');
 		$listTest->wherePractice('0');
-		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         $listTest->orderBy('ordering asc');
 		return $listTest->result();
 	}
 	public function getPractice(){
-		$class = $this->get('class');
+		$class = $this->getClass();
 		$check = pzk_session('checkPayment');
 		
 		$listTest = _db()->useCache(1800)->select('*')->from($this->table);
@@ -146,7 +146,7 @@ class PzkEducationQuestionTest extends PzkObject{
 			$listTest->likeClasses("%,$class,%");		
 		$listTest->where('practice = 1');
 		$listTest->where('status = 1');
-		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         $listTest->orderBy('ordering asc');
         
 		return $listTest->result();

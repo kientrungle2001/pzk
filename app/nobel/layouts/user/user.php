@@ -46,7 +46,7 @@
 
 <div class="menu">
 <ul>
-  <li> <?php echo "Xin chào: ". $data->get('name');     ?>
+  <li> <?php echo "Xin chào: ". $data->getName();     ?>
   <ul>
  
     <li><a href="/payment/bank/1">Mua tài khoản</a></li>

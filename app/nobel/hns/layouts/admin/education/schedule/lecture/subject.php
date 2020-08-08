@@ -1,6 +1,6 @@
 <?php
-$classroomId = $data->get('classroomId');
-$subjectId = $data->get('subjectId');
+$classroomId = $data->getClassroomId();
+$subjectId = $data->getSubjectId();
 
 $classroom = $data->getClassroom();
 

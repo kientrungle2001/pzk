@@ -161,8 +161,8 @@ class PzkAdminHistoryBuyserviceController extends PzkGridAdminController {
         $row = $this->getEditData();
        
         if($this->validateEditData($row)) {
-        	$row['userId']=pzk_request('userId');
-        	$row['serviceId']=pzk_request('serviceId');
+        	$row['userId']=pzk_request()->getUserId();
+        	$row['serviceId']=pzk_request()->getServiceId();
             $row['userModified']=pzk_session('adminId');
             $row['dateModified']=date("Y-m-d H:i:s");
             $this->edit($row);
@@ -171,14 +171,14 @@ class PzkAdminHistoryBuyserviceController extends PzkGridAdminController {
         
         } else {
             pzk_validator()->setEdittingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
     public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-           	$row['userId']=pzk_request('userId');
-        	$row['serviceId']=pzk_request('serviceId');
+           	$row['userId']=pzk_request()->getUserId();
+        	$row['serviceId']=pzk_request()->getServiceId();
             $row['userAdd']=pzk_session('adminId');
             $row['dateAdd']=date("Y-m-d H:i:s");
             $this->add($row);

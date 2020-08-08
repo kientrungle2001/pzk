@@ -1,12 +1,12 @@
 <?php
 $questionTopic = $data->getItem();
-$i= $questionTopic->get('id');
+$i= $questionTopic->getId();
 ?>
 <div class="step">
- 	<span><strong>Q7 Yêu Cầu: </strong> {? echo $questionTopic->get('request'); ?}</span>
+ 	<span><strong>Q7 Yêu Cầu: </strong> {? echo $questionTopic->getRequest(); ?}</span>
 </div>
 <div class="step">
-	<span><strong>Đoạn văn:</strong> {? echo $questionTopic->get('name'); ?}</span>
+	<span><strong>Đoạn văn:</strong> {? echo $questionTopic->getName(); ?}</span>
 	
 </div>
 <?php 
@@ -16,8 +16,8 @@ $j=1;
 ?>
 {each $topics as $topic}
 <?php 
-	$content= $topic->get('content');
-	$id_topic=$topic->get('id');
+	$content= $topic->getContent();
+	$id_topic=$topic->getId();
 ?>
 <div class="step">
 	<div class="step">

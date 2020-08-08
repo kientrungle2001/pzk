@@ -114,12 +114,12 @@ class PzkAdminFriendController extends PzkGridAdminController {
  	public function addPostAction() {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
-            $username = trim(pzk_request('username'));
-            $userfriend = trim(pzk_request('userfriend'));
+            $username = trim(pzk_request()->getUsername());
+            $userfriend = trim(pzk_request()->getUserfriend());
             $user=_db()->getEntity('User.Account.User');
             $user1 =$user->loadWhere(array('username',$username));
             $user2=$user->loadWhere(array('username',$userfriend));
-            if($user1->get('id') && $user2->get('id')) {
+            if($user1->getId() && $user2->getId()) {
             	
             		$row['username'] = $username;
                 	$row['userfriend']=$userfriend;
@@ -145,26 +145,26 @@ class PzkAdminFriendController extends PzkGridAdminController {
         $row = $this->getEditData();
        
         if($this->validateEditData($row)) {
-        	$username = trim(pzk_request('username'));
-            $userfriend = trim(pzk_request('userfriend'));
+        	$username = trim(pzk_request()->getUsername());
+            $userfriend = trim(pzk_request()->getUserfriend());
             $row['username']=$username;
             $row['userfriend']=$userfriend;
             $row['date']=date("Y-m-d H:i:s");
             $user=_db()->getEntity('User.Account.User');
             $user1 =$user->loadWhere(array('username',$username));
             $user2=$user->loadWhere(array('username',$userfriend));
-            if($user1->get('id') && $user2->get('id')) {
+            if($user1->getId() && $user2->getId()) {
                 $this->edit($row);
             	pzk_notifier()->addMessage('Cập nhật thành công');
             	$this->redirect('index');          
         	}
         	else{
         		pzk_notifier()->addMessage('User chưa đăng ký tài khoản');
-            	$this->redirect('edit/' . pzk_request('id'));     
+            	$this->redirect('edit/' . pzk_request()->getId());     
         	}
         } else {
             pzk_validator()->setEdittingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 }

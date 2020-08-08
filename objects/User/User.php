@@ -13,11 +13,11 @@ class PzkUserUser extends PzkObject
 			pzk_session('userIp',$ip);
 			$user=_db()->getEntity('User.User');
 			$user->loadWhere(array('username',$username));
-			if(pzk_request('app')=='ptnn'){
+			if(pzk_request()->getApp()=='ptnn'){
 				$wallets= $user->getWallets();
-				$this->set('amount', $wallets->get('amount'));
+				$this->setAmount( $wallets->getAmount());
 			}
-			$this->set('name', $user->get('name'));
+			$this->setName( $user->getName());
 			
 	}
 	

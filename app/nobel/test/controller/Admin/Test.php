@@ -507,8 +507,8 @@ class PzkAdminTestController extends PzkGridAdminController {
 
 
     public function saveDetailOrderingsAction(){
-        $orderings = pzk_request()->get('orderings');
-        $field = pzk_request()->get('field');
+        $orderings = pzk_request()->getOrderings();
+        $field = pzk_request()->getField();
         foreach($orderings as $id => $val) {
             $entity = _db ()->getTableEntity ('questions')->load ( $id );
             $entity->update ( array (
@@ -518,21 +518,21 @@ class PzkAdminTestController extends PzkGridAdminController {
     }
 
     public function searchPostAction() {
-        $action	=	pzk_request('submit_action');
+        $action	=	pzk_request()->getSubmit_action();
         if($action != ACTION_RESET){
-            pzk_session('detailTestKeyword', pzk_request('keyword'));
+            pzk_session('detailTestKeyword', pzk_request()->getKeyword());
         }else{
             pzk_session('detailTestKeyword', '');
             pzk_session('testQuestionOrderBy', '');
 
         }
-        $this->redirect('admin_test/detail/'.pzk_request('testId'));
+        $this->redirect('admin_test/detail/'.pzk_request()->getTestId());
     }
 
     public function delTestAction() {
-        $questionId = pzk_request('questionId');
-        $testId = pzk_request('testId');
-        $testIds = pzk_request('testIds');
+        $questionId = pzk_request()->getQuestionId();
+        $testId = pzk_request()->getTestId();
+        $testIds = pzk_request()->getTestIds();
         $trimTestId = trim($testIds, ',');
 
         if(is_numeric($trimTestId)) {
@@ -546,9 +546,9 @@ class PzkAdminTestController extends PzkGridAdminController {
     }
 
     public function addTestAction() {
-        $questionId = pzk_request('questionId');
-        $testId = pzk_request('testId');
-        $testIds = pzk_request('testIds');
+        $questionId = pzk_request()->getQuestionId();
+        $testId = pzk_request()->getTestId();
+        $testIds = pzk_request()->getTestIds();
         if($testIds) {
             $newTestId = ','.$testId.$testIds;
         }else {
@@ -563,23 +563,23 @@ class PzkAdminTestController extends PzkGridAdminController {
     public function resultQuestionAction() {
 
         $obj = $this->parse('admin/grid/test/questionResult');
-        $obj->set('parentId', pzk_request()->getSegment(3));
+        $obj->setParentId( pzk_request()->getSegment(3));
         $obj->display();
     }
 
     public function changeOrderByAction() {
-        pzk_session('testQuestionOrderBy', pzk_request('orderBy'));
+        pzk_session('testQuestionOrderBy', pzk_request()->getOrderBy());
 
-        $this->redirect('admin_test/detail/'.pzk_request('testId'));
+        $this->redirect('admin_test/detail/'.pzk_request()->getTestId());
     }
     public function onchangeStatusTestAction() {
         $id = pzk_request ('id');
-        $field = pzk_request('field');
+        $field = pzk_request()->getField();
         $entity = _db ()->getTableEntity ('questions')->load ( $id );
         $entity->update ( array (
             $field => 1 - $entity->get($field)
         ) );
-        $this->redirect('admin_test/detail/'.pzk_request('testId'));
+        $this->redirect('admin_test/detail/'.pzk_request()->getTestId());
     }
 
     public function printAction() {
@@ -590,8 +590,8 @@ class PzkAdminTestController extends PzkGridAdminController {
 	public function addQuestionAction(){
 		
 		$this->initPage();
-        $this->append('admin/'.pzk_or($this->get('customModule'), $this->get('module')).'/imports')
-            ->append('admin/'.pzk_or($this->get('customModule'), $this->get('module')).'/menu', 'right');
+        $this->append('admin/'.pzk_or($this->getCustomModule(), $this->getModule()).'/imports')
+            ->append('admin/'.pzk_or($this->getCustomModule(), $this->getModule()).'/menu', 'right');
 			
 			$testId = pzk_request()->getSegment(3);	
 			$testInfo = _db()->selectAll()->fromTests()->whereId($testId)->result_one();
@@ -677,7 +677,7 @@ class PzkAdminTestController extends PzkGridAdminController {
 											$question['explaination'] = $item[6];
 											$entity = _db()->getTableEntity('questions');
 											$entity->setData($question)->save();
-											$questionId = $entity->get('id');
+											$questionId = $entity->getId();
 											//chon dap an dung
 											$dapan = strtolower(trim($item[3]));
 											$checkDa = 0;
@@ -774,8 +774,8 @@ class PzkAdminTestController extends PzkGridAdminController {
 				   die("File upload không thuộc định dạng cho phép!");
 				}
 			}
-		$imports = pzk_element('imports');
-		$imports->set('testName', $testInfo['name']);
+		$imports = pzk_element()->getImports();
+		$imports->setTestName( $testInfo['name']);
         $this->display();
 		
 	}

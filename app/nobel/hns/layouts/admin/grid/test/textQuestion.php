@@ -1,6 +1,6 @@
 <?php
-$OrderBy = pzk_request('orderBy');
-$testId = pzk_request('testId');
+$OrderBy = pzk_request()->getOrderBy();
+$testId = pzk_request()->getTestId();
 if($OrderBy) {
     switch ($OrderBy) {
         case 1:

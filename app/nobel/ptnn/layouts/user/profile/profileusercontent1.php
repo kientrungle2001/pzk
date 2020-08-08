@@ -6,7 +6,7 @@
     <div class="prf_title" style="width:30%;">Ghi chép cá nhân</div>
     <div class="prf_note">
       <?php 
-        $member= pzk_request('member');       
+        $member= pzk_request()->getMember();       
         $user_note=_db()->getEntity('communication.user_note'); 
         $notes=$user_note->loadNote($member); 
         $i=0;
@@ -15,7 +15,7 @@
       {each $notes as $note}
       <?php 
         $i++; 
-        $countComment=$user_note->countComment($note->get('id'));
+        $countComment=$user_note->countComment($note->getId());
         $date= $user_note->formatDate($note->getDatenote());
        ?>
      <div>

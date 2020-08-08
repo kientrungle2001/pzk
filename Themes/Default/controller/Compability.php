@@ -62,7 +62,7 @@ class PzkCompabilityController extends PzkController{
 								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 								
 								$this->append('trytest/alert', 'wrapper');
-								$alert = pzk_element('alert');
+								$alert = pzk_element()->getAlert();
 								$alert->set('title', 'Bạn đã hoàn thành bài thi! <br> Mỗi tài khoản chỉ được thi một lần.');
 								$this->display();
 							pzk_system()->halt();
@@ -129,7 +129,7 @@ class PzkCompabilityController extends PzkController{
 				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
-				$login = pzk_element('login');
+				$login = pzk_element()->getLogin();
 				$login->set('rel', "/trytest/showtn/".$camp);
 				$login->set('title', 'thì mới được vào thi thử');
 			$this->display();
@@ -409,7 +409,7 @@ class PzkCompabilityController extends PzkController{
 	public function showMessageAndHalt($message = null) {
 		$this->initPage();
 		$this->append('trytest/alert', 'wrapper');
-			$alert = pzk_element('alert');
+			$alert = pzk_element()->getAlert();
 			$alert->set('title', $message);
 			$this->display();
 		pzk_system()->halt();
@@ -442,7 +442,7 @@ class PzkCompabilityController extends PzkController{
 					$this->initPage();
 					$this->append('education/practice/mixedTest');
 					
-					$homework					= 	pzk_element('showTest');
+					$homework					= 	pzk_element()->getShowTest();
 					
 					$homework->set('itemId', 		$testId);
 					$this->display();
@@ -463,7 +463,7 @@ class PzkCompabilityController extends PzkController{
 				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('user/login');
-				$login = pzk_element('login');
+				$login = pzk_element()->getLogin();
 				$login->set('rel', "/Compability/mixedTest/".$testId);
 				$login->set('title', 'thì mới được vào thi');
 			$this->display();			
@@ -685,7 +685,7 @@ class PzkCompabilityController extends PzkController{
 					$this->initPage();
 					$this->append('education/practice/showMixedTestResult');
 					
-					$homework					= 	pzk_element('showTest');
+					$homework					= 	pzk_element()->getShowTest();
 					
 					$homework->set('itemId', 		$testId);
 					$homework->set('bookId', $book['id']);
@@ -708,7 +708,7 @@ class PzkCompabilityController extends PzkController{
 				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('user/login');
-				$login = pzk_element('login');
+				$login = pzk_element()->getLogin();
 				$login->set('rel', "/Compability/mixedTest/".$testId);
 				$login->set('title', 'thì mới được vào xem kết quả');
 			$this->display();

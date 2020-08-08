@@ -1,5 +1,5 @@
 ﻿<?php 
-$id=pzk_request('id');
+$id=pzk_request()->getId();
 $games= $data->getGames($id); 
 ?>
 <strong><center>Chọn trọng điểm miêu tả</strong><br>

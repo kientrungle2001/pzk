@@ -10,7 +10,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 		$currentCategoryId = $this->getFilterSession()->getCategoryIds();
 		if($currentCategoryId) {
 			$currentCategory = _db()->getTableEntity('categories')->load($currentCategoryId);
-			if($currentCategory->get('id')) {
+			if($currentCategory->getId()) {
 				$currentCategories = $currentCategory->getParents();
 			}
 		}
@@ -828,11 +828,11 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
         if($this->logable) {
             $logEntity = _db()->getTableEntity('admin_log');
             $logFields = explodetrim(',', $this->logFields);
-            $brief = pzk_session()->get('adminUser') . ' Thêm mới bản ghi: ' . $this->getModule();
+            $brief = pzk_session()->getAdminUser() . ' Thêm mới bản ghi: ' . $this->getModule();
             foreach ($logFields as $field) {
                 $brief .= '[' . $field . ': ' . @$row[$field] . ']';
             }
-            $logEntity->set('userId', pzk_session()->getAdminId());
+            $logEntity->setUserId( pzk_session()->getAdminId());
             $logEntity->setCreated(date('Y-m-d H:i:s'));
             $logEntity->setActionType('add');
             $logEntity->setAdmin_controller('admin_'.$this->getModule());
@@ -848,14 +848,14 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 		
 		//set index owner
 		$adminmodel = pzk_model('Admin');
-		$controller = pzk_request('controller');
+		$controller = pzk_request()->getController();
 		 
 		$checkEditOwner = $adminmodel->checkActionType('editOwner', $controller, pzk_session('adminLevel'));
 		
 		if($checkEditOwner){
 			
 			$entity = _db()->getEntity('table')->setTable($this->table);
-			$entity->load(pzk_request('id'));
+			$entity->load(pzk_request()->getId());
 			
 			if($entity->getCreatorId() == pzk_session()->getAdminId()) {
 				
@@ -889,7 +889,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			}
 			
 			$entity = _db()->getEntity('table')->setTable($this->table);
-			$entity->load(pzk_request('id'));
+			$entity->load(pzk_request()->getId());
 			$entity->update($row);
 			$entity->save();
 		}
@@ -900,7 +900,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			if($this->logable) {
 				$logEntity = _db()->getTableEntity('admin_log');
 				$logFields = explodetrim(',', $this->logFields);
-				$brief = pzk_session()->get('adminUser') . ' Sửa bản ghi: ' . $this->getModule();
+				$brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
 				foreach ($logFields as $field) {
 					$brief .= '[' . $field . ': ' . $entity->get($field) . ']';
 				}
@@ -908,7 +908,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 				foreach ($logFields as $field) {
 					$brief .= '[' . $field . ': ' . @$row[$field] . ']';
 				}
-				$logEntity->set('userId', pzk_session()->getAdminId());
+				$logEntity->setUserId( pzk_session()->getAdminId());
 				$logEntity->setCreated(date('Y-m-d H:i:s'));
 				$logEntity->setActionType('edit');
 				$logEntity->setAdmin_controller('admin_'.$this->getModule());
@@ -972,7 +972,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 	        $module->setItemId(pzk_request()->getSegment(3));
 	        $this->initPage() ->append($module);
 	
-	        $question	= pzk_element('question_answers');
+	        $question	= pzk_element()->getQuestion_answers();
 	
 	        $question_answers = pzk_model('AdminQuestion');
 	
@@ -989,7 +989,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			$module->setItemId(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 				
-			$question	= pzk_element('question_answersFill');
+			$question	= pzk_element()->getQuestion_answersFill();
 				
 			$question_answers = pzk_model('AdminQuestion');
 				
@@ -1094,18 +1094,18 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 				if($result !=false){
 					
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 					
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
 	}
 	
 	function edit_tlPostAction() {
-		$question_id = pzk_request('id');
+		$question_id = pzk_request()->getId();
 		$row = $this->getEditData();
 		$answers = $row['answers'];
 		_db()->update('questions')
@@ -1170,7 +1170,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			}
 						
 			pzk_notifier()->addMessage('Cập nhật thành công');
-			$this->redirect('detail/' . pzk_request('id'));
+			$this->redirect('detail/' . pzk_request()->getId());
 			
 		}
 	}

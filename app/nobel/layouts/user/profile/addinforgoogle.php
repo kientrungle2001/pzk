@@ -66,7 +66,7 @@
                                 <div class="clearfix"></div>
                                 <div class="col-xs-4 margin-top-10">
                                     <label for="username">Họ và Tên(*) :</label>
-                                    <input type="text" class="form-control" id="addg_name" name="editinfor_name" value=" <?php echo $data->getname();?>" placeholder="Họ và Tên" data-toggle="tooltip" data-placement="top" title="Họ và Tên">
+                                    <input type="text" class="form-control" id="addg_name" name="editinfor_name" value=" <?php echo $data->getName();?>" placeholder="Họ và Tên" data-toggle="tooltip" data-placement="top" title="Họ và Tên">
                                 </div>
                                 <div class="col-xs-5 margin-top-10">
                                     <label for="username">Tên đăng nhập (*) :</label>
@@ -83,7 +83,7 @@
                                     <div class="clear"></div>
                                         <div class="col-xs-2" style="padding-left: 0px; padding-right: 0px; margin-right: 25px;">
                                             <?php 
-                                                $birthday= $data->get('birthday'); 
+                                                $birthday= $data->getBirthday(); 
                                                 if($birthday !='0000-00-00'){
                                                     $arr= explode("/",$birthday);
 
@@ -148,12 +148,12 @@
                                 <div class="clearfix"></div>
                                 <div class="col-xs-4 margin-top-10">
                                     <label for="school">Trường :</label>
-                                    <input type="text" class="form-control" id="addg_school" name="addg_school" value=" <?php echo $data->getschool();?>" placeholder="Trường học" data-toggle="tooltip" data-placement="top" title="Trường học">
+                                    <input type="text" class="form-control" id="addg_school" name="addg_school" value=" <?php echo $data->getSchool();?>" placeholder="Trường học" data-toggle="tooltip" data-placement="top" title="Trường học">
                                 </div>                            
                                
                                 <div class="col-xs-2 margin-top-10">
                                     <label for="phone">Lớp :</label>
-                                    <input type="text" class="form-control" id="addg_class"  name="addg_class" value=" <?php echo $data->getclass();?>" placeholder="Lớp học" data-toggle="tooltip" data-placement="top" title="Lớp học">
+                                    <input type="text" class="form-control" id="addg_class"  name="addg_class" value=" <?php echo $data->getClass();?>" placeholder="Lớp học" data-toggle="tooltip" data-placement="top" title="Lớp học">
                                 </div>
 
                                 <div class="col-xs-3 margin-top-10">

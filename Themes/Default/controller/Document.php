@@ -33,7 +33,7 @@ class PzkDocumentController extends PzkDefaultDocumentController{
 		pzk_page()->set('brief', $newsEntity->get('brief'));
 		
 		$news = $this->parse('education/document/chitiet');
-		$detail = pzk_element('detail');
+		$detail = pzk_element()->getDetail();
 		
 		if($detail) {
 			$detail->set('itemId', $newsId);

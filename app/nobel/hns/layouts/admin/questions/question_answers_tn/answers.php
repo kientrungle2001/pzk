@@ -6,8 +6,8 @@
 </style>
 <?php
 $item = $data->getItem();
-$itemAnswers = $data->get('itemAnswers');
-$backHref = pzk_request()->get('backHref');
+$itemAnswers = $data->getItemAnswers();
+$backHref = pzk_request()->getBackHref();
 
 ?>
 <div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> {item[request]}</div></div>
@@ -96,7 +96,7 @@ $backHref = pzk_request()->get('backHref');
 			{ifvar backHref}
 			<a class="btn btn-default" href="{backHref}">Quay Lại</a>
 			{else}
-			<a class="btn btn-default" href="{url /}{? echo pzk_request()->get('controller'); ?}/{item[questionId]}">Quay Lại</a>
+			<a class="btn btn-default" href="{url /}{? echo pzk_request()->getController(); ?}/{item[questionId]}">Quay Lại</a>
 			{/if}
 		</div>
 	</div>
@@ -188,7 +188,7 @@ $backHref = pzk_request()->get('backHref');
 		 
 
 	});
-    <?php if(pzk_request('softwareId') == 1) { ?>
+    <?php if(pzk_request()->getSoftwareId() == 1) { ?>
 	    setInputTinymce(2);
     <?php } else { ?>
         setInputTinymce();

@@ -1,8 +1,8 @@
 <?php
 $listStudents = $data->getStudents();
-$className = $data->get('className');
-$schoolYear = $data->get('schoolYear');
-$class = $data->get('class');
+$className = $data->getClassName();
+$schoolYear = $data->getSchoolYear();
+$class = $data->getClass();
 ?>
 <div class="panel panel-default">
 	  <div class="panel-heading">

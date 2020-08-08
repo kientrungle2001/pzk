@@ -102,7 +102,7 @@ class PzkScheduleController extends PzkController
 		$datetime= date("Y-m-d H:i:s");
 		$acc=_db()->getTableEntity('social_account');
 		$acc->loadWhere(array('tokenId',$token));
-		if(! $acc->get('id')){
+		if(! $acc->getId()){
 			$row= array('appId'=>2,'type'=>'facebook','tokenId'=>$token,'name'=>'','status'=>1,'created'=>$datetime);
 			$acc->setData($row);
 			$acc->save();
@@ -129,7 +129,7 @@ class PzkScheduleController extends PzkController
 		
 		//$rssItem = _db()->getTableEntity('rss_feed')->loadWhere(array('posted', 0));
 		
-		//if(!$rssItem->get('id')) return false;
+		//if(!$rssItem->getId()) return false;
 		$new=_db()->getTableEntity('news');
 		$acc=_db()->getTableEntity('social_account');
 		foreach ($schedules as $schedule) {
@@ -141,10 +141,10 @@ class PzkScheduleController extends PzkController
 				$tokenId = base64_decode($schedule['tokenId']);
 				
 				$new->loadWhere(array('id',$schedule['newsId']));
-				if($new->get('id')){
+				if($new->getId()){
 					$alias= $new->getAlias();
-					$brief= $new->getbrief();
-					$img= $new->getimg();
+					$brief= $new->getBrief();
+					$img= $new->getImg();
 				}
 
 				$linkData = [
@@ -172,7 +172,7 @@ class PzkScheduleController extends PzkController
 					echo 'Posted with id: ' . $graphNode['id'];
 					// insert social_log
 					$log= _db()->getTableEntity('social_log');
-					$row_log= array('message'=>$linkData['message'], 'scheduleId'=>$schedule['id'], 'created'=>$datetime, 'status'=>1, 'appId'=>$schedule['appId'], 'accountId'=>$acc->get('id'), 'newsId'=>$schedule['newsId'], 'postId'=>$graphNode['id']);
+					$row_log= array('message'=>$linkData['message'], 'scheduleId'=>$schedule['id'], 'created'=>$datetime, 'status'=>1, 'appId'=>$schedule['appId'], 'accountId'=>$acc->getId(), 'newsId'=>$schedule['newsId'], 'postId'=>$graphNode['id']);
 					$log->setData($row_log);
 					$log->save();
 				} else {

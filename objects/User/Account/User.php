@@ -12,11 +12,11 @@ class PzkUserAccountUser extends PzkObject
 	
 	public function init() {
 		$ip = getRealIPAddress();
-		pzk_session()->set('userIp', $ip);
+		pzk_session()->setUserIp( $ip);
 		
 	}
   	public function hash() {
-  		return md5($this->get('layout'). 'usermenu' . pzk_session()->get('username'));
+  		return md5($this->getLayout(). 'usermenu' . pzk_session()->getUsername());
   	}
 }
  ?>

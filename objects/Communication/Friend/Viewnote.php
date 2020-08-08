@@ -16,7 +16,7 @@ class PzkCommunicationFriendViewnote extends PzkObject
 	{
 			$loadUserName= $this->loadUserName($member);
 			$username= $loadUserName['username'];
-			$page=pzk_request('page');
+			$page=pzk_request()->getPage();
 			if(!$page){
 				$page=1;
 			}

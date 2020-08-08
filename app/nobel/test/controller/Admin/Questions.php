@@ -64,8 +64,8 @@ class PzkAdminQuestionsController extends PzkAdminController {
 	}
 	public function onchangeTrialAction() {
         $id = pzk_request ('id');
-        $field = pzk_request('field');
-        $value = pzk_request('value');
+        $field = pzk_request()->getField();
+        $value = pzk_request()->getValue();
         $entity = _db ()->getTableEntity ( $this->table )->load ( $id );
         $entity->update ( array (
             $field => $value
@@ -75,12 +75,12 @@ class PzkAdminQuestionsController extends PzkAdminController {
     
     public function onchangeStatusAction() {
     	$id = pzk_request ('id');
-    	$field = pzk_request('field');
+    	$field = pzk_request()->getField();
     	$entity = _db ()->getTableEntity ( $this->table )->load ( $id );
     	$entity->update ( array (
     			$field => 1 - $entity->get($field)
     	) );
-        $page = pzk_request('page');
+        $page = pzk_request()->getPage();
         if($page) {
             $this->redirect('index?page='.$page);
         }else {
@@ -117,11 +117,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
         if($this->logable) {
             $logEntity = _db()->getTableEntity('admin_log');
             $logFields = explodetrim(',', $this->logFields);
-            $brief = pzk_session()->get('adminUser') . ' Thêm mới bản ghi: ' . $this->getModule();
+            $brief = pzk_session()->getAdminUser() . ' Thêm mới bản ghi: ' . $this->getModule();
             foreach ($logFields as $field) {
                 $brief .= '[' . $field . ': ' . @$row[$field] . ']';
             }
-            $logEntity->set('userId', pzk_session()->getAdminId());
+            $logEntity->setUserId( pzk_session()->getAdminId());
             $logEntity->(date('Y-m-d H:i:s'));
             $logEntity->('add');
             $logEntity->('admin_'.$this->getModule());
@@ -147,11 +147,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
         }
 
         $entity = _db()->getEntity('table')->($this->table);
-        $entity->load(pzk_request('id'));
+        $entity->load(pzk_request()->getId());
         if($this->logable) {
             $logEntity = _db()->getTableEntity('admin_log');
             $logFields = explodetrim(',', $this->logFields);
-            $brief = pzk_session()->get('adminUser') . ' Sửa bản ghi: ' . $this->getModule();
+            $brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
             foreach ($logFields as $field) {
                 $brief .= '[' . $field . ': ' . $entity->get($field) . ']';
             }
@@ -159,7 +159,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
             foreach ($logFields as $field) {
                 $brief .= '[' . $field . ': ' . @$row[$field] . ']';
             }
-            $logEntity->set('userId', pzk_session()->getAdminId());
+            $logEntity->setUserId( pzk_session()->getAdminId());
             $logEntity->(date('Y-m-d H:i:s'));
             $logEntity->('edit');
             $logEntity->('admin_'.$this->getModule());
@@ -220,7 +220,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 	        $module->(pzk_request()->getSegment(3));
 	        $this->initPage() ->append($module);
 	
-	        $question	= pzk_element('question_answers');
+	        $question	= pzk_element()->getQuestion_answers();
 	
 	        $question_answers = pzk_model('AdminQuestion');
 	
@@ -235,7 +235,7 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			$module->(pzk_request()->getSegment(3));
 			$this->initPage() ->append($module);
 				
-			$question	= pzk_element('question_answersFill');
+			$question	= pzk_element()->getQuestion_answersFill();
 				
 			$question_answers = pzk_model('AdminQuestion');
 				
@@ -290,11 +290,11 @@ class PzkAdminQuestionsController extends PzkAdminController {
 				if($result !=false){
 					
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 					
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
@@ -330,19 +330,19 @@ class PzkAdminQuestionsController extends PzkAdminController {
 			if($result !=false){
 					
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}else{
 					
 				pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}
 		}
 	}
 
 	public function updateTestsAction() {
-        if(pzk_request('ids')) {
-            $arrIds = json_decode(pzk_request('ids'));
-            $testIds = json_decode(pzk_request('testIds'));
+        if(pzk_request()->getIds()) {
+            $arrIds = json_decode(pzk_request()->getIds());
+            $testIds = json_decode(pzk_request()->getTestIds());
             if(!empty($testIds)) {
                 $strCateIds = ','.implode(',', $testIds).',';
             }else{
@@ -361,9 +361,9 @@ class PzkAdminQuestionsController extends PzkAdminController {
     }
 
     public function updateCategoryAction() {
-        if(pzk_request('ids')) {
-            $arrIds = json_decode(pzk_request('ids'));
-            $categories = json_decode(pzk_request('categories'));
+        if(pzk_request()->getIds()) {
+            $arrIds = json_decode(pzk_request()->getIds());
+            $categories = json_decode(pzk_request()->getCategories());
             if(!empty($categories)) {
                 $strCateIds = ','.implode(',', $categories).',';
             }else{
@@ -388,9 +388,9 @@ class PzkAdminQuestionsController extends PzkAdminController {
 	
 	public function delAllAction() {
 		
-		if(pzk_request('ids')) {
+		if(pzk_request()->getIds()) {
 			
-			$arrIds = json_decode(pzk_request('ids'));
+			$arrIds = json_decode(pzk_request()->getIds());
 			
 			if(count($arrIds) >0) {
 				_db()->useCB()->delete()->from($this->table)->where(array('in', 'id', $arrIds))->result();
@@ -404,44 +404,44 @@ class PzkAdminQuestionsController extends PzkAdminController {
 	}
 	
 	public function changeCheckAction() {
-		pzk_session($this->table.'Check', pzk_request('check'));
+		pzk_session($this->table.'Check', pzk_request()->getCheck());
 		$this->redirect('index');
 	}
 	public function changeStatusQuestionAction() {
-		pzk_session($this->table.'Status', pzk_request('status'));
+		pzk_session($this->table.'Status', pzk_request()->getStatus());
 		$this->redirect('index');
 	}
 	public function changeDeletedAction() {
-		pzk_session($this->table.'Deleted', pzk_request('deleted'));
+		pzk_session($this->table.'Deleted', pzk_request()->getDeleted());
 		$this->redirect('index');
 	}
 	
 	public function changeCategoryIdAction() {
-		pzk_session($this->table.'CategoryId', pzk_request('categoryId'));
+		pzk_session($this->table.'CategoryId', pzk_request()->getCategoryId());
 		$this->redirect('index');
 	}
 	public function changeTestIdAction() {
-		pzk_session($this->table.'TestId', pzk_request('testId'));
+		pzk_session($this->table.'TestId', pzk_request()->getTestId());
 		$this->redirect('index');
 	}
 	public function changeTrialAction() {
-		pzk_session($this->table.'Trial', pzk_request('trial'));
+		pzk_session($this->table.'Trial', pzk_request()->getTrial());
 		$this->redirect('index');
 	}
 	public function changeQuestionTypeAction() {
-		pzk_session($this->table.'QuestionType', pzk_request('questionType'));
+		pzk_session($this->table.'QuestionType', pzk_request()->getQuestionType());
 		$this->redirect('index');
 	}
 	public function changeTypeAction() {
-		pzk_session($this->table.'Type', pzk_request('type'));
+		pzk_session($this->table.'Type', pzk_request()->getType());
 		$this->redirect('index');
 	}
 	public function changeCategoryTypeAction() {
-		pzk_session($this->table.'category_type', pzk_request('category_type'));
+		pzk_session($this->table.'category_type', pzk_request()->getCategory_type());
 		$this->redirect('index');
 	}
 	public function changeTopicsAction() {
-		pzk_session($this->table.'Topic_id', pzk_request('topic_id'));
+		pzk_session($this->table.'Topic_id', pzk_request()->getTopic_id());
 		$this->redirect('index');
 	}
 }

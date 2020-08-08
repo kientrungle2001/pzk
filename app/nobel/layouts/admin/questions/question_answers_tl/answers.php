@@ -63,7 +63,7 @@ $content = preg_replace_callback($pattern, function($matches) {
 </form>
 
 <script>
-    <?php if(pzk_request('softwareId') == 1) { ?>
+    <?php if(pzk_request()->getSoftwareId() == 1) { ?>
 	    setInputTinymce(2);
     <?php } else { ?>
         setInputTinymce();

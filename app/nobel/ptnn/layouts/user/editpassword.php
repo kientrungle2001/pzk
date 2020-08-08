@@ -80,13 +80,13 @@
      <br> 
      <p>Để thay đổi mật khẩu bạn vui lòng điền đầy đủ các thông tin bên dưới</p>
       <label for="oldpassword">Mật khẩu cũ:</label>
-      <input type="password" name="oldpassword" id="oldpassword" value="<?php echo $request->get('oldpassword') ;  ?>">
+      <input type="password" name="oldpassword" id="oldpassword" value="<?php echo $request->getOldpassword() ;  ?>">
       
       <br>
 
     
       <label for="newpassword">Mật khẩu mới:</label>
-      <input type="password" name="newpassword" id="newpassword" value="<?php echo $request->get('newpassword') ;  ?>">
+      <input type="password" name="newpassword" id="newpassword" value="<?php echo $request->getNewpassword() ;  ?>">
       
       <br>
       <label for="renewpassword">Xác nhận mật khẩu mới:</label>

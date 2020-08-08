@@ -3,8 +3,8 @@ $gameType = $data->getGameType();
 $gameTopic = $data->getGameTopic();
 $gameTopic = buildArr($gameTopic, 'parent', 0);
 $post = pzk_request();
-$getGameType = $post->get('gameType');
-$getTopic = $post->get('gameTopic');
+$getGameType = $post->getGameType();
+$getTopic = $post->getGameTopic();
 ?>
 <div class="well">
     <form name="form_game" method="get" >

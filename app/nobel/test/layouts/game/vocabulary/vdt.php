@@ -1,9 +1,9 @@
 <?php 
 	$dataWords = $data->getDataWords();
 	
-	$documentId = $data->get('documentId');
-	$gameCode = $data->get('gameCode');
-	$cateId = $data->get('cateId');
+	$documentId = $data->getDocumentId();
+	$gameCode = $data->getGameCode();
+	$cateId = $data->getCateId();
 	//debug($dataWords);
 	if($dataWords != FALSE) {
 		$allWords = array();

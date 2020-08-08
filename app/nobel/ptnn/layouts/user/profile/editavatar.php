@@ -7,7 +7,7 @@
 	<div class="layout_title"> THAY ĐỔI AVATAR</div>
 	<div class="clear"></div>
 	<div class="avatar">
-		<img src="<?php echo $user->get('avatar'); ?>"alt="" width="120px" height="120px">
+		<img src="<?php echo $user->getAvatar(); ?>"alt="" width="120px" height="120px">
 	</div>
 	<div class="note_upload">
 		<span class="note_favorite">Lưu ý khi upload ảnh: </span><br>

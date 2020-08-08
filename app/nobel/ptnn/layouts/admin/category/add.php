@@ -7,7 +7,7 @@ $questionTypes = _db()->select('*')->from('questiontype')->result();
 ?>
 <form role="form" method="post" action="{url /admin_category/addPost}">
   <input type="hidden" name="id" value="" />
-    <input type="hidden" name="software" value="<?php echo pzk_request('softwareId'); ?>" />
+    <input type="hidden" name="software" value="<?php echo pzk_request()->getSoftwareId(); ?>" />
   <div class="form-group col-xs-12">
     <label class="col-xs-2" for="name">Tên dạng bài tập</label>
     <div class="col-xs-8">

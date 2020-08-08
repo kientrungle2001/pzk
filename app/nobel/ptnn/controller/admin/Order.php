@@ -523,12 +523,12 @@ class PzkAdminOrderController extends PzkGridAdminController {
             $row['created']=date("Y-m-d H:i:s");
             $row['software']=3;
             $user= _db()->getEntity('User.Account.User');
-            $username = trim(pzk_request('username'));
+            $username = trim(pzk_request()->getUsername());
             $row['orderDate']= date("Y-m-d H:i:s");
             //Khách hàng mua dịch vụ bằng tài khoản ngân hàng
             if($username){
                 $user->loadWhere(array('username',$username));
-                $userId=$user->get('id');
+                $userId=$user->getId();
                 $row['userId']=$userId;
             }
             $orderId=$this->add($row);
@@ -559,8 +559,8 @@ class PzkAdminOrderController extends PzkGridAdminController {
                 $orderitem->save();
             } 
             //Khách hàng mua và kích hoạt dịch vụ luôn
-            if(pzk_request('activeUser')==1 && pzk_request('status')==1){
-                $serviceId=pzk_request('serviceId');
+            if(pzk_request()->getActiveUser()==1 && pzk_request()->getStatus()==1){
+                $serviceId=pzk_request()->getServiceId();
                 //Cập nhật bảng history_service
                 $paymentType= $row['paymentType'];
                                
@@ -582,31 +582,31 @@ class PzkAdminOrderController extends PzkGridAdminController {
             $row['modified']=date("Y-m-d H:i:s");
             $row['software']=3;
             $user= _db()->getEntity('User.Account.User');
-            $username = trim(pzk_request('username'));            
+            $username = trim(pzk_request()->getUsername());            
             //Khách hàng mua dịch vụ bằng tài khoản ngân hàng
             if($username){
                 $user->loadWhere(array('username',$username));
-                $userId=$user->get('id');
+                $userId=$user->getId();
                 $row['userId']=$userId;
             }
              
             $this->edit($row);
-            $orderId=pzk_request('id');
+            $orderId=pzk_request()->getId();
             // Update bang order_transaction
             $orderTrans=_db()->getEntity('payment.transaction');
             $orderTrans->loadWhere(array('orderId',$orderId));
-            if($orderTrans->get('id')){
+            if($orderTrans->getId()){
                 $orderTrans->update(array('orderId'=>$orderId,'userId'=>$row['userId'],'amount'=>$row['amount'],'paymentDate'=>date("Y-m-d H:i:s"),'paymentType'=>$row['paymentType'],'transactionStatus'=>$row['paymentStatus'],'status'=>$row['status']));
             } 
             // Lưu bảng order_shipping
             $shipping=_db()->getEntity('service.ordershipping');
             $shipping->loadWhere(array('orderId',$orderId));
-            if($shipping->get('id')){
+            if($shipping->getId()){
                 $shipping->delete();
             }
             $orderitem=_db()->getEntity('service.orderitem');
             $orderitem->loadWhere(array('orderId',$orderId));
-            if($orderitem->get('id')){
+            if($orderitem->getId()){
                 $orderitem->delete();
             }
             if($row['note'] !=0){
@@ -625,8 +625,8 @@ class PzkAdminOrderController extends PzkGridAdminController {
                 $orderitem->save();
             }
             //Khách hàng mua và kích hoạt dịch vụ luôn
-            if(pzk_request('activeUser')==1 && pzk_request('status')==1){
-                $serviceId=pzk_request('serviceId');
+            if(pzk_request()->getActiveUser()==1 && pzk_request()->getStatus()==1){
+                $serviceId=pzk_request()->getServiceId();
                 //Cập nhật bảng history_service
                 $paymentType= $row['paymentType'];
                 $model = pzk_model('Transaction');
@@ -637,7 +637,7 @@ class PzkAdminOrderController extends PzkGridAdminController {
         
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 }

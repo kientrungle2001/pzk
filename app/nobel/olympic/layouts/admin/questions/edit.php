@@ -8,7 +8,7 @@
 ?>
 <form id="questionsEditForm" role="form" method="post" action="{url /admin_questions/editAllCatePost}">
   	<input type="hidden" name="id" value="{item[id]}" />
-    <input type="hidden" name="software" value="<?php echo pzk_request('softwareId'); ?>" />
+    <input type="hidden" name="software" value="<?php echo pzk_request()->getSoftwareId(); ?>" />
   	<div class="form-group col-xs-12">
   		<div class="col-xs-2">
 	    	<label for="name">Câu hỏi</label>

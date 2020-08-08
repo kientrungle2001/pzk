@@ -156,5 +156,5 @@ class PzkCoreDatabaseSchema extends PzkObjectLightWeight {
 }
 
 function _dbs() {
-	return pzk_element('db_schema')->clear();
+	return pzk_element()->getDb_schema()->clear();
 }

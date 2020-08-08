@@ -1,7 +1,7 @@
  <?php
-	$documentId = $data->get('documentId');
-	$gameCode = $data->get('gameCode');
-	$cateId = $data->get('cateId');
+	$documentId = $data->getDocumentId();
+	$gameCode = $data->getGameCode();
+	$cateId = $data->getCateId();
 	
 	$allwords = $data->getPairWords();
 	if($allwords) {
@@ -27,8 +27,8 @@
 	$countStage = count($mutilData);
 	//debug($mutilData);
 	$page = 0;
-	if($data->get('pageGame')) {
-		$page = $data->get('pageGame')- 1;
+	if($data->getPageGame()) {
+		$page = $data->getPageGame()- 1;
 	}
 	
 	if(isset($mutilData[$page]['topic']) && isset($mutilData[$page]['word'])) {

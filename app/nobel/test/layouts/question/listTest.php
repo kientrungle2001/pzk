@@ -21,7 +21,7 @@ if($pageSize) {
 }else {
     $data->pageSize = 20;
 }
-$page = pzk_request('page');
+$page = pzk_request()->getPage();
 if(!empty($page)) {
     $data->pageNum = $page;
 }else{

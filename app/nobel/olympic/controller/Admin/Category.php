@@ -330,7 +330,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 
     public function editPostAction() {
         $row = $this->getEditData();
-        $id = pzk_request()->get('id');
+        $id = pzk_request()->getId();
         if($this->validateEditData($row)) {
             $data = _db()->useCB()->select('img')->from('categories')->where(array('id', $id))->result_one();
             if(($row['img'] != $data['img']) and !empty($data['img'])) {
@@ -342,12 +342,12 @@ class PzkAdminCategoryController extends PzkGridAdminController {
             $this->redirect('index');
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 
     public function delPostAction() {
-        $id = pzk_request()->get('id');
+        $id = pzk_request()->getId();
         $data = _db()->useCB()->select('img')->from($this->table)->where(array('id', $id))->result_one();
         if($data['img']) {
             unlink($data['img']);
@@ -360,8 +360,8 @@ class PzkAdminCategoryController extends PzkGridAdminController {
     }
 
     public function delAllAction() {
-        if(pzk_request('ids')) {
-            $arrIds = json_decode(pzk_request('ids'));
+        if(pzk_request()->getIds()) {
+            $arrIds = json_decode(pzk_request()->getIds());
             if(count($arrIds) >0) {
                 _db()->useCB()->delete()->from($this->table)
                     ->where(array('in', 'id', $arrIds))->result();
@@ -413,35 +413,35 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 			$question->import();
 			$answers = $question->getAnswers();
 			if(!count($answers)) continue;
-			//$existed = $question->getOne(array('name', $question->get('name')));
+			//$existed = $question->getOne(array('name', $question->getName()));
 			$answerQuestion1 = _db()->select('*')->from('answers_question_tn')
 				->join('questions', 'answers_question_tn.question_id = questions.id')
 				->where(array('and', 
-					array('equal', array('column', 'questions', 'name'), $question->get('name')), 
+					array('equal', array('column', 'questions', 'name'), $question->getName()), 
 					array('equal', array('column', 'answers_question_tn', 'content'), $answers[0]->getContent())));
 			$answerQuestion1 = $answerQuestion1->result_one('table');
 			$answerQuestion2 = _db()->select('*')->from('answers_question_tn')
 				->join('questions', 'answers_question_tn.question_id = questions.id')
 				->where(array('and', 
-					array('equal', array('column', 'questions', 'name'), $question->get('name')), 
+					array('equal', array('column', 'questions', 'name'), $question->getName()), 
 					array('equal', array('column', 'answers_question_tn', 'content'), $answers[0]->getContent())));
 			$answerQuestion2 = $answerQuestion2->result_one('table');
-			if($answerQuestion1 && $answerQuestion1->get('id') && $answerQuestion2 && $answerQuestion2->get('id')) {				
-				echo $answerQuestion1->get('name') . ' đã tồn tại<br />';
+			if($answerQuestion1 && $answerQuestion1->getId() && $answerQuestion2 && $answerQuestion2->getId()) {				
+				echo $answerQuestion1->getName() . ' đã tồn tại<br />';
 				continue;
 			}
 			$question->setCategoryIds($categoryIds);
 			$question->setCreated(date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
 			$question->setCreatedId(pzk_session()->getAdminId());			
-			$question->setSoftware(pzk_request()->get('softwareId'));			
+			$question->setSoftware(pzk_request()->getSoftwareId());			
 			$question->setQuestionType('1');
 			$question->save();
 						
-			if($question->get('id')) {
-				echo 'Question imported: ' . $question->get('name') . '<br />';			
+			if($question->getId()) {
+				echo 'Question imported: ' . $question->getName() . '<br />';			
 			}
 			foreach($answers as $answer) {
-				$answer->setQuestion_id($question->get('id'));
+				$answer->setQuestion_id($question->getId());
 				$answer->setDate_modify(date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
 				$answer->setAdmin_modify(pzk_session()->getAdminId());
 				$answer->save();

@@ -15,15 +15,15 @@ class PzkNgonnguController extends PzkController{
     	
     	$this->append('question/ngonnguParent', 'left');
     	
-    	$ngonnguParent = pzk_element('ngonnguParent');
+    	$ngonnguParent = pzk_element()->getNgonnguParent();
     	
     	$data_category = pzk_model('Category');
     	
     	$category = $data_category->get_category_all($category_id);
     	
-    	$ngonnguParent->set('category', $category);
+    	$ngonnguParent->setCategory( $category);
     	
-    	$ngonnguParent->set('categoryId', $category_id);
+    	$ngonnguParent->setCategoryId( $category_id);
     	
     	$this->display();
     }
@@ -36,7 +36,7 @@ class PzkNgonnguController extends PzkController{
     	 
     	$this->append('question/ngonngu', 'left');
     	 
-    	$ngonngu = pzk_element('ngonngu');
+    	$ngonngu = pzk_element()->getNgonngu();
     	 
     	$keybook	= uniqid();
     
@@ -46,9 +46,9 @@ class PzkNgonnguController extends PzkController{
     	 
     	$category = $data_category->get_category_all($category_id);
     	 
-    	$ngonngu->set('category', $category);
+    	$ngonngu->setCategory( $category);
     	 
-    	$ngonngu->set('categoryId', $category_id);
+    	$ngonngu->setCategoryId( $category_id);
     	 
     	$question_types = explode(',', $category['question_types']);
     	 
@@ -56,7 +56,7 @@ class PzkNgonnguController extends PzkController{
     	 
     	$data_topics = $data_question->get_topics();
     	 
-    	$ngonngu->set('data_topics', $data_topics);
+    	$ngonngu->setData_topics( $data_topics);
     	 
     	$this->display();
     }
@@ -75,20 +75,20 @@ class PzkNgonnguController extends PzkController{
 	    	
 	    	$data_AdminQuestion_model = pzk_model('AdminQuestion');
 	    	
-	    	(int)$category_type = pzk_request()->get('category_type');
+	    	(int)$category_type = pzk_request()->getCategory_type();
 	    	
 	    	$category_type_name = $data_AdminQuestion_model->get_category_type_name($category_type);
 	    	
 	    	$data_criteria = array(
-	    		'category_id'		=> pzk_request()->get('category_id'),
-	    		'category_name'		=> pzk_request()->get('category_name'),
-		    	'category_type' 	=> pzk_request()->get('category_type'),
-		    	'question_limit' 	=> pzk_request()->get('number_question'),
-		    	'question_time'		=> pzk_request()->get('work_time'),
-		    	'question_topic' 	=> pzk_request()->get('topic'),
+	    		'category_id'		=> pzk_request()->getCategory_id(),
+	    		'category_name'		=> pzk_request()->getCategory_name(),
+		    	'category_type' 	=> pzk_request()->getCategory_type(),
+		    	'question_limit' 	=> pzk_request()->getNumber_question(),
+		    	'question_time'		=> pzk_request()->getWork_time(),
+		    	'question_topic' 	=> pzk_request()->getTopic(),
 	    		'keybook'			=> $keybook,
 	    		'category_type_name'=> $category_type_name['name'],
-	    		'num_exercise'		=> pzk_request()->get('exercise_no'),
+	    		'num_exercise'		=> pzk_request()->getExercise_no(),
 	    	);
 	    	
 	    	$data_question_model = pzk_model('Question');
@@ -99,13 +99,13 @@ class PzkNgonnguController extends PzkController{
 	    	
 	    	$result_search = $data_question_model->search_criteria($data_criteria);
 	    	
-	    	$data_showQuestion	= pzk_element('showQuestion');
+	    	$data_showQuestion	= pzk_element()->getShowQuestion();
 	    	
-	    	$data_showQuestion->set('data_showQuestion', $result_search);
+	    	$data_showQuestion->setData_showQuestion( $result_search);
 	    	
-	    	$data_showQuestion->set('data_question_topic', $data_question_topic);
+	    	$data_showQuestion->setData_question_topic( $data_question_topic);
 	    	
-	    	$data_showQuestion->set('data_criteria', $data_criteria);
+	    	$data_showQuestion->setData_criteria( $data_criteria);
     	}
     	
     	$this->display();
@@ -115,9 +115,9 @@ class PzkNgonnguController extends PzkController{
     	
     	$request 			= pzk_request();
     	 
-    	$category_type		= $request->get('category_type');
+    	$category_type		= $request->getCategory_type();
     	 
-    	$topic				= $request->get('topic');
+    	$topic				= $request->getTopic();
     	
     	$data_criteria = array(
     			'category_type'		=> $category_type,
@@ -144,19 +144,19 @@ class PzkNgonnguController extends PzkController{
     	
     	$request 			= pzk_request();
     	
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getAnswers();
     	
     	if(!isset($data_answers)){
     		die;
     	}
     	
-    	$user_book_key	= $request->get('keybook');
+    	$user_book_key	= $request->getKeybook();
     	
     	$question_id 	= $data_answers['questions'];
     	
     	$exercise_number	= $data_answers['num_exercise'];
     	
-    	$totaltrue      = $request->get('totaltrue');
+    	$totaltrue      = $request->getTotaltrue();
     	
     	$question_types = $data_answers['questionType'];
     	$question_type  = '';
@@ -242,7 +242,7 @@ class PzkNgonnguController extends PzkController{
 		    	
 		    	$userBook->save();
 		    	
-		    	$userbookId=$userBook->get('id');
+		    	$userbookId=$userBook->getId();
 		    	
 		    	if(setSuperType($question_type) == "choice"){
 		    		
@@ -328,7 +328,7 @@ class PzkNgonnguController extends PzkController{
 		    			$rowAnswerText=array('content'=>$answer);
 		    			$userAnswerText->setData($rowAnswerText);
 		    			$userAnswerText->save();
-		    			$userAnswerTextId = $userAnswerText->get('id');
+		    			$userAnswerTextId = $userAnswerText->getId();
 		    			
 		    			$rowAnswer=array('user_book_id'=>$userbookId,'questionId'=>$questionId,'question_type'=>$questionType,'content'=>'', 'user_answers_text_id'=>$userAnswerTextId);
 		    			$userAnswer->setData($rowAnswer);
@@ -357,7 +357,7 @@ class PzkNgonnguController extends PzkController{
 		    			$rowAnswerText=array('content'=>$answer);
 		    			$userAnswerText->setData($rowAnswerText);
 		    			$userAnswerText->save();
-		    			$userAnswerTextId = $userAnswerText->get('id');
+		    			$userAnswerTextId = $userAnswerText->getId();
 		    			
 		    			$rowAnswer=array('user_book_id'=>$userbookId,'questionId'=>$questionId,'question_type'=>$questionType,'content'=>'', 'user_answers_text_id'=>$userAnswerTextId);
 		    			$userAnswer->setData($rowAnswer);
@@ -372,7 +372,7 @@ class PzkNgonnguController extends PzkController{
 		    			$rowAnswerText=array('content'=>$answers[$key]);
 		    			$userAnswerText->setData($rowAnswerText);
 		    			$userAnswerText->save();
-		    			$userAnswerTextId = $userAnswerText->get('id');
+		    			$userAnswerTextId = $userAnswerText->getId();
 		    			
 		    			$rowAnswer=array('user_book_id'=>$userbookId,'questionId'=>$questionId,'question_type'=>$questionType,'content'=>'', 'user_answers_text_id'=>$userAnswerTextId);
 		    			$userAnswer->setData($rowAnswer);
@@ -431,7 +431,7 @@ class PzkNgonnguController extends PzkController{
 		    			$rowAnswerText=array('content'=>$answer_full);
 		    			$userAnswerText->setData($rowAnswerText);
 		    			$userAnswerText->save();
-		    			$userAnswerTextId = $userAnswerText->get('id');
+		    			$userAnswerTextId = $userAnswerText->getId();
 		    			
 		    			$rowAnswer=array('user_book_id'=>$userbookId,'questionId'=>$questionId,'question_type'=>$questionType,'content'=>'', 'user_answers_text_id'=>$userAnswerTextId);
 		    			$userAnswer->setData($rowAnswer);
@@ -447,7 +447,7 @@ class PzkNgonnguController extends PzkController{
     	
     	$request 			= pzk_request();
     	 
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getAnswers();
     	
     	//debug($data_answers);die;
     	
@@ -576,9 +576,9 @@ class PzkNgonnguController extends PzkController{
     	
 	    	$request 			= pzk_request();
 	    	
-	    	$user_book_id 		= $request->get('user_book_id');
+	    	$user_book_id 		= $request->getUser_book_id();
 	    	
-	    	$key_book 			= $request->get('keybook');
+	    	$key_book 			= $request->getKeybook();
 	    	
 	    	$book_id =  base64_decode($user_book_id);
 	    	

@@ -5,9 +5,9 @@ foreach($words as $val) {
 	$allWords[] = $val[0];
 }
 $allWords = json_encode($allWords);
-$documentId = $data->get('documentId');
-$gameCode = $data->get('gameCode');
-$cateId = $data->get('cateId');
+$documentId = $data->getDocumentId();
+$gameCode = $data->getGameCode();
+$cateId = $data->getCateId();
 if(count($words) > 0){
  ?>
  

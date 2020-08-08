@@ -154,7 +154,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController {
 			$this->append('education/question/showRating', 'wrapper');
         	$userBook   = pzk_model('Frontend');
         
-	        $showRating = pzk_element('showRating');
+	        $showRating = pzk_element()->getShowRating();
 
 	        $dataTest = $userBook->getAllTest(pzk_request()->get('practice'));
 

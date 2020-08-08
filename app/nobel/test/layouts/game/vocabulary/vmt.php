@@ -1,8 +1,8 @@
 		<?php 
-		$documentId = $data->get('documentId');
-		$gameCode = $data->get('gameCode');
+		$documentId = $data->getDocumentId();
+		$gameCode = $data->getGameCode();
 		$dataWords = $data->getDataWords();
-		$cateId = $data->get('cateId');
+		$cateId = $data->getCateId();
 	
 		if($dataWords != '') {
 			$allTrueWords = array();
@@ -13,8 +13,8 @@
 		$countStage = count($dataWords);
 		$page = 0;
 
-		if($data->get('pageGame')) {
-			$page = $data->get('pageGame')- 1;
+		if($data->getPageGame()) {
+			$page = $data->getPageGame()- 1;
 		}
 		
 		$allwords = explode(',', $dataWords[$page]['allWords']);

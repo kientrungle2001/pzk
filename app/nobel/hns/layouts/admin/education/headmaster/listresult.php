@@ -1,12 +1,12 @@
 <?php 
-$schoolYear = $data->get('schoolYear');
-$week = $data->get('week');
-$grade = $data->get('grade');
-$nameOfClass = $data->get('nameOfClass');
-$subject = $data->get('subject');
+$schoolYear = $data->getSchoolYear();
+$week = $data->getWeek();
+$grade = $data->getGrade();
+$nameOfClass = $data->getNameOfClass();
+$subject = $data->getSubject();
 $classroom = _db()->select('*')->fromEducation_classroom()->whereSchoolYear($schoolYear)->whereGradeNum($grade)->whereClassName($nameOfClass)->result_one();
 $allClasses = _db()->select('name')->fromEducation_class()->orderBy('name asc')->result();
-$data->set('classroomId', $classroom['id']);
+$data->setClassroomId( $classroom['id']);
 ?>
 
 <div class="panel panel-default">

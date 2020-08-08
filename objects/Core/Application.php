@@ -14,10 +14,10 @@ class PzkCoreApplication extends PzkObjectLightWeight {
      * Chạy controller
      */
 	public function run() {
-		if($ref = pzk_request()->get('ref') || $ref = pzk_session()->get('refId')) {
-			pzk_session()->set('refId', $ref);
+		if($ref = pzk_request()->getRef() || $ref = pzk_session()->getRefId()) {
+			pzk_session()->setRefId( $ref);
 		}
-		if(($coupon = pzk_request()->get('coupon')) || ($coupon = pzk_session()->get('coupon'))) {
+		if(($coupon = pzk_request()->getCoupon()) || ($coupon = pzk_session()->getCoupon())) {
 			// tim xem co ma coupon khong
 			// luu refId va discount
 			$model = pzk_model('Service.Coupon');
@@ -28,7 +28,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 		$action =  $request->get('action', 'index');
 		$controllerObject = $this->_getController($controller);
 		if(!$controllerObject) pzk_system()->halt('No controller ' .$controller);
-		pzk_global()->set('controller', $controllerObject);
+		pzk_global()->setController( $controllerObject);
 		if(method_exists($controllerObject, $action . 'Action')) {
 			$method = new ReflectionMethod($controllerObject, $action . 'Action');
 			$params = $method->getParameters();
@@ -70,7 +70,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 		$fileName = null;
 		
 		// tim kiem controller trong themes
-		$themes = pzk_request()->get('themes');
+		$themes = pzk_request()->getThemes();
 		if($themes) {
 			foreach($themes as $theme) {
 				$controllerFindPaths[]	=	'Themes/' . $theme. '/controller/';
@@ -314,7 +314,7 @@ function pzk_app() {
  * @return PzkController
  */
 function pzk_controller() {
-	return pzk_global()->get('controller');
+	return pzk_global()->getController();
 }
 
 /**
@@ -322,14 +322,14 @@ function pzk_controller() {
  * @return PzkAdminController
  */
 function pzk_admin_controller() {
-	return pzk_global()->get('controller');
+	return pzk_global()->getController();
 }
 /**
  * Trả về grid admin controller đang chạy
  * @return PzkGridAdminController
  */
 function pzk_grid_admin_controller() {
-	return pzk_global()->get('controller');
+	return pzk_global()->getController();
 }
 
 /**

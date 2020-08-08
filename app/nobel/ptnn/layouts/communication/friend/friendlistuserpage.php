@@ -1,17 +1,17 @@
 <?php 
       //$member=$data->getUserId(); 
-      $member= pzk_request('member'); 
+      $member= pzk_request()->getMember(); 
       $user=_db()->getEntity('User.Account.User');  
       $items=$user->viewFriends($member);
       $pages=$data->arrPage($member);
   ?>   
 {each $items as $user}
     <?php 
-        $testOnline=$user->testOnline($user->get('id'));
-        $testStatus=$user->testStatus($user->get('id'));
+        $testOnline=$user->testOnline($user->getId());
+        $testStatus=$user->testStatus($user->getId());
         $date=$user->dateRegister($user->getRegistered());
-        $learnPoint= $user->learnPoint($user->get('id'));
-        $hieghtPoint=$user->hieghtPoint($user->get('id'));
+        $learnPoint= $user->learnPoint($user->getId());
+        $hieghtPoint=$user->hieghtPoint($user->getId());
         $sortPoint=$user->sortPoint($learnPoint, $hieghtPoint);
         $sortTrophies=$user->sortTrophies($learnPoint, $hieghtPoint);
      ?>

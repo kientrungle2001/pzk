@@ -7,7 +7,7 @@ class PzkAdminEducationScheduleHomeworkDetail extends PzkObject {
 	
 	public function getClassroom() {
 		if($this->_classroom) return $this->_classroom;
-		$this->_classroom = _db()->select('*')->from('education_classroom')->whereId($this->get('classroomId'))->result_one();
+		$this->_classroom = _db()->select('*')->from('education_classroom')->whereId($this->getClassroomId())->result_one();
 		return $this->_classroom;
 	}
 	
@@ -22,19 +22,19 @@ class PzkAdminEducationScheduleHomeworkDetail extends PzkObject {
 	}
 	
 	public function getClassroomsHasHomework() {
-		return _db()->select('*')->from('education_classroom_homework')->whereHomeworkId($this->get('homeworkId'))->result();
+		return _db()->select('*')->from('education_classroom_homework')->whereHomeworkId($this->getHomeworkId())->result();
 	}
 	
 	public function getHomeworks() {
 		return _db()->select('education_classroom_homework.*, tests.name as name')
 		->from('education_classroom_homework')
 		->join('tests', 'education_classroom_homework.homeworkId = tests.id')
-		->whereClassroomId($this->get('classroomId'))
+		->whereClassroomId($this->getClassroomId())
 		->result();
 	}
 	
 	public function getHomework() {
-		return _db()->select('tests.*, categories.name as subject')->from('tests')->leftJoin('categories', 'tests.subjectId=categories.id')->where('tests.id='.$this->get('homeworkId'))->result_one();
+		return _db()->select('tests.*, categories.name as subject')->from('tests')->leftJoin('categories', 'tests.subjectId=categories.id')->where('tests.id='.$this->getHomeworkId())->result_one();
 	}
 	
 	public function getClassroomStudents() {
@@ -43,7 +43,7 @@ class PzkAdminEducationScheduleHomeworkDetail extends PzkObject {
 			->select('education_classroom_student.*, user.username, user.name')
 			->from('education_classroom_student')
 			->join('user', 'education_classroom_student.studentId=user.id')
-			->whereClassroomId($this->get('classroomId'))->result();
+			->whereClassroomId($this->getClassroomId())->result();
 	}
 	
 	public function getClassroomHomeworks() {
@@ -56,7 +56,7 @@ class PzkAdminEducationScheduleHomeworkDetail extends PzkObject {
 			->fromUser_book()
 			->join('user', 'user_book.userId=user.id')
 			->inUserId($studentIds)
-			->whereTestId($this->get('homeworkId'))
+			->whereTestId($this->getHomeworkId())
 			->orderBy('user_book.id asc')
 			->result();
 		return $userBooks;
@@ -77,7 +77,7 @@ class PzkAdminEducationScheduleHomeworkDetail extends PzkObject {
 			->fromUser_book()
 			->join('user', 'user_book.userId=user.id')
 			->inUserId($studentIds)
-			->whereTestId($this->get('homeworkId'))
+			->whereTestId($this->getHomeworkId())
 			->orderBy('user_book.id asc')
 			->result();
 		return $userBooks;
@@ -90,7 +90,7 @@ class PzkAdminEducationScheduleHomeworkDetail extends PzkObject {
 			->result();
 	}
 	public function getQuestions() {
-		return _db()->select('*')->fromQuestions()->likeTestId('%,'.$this->get('homeworkId').',%')
+		return _db()->select('*')->fromQuestions()->likeTestId('%,'.$this->getHomeworkId().',%')
 			->whereStatus(1)->result();
 	}
 }

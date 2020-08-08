@@ -1,5 +1,5 @@
 <?php
-$classroomId = $data->get('classroomId');
+$classroomId = $data->getClassroomId();
 $classroom = $data->getClassroom();
 $subjects = $data->getSubjects();
 ?>

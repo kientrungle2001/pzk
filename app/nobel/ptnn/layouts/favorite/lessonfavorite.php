@@ -17,9 +17,9 @@
    <div id="add_more_favorite"></div>
    <div id="show_empty_favorite" class="show_empty"></div>
   <?php 
-    $member=pzk_request('member');
+    $member=pzk_request()->getMember();
 
-    $lesson_favorite_id=pzk_request('lesson_favoriteId');
+    $lesson_favorite_id=pzk_request()->getLesson_favoriteId();
     
     $listlessions=$data->viewListLesson($member,$lesson_favorite_id);
 

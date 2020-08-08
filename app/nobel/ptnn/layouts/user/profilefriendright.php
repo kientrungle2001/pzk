@@ -7,7 +7,7 @@
 </style>
 <?php 
 $request=pzk_request();
-$member=$request->get('member');
+$member=$request->getMember();
 $user=_db()->getEntity('user.user');
 $user->loadWhere(array('username',$member));
 

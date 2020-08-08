@@ -1,12 +1,12 @@
 <?php
 $question = $data->getItem();
-$i= $question->get('id');
+$i= $question->getId();
 ?>
 <div class="step">
  	<span><strong>Yêu Cầu: </strong> {? echo $question->getRequest(); ?}</span>
 </div>
 <div class="step">
-	<span><strong> Câu hỏi:</strong> {? echo $question->get('name'); ?}</span>
+	<span><strong> Câu hỏi:</strong> {? echo $question->getName(); ?}</span>
 </div>
 <div class="step" >
   		<div style="clear:both;"><span><strong>Điền từ sai:</strong></span></div>

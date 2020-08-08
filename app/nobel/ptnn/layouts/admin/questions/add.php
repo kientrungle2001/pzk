@@ -4,7 +4,7 @@ $categories = buildArr($categories,'parent',0);
 $questionTypes = _db()->select('*')->from('questiontype')->result();
 ?>
 <form id="questionsAddForm" role="form" method="post" action="{url /admin_questions/addPost}">
-    <input type="hidden" name="software" value="<?php echo pzk_request('softwareId'); ?>" />
+    <input type="hidden" name="software" value="<?php echo pzk_request()->getSoftwareId(); ?>" />
   	<input type="hidden" name="id" value="" />
   	<div class="form-group col-xs-12">
 	  	<div class="col-xs-2">

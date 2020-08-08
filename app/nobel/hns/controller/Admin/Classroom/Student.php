@@ -3,13 +3,13 @@ class PzkAdminClassroomStudentController extends PzkBackendController {
 	public function indexAction($classroomId) {
 		$this->initPage();
 		$classroom = $this->parse('admin/classroom/student');
-		$classroom->set('classroomId', $classroomId);
+		$classroom->setClassroomId( $classroomId);
 		$this->append($classroom);
 		$this->display();
 	}
 	
 	public function searchAction() {
-		$username = pzk_request('username');
+		$username = pzk_request()->getUsername();
 		$students = _db()->select('*')->from('user')->likeUsername('%'.$username.'%')->limit(0, 10)->result();
 		$str = '<table class="table">';
 		foreach($students as $student):
@@ -20,19 +20,19 @@ class PzkAdminClassroomStudentController extends PzkBackendController {
 	}
 	
 	public function addAction() {
-		$classroomId 	= 	pzk_request('classroomId');
-		$studentId 		= 	pzk_request('studentId');
+		$classroomId 	= 	pzk_request()->getClassroomId();
+		$studentId 		= 	pzk_request()->getStudentId();
 		$entity = _db()->getTableEntity('education_classroom_student');
 		$entity->loadWhere(array('and',
 			array('classroomId', $classroomId),
 			array('studentId', $studentId)
 		));
-		if(!$entity->get('id')) {
+		if(!$entity->getId()) {
 			$entity->setData(array(
 				'classroomId' 	=> 	$classroomId,
 				'studentId'		=>	$studentId,
-				'software'		=> 	pzk_request('softwareId'),
-				'site'			=> pzk_request('siteId')
+				'software'		=> 	pzk_request()->getSoftwareId(),
+				'site'			=> pzk_request()->getSiteId()
 			));
 			$entity->save();
 			echo '1';
@@ -42,15 +42,15 @@ class PzkAdminClassroomStudentController extends PzkBackendController {
 	}
 	public function delAction() {
 		$entity = _db()->getTableEntity('education_classroom_student');
-		$entity->set('id', pzk_request('id'));
+		$entity->setId( pzk_request()->getId());
 		$entity->delete();
 		echo '1';
 	}
 	
 	public function changeAction() {
 		$entity = _db()->getTableEntity('education_classroom_student');
-		$entity->load(pzk_request('id'));
-		$entity->set('classroomId', pzk_request('classroomId'));
+		$entity->load(pzk_request()->getId());
+		$entity->setClassroomId( pzk_request()->getClassroomId());
 		$entity->save();
 		echo '1';
 	}

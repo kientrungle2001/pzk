@@ -4,12 +4,12 @@ class PzkFulllookMenu extends PzkObject
 	public $scriptable = true;
 	public function getTest($class)
 	{
-		$test=_db()->useCache(1800)->useCacheKey('tests-class-'.$class)->select("*")->from("tests")->where( array('like','classes','%,'.$class.',%'))->whereStatus(1)->wherePractice(0)->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))))->orderBy('ordering desc')->limit(9)->result();
+		$test=_db()->useCache(1800)->useCacheKey('tests-class-'.$class)->select("*")->from("tests")->where( array('like','classes','%,'.$class.',%'))->whereStatus(1)->wherePractice(0)->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())))->orderBy('ordering desc')->limit(9)->result();
 		return($test);
 	}
 	public function getPractice($class)
 	{
-		$practice=_db()->useCache(1800)->useCacheKey('practice-class-'.$class)->select("*")->from("tests")->where( array('like','classes','%,'.$class.',%'))->whereStatus(1)->wherePractice(1)->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))))->orderBy('ordering desc')->limit(9)->result();
+		$practice=_db()->useCache(1800)->useCacheKey('practice-class-'.$class)->select("*")->from("tests")->where( array('like','classes','%,'.$class.',%'))->whereStatus(1)->wherePractice(1)->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())))->orderBy('ordering desc')->limit(9)->result();
 		return($practice);
 	}
 	
@@ -93,7 +93,7 @@ class PzkFulllookMenu extends PzkObject
 		if($weekId)
 			$listTest->likeCategoryIds("%,$weekId,%");
 		$listTest->wherePractice($practice);
-		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request('siteId'))));
+		$listTest->where(array("or", array('displayAtSite', '0'), array('displayAtSite', pzk_request()->getSiteId())));
         
         $listTest->orderBy('ordering asc');
 		$listTest->limit(1);

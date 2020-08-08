@@ -17,22 +17,22 @@ class PzkAdminEducationHeadmasterListresult extends PzkObject {
 	public function getTotalPracticeByCategoryId(){
 		$query = _db()->select('categoryId, count(id) as totalPractice')->from('user_book')->groupBy('categoryId');
 		
-		if($this->get('schoolYear')){
-			$query->whereSchoolYear($this->get('schoolYear'));
+		if($this->getSchoolYear()){
+			$query->whereSchoolYear($this->getSchoolYear());
 		}
 		
-		if($this->get('week')){
-			$query->whereWeek($this->get('week'));
+		if($this->getWeek()){
+			$query->whereWeek($this->getWeek());
 		}
 		
-		if($this->get('grade')){
-			$query->whereClass($this->get('grade'));
+		if($this->getGrade()){
+			$query->whereClass($this->getGrade());
 		}
-		if($this->get('nameOfClass')){
-			$query->likeClassname('%,'.$this->get('nameOfClass').',%');
+		if($this->getNameOfClass()){
+			$query->likeClassname('%,'.$this->getNameOfClass().',%');
 		}
-		if($this->get('subject')){
-			$query->whereCategoryId($this->get('subject'));
+		if($this->getSubject()){
+			$query->whereCategoryId($this->getSubject());
 		}
 		
 		$query->whereStatus(1);
@@ -51,22 +51,22 @@ class PzkAdminEducationHeadmasterListresult extends PzkObject {
 	
 		$query = _db()->select('categoryId, (totalMark/testMark) as total, count(id) as totalGood')->from('user_book')->where('(totalMark/testMark) >= 0.8')->groupBy('categoryId');
 		
-		if($this->get('schoolYear')){
-			$query->whereSchoolYear($this->get('schoolYear'));
+		if($this->getSchoolYear()){
+			$query->whereSchoolYear($this->getSchoolYear());
 		}
 		
-		if($this->get('week')){
-			$query->whereWeek($this->get('week'));
+		if($this->getWeek()){
+			$query->whereWeek($this->getWeek());
 		}
 		
-		if($this->get('grade')){
-			$query->whereClass($this->get('grade'));
+		if($this->getGrade()){
+			$query->whereClass($this->getGrade());
 		}
-		if($this->get('nameOfClass')){
-			$query->likeClassname('%,'.$this->get('nameOfClass').',%');
+		if($this->getNameOfClass()){
+			$query->likeClassname('%,'.$this->getNameOfClass().',%');
 		}
-		if($this->get('subject')){
-			$query->whereCategoryId($this->get('subject'));
+		if($this->getSubject()){
+			$query->whereCategoryId($this->getSubject());
 		}
 		$query->whereStatus(1);
 		$practiceTotal = $query->result();
@@ -84,22 +84,22 @@ class PzkAdminEducationHeadmasterListresult extends PzkObject {
 	
 		$query = _db()->select('categoryId, (totalMark/testMark) as total, count(id) as totalGood')->from('user_book')->where('(totalMark/testMark) >= 0.7 and (totalMark/testMark) < 0.8')->groupBy('categoryId');
 		
-		if($this->get('schoolYear')){
-			$query->whereSchoolYear($this->get('schoolYear'));
+		if($this->getSchoolYear()){
+			$query->whereSchoolYear($this->getSchoolYear());
 		}
 		
-		if($this->get('week')){
-			$query->whereWeek($this->get('week'));
+		if($this->getWeek()){
+			$query->whereWeek($this->getWeek());
 		}
 		
-		if($this->get('grade')){
-			$query->whereClass($this->get('grade'));
+		if($this->getGrade()){
+			$query->whereClass($this->getGrade());
 		}
-		if($this->get('nameOfClass')){
-			$query->likeClassname('%,'.$this->get('nameOfClass').',%');
+		if($this->getNameOfClass()){
+			$query->likeClassname('%,'.$this->getNameOfClass().',%');
 		}
-		if($this->get('subject')){
-			$query->whereCategoryId($this->get('subject'));
+		if($this->getSubject()){
+			$query->whereCategoryId($this->getSubject());
 		}
 		$query->whereStatus(1);
 		$practiceTotal = $query->result();
@@ -117,22 +117,22 @@ class PzkAdminEducationHeadmasterListresult extends PzkObject {
 	
 		$query = _db()->select('categoryId, (totalMark/testMark) as total, count(id) as totalGood')->from('user_book')->where('(totalMark/testMark) >= 0.5 and (totalMark/testMark) < 0.7')->groupBy('categoryId');
 		
-		if($this->get('schoolYear')){
-			$query->whereSchoolYear($this->get('schoolYear'));
+		if($this->getSchoolYear()){
+			$query->whereSchoolYear($this->getSchoolYear());
 		}
 		
-		if($this->get('week')){
-			$query->whereWeek($this->get('week'));
+		if($this->getWeek()){
+			$query->whereWeek($this->getWeek());
 		}
 		
-		if($this->get('grade')){
-			$query->whereClass($this->get('grade'));
+		if($this->getGrade()){
+			$query->whereClass($this->getGrade());
 		}
-		if($this->get('nameOfClass')){
-			$query->likeClassname('%,'.$this->get('nameOfClass').',%');
+		if($this->getNameOfClass()){
+			$query->likeClassname('%,'.$this->getNameOfClass().',%');
 		}
-		if($this->get('subject')){
-			$query->whereCategoryId($this->get('subject'));
+		if($this->getSubject()){
+			$query->whereCategoryId($this->getSubject());
 		}
 		$query->whereStatus(1);
 		$practiceTotal = $query->result();
@@ -150,22 +150,22 @@ class PzkAdminEducationHeadmasterListresult extends PzkObject {
 	
 		$query = _db()->select('categoryId, (totalMark/testMark) as total, count(id) as totalGood')->from('user_book')->where('(totalMark/testMark) < 0.5')->groupBy('categoryId');
 		
-		if($this->get('schoolYear')){
-			$query->whereSchoolYear($this->get('schoolYear'));
+		if($this->getSchoolYear()){
+			$query->whereSchoolYear($this->getSchoolYear());
 		}
 		
-		if($this->get('week')){
-			$query->whereWeek($this->get('week'));
+		if($this->getWeek()){
+			$query->whereWeek($this->getWeek());
 		}
 		
-		if($this->get('grade')){
-			$query->whereClass($this->get('grade'));
+		if($this->getGrade()){
+			$query->whereClass($this->getGrade());
 		}
-		if($this->get('nameOfClass')){
-			$query->likeClassname('%,'.$this->get('nameOfClass').',%');
+		if($this->getNameOfClass()){
+			$query->likeClassname('%,'.$this->getNameOfClass().',%');
 		}
-		if($this->get('subject')){
-			$query->whereCategoryId($this->get('subject'));
+		if($this->getSubject()){
+			$query->whereCategoryId($this->getSubject());
 		}
 		$query->whereStatus(1);
 		$practiceTotal = $query->result();

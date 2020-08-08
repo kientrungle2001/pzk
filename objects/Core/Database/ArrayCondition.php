@@ -43,7 +43,7 @@ class PzkCoreDatabaseArrayCondition extends PzkObject {
 			}
 			return '`' . @mysql_escape_string($col) . '`';
 		}
-		return '`' . pzk_element('db')->prefix. @mysql_escape_string($col) . '`.`' . @mysql_escape_string($col2) . '`';
+		return '`' . pzk_element()->getDb()->prefix. @mysql_escape_string($col) . '`.`' . @mysql_escape_string($col2) . '`';
 	}
 	function mf_string($str) {
 		return '\'' . @mysql_escape_string($str) . '\'';

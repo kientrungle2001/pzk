@@ -5,26 +5,26 @@ class PzkNewsController extends PzkModuleController {
 	public function indexAction($id) {
 		$this->initPage();
 		$this->loadModules('newsList');
-		$newsList = pzk_element('newsList');
+		$newsList = pzk_element()->getNewsList();
 		if($newsList) {
-			$newsList->set('parentId', $id);
+			$newsList->setParentId( $id);
 		}
 		$this->display();
 	}
 	public function detailAction($id) {
 		$this->initPage();
 		$this->loadModules('newsDetail');
-		$detail = pzk_element('newsDetail');
-		$detail->set('itemId', $id);
-		$breadcrumbs = pzk_element('breadcrumbs');
+		$detail = pzk_element()->getNewsDetail();
+		$detail->setItemId( $id);
+		$breadcrumbs = pzk_element()->getBreadcrumbs();
 		if($breadcrumbs) {
-			$breadcrumbs->set('itemId', $id);
+			$breadcrumbs->setItemId( $id);
 		}
-		$relatedNews = pzk_element('relatedNews');
+		$relatedNews = pzk_element()->getRelatedNews();
 		if($relatedNews) {
 			$item = $detail->getItem();
 			$categoryId = $item['categoryId'];
-			$relatedNews->set('parentId', $categoryId);
+			$relatedNews->setParentId( $categoryId);
 		}
 		$this->display();
 	}

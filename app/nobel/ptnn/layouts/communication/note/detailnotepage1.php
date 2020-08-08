@@ -1,6 +1,6 @@
 <?php 
-    $id= pzk_request('id');
-    $commentId=pzk_request('commentId');
+    $id= pzk_request()->getId();
+    $commentId=pzk_request()->getCommentId();
     $user_note= _db()->getEntity('communication.user_note');
     $comment_notes=$user_note->loadCommentNote($id,$commentId);
     $comment_notes= array_reverse($comment_notes);

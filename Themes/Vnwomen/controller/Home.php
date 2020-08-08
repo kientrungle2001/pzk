@@ -31,7 +31,7 @@ class PzkHomeController extends PzkController{
     public function categoryAction(){
         $this->layout();
         $category = pzk_parse('<home.category table="categories" layout="home/category"/>');
-        $left = pzk_element('left');
+        $left = pzk_element()->getLeft();
         $left->append($category);
         $this->page->display();
     }
@@ -39,7 +39,7 @@ class PzkHomeController extends PzkController{
     public function questionAction(){
         $this->layout();
         $question = pzk_parse('<core.db.list table="questions" layout="home/question" />');
-        $left = pzk_element('left');
+        $left = pzk_element()->getLeft();
         $left->append($question);
         $this->page->display();
     }

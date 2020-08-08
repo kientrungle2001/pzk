@@ -4,13 +4,13 @@
   <div class="detail_note">
      <?php 
 
-      $id= pzk_request('id');
-      $commentId=pzk_request('commentId');
-      $member= pzk_request('member');      
+      $id= pzk_request()->getId();
+      $commentId=pzk_request()->getCommentId();
+      $member= pzk_request()->getMember();      
       $user_note= _db()->getEntity('communication.user_note');
       //$numberrow= $user_note->countComment($id);
       $note= $user_note->loadWhere(array('id',$id));
-      $date= $user_note->formatDate($note->getdatenote());
+      $date= $user_note->formatDate($note->getDatenote());
       ?>
 
     <div style="float:left;"><img src="<?php echo BASE_URL.'/default/skin/nobel/ptnn/media/usernote.png' ?>" alt=""></div>

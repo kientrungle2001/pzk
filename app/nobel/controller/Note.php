@@ -14,10 +14,10 @@ class PzkNoteController extends PzkFrontendController
 		else
 		{
 
-			$content=$request->get('write_wall');
+			$content=$request->getWrite_wall();
 			//echo $content;
 			
-			$username=$request->get('username');
+			$username=$request->getUsername();
 			$userwritewall=pzk_session('username');
 			$write_wall=_db()->getEntity('communication.user_write_wall');
 			//$write_wall->loadWhere(array('username',$username));
@@ -45,7 +45,7 @@ class PzkNoteController extends PzkFrontendController
 	public function PostDelUserNoteAction()
 	{
 		$request=pzk_request();
-		$idnote=$request->get('del');
+		$idnote=$request->getDel();
 		$username=pzk_session('username');
 		$user_note=_db()->getEntity('communication.user_note');
 		foreach ($idnote as $id) {
@@ -64,7 +64,7 @@ class PzkNoteController extends PzkFrontendController
 	}
 	public function PostCommentNoteAction()
 	{
-		$note_id=pzk_request('note_id');
+		$note_id=pzk_request()->getNote_id();
 		
 		
 		
@@ -75,7 +75,7 @@ class PzkNoteController extends PzkFrontendController
 		else
 		{
 
-			$comment_note1=pzk_request('comment_note');
+			$comment_note1=pzk_request()->getComment_note();
 			//echo $content;
 			
 			
@@ -102,8 +102,8 @@ class PzkNoteController extends PzkFrontendController
 	public function PostUserNoteAction()
 	{
 		$request=pzk_request();
-		$titlenote=$request->get('notetitle');
-		$contentnote=$request->get('notecontent');
+		$titlenote=$request->getNotetitle();
+		$contentnote=$request->getNotecontent();
 		$datenote= date("Y-m-d H:i:s");
 		$username=pzk_session('username');
 		$user_note=_db()->getEntity('communication.user_note');
@@ -115,7 +115,7 @@ class PzkNoteController extends PzkFrontendController
 	}
 	public function viewCommentAction()
 	{
-		$commentId= pzk_request('commentId');
+		$commentId= pzk_request()->getCommentId();
 		$detailnotepage=$this->parse('communication/note/detailnotepage')	;
 		$detailnotepage->display();
 

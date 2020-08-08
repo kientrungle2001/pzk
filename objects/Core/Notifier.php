@@ -42,7 +42,7 @@ class PzkCoreNotifier extends PzkObjectLightWeight {
  * @return array
  */
 function pzk_notifier_messages() {
-	$notifier = pzk_element('notifier');
+	$notifier = pzk_notifier();
 	$messages = $notifier->getMessages();
 	$notifier->clearMessages();
 	return $messages;
@@ -52,7 +52,7 @@ function pzk_notifier_messages() {
  * @return PzkCoreNotifier
  */
 function pzk_notifier() {
-	return pzk_element('notifier');
+	return pzk_element()->getNotifier();
 }
 /**
  * Thêm thông điệp
@@ -60,5 +60,5 @@ function pzk_notifier() {
  * @param string $type kiểu thông điệp: active, success, info, warning, danger
  */
 function pzk_notifier_add_message($message, $type) {
-	return pzk_element('notifier')->addMessage($message, $type);
+	return pzk_notifier()->addMessage($message, $type);
 }

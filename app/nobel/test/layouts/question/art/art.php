@@ -18,14 +18,14 @@ $page=1;
             </tr>
             <tr>
                 <th>
-                  <?php echo pzk_request('number'); ?>
-                  <input type="hidden" name="number" value="<?php echo pzk_request('number'); ?>"/>
+                  <?php echo pzk_request()->getNumber(); ?>
+                  <input type="hidden" name="number" value="<?php echo pzk_request()->getNumber(); ?>"/>
                 </th>
                 <th>
-                  <?php echo $data->checkLevel(pzk_request('level')); ?>
-                  <input type="hidden" name="level" value="<?php echo pzk_request('level'); ?>"/>
+                  <?php echo $data->checkLevel(pzk_request()->getLevel()); ?>
+                  <input type="hidden" name="level" value="<?php echo pzk_request()->getLevel(); ?>"/>
                 </th>
-                <th><?php echo pzk_request('time'); ?></th>
+                <th><?php echo pzk_request()->getTime(); ?></th>
                 
                 <th><span class="ms_timer"></span></th>
                 <th><?php echo date('H:i:s', time()); ?></th>
@@ -36,8 +36,8 @@ $page=1;
 
 <div >
 <input type="hidden" name="categoryId" value="<?php echo $data->getCategoryId(); ?>">
-<input type="hidden" name="time" value="<?php echo pzk_request('time'); ?>">
-<input type="hidden" name="key_test" value="<?php echo pzk_request('key'); ?>">
+<input type="hidden" name="time" value="<?php echo pzk_request()->getTime(); ?>">
+<input type="hidden" name="key_test" value="<?php echo pzk_request()->getKey(); ?>">
 <input type="hidden" name="quantity" value="<?php echo $data->getQuantity(); ?>">
 {each $questions as $question}
 <div class=" step_ answer_box question_page_<?php echo $page?>">
@@ -83,7 +83,7 @@ $page=1;
 <script>
 $(function(){
  				$('.ms_timer').countdowntimer({
-                	minutes :<?php echo pzk_request('time'); ?>,
+                	minutes :<?php echo pzk_request()->getTime(); ?>,
                     seconds : 0,
                     size : "lg",
                     timeUp : timeisUp

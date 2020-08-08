@@ -57,7 +57,7 @@ class PzkContestController extends PzkThemesDefaultContestController {
 						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('showresult/alert', 'wrapper');
-						$alert = pzk_element('alert');
+						$alert = pzk_element()->getAlert();
 						$alert->set('title', 'Bạn chưa làm đề này!');
 					$this->display();
 					pzk_system()->halt();
@@ -76,7 +76,7 @@ class PzkContestController extends PzkThemesDefaultContestController {
 				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
 				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('showresult/login', 'wrapper');
-				$login = pzk_element('login');
+				$login = pzk_element()->getLogin();
 				$login->set('rel', "/contest/showresult/".$camp);
 				$login->set('title', 'thì mới xem được kết quả!');
 			$this->display();
