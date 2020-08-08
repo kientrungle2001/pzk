@@ -26,7 +26,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 		$request = pzk_request();
 		$controller = $request->getController('Home');
 		$action =  $request->getAction('index');
-		$controllerObject = $this->_getController($controller);
+		$controllerObject = $this->getController($controller);
 		if(!$controllerObject) pzk_system()->halt('No controller ' .$controller);
 		pzk_global()->setController( $controllerObject);
 		if(method_exists($controllerObject, $action . 'Action')) {
@@ -50,7 +50,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 	 * @param string $controller tên controller, dạng user, hoặc admin_user
 	 * @return PzkController
 	 */
-	public function _getController($controller) {
+	public function getController($controller) {
 		$layoutcache = pzk_layoutcache();
 		// neu da cache
 		if(CACHE_MODE && $layoutcache->get($controller. 'path')) {
