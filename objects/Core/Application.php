@@ -14,21 +14,32 @@ class PzkCoreApplication extends PzkObjectLightWeight {
      * Chạy controller
      */
 	public function run() {
+		# check người giới thiệu
 		if($ref = pzk_request()->getRef() || $ref = pzk_session()->getRefId()) {
 			pzk_session()->setRefId( $ref);
 		}
+
+		#check coupon
 		if(($coupon = pzk_request()->getCoupon()) || ($coupon = pzk_session()->getCoupon())) {
 			// tim xem co ma coupon khong
 			// luu refId va discount
 			$model = pzk_model('Service.Coupon');
 			$model->checkCode($coupon);
 		}
+		
+		# lấy controller instance
 		$request = pzk_request();
 		$controller = $request->getController('Home');
 		$action =  $request->getAction('index');
 		$controllerObject = $this->getControllerInstance($controller);
+		
+		# controller instance không tồn tại
 		if(!$controllerObject) pzk_system()->halt('No controller ' .$controller);
+
+		# lưu controller vào global
 		pzk_global()->setController( $controllerObject);
+		
+		# nếu tồn tại action
 		if(method_exists($controllerObject, $action . 'Action')) {
 			$method = new ReflectionMethod($controllerObject, $action . 'Action');
 			$params = $method->getParameters();
@@ -37,10 +48,13 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 				$paramValue = pzk_request()->getSegment(3+$index);
 				$paramsArray[] = $paramValue;
 			}
+
+			# gọi action
 			call_user_func_array(array($controllerObject, $action . 'Action'), $paramsArray);
+			
+			# dừng hệ thống
 			pzk_system()->halt();
-		}
-		else {
+		} else {
 			pzk_system()->halt('No route ' . $action);
 		}
 	}
@@ -52,7 +66,8 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 	 */
 	public function getControllerInstance($controller) {
 		$layoutcache = pzk_layoutcache();
-		// neu da cache
+		
+		# nếu đã cache
 		if(CACHE_MODE && $layoutcache->get($controller. 'path')) {
 			$path = $layoutcache->get($controller. 'path');
 			$class = $layoutcache->get($controller.'class');
@@ -62,28 +77,30 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 			return new $class();
 		}
 		
+		# chưa cache
+		# Tách các thư mục của controller theo dấu _
 		$parts = $this->getParts($controller);
 		
+		# tên file controller
 		$controllerFileName = implode('/', $parts) . '.php';
 		
+		# thư mục để tìm controller
 		$controllerFindPaths = array();
 		
 		$fileName = null;
 		
-		// tim kiem controller trong themes
+		# tim kiem controller trong themes
 		$themes = pzk_request()->getThemes();
-		if($themes) {
-			foreach($themes as $theme) {
-				$controllerFindPaths[]	=	'Themes/' . $theme. '/controller/';
-			}
+		foreach(array_cast($themes) as $theme) {
+			$controllerFindPaths[]	=	'Themes/' . $theme. '/controller/';
 		}
 		
-		// tim kiem trong app va package hoac default
+		# tim kiem trong app va package hoac default
 		$controllerFindPaths[]	= 	$this->getUri('controller/');
 		$controllerFindPaths[]	= 	$this->getPackageUri('controller/');
 		$controllerFindPaths[]	= 	'Default/controller/';
 		
-		// xem controller load o dau
+		# xem controller load o dau
 		foreach($controllerFindPaths as $path) {
 			if(is_file(BASE_DIR . '/' . ($tmp = $path . $controllerFileName))) {
 				$fileName 		=	$tmp;

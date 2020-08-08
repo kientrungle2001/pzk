@@ -14,6 +14,18 @@ function explodetrim($delim, $str) {
 }
 
 /**
+ * alias function for explodetrim 
+ */
+function explode_trim($delim, $str) {
+	return explodetrim($delim, $str);
+}
+
+function array_cast($arr) {
+	if(!$arr) return array();
+	return $arr;
+}
+
+/**
  * Lấy Giá trị nhỏ nhất của một cột trong mảng
  * @param Array $array mảng các dòng
  * @param String $field cột cần lấy min
