@@ -41,7 +41,7 @@ class PzkPaymentController extends PzkController
 	{
 		require(BASE_DIR.'/3rdparty/thecao/includes/MobiCard.php');
     	$call = new MobiCard();
-		$request=pzk_element('request');
+		$request=pzk_request();
 		$type_card=$request->get('pm_typecard');
 		$card_serial=$request->get('pm_txt_serialcard');
 		$pin_card=$request->get('pm_txt_pincard');

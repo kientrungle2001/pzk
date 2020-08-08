@@ -5,7 +5,7 @@ class PzkIdeAppPageRegionBuildSection extends PzkObject {
 		$this->body = pzk_parse('<form.fckEditor name="body" height="400px"/>');
 		$this->append($this->body);
 
-		$item = pzk_element('build')->getItem();
+		$item = pzk_element()->getBuild()->getItem();
 		$this->body->value = @$item['body'];
 		
 	}

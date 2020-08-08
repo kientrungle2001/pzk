@@ -55,7 +55,7 @@ class PzkCoreDbList extends PzkObject {
 		}
 		if($this->parentMode && $this->parentMode !== 'false') {
 			if($this->parentId === false) {
-				$request = pzk_element('request');
+				$request = pzk_request();
 				$this->parentId = $request->getSegment(3);
 			}
             if($this->parentWhere == 'like') {
@@ -141,7 +141,7 @@ class PzkCoreDbList extends PzkObject {
 		}
 		if($this->parentMode && $this->parentMode !== 'false') {
 			if(!$this->parentId) {
-				$request = pzk_element('request');
+				$request = pzk_request();
 				$this->parentId = $request->getSegment(3);
 			}
             if($this->parentWhere == 'like') {

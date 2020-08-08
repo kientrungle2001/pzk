@@ -253,7 +253,7 @@ class PzkProfileController extends PzkFrontendController
 	public function changePasswordPostAction()
 	{
 		
-		$request 		= 	pzk_element('request');
+		$request 		= 	pzk_request();
 		$oldpassword	=	md5($request->get('oldpass'));
 		$newpassword	=	$request->get('newpass');
 		
@@ -310,7 +310,7 @@ class PzkProfileController extends PzkFrontendController
 	
 	public function confirmChangePasswordAction()
 	{
-		$request		= pzk_element('request');
+		$request		= pzk_request();
 		$confirm		= $request->get('changePassword');
 		$newpassword	= $request->get('conf');
 		$username		= pzk_session('username');

@@ -7,7 +7,7 @@
     <div id="prf_viewnotepage" class="prf_note">
       <?php 
 
-        $request=pzk_element('request');
+        $request=pzk_request();
         $member=$request->get('member');
         $countnote= $data->countNote($member);
         // số bản ghi

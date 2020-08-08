@@ -5,7 +5,7 @@
     <div class="form_invitation">
       <form method="post" action="" >   
     <?php 
-          //$request=pzk_element('request');
+          //$request=pzk_request();
           $member=pzk_request('member');
           $user= $data->loadUserName($member);
     ?>

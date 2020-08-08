@@ -25,8 +25,8 @@ if(COMPILE_MODE) {
 
 
 	// chạy ứng dụng
-	$sys = pzk_element('system');
-	$application = $request->get('app');
+	$sys = pzk_element()->getSystem();
+	$application = $request->getApp();
 	require_once __DIR__ . '/compile/pages/app_'.$application.'_'.$sys->bootstrap.'.php';
 
 	$app = pzk_app();

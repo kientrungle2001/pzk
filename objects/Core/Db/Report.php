@@ -16,7 +16,7 @@ class PzkCoreDbReport extends PzkCoreDbGrid {
         $this->conditions = json_decode($this->conditions, true);
         if($this->parentMode && $this->parentMode !== 'false') {
             if(!$this->parentId) {
-                $request = pzk_element('request');
+                $request = pzk_request();
                 $this->parentId = $request->getSegment(3);
             }
             $this->conditions = array('and', $this->conditions, array($this->parentField, $this->parentId));

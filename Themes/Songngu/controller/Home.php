@@ -166,7 +166,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController {
 		if(!pzk_session('userId')){
 			pzk_system()->halt();
 		}
-		$request 			= pzk_element('request');
+		$request 			= pzk_request();
     	
     	$data_answers 		= $request->get('answers');
 		
@@ -289,7 +289,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController {
 		$checkUser = pzk_session('checkUser');
 		$servicePackage = pzk_session('servicePackage');
 		
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	
     	$data_answers 		= $request->get('answers');
 		

@@ -126,7 +126,7 @@ class PzkCategoryController extends PzkController
         }else return true;
     }
     public function ajaxAction() {
-        $request = pzk_element('request');
+        $request = pzk_request();
         $postQuestion = $request->get('answers');
         $key_test= $request->get('key');
 
@@ -174,7 +174,7 @@ class PzkCategoryController extends PzkController
 
     }
     public function markAction() {
-        $request = pzk_element('request');
+        $request = pzk_request();
         $tam = $request->get('bookid');
         $bookid = trim(decrypt(base64_decode($tam),SECRETKEY));
         if(is_numeric($bookid)) {
@@ -186,7 +186,7 @@ class PzkCategoryController extends PzkController
         }
     }
     public function seeAnswerAction() {
-        $request = pzk_element('request');
+        $request = pzk_request();
         $tam = $request->get('ids');
         $arIds = explode(',', $tam);
         $frontendmodel = pzk_model('Frontend');

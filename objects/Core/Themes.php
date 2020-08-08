@@ -17,7 +17,7 @@ class PzkCoreThemes extends PzkObjectLightWeight {
 	}
 	
 	public function initThemes() {
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$allThemes 	= array();
 		$layoutcache = pzk_layoutcache();
 		if(!($themes = $layoutcache->get('themes'))) {
@@ -90,7 +90,7 @@ class PzkCoreThemes extends PzkObjectLightWeight {
 	}
 	
 	public function initRoute() {
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$this->route = preg_replace('/^[\/]/', '', $request->route);
 	}
 	

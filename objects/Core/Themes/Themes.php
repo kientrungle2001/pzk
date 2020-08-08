@@ -35,7 +35,7 @@ class PzkCoreThemesThemes extends PzkObject{
 	}
 	
 	public function initRoute() {
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$this->route = preg_replace('/^[\/]/', '', $request->route);
 	}
 	

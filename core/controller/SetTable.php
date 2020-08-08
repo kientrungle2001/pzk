@@ -8,7 +8,7 @@ class PzkSetTableController extends PzkController {
 		parent::__construct();
 		$table = @$_REQUEST['table'];
 		if(!$table) {
-			$request = pzk_element('request');
+			$request = pzk_request();
 			$table = $request->getSegment(3);
 			$_REQUEST['table'] = $table;
 		}

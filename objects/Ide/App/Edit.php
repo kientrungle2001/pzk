@@ -1,5 +1,5 @@
 <?php
-pzk_element('loader')->importObject('ide/form/Edit');
+pzk_element()->getLoader()->importObject('ide/form/Edit');
 class PzkIdeAppEdit extends PzkIdeFormEdit {
 	public $layout = 'ide/app/edit';
 	public function getTemplates() {

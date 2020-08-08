@@ -102,7 +102,7 @@ font-size: 12px;
 }
 </style>
 <?php  
-  $request=pzk_element('request');
+  $request=pzk_request();
   $member=$request->get('member');
   $userwritewall=pzk_session('username');
  
@@ -193,7 +193,7 @@ font-size: 12px;
       <script>
         $('#prfwrite_wall').click(function()
         {
-          <?php $request = pzk_element('request');  ?>
+          <?php $request = pzk_request();  ?>
           var write_wall= $('#pr_post_wall').val();
           var avatar1='<?php echo pzk_session('avatar'); ?>';
           var userwritewall= '<?php echo pzk_session('username'); ?>';

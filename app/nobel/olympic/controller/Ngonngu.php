@@ -113,7 +113,7 @@ class PzkNgonnguController extends PzkController{
     
     public function getExerciseAction(){
     	
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	 
     	$category_type		= $request->get('category_type');
     	 
@@ -142,7 +142,7 @@ class PzkNgonnguController extends PzkController{
     		die;
     	}
     	
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	
     	$data_answers 		= $request->get('answers');
     	
@@ -445,7 +445,7 @@ class PzkNgonnguController extends PzkController{
     
     public function showAnswersChoiceAction(){
     	
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	 
     	$data_answers 		= $request->get('answers');
     	
@@ -574,7 +574,7 @@ class PzkNgonnguController extends PzkController{
     	 
     	if($userId != 0 || !empty($userId)){
     	
-	    	$request 			= pzk_element('request');
+	    	$request 			= pzk_request();
 	    	
 	    	$user_book_id 		= $request->get('user_book_id');
 	    	

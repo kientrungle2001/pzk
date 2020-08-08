@@ -134,7 +134,7 @@ class PzkTestController extends PzkController {
     		die;
     	}
 		
-		$request 			= pzk_element('request');
+		$request 			= pzk_request();
     	 
     	$data_answers 		= $request->get('answers');
     	

@@ -45,7 +45,7 @@ class PzkFriendController extends PzkFrontendController
 	}
 	public function searchPostAction()
 	{
-		$request=pzk_element('request');
+		$request=pzk_request();
 		$searchfriend=$request->get('searchfriend');
 		pzk_session('searchfriend', $searchfriend);
 
@@ -73,7 +73,7 @@ class PzkFriendController extends PzkFrontendController
 	}
 	public function PostCommentFriendAction()
 	{
-		$request=pzk_element('request');
+		$request=pzk_request();
 		if(pzk_session('login')==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";
@@ -111,7 +111,7 @@ class PzkFriendController extends PzkFrontendController
 	}
 	public function PostDelUserNoteAction()
 	{
-		$request=pzk_element('request');
+		$request=pzk_request();
 		$idnote=$request->get('del');
 		$username=pzk_session('username');
 		$user_note=_db()->getEntity('communication.user_note');
@@ -168,7 +168,7 @@ class PzkFriendController extends PzkFrontendController
 	}
 	public function PostUserNoteAction()
 	{
-		$request=pzk_element('request');
+		$request=pzk_request();
 		$titlenote=$request->get('notetitle');
 		$contentnote=$request->get('notecontent');
 		$datenote= date("Y-m-d H:i:s");

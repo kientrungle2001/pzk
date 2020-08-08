@@ -161,7 +161,7 @@ class PzkContestController extends PzkController{
 		if(!$username){
 			return false;
 		}
-		$request		=	pzk_element('request');
+		$request		=	pzk_request();
 		$type_card		=	clean_value($request->get('pm_typecard'));
 		$card_serial	=	clean_value($request->get('pm_txt_serialcard'));
 		$pin_card		=	clean_value($request->get('pm_txt_pincard'));

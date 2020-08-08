@@ -169,7 +169,7 @@ if(isset($_SESSION['COMPILE_MODE'])) {
 
 
 // Chế độ compile nối các file require trong include.php thành một file
-define('COMPILE_INCLUDE_MODE', false);
+define('COMPILE_INCLUDE_MODE', true);
 
 // Chế độ compile các file model ra thư mục compile/models
 define('COMPILE_MODEL_MODE', true);

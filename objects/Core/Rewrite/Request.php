@@ -58,7 +58,7 @@ class PzkCoreRewriteRequest extends PzkObjectLightweight{
 	
 	public $language	= false;
 	public function init() {
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$matcher = $this->matcher; 
 		$matchSource = $request->$matcher;
 		if($this->isEqualMatchMethod()) {

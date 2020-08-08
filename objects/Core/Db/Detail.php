@@ -71,7 +71,7 @@ class PzkCoreDbDetail extends PzkObject {
 	*/
 	public function getItem() {
 		if(!$this->get('itemId')) {
-			$request = pzk_element('request');
+			$request = pzk_request();
 			$this->set('itemId', $request->getSegment(3));
 		}
 		

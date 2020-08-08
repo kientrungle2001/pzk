@@ -75,7 +75,7 @@
     
       <?php 
         echo @$data->get('error');
-       $request = pzk_element('request');
+       $request = pzk_request();
        ?>
      <br> 
      <p>Để thay đổi mật khẩu bạn vui lòng điền đầy đủ các thông tin bên dưới</p>

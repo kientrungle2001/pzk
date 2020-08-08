@@ -23,7 +23,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 			$model = pzk_model('Service.Coupon');
 			$model->checkCode($coupon);
 		}
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$controller = $request->get('controller', 'Home');
 		$action =  $request->get('action', 'index');
 		$controllerObject = $this->_getController($controller);
@@ -306,7 +306,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
  * @return PzkCoreApplication
  */
 function pzk_app() {
-	return pzk_element('app');
+	return pzk_element()->getApp();
 }
 
 /**

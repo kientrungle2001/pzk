@@ -157,7 +157,7 @@ font-size: 12px;
 
      $('#btt_viewall_write_wall').click(function()
         {
-          <?php $request = pzk_element('request');  ?>
+          <?php $request = pzk_request();  ?>
           var member= '<?php echo $request->get('member'); ?>';
           var write_wall= $('#viewall_post_wall').val();
           var avatar1='<?php echo pzk_session('avatar'); ?>';

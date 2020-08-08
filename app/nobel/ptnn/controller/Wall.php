@@ -6,7 +6,7 @@ class PzkWallController extends PzkFrontendController
 
 	public function PostComAction()
 	{
-		$request=pzk_element('request');
+		$request=pzk_request();
 		if(pzk_session('login')==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";

@@ -183,7 +183,7 @@ class PzkNgonnguController extends PzkController{
 		$servicePackage = pzk_session('servicePackage');
 		
 		
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	
     	$data_answers 		= $request->get('answers');
     	
@@ -406,7 +406,7 @@ class PzkNgonnguController extends PzkController{
     
     function saveQuestionAction(){
     	
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	
     	$data_answers 		= $request->get('answers');
     	
@@ -423,7 +423,7 @@ class PzkNgonnguController extends PzkController{
     
     public function showAnswersChoiceAction(){
     	 
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     
     	$data_answers 		= $request->get('answers');
     	 

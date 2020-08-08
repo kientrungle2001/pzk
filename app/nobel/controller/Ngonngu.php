@@ -95,7 +95,7 @@ class PzkNgonnguController extends PzkFrontendController{
     
     public function saveChoiceAction(){
     	
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	
     	$data_answers 		= $request->get('answers');
     	
@@ -213,7 +213,7 @@ class PzkNgonnguController extends PzkFrontendController{
     
     public function showAnswersChoiceAction(){
     	 
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     
     	$data_answers 		= $request->get('answers');
     	 

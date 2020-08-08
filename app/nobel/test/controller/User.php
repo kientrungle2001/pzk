@@ -91,7 +91,7 @@ class PzkUserController extends PzkFrontendController {
 
 	public function invitationPostAction()
 	{
-		$request=pzk_element('request');
+		$request=pzk_request();
 		$txtinvitation=$request->get('invitation');
 		$userIdInvitation=$request->get('member');
 		

@@ -118,7 +118,7 @@ class PzkCategoryController extends PzkFrontendController
     }
 
     public function ajaxAction() {
-        $request = pzk_element('request');
+        $request = pzk_request();
         //$subject = $request->get('subject');
         //$tamtime = strtotime($_SERVER['REQUEST_TIME'] - $request->get('start_time')) - 7*3600;
         //echo $tamtime;
@@ -155,7 +155,7 @@ class PzkCategoryController extends PzkFrontendController
         echo base64_encode(encrypt($userbookId, SECRETKEY));
     }
     public function markAction() {
-        $request = pzk_element('request');
+        $request = pzk_request();
         $tam = $request->get('bookid');
         $bookid = trim(decrypt(base64_decode($tam),SECRETKEY));
         if(is_numeric($bookid)) {
@@ -167,7 +167,7 @@ class PzkCategoryController extends PzkFrontendController
         }
     }
     public function seeAnswerAction() {
-        $request = pzk_element('request');
+        $request = pzk_request();
         $tam = $request->get('ids');
         $arIds = explode(',', $tam);
         $frontendmodel = pzk_model('Frontend');

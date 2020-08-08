@@ -8,7 +8,7 @@ class PzkIdeAppPageRegionBuildText extends PzkObject {
 		$this->style = pzk_parse('<form.textArea name="style" width="100%" height="400px"/>');
 		$this->append($this->code);
 		$this->append($this->style);
-		$item = pzk_element('build')->getItem();
+		$item = pzk_element()->getBuild()->getItem();
 		$this->code->value = @$item['code'];
 		$this->style->value = @$item['style'];
 		

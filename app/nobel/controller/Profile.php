@@ -48,7 +48,7 @@ class PzkProfileController extends PzkFrontendController
 	public function editPostAction()
 	{
 		$message = "";
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$name = $request->get('name');
 		$birthday = $request->get('birthday');
 		$address = $request->get('address');
@@ -94,7 +94,7 @@ class PzkProfileController extends PzkFrontendController
 
 	public function addinforPostAction()
 	{
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$email = $request->get('email');
 		$username = $request->get('username');
 		$user = _db()->getEntity('User.Account.User');
@@ -134,7 +134,7 @@ class PzkProfileController extends PzkFrontendController
 	public function addinforGPostAction()
 	{
 		
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$username = $request->get('username');
 		$user = _db()->getEntity('User.Account.User');
 		$testUser = $user->loadWhere(array('username',$username));
@@ -168,7 +168,7 @@ class PzkProfileController extends PzkFrontendController
 	public function changePassword1Action()
 	{
 		
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$oldpassword = md5($request->get('oldpass'));
 		$newpassword = $request->get('newpass');
 		
@@ -214,7 +214,7 @@ class PzkProfileController extends PzkFrontendController
 	
 	public function confirmpassAction()
 	{
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$confirm = $request->get('changePassword');
 		$newpassword = $request->get('conf');
 		$username = pzk_session('username');

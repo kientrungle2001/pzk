@@ -28,7 +28,7 @@
 	<?php 
       
        echo @$data->get('error');
-       $request = pzk_element('request');
+       $request = pzk_request();
        ?>
 	   <div class="form-group">
 			<label for="userlogin">Tên đăng nhập:</label>

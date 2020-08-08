@@ -31,7 +31,7 @@ class PzkArtController extends PzkFrontendController
 		}else return true;
 	}
 	public function saveBookAction(){
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$data_answers=$request->get('answers');
 		$key_test= $request->get('key');
 		if($key_test==pzk_session('keyBook')){
@@ -144,7 +144,7 @@ class PzkArtController extends PzkFrontendController
 		echo "1";
 	}
 	public function showAnswerTestAction(){
-    $request = pzk_element('request');
+    $request = pzk_request();
     $data_answers=$request->get('answers');
 	$tam=$data_answers['question_id'];
     
@@ -228,7 +228,7 @@ class PzkArtController extends PzkFrontendController
 
 
 public function nextPageAction(){
-	$request = pzk_element('request');
+	$request = pzk_request();
 	$page=$request->get('page');
 
 	if(isset($page)){

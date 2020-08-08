@@ -1,5 +1,5 @@
       <?php 
-        $request=pzk_element('request');
+        $request=pzk_request();
         $member=$request->get('member');
         //$_REQUEST['showSQL']=1;
         $notes=$data->viewNote($member);

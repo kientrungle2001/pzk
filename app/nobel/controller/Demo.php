@@ -153,7 +153,7 @@ class PzkDemoController extends PzkController {
 	}
 	public function registerPostAction(){
 		echo "register";
-		$request= pzk_element('request');
+		$request= pzk_request();
 		$name= $request->get('name');
 		$username=$request->get('username');
 		$testUser= _db()->useCB()->select('user.*')->from('user')->where(array('equal','username',$request->get('username')))->result();
@@ -169,7 +169,7 @@ class PzkDemoController extends PzkController {
 
 	public function loginpostAction(){
 		echo "hello";
-		$request = pzk_element('request');
+		$request = pzk_request();
 		//echo $request->get('login');
 		$items = _db()->useCB()->select('user.*')->from('user')->where(array('and', array('equal', 'username', $request->get('login')), array('equal','password',$request->get('password')) ))->result_one();
 		if($items){

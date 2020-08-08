@@ -48,7 +48,7 @@
       <?php 
       
        echo @$data->get('error');
-       $request = pzk_element('request');
+       $request = pzk_request();
        ?>
      <br> 
       <label for="login">Tên đăng nhập:</label>

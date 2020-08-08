@@ -6,7 +6,7 @@ class PzkUserProfileuserleft extends PzkObject
 {
 	public function loadNote()
 	{
-			$request=pzk_element('request');
+			$request=pzk_request();
 			$username = pzk_session('username');
 			$note= _db()->selectAll()->fromUser_note()->whereUsername($username)
 			->orderBy('id asc')->limit(8)->result();
@@ -15,7 +15,7 @@ class PzkUserProfileuserleft extends PzkObject
 	// Hiển thị tất cả các
 	public function loadWriteWall()
 	{
-			$request=pzk_element('request');
+			$request=pzk_request();
 			$username=pzk_session('username');
 			$sql=" select * from `user_write_wall` where username='".$username."' order by id asc limit 8 ";
 			$write_wall= _db()->selectAll()

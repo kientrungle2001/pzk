@@ -319,7 +319,7 @@ class PzkPracticeController extends PzkController{
     	$this->display();
 	}
 	function showAnswersTeacherAction(){
-		$request	= pzk_element('request');
+		$request	= pzk_request();
 		$id = $request->get('questionId');
 		$answer = _db()->select('*')->from('answers_question_tn')->whereStatus('1')->whereQuestion_id($id)->result_one();
 		echo json_encode($answer);

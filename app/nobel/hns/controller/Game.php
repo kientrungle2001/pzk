@@ -7,7 +7,7 @@ class PzkGameController extends PzkController {
 	
 	
 	public function getTopicByTypeAction() {
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$gametype = $request->get('gametype');
 		
 		$this->parse('game/topic');
@@ -19,7 +19,7 @@ class PzkGameController extends PzkController {
 		
 	}
 	public function getTryTopicByTypeAction() {
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$gametype = $request->get('gametype');
 		
 		$this->parse('game/trytopic');
@@ -30,7 +30,7 @@ class PzkGameController extends PzkController {
     public function ptnnAction()
     {
         
-		$request = pzk_element('request');
+		$request = pzk_request();
         $gameType = $request->get('gameType');
 		$check = pzk_user()->checkPayment('full');
 
@@ -109,7 +109,7 @@ class PzkGameController extends PzkController {
 		$this->display();
 	}
 	public function gameTypeAction() {
-		$request = pzk_element('request');
+		$request = pzk_request();
 		$gameType = $request->get('gameType');
 		$this->initPage();
 		//echo $gameType;
@@ -121,7 +121,7 @@ class PzkGameController extends PzkController {
         $this->display();
     }
     public function saveAction() {
-        $request = pzk_element('request');
+        $request = pzk_request();
         if($request->get('check') == 1){
             $topicId = $request->get('gameTopic');
             $gameCode =  $request->get('gamecode');

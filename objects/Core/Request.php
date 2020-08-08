@@ -336,7 +336,7 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
  * @return PzkCoreRequest|mixed
  */
 function pzk_request($var = NULL, $value = NULL) {
-	$request = pzk_element('request');
+	$request = pzk_element()->getRequest();
 	if($var == NULL) return $request;
 	if($value == NULL) return $request->get($var);
 	return $request->set($var, $value);

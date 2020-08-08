@@ -630,7 +630,7 @@ class PzkPracticeController extends PzkModuleController{
 	}
 	
 	public function showHomeworkAnswersChoiceAction() {
-		$request 			= pzk_element('request');
+		$request 			= pzk_request();
     
     	$data_answers 		= $request->get('answers');
     	 
@@ -762,7 +762,7 @@ class PzkPracticeController extends PzkModuleController{
     	$this->display();
 	}
 	function showAnswersTeacherAction(){
-		$request	= pzk_element('request');
+		$request	= pzk_request();
 		$id = intval($request->get('questionId'));
 		$answer = _db()->select('*')->from('answers_question_tn')->whereStatus('1')->whereQuestion_id($id)->result_one();
 		echo json_encode($answer);

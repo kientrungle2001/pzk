@@ -216,7 +216,7 @@ class PzkHomeController extends PzkController{
 		if(pzk_session('language_tdn')){
 			$lang = pzk_session('language_tdn');
 		}
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	
     	$data_answers 		= $request->get('answers');
 		

@@ -6,7 +6,7 @@ class PzkNoteController extends PzkFrontendController
 
 	public function PostCommentAction()
 	{
-		$request=pzk_element('request');
+		$request=pzk_request();
 		if(pzk_session('login')==false)
 		{
 			echo "bạn phải đăng nhập mới được bình luận";
@@ -59,7 +59,7 @@ class PzkNoteController extends PzkFrontendController
 	}
 	public function PostDelUserNoteAction()
 	{
-		$request=pzk_element('request');
+		$request=pzk_request();
 		$idnote=$request->get('del');
 		$username=pzk_session('username');
 		$userId= pzk_session('userId');
@@ -145,7 +145,7 @@ class PzkNoteController extends PzkFrontendController
 	}
 	public function PostUserNoteAction()
 	{
-		$request=pzk_element('request');
+		$request=pzk_request();
 		$titlenote=$request->get('notetitle');
 		$contentnote=$request->get('notecontent');
 		$datenote= date("Y-m-d H:i:s");

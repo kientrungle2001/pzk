@@ -19,7 +19,7 @@ class PzkFillController extends PzkFrontendController
 
 public function fillPostAction(){
 
-	$request = pzk_element('request');
+	$request = pzk_request();
 	$data_answers=$request->get('answers');
 	
 	$question_id=$data_answers['question_id'];
@@ -91,7 +91,7 @@ public function fillPostMarkAction(){
 	echo "1";
 }
 public function nextPageAction(){
-	$request = pzk_element('request');
+	$request = pzk_request();
 	$page=$request->get('page');
 
 	if(isset($page)){
@@ -102,7 +102,7 @@ public function nextPageAction(){
 	
 }
 public function showAnswerAction() {
-    $request = pzk_element('request');
+    $request = pzk_request();
     $data_answers=$request->get('answers');
 	$tam=$data_answers['question_id'];
     

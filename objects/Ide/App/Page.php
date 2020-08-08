@@ -1,5 +1,5 @@
 <?php
-pzk_element('loader')->importObject('Page');
+pzk_element()->getLoader()->importObject('Page');
 class PzkIdeAppPage extends PzkPage {
 	public $item;
 	public $app;

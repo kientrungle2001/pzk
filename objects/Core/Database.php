@@ -1182,7 +1182,7 @@ AND table_schema = '{$this->dbName}'");
  * @return PzkCoreDatabase
  */
 function _db() {
-    $db = pzk_element('db')->clear();
+    $db = pzk_element()->getDb()->clear();
 	$db->select('*');
 	$db->useCB();
 	return $db;

@@ -161,7 +161,7 @@ class PzkFormController extends PzkController {
 	//show answers
 	public function showAnswersChoiceAction(){
     	
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	 
     	$data_answers 		= $request->get('answers');
     	
@@ -243,7 +243,7 @@ class PzkFormController extends PzkController {
     		die;
     	}
     	
-    	$request 			= pzk_element('request');
+    	$request 			= pzk_request();
     	
     	$data_answers 		= $request->get('answers');
     	//debug($data_answers);die();

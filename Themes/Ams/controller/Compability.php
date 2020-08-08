@@ -351,7 +351,7 @@ class PzkCompabilityController extends PzkController{
 		}
 		
     	$frontendmodel = pzk_model('Frontend');
-		$request 			= pzk_element('request');
+		$request 			= pzk_request();
     	
     	$data_answers 		= $request->get('answers');
 		
@@ -465,7 +465,7 @@ class PzkCompabilityController extends PzkController{
 		if(!pzk_session('userId')){
 			pzk_system()->halt();
 		}
-		$request 			= pzk_element('request');
+		$request 			= pzk_request();
 		$frontendmodel = pzk_model('Frontend');
     	
     	$data_answers 		= $request->get('answers');
@@ -1255,7 +1255,7 @@ class PzkCompabilityController extends PzkController{
 	}
 	
 	public function showMixedTestAnswersChoiceAction() {
-		$request 			= pzk_element('request');
+		$request 			= pzk_request();
     
     	$data_answers 		= $request->get('answers');
     	 
