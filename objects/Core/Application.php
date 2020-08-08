@@ -24,8 +24,8 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 			$model->checkCode($coupon);
 		}
 		$request = pzk_request();
-		$controller = $request->get('controller', 'Home');
-		$action =  $request->get('action', 'index');
+		$controller = $request->getController('Home');
+		$action =  $request->getAction('index');
 		$controllerObject = $this->_getController($controller);
 		if(!$controllerObject) pzk_system()->halt('No controller ' .$controller);
 		pzk_global()->setController( $controllerObject);
@@ -38,6 +38,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 				$paramsArray[] = $paramValue;
 			}
 			call_user_func_array(array($controllerObject, $action . 'Action'), $paramsArray);
+			pzk_system()->halt();
 		}
 		else {
 			pzk_system()->halt('No route ' . $action);

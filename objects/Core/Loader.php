@@ -161,6 +161,34 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 		}
 	}
 
+	public function importApplicationConfigurations() {
+		$request = pzk_request();
+		// include các cấu hình tùy chỉnh của gói
+		if($request->getPackagePath() && is_file(BASE_DIR . '/app/'.$request->getPackagePath().'/configuration.php'))
+			require_once BASE_DIR . '/app/'.$request->getPackagePath().'/configuration.php';
+
+		// include cấu hình tùy chỉnh của ứng dụng
+		if(is_file(BASE_DIR . '/app/'.$request->getAppPath().'/configuration.php'))
+			require_once BASE_DIR . '/app/'.$request->getAppPath().'/configuration.php';
+
+		// include cấu hình tùy chỉnh của phần mềm
+		if(is_file(BASE_DIR . '/app/'.$request->getAppPath().'/configuration.'.$request->get('softwareId').'.php'))
+			require_once BASE_DIR . '/app/'.$request->getAppPath().'/configuration.'.$request->get('softwareId').'.php';
+	}
+
+	public function importApplicationInstance() {
+		// chạy ứng dụng
+		$request = pzk_request();
+		$sys = pzk_element()->getSystem();
+		$application = $request->getApp();
+		require_once BASE_DIR . '/compile/pages/app_'.$application.'_'.$sys->bootstrap.'.php';
+	}
+
+	public function importApplication() {
+		$this->importApplicationConfigurations();
+		$this->importApplicationInstance();
+	}
+
 }
 
 /**
@@ -194,4 +222,3 @@ function pzk_import($object) {
 	//$object = str_replace('.', '/', $object);
 	return PzkParser::importObject($object);
 }
-?>

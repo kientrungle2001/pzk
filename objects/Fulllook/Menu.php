@@ -36,7 +36,7 @@ class PzkFulllookMenu extends PzkObject
 	}
 	function getWeekTestLimit($subjectId, $pageSize, $pageNum){
 		return _db()->useCache(1800)
-			->useCacheKey('categories-parent-' . $subjectId. '-practice-0-page-'.$pageNum+1)
+			->useCacheKey('categories-parent-' . $subjectId. '-practice-0-page-'.($pageNum+1))
 			->select('*')
 			->fromCategories()
 			->whereParent($subjectId)
