@@ -125,13 +125,14 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 	public function importObject($uri, $package = '') {
 		return PzkParser::generateObject($uri, $package);
 	}
-    /**
-     * Import một 3rdparty
-     * @param string $uri đường dẫn dạng core/db/List
-     */
-    public function import3rdparty($uri) {
-        require_once BASE_DIR . '/3rdparty/' . $uri . '.php';
-    }
+	
+	/**
+	 * Import một 3rdparty
+	 * @param string $uri đường dẫn dạng core/db/List
+	 */
+	public function import3rdparty($uri) {
+			require_once BASE_DIR . '/3rdparty/' . $uri . '.php';
+	}
 	
 	public function generateModel($model, $package = '') {
 		$parts = $this->getParts($model);
@@ -161,29 +162,38 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 		}
 	}
 
+	/**
+	 * Import application configuration
+	 */
 	public function importApplicationConfigurations() {
 		$request = pzk_request();
 		// include các cấu hình tùy chỉnh của gói
-		if($request->getPackagePath() && is_file(BASE_DIR . '/app/'.$request->getPackagePath().'/configuration.php'))
-			require_once BASE_DIR . '/app/'.$request->getPackagePath().'/configuration.php';
+		if($request->getPackagePath() 
+			&& is_file($configFile = BASE_DIR . '/app/'.$request->getPackagePath().'/configuration.php'))
+			require_once $configFile;
 
 		// include cấu hình tùy chỉnh của ứng dụng
-		if(is_file(BASE_DIR . '/app/'.$request->getAppPath().'/configuration.php'))
-			require_once BASE_DIR . '/app/'.$request->getAppPath().'/configuration.php';
+		if(is_file($configFile = BASE_DIR . '/app/'.$request->getAppPath().'/configuration.php'))
+			require_once $configFile;
 
 		// include cấu hình tùy chỉnh của phần mềm
-		if(is_file(BASE_DIR . '/app/'.$request->getAppPath().'/configuration.'.$request->get('softwareId').'.php'))
-			require_once BASE_DIR . '/app/'.$request->getAppPath().'/configuration.'.$request->get('softwareId').'.php';
+		if(is_file($configFile = BASE_DIR . '/app/'.$request->getAppPath().'/configuration.'.$request->getSoftwareId().'.php'))
+			require_once $configFile;
 	}
 
+	/**
+	 * Import application instance
+	 */
 	public function importApplicationInstance() {
 		// chạy ứng dụng
-		$request = pzk_request();
+		$application = pzk_request()->getApp();
 		$sys = pzk_element()->getSystem();
-		$application = $request->getApp();
 		require_once BASE_DIR . '/compile/pages/app_'.$application.'_'.$sys->bootstrap.'.php';
 	}
 
+	/**
+	 * Import application: configuration & instance
+	 */
 	public function importApplication() {
 		$this->importApplicationConfigurations();
 		$this->importApplicationInstance();
