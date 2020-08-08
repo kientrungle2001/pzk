@@ -187,27 +187,6 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 			pzk_system()->halt('No controller ' . $controller . ' found in ' . $package . '!');
 		}
 	}
-	
-	/**
-	 * 
-	 * @param unknown $controller
-	 * @return NULL|string
-	 */
-	public function getControllerRealPath($controller) {
-		$parts = explode('_', $controller);
-		$parts[count($parts)-1] = ucfirst($parts[count($parts)-1]);
-		$fileName = BASE_DIR . '/' . $this->getUri('controller/' . implode('/', $parts) . '.php');
-		if(!is_file($fileName)){
-			$fileName = BASE_DIR . '/' . $this->getPackageUri('controller/' . implode('/', $parts) . '.php');
-			if(!is_file($fileName)) {
-				$fileName = BASE_DIR . '/default/controller/' . implode('/', $parts) . '.php';
-				if(!is_file($fileName)){
-					return null;
-				}
-			}
-		}
-		return $fileName;
-	}
 
 	/**
 	 * Trả về đường dẫn theo ứng dụng
@@ -287,17 +266,6 @@ class PzkCoreApplication extends PzkObjectLightWeight {
     	array_pop($packages);
     	$package = implode('/', $packages);
     	return $package;
-    }
-    
-    /**
-     * Lấy đường dẫn của trang theo tên
-     * @return unknown|string
-     */
-    public function getSiteByName() {
-    	static $site;
-    	if($site) return $site;
-    	$site = $this->getPathByName() . '/' . pzk_request()->getSoftwareId();
-    	return $site;
     }
 
 }
