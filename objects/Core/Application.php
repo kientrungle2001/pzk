@@ -175,7 +175,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 			);
 		}
 		$parts = $this->getParts($controller);
-		if(is_file(BASE_DIR . DS . ($fileName = $package . DS .CONTROLLER_FOLDER . DS . implode(DS, $parts) . PHP_EXT))) {
+		if(is_file($filePath = BASE_DIR . DS . ($fileName = $package . DS .CONTROLLER_FOLDER . DS . implode(DS, $parts) . PHP_EXT))) {
 			$fileNameCompiled = str_replace(DS, UNS, $fileName);
 			$controllerClass = $this->getControllerClass( $parts );
 			$controllerClassCompiled = str_remove(PHP_EXT, $fileNameCompiled);
@@ -183,7 +183,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 			array_remove($partsCompiled, CONTROLLER_FOLDER);
 			$controllerClassCompiled = $this->getControllerClass($partsCompiled);
 			if(!is_file($fileNameCompiledPath = COMPILE_DIR . DS . CONTROLLER_FOLDER . DS . $fileNameCompiled) 
-					|| (filemtime($fileNameCompiledPath) < filemtime((BASE_DIR .  DS . $fileName )))) {
+					|| (filemtime($fileNameCompiledPath) < filemtime($filePath))) {
 				$fileContent = file_get_contents(BASE_DIR . '/' . $fileName);
 				$fileContentReplaced = str_replace($controllerClass, $controllerClassCompiled, $fileContent);
 				file_put_contents($fileNameCompiledPath, $fileContentReplaced);
@@ -207,7 +207,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 	 * @return string đường dẫn trả về, dạng app/ptnn/application
 	 */
     public function getUri($path) {
-        return 'app/' . $this->getPathByName() . '/' . $path;
+        return APP_FOLDER . DS . $this->getPathByName() . DS . $path;
     }
 
     /**
@@ -217,7 +217,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
      */
     public function getPageUri($page) {
 		$page = preg_replace('/^\//', '', $page);
-        return $this->getUri('pages/' . $page);
+        return $this->getUri(PAGES_FOLDER . DS . $page);
     }
     
     /**
@@ -226,7 +226,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
      * @return string đường dẫn trả về, dạng app/ptnn/application
      */
     public function getPackageUri($path) {
-    	return 'app/' . $this->getPackageByName() . '/' . $path;
+    	return APP_FOLDER . DS . $this->getPackageByName() . DS . $path;
     }
     
     /**
@@ -236,7 +236,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
      */
     public function getPackagePageUri($page) {
     	$page = preg_replace('/^\//', '', $page);
-    	return $this->getPackageUri('pages/' . $page);
+    	return $this->getPackageUri( PAGES_FOLDER . DS . $page);
     }
     
     /**
@@ -245,7 +245,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
      * @return boolean
      */
     public function existsUri($path) {
-    	return is_file(BASE_DIR. '/'. $this->getUri($path) . '.php');
+    	return is_file(BASE_DIR. DS . $this->getUri($path) . PHP_EXT);
     }
     
     /**
@@ -254,7 +254,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
      * @return boolean
      */
     public function existsPageUri($path) {
-    	return is_file(BASE_DIR. '/'. $this->getPageUri($path) . '.php');
+    	return is_file(BASE_DIR. DS . $this->getPageUri($path) . PHP_EXT);
     }
     
     /**
@@ -264,7 +264,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
     public function getPathByName() {
     	static $path;
     	if($path) return $path;
-    	$path = str_replace('_', '/', $this->name);
+    	$path = str_replace(UNS, DS, $this->name);
     	return $path;
     }
     
@@ -275,9 +275,9 @@ class PzkCoreApplication extends PzkObjectLightWeight {
     public function getPackageByName() {
     	static $package;
     	if($package) return $package;
-    	$packages = explode('_', $this->name);
+    	$packages = explode(UNS, $this->name);
     	array_pop($packages);
-    	$package = implode('/', $packages);
+    	$package = implode(DS, $packages);
     	return $package;
     }
 
