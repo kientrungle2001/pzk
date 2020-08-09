@@ -1,10 +1,12 @@
 <?php
-@mkdir('compile');
-@mkdir('compile/pages');
-@mkdir('compile/objects');
-@mkdir('compile/models');
-@mkdir('compile/layouts');
-@mkdir('compile/controller');
+require_once 'config.php';
+@mkdir(COMPILE_DIR);
+@mkdir(COMPILE_DIR . DS . CONTROLLER_FOLDER);
+@mkdir(COMPILE_DIR . DS . OBJECTS_FOLDER);
+@mkdir(COMPILE_DIR . DS . MODEL_FOLDER);
+@mkdir(COMPILE_DIR . DS . PAGES_FOLDER);
+@mkdir(COMPILE_DIR . DS . LAYOUTS_FOLDER);
+
 @mkdir('cache');
 @mkdir('cache/data');
 @mkdir('cache/layout');
@@ -122,7 +124,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 mb_language('uni');
 mb_internal_encoding('UTF-8');
 //define('COMPILE_MODE', true);
-require_once 'config.php';
+
 require_once 'include.php';
 require_once 'core/Compilers.php';
 

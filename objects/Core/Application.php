@@ -82,7 +82,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 		$parts = $this->getParts($controller);
 		
 		# tên file controller
-		$controllerFileName = implode('/', $parts) . '.php';
+		$controllerFileName = implode(DS, $parts) . PHP_EXT;
 		
 		# thư mục để tìm controller
 		$controllerFindPaths = array();
@@ -92,17 +92,17 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 		# tim kiem controller trong themes
 		$themes = pzk_request()->getThemes();
 		foreach(array_cast($themes) as $theme) {
-			$controllerFindPaths[]	=	'Themes/' . $theme. '/controller/';
+			$controllerFindPaths[]	=	THEMES_FOLDER . DS . $theme. DS . CONTROLLER_FOLDER . DS;
 		}
 		
 		# tim kiem trong app va package hoac default
-		$controllerFindPaths[]	= 	$this->getUri('controller/');
-		$controllerFindPaths[]	= 	$this->getPackageUri('controller/');
-		$controllerFindPaths[]	= 	'Default/controller/';
+		$controllerFindPaths[]	= 	$this->getUri(CONTROLLER_FOLDER . DS);
+		$controllerFindPaths[]	= 	$this->getPackageUri(CONTROLLER_FOLDER . DS);
+		$controllerFindPaths[]	= 	DEFAULT_FOLDER . DS . CONTROLLER_FOLDER . DS;
 		
 		# xem controller load o dau
 		foreach($controllerFindPaths as $path) {
-			if(is_file(BASE_DIR . '/' . ($tmp = $path . $controllerFileName))) {
+			if(is_file(BASE_DIR . DS . ($tmp = $path . $controllerFileName))) {
 				$fileName 		=	$tmp;
 				break;
 			}
@@ -117,42 +117,41 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 		$controllerClass = $this->getControllerClass($parts);
 		
 		// lay ten class cua controller khi da compile
-		$fileNameCompiled = str_replace('/', '_', $fileName);
-		$controllerClassCompiled = str_replace('.php', '', $fileNameCompiled);
+		$fileNameCompiled = str_replace(DS, UNS, $fileName);
+		$controllerClassCompiled = str_remove(PHP_EXT, $fileNameCompiled);
 		
 		$partsCompiled = $this->getParts($controllerClassCompiled);
-		if(		@$partsCompiled[1] 	== 'controller') 	{ 	array_splice($partsCompiled, 1, 1); } 
-		else if(@$partsCompiled[2] 	== 'controller') 	{ 	array_splice($partsCompiled, 2, 1); } 
-		else if(@$partsCompiled[3] 	== 'controller') 	{ 	array_splice($partsCompiled, 3, 1); } 
-		else if(@$partsCompiled[4] 	== 'controller') 	{ 	array_splice($partsCompiled, 4, 1); }
+
+		// bỏ thư mục controller ra khỏi tên controller
+		array_remove($partsCompiled, CONTROLLER_FOLDER);
 		
 		$controllerClassCompiled = $this->getControllerClass($partsCompiled);
 		
 		// kiem tra xem da compile chua hoac file controller co thay doi
-		if(!is_file(BASE_DIR . '/compile/controllers/' . $fileNameCompiled)  
-				|| (filemtime(BASE_DIR . '/compile/controllers/' . $fileNameCompiled) < filemtime((BASE_DIR .  '/' . $fileName )))) {
+		if(!is_file(COMPILE_DIR . DS. CONTROLLER_FOLDER . DS . $fileNameCompiled)  
+				|| (filemtime(COMPILE_DIR . DS. CONTROLLER_FOLDER . DS . $fileNameCompiled) < filemtime((BASE_DIR .  '/' . $fileName )))) {
 			// noi dung file controller
-			$fileContent 			= file_get_contents(BASE_DIR . '/' . $fileName);
+			$fileContent 			= file_get_contents(BASE_DIR . DS . $fileName);
 			
 			// noi dung duoc compile
 			$fileContentCompiled 	= str_replace($controllerClass, $controllerClassCompiled, $fileContent);
 			
-			file_put_contents('compile/controllers/' . $fileNameCompiled, $fileContentCompiled);
+			file_put_contents(COMPILE_DIR . DS. CONTROLLER_FOLDER . DS . $fileNameCompiled, $fileContentCompiled);
 		}
 		
 		// cache lai path va class
 		if(CACHE_MODE) {
-			$layoutcache->set($controller.'path', BASE_DIR . '/compile/controllers/' . $fileNameCompiled);
+			$layoutcache->set($controller.'path', COMPILE_DIR . DS. CONTROLLER_FOLDER . DS . $fileNameCompiled);
 			$layoutcache->set($controller.'class', $controllerClassCompiled);
 		}
 		// ket qua
-		require_once BASE_DIR . '/compile/controllers/' . $fileNameCompiled;
+		require_once COMPILE_DIR . DS. CONTROLLER_FOLDER . DS . $fileNameCompiled;
 		return new $controllerClassCompiled();
 		
 	}
 	
 	public function getParts($controller) {
-		$parts = explode('_', $controller);
+		$parts = explode(UNS, $controller);
 		$parts[count($parts)-1] = ($parts[count($parts)-1]);
 		return $parts;
 	}
@@ -176,25 +175,22 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 			);
 		}
 		$parts = $this->getParts($controller);
-		if(is_file(BASE_DIR . '/' . ($tmp = $package . '/controller/' . implode('/', $parts) . '.php'))) {
-			$fileName = $tmp;
-			$fileNameCompiled = str_replace('/', '_', $fileName);
+		if(is_file(BASE_DIR . DS . ($fileName = $package . DS .CONTROLLER_FOLDER . DS . implode(DS, $parts) . PHP_EXT))) {
+			$fileNameCompiled = str_replace(DS, UNS, $fileName);
 			$controllerClass = $this->getControllerClass( $parts );
-			$controllerClassCompiled = str_replace('.php', '', $fileNameCompiled);
-			$partsCompiled = explode('_', $controllerClassCompiled);
-			if(		@$partsCompiled[1] == 'controller') { 	array_splice($partsCompiled, 1, 1); } 
-			else if(@$partsCompiled[2] == 'controller') { 	array_splice($partsCompiled, 2, 1); } 
-			else if(@$partsCompiled[3] == 'controller') { 	array_splice($partsCompiled, 3, 1); }
+			$controllerClassCompiled = str_remove(PHP_EXT, $fileNameCompiled);
+			$partsCompiled = explode(UNS, $controllerClassCompiled);
+			array_remove($partsCompiled, CONTROLLER_FOLDER);
 			$controllerClassCompiled = $this->getControllerClass($partsCompiled);
-			if(!is_file(BASE_DIR . '/compile/controllers/' . $fileNameCompiled) 
-					|| (filemtime(BASE_DIR . '/compile/controllers/' . $fileNameCompiled) < filemtime((BASE_DIR .  '/' . $fileName )))) {
+			if(!is_file($fileNameCompiledPath = COMPILE_DIR . DS . CONTROLLER_FOLDER . DS . $fileNameCompiled) 
+					|| (filemtime($fileNameCompiledPath) < filemtime((BASE_DIR .  DS . $fileName )))) {
 				$fileContent = file_get_contents(BASE_DIR . '/' . $fileName);
 				$fileContentReplaced = str_replace($controllerClass, $controllerClassCompiled, $fileContent);
-				file_put_contents('compile/controllers/' . $fileNameCompiled, $fileContentReplaced);
+				file_put_contents($fileNameCompiledPath, $fileContentReplaced);
 			}
 			
 			$result = array(
-				'filePath' 	=> BASE_DIR . '/compile/controllers/' . $fileNameCompiled,
+				'filePath' 	=> $fileNameCompiledPath,
 				'className'	=> $controllerClassCompiled
 			);
 			pzk_layoutcache()->set($controller . '-' . $package . '-class', $result['className']);
@@ -329,9 +325,3 @@ function pzk_import_controller ($package, $controller) {
 	require_once $arr['filePath'];
 	return $arr['className'];
 }
-
-if(!is_dir(BASE_DIR . '/compile/controllers')) {
-	mkdir(BASE_DIR . '/compile/controllers');
-}
-
-?>

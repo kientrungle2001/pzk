@@ -61,6 +61,16 @@ if(!SESSION_LOCAL_MODE && !$a)
 // Bắt quyền truy cập cho các file php của hệ thống
 define('PZK_ACCESS', true);
 
+define('DS', DIRECTORY_SEPARATOR);
+
+define('UNS', '_');
+
+define ('PHP_EXT', '.php');
+
+define ('HTML_EXT', '.html');
+
+define ('CSS_EXT', '.css');
+
 // Thư mục hệ thống
 define('SYSTEM_DIR', dirname(__FILE__));
 
@@ -69,6 +79,51 @@ define('BASE_DIR', SYSTEM_DIR);
 
 // Đường dẫn gốc
 define('BASE_URL', "http://{$_SERVER['HTTP_HOST']}");
+
+// tên thư mục app
+define('APP_FOLDER', 'app');
+
+// thư mục app
+define('APP_DIR', BASE_DIR . DS . APP_FOLDER);
+
+// tên thư mục default
+define('DEFAULT_FOLDER', 'Default');
+
+// thư mục default
+define('DEFAULT_DIR', BASE_DIR . DS . DEFAULT_FOLDER);
+
+// tên thư mục themes
+define('THEMES_FOLDER', 'Themes');
+
+// thư mục themes
+define('THEMES_DIR', BASE_DIR . DS . THEMES_FOLDER);
+
+// tên thư mục controller
+define('CONTROLLER_FOLDER', 'controller');
+
+// tên thư mục controller
+define('PAGES_FOLDER', 'pages');
+
+// tên thư mục model
+define('MODEL_FOLDER', 'model');
+
+// tên thư mục layouts
+define('LAYOUTS_FOLDER', 'layouts');
+
+// tên thư mục skin
+define('SKIN_FOLDER', 'skin');
+
+// tên thư mục compile
+define('COMPILE_FOLDER', 'compile');
+
+// thư mục compile
+define('COMPILE_DIR', BASE_DIR . DS . COMPILE_FOLDER);
+
+// tên thư mục compile
+define('OBJECTS_FOLDER', 'objects');
+
+// thư mục compile
+define('OBJECTS_DIR', BASE_DIR . DS . OBJECTS_FOLDER);
 
 // Chế độ rewrite không có index.php
 define('REWRITE_MODE', true);

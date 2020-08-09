@@ -26,6 +26,22 @@ function array_cast($arr) {
 }
 
 /**
+ * remove phần tử $elem ra khỏi mảng $arr
+ * @param Array $arr mảng cần lọc
+ * @param mixed $elem dữ liệu cần lọc
+ * @return Array mảng sau khi lọc
+ */
+function array_remove(&$arr, $elem) {
+	$arr_length = count($arr);
+	for($i = $arr_length - 1; $i >=0 ; $i--) {
+		if($arr[$i] === $elem) {
+			array_splice($arr, $i, 1);
+		}
+	}
+	return $arr;
+}
+
+/**
  * Lấy Giá trị nhỏ nhất của một cột trong mảng
  * @param Array $array mảng các dòng
  * @param String $field cột cần lấy min

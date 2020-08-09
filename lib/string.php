@@ -13,6 +13,16 @@ function pzk_replace($replacements, $str) {
 }
 
 /**
+ * Remove chuỗi search khỏi chuỗi subject
+ * @param String $search chuỗi cần tìm kiếm
+ * @param String $subject chuỗi cần remove
+ * @return String chuỗi sau khi remove 
+ */
+function str_remove($search, $subject) {
+	return str_replace($search, '', $subject);
+}
+
+/**
  * Upper case first letter of a string
  *
  * @param String 	$str input string

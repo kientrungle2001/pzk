@@ -86,25 +86,25 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 		$modelClassCompiled = $this->getModelClass($partsCompiled);
 		
 		// kiem tra xem da compile chua hoac file model co thay doi
-		if(!is_file(BASE_DIR . '/compile/models/' . $fileNameCompiled)  
-				|| (filemtime(BASE_DIR . '/compile/models/' . $fileNameCompiled) < filemtime((BASE_DIR .  '/' . $fileName )))) {
+		if(!is_file(BASE_DIR . '/compile/model/' . $fileNameCompiled)  
+				|| (filemtime(BASE_DIR . '/compile/model/' . $fileNameCompiled) < filemtime((BASE_DIR .  '/' . $fileName )))) {
 			// noi dung file model
 			$fileContent 			= file_get_contents(BASE_DIR . '/' . $fileName);
 			
 			// noi dung duoc compile
 			$fileContentCompiled 	= str_replace($modelClass, $modelClassCompiled, $fileContent);
 			
-			file_put_contents('compile/models/' . $fileNameCompiled, $fileContentCompiled);
+			file_put_contents('compile/model/' . $fileNameCompiled, $fileContentCompiled);
 		}
 		
 		// cache lai path va class
 		if(CACHE_MODE) {
-			pzk_layoutcache()->set($model.'path', BASE_DIR . '/compile/models/' . $fileNameCompiled);
+			pzk_layoutcache()->set($model.'path', BASE_DIR . '/compile/model/' . $fileNameCompiled);
 			pzk_layoutcache()->set($model.'class', $modelClassCompiled);
 		}
 		
 		// ket qua
-		require_once BASE_DIR . '/compile/models/' . $fileNameCompiled;
+		require_once BASE_DIR . '/compile/model/' . $fileNameCompiled;
 		return new $modelClassCompiled();
 	}
 	
@@ -146,15 +146,15 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 			else if(@$partsCompiled[2] == 'model') { 	array_splice($partsCompiled, 2, 1); } 
 			else if(@$partsCompiled[3] == 'model') { 	array_splice($partsCompiled, 3, 1); }
 			$modelClassCompiled = $this->getModelClass($partsCompiled);
-			if(!is_file(BASE_DIR . '/compile/models/' . $fileNameCompiled) 
-					|| (filemtime(BASE_DIR . '/compile/models/' . $fileNameCompiled) < filemtime((BASE_DIR .  '/' . $fileName )))) {
+			if(!is_file(BASE_DIR . '/compile/model/' . $fileNameCompiled) 
+					|| (filemtime(BASE_DIR . '/compile/model/' . $fileNameCompiled) < filemtime((BASE_DIR .  '/' . $fileName )))) {
 				$fileContent = file_get_contents(BASE_DIR . '/' . $fileName);
 				$fileContentReplaced = str_replace($modelClass, $modelClassCompiled, $fileContent);
-				file_put_contents('compile/models/' . $fileNameCompiled, $fileContentReplaced);
+				file_put_contents('compile/model/' . $fileNameCompiled, $fileContentReplaced);
 			}
 			
 			return array(
-				'filePath' 	=> BASE_DIR . '/compile/models/' . $fileNameCompiled,
+				'filePath' 	=> BASE_DIR . '/compile/model/' . $fileNameCompiled,
 				'className'	=> $modelClassCompiled
 			);
 		} else {
