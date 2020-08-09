@@ -110,7 +110,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 		
 		// neu khong thay file controller
 		if(null === $fileName) {
-			pzk_system()->halt('Controller không tồn tại');
+			pzk_system()->halt("Controller $controllerFileName không tồn tại");
 		}
 		
 		// lay ten class cua controller
@@ -124,6 +124,7 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 
 		// bỏ thư mục controller ra khỏi tên controller
 		array_remove($partsCompiled, CONTROLLER_FOLDER);
+		array_remove($partsCompiled, ucfirst(CONTROLLER_FOLDER));
 		
 		$controllerClassCompiled = $this->getControllerClass($partsCompiled);
 		
@@ -152,7 +153,9 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 	
 	public function getParts($controller) {
 		$parts = explode(UNS, $controller);
-		$parts[count($parts)-1] = ($parts[count($parts)-1]);
+		$parts = array_map(function($p) {
+			return ucfirst($p);
+		}, $parts);
 		return $parts;
 	}
 	
@@ -175,12 +178,14 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 			);
 		}
 		$parts = $this->getParts($controller);
-		if(is_file($filePath = BASE_DIR . DS . ($fileName = $package . DS .CONTROLLER_FOLDER . DS . implode(DS, $parts) . PHP_EXT))) {
+		if(is_file($filePath = BASE_DIR . DS . ($fileName 
+				= $package . DS .CONTROLLER_FOLDER . DS . implode(DS, $parts) . PHP_EXT))) {
 			$fileNameCompiled = str_replace(DS, UNS, $fileName);
 			$controllerClass = $this->getControllerClass( $parts );
 			$controllerClassCompiled = str_remove(PHP_EXT, $fileNameCompiled);
 			$partsCompiled = explode(UNS, $controllerClassCompiled);
 			array_remove($partsCompiled, CONTROLLER_FOLDER);
+			array_remove($partsCompiled, ucfirst(CONTROLLER_FOLDER));
 			$controllerClassCompiled = $this->getControllerClass($partsCompiled);
 			if(!is_file($fileNameCompiledPath = COMPILE_DIR . DS . CONTROLLER_FOLDER . DS . $fileNameCompiled) 
 					|| (filemtime($fileNameCompiledPath) < filemtime($filePath))) {
