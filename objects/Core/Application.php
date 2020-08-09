@@ -161,10 +161,10 @@ class PzkCoreApplication extends PzkObjectLightWeight {
 	}
 	
 	/**
-	 * 
-	 * @param unknown $controller
-	 * @param unknown $package
-	 * @return multitype:string
+	 * Generate ra file controller theo package cố định
+	 * @param String $controller
+	 * @param String $package
+	 * @return array(string filePath, string className)
 	 */
 	public function generateController($controller, $package) {
 		if($className = pzk_layoutcache()->get($controller . '-' . $package . '-class')) {
