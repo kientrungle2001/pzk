@@ -7,20 +7,20 @@ $allHomeworks = $data->getHomeworks();
 $questions 	=	$data->getAutoQuestions();
 $totalDoneHomeworks 	=	count($homeworks);
 ?>
-<h1 class="text-center">Lớp {classroom[gradeNum]}{classroom[className]} Niên khóa {classroom[schoolYear]}</h1>
+<h1 class="text-center">Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> Niên khóa <?php echo @$classroom['schoolYear']?></h1>
 <div class="row">
 <div class="col-md-3">
 <h2>Phiếu bài tập</h2>
 <table class="table table-bordered">
-{each $allHomeworks as $homework}
+<?php foreach($allHomeworks as $homework): ?>
 <?php if(pzk_session()->getAdminLevel() == 'Teacher') : 
 	if(strpos($homework['teacherIds'], ',' . pzk_session()->getAdminId() . ',') === false) 
 		continue;
 endif;?>
 	<tr>
-		<td <?php if($homework['homeworkId'] == $data->getHomeworkId()):?>class="bg-success"<?php endif;?>><a href="/Admin_Schedule_Teacher/showHomework/{classroom[id]}/{homework[homeworkId]}">{homework[name]}</a></td>
+		<td <?php if($homework['homeworkId'] == $data->getHomeworkId()):?>class="bg-success"<?php endif;?>><a href="/Admin_Schedule_Teacher/showHomework/<?php echo @$classroom['id']?>/<?php echo @$homework['homeworkId']?>"><?php echo @$homework['name']?></a></td>
 	</tr>
-{/each}
+<?php endforeach; ?>
 </table>
 
 <h2>Thống kê</h2>
@@ -57,11 +57,11 @@ endif;?>
 		<td class="bg-danger">Sai</td>
 		<td class="bg-danger">% Sai</td>
 	</tr>
-{each $questions as $index => $question}
-	<tr {if $index % 2}class="bg-warning"{/if}>
+<?php foreach($questions as $index => $question): ?>
+	<tr <?php if($index % 2): ?>class="bg-warning"<?php endif; ?>>
 		<td colspan="3"><?php echo '<strong>Câu '.($index+1).': </strong>'.cut_words(strip_tags($question['name_vn']), 30); ?></td>
 	</tr>
-	<tr {if $index % 2}class="bg-warning text-bold"{/if}>
+	<tr <?php if($index % 2): ?>class="bg-warning text-bold"<?php endif; ?>>
 		<td>
 		<?php 
 		$studentIds = array_map(function($student){
@@ -70,17 +70,17 @@ endif;?>
 		$countRight = $data->countRight($question['id'], $studentIds);
 		$countWrong = $totalDoneHomeworks - $countRight;
 		?>
-		{countRight}
+		<?php echo $countRight ?>
 		</td>
-		<td>{countWrong}</td>
+		<td><?php echo $countWrong ?></td>
 		<?php $wrongPercent = ceil(($countWrong / $totalDoneHomeworks) * 100) ?>
-		<td {if $wrongPercent >= 50}style="background: red; color: white; font-weight: bold;"{/if}>{wrongPercent}%</td>
+		<td <?php if($wrongPercent >= 50): ?>style="background: red; color: white; font-weight: bold;"<?php endif; ?>><?php echo $wrongPercent ?>%</td>
 	</tr>
-{/each}
+<?php endforeach; ?>
 </table>
 </div>
 <div class="col-md-9">
-<h2>Danh sách Bài tập về nhà <a href="/Admin_Schedule_Teacher/remarkAll/{classroom[id]}/{data.get('homeworkId')}">Chấm lại tất</a></h2>
+<h2>Danh sách Bài tập về nhà <a href="/Admin_Schedule_Teacher/remarkAll/<?php echo @$classroom['id']?>/<?php echo $data->get('homeworkId')?>">Chấm lại tất</a></h2>
 <table class="table table-bordered">
 	<tr class="bg-success">
 		<th>STT</th>
@@ -103,7 +103,7 @@ $notdone = 0;
 $marked = 0;
 $notmarked = 0;
 $dsDaLam = array();?>
-{each $homeworks as $homework}
+<?php foreach($homeworks as $homework): ?>
 	<?php
 	if(in_array($homework['userId'], $dsDaLam) || !$homework['homeworkStatus']) {
 		continue;
@@ -112,24 +112,24 @@ $dsDaLam = array();?>
 	$done++;
 	?>
 	<tr class="<?php if($homework['status']): echo 'bg-success'; else: echo 'bg-warning'; endif;?>">
-		<td>{total}</td>
-		<td><a href="/Admin_Book/details/{homework[id]}" target="_blank">{homework[username]}</a></td>
-		<td><a href="/Admin_Book/details/{homework[id]}" target="_blank">{homework[name]}</a></td>
-		<td>{homework[created]}</td>
-		<td>{homework[autoMark]}</td>
-		<td>{homework[teacherMark]}</td>
-		<td>{homework[totalMark]}</td>
-		<td><a style="width: 100%" class="btn btn-danger btn-xs" href="/Admin_Schedule_Teacher/gotoStudent/{homework[id]}?userId={homework[userId]}" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> Truy cập</a></td>
+		<td><?php echo $total ?></td>
+		<td><a href="/Admin_Book/details/<?php echo @$homework['id']?>" target="_blank"><?php echo @$homework['username']?></a></td>
+		<td><a href="/Admin_Book/details/<?php echo @$homework['id']?>" target="_blank"><?php echo @$homework['name']?></a></td>
+		<td><?php echo @$homework['created']?></td>
+		<td><?php echo @$homework['autoMark']?></td>
+		<td><?php echo @$homework['teacherMark']?></td>
+		<td><?php echo @$homework['totalMark']?></td>
+		<td><a style="width: 100%" class="btn btn-danger btn-xs" href="/Admin_Schedule_Teacher/gotoStudent/<?php echo @$homework['id']?>?userId=<?php echo @$homework['userId']?>" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> Truy cập</a></td>
 		<td>
 		<?php if($homework['status']):?>
-		<a style="width: 100%" class="btn btn-success btn-xs" href="/Admin_Book/details/{homework[id]}" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> Chi tiết</a>
+		<a style="width: 100%" class="btn btn-success btn-xs" href="/Admin_Book/details/<?php echo @$homework['id']?>" target="_blank"><span class="glyphicon glyphicon-eye-open"></span> Chi tiết</a>
 		<?php else:?>
-		<a style="width: 100%" class="btn btn-primary btn-xs" href="/Admin_Book/details/{homework[id]}" target="_blank"><span class="glyphicon glyphicon-edit"></span> Chấm</a>
+		<a style="width: 100%" class="btn btn-primary btn-xs" href="/Admin_Book/details/<?php echo @$homework['id']?>" target="_blank"><span class="glyphicon glyphicon-edit"></span> Chấm</a>
 		<?php endif;?>
 		</td>
 		<td><?php if($homework['status']): $marked++;?><strong class="text-success">Đã chấm xong</strong><?php else:?><strong class="text-warning">Chưa chấm</strong><?php endif;?></td>
 		<td>
-		<a style="width: 100%" class="btn btn-primary btn-xs" href="/Admin_Schedule_Teacher/remark/{classroom[id]}/{data.get('homeworkId')}/{homework[id]}"><span class="glyphicon glyphicon-edit"></span> Chấm lại</a>
+		<a style="width: 100%" class="btn btn-primary btn-xs" href="/Admin_Schedule_Teacher/remark/<?php echo @$classroom['id']?>/<?php echo $data->get('homeworkId')?>/<?php echo @$homework['id']?>"><span class="glyphicon glyphicon-edit"></span> Chấm lại</a>
 		</td>
 	</tr>
 	<?php 
@@ -137,9 +137,9 @@ $dsDaLam = array();?>
 		$dsDaLam[] = $homework['userId'];
 	}
 	?>
-{/each}
+<?php endforeach; ?>
 
-{each $students as $student}
+<?php foreach($students as $student): ?>
 <?php 
 if(in_array($student['studentId'], $dsDaLam)): 
 	continue;
@@ -147,9 +147,9 @@ endif;
 $total++;
 ?>
 <tr class="bg-danger">
-	<td>{total}</td>
-	<td>{student[username]}</td>
-	<td>{student[name]}</td>
+	<td><?php echo $total ?></td>
+	<td><?php echo @$student['username']?></td>
+	<td><?php echo @$student['name']?></td>
 	<td></td>
 	<td></td>
 	<td></td>
@@ -157,7 +157,7 @@ $total++;
 	<td></td>
 	<td><strong class="text-danger">Chưa làm</strong></td>
 </tr>
-{/each}
+<?php endforeach; ?>
 </table>
 </div>
 </div>
@@ -167,9 +167,9 @@ $notdone = $total - $done;
 $notmarked = $done - $marked;
 ?>
 <script type="text/javascript">
-$('.student-total').text('{total}');
-$('.student-done').text('{done}');
-$('.student-notdone').text('{notdone}');
-$('.student-marked').text('{marked}');
-$('.student-notmarked').text('{notmarked}');
+$('.student-total').text('<?php echo $total ?>');
+$('.student-done').text('<?php echo $done ?>');
+$('.student-notdone').text('<?php echo $notdone ?>');
+$('.student-marked').text('<?php echo $marked ?>');
+$('.student-notmarked').text('<?php echo $notmarked ?>');
 </script>

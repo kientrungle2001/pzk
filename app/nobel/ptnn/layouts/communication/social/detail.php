@@ -10,7 +10,7 @@
   $datetime= date("Y-m-d H:i:s");
 ?>
 <div class="content">
-  {each $content as $item}
+  <?php foreach($content as $item): ?>
     <?php
       $rowNotes= $social->rowNote($item['noteId'],$item['type']);
       $userNote= $social->user($item['userNote']); 
@@ -20,29 +20,29 @@
         if(intval($rowNotes[0])==1){ 
      ?>
      <div class="pfr_avatar_wall">
-       <img src="{userNote[avatar]}" alt="" width="60px" height="60px">
+       <img src="<?php echo @$userNote['avatar']?>" alt="" width="60px" height="60px">
      </div>
      <div class="prf_titlenote">
-       <a href="/profile/user?member={item[userNote]}">{userNote[name]}</a>
+       <a href="/profile/user?member=<?php echo @$item['userNote']?>"><?php echo @$userNote['name']?></a>
       <span class="note_new"> đã thêm một ghi chép mới</span>
         <br>
-       <span class="titel_time">Vào lúc: {date[1]} Ngày {date[0]}</span>
+       <span class="titel_time">Vào lúc: <?php echo @$date['1']?> Ngày <?php echo @$date['0']?></span>
      </div>
      <div class="clear"></div>
-     <div class=""><a href="/note/detailnote?member={item[userNote]}&id={note[id]}">{note[title]}</a></div>
+     <div class=""><a href="/note/detailnote?member=<?php echo @$item['userNote']?>&id=<?php echo @$note['id']?>"><?php echo @$note['title']?></a></div>
      <div class="prf_clear"> </div>
-    <div class="title_detail">{note[content]}</div>
+    <div class="title_detail"><?php echo @$note['content']?></div>
     <div class="clear"></div>
     
     <div>
-      <div class="comment"><textarea id="note_note{note[id]}" style="min-height:65px;" class="txt_comment_note" required="required" placeholder="Bình luận" rel="false"></textarea></div>
+      <div class="comment"><textarea id="note_note<?php echo @$note['id']?>" style="min-height:65px;" class="txt_comment_note" required="required" placeholder="Bình luận" rel="false"></textarea></div>
       
-      <div class="btt_comment"><input type="button" class=" btn btn-primary" id="btt_notenote{note[id]}" onclick="pzk_{data.id}.SendNote('<?php echo pzk_session()->getAvatar() ?>','<?php echo pzk_session()->getUserId() ?>','<?php echo pzk_session()->getUsername() ?>','{note[id]}','{note[userNote]}')" name="send" value="Bình luận"></div>
+      <div class="btt_comment"><input type="button" class=" btn btn-primary" id="btt_notenote<?php echo @$note['id']?>" onclick="pzk_<?php echo @$data->id?>.SendNote('<?php echo pzk_session()->getAvatar() ?>','<?php echo pzk_session()->getUserId() ?>','<?php echo pzk_session()->getUsername() ?>','<?php echo @$note['id']?>','<?php echo @$note['userNote']?>')" name="send" value="Bình luận"></div>
     </div>
 
     <div class="clear"></div>
     
-    <div id="end_notenote{note[id]}"></div>
+    <div id="end_notenote<?php echo @$note['id']?>"></div>
     
 
 
@@ -52,42 +52,42 @@
             $userComm= $social->user($rowNotes[1]);
       ?>
     <div class="prf_titlenote" style="padding-bottom: 5px;">
-       <a href="/profile/user?member={rowNotes[1]}">{userComm[name]}</a>
-      <span class="note_new">{rowNotes[3]} đã bình luận về nội dung này</span>
+       <a href="/profile/user?member=<?php echo @$rowNotes['1']?>"><?php echo @$userComm['name']?></a>
+      <span class="note_new"><?php echo @$rowNotes['3']?> đã bình luận về nội dung này</span>
        
      </div>
      <div class="clear"></div>
      <div class="note_end"></div>
     <div class="pfr_avatar_wall">
-       <img src="{userNote[avatar]}" alt="" width="60px" height="60px">
+       <img src="<?php echo @$userNote['avatar']?>" alt="" width="60px" height="60px">
      </div>
      <div class="prf_titlenote">
-       <a href="/profile/user?member={item[userNote]}">{userNote[name]}</a>
+       <a href="/profile/user?member=<?php echo @$item['userNote']?>"><?php echo @$userNote['name']?></a>
       <span class="note_new"> đã thêm một ghi chép mới</span>
         <br>
-       <span class="titel_time">Vào lúc: {date[1]} Ngày {date[0]}</span>
+       <span class="titel_time">Vào lúc: <?php echo @$date['1']?> Ngày <?php echo @$date['0']?></span>
      </div>
      <div class="clear"></div>
-     <div class=""><a href="/note/detailnote?member={item[userNote]}&id={note[id]}">{note[title]}</a></div>
+     <div class=""><a href="/note/detailnote?member=<?php echo @$item['userNote']?>&id=<?php echo @$note['id']?>"><?php echo @$note['title']?></a></div>
      <div class="prf_clear"> </div>
-    <div class="title_detail">{note[content]}</div>
+    <div class="title_detail"><?php echo @$note['content']?></div>
     <div class="clear"></div>
     
      <div>
-      <div class="comment"><textarea id="note_note{note[id]}" style="min-height:65px;" class="txt_comment_note" required="required" placeholder="Bình luận" rel="false"></textarea></div>
+      <div class="comment"><textarea id="note_note<?php echo @$note['id']?>" style="min-height:65px;" class="txt_comment_note" required="required" placeholder="Bình luận" rel="false"></textarea></div>
       
-      <div class="btt_comment"><input type="button" class=" btn btn-primary" id="btt_notenote{note[id]}" onclick="pzk_{data.id}.SendNote('<?php echo pzk_session()->getAvatar() ?>','<?php echo pzk_session()->getUserId() ?>','<?php echo pzk_session()->getUsername() ?>','{note[id]}','{note[userNote]}')" name="send" value="Bình luận"></div>
+      <div class="btt_comment"><input type="button" class=" btn btn-primary" id="btt_notenote<?php echo @$note['id']?>" onclick="pzk_<?php echo @$data->id?>.SendNote('<?php echo pzk_session()->getAvatar() ?>','<?php echo pzk_session()->getUserId() ?>','<?php echo pzk_session()->getUsername() ?>','<?php echo @$note['id']?>','<?php echo @$note['userNote']?>')" name="send" value="Bình luận"></div>
     </div>
 <!-- 
     <div class="clear"></div>
     <div class="note_end"></div>
-    <div id="end_notenote{note[id]}"></div>
+    <div id="end_notenote<?php echo @$note['id']?>"></div>
     <div class="clear"></div>
     <div class="note_end"></div> -->
     <div class="clear"></div>
   <div id="view_note_comment">
-    <div id="viewMoreComment{item[noteId]}">
-      <a href="#" onclick="pzk_{data.id}.viewMore('{item[noteId]}'); return false;"><span>Xem thêm <span id="countComment{item[noteId]}"></span> bình luận khác</span></a>
+    <div id="viewMoreComment<?php echo @$item['noteId']?>">
+      <a href="#" onclick="pzk_<?php echo @$data->id?>.viewMore('<?php echo @$item['noteId']?>'); return false;"><span>Xem thêm <span id="countComment<?php echo @$item['noteId']?>"></span> bình luận khác</span></a>
     </div>
   <?php
     $user_note= _db()->getEntity('communication.user_note'); 
@@ -100,20 +100,20 @@
       $user=$social->user($comment_note['userId']);
       $username=$user['name'];
    ?>
-    <div id="commId{comment_note[id]}" class="user_note_comment">
+    <div id="commId<?php echo @$comment_note['id']?>" class="user_note_comment">
      <div class="pfr_avatar_wall">
-       <img src="{user[avatar]}" alt="" width="60px" height="60px">
+       <img src="<?php echo @$user['avatar']?>" alt="" width="60px" height="60px">
      </div> 
      <div class="prf_titlenote">
-       <a href="/profile/user?member={comment_note[userId]}" >{username}</a>
+       <a href="/profile/user?member=<?php echo @$comment_note['userId']?>" ><?php echo $username ?></a>
      </div>
-    <div class="titel_detail">{comment_note[comment]}</div>
+    <div class="titel_detail"><?php echo @$comment_note['comment']?></div>
     <?php 
       if($item['userNote']==pzk_session()->getUserId()){
      ?>
-     <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_{data.id}.delComm({comment_note[id]});">[Xoá]</a></div>
+     <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_<?php echo @$data->id?>.delComm(<?php echo @$comment_note['id']?>);">[Xoá]</a></div>
      <?php } ?>
-    <div class="titel_time">Đước viết lúc: {comment_note[date]}</div>
+    <div class="titel_time">Đước viết lúc: <?php echo @$comment_note['date']?></div>
     </div>
 
   <?php } 
@@ -139,9 +139,9 @@ var noteId= '<?php echo @$item["noteId"] ?>';
       $('#viewMoreComment'+noteId).hide();
     }
 </script>
-  <div id="end_notenote{item[noteId]}"></div>
+  <div id="end_notenote<?php echo @$item['noteId']?>"></div>
   <div class="clear"></div>
-  <div id="end_notenote{item[noteId]}"></div>
+  <div id="end_notenote<?php echo @$item['noteId']?>"></div>
   </div>
 
 <?php } ?>
@@ -154,17 +154,17 @@ var noteId= '<?php echo @$item["noteId"] ?>';
         $updateDate= $social->formatDate($item['date']);
       ?>
     <div class="pfr_avatar_wall">
-       <img src="{userNote[avatar]}" alt="" width="60px" height="60px">
+       <img src="<?php echo @$userNote['avatar']?>" alt="" width="60px" height="60px">
      </div>
      <div class="prf_titlenote">
-       <a href="/profile/user?member={item[userNote]}">{userNote[name]}</a>
+       <a href="/profile/user?member=<?php echo @$item['userNote']?>"><?php echo @$userNote['name']?></a>
       <span class="note_new"> đã cập nhật ảnh đại diện mới</span>
         <br>
-       <span class="titel_time">Vào lúc: {updateDate[1]} Ngày {updateDate[0]}</span>
+       <span class="titel_time">Vào lúc: <?php echo @$updateDate['1']?> Ngày <?php echo @$updateDate['0']?></span>
      </div>
      <div class="clear"></div>
      <div class="avatar">
-       <img src="{userNote[avatar]}" alt="" width="230px" height="230px">
+       <img src="<?php echo @$userNote['avatar']?>" alt="" width="230px" height="230px">
      </div>
     <div class="prf_clear"></div>
     <div class="note_end"></div>
@@ -177,16 +177,16 @@ var noteId= '<?php echo @$item["noteId"] ?>';
         if($item['userNote']==$item['userComment']){
       ?>
     <div class="pfr_avatar_wall">
-       <img src="{userNote[avatar]}" alt="" width="60px" height="60px">
+       <img src="<?php echo @$userNote['avatar']?>" alt="" width="60px" height="60px">
      </div>
      <div class="prf_titlenote">
-       <a href="/profile/user?member={item[userNote]}">{userNote[name]}</a>
+       <a href="/profile/user?member=<?php echo @$item['userNote']?>"><?php echo @$userNote['name']?></a>
       <span class="note_new"> vừa viết lên tường </span>
         <br>
-       <span class="titel_time">Vào lúc: {updateDate[1]} Ngày {updateDate[0]}</span>
+       <span class="titel_time">Vào lúc: <?php echo @$updateDate['1']?> Ngày <?php echo @$updateDate['0']?></span>
      </div>
      <div class="prf_clear"> </div>
-    <div class="title_detail">{writewall[content]}</div>
+    <div class="title_detail"><?php echo @$writewall['content']?></div>
     <div class="prf_clear"></div>
     <div class="note_end"></div>
     <div class="prf_clear"></div>
@@ -195,16 +195,16 @@ var noteId= '<?php echo @$item["noteId"] ?>';
         $userComment= $social->user($item['userComment']);
      ?>
      <div class="pfr_avatar_wall">
-       <img src="{userComment[avatar]}" alt="" width="60px" height="60px">
+       <img src="<?php echo @$userComment['avatar']?>" alt="" width="60px" height="60px">
      </div>
      <div class="prf_titlenote">
-       <a href="/profile/user?member={item[userComment]}">{userComment[name]}</a>
-      <span class="note_new"> vừa viết lên tường nhà {userNote[name]}</span>
+       <a href="/profile/user?member=<?php echo @$item['userComment']?>"><?php echo @$userComment['name']?></a>
+      <span class="note_new"> vừa viết lên tường nhà <?php echo @$userNote['name']?></span>
         <br>
-       <span class="titel_time">Vào lúc: {updateDate[1]} Ngày {updateDate[0]}</span>
+       <span class="titel_time">Vào lúc: <?php echo @$updateDate['1']?> Ngày <?php echo @$updateDate['0']?></span>
      </div>
      <div class="prf_clear"> </div>
-    <div class="title_detail">{writewall[content]}</div>
+    <div class="title_detail"><?php echo @$writewall['content']?></div>
     <div class="prf_clear"></div>
     <div class="note_end"></div>
     <div class="prf_clear"></div>
@@ -214,7 +214,7 @@ var noteId= '<?php echo @$item["noteId"] ?>';
        ?>
 
 
-  {/each}
+  <?php endforeach; ?>
   </div>
 <?php 
     if($content){

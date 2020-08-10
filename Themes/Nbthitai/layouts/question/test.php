@@ -20,7 +20,7 @@
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 
-{children [position=mid-content]}
+<?php $data->displayChildren('[position=mid-content]') ?>
 

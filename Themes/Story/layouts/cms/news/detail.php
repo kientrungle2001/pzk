@@ -30,7 +30,7 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-{children [position=header]}
+<?php $data->displayChildren('[position=header]') ?>
 <style>
 
 </style>
@@ -48,12 +48,12 @@
 				</div>
 				<?php if($curentcate['name']){ ?>
 				<div class="item mgb10">
-					<div class="col-xs-5"><h2 class="fs35 nabila {color}">{curentcate[name]}</h2></div>
-					<div class="col-xs-7"> <img class="thanhngang" src="/Themes/story/skin/media/{ngang}.png" /></div>
+					<div class="col-xs-5"><h2 class="fs35 nabila <?php echo $color ?>"><?php echo @$curentcate['name']?></h2></div>
+					<div class="col-xs-7"> <img class="thanhngang" src="/Themes/story/skin/media/<?php echo $ngang ?>.png" /></div>
 				</div>
 				<?php } ?>
 				<div class="detail-new">
-					<h2 class="fontutmbold" style="font-size: 20px; text-transform: uppercase; font-weight: bold;">{news[title]}</h2>
+					<h2 class="fontutmbold" style="font-size: 20px; text-transform: uppercase; font-weight: bold;"><?php echo @$news['title']?></h2>
 					<div style="border-bottom: solid 2px #bababa; padding-bottom: 5px; width: 200px; margin-bottom: 10px;">
 						<span>
 							<span class="glyphicon glyphicon-time"></span>
@@ -61,10 +61,10 @@
 						</span>
 						<span>
 							<span class="glyphicon glyphicon-comment"></span>
-							{news[comments]} -
+							<?php echo @$news['comments']?> -
 						</span>
 						<span>
-							<span class="glyphicon glyphicon-eye-open"></span> {news[views]}
+							<span class="glyphicon glyphicon-eye-open"></span> <?php echo @$news['views']?>
 						</span>
 						
 					</div>
@@ -93,18 +93,18 @@
 				</div>
 				
 				<h3>Luyện thi tiếng Anh kiểu mới vào trường Trần Đại Nghĩa <a href="http://s1.nextnobels.com/">Tại Đây</a></h3>
-				<div class="fb-comments item" data-href="http://www.nextnobels.com/{news[alias]}" data-numposts="5"></div>
+				<div class="fb-comments item" data-href="http://www.nextnobels.com/<?php echo @$news['alias']?>" data-numposts="5"></div>
 			</div>	
 			
 			 <div class="row">
 				  <div class="col-xs-8">
 					  <h4>Các tin liên quan</h4>
 					  <ul> 
-					  {each $lists as $item}
+					  <?php foreach($lists as $item): ?>
 						<li>
-							<a href="/{item[alias]} ">{item[title]}</a>
+							<a href="/<?php echo @$item['alias']?> "><?php echo @$item['title']?></a>
 						</li>
-					  {/each}
+					  <?php endforeach; ?>
 					  </ul>
 				  </div>
 			</div>
@@ -112,7 +112,7 @@
 		</div>
 		
 		<div class="col-md-3">
-			{children [position=banner]}
+			<?php $data->displayChildren('[position=banner]') ?>
 		</div>
 	</div>
 </div>

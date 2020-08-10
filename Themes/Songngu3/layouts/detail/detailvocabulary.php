@@ -22,10 +22,10 @@
 		if($level == 1 or $level == '1' ){
 			$vocabulary = $data->getItemsSN($subjectId, $check, $class); 
 		 ?>
-		{each $vocabulary as $item}
+		<?php foreach($vocabulary as $item): ?>
 		<li class="list-group-item hasa">
-			<a onclick="return check_display({item[trial]});" href="/Practice/showVocabulary/{subjectId}?id={subjectId}&class={class}&documentId={item[id]}" class="getdata2" >
-			<?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>
+			<a onclick="return check_display(<?php echo @$item['trial']?>);" href="/Practice/showVocabulary/<?php echo $subjectId ?>?id=<?php echo $subjectId ?>&class=<?php echo $class ?>&documentId=<?php echo @$item['id']?>" class="getdata2" >
+			<?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?>
 			
 			<?php 
 				if ($lang == 'en' || $lang == 'ev'){
@@ -40,19 +40,19 @@
 				}
 			?>
 			
-			{voca_name}
+			<?php echo $voca_name ?>
 			</a>
 		</li>
-		{/each}
+		<?php endforeach; ?>
 		<?php }elseif($level == 2 or $level == '2' ){ 
 			$topics = $data->getChildSN($subjectId, $check, $class);
 		?>
 		<?php
 			$vocabulary = $data->getItemsVocabularySN($subjectId, $check, $class);
 		?>
-		{each $vocabulary as $item}
-		<li class="list-group-item hasa"><a onclick="return check_display({item[trial]});" href="/Practice/showVocabulary/{subjectId}?id={subjectId}&class={class}&documentId={item[id]}" >
-		<?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>
+		<?php foreach($vocabulary as $item): ?>
+		<li class="list-group-item hasa"><a onclick="return check_display(<?php echo @$item['trial']?>);" href="/Practice/showVocabulary/<?php echo $subjectId ?>?id=<?php echo $subjectId ?>&class=<?php echo $class ?>&documentId=<?php echo @$item['id']?>" >
+		<?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?>
 		
 		<?php 
 				if ($lang == 'en' || $lang == 'ev'){
@@ -67,11 +67,11 @@
 				}
 			?>
 		
-		{voca_name}
+		<?php echo $voca_name ?>
 		</a></li>
-		{/each}
-		{each $topics as $topic}
-		<li class="list-group-item" ><?php if(pzk_user_special()): ?>#{topic[id]} - <?php endif; ?>
+		<?php endforeach; ?>
+		<?php foreach($topics as $topic): ?>
+		<li class="list-group-item" ><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?> - <?php endif; ?>
 		
 		<?php 
 				if ($lang == 'en' || $lang == 'ev'){
@@ -86,7 +86,7 @@
 				}
 			?>
 		
-		{topic_name}
+		<?php echo $topic_name ?>
 		
 		
 		</li>
@@ -94,9 +94,9 @@
 			$vocabulary = $data->getItemsVocabularySN($topic['id'], $check, $class); 
 			
 		?>
-		{each $vocabulary as $item}
-		<li class="list-group-item hasa"><a onclick="return check_display({item[trial]});" href="/Practice/showVocabulary/{subjectId}?id={subjectId}&class={class}&documentId={item[id]}" class="getdata2" >
-		<?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>
+		<?php foreach($vocabulary as $item): ?>
+		<li class="list-group-item hasa"><a onclick="return check_display(<?php echo @$item['trial']?>);" href="/Practice/showVocabulary/<?php echo $subjectId ?>?id=<?php echo $subjectId ?>&class=<?php echo $class ?>&documentId=<?php echo @$item['id']?>" class="getdata2" >
+		<?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?>
 		
 		<?php 
 				if ($lang == 'en' || $lang == 'ev'){
@@ -111,18 +111,18 @@
 				}
 			?>
 		
-		{voca_name}</a></li>
-		{/each}
-		{/each}
+		<?php echo $voca_name ?></a></li>
+		<?php endforeach; ?>
+		<?php endforeach; ?>
 		<?php } elseif($level == 3 or $level == '3'){ 
 		$topics = $data->getChildSN($subjectId, $check, $class);
 		?>
 		<?php
 			$vocabulary = $data->getItemsVocabularySN($subjectId, $check, $class);
 		?>
-		{each $vocabulary as $item}
-		<li class="list-group-item hasa"><a onclick="return check_display({item[trial]});" href="/Practice/showVocabulary/{subjectId}?id={subjectId}&class={class}&documentId={item[id]}" >
-			<?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>
+		<?php foreach($vocabulary as $item): ?>
+		<li class="list-group-item hasa"><a onclick="return check_display(<?php echo @$item['trial']?>);" href="/Practice/showVocabulary/<?php echo $subjectId ?>?id=<?php echo $subjectId ?>&class=<?php echo $class ?>&documentId=<?php echo @$item['id']?>" >
+			<?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?>
 			
 			<?php 
 				if ($lang == 'en' || $lang == 'ev'){
@@ -137,12 +137,12 @@
 				}
 			?>
 		
-			{voca_name}
+			<?php echo $voca_name ?>
 			
 		</a></li>
-		{/each}
-		{each $topics as $topic}
-			<li class="list-group-item" ><?php if(pzk_user_special()): ?>#{topic[id]} - <?php endif; ?>
+		<?php endforeach; ?>
+		<?php foreach($topics as $topic): ?>
+			<li class="list-group-item" ><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?> - <?php endif; ?>
 			
 			<?php 
 				if ($lang == 'en' || $lang == 'ev'){
@@ -157,7 +157,7 @@
 				}
 			?>
 		
-			{topic_name}
+			<?php echo $topic_name ?>
 			
 			</li>
 			<?php $subTopics = $data->getChild($topic['id'], $check, $class);?>
@@ -165,9 +165,9 @@
 			<?php 
 				$vocabulary = $data->getItemsVocabularySN($topic['id'], $check, $class); 
 			?>
-			{each $vocabulary as $item}
+			<?php foreach($vocabulary as $item): ?>
 			<li class="list-group-item hasa">
-				<a onclick="return check_display({item[trial]});"  href="/Practice/showVocabulary/{subjectId}?id={subjectId}&class={class}&documentId={item[id]}" class="getdata2"><?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>
+				<a onclick="return check_display(<?php echo @$item['trial']?>);"  href="/Practice/showVocabulary/<?php echo $subjectId ?>?id=<?php echo $subjectId ?>&class=<?php echo $class ?>&documentId=<?php echo @$item['id']?>" class="getdata2"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?>
 				<?php 
 					if ($lang == 'en' || $lang == 'ev'){
 						if($item['en_title'] != ''){
@@ -181,13 +181,13 @@
 					}
 				?>
 			
-				{voca_name}
+				<?php echo $voca_name ?>
 				</a>
 			</li>
-			{/each}
+			<?php endforeach; ?>
 			<?php else:?>
-			{each $subTopics as $subTopic}
-				<li class="list-group-item"><?php if(pzk_user_special()): ?>#{subTopic[id]} - <?php endif; ?>
+			<?php foreach($subTopics as $subTopic): ?>
+				<li class="list-group-item"><?php if(pzk_user_special()): ?>#<?php echo @$subTopic['id']?> - <?php endif; ?>
 				
 				<?php 
 				if ($lang == 'en' || $lang == 'ev'){
@@ -202,7 +202,7 @@
 				}
 			?>
 		
-			{subTopic_name}
+			<?php echo $subTopic_name ?>
 				
 				
 				
@@ -210,9 +210,9 @@
 				<?php 
 					$vocabulary = $data->getItemsVocabularySN($subTopic['id'], $check, $class); 
 				?>
-				{each $vocabulary as $item}
-				<li class="left30 list-group-item hasa"><a onclick="return check_display({item[trial]});"  href="/Practice/showVocabulary/{subjectId}?id={subjectId}&class={class}&documentId={item[id]}" class="getdata2" >
-				<?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>
+				<?php foreach($vocabulary as $item): ?>
+				<li class="left30 list-group-item hasa"><a onclick="return check_display(<?php echo @$item['trial']?>);"  href="/Practice/showVocabulary/<?php echo $subjectId ?>?id=<?php echo $subjectId ?>&class=<?php echo $class ?>&documentId=<?php echo @$item['id']?>" class="getdata2" >
+				<?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?>
 				
 				
 				<?php 
@@ -228,13 +228,13 @@
 					}
 				?>
 			
-				{voca_name}
+				<?php echo $voca_name ?>
 				
 				</a></li>
-				{/each}
-			{/each}
+				<?php endforeach; ?>
+			<?php endforeach; ?>
 			<?php endif;?>
-		{/each}	
+		<?php endforeach; ?>	
 		<?php } ?>
 	</ul>
 </div>

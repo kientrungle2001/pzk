@@ -7,8 +7,8 @@
 		<div class="col-xs-12 col-sm-12 box news-box">
 			<h3 class="padding-10 color-white font-large text-uppercase text-center">Tin tức Happy Way</h3>
 			<div class="box-content border-purple padding-20">
-				<h1 class="text-center">{news[title]}</h1>
-				<em>{news[brief]}</em>
+				<h1 class="text-center"><?php echo @$news['title']?></h1>
+				<em><?php echo @$news['brief']?></em>
 				<?php 
 				  $content= $news['content'];
 				  $content = PzkParser::parseTemplate($content, $data);
@@ -21,11 +21,11 @@
 				  ?>
 				<h4>Các tin liên quan</h4>
 				  <ul> 
-				  {each $lists as $item}
+				  <?php foreach($lists as $item): ?>
 					<li>
-						<a href="/{item[alias]} ">{item[title]}</a>
+						<a href="/<?php echo @$item['alias']?> "><?php echo @$item['title']?></a>
 					</li>
-				  {/each}
+				  <?php endforeach; ?>
 				  </ul>
 				  <div
 					  class="fb-like"
@@ -33,7 +33,7 @@
 					  data-width="450"
 					  data-show-faces="true">
 					</div>
-				  <div class="fb-comments" style="margin-left:150px;" data-href="/{news[alias]}" data-numposts="5"></div>
+				  <div class="fb-comments" style="margin-left:150px;" data-href="/<?php echo @$news['alias']?>" data-numposts="5"></div>
 			</div>
 		</div>
 	</div>

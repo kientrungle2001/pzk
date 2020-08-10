@@ -4,14 +4,14 @@ $classroom = $data->getClassroom();
 $classrooms = $data->getClassrooms();
 $students = $data->getStudents();
 ?>
-<h1 class="text-center">Kết quả học tập của lớp {classroom[gradeNum]}{classroom[className]} Niên khóa {classroom[schoolYear]}</h1>
+<h1 class="text-center">Kết quả học tập của lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> Niên khóa <?php echo @$classroom['schoolYear']?></h1>
 <div class="row">
 	<form class="form form-inline">
 		<select	id="classrooms" class="form-control">
 			<option value="">Chọn Môn</option>
-			{each $classrooms as $cr}
-			<option value="{cr[id]}">Niên khóa {cr[schoolYear]} - Lớp {cr[gradeNum]}{cr[className]}</option>
-			{/each}
+			<?php foreach($classrooms as $cr): ?>
+			<option value="<?php echo @$cr['id']?>">Niên khóa <?php echo @$cr['schoolYear']?> - Lớp <?php echo @$cr['gradeNum']?><?php echo @$cr['className']?></option>
+			<?php endforeach; ?>
 		</select>
 		<button class="btn btn-warning" onclick="addStudentsToOtherClassroom(); return false;">Chuyển lớp</button>
 	</form>
@@ -27,16 +27,16 @@ $students = $data->getStudents();
 		<th>Ngày sinh</th>
 		
 	</tr>
-{each $students as $student}
+<?php foreach($students as $student): ?>
 	<tr>
 		
-		<td>{student[studentId]}</td>
-		<td>{student[username]}</td>
-		<td>{student[name]}</td>
-		<td>{? echo date('d/m/Y', strtotime($student['birthday']))?}</td>
+		<td><?php echo @$student['studentId']?></td>
+		<td><?php echo @$student['username']?></td>
+		<td><?php echo @$student['name']?></td>
+		<td><?php  echo date('d/m/Y', strtotime($student['birthday']))?></td>
 		
 	</tr>
-{/each}
+<?php endforeach; ?>
 </table>
 
 </div>
@@ -57,7 +57,7 @@ function addStudentToClassroom(studentId) {
 	$.ajax({
 		url: '/Admin_Schedule_Teacher/addStudent',
 		data: {
-			classroomId: {classroom[id]},
+			classroomId: <?php echo @$classroom['id']?>,
 			studentId: studentId
 		},
 		type: 'POST',

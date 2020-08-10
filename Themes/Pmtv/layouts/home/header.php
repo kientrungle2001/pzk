@@ -29,17 +29,17 @@ body {
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 		  <ul class="nav navbar-nav navbar-left">
-			<li><a href="{? echo HW_URL; ?}" class="auto-font text-uppercase"></span> Trang chủ</a></li>
+			<li><a href="<?php  echo HW_URL; ?>" class="auto-font text-uppercase"></span> Trang chủ</a></li>
 			<li><a href="#" class="dropdown-toggle auto-font text-uppercase" data-toggle="dropdown">Giới thiệu</a>
 			
 			<ul class="dropdown-menu">
-				<li><a href="{? echo HW_URL; ?}/gioi-thieu-cong-ty">Về công ty</a></li>
-				<li><a href="{? echo HW_URL; ?}/doi-ngu">Đội ngũ</a></li>
-				<li><a href="{? echo HW_URL; ?}/ve-san-pham">Về sản phẩm</a></li>
-				<li><a href="{? echo HW_URL; ?}/bao-chi-ve-chung-toi">Báo chí viết về chúng tôi</a></li>
+				<li><a href="<?php  echo HW_URL; ?>/gioi-thieu-cong-ty">Về công ty</a></li>
+				<li><a href="<?php  echo HW_URL; ?>/doi-ngu">Đội ngũ</a></li>
+				<li><a href="<?php  echo HW_URL; ?>/ve-san-pham">Về sản phẩm</a></li>
+				<li><a href="<?php  echo HW_URL; ?>/bao-chi-ve-chung-toi">Báo chí viết về chúng tôi</a></li>
 			</ul>
 				</li>
-			<li><a href="{? echo HW_URL; ?}/tin-tuc" class="auto-font text-uppercase">Tin tức</a></li>
+			<li><a href="<?php  echo HW_URL; ?>/tin-tuc" class="auto-font text-uppercase">Tin tức</a></li>
 			
 			<li class="dropdown"><a class="dropdown-toggle auto-font text-uppercase" data-toggle="dropdown" href="#">Phần mềm học online</a>
 				<ul class="dropdown-menu">
@@ -48,8 +48,8 @@ body {
 					<li><a href="<?=PMTV5_URL?>">Phần mềm tiếng Việt lớp 5</a></li>
 				</ul>
 			</li>
-			<li><a href="{? echo PMTV4_URL; ?}/huong-dan-mua" class="auto-font text-uppercase">Hướng dẫn nộp học phí</a></li>
-			<li><a href="{? echo HW_URL; ?}/qua-tang-hoc-bong" class="auto-font text-uppercase">Quà tặng - học bổng</a></li>
+			<li><a href="<?php  echo PMTV4_URL; ?>/huong-dan-mua" class="auto-font text-uppercase">Hướng dẫn nộp học phí</a></li>
+			<li><a href="<?php  echo HW_URL; ?>/qua-tang-hoc-bong" class="auto-font text-uppercase">Quà tặng - học bổng</a></li>
 			<?php if(0):?>
 			<?php if(pzk_session('userId') <= 0):?>
 			<li><a class="login_required auto-font text-uppercase" href="javascript:void(0)" data-toggle="modal" data-target="#LoginModal">Đăng nhập</a></li><li><a class="login_required auto-font text-uppercase" href="javascript:void(0)" data-toggle="modal" data-target="#RegisterModal">Đăng ký</a></li>
@@ -57,7 +57,7 @@ body {
 			<?php if(0):?>
 			<li class="top15 auto-font">
 			<div style="margin-top: 20px; display: inline-block;">
-			Xin chào ( {children [id=userAccountUser]} )
+			Xin chào ( <?php $data->displayChildren('[id=userAccountUser]') ?> )
 			</div>
 			</li>
 			<?php endif; ?>

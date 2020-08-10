@@ -34,13 +34,13 @@
 	$weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 	
 ?>
-{children [position=public-header}
+<?php $data->displayChildren('[position=public-header') ?>
 
 <div class="container">
 	<div class="row bc-test">
 		<div style="font-size: 20px;" class="col-md-10 col-md-offset-1 pd0">
 			
-			Lớp {class} &nbsp; &nbsp; > &nbsp; &nbsp; {ifvar practice}Đề luyện tập{else}Đề thi{/if}
+			Lớp <?php echo $class ?> &nbsp; &nbsp; > &nbsp; &nbsp; <?php if(${'practice'}): ?>Đề luyện tập<?php else: ?>Đề thi<?php endif; ?>
 			 
 		</div>
 		
@@ -65,7 +65,7 @@
 					<?php 
 						$tests = $data->getTestSN($week2, $practice, $check, $class);
 						if($practice== 1 || $practice == '1'){  ?>
-							{each $tests as $test }
+							<?php foreach($tests as $test ): ?>
 							<?php 
 								if($test['name_sn']){
 									$testName = $test['name_sn'];
@@ -73,14 +73,14 @@
 							?>
 								<li >
 									
-									<a <?php if($data_criteria['id'] == $test['id']) { echo 'class="active"'; } ?> onclick="id = {week[id]};document.getElementById('chonde').innerHTML = '{testName}';"  data-de="{testName}" class="getdata" href="/practice-examination/class-{class}/week-{week2}/examination-{test[id]}" data-type="group">{testName}</a>
+									<a <?php if($data_criteria['id'] == $test['id']) { echo 'class="active"'; } ?> onclick="id = <?php echo @$week['id']?>;document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';"  data-de="<?php echo $testName ?>" class="getdata" href="/practice-examination/class-<?php echo $class ?>/week-<?php echo $week2 ?>/examination-<?php echo @$test['id']?>" data-type="group"><?php echo $testName ?></a>
 									
 								</li>
-							{/each}
+							<?php endforeach; ?>
 					<?php
 						}else{
 					 ?>						
-						{each $tests as $test }
+						<?php foreach($tests as $test ): ?>
 						<?php 
 							if($test['name_sn']){
 								$testName = $test['name_sn'];
@@ -88,10 +88,10 @@
 						?>
 						<li>
 							
-							<a <?php if($data_criteria['id'] == $test['id']) { echo 'class="active"'; } ?> onclick="id = {week[id]};document.getElementById('chonde').innerHTML = '{testName}';" data-id="{week[id]}" data-de="{testName}" class="getdata" href="/test/class-{class}/week-{week2}/examination-{test[id]}" data-type="group">{testName}</a>
+							<a <?php if($data_criteria['id'] == $test['id']) { echo 'class="active"'; } ?> onclick="id = <?php echo @$week['id']?>;document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';" data-id="<?php echo @$week['id']?>" data-de="<?php echo $testName ?>" class="getdata" href="/test/class-<?php echo $class ?>/week-<?php echo $week2 ?>/examination-<?php echo @$test['id']?>" data-type="group"><?php echo $testName ?></a>
 							
 						</li>
-						{/each}
+						<?php endforeach; ?>
 						<?php } ?>
 					</ul>
 					
@@ -105,18 +105,18 @@
 							<?php 
 		    				$weeks = $data->getWeekTestSN(ROOT_WEEK_CATEGORY_ID,$practice, $check, $class);
 		    			 ?>
-		    			{each $weeks as $week }
+		    			<?php foreach($weeks as $week ): ?>
 							<?php 
 							$firsttest= $data->getFirstTestByWeek($week['id'], $practice, $check, $class);	
 							if($practice== 1 || $practice == '1'){  
 							
 							?>
-							<li><a href="/practice-examination/class-{class}/week-{week[id]}/examination-{firsttest[id]}">{week[name]}</a></li>
+							<li><a href="/practice-examination/class-<?php echo $class ?>/week-<?php echo @$week['id']?>/examination-<?php echo @$firsttest['id']?>"><?php echo @$week['name']?></a></li>
 							<?php } else { ?>
-							<li><a href="/test/class-{class}/week-{week[id]}/examination-{firsttest[id]}">{week[name]}</a></li>
+							<li><a href="/test/class-<?php echo $class ?>/week-<?php echo @$week['id']?>/examination-<?php echo @$firsttest['id']?>"><?php echo @$week['name']?></a></li>
 							<?php } ?>
 						
-						{/each}
+						<?php endforeach; ?>
 						</ul>
 					</div>
 					
@@ -168,7 +168,7 @@
 								
 									<div class="order"><?php echo $language['question'];?> <?=$key+1;?>
 									<?php if(pzk_user_special()) :?><br />
-									(#{value[id]})
+									(#<?php echo @$value['id']?>)
 									<?php endif; ?>
 									</div>
 									<div class="col-md-12 top10">
@@ -615,7 +615,7 @@
 <?php if($selectedWeek && $selectedTest): ?>
 <script type="text/javascript">
 $(function(){
-	$('#chonde').text('{selectedWeek[name]} - {selectedTest[name_sn]}');
+	$('#chonde').text('<?php echo @$selectedWeek['name']?> - <?php echo @$selectedTest['name_sn']?>');
 });
 
 </script>

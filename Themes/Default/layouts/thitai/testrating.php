@@ -46,12 +46,12 @@
                         <select style="margin-left: 4px;"  class="form-control input-sm" id="camp" name="testId" onchange="window.location = '/contest/rating?camp='+this.value" >
                             <option value="" >Chọn lần thi thử</option>
 							<?php foreach($contest  as $val) { ?>
-                            <option value="{val[id]}" > {val[name]}</option>
+                            <option value="<?php echo @$val['id']?>" > <?php echo @$val['name']?></option>
 							<?php } ?>
                            
                         </select>
                         <script type="text/javascript">
-                            $('#camp').val('{camp}');
+                            $('#camp').val('<?php echo $camp ?>');
                         </script>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                 <th>Thời gian làm bài</th>
                 
             </tr>
-            {each $users as $item}
+            <?php foreach($users as $item): ?>
             <?php 
                 $rank++;
                 $username= $item['username'];
@@ -83,15 +83,15 @@
                
             ?>
             <tr>
-                <td>{rank}</td>
-                <td>{username}</td>
+                <td><?php echo $rank ?></td>
+                <td><?php echo $username ?></td>
                 <td><?php $markTn = $item['mark'] *2; echo $markTn; ?></td>
-                <td>{item[teacherMark]}</td>
-                <td>{item[totalMark]}</td>
-                <td><span class="glyphicon glyphicon-time" aria-hidden="true"></span>{duringTime}</td>
+                <td><?php echo @$item['teacherMark']?></td>
+                <td><?php echo @$item['totalMark']?></td>
+                <td><span class="glyphicon glyphicon-time" aria-hidden="true"></span><?php echo $duringTime ?></td>
                 
             </tr>
-            {/each}
+            <?php endforeach; ?>
         </table>
         
     </div>
@@ -107,14 +107,14 @@
         <table style="margin: 0px;">
             <tr>
                 <td style="width: 135px;"> <strong>Số mục: </strong>
-                    <select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='{url /contest/changePageSize}?camp={camp}&pageSize=' + this.value;">
+                    <select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/contest/changePageSize' ?>?camp=<?php echo $camp ?>&pageSize=' + this.value;">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="20">20</option>
                         <option value="25">25</option>
                     </select>
                     <script type="text/javascript">
-                        $('#pageSize').val('{pageSize}');
+                        $('#pageSize').val('<?php echo $pageSize ?>');
                     </script>
                 </td>
                 <td>
@@ -128,8 +128,8 @@
                                     $active='active';
                                 }else $active='';
                          ?>
-                        <li class="{active}">
-                        <a  href="{url} /contest/rating?camp={camp}&page={page}">{? echo ($page + 1)?}</a>
+                        <li class="<?php echo $active ?>">
+                        <a  href="<?php echo BASE_REQUEST ?> /contest/rating?camp=<?php echo $camp ?>&page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
                         </li>
                         <?php } ?>
                     </ul>

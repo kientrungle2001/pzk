@@ -3,8 +3,8 @@
 	margin: 20px 0px;
 }
 </style>
-{children [position=public-header]}
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=public-header]') ?>
+<?php $data->displayChildren('[position=top-menu]') ?>
 
 <div class="container">
 	<div class='text-center'>

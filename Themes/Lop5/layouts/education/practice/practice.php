@@ -39,7 +39,7 @@
 	</div>
 </div>
 <div class="" style="margin-left:15px !important;">
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 </div>
 <?php if(!pzk_request()->isMobileAndTablet()):?>
 <div onclick='return opentb1();' id='hotnew1' class='tinmoi1 hidden-xs'>Hiện banner</div>
@@ -73,7 +73,7 @@ Chương trình đã được bảo hộ bảo bản quyền bởi cục Sở h�
 <?php ?>
 <div class="container" id="subject">
 	<div id="practice-section" class="row fivecolumns">
-		{children [position=show-subject]}
+		<?php $data->displayChildren('[position=show-subject]') ?>
 	</div>
 </div>
 <div id="practice-test" class="container top20">
@@ -92,7 +92,7 @@ Chương trình đã được bảo hộ bảo bản quyền bởi cục Sở h�
 			<a href="" class="text-color nullclass">...</a>
 		</div>
 		<?php else:?>
-		{children [position=practice-place]}
+		<?php $data->displayChildren('[position=practice-place]') ?>
 		<?php endif; ?>
 	</div>
 </div>
@@ -116,7 +116,7 @@ Chương trình đã được bảo hộ bảo bản quyền bởi cục Sở h�
 			<a href="" class="text-color nullclass">...</a>
 		</div>
 		<?php else:?>
-		{children [position=test-place]}
+		<?php $data->displayChildren('[position=test-place]') ?>
 		<?php endif; ?>
 	</div>
 	
@@ -153,7 +153,7 @@ Chương trình đã được bảo hộ bảo bản quyền bởi cục Sở h�
 			<a href="" class="text-color nullclass">...</a>
 		</div>
 		<?php else:?>
-		{children [position=testtl-place]}
+		<?php $data->displayChildren('[position=testtl-place]') ?>
 		<?php endif; ?>
 	</div>
 
@@ -161,7 +161,7 @@ Chương trình đã được bảo hộ bảo bản quyền bởi cục Sở h�
 </div>
 
 
-{children [position=bottom-slide]}			
+<?php $data->displayChildren('[position=bottom-slide]') ?>			
 <script>
 	numberclass = 5;
 	$(".btnclick").click(function(){

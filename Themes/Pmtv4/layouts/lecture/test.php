@@ -7,25 +7,25 @@ $cat = _db()->getTableEntity('categories')->load($data->get('catId'));
 ?>
 <div class="lecture-region">
 	<div class="container">
-		<h1 class="text-center">{item[name]}</h1>
+		<h1 class="text-center"><?php echo @$item['name']?></h1>
 		<div class="row">
-		<div class="cls-test-wrapper">
+		<div class="<?php echo pzk_theme_css_class('test-wrapper')?>">
 			<form class="form">
 				<div class="row">
-					<div class="cls-test-select-wrapper">
-						<select id="lecture-detail-select" class="form-control cls-select-background">
+					<div class="<?php echo pzk_theme_css_class('test-select-wrapper')?>">
+						<select id="lecture-detail-select" class="form-control <?php echo pzk_theme_css_class('select-background')?>">
 							<option disabled="disabled">Chọn Đề thi</option>
-							{each $others as $other}
-							<option rel="/{other[alias]}" value="{other[id]}">{other[name]}</option>
-							{/each}
+							<?php foreach($others as $other): ?>
+							<option rel="/<?php echo @$other['alias']?>" value="<?php echo @$other['id']?>"><?php echo @$other['name']?></option>
+							<?php endforeach; ?>
 						</select>
 						<script type="text/javascript">
-							$('#lecture-detail-select').val('{data.get('catId')}');
+							$('#lecture-detail-select').val('<?php echo $data->get('catId')?>');
 						</script>
 					</div>
-					<div class="cls-time-wrapper">
-						<div class="cls-time-background">
-							Thời gian: <span id="timer" class="cls-num-time"><span class="minute">45</span>:<span class="second">00</span></span>
+					<div class="<?php echo pzk_theme_css_class('time-wrapper')?>">
+						<div class="<?php echo pzk_theme_css_class('time-background')?>">
+							Thời gian: <span id="timer" class="<?php echo pzk_theme_css_class('num-time')?>"><span class="minute">45</span>:<span class="second">00</span></span>
 						</div>
 					</div>
 				</div>
@@ -40,7 +40,7 @@ $cat = _db()->getTableEntity('categories')->load($data->get('catId'));
 						</map>
 					</div>
 					<?php if(1) : ?>
-					<div id="doForm" class="cls-do-form-wrapper">
+					<div id="doForm" class="<?php echo pzk_theme_css_class('do-form-wrapper')?>">
 					<?php
 					if(!pzk_session('userId') || !pzk_user()->checkPayment('lecture', 2)):?>
 						<?php if(!pzk_session('userId')):?>
@@ -52,60 +52,60 @@ $cat = _db()->getTableEntity('categories')->load($data->get('catId'));
 					<?php if(pzk_request('step') == 'doing'): ?>
 						<form id="questionForm" class="form">
 						<div class="row">
-							<div class="col-xs-12">{cat.get('content')}</div>
+							<div class="col-xs-12"><?php echo $cat->get('content')?></div>
 						</div>
 						<?php $index = 1; $questionIds = array(); ?>
-						{each $questions as $question}
-						{?  $questionIds[] = $question['id']; $answers = $data->getAnswers($question); ?}
+						<?php foreach($questions as $question): ?>
+						<?php   $questionIds[] = $question['id']; $answers = $data->getAnswers($question); ?>
 						
 						<div class="row">
-							<div class="cls-question-name-wrapper">
-								<span class="cls-question-num">{index}</span> <div class="padding-top-5">{question[name]}</div><div class="clear"></div>
+							<div class="<?php echo pzk_theme_css_class('question-name-wrapper')?>">
+								<span class="<?php echo pzk_theme_css_class('question-num')?>"><?php echo $index ?></span> <div class="padding-top-5"><?php echo @$question['name']?></div><div class="clear"></div>
 							</div>
 						</div>
 						
 						<div class="row">
 							
-							{each $answers as $answer}
-							<div class="cls-answer-item">
-								<div class="cls-answer-item-wrapper">
-									<span class="cls-answer-input-wrapper">
-										<input id="answers_{question[id]}_{answer[id]}" type="radio" name="answers[{question[id]}]" value="{answer[id]}" class="cls-answer-input" />
+							<?php foreach($answers as $answer): ?>
+							<div class="<?php echo pzk_theme_css_class('answer-item')?>">
+								<div class="<?php echo pzk_theme_css_class('answer-item-wrapper')?>">
+									<span class="<?php echo pzk_theme_css_class('answer-input-wrapper')?>">
+										<input id="answers_<?php echo @$question['id']?>_<?php echo @$answer['id']?>" type="radio" name="answers[<?php echo @$question['id']?>]" value="<?php echo @$answer['id']?>" class="<?php echo pzk_theme_css_class('answer-input')?>" />
 									</span> 
-									<label for="answers_{question[id]}_{answer[id]}" class="cls-answer-content inline">{answer[content]}</label>
+									<label for="answers_<?php echo @$question['id']?>_<?php echo @$answer['id']?>" class="<?php echo pzk_theme_css_class('answer-content')?> inline"><?php echo @$answer['content']?></label>
 									<div class="clear"></div>
 								</div>
 							</div>
-							{/each}
+							<?php endforeach; ?>
 							
 							<div class="col-xs-offset-1 col-xs-10 form-group question-explaination hidden">
-								<button onclick="$('#explaination_{question[id]}').toggleClass('hidden');" type="button" class="btn btn-success">
-									<span class="cls-ico-search"></span> Giải thích
+								<button onclick="$('#explaination_<?php echo @$question['id']?>').toggleClass('hidden');" type="button" class="btn btn-success">
+									<span class="<?php echo pzk_theme_css_class('ico-search')?>"></span> Giải thích
 								</button>
-								<div id="explaination_{question[id]}" class="well hidden font-normal"></div>
+								<div id="explaination_<?php echo @$question['id']?>" class="well hidden font-normal"></div>
 							</div>
 						</div>
 						
 						
-						{? $index++; ?}
-						{/each}
+						<?php  $index++; ?>
+						<?php endforeach; ?>
 						<div class="row">
 							<div class="col-xs-12 form-group text-center">
-								<input type="hidden" name="categoryId" value="{data.get('catId')}" />
-								<input type="hidden" name="quantity" value="{? echo ($index-1); ?}" />
+								<input type="hidden" name="categoryId" value="<?php echo $data->get('catId')?>" />
+								<input type="hidden" name="quantity" value="<?php  echo ($index-1); ?>" />
 								<input type="hidden" name="startTime" value="<?php echo date('Y-m-d H:i:s');?>" />
 								<input type="hidden" name="duration" id="countdownDuration" value="0" />
 								<input type="hidden" name="remaining" id="countdownRemaining" value="<?php echo (45 * 60)?>" />
-								<input type="hidden" name="testId" value="{? echo $data->get('testId'); ?}" />
-								<input type="hidden" name="questionIds" value="{? echo implode(',', $questionIds); ?}" />
-								<button id="saveChoiceBtn" type="submit" class="cls-btn-complete">
-									<span class="cls-ico-ok"></span> Hoàn thành
+								<input type="hidden" name="testId" value="<?php  echo $data->get('testId'); ?>" />
+								<input type="hidden" name="questionIds" value="<?php  echo implode(',', $questionIds); ?>" />
+								<button id="saveChoiceBtn" type="submit" class="<?php echo pzk_theme_css_class('btn-complete')?>">
+									<span class="<?php echo pzk_theme_css_class('ico-ok')?>"></span> Hoàn thành
 								</button>
-								<button type="button" class="cls-btn-show-explaination hidden">
-									<span class="cls-ico-list"></span> Đáp án
+								<button type="button" class="<?php echo pzk_theme_css_class('btn-show-explaination')?> hidden">
+									<span class="<?php echo pzk_theme_css_class('ico-list')?>"></span> Đáp án
 								</button>
-								<button type="button" class="cls-btn-show-result">
-									<span class="cls-ico-list"></span> Kết quả
+								<button type="button" class="<?php echo pzk_theme_css_class('btn-show-result')?>">
+									<span class="<?php echo pzk_theme_css_class('ico-list')?>"></span> Kết quả
 								</button>
 							</div>
 							
@@ -124,25 +124,25 @@ $cat = _db()->getTableEntity('categories')->load($data->get('catId'));
 						  <div class="modal-body">
 							<table class="table table-bordered">
 								<tr class="text text-primary">
-									<td width="15px"><span class="cls-ico-list"></span></td>
+									<td width="15px"><span class="<?php echo pzk_theme_css_class('ico-list')?>"></span></td>
 									<th>Tổng số câu</th>
 									<td id="questionQuantity"></td>
 								</tr>
 								<tr class="text text-success">
-									<td><span class="cls-ico-ok"></span></td>
+									<td><span class="<?php echo pzk_theme_css_class('ico-ok')?>"></span></td>
 									<th>Số câu đúng</th>
 									<td id="rightQuantity"></td>
 								</tr>
 								<tr class="text text-danger">
-									<td><span class="cls-ico-remove"></span></td>
+									<td><span class="<?php echo pzk_theme_css_class('ico-remove')?>"></span></td>
 									<th>Số câu sai</th>
 									<td id="wrongQuantity"></td>
 								</tr>
 							</table>
 						  </div>
 						  <div class="modal-footer">
-							<button type="button" class="cls-btn-close" data-dismiss="modal"> <span class="glyphicon glyphicon-remove-sign"></span> Đóng</button>
-							<button type="button" class="cls-btn-show-explaination"> <span class="glyphicon glyphicon-th-list"></span> Đáp án</button>
+							<button type="button" class="<?php echo pzk_theme_css_class('btn-close')?>" data-dismiss="modal"> <span class="glyphicon glyphicon-remove-sign"></span> Đóng</button>
+							<button type="button" class="<?php echo pzk_theme_css_class('btn-show-explaination')?>"> <span class="glyphicon glyphicon-th-list"></span> Đáp án</button>
 						  </div>
 						</div><!-- /.modal-content -->
 					  </div><!-- /.modal-dialog -->
@@ -152,14 +152,14 @@ $cat = _db()->getTableEntity('categories')->load($data->get('catId'));
 			</div>
 			
 			<script type="text/javascript">
-				pzk.beforeload('{data.id}', function() {
-					this.setUrl('/{item[alias]}?step=doing');
+				pzk.beforeload('<?php echo @$data->id?>', function() {
+					this.setUrl('/<?php echo @$item['alias']?>?step=doing');
 					this.selectCatId('<?php echo $data->get('catId'); ?>');
 				});
 			
 			
 
-			pzk.onload('{data.id}', function() {
+			pzk.onload('<?php echo @$data->id?>', function() {
 				// do nothing
 			});
 			<?php if(pzk_request('step') == 'doing' && pzk_session('userId') && pzk_user()->checkPayment('lecture', 2)):?>

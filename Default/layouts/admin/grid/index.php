@@ -23,26 +23,26 @@ if($listSettingType =='parent') {
 
 ?>
 <?php if(!pzk_request()->getIsAjax()):?>
-{children [role=nav]}
+<?php $data->displayChildren('[role=nav]') ?>
 <!-- Show data -->
 <div class="panel panel-default">
     <div class="panel-heading">
         <b>{data.getTitle()} (<?php echo $countItems. ' bản ghi'; ?>)</b>
-		<a class="btn  btn-sm btn-primary pull-right" href="{url /admin}_{data.getModule()}/add"><span class="glyphicon glyphicon-plus"></span> {data.getAddLabel()}</a>
+		<a class="btn  btn-sm btn-primary pull-right" href="<?php echo BASE_REQUEST . '/admin' ?>_{data.getModule()}/add"><span class="glyphicon glyphicon-plus"></span> {data.getAddLabel()}</a>
     </div>
-<table id="admin_table_{data.get('id')}" class="table table-hover">
+<table id="admin_table_<?php echo $data->get('id')?>" class="table table-hover">
 	<thead>
 	<tr>
 		<th><input type="checkbox" id="selecctall"/></th>
         <th>#</th>
-		{each $listFieldSettings as $field}
+		<?php foreach($listFieldSettings as $field): ?>
 		<th>
-		{? if ($field['type'] == 'ordering') { ?}
-			<span class="glyphicon glyphicon-floppy-disk" style="cursor: pointer;" onclick="pzk_list.saveOrdering('{field[index]}');"></span>
-		{? } ?}
-		{field[label]}
+		<?php  if ($field['type'] == 'ordering') { ?>
+			<span class="glyphicon glyphicon-floppy-disk" style="cursor: pointer;" onclick="pzk_list.saveOrdering('<?php echo @$field['index']?>');"></span>
+		<?php  } ?>
+		<?php echo @$field['label']?>
 		</th>
-		{/each}
+		<?php endforeach; ?>
 		<th colspan="2">Hành động</th>
 	</tr>
 	</thead>
@@ -60,7 +60,7 @@ if($listSettingType =='parent') {
 			<option value="200">200</option>
 		  </select>
 		  <script type="text/javascript">
-			$('#pageSize').val('{pageSize}');
+			$('#pageSize').val('<?php echo $pageSize ?>');
 		  </script>
 
 		<strong>Trang: </strong>
@@ -70,18 +70,18 @@ if($listSettingType =='parent') {
 			if($page == $data->pageNum) { $btn = 'btn-primary'; }
 			else { $btn = 'btn-default'; }
 		?>
-		<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+		<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 		<?php } ?>
 		<?php if(count($actions)): ?>
 		<div style="float:right;">
 		<strong>Hành động: </strong>
 	  <select id="gridAction" name="action" class="form-control input-sm" placeholder="Thao tác">
 			<option selected="selected" value="">Thao tác</option>
-			{each $actions as $action}
-				<option value="{action[value]}">{action[label]}</option>
-			{/each}
+			<?php foreach($actions as $action): ?>
+				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
+			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_{data.get('id')}.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->get('id')?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>
@@ -90,14 +90,14 @@ if($listSettingType =='parent') {
 		</td>
 	</tr>
     <?php if($items) {  ?>
-	{each $items as $item}
+	<?php foreach($items as $item): ?>
 
 	<tr>
-		<td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="{item[id]}" /></td>
-        <td>{item[id]}</td>
-		{? $isOrderingField = false; ?}
-		{each $listFieldSettings as $field}
-		{?
+		<td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="<?php echo @$item['id']?>" /></td>
+        <td><?php echo @$item['id']?></td>
+		<?php  $isOrderingField = false; ?>
+		<?php foreach($listFieldSettings as $field): ?>
+		<?php 
 			$fieldObj = pzk_obj('Core.Db.Grid.Field.' . ucfirst($field['type']));
 			foreach($field as $key => $val) {
 				$fieldObj->set($key, $val);
@@ -111,13 +111,13 @@ if($listSettingType =='parent') {
 				$fieldObj->setLevel($item['level']);
 			}
 			$fieldObj->setValue($item[$field['index']]);
-		?}
-			<td <?php if($isOrderingField): ?>style="white-space: nowrap;"<?php endif; ?>>{? $fieldObj->display(); ?}</td>
-		{/each}
-		<td><a href="{url /admin}_{data.getModule()}/edit/{item[id]}" class="text-center"><span class="glyphicon glyphicon-edit"></span> Sửa</a></td>
-		<td><a class="color_delete text-center" href="{url /admin}_{data.getModule()}/del/{item[id]}"><span class="glyphicon glyphicon-remove"></span> Xóa</td>
+		?>
+			<td <?php if($isOrderingField): ?>style="white-space: nowrap;"<?php endif; ?>><?php  $fieldObj->display(); ?></td>
+		<?php endforeach; ?>
+		<td><a href="<?php echo BASE_REQUEST . '/admin' ?>_{data.getModule()}/edit/<?php echo @$item['id']?>" class="text-center"><span class="glyphicon glyphicon-edit"></span> Sửa</a></td>
+		<td><a class="color_delete text-center" href="<?php echo BASE_REQUEST . '/admin' ?>_{data.getModule()}/del/<?php echo @$item['id']?>"><span class="glyphicon glyphicon-remove"></span> Xóa</td>
 	</tr>
-	{/each}
+	<?php endforeach; ?>
     <?php } ?>
 	<tr>
 		<td colspan="20">
@@ -132,7 +132,7 @@ if($listSettingType =='parent') {
 			<option value="200">200</option>
 		  </select>
 		  <script type="text/javascript">
-			$('.pageSize').val('{pageSize}');
+			$('.pageSize').val('<?php echo $pageSize ?>');
 		  </script>
 
 		<strong>Trang: </strong>
@@ -142,18 +142,18 @@ if($listSettingType =='parent') {
 			if($page == $data->pageNum) { $btn = 'btn-primary'; }
 			else { $btn = 'btn-default'; }
 		?>
-		<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+		<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 		<?php } ?>
 		<?php if(count($actions)): ?>
 		<div style="float:right;">
 		<strong>Hành động: </strong>
 	  <select id="gridAction" name="action" class="form-control input-sm" placeholder="Thao tác">
 			<option selected="selected" value="">Thao tác</option>
-			{each $actions as $action}
-				<option value="{action[value]}">{action[label]}</option>
-			{/each}
+			<?php foreach($actions as $action): ?>
+				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
+			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_{data.get('id')}.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->get('id')?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>
@@ -165,11 +165,11 @@ if($listSettingType =='parent') {
 	</tbody>
 </table>
     <div class="panel-footer item">
-        {children [role=export]}
+        <?php $data->displayChildren('[role=export]') ?>
 		<div  id="griddelete" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" >
             <span class="glyphicon glyphicon-remove"></span> Xóa tất
         </div>
-        <a class="btn  btn-sm btn-primary pull-right" href="{url /admin}_{data.getModule()}/add"><span class="glyphicon glyphicon-plus"></span> {data.getAddLabel()}</a>
+        <a class="btn  btn-sm btn-primary pull-right" href="<?php echo BASE_REQUEST . '/admin' ?>_{data.getModule()}/add"><span class="glyphicon glyphicon-plus"></span> {data.getAddLabel()}</a>
     </div>
 </div>
 <!-- js check all--->
@@ -194,18 +194,18 @@ if($listSettingType =='parent') {
 			if($page == $data->pageNum) { $btn = 'btn-primary'; }
 			else { $btn = 'btn-default'; }
 		?>
-		<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+		<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 		<?php } ?>
 		<?php if(count($actions)): ?>
 		<div style="float:right;">
 		<strong>Hành động: </strong>
 	  <select id="gridAction" name="action" class="form-control input-sm" placeholder="Thao tác">
 			<option selected="selected" value="">Thao tác</option>
-			{each $actions as $action}
-				<option value="{action[value]}">{action[label]}</option>
-			{/each}
+			<?php foreach($actions as $action): ?>
+				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
+			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_{data.get('id')}.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->get('id')?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>
@@ -214,14 +214,14 @@ if($listSettingType =='parent') {
 		</td>
 	</tr>
     <?php if($items) {  ?>
-	{each $items as $item}
+	<?php foreach($items as $item): ?>
 
 	<tr>
-		<td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="{item[id]}" /></td>
-        <td>{item[id]}</td>
-		{? $isOrderingField = false; ?}
-		{each $listFieldSettings as $field}
-		{?
+		<td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="<?php echo @$item['id']?>" /></td>
+        <td><?php echo @$item['id']?></td>
+		<?php  $isOrderingField = false; ?>
+		<?php foreach($listFieldSettings as $field): ?>
+		<?php 
 			$fieldObj = pzk_obj('Core.Db.Grid.Field.' . $field['type']);
 			foreach($field as $key => $val) {
 				$fieldObj->set($key, $val);
@@ -235,13 +235,13 @@ if($listSettingType =='parent') {
 				$fieldObj->setLevel($item['level']);
 			}
 			$fieldObj->setValue($item[$field['index']]);
-		?}
-			<td <?php if($isOrderingField): ?>style="white-space: nowrap;"<?php endif; ?>>{? $fieldObj->display(); ?}</td>
-		{/each}
-		<td><a href="{url /admin}_{data.getModule()}/edit/{item[id]}" class="text-center"><span class="glyphicon glyphicon-edit"></span> Sửa</a></td>
-		<td><a class="color_delete text-center" href="{url /Admin}_{data.getModule()}/del/{item[id]}"><span class="glyphicon glyphicon-remove"></span> Xóa</td>
+		?>
+			<td <?php if($isOrderingField): ?>style="white-space: nowrap;"<?php endif; ?>><?php  $fieldObj->display(); ?></td>
+		<?php endforeach; ?>
+		<td><a href="<?php echo BASE_REQUEST . '/admin' ?>_{data.getModule()}/edit/<?php echo @$item['id']?>" class="text-center"><span class="glyphicon glyphicon-edit"></span> Sửa</a></td>
+		<td><a class="color_delete text-center" href="<?php echo BASE_REQUEST . '/Admin' ?>_{data.getModule()}/del/<?php echo @$item['id']?>"><span class="glyphicon glyphicon-remove"></span> Xóa</td>
 	</tr>
-	{/each}
+	<?php endforeach; ?>
     <?php } ?>
 	<tr>
 		<td colspan="20">
@@ -256,7 +256,7 @@ if($listSettingType =='parent') {
 			<option value="200">200</option>
 		  </select>
 		  <script type="text/javascript">
-			$('.pageSize').val('{pageSize}');
+			$('.pageSize').val('<?php echo $pageSize ?>');
 		  </script>
 
 		<strong>Trang: </strong>
@@ -266,18 +266,18 @@ if($listSettingType =='parent') {
 			if($page == $data->pageNum) { $btn = 'btn-primary'; }
 			else { $btn = 'btn-default'; }
 		?>
-		<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+		<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 		<?php } ?>
 		<?php if(count($actions)): ?>
 		<div style="float:right;">
 		<strong>Hành động: </strong>
 	  <select id="gridAction" name="action" class="form-control input-sm" placeholder="Thao tác">
 			<option selected="selected" value="">Thao tác</option>
-			{each $actions as $action}
-				<option value="{action[value]}">{action[label]}</option>
-			{/each}
+			<?php foreach($actions as $action): ?>
+				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
+			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_{data.get('id')}.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->get('id')?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>

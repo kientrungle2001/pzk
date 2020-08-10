@@ -10,21 +10,21 @@
      <div class="container">
          <?php if(!$subcategories) { ?>
                 
-            {each $curentnews as $title}
+            <?php foreach($curentnews as $title): ?>
 			<div class="row top10">
 				<div class="col-xs-3">
-					<a href="/{title[alias]}">
+					<a href="/<?php echo @$title['alias']?>">
 						<img class="img-responsive img-thumbnail" src="<?php echo BASE_URL.$title['img'] ; ?>" />
 					</a>
 				</div>
 				<div class="col-xs-9">
-					<a href="/{title[alias]}">
-						<h4>{title[title]}</h4>
+					<a href="/<?php echo @$title['alias']?>">
+						<h4><?php echo @$title['title']?></h4>
 					</a>
-					<p>{title[brief]}</p>
+					<p><?php echo @$title['brief']?></p>
 				</div>
 			</div>
-            {/each}
+            <?php endforeach; ?>
 			<div>
 			<?php 
 			$total = $data->countItems($category);
@@ -40,7 +40,7 @@
 				}
 				$page = $i + 1;
 			?>
-			<a href="/{curentcat[alias]}?page={i}" class="btn {btnActive}">{page}</a>
+			<a href="/<?php echo @$curentcat['alias']?>?page=<?php echo $i ?>" class="btn <?php echo $btnActive ?>"><?php echo $page ?></a>
 			<?php }?>
 			<?php endif; ?>
 			</div>
@@ -50,33 +50,33 @@
             // subcategory
             if($subcategories) {
             ?>
-            {each $subcategories as $item}
+            <?php foreach($subcategories as $item): ?>
                 <div class="title2">
-                    <a href="/{item[alias]}"><p> {item[name]}</p></a>
+                    <a href="/<?php echo @$item['alias']?>"><p> <?php echo @$item['name']?></p></a>
                 </div>
 
                 <?php $news= $data->getNews($item['id']);?>
 
-                {each $news as $title}
+                <?php foreach($news as $title): ?>
 
                 <div class="col-xs-12">
                     <div class="col-xs-12">
-                        <a href="/{title[alias]}">
+                        <a href="/<?php echo @$title['alias']?>">
                             <img src="<?php echo BASE_URL.$title['img'] ; ?>" />
                         </a>
                         <div class="new_des">
-                            <a href="/{title[alias]}">
-                                <h4> {title[title]}</h4>
+                            <a href="/<?php echo @$title['alias']?>">
+                                <h4> <?php echo @$title['title']?></h4>
                             </a>
-                            <p>{title[brief]}</p>
+                            <p><?php echo @$title['brief']?></p>
                         </div>
                     </div>
 
                 </div>
 
-                {/each}
+                <?php endforeach; ?>
 
-            {/each}
+            <?php endforeach; ?>
 
             <?php } ?>
 

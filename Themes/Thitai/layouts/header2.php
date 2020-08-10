@@ -13,14 +13,14 @@
 		
 		<div class="collapse navbar-collapse" id="myNavbar">
 		  <ul class="nav navbar-nav navbar-right">
-			<li class="top4"><a href="#">Liên h?: 0936 738 986</a></li>
+			<li class="top4"><a href="#">Liï¿½n h?: 0936 738 986</a></li>
 			
 			<?php if(pzk_session('userId') <= 0):?>
-			<li><a rel="/home/index" class="login_required" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-user"></span> Ðang ký</a></li>
-			<li><a rel="/home/index" class="login_required" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-log-in"></span> Ðang nh?p</a></li>
+			<li><a rel="/home/index" class="login_required" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-user"></span> ï¿½ang kï¿½</a></li>
+			<li><a rel="/home/index" class="login_required" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-log-in"></span> ï¿½ang nh?p</a></li>
 			<?php elseif(pzk_session('userId') >0 ):?>
-			<li class="top10">Xin cha`o <button class="btn btn-success dropdown">{children [id=userAccountUser][position=user]}<span class="caret"></span></button></li>
-			<li class="top4"><a  href="/api_account/logout?backHref=home/index">Thoa´t</a></li>
+			<li class="top10">Xin cha`o <button class="btn btn-success dropdown"><?php $data->displayChildren('[id=userAccountUser][position=user]') ?><span class="caret"></span></button></li>
+			<li class="top4"><a  href="/api_account/logout?backHref=home/index">Thoaï¿½t</a></li>
 			<?php endif;?>
 		  </ul>
 		</div>
@@ -40,7 +40,7 @@
 					<a href=""> Ti?u h?c <span class="caret"></span></a>
 					<ul class="dropdown-menu robotofont col-xs-12">
 						
-						<li><a target="_blank" href="http://tdn.thitai.vn">Thi th? tr?c tuy?n vào tru?ng <br> Tr?n Ð?i Nghia</a></li>
+						<li><a target="_blank" href="http://tdn.thitai.vn">Thi th? tr?c tuy?n vï¿½o tru?ng <br> Tr?n ï¿½?i Nghia</a></li>
 						<li><a target="_blank" href="http://nb.thitai.vn">Ki?m tra ch?t lu?ng d?u nam 2016 <br> TT Next Nobels</a></li>
 					</ul>
 				</li> 
@@ -49,7 +49,7 @@
 					
 				</li> 
 				<li class="dropdown bdr4">
-					<a href="#">Liên h? </a>
+					<a href="#">Liï¿½n h? </a>
 					
 				</li>
 			</ul>

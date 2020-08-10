@@ -1,3 +1,3 @@
 <div {attrs id, class, rel, title}>
-	{children all}
+	<?php $data->displayChildren('all') ?>
 </div>

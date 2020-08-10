@@ -15,7 +15,7 @@
     
     <div class="pm_paycard_title">Mua các gói dịch vụ của NextNobels</div>
     <div class="pm_paycard_content">
-        <form action="Post" id="frmService" onsubmit="pzk_{data.id}.buyService();return false;">
+        <form action="Post" id="frmService" onsubmit="pzk_<?php echo @$data->id?>.buyService();return false;">
           <div style="margin-left: 10px;">
           Bạn hãy lựa chọn các gói dịch vụ bên dưới rồi nhấn nút  " MUA " để hoàn thành.
         </div>
@@ -35,7 +35,7 @@
           ?>
           <div class="clear"></div>
           <div class="checkbox">
-            <label><input type="checkbox" name="id[{item[id]}]" value="{price}">{item[serviceName]} Giá: {item[amount]} VNĐ
+            <label><input type="checkbox" name="id[<?php echo @$item['id']?>]" value="<?php echo $price ?>"><?php echo @$item['serviceName']?> Giá: <?php echo @$item['amount']?> VNĐ
             <?php 
               if(isset($discount[$item['id']])){
                 $price=$item['amount'] -$item['amount']* $discount[$item['id']]['discount']/100;

@@ -15,10 +15,10 @@
      <div class="pfr_avatar_wall"><?php echo $data->checkAvatar($userId) ?></div> 
      <div class="prf_titlenote" style="width:30%; height: auto; float:left;">
        <a href="/profile/profileusercontent?member=<?php echo $userId; ?>" ><?php echo $username ?></a>
-       <br><span>{comment_note[date]}</span>
+       <br><span><?php echo @$comment_note['date']?></span>
      </div>
-     <div class="prf_titlenote"><span>id: </span>{comment_note[id]}  </div>  
-    <div class="prf_titlenote" style="width:30%; height: auto; float:left;">{comment_note[comment]}</div>
+     <div class="prf_titlenote"><span>id: </span><?php echo @$comment_note['id']?>  </div>  
+    <div class="prf_titlenote" style="width:30%; height: auto; float:left;"><?php echo @$comment_note['comment']?></div>
     <div class="prf_titlenote"></div>
     </div>
 

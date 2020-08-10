@@ -14,8 +14,8 @@ footer-logos {text-align:center;}
 </style>
 <div class="footer-logos">
         <ul>
-		{each $gallerys as $gallery}
-            <li><img src="{gallery[url]}" alt="" style="width:80%; height:50%;"></li>
-        {/each}
+		<?php foreach($gallerys as $gallery): ?>
+            <li><img src="<?php echo @$gallery['url']?>" alt="" style="width:80%; height:50%;"></li>
+        <?php endforeach; ?>
         </ul>
 </div>

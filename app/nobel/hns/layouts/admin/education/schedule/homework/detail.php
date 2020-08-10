@@ -7,36 +7,36 @@ $classroomsHasHomeworkIds = array_map(function($classroom) {
 }, $classroomsHasHomework);
 $questions = $data->getQuestions();
 ?>
-<h2 class="text-center">{homework[name]}</h2>
+<h2 class="text-center"><?php echo @$homework['name']?></h2>
 <table class="table table-bordered">
 	<tr>
 		<td><strong>Thời gian</strong></td>
-		<td>{homework[time]} phút</td>
+		<td><?php echo @$homework['time']?> phút</td>
 		<td><strong>Môn học</strong></td>
-		<td>{homework[subject]}</td>
+		<td><?php echo @$homework['subject']?></td>
 		<td><strong>Số câu</strong></td>
-		<td>{homework[quantity]}</td>
+		<td><?php echo @$homework['quantity']?></td>
 	</tr>
 	<tr>
 		<td><strong>Tuần</strong></td>
-		<td>{homework[week]}</td>
+		<td><?php echo @$homework['week']?></td>
 		<td><strong>Tháng</strong></td>
-		<td>{homework[month]}</td>
+		<td><?php echo @$homework['month']?></td>
 		<td><strong>Học kỳ</strong></td>
-		<td>{homework[semester]}</td>
+		<td><?php echo @$homework['semester']?></td>
 	</tr>
 </table>
 <hr />
 <h3 class="text-center">Các lớp học phiếu bài tập này</h3>
 <table class="table table-condense table-hovered">
 <tr>
-{each $classrooms as $index => $classroom}
+<?php foreach($classrooms as $index => $classroom): ?>
 <td>
-<input type="checkbox" class="classroom_homework" name="classroom_homework[]" value="{classroom[id]}" {if in_array($classroom['id'], $classroomsHasHomeworkIds)}checked{/if} />
-	{classroom[schoolYear]} - {classroom[gradeNum]}{classroom[className]}
+<input type="checkbox" class="classroom_homework" name="classroom_homework[]" value="<?php echo @$classroom['id']?>" <?php if(in_array($classroom['id'], $classroomsHasHomeworkIds)): ?>checked<?php endif; ?> />
+	<?php echo @$classroom['schoolYear']?> - <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?>
 </td>
-{if ($index+1) % 4 == 0}</tr><tr>{/if}
-{/each}
+<?php if(($index+1) % 4 == 0): ?></tr><tr><?php endif; ?>
+<?php endforeach; ?>
 </tr>
 </table>
 <div class="text-center">
@@ -47,14 +47,14 @@ $questions = $data->getQuestions();
 <h3 class="text-center">Các câu hỏi</h3>
 <table class="table table-condense table-hovered table-bordered">
 
-{each $questions as $index => $question}
+<?php foreach($questions as $index => $question): ?>
 <tr>
-<td><input type="checkbox" class="classroom_homework_question" name="classroom_homework_question[]" value="{question[id]}" /></td>
-<td><a href="/Admin_Question2/detail/{question[id]}?backHref=<?php echo urlencode(BASE_REQUEST); ?>%2FAdmin_Schedule_Teacher%2Fhomework%2F{:rseg3}%2F{:rseg4}%2F{:rseg5}">Câu {? echo $index + 1; ?}{question[name_vn]}</a></td>
-<td><a class="btn btn-primary btn-xs" href="/Admin_Question2/edit/{question[id]}?backHref=<?php echo urlencode(BASE_REQUEST); ?>%2FAdmin_Schedule_Teacher%2Fhomework%2F{:rseg3}%2F{:rseg4}%2F{:rseg5}">Sửa</a></td>
-<td><a href="/Admin_Question2/del/{question[id]}?backHref=<?php echo urlencode(BASE_REQUEST); ?>%2FAdmin_Schedule_Teacher%2Fhomework%2F{:rseg3}%2F{:rseg4}%2F{:rseg5}">Xóa</a></td>
+<td><input type="checkbox" class="classroom_homework_question" name="classroom_homework_question[]" value="<?php echo @$question['id']?>" /></td>
+<td><a href="/Admin_Question2/detail/<?php echo @$question['id']?>?backHref=<?php echo urlencode(BASE_REQUEST); ?>%2FAdmin_Schedule_Teacher%2Fhomework%2F{:rseg3}%2F{:rseg4}%2F{:rseg5}">Câu <?php  echo $index + 1; ?><?php echo @$question['name_vn']?></a></td>
+<td><a class="btn btn-primary btn-xs" href="/Admin_Question2/edit/<?php echo @$question['id']?>?backHref=<?php echo urlencode(BASE_REQUEST); ?>%2FAdmin_Schedule_Teacher%2Fhomework%2F{:rseg3}%2F{:rseg4}%2F{:rseg5}">Sửa</a></td>
+<td><a href="/Admin_Question2/del/<?php echo @$question['id']?>?backHref=<?php echo urlencode(BASE_REQUEST); ?>%2FAdmin_Schedule_Teacher%2Fhomework%2F{:rseg3}%2F{:rseg4}%2F{:rseg5}">Xóa</a></td>
 </tr>
-{/each}
+<?php endforeach; ?>
 
 </table>
 <a class="btn btn-primary" href="/Admin_Question2/add?testId=,{:rseg5},&backHref=<?php echo urlencode(BASE_REQUEST); ?>%2FAdmin_Schedule_Teacher%2Fhomework%2F{:rseg3}%2F{:rseg4}%2F{:rseg5}">Thêm câu hỏi</a>
@@ -63,23 +63,23 @@ $questions = $data->getQuestions();
 
 	<ul class="nav nav-tabs">
 	{first = true}
-    {each $classrooms as $classroom}
-		{if !in_array($classroom['id'], $classroomsHasHomeworkIds)}
-			{continue}
-		{/if}
-	<li {if $first}class="active"{first = false}{/if}><a data-toggle="tab" href="#classroom-{classroom[id]}">Niên khóa {classroom[schoolYear]} Lớp {classroom[gradeNum]}{classroom[className]}</a></li>
-	{/each}
+    <?php foreach($classrooms as $classroom): ?>
+		<?php if(!in_array($classroom['id'], $classroomsHasHomeworkIds)): ?>
+			<?php continue; ?>
+		<?php endif; ?>
+	<li <?php if($first): ?>class="active"{first = false}<?php endif; ?>><a data-toggle="tab" href="#classroom-<?php echo @$classroom['id']?>">Niên khóa <?php echo @$classroom['schoolYear']?> Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?></a></li>
+	<?php endforeach; ?>
 	</ul>
 
   <div class="tab-content">
   {first = true}
-    {each $classrooms as $classroom}    
-		{if !in_array($classroom['id'], $classroomsHasHomeworkIds)}
-			{continue}
-		{/if}
+    <?php foreach($classrooms as $classroom): ?>    
+		<?php if(!in_array($classroom['id'], $classroomsHasHomeworkIds)): ?>
+			<?php continue; ?>
+		<?php endif; ?>
 			{students = $data->getStudentsOfClassroom($classroom['id'])}
-	<div id="classroom-{classroom[id]}" class="tab-pane fade {if $first}in active{first = false}{/if}">
-      <h3 class="text-center">Niên khóa {classroom[schoolYear]} Lớp {classroom[gradeNum]}{classroom[className]}</h3>
+	<div id="classroom-<?php echo @$classroom['id']?>" class="tab-pane fade <?php if($first): ?>in active{first = false}<?php endif; ?>">
+      <h3 class="text-center">Niên khóa <?php echo @$classroom['schoolYear']?> Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?></h3>
 		{subjects = $data->getSubjects($classroom['gradeNum'])}
 	  <table class="table table-condense table-hovered">
 		<tr>
@@ -91,19 +91,19 @@ $questions = $data->getQuestions();
 			<th>Trạng thái</th>
 		</tr>
 		
-		{each $students as $student}
+		<?php foreach($students as $student): ?>
 		<tr>
-			<th>{student[name]}</th>
+			<th><?php echo @$student['name']?></th>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
 		</tr>
-		{/each}
+		<?php endforeach; ?>
 	  </table>
     </div>
-	{/each}
+	<?php endforeach; ?>
   </div>
  <script>
  function addHomeworkToClassrooms() {

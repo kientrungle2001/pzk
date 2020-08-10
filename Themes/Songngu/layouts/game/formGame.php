@@ -35,7 +35,7 @@ $post = pzk_request();
 $getGameType = $post->get('gameType');
 $getTopic = $post->get('gameTopic');
 ?>
-{children [position=public-header}
+<?php $data->displayChildren('[position=public-header') ?>
 <div class="container">
 	<div class='well'> 
 		<form id = 'form_game' name="form_game" method="get" >
@@ -45,9 +45,9 @@ $getTopic = $post->get('gameTopic');
 					<?php if(isset($gameType)) { ?>
 						<select class="form-control input-sm" name="gameType" id="gameType">
 							<option value="">Choose game</option>
-							{each $gameType as $topic}
-							<option <?php if(isset($getGameType) && ($getGameType == $topic['gamecode'])){ echo 'selected';} ?> value="{topic[gamecode]}"><?php echo $topic['game_type']; ?></option>
-							{/each}
+							<?php foreach($gameType as $topic): ?>
+							<option <?php if(isset($getGameType) && ($getGameType == $topic['gamecode'])){ echo 'selected';} ?> value="<?php echo @$topic['gamecode']?>"><?php echo $topic['game_type']; ?></option>
+							<?php endforeach; ?>
 						</select>
 					<?php } ?>
 
@@ -59,12 +59,12 @@ $getTopic = $post->get('gameTopic');
 						<label  for="">Topic</label>
 						<select class="form-control input-sm" name="gameTopic" id="gameTopic">
 							<option value="">-- Choose topic </option>
-							{each $gameTopic as $parent}
+							<?php foreach($gameTopic as $parent): ?>
 							<option <?php if(isset($getTopic) && ($getTopic == $parent['id'])){ echo 'selected';} ?> value="<?php echo $parent['id']; ?>" >
 								<?php echo str_repeat('--', $parent['level']);  ?>
 								<?php echo $parent['game_topic']; ?>
 							</option>
-							{/each}
+							<?php endforeach; ?>
 
 						</select>
 					</div>

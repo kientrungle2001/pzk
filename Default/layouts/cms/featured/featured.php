@@ -18,12 +18,12 @@
 	   <h4 class="text-center"><span class="label label-primary">Các bài viết hay</span></h4>  
        <div class="title">
 <?php $featured= $data->getItems(); ?>
-		{each $featured as $title}
+		<?php foreach($featured as $title): ?>
 			<div>
 			<span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
-			<a href="/featured/detail?id={title[id]}"><span class="label label-primary"> {title2[title]}  {title[title]}</span></a>
+			<a href="/featured/detail?id=<?php echo @$title['id']?>"><span class="label label-primary"> <?php echo @$title2['title']?>  <?php echo @$title['title']?></span></a>
 			</div>
-        {/each}
+        <?php endforeach; ?>
        </div>
 	    <p class="text-center more"><a href="/featured/subfeatured"><span class="label label-primary">Xem thêm</span></a></p>
      </div>

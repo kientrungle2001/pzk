@@ -22,59 +22,59 @@
 		if($level == 1 or $level == '1' ){
 			$vocabulary = $data->getItemsSN($subjectId, $check, $class); 
 		 ?>
-		{each $vocabulary as $item}
-		<li class="list-group-item"><a href="" class="getdata2" onclick="showdoc({item[id]},{item[trial]}); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>{item[title]}</a></li>
-		{/each}
+		<?php foreach($vocabulary as $item): ?>
+		<li class="list-group-item"><a href="" class="getdata2" onclick="showdoc(<?php echo @$item['id']?>,<?php echo @$item['trial']?>); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?><?php echo @$item['title']?></a></li>
+		<?php endforeach; ?>
 		<?php }elseif($level == 2 or $level == '2' ){ 
 			$topics = $data->getChildSN($subjectId, $check, $class);
 		?>
 		<?php
 			$vocabulary = $data->getItemsVocabularySN($subjectId, $check, $class);
 		?>
-		{each $vocabulary as $item}
-		<li class="list-group-item"><a href="" onclick="showdoc({item[id]},{item[trial]}); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>{item[title]}</a></li>
-		{/each}
-		{each $topics as $topic}
-		<li class="list-group-item" style="color:#d9534f"><?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>{topic[name]}</li>
+		<?php foreach($vocabulary as $item): ?>
+		<li class="list-group-item"><a href="" onclick="showdoc(<?php echo @$item['id']?>,<?php echo @$item['trial']?>); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?><?php echo @$item['title']?></a></li>
+		<?php endforeach; ?>
+		<?php foreach($topics as $topic): ?>
+		<li class="list-group-item" style="color:#d9534f"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?><?php echo @$topic['name']?></li>
 		<?php 
 			$vocabulary = $data->getItemsVocabularySN($topic['id'], $check, $class); 
 			
 		?>
-		{each $vocabulary as $item}
-		<li class="list-group-item"><a href="" class="getdata2" onclick="showdoc({item[id]},{item[trial]}); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>{item[title]}</a></li>
-		{/each}
-		{/each}
+		<?php foreach($vocabulary as $item): ?>
+		<li class="list-group-item"><a href="" class="getdata2" onclick="showdoc(<?php echo @$item['id']?>,<?php echo @$item['trial']?>); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?><?php echo @$item['title']?></a></li>
+		<?php endforeach; ?>
+		<?php endforeach; ?>
 		<?php } elseif($level == 3 or $level == '3'){ 
 		$topics = $data->getChildSN($subjectId, $check, $class);
 		?>
 		<?php
 			$vocabulary = $data->getItemsVocabularySN($subjectId, $check, $class);
 		?>
-		{each $vocabulary as $item}
-		<li class="list-group-item"><a href="" onclick="showdoc({item[id]},{item[trial]}); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>{item[title]}</a></li>
-		{/each}
-		{each $topics as $topic}
-			<li class="left10 list-group-item" style="color:#d9534f"><?php if(pzk_user_special()): ?>#{topic[id]} - <?php endif; ?>{topic[name]}</li>
+		<?php foreach($vocabulary as $item): ?>
+		<li class="list-group-item"><a href="" onclick="showdoc(<?php echo @$item['id']?>,<?php echo @$item['trial']?>); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?><?php echo @$item['title']?></a></li>
+		<?php endforeach; ?>
+		<?php foreach($topics as $topic): ?>
+			<li class="left10 list-group-item" style="color:#d9534f"><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?> - <?php endif; ?><?php echo @$topic['name']?></li>
 			<?php $subTopics = $data->getChild($topic['id'], $check, $class);?>
 			<?php if(count($subTopics)==0): ?>
 			<?php 
 				$vocabulary = $data->getItemsVocabularySN($topic['id'], $check, $class); 
 			?>
-			{each $vocabulary as $item}
-			<li class="left20 list-group-item"><a style="padding-left: 50px;" href="" class="getdata2" onclick="showdoc({item[id]},{item[trial]}); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>{item[title]}</a></li>
-			{/each}
+			<?php foreach($vocabulary as $item): ?>
+			<li class="left20 list-group-item"><a style="padding-left: 50px;" href="" class="getdata2" onclick="showdoc(<?php echo @$item['id']?>,<?php echo @$item['trial']?>); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?><?php echo @$item['title']?></a></li>
+			<?php endforeach; ?>
 			<?php else:?>
-			{each $subTopics as $subTopic}
-				<li class="left20 list-group-item" style="color:#d9534f"><?php if(pzk_user_special()): ?>#{subTopic[id]} - <?php endif; ?>{subTopic[name]}</li>
+			<?php foreach($subTopics as $subTopic): ?>
+				<li class="left20 list-group-item" style="color:#d9534f"><?php if(pzk_user_special()): ?>#<?php echo @$subTopic['id']?> - <?php endif; ?><?php echo @$subTopic['name']?></li>
 				<?php 
 					$vocabulary = $data->getItemsVocabularySN($subTopic['id'], $check, $class); 
 				?>
-				{each $vocabulary as $item}
-				<li class="left30 list-group-item"><a style="padding-left: 50px;" href="" class="getdata2" onclick="showdoc({item[id]},{item[trial]}); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#{item[id]} - <?php endif; ?>{item[title]}</a></li>
-				{/each}
-			{/each}
+				<?php foreach($vocabulary as $item): ?>
+				<li class="left30 list-group-item"><a style="padding-left: 50px;" href="" class="getdata2" onclick="showdoc(<?php echo @$item['id']?>,<?php echo @$item['trial']?>); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?> - <?php endif; ?><?php echo @$item['title']?></a></li>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
 			<?php endif;?>
-		{/each}	
+		<?php endforeach; ?>	
 		<?php } ?>
 	</ul>
 </div>
@@ -88,11 +88,11 @@
 		if (typeof CountDown != 'undefined') {
 			CountDown.Pause();
 		}
-		var check = '{check}';
-		var cate = '{cate}';
+		var check = '<?php echo $check ?>';
+		var cate = '<?php echo $cate ?>';
 		if(check == 1 || trial == 1){
 		$('.imgbg').css('background', 'white');
-		$(".change").load(BASE_REQUEST + "/Practice/vocabulary/"+{item[categoryId]}+"?class=&id="+id, function() {
+		$(".change").load(BASE_REQUEST + "/Practice/vocabulary/"+<?php echo @$item['categoryId']?>+"?class=&id="+id, function() {
 			//mobilecheck(), mobileAndTabletcheck()
 		
 			$('.change table').addClass('tableitem').addClass('table').addClass('table-bordered');

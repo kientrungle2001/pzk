@@ -4,7 +4,7 @@ $classroom = $data->getClassroom();
 $classrooms = $data->getClassrooms();
 $homeworks = $data->getHomeworks();
 ?>
-<h1 class="text-center">Lớp {classroom[gradeNum]}{classroom[className]} Niên khóa {classroom[schoolYear]}</h1>
+<h1 class="text-center">Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> Niên khóa <?php echo @$classroom['schoolYear']?></h1>
 <div class="row">
 <div class="col-md-4">
 <h2>Tìm kiếm</h2>
@@ -36,25 +36,25 @@ $addHref = BASE_REQUEST . '/Admin_Schedule_Teacher/addHomeworkToClassroom/' . $c
 		<th>Học kỳ</th>
 		<th colspan="2">Hành động</th>
 	</tr>
-{each $homeworks as $homework}
+<?php foreach($homeworks as $homework): ?>
 <?php if(pzk_session()->getAdminLevel() == 'Teacher') : 
 	if(strpos($homework['teacherIds'], ',' . pzk_session()->getAdminId() . ',') === false) 
 		continue;
 endif;?>
 	<tr>
-		<td><input class="homework_checkbox" type="checkbox" name="homeworks[]" value="{homework[id]}" /></td>
-		<td><a href="/Admin_Schedule_Teacher/homework/{homework[classroomId]}/{homework[id]}/{homework[homeworkId]}">{homework[name]}</a></td>
-		<td>{homework[subject]}</td>
-		<td>{homework[week]}</td>
-		<td>{homework[month]}</td>
-		<td>{homework[semester]}</td>
+		<td><input class="homework_checkbox" type="checkbox" name="homeworks[]" value="<?php echo @$homework['id']?>" /></td>
+		<td><a href="/Admin_Schedule_Teacher/homework/<?php echo @$homework['classroomId']?>/<?php echo @$homework['id']?>/<?php echo @$homework['homeworkId']?>"><?php echo @$homework['name']?></a></td>
+		<td><?php echo @$homework['subject']?></td>
+		<td><?php echo @$homework['week']?></td>
+		<td><?php echo @$homework['month']?></td>
+		<td><?php echo @$homework['semester']?></td>
 		<td>
-		<a class="btn btn-primary btn-xs" href="/Admin_Test/edit/{homework[homeworkId]}?backHref=<?php echo urlencode($href);?>">Sửa</a>
+		<a class="btn btn-primary btn-xs" href="/Admin_Test/edit/<?php echo @$homework['homeworkId']?>?backHref=<?php echo urlencode($href);?>">Sửa</a>
 		</td>
 		<td>
-		<button class="btn btn-danger btn-xs" onclick="removeHomeworkFromClassroom({homework[id]}); return false;">Xóa</button></td>
+		<button class="btn btn-danger btn-xs" onclick="removeHomeworkFromClassroom(<?php echo @$homework['id']?>); return false;">Xóa</button></td>
 	</tr>
-{/each}
+<?php endforeach; ?>
 </table>
 
 <form class="form form-inline">
@@ -80,14 +80,14 @@ endif;?>
 	}
 	$addTestParams = 'homework=0&hidden_homework=1&hidden_trytest=1&hidden_compability=1&hidden_parent=1';
 	?>
-	<a class="btn btn-primary" href="/Admin_Test/add?{addDefaultParams}{teacherParams}&backHref=<?php echo urlencode($addHref);?>">Thêm Phiếu Bài tập</a>
-	<a class="btn btn-success" href="/Admin_Test/add?{addDefaultParams}{teacherParams}&backHref=<?php echo urlencode($addHref);?>">Thêm Đề kiểm tra</a>
+	<a class="btn btn-primary" href="/Admin_Test/add?<?php echo $addDefaultParams ?><?php echo $teacherParams ?>&backHref=<?php echo urlencode($addHref);?>">Thêm Phiếu Bài tập</a>
+	<a class="btn btn-success" href="/Admin_Test/add?<?php echo $addDefaultParams ?><?php echo $teacherParams ?>&backHref=<?php echo urlencode($addHref);?>">Thêm Đề kiểm tra</a>
 	<div class="hidden">
 	<select	id="classrooms" class="form-control">
 		<option value="">Chọn lớp</option>
-		{each $classrooms as $cr}
-		<option value="{cr[id]}">Niên khóa {cr[schoolYear]} - Lớp {cr[gradeNum]}{cr[className]}</option>
-		{/each}
+		<?php foreach($classrooms as $cr): ?>
+		<option value="<?php echo @$cr['id']?>">Niên khóa <?php echo @$cr['schoolYear']?> - Lớp <?php echo @$cr['gradeNum']?><?php echo @$cr['className']?></option>
+		<?php endforeach; ?>
 	</select>
 	<button class="btn btn-warning" onclick="addHomeworksToOtherClassroom(); return false;">Chuyển lớp</button>
 	</div>
@@ -98,7 +98,7 @@ endif;?>
 function searchHomeworks() {
 	var formData = $('#searchForm').serializeForm();
 	$.ajax({
-		url: '/Admin_Schedule_Teacher/searchHomework/{classroom[gradeNum]}<?php if($teacherSubject):?>/{teacherSubject[subjectId]}<?php endif;?>',
+		url: '/Admin_Schedule_Teacher/searchHomework/<?php echo @$classroom['gradeNum']?><?php if($teacherSubject):?>/<?php echo @$teacherSubject['subjectId']?><?php endif;?>',
 		data: formData,
 		success: function(homeworks) {
 			$('#searchResult').html(homeworks);
@@ -110,7 +110,7 @@ function addHomeworkToClassroom(homeworkId) {
 	$.ajax({
 		url: '/Admin_Schedule_Teacher/addHomework',
 		data: {
-			classroomId: {classroom[id]},
+			classroomId: <?php echo @$classroom['id']?>,
 			homeworkId: homeworkId,
 		},
 		type: 'POST',

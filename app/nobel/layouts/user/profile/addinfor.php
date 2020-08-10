@@ -178,9 +178,9 @@
                                                     $areacode=_db()->getEntity('User.Account.User');
                                                     $areas= $areacode->loadArea();
                                                 ?>
-                                                {each $areas as $area}
+                                                <?php foreach($areas as $area): ?>
                                                 <option value="<?php echo $area['id']; ?>"><?php   echo $area['name']; ?></option>
-                                                {/each}
+                                                <?php endforeach; ?>
 
                                     </select>
                                 </div>

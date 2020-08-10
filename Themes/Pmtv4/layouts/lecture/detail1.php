@@ -8,8 +8,8 @@ $videojsEnabled = 0;
 ?>
 <div class="lecture-region">
 	<div class="container">
-		{? if($item['video'] || $item['content']):?}
-		<h1 class="text-center font-larger">Bài giảng: {item[name]}</h1>
+		<?php  if($item['video'] || $item['content']):?>
+		<h1 class="text-center font-larger">Bài giảng: <?php echo @$item['name']?></h1>
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2 col-xs-12 box news-box">
 				<!--h3 class="text-center font-large color-white padding-10">Bài giảng</h3-->
@@ -27,7 +27,7 @@ $videojsEnabled = 0;
 							  
 							  ?>
 							  <?php if($i !== 0): ?>
-							<option value="{i}"><?php echo @$item['video'. $i.'_title']?></option>
+							<option value="<?php echo $i ?>"><?php echo @$item['video'. $i.'_title']?></option>
 							<?php else: ?>
 								<option value=""><?php echo @$item['video_title']?></option>
 							<?php endif;?>
@@ -36,10 +36,10 @@ $videojsEnabled = 0;
 					</div>
 					<div class="form-group col-xs-12 col-sm-6">
 						<select id="other-topic-select" class="form-control {cssclass select-background}" onchange="window.location=$(this).val();">
-							<option>Chọn Bài giảng khác trong mục {?php echo $otherSections[0]['name']; ?}</option>
-							{each $otherSections as $other}
-							<option value="/{other[alias]}" <?php if($other['alias'] == $item['alias']):?>selected="selected"<?php endif;?>><?php echo str_repeat('--', @$other['level']-1); ?>{other[name]}</option>
-							{/each}
+							<option>Chọn Bài giảng khác trong mục <?php php echo $otherSections[0]['name']; ?></option>
+							<?php foreach($otherSections as $other): ?>
+							<option value="/<?php echo @$other['alias']?>" <?php if($other['alias'] == $item['alias']):?>selected="selected"<?php endif;?>><?php echo str_repeat('--', @$other['level']-1); ?><?php echo @$other['name']?></option>
+							<?php endforeach; ?>
 						</select>
 					</div>
 				</div>
@@ -67,7 +67,7 @@ $videojsEnabled = 0;
 					<?php if(0):?>
 					<video id="my-video" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" width="700" height="390"
 					  poster="<?php echo pzk_or(@$item['video_image'], '/Themes/pmtv4/skin/media/video-player.png'); ?>" data-setup="{}">
-						<source src="/stream/video/<?php echo $file;?>/{time}/{token}/" type='video/mp4'>
+						<source src="/stream/video/<?php echo $file;?>/<?php echo $time ?>/<?php echo $token ?>/" type='video/mp4'>
 						<!--source src="MY_VIDEO.webm" type='video/webm'-->
 						<p class="vjs-no-js">
 						  To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -75,28 +75,28 @@ $videojsEnabled = 0;
 						</p>
 					</video>
 					<?php else: ?>
-					<iframe border="0" style="width: 100%; height: 400px;" src="{? echo PMTV4_URL; ?}/demo.php?video=video-{file}-0"></iframe>
+					<iframe border="0" style="width: 100%; height: 400px;" src="<?php  echo PMTV4_URL; ?>/demo.php?video=video-<?php echo $file ?>-0"></iframe>
 					<?php endif; ?>
 					<a class="enter-fullscreen btn btn-primary" href="#" onclick="$('#video .vjs-fullscreen-control').click(); return false;">Xem toàn màn hình</a>
 				  </div>
 				  <?php for($i = 1; $i < 6; $i++):
 				  if(!@$item['video'. $i]) continue;
 				  ?>
-				  <div id="video{i}" class="video-wrapper" style="display: none;">
+				  <div id="video<?php echo $i ?>" class="video-wrapper" style="display: none;">
 					<?php if($videojsEnabled):?>
-					<video id="my-video-{i}" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" width="700" height="390"
+					<video id="my-video-<?php echo $i ?>" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" width="700" height="390"
 					  poster="<?php echo pzk_or(@$item['video'.$i.'_image'], '/Themes/pmtv4/skin/media/video-player.png'); ?>" data-setup="{}">
-						<source src="/stream/video/<?php echo $file;?>/{time}/{token}/{i}" type='video/mp4'>
+						<source src="/stream/video/<?php echo $file;?>/<?php echo $time ?>/<?php echo $token ?>/<?php echo $i ?>" type='video/mp4'>
 						<!--source src="MY_VIDEO.webm" type='video/webm'-->
 						<p class="vjs-no-js">
 						  To view this video please enable JavaScript, and consider upgrading to a web browser that
 						  <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
 						</p>
 					</video>
-					<iframe border="0" style="width: 100%; height: 400px;" src="{? echo PMTV4_URL; ?}/demo.php?video=video-{file}-{i}"></iframe>
+					<iframe border="0" style="width: 100%; height: 400px;" src="<?php  echo PMTV4_URL; ?>/demo.php?video=video-<?php echo $file ?>-<?php echo $i ?>"></iframe>
 					<?php endif; ?>
 					
-					<a class="enter-fullscreen btn btn-primary" href="#" onclick="$('#video{i} .vjs-fullscreen-control').click(); return false;">Xem toàn màn hình</a>
+					<a class="enter-fullscreen btn btn-primary" href="#" onclick="$('#video<?php echo $i ?> .vjs-fullscreen-control').click(); return false;">Xem toàn màn hình</a>
 				  </div>
 				  <?php endfor;?>
 				</div>
@@ -126,17 +126,17 @@ $videojsEnabled = 0;
 				<?php for($i = 1; $i < 6; $i++):
 				$nextI = $i+1;
 				?>
-				var video{i} = videojs('my-video-{i}').ready(function(){
+				var video<?php echo $i ?> = videojs('my-video-<?php echo $i ?>').ready(function(){
 				  var player = this;
 
 				  player.on('ended', function() {
-					var video{nextI} = videojs('my-video-{nextI}');
-					$('#video-select').val('{nextI}');
+					var video<?php echo $nextI ?> = videojs('my-video-<?php echo $nextI ?>');
+					$('#video-select').val('<?php echo $nextI ?>');
 					$('#video-select').change();
-					video{nextI}.play();
+					video<?php echo $nextI ?>.play();
 					setTimeout(function() {
-						$('#video{i} .vjs-fullscreen-control').click();
-						$('#video{nextI} .vjs-fullscreen-control').click();
+						$('#video<?php echo $i ?> .vjs-fullscreen-control').click();
+						$('#video<?php echo $nextI ?> .vjs-fullscreen-control').click();
 					}, 1000);
 				  });
 				});
@@ -147,7 +147,7 @@ $videojsEnabled = 0;
 				<script>
 				function select_video(videoIndex) {
 					if(!videoIndex) videoIndex = '0';
-					$('#video' + videoIndex).html('<iframe border="0" style="width: 100%; height: 400px;" src="{? echo PMTV4_URL; ?}/demo.php?video=video-{file}-'+videoIndex+'"></iframe>');
+					$('#video' + videoIndex).html('<iframe border="0" style="width: 100%; height: 400px;" src="<?php  echo PMTV4_URL; ?>/demo.php?video=video-<?php echo $file ?>-'+videoIndex+'"></iframe>');
 				}
 				</script>
 				<?php endif;?>
@@ -159,18 +159,18 @@ $videojsEnabled = 0;
     background: #00ADEF;
     border-bottom: 1px solid #00ADEF;" />
 				</div>
-				{item[content]}
+				<?php echo @$item['content']?>
 				<?php endif;?>
 				<?php endif;?>
 				
 			</div>
 		</div>
 		</div>
-		{/if}
+		<?php endif; ?>
 		<div class="clear"></div>
 		
 		<?php if($exercises):?>
-		<h1 id="practice-section" class="text-center font-larger">Bài tập - {item[name]}</h1>
+		<h1 id="practice-section" class="text-center font-larger">Bài tập - <?php echo @$item['name']?></h1>
 		
 		<div class="row">
 		<div class="col-sm-10 col-sm-offset-1 col-xs-12">
@@ -178,17 +178,17 @@ $videojsEnabled = 0;
 				<div class="row">
 					<div class="form-group col-xs-12 col-sm-5">
 						<select id="lecture-select" class="form-control {cssclass select-background}">
-							<option disabled="disabled">Chọn dạng bài tập {?php echo $otherSections[0]['name']; ?}</option>
-							{each $otherSections as $other}
-							<option value="/{other[alias]}" <?php if($other['alias'] == $item['alias']):?>selected="selected"<?php endif;?>><?php echo str_repeat('--', $other['level']-1); ?>{other[name]}</option>
-							{/each}
+							<option disabled="disabled">Chọn dạng bài tập <?php php echo $otherSections[0]['name']; ?></option>
+							<?php foreach($otherSections as $other): ?>
+							<option value="/<?php echo @$other['alias']?>" <?php if($other['alias'] == $item['alias']):?>selected="selected"<?php endif;?>><?php echo str_repeat('--', $other['level']-1); ?><?php echo @$other['name']?></option>
+							<?php endforeach; ?>
 						</select>
 					</div>
 					<div class="form-group col-xs-12 col-sm-5">
 						<select id="lecture-detail-select" style="border: 2px solid yellow;" class="form-control {cssclass select-background}">
 							<option value="">Chọn bài tập</option>
 							<?php for($i = 1; $i <= $exercises; $i++) :?>
-							<option value="{i}">Bài {i}</option>
+							<option value="<?php echo $i ?>">Bài <?php echo $i ?></option>
 							<?php endfor; ?>
 						</select>
 					</div>
@@ -280,65 +280,65 @@ $videojsEnabled = 0;
 						$index = 1;
 						$questionIds = array();
 						?>
-						{each $questions as $question}
+						<?php foreach($questions as $question): ?>
 						<div class="row">
 							<div class="col-xs-offset-1 col-xs-10 relative">
-								<span class="absolute inline-block circle color-white font-large" style="width: 40px; height: 40px; background: #5E2083; padding-left: 16px; padding-top: 10px; border-radius: 50%; top: 0px; left: -35px;">{index}</span> <div style="padding-top: 5px;">{question[name]}</div><div class="clear"></div>
+								<span class="absolute inline-block circle color-white font-large" style="width: 40px; height: 40px; background: #5E2083; padding-left: 16px; padding-top: 10px; border-radius: 50%; top: 0px; left: -35px;"><?php echo $index ?></span> <div style="padding-top: 5px;"><?php echo @$question['name']?></div><div class="clear"></div>
 							</div>
 						</div>
-						{? 
+						<?php  
 						$questionIds[] = $question['id'];
-						$answers = $data->getAnswers($question); ?}
-						{? if(count($answers) == 1) { ?}
-							<input type="hidden" name="question_types[{question[id]}]" value="<?php echo QUESTION_TYPE_FILL; ?>" />
+						$answers = $data->getAnswers($question); ?>
+						<?php  if(count($answers) == 1) { ?>
+							<input type="hidden" name="question_types[<?php echo @$question['id']?>]" value="<?php echo QUESTION_TYPE_FILL; ?>" />
 							<div class="row">
 								<div class="col-xs-offset-1 col-xs-10 answer-item">
 									<div class="left-20 top-10">
-									<label for="answers_{question[id]}_{answer[id]}" class="font-normal inline float-left">Nhập đáp án: &nbsp;&nbsp;&nbsp;</label>
-									<input class="margin-0 padding-0 block" style="margin: 0; padding: 0;" id="answers_{question[id]}_{answer[id]}" type="text" name="answers[{question[id]}]" />
+									<label for="answers_<?php echo @$question['id']?>_<?php echo @$answer['id']?>" class="font-normal inline float-left">Nhập đáp án: &nbsp;&nbsp;&nbsp;</label>
+									<input class="margin-0 padding-0 block" style="margin: 0; padding: 0;" id="answers_<?php echo @$question['id']?>_<?php echo @$answer['id']?>" type="text" name="answers[<?php echo @$question['id']?>]" />
 									
 									<div class="clear"></div>
 									</div>
 								</div>
 								
 								<div class="col-xs-offset-1 col-xs-10 form-group question-explaination hidden">
-									<button onclick="$('#explaination_{question[id]}').toggleClass('hidden');" type="button" class="btn btn-success">
+									<button onclick="$('#explaination_<?php echo @$question['id']?>').toggleClass('hidden');" type="button" class="btn btn-success">
 										<span class="glyphicon glyphicon-search"></span> Giải thích
 									</button>
-									<div id="explaination_{question[id]}" class="well hidden font-normal"></div>
+									<div id="explaination_<?php echo @$question['id']?>" class="well hidden font-normal"></div>
 								</div>
 							</div>
-						{? } else { ?}
-						<input type="hidden" name="question_types[{question[id]}]" value="<?php echo QUESTION_TYPE_CHOICE; ?>" />
+						<?php  } else { ?>
+						<input type="hidden" name="question_types[<?php echo @$question['id']?>]" value="<?php echo QUESTION_TYPE_CHOICE; ?>" />
 						<div class="row">
 							
-							{each $answers as $answer}
+							<?php foreach($answers as $answer): ?>
 							<div class="col-xs-offset-1 col-xs-10 answer-item">
 								<div class="left-20 top-10">
-								<span class="block circle float-left right-5" style="border: 1px solid purple; width: 14px; height: 14px;"><input class="margin-0 padding-0 block" style="margin: 0; padding: 0;" id="answers_{question[id]}_{answer[id]}" type="radio" name="answers[{question[id]}]" value="{answer[id]}" /></span> <label for="answers_{question[id]}_{answer[id]}" class="font-normal inline">{answer[content]}</label>
+								<span class="block circle float-left right-5" style="border: 1px solid purple; width: 14px; height: 14px;"><input class="margin-0 padding-0 block" style="margin: 0; padding: 0;" id="answers_<?php echo @$question['id']?>_<?php echo @$answer['id']?>" type="radio" name="answers[<?php echo @$question['id']?>]" value="<?php echo @$answer['id']?>" /></span> <label for="answers_<?php echo @$question['id']?>_<?php echo @$answer['id']?>" class="font-normal inline"><?php echo @$answer['content']?></label>
 								<div class="clear"></div>
 								</div>
 							</div>
-							{/each}
+							<?php endforeach; ?>
 							
 							<div class="col-xs-offset-1 col-xs-10 form-group question-explaination hidden">
-								<button onclick="$('#explaination_{question[id]}').toggleClass('hidden');" type="button" class="btn btn-success">
+								<button onclick="$('#explaination_<?php echo @$question['id']?>').toggleClass('hidden');" type="button" class="btn btn-success">
 									<span class="glyphicon glyphicon-search"></span> Giải thích
 								</button>
-								<div id="explaination_{question[id]}" class="well hidden font-normal"></div>
+								<div id="explaination_<?php echo @$question['id']?>" class="well hidden font-normal"></div>
 							</div>
 						</div>
-						{? } ?}
+						<?php  } ?>
 						
 						
-						{? $index++; ?}
-						{/each}
+						<?php  $index++; ?>
+						<?php endforeach; ?>
 						<div class="row">
 							<div class="col-xs-12 form-group text-center">
-								<input type="hidden" name="categoryId" value="{item[id]}" />
-								<input type="hidden" name="quantity" value="{? echo ($index-1); ?}" />
-								<input type="hidden" name="exerciseNum" value="{? echo pzk_request('exerciseNum'); ?}" />
-								<input type="hidden" name="questionIds" value="{? echo implode(',', $questionIds); ?}" />
+								<input type="hidden" name="categoryId" value="<?php echo @$item['id']?>" />
+								<input type="hidden" name="quantity" value="<?php  echo ($index-1); ?>" />
+								<input type="hidden" name="exerciseNum" value="<?php  echo pzk_request('exerciseNum'); ?>" />
+								<input type="hidden" name="questionIds" value="<?php  echo implode(',', $questionIds); ?>" />
 								<button id="saveChoiceBtn" type="submit" class="btn btn-primary">
 									<span class="glyphicon glyphicon-ok"></span> Hoàn thành
 								</button>
@@ -392,11 +392,11 @@ $videojsEnabled = 0;
 			</div>
 			
 			<script type="text/javascript">
-				pzk.beforeload('{data.id}', function() {
-					this.setUrl('/{item[alias]}');
+				pzk.beforeload('<?php echo @$data->id?>', function() {
+					this.setUrl('/<?php echo @$item['alias']?>');
 					this.selectExerciseNum('<?php echo pzk_request('exerciseNum'); ?>');
 				});
-				pzk.onload('{data.id}', function() {
+				pzk.onload('<?php echo @$data->id?>', function() {
 					// do nothing
 				});
 			</script>

@@ -10,39 +10,39 @@ if($package) {
 }
 
 ?>
-<strong>{package}</strong>
+<strong><?php echo $package ?></strong>
 <table class="table">
 <?php if($package): ?>
-	<tr><td><a href="/Admin_Editor?package={upPackage}">..</a></td></tr>
+	<tr><td><a href="/Admin_Editor?package=<?php echo $upPackage ?>">..</a></td></tr>
 <?php endif; ?>
-{each $dirs as $dir}
+<?php foreach($dirs as $dir): ?>
 <tr><td>
 <?php if($package): ?>
-	<a href="/Admin_Editor?package={package}/{dir}">{dir}</a><br />
+	<a href="/Admin_Editor?package=<?php echo $package ?>/<?php echo $dir ?>"><?php echo $dir ?></a><br />
 <?php else: ?>
-	<a href="/Admin_Editor?package={dir}">{dir}</a><br />
+	<a href="/Admin_Editor?package=<?php echo $dir ?>"><?php echo $dir ?></a><br />
 <?php endif; ?>
 </td></tr>
-{/each}
+<?php endforeach; ?>
 </table>
 <table class="table">
-{each $objects as $object}
+<?php foreach($objects as $object): ?>
 	<?php preg_match('/objects\/(.*)\.php/', $object, $match);
 	$parts = explode('/', $match[1]);
 	$fileName = array_pop($parts);
 	?>
 	<tr>
-	<td style="color: green;">{fileName}</td>
-	<td><a href="/Admin_Editor/edit?object={match[1]}&type=object"><img src="/default/images/icon/object.gif" style="width: 24px; height: 24px;" /></a></td>
-	<td><a href="/Admin_Editor/edit?object={match[1]}&type=layout"><img src="/default/images/icon/layout.png" style="width: 24px; height: 24px;" /></a></td>
-	<td><a href="/Admin_Editor/edit?object={match[1]}&type=js"><img src="/default/images/icon/js.png" style="width: 24px; height: 24px;" /></a></td>
-	<td><a href="/Admin_Editor/edit?object={match[1]}&type=css"><img src="/default/images/icon/css.png" style="width: 24px; height: 24px;" /></a></td>
+	<td style="color: green;"><?php echo $fileName ?></td>
+	<td><a href="/Admin_Editor/edit?object=<?php echo @$match['1']?>&type=object"><img src="/default/images/icon/object.gif" style="width: 24px; height: 24px;" /></a></td>
+	<td><a href="/Admin_Editor/edit?object=<?php echo @$match['1']?>&type=layout"><img src="/default/images/icon/layout.png" style="width: 24px; height: 24px;" /></a></td>
+	<td><a href="/Admin_Editor/edit?object=<?php echo @$match['1']?>&type=js"><img src="/default/images/icon/js.png" style="width: 24px; height: 24px;" /></a></td>
+	<td><a href="/Admin_Editor/edit?object=<?php echo @$match['1']?>&type=css"><img src="/default/images/icon/css.png" style="width: 24px; height: 24px;" /></a></td>
 	</tr>
-{/each}
+<?php endforeach; ?>
 <tr>
 	<td colspan="5">
 	<?php if($package): ?>
-	<a href="/Admin_Editor/add?package={package}">Tạo mới</a><br />
+	<a href="/Admin_Editor/add?package=<?php echo $package ?>">Tạo mới</a><br />
 	<?php else: ?>
 		<a href="/Admin_Editor/add?package=">Tạo mới</a><br />
 	<?php endif; ?>

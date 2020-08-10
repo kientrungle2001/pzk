@@ -19,19 +19,19 @@
     <div class="prf_clear"> </div>
     <div class="title_detail"><strong>Nội dung: </strong>{note.getContentnote()}</div>
     <div class="clear"></div>
-    <div class="titel_time">Vào lúc: {date[1]} Ngày {date[0]}</div> 
+    <div class="titel_time">Vào lúc: <?php echo @$date['1']?> Ngày <?php echo @$date['0']?></div> 
     <div class="clear"></div>
     <div>
       <div><textarea id="txt_comment_note" class="txt_comment_note" required="required" placeholder="Bình luận" rel="false"></textarea></div>
       <div class="clear"></div>
-      <div><input type="button" class=" btn btn-primary" id="btt_comment_note" onclick="pzk_{data.id}.Send('<?php echo pzk_session()->getAvatar() ?>','<?php echo pzk_session()->getUserId() ?>','<?php echo pzk_session()->getUsername() ?>','{id}','{member}')" name="send" value="Bình luận"></div>
+      <div><input type="button" class=" btn btn-primary" id="btt_comment_note" onclick="pzk_<?php echo @$data->id?>.Send('<?php echo pzk_session()->getAvatar() ?>','<?php echo pzk_session()->getUserId() ?>','<?php echo pzk_session()->getUsername() ?>','<?php echo $id ?>','<?php echo $member ?>')" name="send" value="Bình luận"></div>
     </div>
 
   </div>
   <div class="clear"></div>
   <div id="view_note_comment">
     <div id="view_more_comment">
-      <a href="#" onclick="pzk_{data.id}.viewMore('{id}'); return false;"><span>Xem thêm <span id="count_comment_note"></span> bình luận khác</span></a>
+      <a href="#" onclick="pzk_<?php echo @$data->id?>.viewMore('<?php echo $id ?>'); return false;"><span>Xem thêm <span id="count_comment_note"></span> bình luận khác</span></a>
     </div>
   <?php 
     $comment_notes=$user_note->loadCommentNote($id,$commentId);
@@ -43,14 +43,14 @@
       $user=$user_note->loadUserName($userId);
       $username=$user['username'];
    ?>
-    <div id="commId{comment_note[id]}" class="user_note_comment">
+    <div id="commId<?php echo @$comment_note['id']?>" class="user_note_comment">
      <div class="pfr_avatar_wall"><?php echo $user_note->checkAvatar($user['avatar']) ?></div> 
      <div class="prf_titlenote">
-       <a href="/profile/user?member={userId}" >{username}</a>
+       <a href="/profile/user?member=<?php echo $userId ?>" ><?php echo $username ?></a>
      </div>
-    <div class="titel_detail">{comment_note[comment]}</div>
-    <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_{data.id}.delComm({comment_note[id]});">[Xoá]</a></div>
-    <div class="titel_time">Đước viết lúc: {comment_note[date]}</div>
+    <div class="titel_detail"><?php echo @$comment_note['comment']?></div>
+    <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_<?php echo @$data->id?>.delComm(<?php echo @$comment_note['id']?>);">[Xoá]</a></div>
+    <div class="titel_time">Đước viết lúc: <?php echo @$comment_note['date']?></div>
     </div>
 
   <?php } 
@@ -81,5 +81,5 @@
   }
   
 </script>
-<input type="hidden" name="countrow" value="{count_comment}">
+<input type="hidden" name="countrow" value="<?php echo $count_comment ?>">
  

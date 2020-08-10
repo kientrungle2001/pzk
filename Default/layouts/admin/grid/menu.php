@@ -13,15 +13,15 @@ $updateData = $setting->updateData;
     </li>
 	<li class="success <?php if($action =='index') { echo 'active'; } ?>">
 
-    <a href="{url /}{controller}/index"><span class="glyphicon glyphicon-list"></span> Danh sách</a>
+    <a href="<?php echo BASE_REQUEST . '/' ?><?php echo $controller ?>/index"><span class="glyphicon glyphicon-list"></span> Danh sách</a>
     </li>
 	<?php if(isset($setting->addFields) && $setting->addFields) { ?>
     <li class="success <?php if($action =='add' && !$multiple) { echo 'active'; } ?>">
-	<a href="{url /}{controller}/add"><span class="glyphicon glyphicon-plus"></span> Thêm mới</a>
+	<a href="<?php echo BASE_REQUEST . '/' ?><?php echo $controller ?>/add"><span class="glyphicon glyphicon-plus"></span> Thêm mới</a>
     </li>
 	<?php if(0): ?>
 	<li class="success <?php if($action =='add' && $multiple) { echo 'active'; } ?>">
-	<a href="{url /}{controller}/add?multiple=1"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-plus"></span> Thêm nhiều</a>
+	<a href="<?php echo BASE_REQUEST . '/' ?><?php echo $controller ?>/add?multiple=1"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-plus"></span> Thêm nhiều</a>
     </li>
 	<?php endif; ?>
 	<?php } ?>
@@ -33,7 +33,7 @@ $updateData = $setting->updateData;
             $linkaction = end($tam);
             ?>
 			<li class="success">
-            <a class="<?php if($action == $linkaction && $controller == $controllerlink) { echo 'active'; } ?>" href="{val[href]}">{val[name]}</a>
+            <a class="<?php if($action == $linkaction && $controller == $controllerlink) { echo 'active'; } ?>" href="<?php echo @$val['href']?>"><?php echo @$val['name']?></a>
 			</li>
 		<?php
         }

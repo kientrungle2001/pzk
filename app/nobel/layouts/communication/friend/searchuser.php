@@ -5,7 +5,7 @@
       $items=$data->viewSearch($searchfriend);
 
      ?>  
-    {each $items as $item}
+    <?php foreach($items as $item): ?>
     <?php 
         $avatar=$item['avatar'];
         $username=$item['username'];
@@ -18,22 +18,22 @@
 
     <div class="prf_write_wall">
       <div class="pfr_avatar_wall">
-        <img src="{testAvatar}" alt="" width="80" height="80">
+        <img src="<?php echo $testAvatar ?>" alt="" width="80" height="80">
       </div>
 
       <div class="result_search_content" >
         <div>
-          <a href="/user/profileusercontent?member={userid}" ><span>Tên: {name}</span></a>
+          <a href="/user/profileusercontent?member=<?php echo $userid ?>" ><span>Tên: <?php echo $name ?></span></a>
         </div>
         <div>
-          <a href="/user/profileusercontent?member={userid}" ><span>Nickname: {username}</span></a>
+          <a href="/user/profileusercontent?member=<?php echo $userid ?>" ><span>Nickname: <?php echo $username ?></span></a>
         </div>
         <div>
           <span>Bài viết: 0   |   Tham gia:ngày</span>
         </div>
         <div>
-          <span>{testOnline}</span>
-          <span>{testStatus}</span>
+          <span><?php echo $testOnline ?></span>
+          <span><?php echo $testStatus ?></span>
         </div>
       </div>
        
@@ -55,7 +55,7 @@
       <div class="prf_clear"> </div>
        
       </div>
-    {/each}
+    <?php endforeach; ?>
     
    
     

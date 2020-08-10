@@ -42,7 +42,7 @@
 					<div class="question_content pd-0 margin-top-20">
 						<div class="clearfix margin-top-10">
 							<div class="col-xs-12 pd-0">
-								<h3 class="pd-top-15" style="width: 100%; text-align: center;">Bạn phải <a rel="{_SERVER[REQUEST_URI]}" class="login_required" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer;">Đăng nhập</a> thì mới được thi thử</h3>
+								<h3 class="pd-top-15" style="width: 100%; text-align: center;">Bạn phải <a rel="<?php echo @$_SERVER['REQUEST_URI']?>" class="login_required" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer;">Đăng nhập</a> thì mới được thi thử</h3>
 							</div>
 							<div class="col-xs-5 pd-0">
 								

@@ -17,8 +17,8 @@
 	$languagevn = pzk_global()->get('languagevn');
 	$lang = pzk_session('language');
 ?>
-{children [position=public-header]}
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=public-header]') ?>
+<?php $data->displayChildren('[position=top-menu]') ?>
 
 <div class="container top10">
 <marquee>
@@ -38,7 +38,7 @@ if($cate){ ?>
 <?php ?>
 <div class="container" id="subject">
 	<div id="practice-section" class="row fivecolumns">
-		{children [position=show-subject]}
+		<?php $data->displayChildren('[position=show-subject]') ?>
 	</div>
 </div>
 <div id="practice-test" class="container top20">
@@ -46,7 +46,7 @@ if($cate){ ?>
 </div>
 <div id="practice-test-section" class="container pdbot-60">
 	<div class="row">
-		{children [position=practice-place]}
+		<?php $data->displayChildren('[position=practice-place]') ?>
 	</div>
 </div>
 <div id="test" class="container top20">
@@ -54,10 +54,10 @@ if($cate){ ?>
 </div>
 <div id="test-section" class="container pdbot-60">
 	<div class="row">
-		{children [position=test-place]}
+		<?php $data->displayChildren('[position=test-place]') ?>
 	</div>
 </div>
-{children [position=bottom-slide]}			
+<?php $data->displayChildren('[position=bottom-slide]') ?>			
 <script>	
 	<?php if(pzk_request('class')) : ?>
 		$(".btnclick[data-class=<?php echo pzk_request('class') ?>]").trigger("click");
@@ -74,5 +74,5 @@ if($cate){ ?>
 	});
 </script>
 
-{children [position=box-achievement]}
+<?php $data->displayChildren('[position=box-achievement]') ?>
 

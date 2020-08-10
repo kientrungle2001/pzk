@@ -48,9 +48,9 @@ $data->setClassroomId( $classroom['id']);
 					Lớp
 					<select id="nameOfClass" class="form-control" name="nameOfClass" >
 						<option value="0">Chọn lớp</option>
-						{each $allClasses as $item}
-							<option value="{item[name]}">{item[name]}</option>
-						{/each}
+						<?php foreach($allClasses as $item): ?>
+							<option value="<?php echo @$item['name']?>"><?php echo @$item['name']?></option>
+						<?php endforeach; ?>
 					</select>
 				</div>
 				
@@ -149,9 +149,9 @@ $data->setClassroomId( $classroom['id']);
 			});
 		}
 	}
-	$('#schoolYear').val({schoolYear});
-	$('#week').val({week});
-	$('#grade').val({grade});
-	$('#subject').val({subject});
+	$('#schoolYear').val(<?php echo $schoolYear ?>);
+	$('#week').val(<?php echo $week ?>);
+	$('#grade').val(<?php echo $grade ?>);
+	$('#subject').val(<?php echo $subject ?>);
 	$('#nameOfClass').val('<?=$nameOfClass;?>');
 </script>

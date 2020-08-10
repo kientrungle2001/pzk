@@ -1,9 +1,9 @@
 <div class="container nextnobels2 text-center">
 </div>
-{children [position=breadcrumb]}
+<?php $data->displayChildren('[position=breadcrumb]') ?>
 <div class="container bot20">
 	<div class="col-md-9 col-sm-9 col-xs-12">
-		{children [position=newscontent]}
+		<?php $data->displayChildren('[position=newscontent]') ?>
 	</div>
 	<div class="col-md-3 col-sm-3 col-xs-12" style="margin-right:-10px;">
 		<a href="<?php echo FL_URL; ?>">
@@ -33,5 +33,5 @@
 	<p class="t-weight text-center btnclick btn-custom8 textcl">Các tin liên quan</p>
 </div>
 <div class="container ">
-{children [position=catenews]}
+<?php $data->displayChildren('[position=catenews]') ?>
 </div>

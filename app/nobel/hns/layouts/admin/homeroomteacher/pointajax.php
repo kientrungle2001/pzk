@@ -23,17 +23,17 @@ $testMarkTotal = $showPoints['testMarkTotal'];
   <div class="panel-heading"></div>
   <div class="panel-body">
   <ul class="list-group">
-  	<li class="list-group-item list-group-item-warning"><H4> <strong>Sỹ số lớp:  {showPoints[quantityStudents]} học sinh </strong> </H4></li>
-  	<li class="list-group-item list-group-item-info"><H4> <strong>Số lượng học sinh đã làm bài tập {showPoints[quantityExercies]} </strong></H4></li>
-  	<li class="list-group-item list-group-item-success"><H4> <strong>Số bài đã chấm {showPoints[dacham]} </strong></H4>
+  	<li class="list-group-item list-group-item-warning"><H4> <strong>Sỹ số lớp:  <?php echo @$showPoints['quantityStudents']?> học sinh </strong> </H4></li>
+  	<li class="list-group-item list-group-item-info"><H4> <strong>Số lượng học sinh đã làm bài tập <?php echo @$showPoints['quantityExercies']?> </strong></H4></li>
+  	<li class="list-group-item list-group-item-success"><H4> <strong>Số bài đã chấm <?php echo @$showPoints['dacham']?> </strong></H4>
   		<ul class="list-group">
-			<li class="list-group-item ">Số học sinh đạt kết quả giỏi : {kq[gioi]} </li>
-			<li class="list-group-item ">Số học sinh đạt kết quả khá : {kq[kha]}</li>
-			<li class="list-group-item ">Số học sinh đạt kết quả trung bình :{kq[trungbinh]}</li>
-			<li class="list-group-item ">Số học sinh đạt kết yếu  : {kq[yeu]}</li>
+			<li class="list-group-item ">Số học sinh đạt kết quả giỏi : <?php echo @$kq['gioi']?> </li>
+			<li class="list-group-item ">Số học sinh đạt kết quả khá : <?php echo @$kq['kha']?></li>
+			<li class="list-group-item ">Số học sinh đạt kết quả trung bình :<?php echo @$kq['trungbinh']?></li>
+			<li class="list-group-item ">Số học sinh đạt kết yếu  : <?php echo @$kq['yeu']?></li>
 		</ul>
   	</li>
-  	<li class="list-group-item list-group-item-danger"><H4> <strong>Số lượng học sinh chưa làm bài tập: {showPoints[quantityNotExercies]}</strong></H4></li>
+  	<li class="list-group-item list-group-item-danger"><H4> <strong>Số lượng học sinh chưa làm bài tập: <?php echo @$showPoints['quantityNotExercies']?></strong></H4></li>
   </ul>
     
   </div>
@@ -66,7 +66,7 @@ $testMarkTotal = $showPoints['testMarkTotal'];
 				<th>Trạng thái</th>
 			</tr>
 		<?php $dsDaLam = array();?>
-		{each $showPoints as $showPoint}
+		<?php foreach($showPoints as $showPoint): ?>
 		<?php 
 			if(in_array($showPoint['studentId'], $dsDaLam) || (!$showPoint['homeworkStatus'])) {
 				continue;
@@ -74,9 +74,9 @@ $testMarkTotal = $showPoints['testMarkTotal'];
 			 $classStudentId = $classStudents[$showPoint['studentId']]['id'];
 		?>
 			<tr class="<?php if($showPoint['status']): echo 'bg-success'; else: echo 'bg-warning'; endif;?>">
-				<td>{showPoint[studentId]}</td>
-				<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/{classroomId}/{classStudentId}/{showPoint[studentId]}">{showPoint[username]}</a></td>
-				<td>{showPoint[name]}</td>
+				<td><?php echo @$showPoint['studentId']?></td>
+				<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/<?php echo $classroomId ?>/<?php echo $classStudentId ?>/<?php echo @$showPoint['studentId']?>"><?php echo @$showPoint['username']?></a></td>
+				<td><?php echo @$showPoint['name']?></td>
 				<td><?php if($showPoint['homeworkStatus']):echo date('d/m/Y', strtotime($showPoint['created'])) ;endif;?></td>
 					
 				<td>
@@ -94,8 +94,8 @@ $testMarkTotal = $showPoints['testMarkTotal'];
 				$dsDaLam[] = $showPoint['studentId'];
 			}
 			?>
-		{/each}
-		{each $students as $student}
+		<?php endforeach; ?>
+		<?php foreach($students as $student): ?>
 		<?php 
 		if(in_array($student['studentId'], $dsDaLam)): 
 			continue;
@@ -103,15 +103,15 @@ $testMarkTotal = $showPoints['testMarkTotal'];
 		
 		?>
 		<tr class="bg-danger">
-			<td>{student[studentId]}</td>
-			<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/{classroomId}/{student[id]}/{student[studentId]}">{student[username]}</a></td>
-			<td>{student[name]}</td>
+			<td><?php echo @$student['studentId']?></td>
+			<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/<?php echo $classroomId ?>/<?php echo @$student['id']?>/<?php echo @$student['studentId']?>"><?php echo @$student['username']?></a></td>
+			<td><?php echo @$student['name']?></td>
 			<td></td>
 			<td></td>
 			
 			<td><strong class="text-danger">Chưa làm</strong></td>
 		</tr>
-		{/each}
+		<?php endforeach; ?>
 		</table>	
 	
   </div>
@@ -129,7 +129,7 @@ $testMarkTotal = $showPoints['testMarkTotal'];
 				<th>Trạng thái</th>
 			</tr>
 		<?php $dsDaLam = array();?>
-		{each $showPoints as $showPoint}
+		<?php foreach($showPoints as $showPoint): ?>
 		<?php 
 			if(in_array($showPoint['studentId'], $dsDaLam) || (!$showPoint['homeworkStatus'])) {
 				continue;
@@ -137,9 +137,9 @@ $testMarkTotal = $showPoints['testMarkTotal'];
 			$classStudentId = $classStudents[$showPoint['studentId']]['id'];
 		?>
 			<tr class="<?php if($showPoint['status']): echo 'bg-success'; else: echo 'bg-warning'; endif;?>">
-				<td>{showPoint[studentId]}</td>
-				<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/{classroomId}/{classStudentId}/{showPoint[studentId]}">{showPoint[username]}</a></td>
-				<td>{showPoint[name]}</td>
+				<td><?php echo @$showPoint['studentId']?></td>
+				<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/<?php echo $classroomId ?>/<?php echo $classStudentId ?>/<?php echo @$showPoint['studentId']?>"><?php echo @$showPoint['username']?></a></td>
+				<td><?php echo @$showPoint['name']?></td>
 				<td><?php if($showPoint['homeworkStatus']):echo date('d/m/Y', strtotime($showPoint['created'])) ;endif;?></td>
 					
 				<td>
@@ -157,7 +157,7 @@ $testMarkTotal = $showPoints['testMarkTotal'];
 				$dsDaLam[] = $showPoint['studentId'];
 			}
 			?>
-		{/each}
+		<?php endforeach; ?>
     </table>
   </div>
   
@@ -174,22 +174,22 @@ $testMarkTotal = $showPoints['testMarkTotal'];
 				
 				<th>Trạng thái</th>
 		</tr>
-		{each $students as $student}
+		<?php foreach($students as $student): ?>
 		<?php 
 		if(in_array($student['studentId'], $dsDaLam)): 
 			continue;
 		endif;?>
 		<tr class="bg-danger">
-			<td>{student[studentId]}</td>
-			<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/{classroomId}/{student[id]}/{student[studentId]}">{student[username]}</a></td>
-			<td>{student[name]}</td>
+			<td><?php echo @$student['studentId']?></td>
+			<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/<?php echo $classroomId ?>/<?php echo @$student['id']?>/<?php echo @$student['studentId']?>"><?php echo @$student['username']?></a></td>
+			<td><?php echo @$student['name']?></td>
 			<td></td>
 			<td></td>
 			
 			<td></td>
 			<td><strong class="text-danger">Chưa làm</strong></td>
 		</tr>
-		{/each}
+		<?php endforeach; ?>
 	</table>
   </div>
 </div>
@@ -228,8 +228,8 @@ function getNotPoint() {
 	$.ajax({
 		url: '/Admin_Home_HomeroomTeacher/getPoint',
 		data: {
-			classroomId: {classroomId},
-			schoolYear: {schoolYear},
+			classroomId: <?php echo $classroomId ?>,
+			schoolYear: <?php echo $schoolYear ?>,
 			subjectId: subjectId,
 			weeks: weeks,
 			months: months,

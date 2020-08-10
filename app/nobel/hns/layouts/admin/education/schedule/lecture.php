@@ -3,12 +3,12 @@ $classroomId = $data->getClassroomId();
 $classroom = $data->getClassroom();
 $subjects = $data->getSubjects();
 ?>
-Lên lịch giảng dạy cho Lớp {classroom[gradeNum]}{classroom[className]} năm học {classroom[schoolYear]} 
+Lên lịch giảng dạy cho Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> năm học <?php echo @$classroom['schoolYear']?> 
 <select name="subjectId" onchange="load_topics(this.value)">
 <option value="">Chọn môn học</option>
-{each $subjects as $subject}
-<option value="{subject[id]}">{subject[name]}</option>
-{/each}
+<?php foreach($subjects as $subject): ?>
+<option value="<?php echo @$subject['id']?>"><?php echo @$subject['name']?></option>
+<?php endforeach; ?>
 </select>
 <br />
 <div id="topics"></div>
@@ -16,7 +16,7 @@ Lên lịch giảng dạy cho Lớp {classroom[gradeNum]}{classroom[className]}
 	function load_topics(subjectId) {
 		if(subjectId !== '') {
 			$.ajax({
-				url: '/Admin_Schedule_Lecture/topics/{classroomId}/' + subjectId,
+				url: '/Admin_Schedule_Lecture/topics/<?php echo $classroomId ?>/' + subjectId,
 				// dataType: 'json',
 				success: function(topics) {
 					$('#topics').html(topics);

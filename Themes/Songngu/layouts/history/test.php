@@ -422,13 +422,13 @@
 				</tr>
 				</thead>
 				<tbody>
-				{each $items as $val}
+				<?php foreach($items as $val): ?>
 				<tr>
 					<td><?php echo $i+$data->pageNum*$data->pageSize; ?></td>
-					<td>{val[namecatevn]}</td>
+					<td><?php echo @$val['namecatevn']?></td>
 					<td><?php if($val['topic']) { echo $val['topicname'];} ?></td>
-					<td><a href="/profile/book/{val[id]}"><?php if($val['exercise_number']) { echo 'Bài '.$val['exercise_number'];} ?></a></td>
-					<td>{val[mark]}</td>
+					<td><a href="/profile/book/<?php echo @$val['id']?>"><?php if($val['exercise_number']) { echo 'Bài '.$val['exercise_number'];} ?></a></td>
+					<td><?php echo @$val['mark']?></td>
 					<td>
 					
 					<?php 
@@ -464,7 +464,7 @@
 					<td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:i:m A', strtotime($val['startTime'])); ?></td>
 				</tr>
 				<?php $i++; ?>
-				{/each}
+				<?php endforeach; ?>
 				</tbody>
 			</table>
 			</div>
@@ -482,11 +482,11 @@
 										<?php
 										if($data->pageNum >= 1) { ?>
 											<li>
-												<a onclick="practice({userId}, 0, '{startDate}', '{endDate}')" aria-label="End">
+												<a onclick="practice(<?php echo $userId ?>, 0, '<?php echo $startDate ?>', '<?php echo $endDate ?>')" aria-label="End">
 													<span aria-hidden="true">Trang đầu</span>
 												</a>
 											<li>
-												<a aria-label="Previous" onclick="practice({userId},'<?php echo $data->pageNum -1; ?>', '{startDate}', '{endDate}')">
+												<a aria-label="Previous" onclick="practice(<?php echo $userId ?>,'<?php echo $data->pageNum -1; ?>', '<?php echo $startDate ?>', '<?php echo $endDate ?>')">
 													<span aria-hidden="true">&laquo;</span>
 												</a>
 											</li>
@@ -503,19 +503,19 @@
 												$active = '';
 											}
 											?>
-											<li class="{active}">
-												<a  onclick="practice({userId}, {page}, '{startDate}', '{endDate}')">{? echo ($page + 1)?}</a>
+											<li class="<?php echo $active ?>">
+												<a  onclick="practice(<?php echo $userId ?>, <?php echo $page ?>, '<?php echo $startDate ?>', '<?php echo $endDate ?>')"><?php  echo ($page + 1)?></a>
 											</li>
 										<?php } ?>
 
 										<?php if($data->pageNum < $pages-1) { ?>
 										<li>
-											<a onclick="practice({userId}, '<?php echo $data->pageNum + 1; ?>', '{startDate}', '{endDate}')" aria-label="Next">
+											<a onclick="practice(<?php echo $userId ?>, '<?php echo $data->pageNum + 1; ?>', '<?php echo $startDate ?>', '<?php echo $endDate ?>')" aria-label="Next">
 												<span aria-hidden="true">&raquo;</span>
 											</a>
 											</li>
 											<li>
-											<a onclick="practice({userId}, '<?php echo $pages-1; ?>', '{startDate}', '{endDate}')" aria-label="end">
+											<a onclick="practice(<?php echo $userId ?>, '<?php echo $pages-1; ?>', '<?php echo $startDate ?>', '<?php echo $endDate ?>')" aria-label="end">
 												<span aria-hidden="true">Trang cuối</span>
 											</a>
 										</li>
@@ -614,12 +614,12 @@
 				</tr>
 				</thead>
 				<tbody>
-				{each $items as $val}
+				<?php foreach($items as $val): ?>
 				<tr>
 					<td><?php echo $i+$data->pageNum*$data->pageSize; ?></td>
 					<td><?php if($val['categoryId']) echo $val['cateName']; ?></td>
-					<td><a href="/Profile/book/{val[id]}">{val[name]}</a></td>
-					<td>{val[mark]}</td>
+					<td><a href="/Profile/book/<?php echo @$val['id']?>"><?php echo @$val['name']?></a></td>
+					<td><?php echo @$val['mark']?></td>
 					<td>
 					<?php 
 					$lang = "en";
@@ -656,7 +656,7 @@
 					<td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:i:m A', strtotime($val['startTime'])); ?></td>
 				</tr>
 				<?php $i++; ?>
-				{/each}
+				<?php endforeach; ?>
 				</tbody>
 			</table>
 			</div>
@@ -675,11 +675,11 @@
 										<?php
 										if($data->pageNum >= 1) { ?>
 											<li>
-												<a onclick="getPage({userId},1,0, '{startDate}', '{endDate}', 'resPractice')" aria-label="End">
+												<a onclick="getPage(<?php echo $userId ?>,1,0, '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resPractice')" aria-label="End">
 													<span aria-hidden="true">Trang đầu</span>
 												</a>
 											<li>
-												<a aria-label="Previous" onclick ="getPage({userId}, 1, '<?php echo $data->pageNum -1; ?>', '{startDate}', '{endDate}', 'resPractice')">
+												<a aria-label="Previous" onclick ="getPage(<?php echo $userId ?>, 1, '<?php echo $data->pageNum -1; ?>', '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resPractice')">
 													<span aria-hidden="true">&laquo;</span>
 												</a>
 											</li>
@@ -696,19 +696,19 @@
 												$active = '';
 											}
 											?>
-											<li class="{active}">
-												<a  onclick = "getPage({userId}, 1, {page}, '{startDate}', '{endDate}', 'resPractice')">{? echo ($page + 1)?}</a>
+											<li class="<?php echo $active ?>">
+												<a  onclick = "getPage(<?php echo $userId ?>, 1, <?php echo $page ?>, '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resPractice')"><?php  echo ($page + 1)?></a>
 											</li>
 										<?php } ?>
 
 										<?php if($data->pageNum < $pages-1) { ?>
 										<li>
-											<a onclick = "getPage({userId}, 1, '<?php echo $data->pageNum + 1; ?>', '{startDate}', '{endDate}', 'resPractice')" aria-label="Next">
+											<a onclick = "getPage(<?php echo $userId ?>, 1, '<?php echo $data->pageNum + 1; ?>', '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resPractice')" aria-label="Next">
 												<span aria-hidden="true">&raquo;</span>
 											</a>
 											</li>
 											<li>
-											<a onclick =" getPage({userId}, 1, '<?php echo $pages-1; ?>', '{startDate}', '{endDate}', 'resPractice')" aria-label="end">
+											<a onclick =" getPage(<?php echo $userId ?>, 1, '<?php echo $pages-1; ?>', '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resPractice')" aria-label="end">
 												<span aria-hidden="true">Trang cuối</span>
 											</a>
 										</li>
@@ -806,14 +806,14 @@
 				</tr>
 				</thead>
 				<tbody>
-				{each $items as $val}
+				<?php foreach($items as $val): ?>
 				<tr>
 					<td><?php echo $i+$data->pageNum*$data->pageSize; ?></td>
 					<td><?php if($val['categoryId']) echo $val['cateName']; ?></td>
-					<td><a href="/Profile/book/{val[id]}">{val[name]}</a></td>
-					<td>{val[mark]}</td>
+					<td><a href="/Profile/book/<?php echo @$val['id']?>"><?php echo @$val['name']?></a></td>
+					<td><?php echo @$val['mark']?></td>
 					
-					<td>{val[rank]}</td>
+					<td><?php echo @$val['rank']?></td>
 					<td>
 					<?php 
 					$lang = "en";
@@ -851,7 +851,7 @@
 					<td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:i:m A', strtotime($val['startTime'])); ?></td>
 				</tr>
 				<?php $i++; ?>
-				{/each}
+				<?php endforeach; ?>
 				</tbody>
 			</table>
 			</div>
@@ -869,11 +869,11 @@
 										<?php
 										if($data->pageNum >= 1) { ?>
 											<li>
-												<a onclick="getPage({userId},0,0, '{startDate}', '{endDate}', 'resTest')" aria-label="End">
+												<a onclick="getPage(<?php echo $userId ?>,0,0, '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resTest')" aria-label="End">
 													<span aria-hidden="true">Trang đầu</span>
 												</a>
 											<li>
-												<a aria-label="Previous" onclick ="getPage({userId}, 0, '<?php echo $data->pageNum -1; ?>', '{startDate}', '{endDate}', 'resTest')">
+												<a aria-label="Previous" onclick ="getPage(<?php echo $userId ?>, 0, '<?php echo $data->pageNum -1; ?>', '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resTest')">
 													<span aria-hidden="true">&laquo;</span>
 												</a>
 											</li>
@@ -890,19 +890,19 @@
 												$active = '';
 											}
 											?>
-											<li class="{active}">
-												<a  onclick = "getPage({userId}, 0, {page}, '{startDate}', '{endDate}', 'resTest')">{? echo ($page + 1)?}</a>
+											<li class="<?php echo $active ?>">
+												<a  onclick = "getPage(<?php echo $userId ?>, 0, <?php echo $page ?>, '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resTest')"><?php  echo ($page + 1)?></a>
 											</li>
 										<?php } ?>
 
 										<?php if($data->pageNum < $pages-1) { ?>
 										<li>
-											<a onclick = "getPage({userId}, 0, '<?php echo $data->pageNum + 1; ?>', '{startDate}', '{endDate}', 'resTest')" aria-label="Next">
+											<a onclick = "getPage(<?php echo $userId ?>, 0, '<?php echo $data->pageNum + 1; ?>', '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resTest')" aria-label="Next">
 												<span aria-hidden="true">&raquo;</span>
 											</a>
 											</li>
 											<li>
-											<a onclick =" getPage({userId}, 0, '<?php echo $pages-1; ?>', '{startDate}', '{endDate}', 'resTest')" aria-label="end">
+											<a onclick =" getPage(<?php echo $userId ?>, 0, '<?php echo $pages-1; ?>', '<?php echo $startDate ?>', '<?php echo $endDate ?>', 'resTest')" aria-label="end">
 												<span aria-hidden="true">Trang cuối</span>
 											</a>
 										</li>
@@ -949,20 +949,20 @@
 				</tr>
 				</thead>
 				<tbody>
-				{each $compabilities as $compability}
+				<?php foreach($compabilities as $compability): ?>
 					<tr>
-					<td>{i}</td>
+					<td><?php echo $i ?></td>
 					<td><?php echo $nameParentTest[$compability['parentTest']]; ?></td>
 					<td>
 					<?php 
 					if($compability['trytest'] == 1){ 
 					?>
-					<a href="/Profile/book/{compability[id]}" >Đề trắc nghiệm</a>
+					<a href="/Profile/book/<?php echo @$compability['id']?>" >Đề trắc nghiệm</a>
 					<?php
 					 
 					} else { 
 					?>
-						<a href="/Profile/booktl/{compability[id]}">Đề tự luận</a>
+						<a href="/Profile/booktl/<?php echo @$compability['id']?>">Đề tự luận</a>
 				
 					<?php } ?>
 					
@@ -993,7 +993,7 @@
 					<td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:i:m A', strtotime($compability['startTime'])); ?></td>
 					<?php $i++;?>
 					</tr>
-				{/each}
+				<?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>		

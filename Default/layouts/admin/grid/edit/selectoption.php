@@ -1,21 +1,21 @@
-{? 
+<?php  
 $rand 		= rand(1, 100);
 $xssize 	= pzk_or($data->get('xssize'), 12);
 $mdsize 		= pzk_or($data->get('mdsize'), 12);
-?}
-<div class="col-xs-{xssize} col-md-{mdsize}">
+?>
+<div class="col-xs-<?php echo $xssize ?> col-md-<?php echo $mdsize ?>">
 	<div class="form-group clearfix">
-		<label for="{? echo $data->get('index')?}{rand}">{? echo $data->get('label')?}</label>
+		<label for="<?php  echo $data->get('index')?><?php echo $rand ?>"><?php  echo $data->get('label')?></label>
 		<div class="item">
-			<select class="select2-container form-control select2" id="{? echo $data->get('index')?}{rand}"
-				name="{? echo $data->get('index')?}">
-				<option>Tất cả</option> {each $data->get('option') as $key=>$val}
-				<option value="{key}">{val}</option> {/each}
+			<select class="select2-container form-control select2" id="<?php  echo $data->get('index')?><?php echo $rand ?>"
+				name="<?php  echo $data->get('index')?>">
+				<option>Tất cả</option> <?php foreach($data->get('option') as $key=>$val): ?>
+				<option value="<?php echo $key ?>"><?php echo $val ?></option> <?php endforeach; ?>
 			</select>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-	$('#{? echo $data->get('index')?}{rand}').val('{? echo $data->get('value')?}');
-	$( "#{? echo $data->get('index')?}{rand}" ).select2( { placeholder: "{? echo $data->get('label')?}", maximumSelectionSize: 6 } );
+	$('#<?php  echo $data->get('index')?><?php echo $rand ?>').val('<?php  echo $data->get('value')?>');
+	$( "#<?php  echo $data->get('index')?><?php echo $rand ?>" ).select2( { placeholder: "<?php  echo $data->get('label')?>", maximumSelectionSize: 6 } );
 </script>

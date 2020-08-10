@@ -25,40 +25,40 @@ if($week['id'] == $data->get('menuId')) {
 	$tabType		=	'term';
 }
 ?>
-<div class="lecture-region {root[alias]}">
+<div class="lecture-region <?php echo @$root['alias']?>">
 	<div class="lecture-bird-2"></div>
 	<div class="container">
-		<h1 class="text-center color6-bold">{root[name]}</h1>
+		<h1 class="text-center color6-bold"><?php echo @$root['name']?></h1>
 		<div class="row columns-lecture">
 			<div class="col-md-1">&nbsp;</div>
 			<div class="col-md-10 ">
 				
 				<div class="lecture-index">
-					<h2 class="tab1 bgcolor6-bold"><a href="/{week[alias]}">{week[name]}</a></h2>
-					<h2 class="tab2 bgcolor6-bold hidden"><a href="/{terms[alias]}">{terms[name]}</a></h2>
-					<h2 class="tab2 bgcolor6-bold"><a href="/{year[alias]}">{year[name]}</a></h2>
+					<h2 class="tab1 bgcolor6-bold"><a href="/<?php echo @$week['alias']?>"><?php echo @$week['name']?></a></h2>
+					<h2 class="tab2 bgcolor6-bold hidden"><a href="/<?php echo @$terms['alias']?>"><?php echo @$terms['name']?></a></h2>
+					<h2 class="tab2 bgcolor6-bold"><a href="/<?php echo @$year['alias']?>"><?php echo @$year['name']?></a></h2>
 					<?php if($tabType	== 'term'):?>
 					
 					<div class="row" style="padding-top: 30px;">
 						<div class="col-md-2"></div>
 						<div class="col-md-4">
-							<center><h3 class="lecture-section-heading">{term1[name]}</h3></center>
+							<center><h3 class="lecture-section-heading"><?php echo @$term1['name']?></h3></center>
 							<div class="row">
-							{each $term1children as $child}
+							<?php foreach($term1children as $child): ?>
 								<div class="col-sm-3 top-25 lecture-title">
-									<a class="color1-bold" href="/{child[alias]}">{child[name]}</a>
+									<a class="color1-bold" href="/<?php echo @$child['alias']?>"><?php echo @$child['name']?></a>
 								</div>
-							{/each}
+							<?php endforeach; ?>
 							</div>
 						</div>
 						<div class="col-md-4">
-							<center><h3 class="lecture-section-heading">{term2[name]}</h3></center>
+							<center><h3 class="lecture-section-heading"><?php echo @$term2['name']?></h3></center>
 							<div class="row">
-							{each $term2children as $child}
+							<?php foreach($term2children as $child): ?>
 								<div class="col-sm-3 top-25 lecture-title">
-									<a class="color1-bold" href="/{child[alias]}">{child[name]}</a>
+									<a class="color1-bold" href="/<?php echo @$child['alias']?>"><?php echo @$child['name']?></a>
 								</div>
-							{/each}
+							<?php endforeach; ?>
 							</div>
 						</div>
 						<div class="col-md-2"></div>
@@ -68,11 +68,11 @@ if($week['id'] == $data->get('menuId')) {
 						<div class="col-md-2"></div>
 						<div class="col-md-9">
 							<div class="row">
-							{each $childs as $child}
+							<?php foreach($childs as $child): ?>
 								<div class="col-sm-2 top-25 lecture-title">
-									<a class="color1-bold" href="/{child[alias]}">{child[name]}</a>
+									<a class="color1-bold" href="/<?php echo @$child['alias']?>"><?php echo @$child['name']?></a>
 								</div>
-							{/each}
+							<?php endforeach; ?>
 							</div>
 						</div>
 						<div class="col-md-1"></div>

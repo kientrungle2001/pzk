@@ -64,7 +64,7 @@
 						</div>
 						<div class="col-md-2 col-xs-12">	
 							Lớp
-							<input value="{className}" class="form-control" name="className" />
+							<input value="<?php echo $className ?>" class="form-control" name="className" />
 						</div>
 						
 						<div class="col-md-2 col-xs-12">		
@@ -98,7 +98,7 @@
 				</form>
 			  </div>
 			  <div class="panel-body">
-				{children all}
+				<?php $data->displayChildren('all') ?>
 			  </div>
 		</div>
 			
@@ -121,7 +121,7 @@
 			});
 		}
 	}
-	$('#schoolYear').val('{schoolYear}');
-	$('#grade').val('{class}');
-	$('#subject').val('{subject}');
+	$('#schoolYear').val('<?php echo $schoolYear ?>');
+	$('#grade').val('<?php echo $class ?>');
+	$('#subject').val('<?php echo $subject ?>');
 </script>

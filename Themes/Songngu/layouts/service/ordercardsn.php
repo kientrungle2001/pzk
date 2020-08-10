@@ -35,7 +35,7 @@
         ?>
 
     
-      <input type="radio" name="serviceId" checked value="{item[id]}/{price}"><strong>{item[serviceName]}</strong> Giá : <strong>{item[amount]} VNĐ</strong> 
+      <input type="radio" name="serviceId" checked value="<?php echo @$item['id']?>/<?php echo $price ?>"><strong><?php echo @$item['serviceName']?></strong> Giá : <strong><?php echo @$item['amount']?> VNĐ</strong> 
     <?php 
               if(isset($discount[$item['id']])){
                 echo '<span class="label label-danger">Giảm giá : '.$discount[$item['id']]['discount'].'% Còn :'.$price. 'VNĐ </span>';

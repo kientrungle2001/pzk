@@ -21,16 +21,16 @@
 
                 <div class="w_question item"   id="ctg_question_fill">
                     <?php $i = 1;  ?>
-                    {each $listlessions as $item}
+                    <?php foreach($listlessions as $item): ?>
                     <?php $question = $data->getQuestionById($item['questionId']); ?>
                     <?php if($item['question_type'] == 'Q2' or $item['question_type'] == 'Q22') { ?>
 
                         <div class="step">
-                            <span><strong>Yêu Cầu:</strong> {question[request]}</span>
+                            <span><strong>Yêu Cầu:</strong> <?php echo @$question['request']?></span>
 
                         </div>
                         <div class="step">
-                            <span><strong> Câu {i}:</strong> {question[name]}</span>
+                            <span><strong> Câu <?php echo $i ?>:</strong> <?php echo @$question['name']?></span>
                         </div>
                         <div class="step" >
                             <div style="clear:both;"><span><strong>Đáp án:</strong></span></div>
@@ -44,11 +44,11 @@
 
                     <?php } elseif($item['question_type'] == 'Q21' or $item['question_type'] == 'Q29' or $item['question_type'] == 'Q26' ) { ?>
                         <div class="step">
-                            <span><strong>Yêu Cầu:</strong> {question[request]}</span>
+                            <span><strong>Yêu Cầu:</strong> <?php echo @$question['request']?></span>
 
                         </div>
                         <div class="step">
-                            <span><strong> Câu {i}:</strong> {question[name]}</span>
+                            <span><strong> Câu <?php echo $i ?>:</strong> <?php echo @$question['name']?></span>
                         </div>
                         <div class="step" >
                             <div style="clear:both;"><span><strong>Đáp án:</strong></span></div>
@@ -60,7 +60,7 @@
                     <?php } elseif($item['question_type'] == 'Q0') { ?>
 
                         <div class="step">
-                            <span><strong> Câu {i}:</strong> {question[name]}</span>
+                            <span><strong> Câu <?php echo $i ?>:</strong> <?php echo @$question['name']?></span>
                         </div>
                         <div class="step" >
                             <div style="clear:both;"><span><strong>Đáp án:</strong></span></div>
@@ -69,17 +69,17 @@
                             $answers = _db()->useCB()->select('*')->from('answers_question_tn')->where(array('question_id', $item['questionId']))->result();
                             ?>
                             <table>
-                                {each $answers as $val}
+                                <?php foreach($answers as $val): ?>
                                 <tr >
-                                    <td><input style="width: 15px; height: 15px;" <?php if($val['id'] == $item['content']) { echo "checked";} ?> name="answers[<?=$item['id'];?>][]" value="{val[id]}" type="radio" /></td>
-                                    <td>{val[content]}</td>
+                                    <td><input style="width: 15px; height: 15px;" <?php if($val['id'] == $item['content']) { echo "checked";} ?> name="answers[<?=$item['id'];?>][]" value="<?php echo @$val['id']?>" type="radio" /></td>
+                                    <td><?php echo @$val['content']?></td>
                                 </tr>
-                                {/each}
+                                <?php endforeach; ?>
                             </table>
                         </div>
                     <?php } ?>
                     <?php $i++; ?>
-                    {/each}
+                    <?php endforeach; ?>
 
                 </div>
 

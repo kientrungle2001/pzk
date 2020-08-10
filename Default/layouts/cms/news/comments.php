@@ -25,26 +25,26 @@ span.comment_date{font-weight:none; font-size:12px;}
 				<div style="float:left;"><h4>Ý kiến thành viên</h4></div> 
 				<div style="float:right;">
 				<?php $count=$data->getCountComment($newsid); ?>
-				<h4> {count} Bình luận</h4>
+				<h4> <?php echo $count ?> Bình luận</h4>
 				</div>
 			
 			<div class="comments" style="width:800px; height:auto;  float:left;">
 			<?php $allcomments=$data->getComments($newsid); ?>
-			{each $allcomments as $allcomment}
+			<?php foreach($allcomments as $allcomment): ?>
 				<div class=" col-xs-12" style="margin-top:20px;">
 					<div class="avatar col-xs-2"  style="width:50px; height:50px;float:left; margin:10px; ">
-						<img src="{allcomment[avatar]}" class="useravatar" width=50; height=50;></img>
+						<img src="<?php echo @$allcomment['avatar']?>" class="useravatar" width=50; height=50;></img>
 					</div>
 					<div class="user-comments col-xs-10"style="width:600px; height:auto;">
 						<div class="user-id" style="float:left;">
-							<p class="comment-name" align="left"><a href="/user/profileusercontent?member={allcomment[username]}">{allcomment[name]}</a></p>
-							<p align="left"><span class="comment_date">on {allcomment[created]} says: </span></p>
-							<p>{allcomment[comment]}</p>
-							<button type="button" class="btn btn-default btn-xs like-comment" value="<?=$allcomment['id']?>"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>Like</button><span id="<?=$allcomment['id']?>"> {allcomment[likecomment]}</span>
+							<p class="comment-name" align="left"><a href="/user/profileusercontent?member=<?php echo @$allcomment['username']?>"><?php echo @$allcomment['name']?></a></p>
+							<p align="left"><span class="comment_date">on <?php echo @$allcomment['created']?> says: </span></p>
+							<p><?php echo @$allcomment['comment']?></p>
+							<button type="button" class="btn btn-default btn-xs like-comment" value="<?=$allcomment['id']?>"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>Like</button><span id="<?=$allcomment['id']?>"> <?php echo @$allcomment['likecomment']?></span>
 						</div>
 					</div>
 				</div>
-			{/each}
+			<?php endforeach; ?>
 			</div>
 		</div>
 							<?php

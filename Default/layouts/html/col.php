@@ -1,3 +1,3 @@
-<div {attrs id, rel, title} class="{prop class} col-sm-{prop size}">
-	{children all}
+<div {attrs id, rel, title} class="<?php echo @$data->class?> col-sm-<?php echo @$data->size?>">
+	<?php $data->displayChildren('all') ?>
 </div>

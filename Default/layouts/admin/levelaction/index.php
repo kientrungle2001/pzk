@@ -50,36 +50,36 @@ $menuTree = treefy($menu);
 ?>
 
 <div class="well">
-    <form role="search" action="{url /Admin_Levelaction/searchPost}">
+    <form role="search" action="<?php echo BASE_REQUEST . '/Admin_Levelaction/searchPost' ?>">
         <div class="row">
             <div class="form-group col-xs-2">
                 <label for="keyword">Action cho phép</label><br />
-                <input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Action" value="{keyword}" />
+                <input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Action" value="<?php echo $keyword ?>" />
             </div>
 
             <div class="form-group col-xs-3">
                 <label for="categoryId">Chọn level</label><br />
-                <select id="adminLevelId" name="adminLevelId" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='{url /Admin_Levelaction/changeAdminLevelId}?adminLevelId=' + this.value;">
+                <select id="adminLevelId" name="adminLevelId" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='<?php echo BASE_REQUEST . '/Admin_Levelaction/changeAdminLevelId' ?>?adminLevelId=' + this.value;">
                     <option value="">-- Tất cả --</option>
-                    {each $level as $val}
-                    <option value="{val[id]}">{val[level]}</option>
-                    {/each}
+                    <?php foreach($level as $val): ?>
+                    <option value="<?php echo @$val['id']?>"><?php echo @$val['level']?></option>
+                    <?php endforeach; ?>
                 </select>
                 <script type="text/javascript">
-                    $('#adminLevelId').val('{adminLevelId}');
+                    $('#adminLevelId').val('<?php echo $adminLevelId ?>');
                 </script>
             </div>
 
             <div class="form-group col-xs-3">
                 <label for="categoryId">Chọn menu</label><br />
-                <select id="adminController" name="adminController" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='{url /Admin_Levelaction/changeAdminController}?adminController=' + this.value;">
+                <select id="adminController" name="adminController" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='<?php echo BASE_REQUEST . '/Admin_Levelaction/changeAdminController' ?>?adminController=' + this.value;">
                     <option value="">-- Tất cả --</option>
-                    {each $menuTree as $cat}
-                    <option value="{cat[admin_controller]}"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $cat['level']);?>{cat[name]}</option>
-                    {/each}
+                    <?php foreach($menuTree as $cat): ?>
+                    <option value="<?php echo @$cat['admin_controller']?>"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $cat['level']);?><?php echo @$cat['name']?></option>
+                    <?php endforeach; ?>
                 </select>
                 <script type="text/javascript">
-                    $('#adminController').val('{adminController}');
+                    $('#adminController').val('<?php echo $adminController ?>');
                 </script>
             </div>
 
@@ -101,7 +101,7 @@ $menuTree = treefy($menu);
         <div  id="griddelete" style="margin-left: 10px; margin-top: -5px;" class="btn  btn-sm pull-right btn-danger">
             <span class="glyphicon glyphicon-remove"></span> Xóa tất
         </div>
-            <a class="btn btn-primary btn-xs pull-right" role="button" href="{url /Admin_Levelaction/add}"><span class="glyphicon glyphicon-circle-arrow-right"></span> Thêm quyền</a>
+            <a class="btn btn-primary btn-xs pull-right" role="button" href="<?php echo BASE_REQUEST . '/Admin_Levelaction/add' ?>"><span class="glyphicon glyphicon-circle-arrow-right"></span> Thêm quyền</a>
     </div>
     <table class="table">
         <tr>
@@ -115,30 +115,30 @@ $menuTree = treefy($menu);
 
             <th colspan="2">Action</th>
         </tr>
-        {each $items as $item}
+        <?php foreach($items as $item): ?>
         <?php
             $levelName = getLevelName($item['admin_level_id'], $level);
             $menuName = getMenu($item['admin_action'], $menu);
         ?>
         <tr>
-            <td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="{item[id]}" /></td>
-            <td>{item[id]}</td>
-            <td>{levelName}</td>
-            <td>{menuName}</td>
-            <td>{item[action_type]}</td>
+            <td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="<?php echo @$item['id']?>" /></td>
+            <td><?php echo @$item['id']?></td>
+            <td><?php echo $levelName ?></td>
+            <td><?php echo $menuName ?></td>
+            <td><?php echo @$item['action_type']?></td>
             <td>
                 <?php  if($item['status'] == '1') { ?>
-                <span class="glyphicon glyphicon-star" style="color: blue; font-size: 120%; cursor: pointer;" onclick="window.location='onChangeStatus?field=status&id={item[id]}'"></span>
+                <span class="glyphicon glyphicon-star" style="color: blue; font-size: 120%; cursor: pointer;" onclick="window.location='onChangeStatus?field=status&id=<?php echo @$item['id']?>'"></span>
                 <?php } else { ?>
-                <span class="glyphicon glyphicon-star" style="color: black; font-size: 100%; cursor: pointer;" onclick="window.location='onChangeStatus?field=status&id={item[id]}'"></span>
+                <span class="glyphicon glyphicon-star" style="color: black; font-size: 100%; cursor: pointer;" onclick="window.location='onChangeStatus?field=status&id=<?php echo @$item['id']?>'"></span>
                 <?php } ?>
             </td>
             <td><?php echo date('d/m/y H:i', strtotime($item['created'])); ?></td>
             <td width="7%">
-                <a class="color_delete text-center" onclick="return confirm_delete('Do you want delete this record?')" title="Xóa" href="{url /Admin_Levelaction/del}/{item[id]}"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="color_delete text-center" onclick="return confirm_delete('Do you want delete this record?')" title="Xóa" href="<?php echo BASE_REQUEST . '/Admin_Levelaction/del' ?>/<?php echo @$item['id']?>"><span class="glyphicon glyphicon-remove"></span></a>
             </td>
         </tr>
-        {/each}
+        <?php endforeach; ?>
     </table>
 </div>
 
@@ -146,7 +146,7 @@ $menuTree = treefy($menu);
 <div class="clearfix pull-right">
     <form class="form-inline" role="form">
         <strong>Số mục: </strong>
-        <select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='{url /Admin_Levelaction/changePageSize}?pageSize=' + this.value;">
+        <select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/Admin_Levelaction/changePageSize' ?>?pageSize=' + this.value;">
             <option value="10">10</option>
             <option value="20">20</option>
             <option value="30">30</option>
@@ -155,7 +155,7 @@ $menuTree = treefy($menu);
             <option value="200">200</option>
         </select>
         <script type="text/javascript">
-            $('#pageSize').val('{pageSize}');
+            $('#pageSize').val('<?php echo $pageSize ?>');
         </script>
         <strong>Trang: </strong>
         <?php
@@ -167,7 +167,7 @@ $menuTree = treefy($menu);
                 $btn = 'btn-default';
             }
             ?>
-            <a class="btn {btn}" href="{url /Admin_Levelaction/index}?page={page}">{? echo ($page + 1)?}</a>
+            <a class="btn <?php echo $btn ?>" href="<?php echo BASE_REQUEST . '/Admin_Levelaction/index' ?>?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
         <?php endfor; ?>
     </form>
 

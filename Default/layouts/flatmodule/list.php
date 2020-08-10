@@ -2,7 +2,7 @@
 $data->addFilter('status', 1);
 $items = $data->getItems();
 ?>
-{each $items as $item}
+<?php foreach($items as $item): ?>
 	<?php 
 		if($item['xml']) {
 			$elem = pzk_parse($item['xml']);
@@ -16,4 +16,4 @@ $items = $data->getItems();
 		
 		$elem->display();
 	?>
-{/each}
+<?php endforeach; ?>

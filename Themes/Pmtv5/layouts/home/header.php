@@ -1,10 +1,10 @@
-<nav class="cls-navbar-fixed-top">
-	<my.container.header>
-		<my.navbar-header>
+<nav class="<?php echo pzk_theme_css_class('navbar-fixed-top')?>">
+	<?php echo pzk_theme_html_open_tag('container.header') ?>
+		<?php echo pzk_theme_html_open_tag('navbar-header') ?>
 			
 			<a class="navbar-brand" rel="home" href="<?=HW_URL?>">
 				
-				<img src="<?=BASE_SKIN_URL?>/Themes/pmtv/skin/media/logo.png" class="cls-logo hidden" alt="logo happyway" style="max-width:70px; margin-top: -15px;" />
+				<img src="<?=BASE_SKIN_URL?>/Themes/pmtv/skin/media/logo.png" class="<?php echo pzk_theme_css_class('logo')?> hidden" alt="logo happyway" style="max-width:70px; margin-top: -15px;" />
 				<h1 class="visible-xs font-normal padding-0 margin-0 left-10 inline-block">Phần mềm Tiếng Việt 5</h1>
 			</a>
 			<?php if(pzk_session('userId') <= 0):?>
@@ -12,11 +12,11 @@
 			<?php else: ?>
 				<a class="top-10 inline-block visible-xs" href="<?=BASE_REQUEST?>/account/logout"><span style="color: #fff;" class="glyphicon glyphicon-user"></span> Thoát</a>
 			<?php endif;?>
-		</my.navbar-header>
-		<my.navbar>
-		  <my.navbar-nav>
-			<li><a style="border-top: 5px solid #a67ac0;" href="{? echo HW_URL; ?}" class="auto-font"><span style="color: #fff;" class="glyphicon glyphicon-home"></span> Trang chủ</a></li>
-			<li><a style="border-top: 5px solid #fd006b;" href="{? echo HW_URL; ?}/gioi-thieu-cong-ty" class="auto-font"><span class="glyphicon glyphicon-user"></span> Về chúng tôi</a></li>
+		<?php echo pzk_theme_html_close_tag('navbar-header') ?>
+		<?php echo pzk_theme_html_open_tag('navbar') ?>
+		  <?php echo pzk_theme_html_open_tag('navbar-nav') ?>
+			<li><a style="border-top: 5px solid #a67ac0;" href="<?php  echo HW_URL; ?>" class="auto-font"><span style="color: #fff;" class="glyphicon glyphicon-home"></span> Trang chủ</a></li>
+			<li><a style="border-top: 5px solid #fd006b;" href="<?php  echo HW_URL; ?>/gioi-thieu-cong-ty" class="auto-font"><span class="glyphicon glyphicon-user"></span> Về chúng tôi</a></li>
 			
 			<li class="dropdown"><a style="border-top: 5px solid #fdc600;" class="dropdown-toggle auto-font" data-toggle="dropdown" href="#"><span style="color: #fff;" class="glyphicon glyphicon-book"></span> Phần mềm học tập</a>
 				<ul class="dropdown-menu">
@@ -25,7 +25,7 @@
 					<li><a href="<?=PMTV5_URL?>">Phần mềm tiếng Việt lớp 5</a></li>
 				</ul>
 			</li>
-			<li><a style="border-top: 5px solid #46b1b5;" href="{? echo HW_URL; ?}" class="auto-font"><span class="glyphicon glyphicon-gift"></span> Quà tặng học tập</a></li>
+			<li><a style="border-top: 5px solid #46b1b5;" href="<?php  echo HW_URL; ?>" class="auto-font"><span class="glyphicon glyphicon-gift"></span> Quà tặng học tập</a></li>
 			
 			<!--
 			<li><a href="http://nextnobels.com/Khoa-hoc">Khóa học</a></li>
@@ -35,13 +35,13 @@
 			<?php elseif(pzk_session('userId') >0 ):?>
 			<li class="top15 auto-font">
 			<div style="margin-top: 20px; display: inline-block;">
-			Xin chào ( {children [id=userAccountUser]} )
+			Xin chào ( <?php $data->displayChildren('[id=userAccountUser]') ?> )
 			</div>
 			</li>
 			<li><a style="margin-top: 5px;" href="<?=BASE_REQUEST?>/account/logout" class="auto-font">Thoát</a></li>
 			<?php endif;?>
-			<li><a style="border-top: 5px solid #46b1b5;" href="{? echo PMTV5_URL; ?}/home/about#tab4" class="auto-font btn btn-danger"><span class="glyphicon glyphicon-gift"></span> NẠP THẺ </a></li>
-		  </my.navbar-nav>
-		</my.navbar>
-	</my.container.header>
+			<li><a style="border-top: 5px solid #46b1b5;" href="<?php  echo PMTV5_URL; ?>/home/about#tab4" class="auto-font btn btn-danger"><span class="glyphicon glyphicon-gift"></span> NẠP THẺ </a></li>
+		  <?php echo pzk_theme_html_close_tag('navbar-nav') ?>
+		<?php echo pzk_theme_html_close_tag('navbar') ?>
+	<?php echo pzk_theme_html_close_tag('container.header') ?>
 </nav>

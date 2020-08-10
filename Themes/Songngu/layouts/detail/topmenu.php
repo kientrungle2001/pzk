@@ -16,11 +16,11 @@
 					echo 'title="'.$languagevn['practice'].'"'; }?>><a data-toggle="tab" href="#home"><?php echo $language['practice'];?></a></li>
 					</ul> 
 				   <div class="row tab-pane fade in active text-center pding10" id="home">
-						{? $items = $data->getSubject(); ?}	
-						{each $items as $item}
-							<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicesubject" onclick="return false;" data-class="5"  data-alias="{item[alias]}" data-subject="{item[id]}" <?php if($lang == 'ev'){
+						<?php  $items = $data->getSubject(); ?>	
+						<?php foreach($items as $item): ?>
+							<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicesubject" onclick="return false;" data-class="5"  data-alias="<?php echo @$item['alias']?>" data-subject="<?php echo @$item['id']?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name_vn'].'"'; }?>>
-								<a href=""><img src="<?=BASE_SKIN_URL?>{item[img]}" class="img-thumnail wheight50"/></a>
+								<a href=""><img src="<?=BASE_SKIN_URL?><?php echo @$item['img']?>" class="img-thumnail wheight50"/></a>
 								<p class="text-uppercase robotofont weight10">
 								<?php 
 								if ($lang == 'en' || $lang == 'ev'){ 
@@ -31,7 +31,7 @@
 								 ?>
 								</p>
 							</div>
-						{/each}
+						<?php endforeach; ?>
 		            </div>
 	            </div>
 	        </li>
@@ -51,10 +51,10 @@
 						 $class=5;
 						 $dem = 0;
 						 ?>
-						{? $items = $data->getWeekPractice(ROOT_WEEK_CATEGORY_ID); ?}				
-						{each $items as $item}
+						<?php  $items = $data->getWeekPractice(ROOT_WEEK_CATEGORY_ID); ?>				
+						<?php foreach($items as $item): ?>
 						
-						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicepractice" onclick="return false;" data-trial="{item[trial]}" data-week="{item[id]}" data-class="5" <?php if($lang == 'ev'){
+						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicepractice" onclick="return false;" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="5" <?php if($lang == 'ev'){
 						echo 'title="'.$item['name'].'"'; }?>>
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de<?php echo $i;?>.png" class="img-thumnail wheight50"></a>
 							<p class="text-uppercase robotofont weight10 top10"><?php 
@@ -70,7 +70,7 @@
 				
 						}
 						?>
-						{/each}
+						<?php endforeach; ?>
 						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl otherpractice" onclick="return false;" data-class="5" <?php if($lang == 'ev'){
 						echo 'title="'.$languagevn['other'].'"'; }?>>
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de1.png" class="img-thumnail wheight50" /></a>
@@ -94,10 +94,10 @@
 						 $i=9;
 						 $class=5;
 						 ?>
-						{? $items = $data->getWeekTest(354); ?}
-						{each $items as $item}
+						<?php  $items = $data->getWeekTest(354); ?>
+						<?php foreach($items as $item): ?>
 						
-						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicetest" onclick="return false;" data-trial="{item[trial]}" data-week="{item[id]}" data-class="5" <?php if($lang == 'ev'){
+						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicetest" onclick="return false;" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="5" <?php if($lang == 'ev'){
 						echo 'title="'.$item['name'].'"'; }?>>
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
 							<p class="text-uppercase robotofont weight10 top10"><?php 
@@ -113,7 +113,7 @@
 					
 						}
 						?>
-						{/each}
+						<?php endforeach; ?>
 						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl othertest" onclick="return false;" data-class="5" <?php if($lang == 'ev'){
 					echo 'title="'.$languagevn['other'].'"'; }?>>
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh1.png" class="img-thumnail wheight50" /></a>

@@ -1,1 +1,1 @@
-{children all}
+<?php $data->displayChildren('all') ?>

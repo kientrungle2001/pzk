@@ -35,7 +35,7 @@
 	</div>
 </div>
 <div class="" style="margin-left:15px !important;">
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 </div>
 <?php if(!pzk_request()->isMobileAndTablet()):?>
 <div onclick='return opentb1();' id='hotnew1' class='tinmoi1 hidden-xs'>Hiện banner</div>
@@ -62,7 +62,7 @@ function opentb1() {
 <?php ?>
 <div class="container" id="subject">
 	<div id="practice-section" class="row fivecolumns">
-		{children [position=show-subject]}
+		<?php $data->displayChildren('[position=show-subject]') ?>
 	</div>
 </div>
 
@@ -82,7 +82,7 @@ function opentb1() {
 			<a href="" class="text-color nullclass">...</a>
 		</div>
 		<?php else:?>
-		{children [position=practice-place]}
+		<?php $data->displayChildren('[position=practice-place]') ?>
 		<?php endif; ?>
 	</div>
 </div>
@@ -105,7 +105,7 @@ function opentb1() {
 			<a href="" class="text-color nullclass">...</a>
 		</div>
 		<?php else:?>
-		{children [position=test-place]}
+		<?php $data->displayChildren('[position=test-place]') ?>
 		<?php endif; ?>
 	</div>
 	
@@ -131,7 +131,7 @@ function opentb1() {
 			<a href="" class="text-color nullclass">...</a>
 		</div>
 		<?php else:?>
-		{children [position=testtl-place]}
+		<?php $data->displayChildren('[position=testtl-place]') ?>
 		<?php endif; ?>
 	</div>
 	
@@ -145,7 +145,7 @@ function opentb1() {
 	<a href="/test/test/89?practice=0&class=5" class="text-color">Đề thi chính thức vào lớp 6 Trường Trần Đại Nghĩa 2016</a>
 </div>
 
-{children [position=bottom-slide]}	
+<?php $data->displayChildren('[position=bottom-slide]') ?>	
 		
 <script>
 	numberclass = 5;

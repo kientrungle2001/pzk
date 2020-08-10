@@ -7,9 +7,9 @@ $delimiter = $data->get('delimiter');
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12">
-		{each $categories as $cat}
-			<a href="/{? echo $cat->get('alias') ?}"><{categoryTag} class="breadcrumbs">{? echo $cat->get('name') ?}</{categoryTag}></a> {delimiter}
-		{/each}
+		<?php foreach($categories as $cat): ?>
+			<a href="/<?php  echo $cat->get('alias') ?>"><<?php echo $categoryTag ?> class="breadcrumbs"><?php  echo $cat->get('name') ?></<?php echo $categoryTag ?>></a> <?php echo $delimiter ?>
+		<?php endforeach; ?>
 		</div>
 	</div>
 </div>

@@ -1,5 +1,5 @@
 <?php
 $item = $data->getItem();
 ?>
-<h3>{item[name]}</h3>
-{children all}
+<h3><?php echo @$item['name']?></h3>
+<?php $data->displayChildren('all') ?>

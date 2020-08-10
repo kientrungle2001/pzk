@@ -21,4 +21,4 @@
 <link rel="stylesheet" type="text/css" property="stylesheet" href="/Themes/Songngu/skin/css/style.css" />
 <link rel="stylesheet" type="text/css" property="stylesheet" href="/Themes/Songngu3/skin/css/style.css" />
 <link rel="stylesheet" type="text/css" property="stylesheet" href="/Themes/Hanoistar/skin/css/style.css" />
-{children all}
+<?php $data->displayChildren('all') ?>

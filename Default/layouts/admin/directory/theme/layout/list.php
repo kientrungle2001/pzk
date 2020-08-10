@@ -1,11 +1,11 @@
-<!--? $items = $data->getItems(); ?-->
+<?php $items = $data->getItems(); ?>
 <div class="row">
 <!--each $items as $item-->
 <div class="col-xs-3 text-center">
 	<span class="glyphicon glyphicon-folder-open" style="font-size: 72px; color: blue;"></span>
-	<h4>{item[name]}</h4>
+	<h4><?php echo @$item['name']?></h4>
 	<div class="link-icons">
-		<a href="/admin_directory_theme/layoutDetail/{item[id]}">Chi tiết</a> | <a href="/admin_site_layout/del/{item[id]}&backHref=/admin_directory_theme/detail/{data.getThemeId()}">Xóa</a>
+		<a href="/admin_directory_theme/layoutDetail/<?php echo @$item['id']?>">Chi tiết</a> | <a href="/admin_site_layout/del/<?php echo @$item['id']?>&backHref=/admin_directory_theme/detail/{data.getThemeId()}">Xóa</a>
 	</div>
 </div>
 <!--/each-->

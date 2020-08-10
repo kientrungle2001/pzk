@@ -40,8 +40,8 @@ $practice = pzk_request('practice');
 $check= pzk_session('checkPayment'); 
 //data
 ?>
-{children [position=public-header]}
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=public-header]') ?>
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container">
 		<p class="t-weight text-center btn-custom8 textcl">Bảng xếp hạng</p>
 </div>
@@ -50,21 +50,21 @@ $check= pzk_session('checkPayment');
         <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12 top10 bot20">
             
                 <div class="dropdown col-md-8 col-sm-8 col-xs-12 mgleft pd0 mg0">
-                    <button class="btn fix_hover btn-default col-md-12 col-sm-12 col-xs-12 sharp" type="button"><span id="chonde" class="fontsize19">{testDetail[name_sn]}</span><img class="img-responsive imgwh hidden-xs hidden-sm pull-right" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/icon1.png" /></span>
+                    <button class="btn fix_hover btn-default col-md-12 col-sm-12 col-xs-12 sharp" type="button"><span id="chonde" class="fontsize19"><?php echo @$testDetail['name_sn']?></span><img class="img-responsive imgwh hidden-xs hidden-sm pull-right" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/icon1.png" /></span>
                     </button>
                         <ul class="dropdown-menu col-md-12 col-sm-12 col-xs-12" style="top:40px; max-height:350px; overflow-y: scroll;">
                         <?php 
                             $weeks = $data->getWeekTest(ROOT_WEEK_CATEGORY_ID, $practice, $check);
                             
                          ?>
-                        {each $weeks as $week }
+                        <?php foreach($weeks as $week ): ?>
                         
-                        <li class="left20" style="color:#d9534f"><h5><strong>{week[name]}</strong></h5>
+                        <li class="left20" style="color:#d9534f"><h5><strong><?php echo @$week['name']?></strong></h5>
                            
                         <?php 
                             $tests = $data->getTestSN($week['id'], $practice, $check);
                             if($practice== 1 || $practice == '1'){  ?>
-                                {each $tests as $test }
+                                <?php foreach($tests as $test ): ?>
                                 <?php 
                                     if($test['name_sn']){
                                         $testName = $test['name_sn'];
@@ -72,14 +72,14 @@ $check= pzk_session('checkPayment');
                                 ?>
                                     <li style="padding-left: 40px;"<?php if(pzk_request('week') == $week['id'] && pzk_request('examination') == $test['id']) echo'class="active"'; ?>>
                                         
-                                        <a onclick="document.getElementById('chonde').innerHTML = '{testName}';"  data-de="{testName}" class="getdata" href="/Home/showRating?week={week[id]}&practice=1&examination={test[id]}" data-type="group">{testName}</a>
+                                        <a onclick="document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';"  data-de="<?php echo $testName ?>" class="getdata" href="/Home/showRating?week=<?php echo @$week['id']?>&practice=1&examination=<?php echo @$test['id']?>" data-type="group"><?php echo $testName ?></a>
                                         
                                     </li>
-                                {/each}
+                                <?php endforeach; ?>
                         <?php
                             }else{
                          ?>                     
-                            {each $tests as $test }
+                            <?php foreach($tests as $test ): ?>
                             <?php 
                                 if($test['name_sn']){
                                     $testName = $test['name_sn'];
@@ -87,14 +87,14 @@ $check= pzk_session('checkPayment');
                             ?>
                             <li style="padding-left: 40px;"<?php if(pzk_request('week') == $week['id'] && pzk_request('examination') == $test['id']) echo'class="active"'; ?>>
                                 
-                                <a onclick="id = {week[id]};document.getElementById('chonde').innerHTML = '{testName}';"  data-de="{testName}" class="getdata" href="/Home/showRating?week={week[id]}&practice=0&examination={test[id]}" data-type="group">{testName}</a>
+                                <a onclick="id = <?php echo @$week['id']?>;document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';"  data-de="<?php echo $testName ?>" class="getdata" href="/Home/showRating?week=<?php echo @$week['id']?>&practice=0&examination=<?php echo @$test['id']?>" data-type="group"><?php echo $testName ?></a>
                                 
                             </li>
-                            {/each}
+                            <?php endforeach; ?>
                             <?php } ?>
                             
                         </li>
-                        {/each}
+                        <?php endforeach; ?>
                         </ul>
                 </div>
                 <div class="col-xs-12 col-md-4 col-sm-2 bd pull-right mgleft">
@@ -133,14 +133,14 @@ $check= pzk_session('checkPayment');
 			</tr>
 		</thead>
 		<tbody>
-        {each $items as $val}
+        <?php foreach($items as $val): ?>
         <tr>
             <td><?php echo $i+ $data->pageNum*$data->pageSize; ?></td>
-            <td><a href="/home/listTest/{val[userId]}?practice={practice}">{val[username]}</a></td>
-            <td>{weekName}</td>
-            <td>{val[name_sn]}</td>
+            <td><a href="/home/listTest/<?php echo @$val['userId']?>?practice=<?php echo $practice ?>"><?php echo @$val['username']?></a></td>
+            <td><?php echo $weekName ?></td>
+            <td><?php echo @$val['name_sn']?></td>
 
-            <td>{val[mark]}</td>
+            <td><?php echo @$val['mark']?></td>
             <?php
                 $time = $val['duringTime'];
                 $time = secondsToTime($time);
@@ -166,7 +166,7 @@ $check= pzk_session('checkPayment');
             <td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:m:i A', strtotime($val['startTime'])); ?></td>
         </tr>
         <?php $i++; ?>
-        {/each}
+        <?php endforeach; ?>
 		</tbody>
     </table>
 	</div>
@@ -176,14 +176,14 @@ $check= pzk_session('checkPayment');
 
 			<!-- <div style="padding-left: 0px ;" class='col-md-2 co-xs-12'>
                 <strong>Số mục: </strong>
-                <select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='{url /home/changePageSize}?pageSize=' + this.value;">
+                <select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/home/changePageSize' ?>?pageSize=' + this.value;">
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="25">25</option>
                 </select>
                 <script type="text/javascript">
-                    $('#pageSize').val('{pageSize}');
+                    $('#pageSize').val('<?php echo $pageSize ?>');
                 </script>
                                 
             </div> -->
@@ -198,11 +198,11 @@ $check= pzk_session('checkPayment');
                                 <?php
                                 if($data->pageNum >= 1) { ?>
                                     <li>
-                                        <a href="{url} /Home/showRating?week={weekId}&practice={practice}&examination={testId}&page=0" aria-label="End">
+                                        <a href="<?php echo BASE_REQUEST ?> /Home/showRating?week=<?php echo $weekId ?>&practice=<?php echo $practice ?>&examination=<?php echo $testId ?>&page=0" aria-label="End">
                                             <span aria-hidden="true">Trang đầu</span>
                                         </a>
                                     <li>
-                                        <a aria-label="Previous" href="{url} /Home/showRating?week={weekId}&practice={practice}&examination={testId}&page=<?php echo $data->pageNum -1; ?>">
+                                        <a aria-label="Previous" href="<?php echo BASE_REQUEST ?> /Home/showRating?week=<?php echo $weekId ?>&practice=<?php echo $practice ?>&examination=<?php echo $testId ?>&page=<?php echo $data->pageNum -1; ?>">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
@@ -219,19 +219,19 @@ $check= pzk_session('checkPayment');
                                         $active = '';
                                     }
                                     ?>
-                                    <li class="{active}">
-                                        <a  href="{url} /Home/showRating?week={weekId}&practice={practice}&examination={testId}&page={page}">{? echo ($page + 1)?}</a>
+                                    <li class="<?php echo $active ?>">
+                                        <a  href="<?php echo BASE_REQUEST ?> /Home/showRating?week=<?php echo $weekId ?>&practice=<?php echo $practice ?>&examination=<?php echo $testId ?>&page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
                                     </li>
                                 <?php } ?>
 
                                 <?php if($data->pageNum < $pages-1) { ?>
                                     <li>
-                                        <a href="{url} /Home/showRating?week={weekId}&practice={practice}&examination={testId}&page=<?php echo $data->pageNum + 1; ?>" aria-label="Next">
+                                        <a href="<?php echo BASE_REQUEST ?> /Home/showRating?week=<?php echo $weekId ?>&practice=<?php echo $practice ?>&examination=<?php echo $testId ?>&page=<?php echo $data->pageNum + 1; ?>" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{url} /Home/showRating?week={weekId}&practice={practice}&examination={testId}&page=<?php echo $pages-1; ?>" aria-label="end">
+                                        <a href="<?php echo BASE_REQUEST ?> /Home/showRating?week=<?php echo $weekId ?>&practice=<?php echo $practice ?>&examination=<?php echo $testId ?>&page=<?php echo $pages-1; ?>" aria-label="end">
                                             <span aria-hidden="true">Trang cuối</span>
                                         </a>
                                     </li>

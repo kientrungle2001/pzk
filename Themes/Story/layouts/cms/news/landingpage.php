@@ -1,4 +1,4 @@
-{children [position=header]}
+<?php $data->displayChildren('[position=header]') ?>
 
 
 <div class="container" style="margin-top:60px;">

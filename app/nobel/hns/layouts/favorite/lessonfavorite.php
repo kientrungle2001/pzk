@@ -26,17 +26,17 @@
     $listlessions= array_reverse($listlessions);
     
    ?>
-   {each $listlessions as $listlession} 
+   <?php foreach($listlessions as $listlession): ?> 
   <div class="list_lesson_row">
    
-     <div class="lesson_name_row">{listlession[lessonName]}</div>
-     <div class="lesson_type_row">{listlession[categoriesName]}</div>
-     <div class="lesson_type_row">{listlession[date]}</div>
+     <div class="lesson_name_row"><?php echo @$listlession['lessonName']?></div>
+     <div class="lesson_type_row"><?php echo @$listlession['categoriesName']?></div>
+     <div class="lesson_type_row"><?php echo @$listlession['date']?></div>
      <?php $id=$listlession['id']; ?>
-     <div class="lesson_del_row"><a href="/favorite/delLessionfavorite/<?=$id?>" class="{listlession[id]}" onclick="return confirm('are you sure?')">Xóa</a></div>
+     <div class="lesson_del_row"><a href="/favorite/delLessionfavorite/<?=$id?>" class="<?php echo @$listlession['id']?>" onclick="return confirm('are you sure?')">Xóa</a></div>
   
   </div>
-  {/each}
+  <?php endforeach; ?>
   <div id="view_more_lesson_favorite">
 
       <a href="#" onclick="viewMore(); return false;"><span>Xem thêm <span id="count_lesson_favorite"></span> bài khác >></span></a>

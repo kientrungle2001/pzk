@@ -31,10 +31,10 @@
 		<h3 class="text-center"> Thông tin chi tiết của thí sinh </h3>
 		<div class='well'>
 			<div class='row'>
-				<div class='col-md-3 col-xs-12'>Họ và tên: {userInfo[name]}</div>
-				<div class='col-md-3 col-xs-12'>Username: {userInfo[username]}</div>
-				<div class='col-md-3 col-xs-12'>Email: {userInfo[email]}</div>
-				<div class='col-md-3 col-xs-12'>Phone: {userInfo[phone]}</div>
+				<div class='col-md-3 col-xs-12'>Họ và tên: <?php echo @$userInfo['name']?></div>
+				<div class='col-md-3 col-xs-12'>Username: <?php echo @$userInfo['username']?></div>
+				<div class='col-md-3 col-xs-12'>Email: <?php echo @$userInfo['email']?></div>
+				<div class='col-md-3 col-xs-12'>Phone: <?php echo @$userInfo['phone']?></div>
 			</div>
 			
 		</div>
@@ -120,7 +120,7 @@
 										Hoàn thành 
 									</button>
 								
-									<a style='display:none;' id='testtl' href ="<?=BASE_REQUEST;?>/trytest/showtl/{camp}" class='btn btn-info'>Thi tự luận</a>
+									<a style='display:none;' id='testtl' href ="<?=BASE_REQUEST;?>/trytest/showtl/<?php echo $camp ?>" class='btn btn-info'>Thi tự luận</a>
 
 							
 						</div>
@@ -145,7 +145,7 @@
 	          	Chúc mừng bạn đã thi xong bài trắc nghiệm. Hãy click vào nút "Thi tự luận" để bắt đầu bài thi tự luận
 	        </div>
 	        <div class="modal-footer">
-				<a href ="<?=BASE_REQUEST;?>/trytest/showtl/{camp}" class='btn btn-info'>Thi tự luận</a>
+				<a href ="<?=BASE_REQUEST;?>/trytest/showtl/<?php echo $camp ?>" class='btn btn-info'>Thi tự luận</a>
 	        </div>
       	</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

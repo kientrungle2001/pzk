@@ -25,7 +25,7 @@ $areas= $user->loadArea();
 				<div class="clearfix"></div>
 				<div class="col-xs-4 margin-top-10">
 					<label for="username">Họ và Tên(*) :</label>
-					<input type="text" class="form-control" id="editinfor_name" name="editinfor_name" value="{user.get('name')}" placeholder="Họ và Tên" data-toggle="tooltip" data-placement="top" title="Họ và Tên">
+					<input type="text" class="form-control" id="editinfor_name" name="editinfor_name" value="<?php echo $user->get('name')?>" placeholder="Họ và Tên" data-toggle="tooltip" data-placement="top" title="Họ và Tên">
 				</div>
 				
 				
@@ -36,17 +36,17 @@ $areas= $user->loadArea();
 						<option value="0" class="pd-5">Nữ</option>
 					</select>
 					<script type="text/javascript">
-						$('#editinfor_sex').val('{user.get('sex')}');
+						$('#editinfor_sex').val('<?php echo $user->get('sex')?>');
 					</script>
 				</div>
 				<div class="col-xs-3 margin-top-10">
 					<label for="phone">Điện thoại (*) :</label>
-					<input type="text" class="form-control" id="editinfor_phone" name="editinfor_phone" value="{user.get('phone')}" placeholder="Điện thoại" data-toggle="tooltip" data-placement="top" title="Điện thoại phải là số">
+					<input type="text" class="form-control" id="editinfor_phone" name="editinfor_phone" value="<?php echo $user->get('phone')?>" placeholder="Điện thoại" data-toggle="tooltip" data-placement="top" title="Điện thoại phải là số">
 				</div>
 				<div class="clearfix" style="padding-bottom:10px;"></div>
 				<div class="col-xs-4 margin-top-10">
 					<label for="username">Địa chỉ :</label>
-					<input type="text" class="form-control" id="editinfor_address" name="editinfor_address" value="{user.get('address')}" placeholder="Địa chỉ" data-toggle="tooltip" data-placement="top" title="Địa chỉ của bạn">
+					<input type="text" class="form-control" id="editinfor_address" name="editinfor_address" value="<?php echo $user->get('address')?>" placeholder="Địa chỉ" data-toggle="tooltip" data-placement="top" title="Địa chỉ của bạn">
 				</div>
 				<div class="col-xs-8 margin-top-10">
 					<label for="username">Ngày sinh (*) :</label>
@@ -92,23 +92,23 @@ $areas= $user->loadArea();
 				<div class="clearfix"></div>
 				<div class="col-xs-4 margin-top-10">
 					<label for="school">Trường :</label>
-					<input type="text" class="form-control" id="editinfor_school" name="editinfor_school" value="{user.get('school')}" placeholder="Trường học" data-toggle="tooltip" data-placement="top" title="Trường học">
+					<input type="text" class="form-control" id="editinfor_school" name="editinfor_school" value="<?php echo $user->get('school')?>" placeholder="Trường học" data-toggle="tooltip" data-placement="top" title="Trường học">
 				</div>                            
 			   
 				<div class="col-xs-2 margin-top-10">
 					<label for="class">Lớp học :</label>
-					<input type="text" class="form-control" id="editinfor_class" name="editinfor_class" value="{user.get('class')}" placeholder="Lớp học" data-toggle="tooltip" data-placement="top" title="Lớp học">
+					<input type="text" class="form-control" id="editinfor_class" name="editinfor_class" value="<?php echo $user->get('class')?>" placeholder="Lớp học" data-toggle="tooltip" data-placement="top" title="Lớp học">
 				</div> 
 
 				<div class="col-xs-3 margin-top-10">
 					<label for="area">Tỉnh/TP :</label>
 					<select  class="form-control" id="editinfor_areacode" title="Tỉnh/ Thành phố" name="editinfor_areacode" aria-label="Tỉnh/tp" data-toggle="tooltip" data-placement="top" title="Tỉnh/ Thành phố">
-								{each $areas as $area}
+								<?php foreach($areas as $area): ?>
 								<option value="<?php echo $area['id']; ?>"><?php   echo $area['name']; ?></option>
-								{/each}
+								<?php endforeach; ?>
 					</select>
 					<script type="text/javascript">
-					$('#editinfor_areacode').val('{user.get('areacode')}');
+					$('#editinfor_areacode').val('<?php echo $user->get('areacode')?>');
 					</script>
 				</div>
 

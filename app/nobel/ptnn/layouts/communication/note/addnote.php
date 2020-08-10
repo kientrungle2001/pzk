@@ -19,9 +19,9 @@
             
             <textarea id="addnote" name="contentnote" class="pne_ck_area_box" ></textarea>            
         </div>
-        <input class="pne_st1_r_file_bt" type="button" onclick="pzk_{data.id}.back({member})" id="note_back" value="Quay lại">
-        <input class="pne_st1_r_file_bt" type="button" onclick="pzk_{data.id}.send({member})" name="note_finish" id="note_finish" value="Hoàn thành">
-        <input class="pne_st1_r_file_bt" type="button" onclick="pzk_{data.id}.reset()" id="note_reset" value="Làm lại">
+        <input class="pne_st1_r_file_bt" type="button" onclick="pzk_<?php echo @$data->id?>.back(<?php echo $member ?>)" id="note_back" value="Quay lại">
+        <input class="pne_st1_r_file_bt" type="button" onclick="pzk_<?php echo @$data->id?>.send(<?php echo $member ?>)" name="note_finish" id="note_finish" value="Hoàn thành">
+        <input class="pne_st1_r_file_bt" type="button" onclick="pzk_<?php echo @$data->id?>.reset()" id="note_reset" value="Làm lại">
 <!--        <a href="javascript:;"><div class="pne_st1_r_file_bt">Làm lại</div></a>-->
     </form>
    

@@ -20,7 +20,7 @@ $col3Items			= 	$chunks3[2];
 
 $index 				= 	1;
 ?>
-<div class="lecture-region {root[alias]}">
+<div class="lecture-region <?php echo @$root['alias']?>">
 	<div class="lecture-bird-2 hidden-xs"></div>
 	<div class="container">
 		<h1 class="text-center color2-bold">Chính tả</h1>
@@ -30,46 +30,46 @@ $index 				= 	1;
 				<div class="lecture-index">
 					<div class="lecture-left hidden-md hidden-sm hidden-xs">
 						<div class="left">
-							{each $basicChildren1 as $item}
-							<div class="lecture-item blcolor2-bold num{index}">
-								<div class="lecture-title color2-bold"><a href="/{item[alias]}">{item[name]}</a></div>
-								<div class="lecture-detail"><a href="/{item[alias]}">Bài giảng</a></div>
-								<div class="lecture-practice"><a href="/{item[alias]}#practice-section">Bài tập</a></div>
+							<?php foreach($basicChildren1 as $item): ?>
+							<div class="lecture-item blcolor2-bold num<?php echo $index ?>">
+								<div class="lecture-title color2-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
+								<div class="lecture-detail"><a href="/<?php echo @$item['alias']?>">Bài giảng</a></div>
+								<div class="lecture-practice"><a href="/<?php echo @$item['alias']?>#practice-section">Bài tập</a></div>
 							</div>
-							{?	$index++; ?}
-							{/each}
+							<?php 	$index++; ?>
+							<?php endforeach; ?>
 						</div>
 						<div class="right">
-							{each $basicChildren2 as $item}
-							<div class="lecture-item blcolor2-bold num{index}">
-								<div class="lecture-title color2-bold"><a href="/{item[alias]}">{item[name]}</a></div>
-								<div class="lecture-detail"><a href="/{item[alias]}">Bài giảng</a></div>
-								<div class="lecture-practice"><a href="/{item[alias]}#practice-section">Bài tập</a></div>
+							<?php foreach($basicChildren2 as $item): ?>
+							<div class="lecture-item blcolor2-bold num<?php echo $index ?>">
+								<div class="lecture-title color2-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
+								<div class="lecture-detail"><a href="/<?php echo @$item['alias']?>">Bài giảng</a></div>
+								<div class="lecture-practice"><a href="/<?php echo @$item['alias']?>#practice-section">Bài tập</a></div>
 							</div>
-							{?	$index++; ?}
-							{/each}
+							<?php 	$index++; ?>
+							<?php endforeach; ?>
 						</div>
 					</div>
 					<div class="lecture-right hidden-md hidden-sm hidden-xs">
 						<div class="left">
-							{each $advanceChildren1 as $item}
-							<div class="lecture-item blcolor2-bold num{index}">
-								<div class="lecture-title color2-bold"><a href="/{item[alias]}">{item[name]}</a></div>
-								<div class="lecture-detail"><a href="/{item[alias]}">Bài giảng</a></div>
-								<div class="lecture-practice"><a href="/{item[alias]}#practice-section">Bài tập</a></div>
+							<?php foreach($advanceChildren1 as $item): ?>
+							<div class="lecture-item blcolor2-bold num<?php echo $index ?>">
+								<div class="lecture-title color2-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
+								<div class="lecture-detail"><a href="/<?php echo @$item['alias']?>">Bài giảng</a></div>
+								<div class="lecture-practice"><a href="/<?php echo @$item['alias']?>#practice-section">Bài tập</a></div>
 							</div>
-							{?	$index++; ?}
-							{/each}
+							<?php 	$index++; ?>
+							<?php endforeach; ?>
 						</div>
 						<div class="right">
-							{each $advanceChildren2 as $item}
-							<div class="lecture-item blcolor2-bold num{index}">
-								<div class="lecture-title color2-bold"><a href="/{item[alias]}">{item[name]}</a></div>
-								<div class="lecture-detail"><a href="/{item[alias]}">Bài giảng</a></div>
-								<div class="lecture-practice"><a href="/{item[alias]}#practice-section">Bài tập</a></div>
+							<?php foreach($advanceChildren2 as $item): ?>
+							<div class="lecture-item blcolor2-bold num<?php echo $index ?>">
+								<div class="lecture-title color2-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
+								<div class="lecture-detail"><a href="/<?php echo @$item['alias']?>">Bài giảng</a></div>
+								<div class="lecture-practice"><a href="/<?php echo @$item['alias']?>#practice-section">Bài tập</a></div>
 							</div>
-							{?	$index++; ?}
-							{/each}
+							<?php 	$index++; ?>
+							<?php endforeach; ?>
 						</div>
 					</div>
 					<?php 
@@ -80,28 +80,28 @@ $index 				= 	1;
 					$pd10 = ($i == 1)? 'pd-10-percent' : '';
 					$smwidth = 4;
 					?>
-					<div class="col-sm-{smwidth} hidden-lg hidden-xs {pd10} pd-top-30">
-						{each $colItems as $item}
-						<div class="lecture-item blcolor2-bold num{index}">
-							<div class="lecture-title color2-bold"><a href="/{item[alias]}">{item[name]}</a></div>
-							<div class="lecture-detail"><a href="/{item[alias]}">Bài giảng</a></div>
-							<div class="lecture-practice"><a href="/{item[alias]}#practice-section">Bài tập</a></div>
+					<div class="col-sm-<?php echo $smwidth ?> hidden-lg hidden-xs <?php echo $pd10 ?> pd-top-30">
+						<?php foreach($colItems as $item): ?>
+						<div class="lecture-item blcolor2-bold num<?php echo $index ?>">
+							<div class="lecture-title color2-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
+							<div class="lecture-detail"><a href="/<?php echo @$item['alias']?>">Bài giảng</a></div>
+							<div class="lecture-practice"><a href="/<?php echo @$item['alias']?>#practice-section">Bài tập</a></div>
 						</div>
-						{?	$index++; ?}
-						{/each}
+						<?php 	$index++; ?>
+						<?php endforeach; ?>
 					</div>
 					<?php endfor; 
 					$index = 1;
 					?>
 					<div class="col-xs-12 visible-xs">
-						{each $children as $item}
-						<div class="lecture-item blcolor2-bold num{index}">
-							<div class="lecture-title color2-bold"><a href="/{item[alias]}">{item[name]}</a></div>
-							<div class="lecture-detail"><a href="/{item[alias]}">Bài giảng</a></div>
-							<div class="lecture-practice"><a href="/{item[alias]}#practice-section">Bài tập</a></div>
+						<?php foreach($children as $item): ?>
+						<div class="lecture-item blcolor2-bold num<?php echo $index ?>">
+							<div class="lecture-title color2-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
+							<div class="lecture-detail"><a href="/<?php echo @$item['alias']?>">Bài giảng</a></div>
+							<div class="lecture-practice"><a href="/<?php echo @$item['alias']?>#practice-section">Bài tập</a></div>
 						</div>
-						{?	$index++; ?}
-						{/each}
+						<?php 	$index++; ?>
+						<?php endforeach; ?>
 					</div>
 					<div class="clear"></div>
 				</div>

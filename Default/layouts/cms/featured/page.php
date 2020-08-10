@@ -1,5 +1,5 @@
 <html>
 	<body>
-		{children all}
+		<?php $data->displayChildren('all') ?>
 	</body>
 </html>

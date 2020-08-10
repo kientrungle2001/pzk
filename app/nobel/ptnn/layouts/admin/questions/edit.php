@@ -6,8 +6,8 @@
 	$categories = buildArr($categories,'parent',0);
 	$categoryIds = explode(',', $item['categoryIds']);
 ?>
-<form id="questionsEditForm" role="form" method="post" action="{url /admin_questions/editAllCatePost}">
-  	<input type="hidden" name="id" value="{item[id]}" />
+<form id="questionsEditForm" role="form" method="post" action="<?php echo BASE_REQUEST . '/admin_questions/editAllCatePost' ?>">
+  	<input type="hidden" name="id" value="<?php echo @$item['id']?>" />
     <input type="hidden" name="software" value="<?php echo pzk_request()->getSoftwareId(); ?>" />
   	<div class="form-group col-xs-12">
   		<div class="col-xs-2">
@@ -32,7 +32,7 @@
 			</select>
 		</div>
 		<script type="text/javascript">
-			$('#type'). val('{item[type]}');
+			$('#type'). val('<?php echo @$item['type']?>');
 		</script>
  	</div>
  	
@@ -96,8 +96,8 @@
     		<label for="categoryIds">Danh mục</label>
     	</div>
     	<div class="col-xs-10">
-	    	<select multiple="multiple" class="form-control" id="categoryIds" name="categoryIds[]" placeholder="Danh mục" value="{item[categoryIds]}" style="height: 300px">
-			{each $categories as $cat}
+	    	<select multiple="multiple" class="form-control" id="categoryIds" name="categoryIds[]" placeholder="Danh mục" value="<?php echo @$item['categoryIds']?>" style="height: 300px">
+			<?php foreach($categories as $cat): ?>
 			<?php 
 			$tab = '&nbsp;&nbsp;&nbsp;&nbsp;';	
 			$tabs = str_repeat($tab, $cat['level']);
@@ -107,15 +107,15 @@
 				$selected = 'selected="selected"';
 			}
 			?>
-			<option {selected} value="{cat[id]}">{catName}</option>
-			{/each}
+			<option <?php echo $selected ?> value="<?php echo @$cat['id']?>"><?php echo $catName ?></option>
+			<?php endforeach; ?>
 			</select>
 		</div>
   	</div>
   	<div class="col-xs-12">
   		<div class="col-xs-4 col-xs-offset-2">
 		  	<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Cập nhật</button>
-		  	<a class="btn btn-default" href="{url /admin_questions/index}">Quay lại</a>
+		  	<a class="btn btn-default" href="<?php echo BASE_REQUEST . '/admin_questions/index' ?>">Quay lại</a>
 	  	</div>
   	</div>
 </form>
@@ -123,7 +123,7 @@
 	$editValidator = json_encode(pzk_controller()->editValidator);
 	?>
 	<script>
-	$('#questionsEditForm').validate({editValidator});
+	$('#questionsEditForm').validate(<?php echo $editValidator ?>);
 	setInputTinymce();
 	function request_question(){
 		var data_request = $('#type option:selected').attr('data-request');

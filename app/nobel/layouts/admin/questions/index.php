@@ -115,63 +115,63 @@
 	}
 </script>
 <div class="well">
-<form role="search" action="{url /admin_questions/searchPost}">
+<form role="search" action="<?php echo BASE_REQUEST . '/admin_questions/searchPost' ?>">
 	<div class="row">
 		<div class="form-group col-xs-2">
 			<label for="keyword">Tên câu hỏi</label><br>
-        	<input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Câu hỏi" value="{keyword}" />
+        	<input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Câu hỏi" value="<?php echo $keyword ?>" />
        	</div>
 
 		
 		<div class="form-group col-xs-3">
 			<label for="categoryId">Dạng bài tập</label><br>
-          	<select id="categoryId" name="categoryId" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='{url /admin_questions/changeCategoryId}?categoryId=' + this.value;">
+          	<select id="categoryId" name="categoryId" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questions/changeCategoryId' ?>?categoryId=' + this.value;">
 			<option value="">-- Tất cả --</option>
-			{each $categoryTree as $cat}
-				<option value="{cat[id]}"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $cat['level']);?>{cat[name]}</option>
-			{/each}
+			<?php foreach($categoryTree as $cat): ?>
+				<option value="<?php echo @$cat['id']?>"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $cat['level']);?><?php echo @$cat['name']?></option>
+			<?php endforeach; ?>
  		 	</select>
   			<script type="text/javascript">
-				$('#categoryId').val('{categoryId}');
+				$('#categoryId').val('<?php echo $categoryId ?>');
   			</script>
         </div>
 
         <div class="form-group col-xs-1">
             <label for="testId">Đề thi</label><br>
-            <select id="testId" name="testId" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='{url /admin_questions/changeTestId}?testId=' + this.value;">
+            <select id="testId" name="testId" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questions/changeTestId' ?>?testId=' + this.value;">
                 <option value="">-- Tất cả --</option>
-                {each $testIds as $cat}
-                <option value="{cat[id]}">{cat[name]}</option>
-                {/each}
+                <?php foreach($testIds as $cat): ?>
+                <option value="<?php echo @$cat['id']?>"><?php echo @$cat['name']?></option>
+                <?php endforeach; ?>
             </select>
             <script type="text/javascript">
-                $('#testId').val('{testId}');
+                $('#testId').val('<?php echo $testId ?>');
             </script>
         </div>
 		
 		<div class="form-group col-xs-2">
             <label for="questionType">Dạng câu</label><br>
-            <select id="questionType" name="questionType" class="form-control input-sm" placeholder="Người dùng" onchange="window.location='{url /admin_questions/changeQuestionType}?questionType=' + this.value;">
+            <select id="questionType" name="questionType" class="form-control input-sm" placeholder="Người dùng" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questions/changeQuestionType' ?>?questionType=' + this.value;">
             	<option value="">-- Tất cả --</option>
                 <option value="<?=QUESTION_TYPE_CHOICE?>">Trắc nghiệm</option>
                 <option value="<?=QUESTION_TYPE_FILL?>">Điền đáp án</option>
                 <option value="<?=QUESTION_TYPE_FILL_JOIN?>">Tự luận điền từ</option>
             </select>
             <script type="text/javascript">
-                $('#questionType').val('{questionType}');
+                $('#questionType').val('<?php echo $questionType ?>');
             </script>
         </div>
 		
         <div class="form-group col-xs-2">
             <label for="trial">Người dùng</label><br>
-            <select id="trial" name="trial" class="form-control input-sm" placeholder="Người dùng" onchange="window.location='{url /admin_questions/changeTrial}?trial=' + this.value;">
+            <select id="trial" name="trial" class="form-control input-sm" placeholder="Người dùng" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questions/changeTrial' ?>?trial=' + this.value;">
                 <option value="">-- Tất cả --</option>
 
                 <option value="1">Dùng thử</option>
                 <option value="0">Mất phí</option>
             </select>
             <script type="text/javascript">
-                $('#trial').val('{trial}');
+                $('#trial').val('<?php echo $trial ?>');
             </script>
         </div>
         
@@ -189,7 +189,7 @@
 
 <div class="panel panel-default">
 	<div class="panel-heading">
-		Danh sách câu hỏi  <a class="btn btn-primary btn-xs pull-right" role="button" href="{url /admin_questions/add}"><span class="glyphicon glyphicon-circle-arrow-right"></span> Thêm câu hỏi</a>
+		Danh sách câu hỏi  <a class="btn btn-primary btn-xs pull-right" role="button" href="<?php echo BASE_REQUEST . '/admin_questions/add' ?>"><span class="glyphicon glyphicon-circle-arrow-right"></span> Thêm câu hỏi</a>
 	</div>
 	<table class="table">
 		<tr>
@@ -207,20 +207,20 @@
 
 			<th colspan="2">Action</th>
 		</tr>
-		{each $items as $item}
+		<?php foreach($items as $item): ?>
 		<?php 
 		$catNames = getCategoriesName($item, $cats);
         $nametest = getTestName($item, $tests);
 		?>
 		<tr>
-            <td><input class="checkIds" type="checkbox" name="checkIds[]" value="{item[id]}"></td>
-			<td>{item[id]}</td>
-			<td><a href="{url /admin_questions/detail}/{item[id]}">{item[name]}</a></td>
-			<td>{catNames}</td>
-            <td width="10%">{nametest}</td>
-			<td width="3%"><input name="level[{item[id]}]" rel="{item[id]}" value="{item[level]}" style="width: 20px" /></td>
+            <td><input class="checkIds" type="checkbox" name="checkIds[]" value="<?php echo @$item['id']?>"></td>
+			<td><?php echo @$item['id']?></td>
+			<td><a href="<?php echo BASE_REQUEST . '/admin_questions/detail' ?>/<?php echo @$item['id']?>"><?php echo @$item['name']?></a></td>
+			<td><?php echo $catNames ?></td>
+            <td width="10%"><?php echo $nametest ?></td>
+			<td width="3%"><input name="level[<?php echo @$item['id']?>]" rel="<?php echo @$item['id']?>" value="<?php echo @$item['level']?>" style="width: 20px" /></td>
             <td width="7%">
-                <select id="trial" name="trial"onchange="window.location = 'onchangeTrial?id={item[id]}&field=trial&value='+this.value;">
+                <select id="trial" name="trial"onchange="window.location = 'onchangeTrial?id=<?php echo @$item['id']?>&field=trial&value='+this.value;">
                     <option <?php if($item['trial'] ==0){ echo 'selected="1"';} ?> value="0">Mất phí</option>
                     <option <?php if($item['trial'] ==1){ echo 'selected="1"';} ?> value="1">Dùng thử</option>
                 </select>
@@ -228,11 +228,11 @@
             <td><?php echo get('name'$item['createdId'], $admin); ?></td>
             <td><?php echo date('d/m/y H:i:s', strtotime($item['created'])); ?></td>
 			<td width="7%">
-				<a href="{url /admin_questions/edit}/{item[id]}"  class="text-center" title="Sửa"><span class="glyphicon glyphicon-edit"></span></a>
-				<a class="color_delete text-center" onclick="return confirm_delete('Do you want delete this record?')" title="Xóa" href="{url /admin_questions/del}/{item[id]}"><span class="glyphicon glyphicon-remove"></span></a>
+				<a href="<?php echo BASE_REQUEST . '/admin_questions/edit' ?>/<?php echo @$item['id']?>"  class="text-center" title="Sửa"><span class="glyphicon glyphicon-edit"></span></a>
+				<a class="color_delete text-center" onclick="return confirm_delete('Do you want delete this record?')" title="Xóa" href="<?php echo BASE_REQUEST . '/admin_questions/del' ?>/<?php echo @$item['id']?>"><span class="glyphicon glyphicon-remove"></span></a>
 			</td>
 		</tr>
-		{/each}
+		<?php endforeach; ?>
 	</table>
 </div>
 
@@ -240,7 +240,7 @@
 <div class="clearfix pull-right">
 	<form class="form-inline" role="form">
 		<strong>Số mục: </strong>
-		<select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='{url /admin_questions/changePageSize}?pageSize=' + this.value;">
+		<select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questions/changePageSize' ?>?pageSize=' + this.value;">
 			<option value="10">10</option>
 			<option value="20">20</option>
 			<option value="30">30</option>
@@ -249,7 +249,7 @@
 			<option value="200">200</option>
 		  </select>
 		  <script type="text/javascript">
-			$('#pageSize').val('{pageSize}');
+			$('#pageSize').val('<?php echo $pageSize ?>');
 		  </script>
 		<strong>Trang: </strong>
 		<?php 
@@ -261,7 +261,7 @@
 					$btn = 'btn-default';
 				}
 				?>
-		<a class="btn {btn}" href="{url /admin_questions/index}?page={page}">{? echo ($page + 1)?}</a>
+		<a class="btn <?php echo $btn ?>" href="<?php echo BASE_REQUEST . '/admin_questions/index' ?>?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
 		<?php endfor; ?>
 	</form>
 
@@ -293,11 +293,11 @@
                     var categories = $('#categoryIds').val();
                     $.ajax({
                         type: "POST",
-                        url: "{url}/admin_questions/updateCategory",
+                        url: "<?php echo BASE_REQUEST ?>/admin_questions/updateCategory",
                         data:{ids:JSON.stringify(allVals), categories:JSON.stringify(categories)},
                         success: function(data) {
                             if(data ==1) {
-                                window.location.href = '{url}/admin_questions/index';
+                                window.location.href = '<?php echo BASE_REQUEST ?>/admin_questions/index';
                             }
 
                         }

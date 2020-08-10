@@ -8,7 +8,7 @@ $answers = $book->getUserAnswers();
 		<table	class="table table-bordered">
 		<tr>
 			<th class="col-md-6"><div class="pull-right">Điểm</div></th>
-			<td class="col-md-6">{book.get('totalMark')}</td>
+			<td class="col-md-6"><?php echo $book->get('totalMark')?></td>
 		</tr>
 		<tr>
 			<th class="col-md-6"><div class="pull-right">Thời gian làm bài</div></th>
@@ -22,13 +22,13 @@ $answers = $book->getUserAnswers();
 </div>
 <hr />
 <h3 class="text-center">Bài làm</h3>
-{each $answers as $index => $answer}
+<?php foreach($answers as $index => $answer): ?>
 	<?php $question = $answer->getQuestion(); ?>
 	<span class="text text-primary">Câu hỏi <?php echo ($index + 1)?></span>: 
 	<?php if($question->isTn()):?>
-	{question.get('name_vn')}
+	<?php echo $question->get('name_vn')?>
 	<?php else:?>
-	{? echo $question->mix($answer); ?}
+	<?php  echo $question->mix($answer); ?>
 	<?php endif;?>
 	<br />
 	<?php if($question->isTn()):
@@ -41,11 +41,11 @@ $answers = $book->getUserAnswers();
 	}
 	$answerTrue = null;
 	?>
-	{each $questionAnswers as $questionAnswer}
-		<input type="radio" name="questionAnswers[{question.get('id')}][]" value="{questionAnswer.get('id')}" <?php if($questionAnswer->get('id') == $answer->get('answerId')): $answerTrue = $questionAnswer;?>checked<?php endif;?> disabled />
-			<span <?php if($questionAnswer->get('status')):?>class="bg-success"<?php endif;?>>{questionAnswer.get('content')}</span>
+	<?php foreach($questionAnswers as $questionAnswer): ?>
+		<input type="radio" name="questionAnswers[<?php echo $question->get('id')?>][]" value="<?php echo $questionAnswer->get('id')?>" <?php if($questionAnswer->get('id') == $answer->get('answerId')): $answerTrue = $questionAnswer;?>checked<?php endif;?> disabled />
+			<span <?php if($questionAnswer->get('status')):?>class="bg-success"<?php endif;?>><?php echo $questionAnswer->get('content')?></span>
 			<br />
-	{/each}
+	<?php endforeach; ?>
 	<?php if($userAnswerTrue):?>
 		<strong class="text text-success"> <span class="glyphicon glyphicon-ok"></span> Bạn đã làm đúng</strong>
 	<?php else:?>
@@ -53,20 +53,20 @@ $answers = $book->getUserAnswers();
 	<?php endif;?>
 	<br />
 	<blockquote>
-	{question.get('explaination')}
-	{answerTrue.get('recommend')}
+	<?php echo $question->get('explaination')?>
+	<?php echo $answerTrue->get('recommend')?>
 	</blockquote>
 	<?php else:?>
 	<br />
 	<blockquote>
 	<strong class="text text-success">Lý giải: </strong>
-	{? $teacher_answers = json_decode($question->get('teacher_answers'), true);?}
+	<?php  $teacher_answers = json_decode($question->get('teacher_answers'), true);?>
 		<?php if(isset($teacher_answers['content_full'])):?>
-		{teacher_answers[content_full]}
+		<?php echo @$teacher_answers['content_full']?>
 		<?php else:?>
-		{question.get('explaination')}
+		<?php echo $question->get('explaination')?>
 		<?php endif;?>
 	</blockquote>
 	<?php endif;?>
 	<hr style="width: 50%; text-align: center" />
-{/each}
+<?php endforeach; ?>

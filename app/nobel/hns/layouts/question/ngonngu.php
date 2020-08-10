@@ -62,7 +62,7 @@
 							}
 							?>
 							<?php foreach($dataCategoryCurrent['child'] as $k =>$value):?>
-								<option child="{childName}" value="<?=$value['id'];?>">&nbsp;&nbsp;&nbsp;&nbsp;<?=$value['name'];?></option>
+								<option child="<?php echo $childName ?>" value="<?=$value['id'];?>">&nbsp;&nbsp;&nbsp;&nbsp;<?=$value['name'];?></option>
 							<?php endforeach;?>
 						<?php else:?>	
 							<option value="<?=$child['id'];?>"><?=$child['name'];?></option>

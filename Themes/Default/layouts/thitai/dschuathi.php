@@ -12,15 +12,15 @@ $stt = 1;
 	<th>Email</th>
 	<th>Đợt thi</th>
 </tr>
-{each $items as $item}
+<?php foreach($items as $item): ?>
 <tr>
-	<td>{stt}</td>
-	<td>{item[username]}</td>
-	<td>{item[name]}</td>
-	<td>{item[phone]}</td>
-	<td>{item[email]}</td>
-	<td>{item[tests]}</td>
+	<td><?php echo $stt ?></td>
+	<td><?php echo @$item['username']?></td>
+	<td><?php echo @$item['name']?></td>
+	<td><?php echo @$item['phone']?></td>
+	<td><?php echo @$item['email']?></td>
+	<td><?php echo @$item['tests']?></td>
 </tr>
-{? $stt++ ?}
-{/each}
+<?php  $stt++ ?>
+<?php endforeach; ?>
 </table>

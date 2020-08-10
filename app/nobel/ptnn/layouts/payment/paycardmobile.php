@@ -21,7 +21,7 @@
     
     <div class="pm_paycard_title">Nạp thẻ điện thoại</div>
     <div class="pm_paycard_content">
-        <form id="paycardForm" class="login form-horizontal" onsubmit="return pzk_{data.id}.paycard();" method="post">
+        <form id="paycardForm" class="login form-horizontal" onsubmit="return pzk_<?php echo @$data->id?>.paycard();" method="post">
               <div class="form-group margin-top-10">
                 
                 <div class="col-xs-10 control-group margin-top-20" >

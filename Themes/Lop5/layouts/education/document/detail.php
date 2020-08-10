@@ -20,16 +20,16 @@
 		</div>
 	</div>
 </div>	
-{? $item = $data->getItem(); ?}
+<?php  $item = $data->getItem(); ?>
 <?php 
 $subject = _db()->getTableEntity('categories')->load($item['categoryId']);
 $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($subject->get('parent'))->result();
  ?>
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container fivecolumns">
 	<div class="row">
 		<div class="col-md-2 col-xs-12">
-			{children [position=left-banner]}
+			<?php $data->displayChildren('[position=left-banner]') ?>
 		</div>
 		<div class="col-md-8 col-xs-12 left-10">
 			<div id="document-detail">
@@ -38,19 +38,19 @@ $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($
 					<li class="active">
 						<span class="dropdown">
 						  <a class="dropdown-toggle" type="button" id="dropdownSubjectDocument" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							{subject.get('name')}
+							<?php echo $subject->get('name')?>
 							<span class="caret"></span>
 						  </a>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
-						  {each $subjects as $sbj}
+						  <?php foreach($subjects as $sbj): ?>
 						  
-							<li><a href="/document/class-{? echo intval(pzk_request()->get('class'))?}/subject-{sbj[alias]}-{sbj[id]}">{sbj[name]}</a></li>
-						  {/each}
+							<li><a href="/document/class-<?php  echo intval(pzk_request()->get('class'))?>/subject-<?php echo @$sbj['alias']?>-<?php echo @$sbj['id']?>"><?php echo @$sbj['name']?></a></li>
+						  <?php endforeach; ?>
 						  </ul>
 						</span>
 					</li>
 				</ul></p>
-				<p class="t-weight text-center">{item[title]}</p>
+				<p class="t-weight text-center"><?php echo @$item['title']?></p>
 				<?php if(@$item['file']) : ?>
 				<script type="text/javascript" src="/3rdparty/jquery.gdocsviewer.v1.0/jquery.gdocsviewer.min.js"></script> 
 				<script type="text/javascript">
@@ -60,21 +60,21 @@ $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($
 				</script>
 				<a href="<?php echo BASE_URL.$item['file']; ?>" id="embedURL">&nbsp;</a>
 				<?php else: ?>
-				<div class="content">{? echo str_replace('&nbsp;', '', $item['content']) ?}</div>
+				<div class="content"><?php  echo str_replace('&nbsp;', '', $item['content']) ?></div>
 				<?php endif; ?>
 				<!--
-				<iframe src="https://docs.google.com/viewer?srcid={? echo urlencode(BASE_URL.$item['file']); ?}&pid=explorer&efh=false&a=v&chrome=false&embedded=true" style="width:100%; height:600px; "></iframe>
-				<iframe src="http://docs.google.com/viewer?url={? echo urlencode(BASE_URL.$item['file']); ?}&output=embed" style="width:100%; height:600px; "></iframe>
-				<iframe src="/3rdparty/pdf.js/web/viewer.html?file={? echo urlencode('http://s1.nextnobels.com'.$item['file']); ?}" style="width:100%; height:600px; "></iframe>
+				<iframe src="https://docs.google.com/viewer?srcid=<?php  echo urlencode(BASE_URL.$item['file']); ?>&pid=explorer&efh=false&a=v&chrome=false&embedded=true" style="width:100%; height:600px; "></iframe>
+				<iframe src="http://docs.google.com/viewer?url=<?php  echo urlencode(BASE_URL.$item['file']); ?>&output=embed" style="width:100%; height:600px; "></iframe>
+				<iframe src="/3rdparty/pdf.js/web/viewer.html?file=<?php  echo urlencode('http://s1.nextnobels.com'.$item['file']); ?>" style="width:100%; height:600px; "></iframe>
 				-->
 			</div>
 			<?php if(@$item['file']) : ?>
-			<p class="text-center pd-20"><i class="fa fa-link"></i>Tải về <a href="{item[file]}">{item[title]}</a></p>
+			<p class="text-center pd-20"><i class="fa fa-link"></i>Tải về <a href="<?php echo @$item['file']?>"><?php echo @$item['title']?></a></p>
 			<?php endif; ?>
-			{children [position=other-document]} 
+			<?php $data->displayChildren('[position=other-document]') ?> 
 		</div>
 		<div class="col-md-2 col-xs-12 pd-15 left5">
-			{children [position=right-banner]} 
+			<?php $data->displayChildren('[position=right-banner]') ?> 
 		</div>
 	</div>
 </div>

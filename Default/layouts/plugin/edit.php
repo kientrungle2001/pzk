@@ -5,9 +5,9 @@ $module = $data->getModule();
 $itemId = $data->getItemId();
 $url = urlencode($file);
 ?>
-<form action="/Admin_{module}/putFile" method="post">
-    <input type="hidden" name="file" value="{file}">
-    <input type="hidden" name="link" value="Admin_{module}/edit/{itemId}?file={url}"/>
+<form action="/Admin_<?php echo $module ?>/putFile" method="post">
+    <input type="hidden" name="file" value="<?php echo $file ?>">
+    <input type="hidden" name="link" value="Admin_<?php echo $module ?>/edit/<?php echo $itemId ?>?file=<?php echo BASE_REQUEST ?>"/>
     <div class="form-group">
     <textarea name="content" class="item form-control" style="height:500px;"><?php
 echo htmlentities(file_get_contents($file));

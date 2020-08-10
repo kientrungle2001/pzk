@@ -1,1 +1,1 @@
-<header {attrs id, class, style, rel}>{children all}</header>
+<header {attrs id, class, style, rel}><?php $data->displayChildren('all') ?></header>

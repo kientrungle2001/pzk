@@ -15,22 +15,22 @@
         $notes=$data->viewNote($member);
       ?>
      
-      {each $notes as $note}
+      <?php foreach($notes as $note): ?>
 
-     <div class="{note[id]}">
+     <div class="<?php echo @$note['id']?>">
       
       <div style="float:left;">
-        <input style=" float:left;width:15px; height:15px;" type="checkbox" value="{note[id]}" name="ckbdel" >
+        <input style=" float:left;width:15px; height:15px;" type="checkbox" value="<?php echo @$note['id']?>" name="ckbdel" >
         <img src="/3rdparty/uploads/img/usernote.png" alt="">
       </div>
     <div class="prf_titlenote">
-        <a href="/profile/detailnote?member=<?php echo $member ?>&id={note[id]}">{note[titlenote]}</a>
+        <a href="/profile/detailnote?member=<?php echo $member ?>&id=<?php echo @$note['id']?>"><?php echo @$note['titlenote']?></a>
       </div>
 
       <div class="prf_clear"> </div>
        
       </div>
-      {/each}
+      <?php endforeach; ?>
       <div> Trang 
      <?php 
       for($i=1; $i<=$num_page;$i++){

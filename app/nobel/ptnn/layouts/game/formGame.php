@@ -14,9 +14,9 @@ $getTopic = $post->getGameTopic();
                 <?php if(isset($gameType)) { ?>
                     <select class="form-control input-sm" name="gameType" id="">
                         <option value="">Chọn Trò chơi</option>
-                        {each $gameType as $topic}
-                        <option <?php if(isset($getGameType) && ($getGameType == $topic['gamecode'])){ echo 'selected';} ?> value="{topic[gamecode]}"><?php echo $topic['game_type']; ?></option>
-                        {/each}
+                        <?php foreach($gameType as $topic): ?>
+                        <option <?php if(isset($getGameType) && ($getGameType == $topic['gamecode'])){ echo 'selected';} ?> value="<?php echo @$topic['gamecode']?>"><?php echo $topic['game_type']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 <?php } ?>
 
@@ -28,12 +28,12 @@ $getTopic = $post->getGameTopic();
                         <label  for="">Chọn chủ đề</label>
                         <select class="form-control input-sm" name="gameTopic" id="">
                             <option value="">-- Chọn chủ đề </option>
-                            {each $gameTopic as $parent}
+                            <?php foreach($gameTopic as $parent): ?>
                             <option <?php if(isset($getTopic) && ($getTopic == $parent['id'])){ echo 'selected';} ?> value="<?php echo $parent['id']; ?>" >
                                 <?php echo str_repeat('--', $parent['level']);  ?>
                                 <?php echo $parent['game_topic']; ?>
                             </option>
-                            {/each}
+                            <?php endforeach; ?>
 
                         </select>
                     </div>

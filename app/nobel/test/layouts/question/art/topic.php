@@ -3,10 +3,10 @@ $question = $data->getItem();
 $i= $question['id'];
 ?>
 <div class="step">
- 	<span><strong>Q7 Yêu Cầu: </strong>{? echo $question['request']; ?}</span>
+ 	<span><strong>Q7 Yêu Cầu: </strong><?php  echo $question['request']; ?></span>
 </div>
 <div class="step">
-	<span><strong>Đoạn văn:</strong> {? echo $question['name']; ?}</span>
+	<span><strong>Đoạn văn:</strong> <?php  echo $question['name']; ?></span>
 	
 </div>
 <?php 
@@ -14,13 +14,13 @@ $topics = $data->showTopic($i);
 $j=1;
 ?>
 
-{each $topics as $topic}
+<?php foreach($topics as $topic): ?>
 <?php 
 	$id_topic=$topic['id'];
 ?>
 <div class="step">
 	<div class="step">
-		<span><strong>Chủ đề <?php 	echo $j; ?>:</strong> {? echo $topic['content'] ?}</span>
+		<span><strong>Chủ đề <?php 	echo $j; ?>:</strong> <?php  echo $topic['content'] ?></span>
 	</div>
 	<div class="step" >
   		<div style="clear:both;"><span><strong>Đáp án:</strong></span></div>
@@ -40,7 +40,7 @@ $j=1;
 	
 </div>
 <?php $j++; ?>
-{/each}
+<?php endforeach; ?>
 <script>
 	 	function addAnswerRow(id_question,id_topic){
 		

@@ -1,5 +1,5 @@
 
-<form id="questionsAddForm" role="form" method="post" action="{url /admin_questiontype/addPost}">
+<form id="questionsAddForm" role="form" method="post" action="<?php echo BASE_REQUEST . '/admin_questiontype/addPost' ?>">
   	<input type="hidden" name="id" value="" />
   	<div class="form-group col-xs-12">
 	  	<div class="col-xs-2">
@@ -46,7 +46,7 @@
   	<div class="form-group col-xs-12">
   		<div class="col-xs-3 col-xs-offset-2">
 		  	<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Thêm</button>
-		  	<a class="btn btn-default margin-left-10" href="{url /admin_questions/index}">Hủy</a>
+		  	<a class="btn btn-default margin-left-10" href="<?php echo BASE_REQUEST . '/admin_questions/index' ?>">Hủy</a>
 	  	</div>
   	</div>
 </form>
@@ -54,5 +54,5 @@
 $addValidator = json_encode(pzk_controller()->addValidator);
 ?>
 <script>
-	$('#questionsAddForm').validate({addValidator});
+	$('#questionsAddForm').validate(<?php echo $addValidator ?>);
 </script>

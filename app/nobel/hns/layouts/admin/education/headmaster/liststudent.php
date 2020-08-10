@@ -31,7 +31,7 @@ $class = $data->getClass();
 				</div>
 				<div class="col-md-2 col-xs-12">	
 					Lớp
-					<input value="{className}" class="form-control" name="className" />
+					<input value="<?php echo $className ?>" class="form-control" name="className" />
 				</div>
 				<div class="col-md-2 col-xs-12">
 					<br/> 
@@ -50,19 +50,19 @@ $class = $data->getClass();
 					<th>Họ và tên</th>
 					<th>Ngày sinh</th>
 				</tr>
-			{each $listStudents as $student}
+			<?php foreach($listStudents as $student): ?>
 				<tr>
-					<td>{student[id]}</td>
-					<td>{student[username]}</td>
-					<td>{student[name]}</td>
-					<td>{? echo date('d/m/Y', strtotime($student['birthday']))?}</td>
+					<td><?php echo @$student['id']?></td>
+					<td><?php echo @$student['username']?></td>
+					<td><?php echo @$student['name']?></td>
+					<td><?php  echo date('d/m/Y', strtotime($student['birthday']))?></td>
 				</tr>
-			{/each}
+			<?php endforeach; ?>
 			</table>
 		<?php } ?>	
 	  </div>
 </div>
 <script>
-	$('#schoolYear').val('{schoolYear}');
-	$('#classes').val('{class}');
+	$('#schoolYear').val('<?php echo $schoolYear ?>');
+	$('#classes').val('<?php echo $class ?>');
 </script>	  

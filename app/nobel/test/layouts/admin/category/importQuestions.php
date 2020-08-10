@@ -5,21 +5,21 @@ $content = file_get_contents(BASE_DIR . '/tmp/cauhoi.txt');
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-    <b>Import câu hỏi - Danh mục: {cat[name]}</b>
+    <b>Import câu hỏi - Danh mục: <?php echo @$cat['name']?></b>
 </div>
 <div class="panel-body borderadmin">
 
 	<div class="row">
 		<div class="col-xs-6">
-		<form role="form" method="post" enctype="multipart/form-data"  action="{url /admin}_{controller.module}/importQuestionsPost/{categoryId}">
+		<form role="form" method="post" enctype="multipart/form-data"  action="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/importQuestionsPost/<?php echo $categoryId ?>">
 		 <div class="form-group clearfix">
 				<label for="content">Nội dung</label>
 				<div style="float: left;width: 100%;" class="item">
-					<textarea id="content" name="content" onkeyup="previewImportQuestions($(this).val());" onblur="previewImportQuestions($(this).val());" style="width: 100%; height: 400px">{content}</textarea>
+					<textarea id="content" name="content" onkeyup="previewImportQuestions($(this).val());" onblur="previewImportQuestions($(this).val());" style="width: 100%; height: 400px"><?php echo $content ?></textarea>
 				</div>
 			</div>
 		  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> Cập nhật</button>
-		  <a class="btn btn-default" href="{url /admin}_{controller.module}/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
+		  <a class="btn btn-default" href="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
 		</form>
 		</div>
 		<div class="col-xs-6">
@@ -41,7 +41,7 @@ $content = file_get_contents(BASE_DIR . '/tmp/cauhoi.txt');
 		return true;
 		if(1)
 		$.ajax({
-			url: '/admin_{controller.module}/previewImportQuestions',
+			url: '/admin_<?php echo @$controller->module?>/previewImportQuestions',
 			type: 'post',
 			data: {content: content, isAjax: true},
 			success: function(resp) {

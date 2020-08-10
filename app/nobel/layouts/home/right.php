@@ -1,3 +1,3 @@
 <div id="right">
-	{children all}
+	<?php $data->displayChildren('all') ?>
 </div>

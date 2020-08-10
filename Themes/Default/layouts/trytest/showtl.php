@@ -10,10 +10,10 @@
 		<h3 class="text-center"> Thông tin chi tiết của thí sinh </h3>
 		<div class='well'>
 			<div class='row'>
-				<div class='col-md-3 col-xs-12'>Họ và tên: {userInfo[name]}</div>
-				<div class='col-md-3 col-xs-12'>Username: {userInfo[username]}</div>
-				<div class='col-md-3 col-xs-12'>Email: {userInfo[email]}</div>
-				<div class='col-md-3 col-xs-12'>Phone: {userInfo[phone]}</div>
+				<div class='col-md-3 col-xs-12'>Họ và tên: <?php echo @$userInfo['name']?></div>
+				<div class='col-md-3 col-xs-12'>Username: <?php echo @$userInfo['username']?></div>
+				<div class='col-md-3 col-xs-12'>Email: <?php echo @$userInfo['email']?></div>
+				<div class='col-md-3 col-xs-12'>Phone: <?php echo @$userInfo['phone']?></div>
 			</div>
 		</div>
 

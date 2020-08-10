@@ -3,22 +3,22 @@ $question = $data->getItem();
 $i= $question['id'];
 ?>
 <div class="step">
- 	<span><strong>Yêu Cầu: </strong> {? echo $question['request']; ?}</span>
+ 	<span><strong>Yêu Cầu: </strong> <?php  echo $question['request']; ?></span>
 </div>
 <div class="step">
-	<span><strong> Câu hỏi:</strong> {? echo $question['name']; ?}</span>
+	<span><strong> Câu hỏi:</strong> <?php  echo $question['name']; ?></span>
 </div>
 <?php 
 $answers = $data->showAnswer($i);
 ?>
 <div class="step" >
 	
-	{each $answers as $answer}
+	<?php foreach($answers as $answer): ?>
 <div class="col-xs-12 margin-top-10">
 
-<input style="width: 15px; height: 15px;" class="input_user_test" name="rdochoicerepair[<?=$i;?>]" value="{? echo $answer['id']?}" type="radio" />{? echo $answer['content']?}
+<input style="width: 15px; height: 15px;" class="input_user_test" name="rdochoicerepair[<?=$i;?>]" value="<?php  echo $answer['id']?>" type="radio" /><?php  echo $answer['content']?>
 </div>
-{/each}
+<?php endforeach; ?>
 </div>
 <div class="step">
 	<span><strong>Viết lại thành câu đúng: </strong></span>

@@ -20,11 +20,11 @@
 						<li class="active" ><a data-toggle="tab" href="#home">Thi năng lực theo môn</a></li>
 					</ul> 
 				   <div class="row tab-pane fade in active text-center pding10" id="home">
-						{? $items = $data->getSubjectByClass($class); ?}	
-						{each $items as $item}
-							<div class="col-md-2 col-xs-3 top10 height80 width20 btn-menu bgcl choicesubject" onclick="return false;" data-class="5"  data-alias="{item[alias]}" data-subject="{item[id]}" <?php if($lang == 'ev'){
+						<?php  $items = $data->getSubjectByClass($class); ?>	
+						<?php foreach($items as $item): ?>
+							<div class="col-md-2 col-xs-3 top10 height80 width20 btn-menu bgcl choicesubject" onclick="return false;" data-class="5"  data-alias="<?php echo @$item['alias']?>" data-subject="<?php echo @$item['id']?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name_vn'].'"'; }?>>
-								<a href=""><img src="<?=BASE_SKIN_URL?>{item[img]}" class="img-thumnail wheight50"/></a>
+								<a href=""><img src="<?=BASE_SKIN_URL?><?php echo @$item['img']?>" class="img-thumnail wheight50"/></a>
 								<p class="text-uppercase robotofont weight10">
 								<?php 
 								if(pzk_user_special()) { echo '#' . $item['id']; }
@@ -36,7 +36,7 @@
 								 ?>
 								</p>
 							</div>
-						{/each}
+						<?php endforeach; ?>
 		            </div>
 	            </div>
 	        </li>
@@ -64,7 +64,7 @@
 						  <div class="carousel-inner" role="listbox">
 							<div class="item active">
 							<?php //1410 ROOT_WEEK_CATEGORY_ID?>
-							{? $items = $data->getWeekTest(1464); ?}
+							<?php  $items = $data->getWeekTest(1464); ?>
 							<?php
 								//echo ROOT_WEEK_CATEGORY_ID;
 							$trial = array();
@@ -76,10 +76,10 @@
 							}
 							$linktrial = "/test/class-".$class."/week-".@$trial['id'];
 							?>
-							{each $items as $item}
+							<?php foreach($items as $item): ?>
 							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
 							
-							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="<?php echo @$firsttest['id']?>" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name'].'"'; }?>>
 								<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
 								<p class="text-uppercase robotofont weight10 top10">
@@ -99,16 +99,16 @@
 						
 							}
 							?>
-							{/each}
+							<?php endforeach; ?>
 							  
 							</div>
 							
 							<div class="item">
-							{? $items = $data->getWeekTest2(1464); ?}
-							{each $items as $item}
+							<?php  $items = $data->getWeekTest2(1464); ?>
+							<?php foreach($items as $item): ?>
 							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
 							
-							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="<?php echo @$firsttest['id']?>" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name'].'"'; }?>>
 								<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
 								<p class="text-uppercase robotofont weight10 top10">
@@ -128,17 +128,17 @@
 						
 							}
 							?>
-							{/each}
+							<?php endforeach; ?>
 								  
 							</div>
 							
 							<div class="item">
-							{? $items = $data->getWeekTestLimit(1464, 10, 2); ?}
+							<?php  $items = $data->getWeekTestLimit(1464, 10, 2); ?>
 							<?php $i=1; ?>
-							{each $items as $item}
+							<?php foreach($items as $item): ?>
 							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
 							
-							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="<?php echo @$firsttest['id']?>" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name'].'"'; }?>>
 								<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
 								<p class="text-uppercase robotofont weight10 top10">
@@ -155,17 +155,17 @@
 							<?php $i++;
 							
 							?>
-							{/each}
+							<?php endforeach; ?>
 								  
 							</div>
 							
 							<div class="item">
-							{? $items = $data->getWeekTestLimit(1464, 10, 3); ?}
+							<?php  $items = $data->getWeekTestLimit(1464, 10, 3); ?>
 							<?php $i=1; ?>
-							{each $items as $item}
+							<?php foreach($items as $item): ?>
 							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
 							
-							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="<?php echo @$firsttest['id']?>" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name'].'"'; }?>>
 								<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
 								<p class="text-uppercase robotofont weight10 top10">
@@ -182,7 +182,7 @@
 							<?php $i++;
 							
 							?>
-							{/each}
+							<?php endforeach; ?>
 								  
 							</div>
 							
@@ -294,7 +294,7 @@
 	});
 	$(".choicepractice").click(function(){
 		<?php if(pzk_session('userId')){ ?>
-			var check = '{check}';
+			var check = '<?php echo $check ?>';
 			var trial = $(this).data("trial");
 			if(check == 1){
 				var week = $(this).data("week");
@@ -321,7 +321,7 @@
 	});
 	$(".choicetest").click(function(){
 		<?php if(pzk_session('userId')){ ?>
-			var check = '{check}';
+			var check = '<?php echo $check ?>';
 			var trial = $(this).data("trial");
 			if(check == 1){
 				var week = $(this).data("week");

@@ -83,22 +83,22 @@
 
     <table class="table">
         <?php $i = 1; ?>
-        {each $items as $item}
+        <?php foreach($items as $item): ?>
         <?php
             $answers = _db()->useCB()->select('*')->from('answers')->where(array('questionId', $item['id']))->result();
         ?>
         <tr>
             <td><?php echo 'Câu '.$i.':'; ?></td>
-            <td>{item[name]}</td>
+            <td><?php echo @$item['name']?></td>
         </tr>
-        {each $answers as $val}
+        <?php foreach($answers as $val): ?>
         <tr>
             <td><input name="value_<?php echo $item['id']; ?>" type="radio" /></td>
-            <td>{val[value]}</td>
+            <td><?php echo @$val['value']?></td>
         </tr>
-        {/each}
+        <?php endforeach; ?>
         <?php $i++; ?>
-        {/each}
+        <?php endforeach; ?>
 
 
     </table>

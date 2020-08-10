@@ -10,7 +10,7 @@
 	<div class="container">
 		<div class="row">
 			<h1 class="pzk-color-title text-center">Luyện viết văn miêu tả và phát triển ngôn ngữ</h1>
-			{children all}
+			<?php $data->displayChildren('all') ?>
 		</div>
 	</div>
 </div><!-- End .pzk-content -->

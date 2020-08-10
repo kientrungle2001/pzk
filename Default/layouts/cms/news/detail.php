@@ -16,9 +16,9 @@
 <div id="shownews-wrapper" class="col-xs-12">
     <div class="shownews-container">
 		<div class="shownews-title">
-			<p> {news[title]}</p>
+			<p> <?php echo @$news['title']?></p>
 		</div>
-		<div class="shownews-brief">{news[brief]}</div>
+		<div class="shownews-brief"><?php echo @$news['brief']?></div>
 		<div class="shownews-content" style="margin-bottom:20px;">
 		<?php 
 	  $content= $news['content'];
@@ -39,15 +39,15 @@
 		</div>
 	</div>
 	<h3>Luyện thi tiếng Anh kiểu mới vào trường Trần Đại Nghĩa <a href="http://s1.nextnobels.com/Ngonngu/test/48">Tại Đây</a></h3>
-	<div class="fb-comments" style="margin-left:150px;" data-href="http://www.nextnobels.com/{news[alias]}" data-numposts="5"></div>
+	<div class="fb-comments" style="margin-left:150px;" data-href="http://www.nextnobels.com/<?php echo @$news['alias']?>" data-numposts="5"></div>
     <div class="prf_other">
       <div class="other-news">Các tin liên quan</div>
       <div class="other-link"> 
-	  {each $lists as $list}
+	  <?php foreach($lists as $list): ?>
 		<li>
-			<a href="/{list[alias]} ">{list[title]}</a>
+			<a href="/<?php echo @$list['alias']?> "><?php echo @$list['title']?></a>
 		</li>
-	  {/each}
+	  <?php endforeach; ?>
 	  </div>
     </div>
 </div>

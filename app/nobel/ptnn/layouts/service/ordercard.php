@@ -18,7 +18,7 @@
             $discount= $data->loadDiscount();
            
           ?>
-    <form id="cardForm"  onsubmit="return pzk_{data.id}.ordercard()" method="post">
+    <form id="cardForm"  onsubmit="return pzk_<?php echo @$data->id?>.ordercard()" method="post">
         <div class="pm_paycard_form_napthe">
           <div class="ordercard_name">
             <label for="">Họ và tên:</label> <br>
@@ -36,7 +36,7 @@
               }else $price_service=$item['amount'];
 
            ?>
-            <option  value="{item[id]} {price_service} {item[serviceType]}">{item[serviceName]} (Giá :{item[amount]} VNĐ
+            <option  value="<?php echo @$item['id']?> <?php echo $price_service ?> <?php echo @$item['serviceType']?>"><?php echo @$item['serviceName']?> (Giá :<?php echo @$item['amount']?> VNĐ
             <?php 
               if(isset($discount[$item['id']])){
                 $price= $item['amount'] -$item['amount']* $discount[$item['id']]['discount']/100;

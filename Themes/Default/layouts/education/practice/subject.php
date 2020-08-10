@@ -15,24 +15,24 @@
 
 </style>
 <div class="container">
-	<p class="t-weight text-center btn-custom8 mgright textcl">Luyện tập - Lớp {class}</p>
+	<p class="t-weight text-center btn-custom8 mgright textcl">Luyện tập - Lớp <?php echo $class ?></p>
 </div>
-<h3 class="text-center text-uppercase"><strong>{category[name]}</strong></h3>
+<h3 class="text-center text-uppercase"><strong><?php echo @$category['name']?></strong></h3>
 <div class="container">
 	<div class="item">
 		<div class="col-xs-12">
 			<div class="row">
 				<div class="col-xs-12 col-md-10 pull-left mgleft">
-					{children [position=choice]}
+					<?php $data->displayChildren('[position=choice]') ?>
 					<div class="dropdown col-md-4 col-xs-12 mgleft">
 						<button class="btn fix_hover btn-default col-md-12 col-sm-12 col-xs-12 sharp" type="button">
 						<span id="chonde" class="fontsize19"> Chọn chủ đề</span>
 						<img class="img-responsive imgwh hidden-xs hidden-sm pull-right" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/icon1.png" />
 						</button>
 						<ul id="topics" class="dropdown-menu col-md-12 col-sm-12 col-xs-12" style="top:34px; max-height:350px; overflow-y: scroll;">
-						{each $topics as $topic}
-							<li id="topic-{topic[id]}"><a class="text-wrap" href="#" onclick="reload_exercises({topic[id]}); return false;"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $topic['level']); ?><?php if(pzk_user_special()):?>#{topic[id]} - <?php endif;?>{topic[name]}</a></li>
-						{/each}
+						<?php foreach($topics as $topic): ?>
+							<li id="topic-<?php echo @$topic['id']?>"><a class="text-wrap" href="#" onclick="reload_exercises(<?php echo @$topic['id']?>); return false;"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $topic['level']); ?><?php if(pzk_user_special()):?>#<?php echo @$topic['id']?> - <?php endif;?><?php echo @$topic['name']?></a></li>
+						<?php endforeach; ?>
 						</ul>
 					</div>	
 					<div class="dropdown col-md-3 col-xs-12 mgleft">
@@ -91,7 +91,7 @@
 			type: 'post',
 			data: {
 				topicId: topicId,
-				class: {class},
+				class: <?php echo $class ?>,
 				check: <?php if($check):?>1<?php else: ?>0<?php endif;?>
 			},
 			dataType: 'json',
@@ -99,7 +99,7 @@
 				var exercises = resp.exercises;
 				$('#exercises').html('');
 				for(var i = 0; i < exercises; i++) {
-					$('#exercises').append('<li><a href="/practice/class-{class}/subject-{category[alias]}-{category[id]}/topic-'+resp.alias+'-'+resp.id+'/examination-'+(i + 1)+'">Bài ' + (i + 1) + '</a></li>');
+					$('#exercises').append('<li><a href="/practice/class-<?php echo $class ?>/subject-<?php echo @$category['alias']?>-<?php echo @$category['id']?>/topic-'+resp.alias+'-'+resp.id+'/examination-'+(i + 1)+'">Bài ' + (i + 1) + '</a></li>');
 				}
 				$('#exercises').stop(true, true).delay(100).fadeIn(500);
 			}

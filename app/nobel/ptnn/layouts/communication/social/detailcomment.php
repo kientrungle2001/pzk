@@ -16,20 +16,20 @@
       $username=$user['name'];
    ?>
   
-    <div id="commId{comment_note[id]}" class="user_note_comment">
+    <div id="commId<?php echo @$comment_note['id']?>" class="user_note_comment">
      <div class="pfr_avatar_wall">
-       <img src="{user[avatar]}" alt="" width="60px" height="60px">
+       <img src="<?php echo @$user['avatar']?>" alt="" width="60px" height="60px">
      </div> 
      <div class="prf_titlenote">
-       <a href="/profile/user?member={comment_note[userId]}" >{username}</a>
+       <a href="/profile/user?member=<?php echo @$comment_note['userId']?>" ><?php echo $username ?></a>
      </div>
-    <div class="titel_detail">{comment_note[comment]}</div>
+    <div class="titel_detail"><?php echo @$comment_note['comment']?></div>
     <?php 
       if($item['userNote']==pzk_session()->getUserId()){
      ?>
-     <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_{data.id}.delComm({comment_note[id]});">[Xoá]</a></div>
+     <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_<?php echo @$data->id?>.delComm(<?php echo @$comment_note['id']?>);">[Xoá]</a></div>
      <?php } ?>
-    <div class="titel_time">Đước viết lúc: {comment_note[date]}</div>
+    <div class="titel_time">Đước viết lúc: <?php echo @$comment_note['date']?></div>
     </div>
 
   <?php } 

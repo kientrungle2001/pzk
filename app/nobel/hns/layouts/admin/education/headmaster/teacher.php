@@ -32,7 +32,7 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-md-10">
-			{children all}
+			<?php $data->displayChildren('all') ?>
 			
 		</div>
 	</div>	

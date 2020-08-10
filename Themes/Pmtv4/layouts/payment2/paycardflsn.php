@@ -42,7 +42,7 @@
       alert('Bạn phải đăng nhập mới được nạp thẻ');
       return false;
     }
-    pzk_{data.id}.paycardflsn();
+    pzk_<?php echo @$data->id?>.paycardflsn();
   }
 </script>
 </div>

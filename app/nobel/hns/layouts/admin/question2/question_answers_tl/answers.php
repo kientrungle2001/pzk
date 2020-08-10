@@ -38,17 +38,17 @@ $content = preg_replace_callback($pattern, function($matches) {
 	}, $content);
 
 ?>
-<div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> {item[request]}</div></div>
+<div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> <?php echo @$item['request']?></div></div>
 
 
-<form role="form" method="post" action="{url /admin_}{controller.module}/edit_tlPost">
- 	<div class="row"><div class="col-xs-12"><span class="title-ptnn">Câu hỏi :</span> {content}</div></div>
+<form role="form" method="post" action="<?php echo BASE_REQUEST . '/admin_' ?><?php echo @$controller->module?>/edit_tlPost">
+ 	<div class="row"><div class="col-xs-12"><span class="title-ptnn">Câu hỏi :</span> <?php echo $content ?></div></div>
 	
-	<input type="hidden" name="id" value="{item[id]}" />
+	<input type="hidden" name="id" value="<?php echo @$item['id']?>" />
 	<blockquote>
   	<div class="row title-ptnn"><div class="col-xs-12 margin-top-10">Đáp án  : </div></div>
 	<div class="form-group col-xs-12">
-		<textarea id="content_full" class="form-control tinymce_input" rows="2" name="answers[content_full]" aria-required="true" aria-invalid="false">{teacher_answers[content_full]}</textarea>
+		<textarea id="content_full" class="form-control tinymce_input" rows="2" name="answers[content_full]" aria-required="true" aria-invalid="false"><?php echo @$teacher_answers['content_full']?></textarea>
     </div>
 	</blockquote>
 
@@ -59,9 +59,9 @@ $content = preg_replace_callback($pattern, function($matches) {
 			<button type="submit" class="btn btn-primary" onclick = "return validate_answers()" ><span class="glyphicon glyphicon-save"></span> Cập nhật</button>
 			<?php if($backHref = pzk_request()->getBackHref()):?>
 				<input type="hidden" name="backHref" value="<?php echo html_escape($backHref);?>" />
-				<a class="btn btn-default" href="{backHref}">Quay Lại</a>
+				<a class="btn btn-default" href="<?php echo $backHref ?>">Quay Lại</a>
 			<?php else: ?>
-				<a class="btn btn-default" href="{url /}{? echo pzk_request()->getController(); ?}/{item[questionId]}">Quay Lại</a>
+				<a class="btn btn-default" href="<?php echo BASE_REQUEST . '/' ?><?php  echo pzk_request()->getController(); ?>/<?php echo @$item['questionId']?>">Quay Lại</a>
 			<?php endif; ?>
 		</div>
 	</div>

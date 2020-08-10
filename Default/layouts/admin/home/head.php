@@ -1,6 +1,6 @@
 
 	
-    {children all}<!--lay tat ca cac con cua hear cho vao layout-->
+    <?php $data->displayChildren('all') ?><!--lay tat ca cac con cua hear cho vao layout-->
 	<script type="text/javascript" src="<?php echo BASE_URL ?>/Default/skin/admin/js_admin/main.js"></script>
 	<link rel="stylesheet" type="text/css" property="stylesheet"
  href="<?php echo BASE_URL ?>/Default/skin/admin/css_admin/style.css" />

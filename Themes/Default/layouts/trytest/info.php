@@ -11,7 +11,7 @@
 	</div>
 </div>
 
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <style>
 	.formtest{
 		margin-bottom: 20px;
@@ -25,23 +25,23 @@
 		<form action='/trytest/saveUser' method='post'>
 		<div class="form-group">
 			<label for="nameTrytest">Họ và tên</label>
-			<input type="text" name='name' value="{userInfo[name]}" class="form-control" id="nameTrytest" placeholder="Họ và tên">
+			<input type="text" name='name' value="<?php echo @$userInfo['name']?>" class="form-control" id="nameTrytest" placeholder="Họ và tên">
 		</div>
 		<div class="form-group">
 			<label for="email">Email</label>
-			<input type="email" name='email' value="{userInfo[email]}" class="form-control" id="email" placeholder="Email">
+			<input type="email" name='email' value="<?php echo @$userInfo['email']?>" class="form-control" id="email" placeholder="Email">
 		</div>
 		<div class="form-group">
 			<label for="phoneTrytest">Số điện thoại</label>
-			<input type="text" name='phone' value="{userInfo[phone]}" class="form-control" id="phoneTrytest" placeholder="phone">
+			<input type="text" name='phone' value="<?php echo @$userInfo['phone']?>" class="form-control" id="phoneTrytest" placeholder="phone">
 		</div>
 		<div class="form-group">
 			<label for="school">Trường</label>
-			<input type="text" name='school' value="{userInfo[school]}" class="form-control" id="school" placeholder="Trường">
+			<input type="text" name='school' value="<?php echo @$userInfo['school']?>" class="form-control" id="school" placeholder="Trường">
 		</div>
 		<div class="form-group">
 			<label for="address">Địa chỉ</label>
-			<input type="text" name='address' value="{userInfo[address]}" class="form-control" id="address" placeholder="Địa chỉ">
+			<input type="text" name='address' value="<?php echo @$userInfo['address']?>" class="form-control" id="address" placeholder="Địa chỉ">
 		</div>
 		<button onclick='return loginTrytest();' type="submit" class="btn btn-primary">Cập nhật</button>
 		</form>
@@ -49,9 +49,9 @@
 		$messages = pzk_notifier_messages();
 		if($messages) {
 			?>
-			{each $messages as $item}
-			<h4 style="color: red;">{item[message]}</h4>
-			{/each}
+			<?php foreach($messages as $item): ?>
+			<h4 style="color: red;"><?php echo @$item['message']?></h4>
+			<?php endforeach; ?>
 		<?php } ?>
 	</div>
 </div>

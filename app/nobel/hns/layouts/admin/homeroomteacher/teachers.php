@@ -5,7 +5,7 @@ $classrooms = $data->getClassrooms();
 $teachers = $data->getTeachers();
 $homeroomTeacher = $data->getHomeroomTeacher();
 ?>
-<h1 class="text-center">Lớp {classroom[gradeNum]}{classroom[className]} Niên khóa {classroom[schoolYear]}</h1>
+<h1 class="text-center">Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> Niên khóa <?php echo @$classroom['schoolYear']?></h1>
 <div class="row">
 	<div class="col-md-6">
 		<table class="table table-bordered">
@@ -19,9 +19,9 @@ $homeroomTeacher = $data->getHomeroomTeacher();
 				<th> Điện thoại</th>
 			</tr>
 			<tr>
-				<td><strong> {homeroomTeacher[fullName]}</strong></td>
-				<td><strong>{homeroomTeacher[name]}</strong></td>
-				<td><strong>{homeroomTeacher[phone]} </strong></td>
+				<td><strong> <?php echo @$homeroomTeacher['fullName']?></strong></td>
+				<td><strong><?php echo @$homeroomTeacher['name']?></strong></td>
+				<td><strong><?php echo @$homeroomTeacher['phone']?> </strong></td>
 			</tr>
 			</tbody>
 		</table>
@@ -59,16 +59,16 @@ $homeroomTeacher = $data->getHomeroomTeacher();
 				
 		
 	</tr>
-{each $teachers as $teacher}
+<?php foreach($teachers as $teacher): ?>
 	<tr>
-		<td><input class="teacher_checkbox" type="checkbox" name="teachers[]" value="{teacher[id]}" /></td>
-		<td>{teacher[subjectName]}</td>
-		<td>{teacher[name]}</td>
-		<td>{teacher[fullName]}</td>
-		<td>{teacher[phone]}</td>
+		<td><input class="teacher_checkbox" type="checkbox" name="teachers[]" value="<?php echo @$teacher['id']?>" /></td>
+		<td><?php echo @$teacher['subjectName']?></td>
+		<td><?php echo @$teacher['name']?></td>
+		<td><?php echo @$teacher['fullName']?></td>
+		<td><?php echo @$teacher['phone']?></td>
 		
 	</tr>
-{/each}
+<?php endforeach; ?>
 	</tbody>
 </table>
 
@@ -92,7 +92,7 @@ function addTeacherToClassroom(teacherId) {
 	$.ajax({
 		url: '/Admin_HomeroomTeacher_Teacher/addTeacher',
 		data: {
-			classroomId: {classroom[id]},
+			classroomId: <?php echo @$classroom['id']?>,
 			teacherId: teacherId,
 			subjectId: subjectId
 		},

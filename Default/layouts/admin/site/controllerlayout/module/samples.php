@@ -13,26 +13,26 @@ foreach($items as $item) {
   <!-- Nav tabs -->
   <ul id="sample-module-nav" class="nav nav-tabs" role="tablist">
   <?php foreach($positions as $position => $modules) { ?>
-    <li role="presentation"><a href="#position-{position}" aria-controls="{position}" role="tab" data-toggle="tab">{position}</a></li>
+    <li role="presentation"><a href="#position-<?php echo $position ?>" aria-controls="<?php echo $position ?>" role="tab" data-toggle="tab"><?php echo $position ?></a></li>
   <?php } ?>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
   <?php foreach($positions as $position => $modules) { ?>
-    <div role="tabpanel" class="tab-pane active" id="position-{position}">
-	<ul class="list-group sample-modules" id="sample-modules-{position}">
-	{each $modules as $item}
+    <div role="tabpanel" class="tab-pane active" id="position-<?php echo $position ?>">
+	<ul class="list-group sample-modules" id="sample-modules-<?php echo $position ?>">
+	<?php foreach($modules as $item): ?>
 	<li class="list-group-item">
-	<strong>{item[name]}</strong><br />
+	<strong><?php echo @$item['name']?></strong><br />
 	<?php if($item['image']): ?>
 	<div>
-		<img class="img-responsive img-circle img-thumbnail" src="{item[image]}" />
+		<img class="img-responsive img-circle img-thumbnail" src="<?php echo @$item['image']?>" />
 	</div>
 	<?php endif; ?>
 	<code class="hidden"><?php echo html_escape($item['code']); ?></code>
 	</li>
-	{/each}
+	<?php endforeach; ?>
 	</ul>
 	</div>
   <?php } ?>

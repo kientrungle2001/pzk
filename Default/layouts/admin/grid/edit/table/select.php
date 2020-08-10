@@ -10,9 +10,9 @@ if($compact) {
 }
 ?>
 
-<select onchange="table_change_{fieldIndex}_{rand}()"
+<select onchange="table_change_<?php echo $fieldIndex ?>_<?php echo $rand ?>()"
 	class="form-control"
-	name="{fieldIndex}_flat[{index}][]" placeholder="{? echo $data->get('label')?}">
+	name="<?php echo $fieldIndex ?>_flat[<?php echo $index ?>][]" placeholder="<?php  echo $data->get('label')?>">
 	<?php
 										$parents = _db ()->select ( '*' )->from ( $data->get ('table') )->where ( pzk_or ( @$data->get ('condition'), '1' ) )->orderBy(pzk_or(@$data->get('orderBy'), 'id asc'))->result ();
 										if (isset ( $parents [0] ['parent'] )) {
@@ -26,10 +26,10 @@ if($compact) {
 											echo "<option value='0'>" . pzk_or ( @$data->get ('selectLabel'), '--Chọn một mục--' ) . " </option>";
 										}
 										?>
-	{each $parents as $parent}
+	<?php foreach($parents as $parent): ?>
 	<option value="<?php echo $parent[$data->get('show_value')]; ?>">
 		<?php if(isset($parent['parent'])){ echo str_repeat('--', $parent['level']); } ?>
-		#{parent[id]} - <?php echo $parent[$data->get('show_name')]; ?>
-	</option> {/each}
+		#<?php echo @$parent['id']?> - <?php echo $parent[$data->get('show_name')]; ?>
+	</option> <?php endforeach; ?>
 
 </select>

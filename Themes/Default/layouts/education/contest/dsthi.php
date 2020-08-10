@@ -35,7 +35,7 @@ if($search){
 <div class="row">
 	<form method="GET" class="navbar-form navbar-left">
 		<div class="form-group">
-		  <input type="text" name="name" value="{search}" class="form-control" placeholder="Tìm kiếm">
+		  <input type="text" name="name" value="<?php echo $search ?>" class="form-control" placeholder="Tìm kiếm">
 		</div>
 		<button type="submit" class="btn btn-default">Tìm kiếm</button>
 	</form>
@@ -50,10 +50,10 @@ if($search){
 <th>Điện thoại</th>
 <th>Ngày đăng ký</th>
 </tr>
-{each $payments as $index => $payment}
+<?php foreach($payments as $index => $payment): ?>
 <tr>
 	<td><?php echo ($index + 1)?></td>
-	<td>{payment[username]}</td>
+	<td><?php echo @$payment['username']?></td>
 	<td><?php echo $indexedPackages[$payment['serviceId']]['serviceName']?></td>
 	<td><?php if($payment['phone'] != ' '){ 
 		$phone = $payment['phone'];
@@ -66,7 +66,7 @@ if($search){
 	?></td>
 	<td><?php echo date('d/m/Y', strtotime($payment['paymentDate']))?></td>
 </tr>
-{/each}
+<?php endforeach; ?>
 </table>
 <?php } ?>
 </div>

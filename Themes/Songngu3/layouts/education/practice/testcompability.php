@@ -15,9 +15,9 @@ if($school == NS){
 
 ?>
 
-{each $items as $item}
+<?php foreach($items as $item): ?>
 
-<div class="col-md-2 text-center col-xs-4 text-uppercase box-practice widthfix testcompability is_{data.action} <?php if(@$item['isNew']): echo ' isNew'; endif;?>" onclick ="return false;" data-test="{item[id]}" <?php if($lang == 'ev'){
+<div class="col-md-2 text-center col-xs-4 text-uppercase box-practice widthfix testcompability is_<?php echo @$data->action?> <?php if(@$item['isNew']): echo ' isNew'; endif;?>" onclick ="return false;" data-test="<?php echo @$item['id']?>" <?php if($lang == 'ev'){
 					echo 'title="'.$item['name'].'"'; }?>>
 	<a href="" class="text-color">
 	<?php 
@@ -28,13 +28,13 @@ if($school == NS){
 	} ?>
 	</a>
 </div>
-{/each}
+<?php endforeach; ?>
 
 <script>
-$(".is_{data.action}").click(function(){
+$(".is_<?php echo @$data->action?>").click(function(){
 	<?php if(pzk_session('userId')): ?>
 		var test = $(this).data("test")
-		window.location = BASE_REQUEST+'/Compability/{data.action}/{class}/'+test;
+		window.location = BASE_REQUEST+'/Compability/<?php echo @$data->action?>/<?php echo $class ?>/'+test;
 	<?php else: ?>
 		var state = confirm("<?php echo $language['login'];?>");
 		if(state == true){

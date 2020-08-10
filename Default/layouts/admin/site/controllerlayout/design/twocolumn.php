@@ -2,7 +2,7 @@
 $item = $data->getItem();
 $positions = $data->getPositions();
 ?>
-<h1>Controller: {item[controller_name]}/{item[action_name]}</h1>
+<h1>Controller: <?php echo @$item['controller_name']?>/<?php echo @$item['action_name']?></h1>
 <div class="row">
 	<div class="col-xs-3">
 	<?php

@@ -4,9 +4,9 @@ $menu = _db()->select('*')->from('admin_menu')->result();
 $menuTree = treefy($menu);
 $item = $data->getItem();
 ?>
-<form id="levelactionsEditForm" role="form" method="post" action="{url /admin_levelaction/editPost}">
+<form id="levelactionsEditForm" role="form" method="post" action="<?php echo BASE_REQUEST . '/admin_levelaction/editPost' ?>">
 
-    <input type="hidden" name="id" value="{item[id]}" />
+    <input type="hidden" name="id" value="<?php echo @$item['id']?>" />
 
     <div class="form-group col-xs-12">
         <div class="col-xs-2">
@@ -15,9 +15,9 @@ $item = $data->getItem();
         <div class="col-xs-4">
             <select id="admin_level_id" name="admin_level_id" class="form-control input-sm">
                 <option value="">-- Nhóm Người dùng --</option>
-                {each $level as $val}
-                <option value="{val[id]}">{val[level]}</option>
-                {/each}
+                <?php foreach($level as $val): ?>
+                <option value="<?php echo @$val['id']?>"><?php echo @$val['level']?></option>
+                <?php endforeach; ?>
 
             </select>
             <input id="admin_level" type="hidden" name="admin_level" />
@@ -27,7 +27,7 @@ $item = $data->getItem();
                     var namelevel   = optionSelected.text().trim();
                     $('#admin_level').val(namelevel);
                 });
-                $('#admin_level_id').val('{item[admin_level_id]}');
+                $('#admin_level_id').val('<?php echo @$item['admin_level_id']?>');
             </script>
         </div>
     </div>
@@ -39,13 +39,13 @@ $item = $data->getItem();
         <div class="col-xs-4">
             <select id="admin_action" name="admin_action" class="form-control input-sm">
                 <option value="">-- Chọn menu --</option>
-                {each $menuTree as $cat}
-                <option value="{cat[admin_controller]}"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $cat['level']);?>{cat[name]}</option>
-                {/each}
+                <?php foreach($menuTree as $cat): ?>
+                <option value="<?php echo @$cat['admin_controller']?>"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $cat['level']);?><?php echo @$cat['name']?></option>
+                <?php endforeach; ?>
 
             </select>
             <script type="text/javascript">
-                $('#admin_action').val('{item[admin_action]}');
+                $('#admin_action').val('<?php echo @$item['admin_action']?>');
             </script>
         </div>
     </div>
@@ -73,7 +73,7 @@ $item = $data->getItem();
                 <option value="1">Đã kích hoạt</option>
             </select>
             <script type="text/javascript">
-                $('#status').val('{item[status]}');
+                $('#status').val('<?php echo @$item['status']?>');
             </script>
         </div>
     </div>
@@ -83,7 +83,7 @@ $item = $data->getItem();
     <div class="form-group col-xs-12">
         <div class="col-xs-3 col-xs-offset-2">
             <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Cập nhật</button>
-            <a class="btn btn-default margin-left-10" href="{url /admin_levelaction/index}">Quay lại</a>
+            <a class="btn btn-default margin-left-10" href="<?php echo BASE_REQUEST . '/admin_levelaction/index' ?>">Quay lại</a>
         </div>
     </div>
 </form>
@@ -91,13 +91,13 @@ $item = $data->getItem();
 $editValidator = json_encode(pzk_controller()->editValidator);
 ?>
 <script>
-    $('#levelactionsEditForm').validate({editValidator});
+    $('#levelactionsEditForm').validate(<?php echo $editValidator ?>);
     $('#admin_action').change(function() {
         adminController = $(this).val();
         if(adminController.length > 0 ) {
             $.ajax({
                 type: "POST",
-                url: "{url}/admin_levelaction/getAdminAction",
+                url: "<?php echo BASE_REQUEST ?>/admin_levelaction/getAdminAction",
                 data:{adminController:adminController},
                 success: function(data) {
                     $('.showlevel').html(data);

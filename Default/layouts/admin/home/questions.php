@@ -1,5 +1,5 @@
 <?php 
 $items = $data->getItems(); ?>
-{each $items as $item}
-{item[name]}<br />
-{/each}
+<?php foreach($items as $item): ?>
+<?php echo @$item['name']?><br />
+<?php endforeach; ?>

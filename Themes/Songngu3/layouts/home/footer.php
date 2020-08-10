@@ -230,7 +230,7 @@ if(!mobileAndTabletcheck()) {
 			margin-bottom: 20px;
 		}
 	  </style>
-	  {children all}
+	  <?php $data->displayChildren('all') ?>
 	  <div class="box-right-title mgb20 relative hidden">
 			<img class="title-left2" src="/Themes/thitai/skin/media/left-title.png">
 			<a target="_blank" href="http://s1.nextnobels.com/banner/bannerPost?id=2&utm_source=&utm_campaign=" class="title-box"><h3 style="margin: 0;"> THƯ GỬI CÁC  FLKER MÙA THI 2016</h3></a>

@@ -37,9 +37,9 @@ $data->setClassroomId( $classroom['id']);
 					Lớp
 					<select id="nameOfClass" class="form-control" name="nameOfClass" >
 						<option>Chọn lớp</option>
-						{each $allClasses as $item}
-							<option value="{item[name]}" >{item[name]}</option>
-						{/each}
+						<?php foreach($allClasses as $item): ?>
+							<option value="<?php echo @$item['name']?>" ><?php echo @$item['name']?></option>
+						<?php endforeach; ?>
 					</select>
 				</div>
 				
@@ -58,15 +58,15 @@ $data->setClassroomId( $classroom['id']);
 				if($classroom){
 			?>
 		  
-			<div id="classroom-{classroom[id]}" class="tab-pane">
-			  <h3 class="text-center">Niên khóa {classroom[schoolYear]} Lớp {classroom[gradeNum]}{classroom[className]}</h3>
+			<div id="classroom-<?php echo @$classroom['id']?>" class="tab-pane">
+			  <h3 class="text-center">Niên khóa <?php echo @$classroom['schoolYear']?> Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?></h3>
 			  <?php	$subjects = $data->getSubjects($classroom['gradeNum']);	?>
 			  <table class="table table-condense table-hovered">
 				<tr>
 				<td>&nbsp;</td>
-				{each $subjects as $subject}
-					<th>{subject[name]}</th>
-				{/each}
+				<?php foreach($subjects as $subject): ?>
+					<th><?php echo @$subject['name']?></th>
+				<?php endforeach; ?>
 				</tr>
 				
 				<?php 
@@ -85,8 +85,8 @@ $data->setClassroomId( $classroom['id']);
 						$week = $tam + 1;
 				?>
 				<tr>
-				<th>Tuần {week}</th>
-				{each $subjects as $subject}
+				<th>Tuần <?php echo $week ?></th>
+				<?php foreach($subjects as $subject): ?>
 					<td>
 					<?php
 					$totalDone = $data->countStudentHomework($schoolYear, $grade, $nameOfClass, $week, $subject['id']);
@@ -94,7 +94,7 @@ $data->setClassroomId( $classroom['id']);
 					echo '<span class="btn btn-xs btn-danger">'. $totalDone.'</span> <span class="btn btn-xs btn-success">'.$totalMarked.'</span> <span class="btn btn-xs btn-warning">'.$totalStudents.'</span>';
 					?>
 					</td>
-				{/each}
+				<?php endforeach; ?>
 				</tr>
 				<?php } ?>
 			  </table>
@@ -118,8 +118,8 @@ $data->setClassroomId( $classroom['id']);
 
 <script type="text/javascript">
 	
-	$('#schoolYear').val({schoolYear});
-	$('#grade').val({grade});
+	$('#schoolYear').val(<?php echo $schoolYear ?>);
+	$('#grade').val(<?php echo $grade ?>);
 	$('#nameOfClass').val('<?=$nameOfClass;?>');
 	
 </script>

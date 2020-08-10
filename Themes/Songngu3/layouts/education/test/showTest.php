@@ -33,7 +33,7 @@
 	$weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 	
 ?>
-{children [position=public-header}
+<?php $data->displayChildren('[position=public-header') ?>
 <div class="container-fluid bgcontent">			
 <div class="container">
 	<div class="row">
@@ -59,7 +59,7 @@
 				<?php 
 				$weeks = $data->getWeekTestSN(1410,$practice, $check, $class);
 				?>
-				{each $weeks as $week }
+				<?php foreach($weeks as $week ): ?>
 					<?php 
 					
 					$tests = $data->getTestSN($week['id'], $practice, $check, $class);					
@@ -79,7 +79,7 @@
 						</b>
 						
 							<ul class="child-menu-test item">
-								{each $tests as $test }
+								<?php foreach($tests as $test ): ?>
 								<?php
 									if(!$lang || $lang == 'vn'){
 										$testName = $test['name'];
@@ -96,12 +96,12 @@
 								?>
 									<li >
 										
-										<a  <?php if($data_criteria['id'] == $test['id']) { echo 'class="active"'; } ?> onclick="return check_display({test[trial]}); id = {week[id]};"  data-de="{testName}" class="getdata" href="/practice-examination/class-{class}/week-{week[id]}/examination-{test[id]}" data-type="group">
-										<?php if(pzk_user_special()) { echo '#' . $test['id']; } ?> {testName}
+										<a  <?php if($data_criteria['id'] == $test['id']) { echo 'class="active"'; } ?> onclick="return check_display(<?php echo @$test['trial']?>); id = <?php echo @$week['id']?>;"  data-de="<?php echo $testName ?>" class="getdata" href="/practice-examination/class-<?php echo $class ?>/week-<?php echo @$week['id']?>/examination-<?php echo @$test['id']?>" data-type="group">
+										<?php if(pzk_user_special()) { echo '#' . $test['id']; } ?> <?php echo $testName ?>
 										</a>
 										
 									</li>
-								{/each}
+								<?php endforeach; ?>
 							</ul>
 						
 						</li>
@@ -118,7 +118,7 @@
 						</b>
 						
 						<ul class="child-menu-test">
-							{each $tests as $test }
+							<?php foreach($tests as $test ): ?>
 								<?php 
 									if(!$lang || $lang == 'vn'){
 										$testName = $test['name'];
@@ -132,18 +132,18 @@
 								?>
 								<li>
 									
-									<a <?php if($data_criteria['id'] == $test['id']) { echo 'class="active"'; } ?> onclick="return check_display({test[trial]});id = {week[id]};" data-id="{week[id]}" data-de="{testName}" class="getdata" href="/test/class-{class}/week-{week[id]}/examination-{test[id]}" data-type="group">
+									<a <?php if($data_criteria['id'] == $test['id']) { echo 'class="active"'; } ?> onclick="return check_display(<?php echo @$test['trial']?>);id = <?php echo @$week['id']?>;" data-id="<?php echo @$week['id']?>" data-de="<?php echo $testName ?>" class="getdata" href="/test/class-<?php echo $class ?>/week-<?php echo @$week['id']?>/examination-<?php echo @$test['id']?>" data-type="group">
 									<?php if(pzk_user_special()) { echo '#' . $test['id']; } ?>
-									{testName}</a>
+									<?php echo $testName ?></a>
 									
 								</li>
-							{/each}
+							<?php endforeach; ?>
 						</ul>
 						
 						</li>
 					<?php } ?>
 				
-				{/each}
+				<?php endforeach; ?>
 			</ul>
 			
 			
@@ -153,7 +153,7 @@
 			
 			<div class="item fs18 top-content bold">	
 				
-				{ifvar practice}<a href="/#practice-test">{language[generaltitle]}</a>{else}<a href="/#test">{language[weekend]}</a>{/if}
+				<?php if(${'practice'}): ?><a href="/#practice-test"><?php echo @$language['generaltitle']?></a><?php else: ?><a href="/#test"><?php echo @$language['weekend']?></a><?php endif; ?>
 				&nbsp; &nbsp; > 
 				&nbsp; &nbsp; 
 				<?php
@@ -384,7 +384,7 @@
 	
 	<?php $check = pzk_session('checkPayment'); ?>
 	function check_display(trial){
-		var check = '{check}';
+		var check = '<?php echo $check ?>';
 		if(check == 1){
 			return true;
 		}else{

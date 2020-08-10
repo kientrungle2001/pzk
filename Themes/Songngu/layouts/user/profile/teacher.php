@@ -2,8 +2,8 @@
 <script type="text/javascript" src="../3rdparty/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="../3rdparty/datetimepicker/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
 
-{children [position=public-header]}
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=public-header]') ?>
+<?php $data->displayChildren('[position=top-menu]') ?>
 
 <?php 
 	$sessionCate = pzk_session('cateSelect');
@@ -20,7 +20,7 @@
                 <label for="categoryId"> Chọn môn học</label>
                 <select style="margin-left: 4px;"  class="form-control input-sm" id="cateSelect" name="cateSelect" onchange="window.location = '/profile/onchangeCateId?categoryId='+this.value+'&cateName='+ $('#cateSelect option:selected').text();" >
                     <option value="" >Chọn môn</option>
-                    {each $categoryIds as $item}
+                    <?php foreach($categoryIds as $item): ?>
                     <?php 
                     	if($item == 50 || $item == '50') $itemName ='Địa Lý';
                     	if($item == 51 || $item == '51') $itemName ='Toán';
@@ -35,10 +35,10 @@
                     	if($item == ROOT_TEST_CATEGORY_ID) $itemName ='Kiểm Tra Toàn Diện';
                     	if($item == ROOT_PRATEST_CATEGORY_ID ) $itemName ='Đề Luyện Tập';
                      ?>
-                    <option value="{item}">{itemName}</option>
-                    {/each}
+                    <option value="<?php echo $item ?>"><?php echo $itemName ?></option>
+                    <?php endforeach; ?>
                     <script type="text/javascript">
-                        $('#cateSelect').val({sessionCate});
+                        $('#cateSelect').val(<?php echo $sessionCate ?>);
                         var catename = $("#cateSelect option:selected").text();
                         
                     </script>
@@ -94,14 +94,14 @@
 			<?php $schedule = @$schedules[$subject][0][$value['id']]; ?>
 			<li class="list-group-item" >
 				<div class="row">
-					<div class='col-md-4 col-sm-4'>{value[name]} 
-						 <input type="hidden" id="schedule{subject}0{value[id]}" value="{schedule[id]}">
+					<div class='col-md-4 col-sm-4'><?php echo @$value['name']?> 
+						 <input type="hidden" id="schedule<?php echo $subject ?>0<?php echo @$value['id']?>" value="<?php echo @$schedule['id']?>">
 					</div>
 					<div class='col-md-4 col-sm-4'>
 			            
 			            <div class="form-group">
-			                <div class='input-group date' id='datetimepicker{value[id]}'>
-			                    <input type='text' class="form-control" value="{schedule[openDate]}" />
+			                <div class='input-group date' id='datetimepicker<?php echo @$value['id']?>'>
+			                    <input type='text' class="form-control" value="<?php echo @$schedule['openDate']?>" />
 			                    <span class="input-group-addon">
 			                        <span class="glyphicon glyphicon-calendar"></span>
 			                    </span>
@@ -109,7 +109,7 @@
 			            </div>
 						    <script type="text/javascript">
 						    	$(function () {
-					                $('#datetimepicker{value[id]}').datetimepicker({
+					                $('#datetimepicker<?php echo @$value['id']?>').datetimepicker({
 								        format: "dd/mm/yyyy - HH:ii P",
 								        showMeridian: true,
 								        autoclose: true,
@@ -121,27 +121,27 @@
 						
 			        </div>
 			        <div class='col-md-2 col-sm-2'>  
-			            <select name="status{value[id]}" id="status{value[id]}" style="height:30px;">
+			            <select name="status<?php echo @$value['id']?>" id="status<?php echo @$value['id']?>" style="height:30px;">
 			            	<option value="0">Chưa kích hoạt</option>
 			            	<option value="1">Kích hoạt</option>
 			            	<script>
-			            	$('#status{value[id]}').val('{schedule[status]}');
+			            	$('#status<?php echo @$value['id']?>').val('<?php echo @$schedule['status']?>');
 			            	</script>
 			            </select> 	
 			        </div>
 			        <div class='col-md-2 col-sm-2'> 
-			        	<button type="button" name="submit{value[id]}" id="submit{value[id]}" class="btn btn-success">Cập nhật</button>    	
+			        	<button type="button" name="submit<?php echo @$value['id']?>" id="submit<?php echo @$value['id']?>" class="btn btn-success">Cập nhật</button>    	
 			        </div>
 				</div>
 				<script>
-				$('#submit{value[id]}').click(function(){
-					var status = $('#status{value[id]}').val();
-					var subject = '{subject}';
-					var lessonId = '{value[id]}';
+				$('#submit<?php echo @$value['id']?>').click(function(){
+					var status = $('#status<?php echo @$value['id']?>').val();
+					var subject = '<?php echo $subject ?>';
+					var lessonId = '<?php echo @$value['id']?>';
 					var topicId = 0;
-					var scheduleId = $('#schedule{subject}0{value[id]}').val();
-					//var formatted = document.getElementById('datetimepicker{value[id]}').value;
-					var date = $("#datetimepicker{value[id]}").datetimepicker("getDate");
+					var scheduleId = $('#schedule<?php echo $subject ?>0<?php echo @$value['id']?>').val();
+					//var formatted = document.getElementById('datetimepicker<?php echo @$value['id']?>').value;
+					var date = $("#datetimepicker<?php echo @$value['id']?>").datetimepicker("getDate");
 					var openDate = date.getFullYear()  + '-'+ (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() +':' + date.getMinutes() + ':00' ;
 					
 					
@@ -159,7 +159,7 @@
 				        {
 				          	var res	= result.split('/');
 				          	if(res[0] == 1){
-				          	    $('#schedule{subject}0{value[id]}').val(res[1]);
+				          	    $('#schedule<?php echo $subject ?>0<?php echo @$value['id']?>').val(res[1]);
 				          	    alert('thành công');
 				          	} else alert('thất bại');
 				        }
@@ -182,15 +182,15 @@
 			    				$weeks = $data->getWeekTest($class, ROOT_WEEK_CATEGORY_ID,$practice);
 
 			    			 ?>
-			    			{each $weeks as $week }
+			    			<?php foreach($weeks as $week ): ?>
 			    			
-			    			<li class="left20" style="color:#d9534f;"><h5><strong>{week[name]}</strong></h5>
+			    			<li class="left20" style="color:#d9534f;"><h5><strong><?php echo @$week['name']?></strong></h5>
 								
 							<?php 
 								$tests = $data->getTestSN($class, $week['id'], $practice);
 								
 								 ?>
-									{each $tests as $test }
+									<?php foreach($tests as $test ): ?>
 									<?php 
 										$schedule = @$schedules[$subject][$week['id']][$test['id']];
 		                                if($test['name_sn']){
@@ -199,14 +199,14 @@
 		                            ?>
 		                            <li class="list-group-item" >
 										<div class="row">
-											<div class='col-md-4 col-sm-4'>{testName}
-												<input type="hidden" id="schedule{subject}{week[id]}{test[id]}" value="{schedule[id]}">
+											<div class='col-md-4 col-sm-4'><?php echo $testName ?>
+												<input type="hidden" id="schedule<?php echo $subject ?><?php echo @$week['id']?><?php echo @$test['id']?>" value="<?php echo @$schedule['id']?>">
 											</div>
 											<div class='col-md-4 col-sm-4'>
 									            
 									            <div class="form-group">
-									                <div class='input-group date' id='datetimepicker{week[id]}{test[id]}'>
-									                    <input type='text' class="form-control" value="{schedule[openDate]}" />
+									                <div class='input-group date' id='datetimepicker<?php echo @$week['id']?><?php echo @$test['id']?>'>
+									                    <input type='text' class="form-control" value="<?php echo @$schedule['openDate']?>" />
 									                    <span class="input-group-addon">
 									                        <span class="glyphicon glyphicon-calendar"></span>
 									                    </span>
@@ -214,7 +214,7 @@
 									            </div>
 												    <script type="text/javascript">
 												    	$(function () {
-											                $('#datetimepicker{week[id]}{test[id]}').datetimepicker({
+											                $('#datetimepicker<?php echo @$week['id']?><?php echo @$test['id']?>').datetimepicker({
 														        format: "dd/mm/yyyy - HH:ii P",
 														        showMeridian: true,
 														        autoclose: true,
@@ -226,28 +226,28 @@
 												
 									        </div>
 									        <div class='col-md-2 col-sm-2'>  
-									            <select name="status{week[id]}{test[id]}" id="status{week[id]}{test[id]}" style="height:30px;">
+									            <select name="status<?php echo @$week['id']?><?php echo @$test['id']?>" id="status<?php echo @$week['id']?><?php echo @$test['id']?>" style="height:30px;">
 									            	<option value="0">Chưa kích hoạt</option>
 									            	<option value="1">Kích hoạt</option>
 									            	<script>
-										            	$('#status{week[id]}{test[id]}').val({schedule[status]});
+										            	$('#status<?php echo @$week['id']?><?php echo @$test['id']?>').val(<?php echo @$schedule['status']?>);
 										            </script> 
 									            </select>
 									            	
 									        </div>
 									        <div class='col-md-2 col-sm-2'> 
-									        	<button type="button" name="submit{week[id]}{test[id]}" id="submit{week[id]}{test[id]}" class="btn btn-success">Cập nhật</button>    	
+									        	<button type="button" name="submit<?php echo @$week['id']?><?php echo @$test['id']?>" id="submit<?php echo @$week['id']?><?php echo @$test['id']?>" class="btn btn-success">Cập nhật</button>    	
 									        </div>
 										</div>
 									<script>
-									$('#submit{week[id]}{test[id]}').click(function(){
-										var status = $('#status{week[id]}{test[id]}').val();
-										var subject = '{subject}';
-										var topicId = '{week[id]}';
-										var lessonId = '{test[id]}';
-										var scheduleId = $('#schedule{subject}{week[id]}{test[id]}').val();
-										//var formatted = document.getElementById('datetimepicker{value[id]}').value;
-										var date = $("#datetimepicker{week[id]}{test[id]}").datetimepicker("getDate");
+									$('#submit<?php echo @$week['id']?><?php echo @$test['id']?>').click(function(){
+										var status = $('#status<?php echo @$week['id']?><?php echo @$test['id']?>').val();
+										var subject = '<?php echo $subject ?>';
+										var topicId = '<?php echo @$week['id']?>';
+										var lessonId = '<?php echo @$test['id']?>';
+										var scheduleId = $('#schedule<?php echo $subject ?><?php echo @$week['id']?><?php echo @$test['id']?>').val();
+										//var formatted = document.getElementById('datetimepicker<?php echo @$value['id']?>').value;
+										var date = $("#datetimepicker<?php echo @$week['id']?><?php echo @$test['id']?>").datetimepicker("getDate");
 										var openDate = date.getFullYear()  + '-'+ (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() +':' + date.getMinutes() + ':00' ;
 										
 										
@@ -265,7 +265,7 @@
 									        {
 									        	var res	= result.split('/');
 									          	if(res[0] == 1){
-												    $('#schedule{subject}{week[id]}{test[id]}').val(res[1]);
+												    $('#schedule<?php echo $subject ?><?php echo @$week['id']?><?php echo @$test['id']?>').val(res[1]);
 												    alert('thành công');
 												} else alert('thất bại');
 									        }
@@ -276,11 +276,11 @@
 									</script>
 								
 								</li>	
-									{/each}
+									<?php endforeach; ?>
 								
 								
 							</li>
-							{/each}
+							<?php endforeach; ?>
 			
 
 					
@@ -302,13 +302,13 @@
 					<li class="list-group-item" >
 						<div class="row">
 							<div class='col-md-4 col-sm-4'><?php echo 'Bài '.$i;?>
-							<input type="hidden" id="schedule{subject}0{i}" value="{schedule[id]}">
+							<input type="hidden" id="schedule<?php echo $subject ?>0<?php echo $i ?>" value="<?php echo @$schedule['id']?>">
 							</div>
 							<div class='col-md-4 col-sm-4'>
 					            
 					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker{i}'>
-					                    <input type='text' class="form-control" value="{schedule[openDate]}" />
+					                <div class='input-group date' id='datetimepicker<?php echo $i ?>'>
+					                    <input type='text' class="form-control" value="<?php echo @$schedule['openDate']?>" />
 					                    <span class="input-group-addon">
 					                        <span class="glyphicon glyphicon-calendar"></span>
 					                    </span>
@@ -316,7 +316,7 @@
 					            </div>
 								    <script type="text/javascript">
 								    	$(function () {
-							                $('#datetimepicker{i}').datetimepicker({
+							                $('#datetimepicker<?php echo $i ?>').datetimepicker({
 										        format: "dd/mm/yyyy - HH:ii P",
 										        showMeridian: true,
 										        autoclose: true,
@@ -328,27 +328,27 @@
 								
 					        </div>
 					        <div class='col-md-2 col-sm-2'>  
-					            <select name="status{i}" id="status{i}" style="height:30px;">
+					            <select name="status<?php echo $i ?>" id="status<?php echo $i ?>" style="height:30px;">
 					            	<option value="0">Chưa kích hoạt</option>
 					            	<option value="1">Kích hoạt</option>
 					            	<script>
-					            		$('#status{i}').val('{schedule[status]}');
+					            		$('#status<?php echo $i ?>').val('<?php echo @$schedule['status']?>');
 					            	</script>
 					            </select> 	
 					        </div>
 					        <div class='col-md-2 col-sm-2'> 
-					        	<button type="button" name="submit{i}" id="submit{i}" class="btn btn-success">Cập nhật</button>    	
+					        	<button type="button" name="submit<?php echo $i ?>" id="submit<?php echo $i ?>" class="btn btn-success">Cập nhật</button>    	
 					        </div>
 						</div>
 						<script>
-						$('#submit{i}').click(function(){
-							var status = $('#status{i}').val();
-							var subject = '{subject}';
-							var lessonId = '{i}';
+						$('#submit<?php echo $i ?>').click(function(){
+							var status = $('#status<?php echo $i ?>').val();
+							var subject = '<?php echo $subject ?>';
+							var lessonId = '<?php echo $i ?>';
 							var topicId = 0;
-							var scheduleId = $('#schedule{subject}0{i}').val();
-							//var formatted = document.getElementById('datetimepicker{value[id]}').value;
-							var date = $("#datetimepicker{i}").datetimepicker("getDate");
+							var scheduleId = $('#schedule<?php echo $subject ?>0<?php echo $i ?>').val();
+							//var formatted = document.getElementById('datetimepicker<?php echo @$value['id']?>').value;
+							var date = $("#datetimepicker<?php echo $i ?>").datetimepicker("getDate");
 							var openDate = date.getFullYear()  + '-'+ (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() +':' + date.getMinutes() + ':00' ;
 							
 							
@@ -366,7 +366,7 @@
 						        {
 						          	var res	= result.split('/');
 						          	if(res[0] == 1){
-									    $('#schedule{subject}0{i}').val(res[1]);
+									    $('#schedule<?php echo $subject ?>0<?php echo $i ?>').val(res[1]);
 									    alert('thành công');
 									} else alert('thất bại');
 						        }
@@ -390,13 +390,13 @@
 						<li class="list-group-item" >
 						<div class="row">
 							<div class='col-md-4 col-sm-4'><?php echo 'Bài '.$i;?>
-								<input type="hidden" id="schedule{subject}{topic[id]}{i}" value="{schedule[id]}">
+								<input type="hidden" id="schedule<?php echo $subject ?><?php echo @$topic['id']?><?php echo $i ?>" value="<?php echo @$schedule['id']?>">
 							</div>
 							<div class='col-md-4 col-sm-4'>
 					            
 					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker{topic[id]}{i}'>
-					                    <input type='text' class="form-control" value="{schedule[openDate]}" />
+					                <div class='input-group date' id='datetimepicker<?php echo @$topic['id']?><?php echo $i ?>'>
+					                    <input type='text' class="form-control" value="<?php echo @$schedule['openDate']?>" />
 					                    <span class="input-group-addon">
 					                        <span class="glyphicon glyphicon-calendar"></span>
 					                    </span>
@@ -404,7 +404,7 @@
 					            </div>
 								    <script type="text/javascript">
 								    	$(function () {
-							                $('#datetimepicker{topic[id]}{i}').datetimepicker({
+							                $('#datetimepicker<?php echo @$topic['id']?><?php echo $i ?>').datetimepicker({
 										        format: "dd/mm/yyyy - HH:ii P",
 										        showMeridian: true,
 										        autoclose: true,
@@ -416,28 +416,28 @@
 								
 					        </div>
 					        <div class='col-md-2 col-sm-2'>  
-					            <select name="status{topic[id]}{i}" id="status{topic[id]}{i}" style="height:30px;">
+					            <select name="status<?php echo @$topic['id']?><?php echo $i ?>" id="status<?php echo @$topic['id']?><?php echo $i ?>" style="height:30px;">
 					            	<option value="0">Chưa kích hoạt</option>
 					            	<option value="1">Kích hoạt</option>
 					            	<script>
-						            	$('#status{topic[id]}{i}').val({schedule[status]});
+						            	$('#status<?php echo @$topic['id']?><?php echo $i ?>').val(<?php echo @$schedule['status']?>);
 						            </script> 
 					            </select>
 					            	
 					        </div>
 					        <div class='col-md-2 col-sm-2'> 
-					        	<button type="button" name="submit{topic[id]}{i}" id="submit{topic[id]}{i}" class="btn btn-success">Cập nhật</button>    	
+					        	<button type="button" name="submit<?php echo @$topic['id']?><?php echo $i ?>" id="submit<?php echo @$topic['id']?><?php echo $i ?>" class="btn btn-success">Cập nhật</button>    	
 					        </div>
 						</div>
 						<script>
-						$('#submit{topic[id]}{i}').click(function(){
-							var status = $('#status{topic[id]}{i}').val();
-							var subject = '{subject}';
-							var topicId = '{topic[id]}';
-							var lessonId = '{i}';
-							var scheduleId = $('#schedule{subject}{topic[id]}{i}').val();
-							//var formatted = document.getElementById('datetimepicker{value[id]}').value;
-							var date = $("#datetimepicker{topic[id]}{i}").datetimepicker("getDate");
+						$('#submit<?php echo @$topic['id']?><?php echo $i ?>').click(function(){
+							var status = $('#status<?php echo @$topic['id']?><?php echo $i ?>').val();
+							var subject = '<?php echo $subject ?>';
+							var topicId = '<?php echo @$topic['id']?>';
+							var lessonId = '<?php echo $i ?>';
+							var scheduleId = $('#schedule<?php echo $subject ?><?php echo @$topic['id']?><?php echo $i ?>').val();
+							//var formatted = document.getElementById('datetimepicker<?php echo @$value['id']?>').value;
+							var date = $("#datetimepicker<?php echo @$topic['id']?><?php echo $i ?>").datetimepicker("getDate");
 							var openDate = date.getFullYear()  + '-'+ (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() +':' + date.getMinutes() + ':00' ;
 							
 							
@@ -455,7 +455,7 @@
 						        {
 						          	var res	= result.split('/');
 						          	if(res[0] == 1){
-									    $('#schedule{subject}{topic[id]}{i}').val(res[1]);
+									    $('#schedule<?php echo $subject ?><?php echo @$topic['id']?><?php echo $i ?>').val(res[1]);
 									    alert('thành công');
 									} else alert('thất bại'); 
 						        }
@@ -482,13 +482,13 @@
 						<li class="list-group-item" >
 						<div class="row">
 							<div class='col-md-4 col-sm-4'><?php echo 'Bài '.$i;?>
-								<input type="hidden" id="schedule{subject}{section[id]}{i}" value="{schedule[id]}">
+								<input type="hidden" id="schedule<?php echo $subject ?><?php echo @$section['id']?><?php echo $i ?>" value="<?php echo @$schedule['id']?>">
 							</div>
 							<div class='col-md-4 col-sm-4'>
 					            
 					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker{section[id]}{i}' >
-					                    <input type='text' class="form-control" value="{schedule[openDate]}" />
+					                <div class='input-group date' id='datetimepicker<?php echo @$section['id']?><?php echo $i ?>' >
+					                    <input type='text' class="form-control" value="<?php echo @$schedule['openDate']?>" />
 					                    <span class="input-group-addon">
 					                        <span class="glyphicon glyphicon-calendar"></span>
 					                    </span>
@@ -496,7 +496,7 @@
 					            </div>
 								    <script type="text/javascript">
 								    	$(function () {
-							                $('#datetimepicker{section[id]}{i}').datetimepicker({
+							                $('#datetimepicker<?php echo @$section['id']?><?php echo $i ?>').datetimepicker({
 										        format: "dd/mm/yyyy - HH:ii P",
 										        showMeridian: true,
 										        autoclose: true,
@@ -508,28 +508,28 @@
 								
 					        </div>
 					        <div class='col-md-2 col-sm-2'>  
-					            <select name="status{section[id]}{i}" id="status{section[id]}{i}" style="height:30px;">
+					            <select name="status<?php echo @$section['id']?><?php echo $i ?>" id="status<?php echo @$section['id']?><?php echo $i ?>" style="height:30px;">
 					            	<option value="0">Chưa kích hoạt</option>
 					            	<option value="1">Kích hoạt</option>
 
 					            </select> 	
 					            <script>
-					            $('#status{section[id]}{i}').val('{schedule[status]}');
+					            $('#status<?php echo @$section['id']?><?php echo $i ?>').val('<?php echo @$schedule['status']?>');
 					            </script>
 					        </div>
 					        <div class='col-md-2 col-sm-2'> 
-					        	<button type="button" name="submit{section[id]}{i}" id="submit{section[id]}{i}" class="btn btn-success">Cập nhật</button>    	
+					        	<button type="button" name="submit<?php echo @$section['id']?><?php echo $i ?>" id="submit<?php echo @$section['id']?><?php echo $i ?>" class="btn btn-success">Cập nhật</button>    	
 					        </div>
 						</div>
 						<script>
-						$('#submit{section[id]}{i}').click(function(){
-							var status = $('#status{section[id]}{i}').val();
-							var subject = '{subject}';
-							var topicId = '{section[id]}';
-							var lessonId = '{i}';
-							var scheduleId = $('#schedule{subject}{section[id]}{i}').val();
-							//var formatted = document.getElementById('datetimepicker{value[id]}').value;
-							var date = $("#datetimepicker{section[id]}{i}").datetimepicker("getDate");
+						$('#submit<?php echo @$section['id']?><?php echo $i ?>').click(function(){
+							var status = $('#status<?php echo @$section['id']?><?php echo $i ?>').val();
+							var subject = '<?php echo $subject ?>';
+							var topicId = '<?php echo @$section['id']?>';
+							var lessonId = '<?php echo $i ?>';
+							var scheduleId = $('#schedule<?php echo $subject ?><?php echo @$section['id']?><?php echo $i ?>').val();
+							//var formatted = document.getElementById('datetimepicker<?php echo @$value['id']?>').value;
+							var date = $("#datetimepicker<?php echo @$section['id']?><?php echo $i ?>").datetimepicker("getDate");
 							var openDate = date.getFullYear()  + '-'+ (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() +':' + date.getMinutes() + ':00' ;
 							
 							
@@ -547,7 +547,7 @@
 						        {
 						          	var res	= result.split('/');
 						          	if(res[0] == 1){
-									    $('#schedule{subject}{section[id]}{i}').val(res[1]);
+									    $('#schedule<?php echo $subject ?><?php echo @$section['id']?><?php echo $i ?>').val(res[1]);
 									    alert('thành công');
 									} else alert('thất bại');
 						        }
@@ -570,13 +570,13 @@
 							<li class="list-group-item" >
 						<div class="row">
 							<div class='col-md-4 col-sm-4'><?php echo 'Bài '.$i;?>
-							<input type="hidden" id="schedule{subject}{topic[id]}{i}" value="{schedule[id]}">
+							<input type="hidden" id="schedule<?php echo $subject ?><?php echo @$topic['id']?><?php echo $i ?>" value="<?php echo @$schedule['id']?>">
 							</div>
 							<div class='col-md-4 col-sm-4'>
 					            
 					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker{topic[id]}{i}'>
-					                    <input type='text' class="form-control" value="{schedule[openDate]}" />
+					                <div class='input-group date' id='datetimepicker<?php echo @$topic['id']?><?php echo $i ?>'>
+					                    <input type='text' class="form-control" value="<?php echo @$schedule['openDate']?>" />
 					                    <span class="input-group-addon">
 					                        <span class="glyphicon glyphicon-calendar"></span>
 					                    </span>
@@ -584,7 +584,7 @@
 					            </div>
 								    <script type="text/javascript">
 								    	$(function () {
-							                $('#datetimepicker{topic[id]}{i}').datetimepicker({
+							                $('#datetimepicker<?php echo @$topic['id']?><?php echo $i ?>').datetimepicker({
 										        format: "dd/mm/yyyy - HH:ii P",
 										        showMeridian: true,
 										        autoclose: true,
@@ -596,27 +596,27 @@
 								
 					        </div>
 					        <div class='col-md-2 col-sm-2'>  
-					            <select name="status{topic[id]}{i}" id="status{topic[id]}{i}" style="height:30px;">
+					            <select name="status<?php echo @$topic['id']?><?php echo $i ?>" id="status<?php echo @$topic['id']?><?php echo $i ?>" style="height:30px;">
 					            	<option value="0">Chưa kích hoạt</option>
 					            	<option value="1">Kích hoạt</option>
 					            </select> 
 					            <script>
-					            	$('#status{topic[id]}{i}').val('{schedule[status]}');
+					            	$('#status<?php echo @$topic['id']?><?php echo $i ?>').val('<?php echo @$schedule['status']?>');
 					            </script>	
 					        </div>
 					        <div class='col-md-2 col-sm-2'> 
-					        	<button type="button" name="submit{topic[id]}{i}" id="submit{topic[id]}{i}" class="btn btn-success">Cập nhật</button>    	
+					        	<button type="button" name="submit<?php echo @$topic['id']?><?php echo $i ?>" id="submit<?php echo @$topic['id']?><?php echo $i ?>" class="btn btn-success">Cập nhật</button>    	
 					        </div>
 						</div>
 						<script>
-						$('#submit{topic[id]}{i}').click(function(){
-							var status = $('#status{topic[id]}{i}').val();
-							var subject = '{subject}';
-							var topicId = '{topic[id]}';
-							var lessonId = '{i}';
-							var scheduleId = $('#schedule{subject}{topic[id]}{i}').val();
-							//var formatted = document.getElementById('datetimepicker{value[id]}').value;
-							var date = $("#datetimepicker{topic[id]}{i}").datetimepicker("getDate");
+						$('#submit<?php echo @$topic['id']?><?php echo $i ?>').click(function(){
+							var status = $('#status<?php echo @$topic['id']?><?php echo $i ?>').val();
+							var subject = '<?php echo $subject ?>';
+							var topicId = '<?php echo @$topic['id']?>';
+							var lessonId = '<?php echo $i ?>';
+							var scheduleId = $('#schedule<?php echo $subject ?><?php echo @$topic['id']?><?php echo $i ?>').val();
+							//var formatted = document.getElementById('datetimepicker<?php echo @$value['id']?>').value;
+							var date = $("#datetimepicker<?php echo @$topic['id']?><?php echo $i ?>").datetimepicker("getDate");
 							var openDate = date.getFullYear()  + '-'+ (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() +':' + date.getMinutes() + ':00' ;
 							
 							
@@ -634,7 +634,7 @@
 						        {
 						          	var res	= result.split('/');
 						          	if(res[0] == 1){
-									    $('#schedule{subject}{topic[id]}{i}').val(res[1]);
+									    $('#schedule<?php echo $subject ?><?php echo @$topic['id']?><?php echo $i ?>').val(res[1]);
 									    alert('thành công');
 									} else alert('thất bại');
 						        }
@@ -664,13 +664,13 @@
 						<li class="list-group-item" >
 						<div class="row">
 							<div class='col-md-4 col-sm-4'><?php echo 'Bài '.$i;?>
-								<input type="hidden" id="schedule{subject}{section1[id]}{i}" value="{schedule[id]}">
+								<input type="hidden" id="schedule<?php echo $subject ?><?php echo @$section1['id']?><?php echo $i ?>" value="<?php echo @$schedule['id']?>">
 							</div>
 							<div class='col-md-4 col-sm-4'>
 					            
 					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker{section1[id]}{i}'>
-					                    <input type='text' class="form-control" value="{schedule[openDate]}" />
+					                <div class='input-group date' id='datetimepicker<?php echo @$section1['id']?><?php echo $i ?>'>
+					                    <input type='text' class="form-control" value="<?php echo @$schedule['openDate']?>" />
 					                    <span class="input-group-addon">
 					                        <span class="glyphicon glyphicon-calendar"></span>
 					                    </span>
@@ -678,7 +678,7 @@
 					            </div>
 								    <script type="text/javascript">
 								    	$(function () {
-							                $('#datetimepicker{section1[id]}{i}').datetimepicker({
+							                $('#datetimepicker<?php echo @$section1['id']?><?php echo $i ?>').datetimepicker({
 										        format: "dd/mm/yyyy - HH:ii P",
 										        showMeridian: true,
 										        autoclose: true,
@@ -690,27 +690,27 @@
 								
 					        </div>
 					        <div class='col-md-2 col-sm-2'>  
-					            <select name="status{section1[id]}{i}" id="status{section1[id]}{i}" style="height:30px;">
+					            <select name="status<?php echo @$section1['id']?><?php echo $i ?>" id="status<?php echo @$section1['id']?><?php echo $i ?>" style="height:30px;">
 					            	<option value="0">Chưa kích hoạt</option>
 					            	<option value="1">Kích hoạt</option>
 					            <script>
-					            	$('#status{section1[id]}{i}').val('{schedule[status]}');
+					            	$('#status<?php echo @$section1['id']?><?php echo $i ?>').val('<?php echo @$schedule['status']?>');
 					            </script>
 					            </select> 	
 					        </div>
 					        <div class='col-md-2 col-sm-2'> 
-					        	<button type="button" name="submit{section1[id]}{i}" id="submit{section1[id]}{i}" class="btn btn-success">Cập nhật</button>    	
+					        	<button type="button" name="submit<?php echo @$section1['id']?><?php echo $i ?>" id="submit<?php echo @$section1['id']?><?php echo $i ?>" class="btn btn-success">Cập nhật</button>    	
 					        </div>
 						</div>
 						<script>
-						$('#submit{section1[id]}{i}').click(function(){
-							var status = $('#status{section1[id]}{i}').val();
-							var subject = '{subject}';
-							var topicId = '{section1[id]}';
-							var lessonId = '{i}';
-							var scheduleId = $('#schedule{subject}{section1[id]}{i}').val();
-							//var formatted = document.getElementById('datetimepicker{value[id]}').value;
-							var date = $("#datetimepicker{section1[id]}{i}").datetimepicker("getDate");
+						$('#submit<?php echo @$section1['id']?><?php echo $i ?>').click(function(){
+							var status = $('#status<?php echo @$section1['id']?><?php echo $i ?>').val();
+							var subject = '<?php echo $subject ?>';
+							var topicId = '<?php echo @$section1['id']?>';
+							var lessonId = '<?php echo $i ?>';
+							var scheduleId = $('#schedule<?php echo $subject ?><?php echo @$section1['id']?><?php echo $i ?>').val();
+							//var formatted = document.getElementById('datetimepicker<?php echo @$value['id']?>').value;
+							var date = $("#datetimepicker<?php echo @$section1['id']?><?php echo $i ?>").datetimepicker("getDate");
 							var openDate = date.getFullYear()  + '-'+ (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() +':' + date.getMinutes() + ':00' ;
 							
 							
@@ -728,7 +728,7 @@
 						        {
 						          	var res	= result.split('/');
 						          	if(res[0] == 1){
-									    $('#schedule{subject}{section1[id]}{i}').val(res[1]);
+									    $('#schedule<?php echo $subject ?><?php echo @$section1['id']?><?php echo $i ?>').val(res[1]);
 									    alert('thành công');
 									} else alert('thất bại');
 						        }
@@ -753,13 +753,13 @@
 								<li class="list-group-item" >
 						<div class="row">
 							<div class='col-md-4 col-sm-4'><?php echo 'Bài '.$i;?>
-								<input type="hidden" id="schedule{subject}{section2[id]}{i}" value="{schedule[id]}">
+								<input type="hidden" id="schedule<?php echo $subject ?><?php echo @$section2['id']?><?php echo $i ?>" value="<?php echo @$schedule['id']?>">
 							</div>
 							<div class='col-md-4 col-sm-4'>
 					            
 					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker{section2[id]}{i}'>
-					                    <input type='text' class="form-control" value="{schedule[openDate]}" />
+					                <div class='input-group date' id='datetimepicker<?php echo @$section2['id']?><?php echo $i ?>'>
+					                    <input type='text' class="form-control" value="<?php echo @$schedule['openDate']?>" />
 					                    <span class="input-group-addon">
 					                        <span class="glyphicon glyphicon-calendar"></span>
 					                    </span>
@@ -767,7 +767,7 @@
 					            </div>
 								    <script type="text/javascript">
 								    	$(function () {
-							                $('#datetimepicker{section2[id]}{i}').datetimepicker({
+							                $('#datetimepicker<?php echo @$section2['id']?><?php echo $i ?>').datetimepicker({
 										        format: "dd/mm/yyyy - HH:ii P",
 										        showMeridian: true,
 										        autoclose: true,
@@ -779,27 +779,27 @@
 								
 					        </div>
 					        <div class='col-md-2 col-sm-2'>  
-					            <select name="status{section2[id]}{i}" id="status{section2[id]}{i}" style="height:30px;">
+					            <select name="status<?php echo @$section2['id']?><?php echo $i ?>" id="status<?php echo @$section2['id']?><?php echo $i ?>" style="height:30px;">
 					            	<option value="0">Chưa kích hoạt</option>
 					            	<option value="1">Kích hoạt</option>
 					            <script>
-					            	$('#status{section2[id]}{i}').val('{schedule[status]}');
+					            	$('#status<?php echo @$section2['id']?><?php echo $i ?>').val('<?php echo @$schedule['status']?>');
 					            </script>
 					            </select> 	
 					        </div>
 					        <div class='col-md-2 col-sm-2'> 
-					        	<button type="button" name="submit{section2[id]}{i}" id="submit{section2[id]}{i}" class="btn btn-success">Cập nhật</button>    	
+					        	<button type="button" name="submit<?php echo @$section2['id']?><?php echo $i ?>" id="submit<?php echo @$section2['id']?><?php echo $i ?>" class="btn btn-success">Cập nhật</button>    	
 					        </div>
 						</div>
 						<script>
-						$('#submit{section2[id]}{i}').click(function(){
-							var status = $('#status{section2[id]}{i}').val();
-							var subject = '{subject}';
-							var topicId = '{section2[id]}';
-							var lessonId = '{i}';
-							var scheduleId = $('#schedule{subject}{section2[id]}{i}').val();
-							//var formatted = document.getElementById('datetimepicker{value[id]}').value;
-							var date = $("#datetimepicker{section2[id]}{i}").datetimepicker("getDate");
+						$('#submit<?php echo @$section2['id']?><?php echo $i ?>').click(function(){
+							var status = $('#status<?php echo @$section2['id']?><?php echo $i ?>').val();
+							var subject = '<?php echo $subject ?>';
+							var topicId = '<?php echo @$section2['id']?>';
+							var lessonId = '<?php echo $i ?>';
+							var scheduleId = $('#schedule<?php echo $subject ?><?php echo @$section2['id']?><?php echo $i ?>').val();
+							//var formatted = document.getElementById('datetimepicker<?php echo @$value['id']?>').value;
+							var date = $("#datetimepicker<?php echo @$section2['id']?><?php echo $i ?>").datetimepicker("getDate");
 							var openDate = date.getFullYear()  + '-'+ (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() +':' + date.getMinutes() + ':00' ;
 							
 							
@@ -817,7 +817,7 @@
 						        {
 						          	var res	= result.split('/');
 							          	if(res[0] == 1){
-										    $('#schedule{subject}{section2[id]}{i}').val(res[1]);
+										    $('#schedule<?php echo $subject ?><?php echo @$section2['id']?><?php echo $i ?>').val(res[1]);
 										    alert('thành công');
 										} else alert('thất bại');
 						        }
@@ -840,13 +840,13 @@
 									<li class="list-group-item" >
 						<div class="row">
 							<div class='col-md-4 col-sm-4'><?php echo 'Bài '.$i;?>
-								<input type="hidden" id="schedule{subject}{topic[id]}{i}" value="{schedule[id]}">
+								<input type="hidden" id="schedule<?php echo $subject ?><?php echo @$topic['id']?><?php echo $i ?>" value="<?php echo @$schedule['id']?>">
 							</div>
 							<div class='col-md-4 col-sm-4'>
 					            
 					            <div class="form-group">
-					                <div class='input-group date' id='datetimepicker{topic[id]}{i}'>
-					                    <input type='text' class="form-control" value="{schedule[openDate]}" />
+					                <div class='input-group date' id='datetimepicker<?php echo @$topic['id']?><?php echo $i ?>'>
+					                    <input type='text' class="form-control" value="<?php echo @$schedule['openDate']?>" />
 					                    <span class="input-group-addon">
 					                        <span class="glyphicon glyphicon-calendar"></span>
 					                    </span>
@@ -854,7 +854,7 @@
 					            </div>
 								    <script type="text/javascript">
 								    	$(function () {
-							                $('#datetimepicker{topic[id]}{i}').datetimepicker({
+							                $('#datetimepicker<?php echo @$topic['id']?><?php echo $i ?>').datetimepicker({
 										        format: "dd/mm/yyyy - HH:ii P",
 										        showMeridian: true,
 										        autoclose: true,
@@ -866,27 +866,27 @@
 								
 					        </div>
 					        <div class='col-md-2 col-sm-2'>  
-					            <select name="status{topic[id]}{i}" id="status{topic[id]}{i}" style="height:30px;">
+					            <select name="status<?php echo @$topic['id']?><?php echo $i ?>" id="status<?php echo @$topic['id']?><?php echo $i ?>" style="height:30px;">
 					            	<option value="0">Chưa kích hoạt</option>
 					            	<option value="1">Kích hoạt</option>
 					            	<script>
-					            		$('#status{topic[id]}{i}').val('{schedule[status]}');
+					            		$('#status<?php echo @$topic['id']?><?php echo $i ?>').val('<?php echo @$schedule['status']?>');
 					            	</script>
 					            </select> 	
 					        </div>
 					        <div class='col-md-2 col-sm-2'> 
-					        	<button type="button" name="submit{topic[id]}{i}" id="submit{topic[id]}{i}" class="btn btn-success">Cập nhật</button>    	
+					        	<button type="button" name="submit<?php echo @$topic['id']?><?php echo $i ?>" id="submit<?php echo @$topic['id']?><?php echo $i ?>" class="btn btn-success">Cập nhật</button>    	
 					        </div>
 						</div>
 						<script>
-						$('#submit{topic[id]}{i}').click(function(){
-							var status = $('#status{topic[id]}{i}').val();
-							var subject = '{subject}';
-							var topicId = '{topic[id]}';
-							var lessonId = '{i}';
-							var scheduleId = $('#schedule{subject}{topic[id]}{i}').val();
-							//var formatted = document.getElementById('datetimepicker{value[id]}').value;
-							var date = $("#datetimepicker{topic[id]}{i}").datetimepicker("getDate");
+						$('#submit<?php echo @$topic['id']?><?php echo $i ?>').click(function(){
+							var status = $('#status<?php echo @$topic['id']?><?php echo $i ?>').val();
+							var subject = '<?php echo $subject ?>';
+							var topicId = '<?php echo @$topic['id']?>';
+							var lessonId = '<?php echo $i ?>';
+							var scheduleId = $('#schedule<?php echo $subject ?><?php echo @$topic['id']?><?php echo $i ?>').val();
+							//var formatted = document.getElementById('datetimepicker<?php echo @$value['id']?>').value;
+							var date = $("#datetimepicker<?php echo @$topic['id']?><?php echo $i ?>").datetimepicker("getDate");
 							var openDate = date.getFullYear()  + '-'+ (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() +':' + date.getMinutes() + ':00' ;
 							
 							
@@ -904,7 +904,7 @@
 						        {
 						          	var res	= result.split('/');
 						          	if(res[0] == 1){
-									    $('#schedule{subject}{topic[id]}{i}').val(res[1]);
+									    $('#schedule<?php echo $subject ?><?php echo @$topic['id']?><?php echo $i ?>').val(res[1]);
 									    alert('thành công');
 									} else alert('thất bại');
 						        }

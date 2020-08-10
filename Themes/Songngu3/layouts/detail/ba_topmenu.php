@@ -22,11 +22,11 @@
 					echo 'title="'.$languagevn['practice'].'"'; }?>><a data-toggle="tab" href="#home"><?php echo $language['practice'];?></a></li>
 					</ul> 
 				   <div class="row tab-pane fade in active text-center pding10" id="home">
-						{? $items = $data->getSubject(); ?}	
-						{each $items as $item}
-							<div class="col-md-2 col-xs-3 top10 height80 width20 btn-menu bgcl choicesubject" onclick="return false;" data-class="5"  data-alias="{item[alias]}" data-subject="{item[id]}" <?php if($lang == 'ev'){
+						<?php  $items = $data->getSubject(); ?>	
+						<?php foreach($items as $item): ?>
+							<div class="col-md-2 col-xs-3 top10 height80 width20 btn-menu bgcl choicesubject" onclick="return false;" data-class="5"  data-alias="<?php echo @$item['alias']?>" data-subject="<?php echo @$item['id']?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name_vn'].'"'; }?>>
-								<a href=""><img src="<?=BASE_SKIN_URL?>{item[img]}" class="img-thumnail wheight50"/></a>
+								<a href=""><img src="<?=BASE_SKIN_URL?><?php echo @$item['img']?>" class="img-thumnail wheight50"/></a>
 								<p class="text-uppercase robotofont weight10">
 								<?php 
 								if(pzk_user_special()) { echo '#' . $item['id']; }
@@ -38,7 +38,7 @@
 								 ?>
 								</p>
 							</div>
-						{/each}
+						<?php endforeach; ?>
 		            </div>
 	            </div>
 	        </li>
@@ -64,7 +64,7 @@
 						  <!-- Wrapper for slides -->
 						  <div class="carousel-inner" role="listbox">
 							<div class="item active">
-								{? $items = $data->getWeekPractice(ROOT_WEEK_CATEGORY_ID); ?}
+								<?php  $items = $data->getWeekPractice(ROOT_WEEK_CATEGORY_ID); ?>
 								<?php 
 									
 								//xu ly dung thu
@@ -78,10 +78,10 @@
 									$linktrial = "/practice-examination/class-".$class."/week-".@$trial['id'];
 								
 								?>
-							  {each $items as $item}
+							  <?php foreach($items as $item): ?>
 								<?php $firsttest= $data->getFirstTestByWeek($item['id'], 1, $check, $class); ?>
 								
-								<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicepractice" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+								<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicepractice" onclick="return false;" data-test="<?php echo @$firsttest['id']?>" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
 								echo 'title="'.$item['name'].'"'; }?>>
 									<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de<?php echo $i;?>.png" class="img-thumnail wheight50"></a>
 									<p class="text-uppercase robotofont weight10 top10">
@@ -100,14 +100,14 @@
 						
 								}
 								?>
-								{/each}
+								<?php endforeach; ?>
 							  
 							</div>
 							<div class="item">
-							{? $items = $data->getWeekPractice2(ROOT_WEEK_CATEGORY_ID); ?}
-							  {each $items as $item}
+							<?php  $items = $data->getWeekPractice2(ROOT_WEEK_CATEGORY_ID); ?>
+							  <?php foreach($items as $item): ?>
 								<?php $firsttest= $data->getFirstTestByWeek($item['id'], 1, $check, $class); ?>
-								<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicepractice" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+								<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicepractice" onclick="return false;" data-test="<?php echo @$firsttest['id']?>" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
 								echo 'title="'.$item['name'].'"'; }?>>
 									<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de<?php echo $i;?>.png" class="img-thumnail wheight50"></a>
 									<p class="text-uppercase robotofont weight10 top10">
@@ -125,7 +125,7 @@
 						
 								}
 								?>
-								{/each}
+								<?php endforeach; ?>
 							  
 							</div>
 						  </div>
@@ -167,7 +167,7 @@
 						  <div class="carousel-inner" role="listbox">
 							<div class="item active">
 							<?php //1410 ?>
-							{? $items = $data->getWeekTest(ROOT_WEEK_CATEGORY_ID); ?}
+							<?php  $items = $data->getWeekTest(ROOT_WEEK_CATEGORY_ID); ?>
 							<?php
 								//echo ROOT_WEEK_CATEGORY_ID;
 							$trial = array();
@@ -179,10 +179,10 @@
 							}
 							$linktrial = "/test/class-".$class."/week-".@$trial['id'];
 							?>
-							{each $items as $item}
+							<?php foreach($items as $item): ?>
 							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
 							
-							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="<?php echo @$firsttest['id']?>" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name'].'"'; }?>>
 								<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
 								<p class="text-uppercase robotofont weight10 top10">
@@ -200,15 +200,15 @@
 						
 							}
 							?>
-							{/each}
+							<?php endforeach; ?>
 							  
 							</div>
 							<div class="item">
-							{? $items = $data->getWeekTest2(ROOT_WEEK_CATEGORY_ID); ?}
-							{each $items as $item}
+							<?php  $items = $data->getWeekTest2(ROOT_WEEK_CATEGORY_ID); ?>
+							<?php foreach($items as $item): ?>
 							<?php $firsttest= $data->getFirstTestByWeek($item['id'], 0, $check, $class); ?> 
 							
-							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="{firsttest[id]}" data-trial="{item[trial]}" data-week="{item[id]}" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
+							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="<?php echo @$firsttest['id']?>" data-trial="<?php echo @$item['trial']?>" data-week="<?php echo @$item['id']?>" data-class="<?php echo pzk_session('lop') ?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name'].'"'; }?>>
 								<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
 								<p class="text-uppercase robotofont weight10 top10">
@@ -226,7 +226,7 @@
 						
 							}
 							?>
-							{/each}
+							<?php endforeach; ?>
 								  
 							</div>
 						  </div>
@@ -341,7 +341,7 @@
 	});
 	$(".choicepractice").click(function(){
 		<?php if(pzk_session('userId')){ ?>
-			var check = '{check}';
+			var check = '<?php echo $check ?>';
 			var trial = $(this).data("trial");
 			if(check == 1){
 				var week = $(this).data("week");
@@ -355,7 +355,7 @@
 					var test = $(this).data("test");
 					window.location = BASE_REQUEST+'/practice-examination/class-5/week-'+week+'/examination-'+test;
 				}else{
-					alert('B?n c?n mua tài kho?n d? s? d?ng n?i dung này !');
+					alert('B?n c?n mua tï¿½i kho?n d? s? d?ng n?i dung nï¿½y !');
 					return false;
 				}
 			}
@@ -368,7 +368,7 @@
 	});
 	$(".choicetest").click(function(){
 		<?php if(pzk_session('userId')){ ?>
-			var check = '{check}';
+			var check = '<?php echo $check ?>';
 			var trial = $(this).data("trial");
 			if(check == 1){
 				var week = $(this).data("week");
@@ -382,7 +382,7 @@
 					var test = $(this).data("test");
 					window.location = BASE_REQUEST+'/test/class-5/week-'+week+'/examination-'+test;
 				}else{
-					alert('B?n c?n mua tài kho?n d? s? d?ng n?i dung này !');
+					alert('B?n c?n mua tï¿½i kho?n d? s? d?ng n?i dung nï¿½y !');
 					return false;
 				}
 			}

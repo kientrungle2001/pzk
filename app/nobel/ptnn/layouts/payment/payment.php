@@ -51,7 +51,7 @@
     <div class="note"> Nếu bạn chưa có thẻ của NextNobels có thể sử dụng các hình thức dưới đây</div>
    <div class="clear"></div>
    <div class="pm_payment">
-     <div  id="pay_nl" class="payment_click"><a onclick="pzk_{data.id}.Nganluong(' <?php echo $nganluong; ?>');" href="#">NẠP QUA NGÂNLƯỢNG.VN</a></div>
+     <div  id="pay_nl" class="payment_click"><a onclick="pzk_<?php echo @$data->id?>.Nganluong(' <?php echo $nganluong; ?>');" href="#">NẠP QUA NGÂNLƯỢNG.VN</a></div>
      <div class="payment_click" style="margin-right: 10px; float:right;"><a href="/payment/paycardmobile">NẠP THẺ CÀO ĐIỆN THOẠI</a></div>
      <div   class="payment_click" style="margin-top: 20px;"><a href="/payment/bank">CHUYỂN KHOẢN NGÂN HÀNG</a></div>
    </div>

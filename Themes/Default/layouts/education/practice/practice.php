@@ -12,15 +12,15 @@
 </div>
 <div class="container">
 	<div class="row fivecolumns nomgleft mgright5">
-	<button onclick ="return false;" rel="#A0D4CE" data-class="3" type="button" class="btn btnclick  btn-custom5  sharp {btnActive} col-md-2 col-xs-6 fsize">Lớp 3</button>
+	<button onclick ="return false;" rel="#A0D4CE" data-class="3" type="button" class="btn btnclick  btn-custom5  sharp <?php echo $btnActive ?> col-md-2 col-xs-6 fsize">Lớp 3</button>
 	
-	<button onclick ="return false;" data-class="4" rel="#B6D452" type="button" class="btn btnclick btn-custom6 sharp {btnActive} col-md-2 col-xs-6 fsize">Lớp 4</button>
+	<button onclick ="return false;" data-class="4" rel="#B6D452" type="button" class="btn btnclick btn-custom6 sharp <?php echo $btnActive ?> col-md-2 col-xs-6 fsize">Lớp 4</button>
 	
-	<button onclick ="return false;" data-class="5" rel="#E0C7A3" type="button" class="btn btnclick btn-custom7  sharp {btnActive} col-md-2 col-xs-6 fsize">Lớp 5</button>
+	<button onclick ="return false;" data-class="5" rel="#E0C7A3" type="button" class="btn btnclick btn-custom7  sharp <?php echo $btnActive ?> col-md-2 col-xs-6 fsize">Lớp 5</button>
 	
-	<button onclick ="return false;"  type="button" class="btn btn-custom9 quatang sharp {btnActive} col-md-2 col-xs-6 fsize">Quà tặng</button>
+	<button onclick ="return false;"  type="button" class="btn btn-custom9 quatang sharp <?php echo $btnActive ?> col-md-2 col-xs-6 fsize">Quà tặng</button>
 	
-	<button href="home/game" rel="#E0C7A3" type="button" class="btn btn-custom10  sharp {btnActive} col-md-2 col-xs-6 fsize">Game</button>
+	<button href="home/game" rel="#E0C7A3" type="button" class="btn btn-custom10  sharp <?php echo $btnActive ?> col-md-2 col-xs-6 fsize">Game</button>
 	</div>
 </div>
 
@@ -146,7 +146,7 @@
 			<a href="" class="text-color">...</a>
 		</div>
 		<?php else:?>
-		{children [position=practice-place]}
+		<?php $data->displayChildren('[position=practice-place]') ?>
 		<?php endif; ?>
 	</div>
 </div>
@@ -166,11 +166,11 @@
 			<a href="" class="text-color">...</a>
 		</div>
 		<?php else:?>
-		{children [position=test-place]}
+		<?php $data->displayChildren('[position=test-place]') ?>
 		<?php endif; ?>
 	</div>
 </div>
-{children [position=bottom-slide]}			
+<?php $data->displayChildren('[position=bottom-slide]') ?>			
 <script>
 	numberclass = 3;
 	$(".btnclick").click(function(){

@@ -50,7 +50,7 @@
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <?php if(pzk_session('login')) { ?>
 <div class="container">
 	<p class="t-weight text-center btn-custom8 mgright textcl">Luyện tập - Lớp <?php echo $class; ?></p>
@@ -72,19 +72,19 @@
 	<div id="question-wrapper">
 	<div class="row form-group view_practice margin-top-20">	
 		<div class="col-xs-12 col-sm-10 col-md-7 col-md-offset-1 pull-left">
-			{children [position=choice]}
+			<?php $data->displayChildren('[position=choice]') ?>
 			<div class="dropdown col-md-6 col-sm-6 col-xs-6 nomgin">
 				<button class="btn fix_hover btn-default dropdown-toggle col-md-12 col-sm-12 col-xs-12 sharp" type="button" data-toggle="dropdown">
 					<div class="row">
 						<span id="chonde" class="fontsize19 col-md-10 col-sm-12 col-xs-12" style="overflow-x: hidden;">
 						<?php if($parentSubject == 88) { ?>
-							{de}
+							<?php echo $de ?>
 						<?php } else { ?>
 							<?php 
 							if($check == 0){
-								echo "Bài ";?> {de} <?php echo " - Bài dùng thử"; ?>
+								echo "Bài ";?> <?php echo $de ?> <?php echo " - Bài dùng thử"; ?>
 							<?php }else{ ?>
-								<?php echo "Bài ";?> {de}
+								<?php echo "Bài ";?> <?php echo $de ?>
 							<?php } ?>
 							
 						<?php } ?>
@@ -102,7 +102,7 @@
 						$topicPost		= $subject;
 						if(@$dataCategoryCurrent['child'])
 						foreach($dataCategoryCurrent['child'] as $k =>$value):?>
-						<li><a onclick="subject = {value[id]};document.getElementById('chonde').innerHTML = '{value[name]}';" data-de="{value[name]}" class="getdata" href="/practice/doQuestion/{value[id]}?class=5&de={value[name]}"><?php if(pzk_user_special()): ?>#{section[id]}<?php endif;?> - {value[name]}</a></li>
+						<li><a onclick="subject = <?php echo @$value['id']?>;document.getElementById('chonde').innerHTML = '<?php echo @$value['name']?>';" data-de="<?php echo @$value['name']?>" class="getdata" href="/practice/doQuestion/<?php echo @$value['id']?>?class=5&de=<?php echo @$value['name']?>"><?php if(pzk_user_special()): ?>#<?php echo @$section['id']?><?php endif;?> - <?php echo @$value['name']?></a></li>
 					<?php endforeach;
 					} else { ?>
 						<?php 
@@ -112,35 +112,35 @@
 								if($level == '1'){
 									$practices = $data->getPractices($class,$subject, $check);
 										for($i = 1; $i <= $practices; $i++){  ?>
-											<li <?php if(pzk_request('de') == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de={i}; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-{subjectEntity.get('alias')}-{subject}/examination-{i}"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+											<li <?php if(pzk_request('de') == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 									<?php } //end for
 								}elseif($level == '2'){
 									$topics= $data->getTopics($subject, $check);
 									
 										foreach ($topics as $topic) {
-											echo '<li class="left20" style="color:#d9534f"><h5><strong>';?><?php if(pzk_user_special()): ?>#{topic[id]}<?php endif;?> - <?php echo $topic['name'].'</strong></h5>';
+											echo '<li class="left20" style="color:#d9534f"><h5><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?><?php endif;?> - <?php echo $topic['name'].'</strong></h5>';
 											$practices = $data->getPractices($class,$topic['id'], $check);
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li <?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de={i}; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-{subjectEntity.get('alias')}-{subject}/topic-{topic[alias]}-{topic[id]}/examination-{i}"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+												<li <?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 											<?php } //end for
 										} 
 								}elseif ($level == '3') {
 									$sections= $data->getTopics($subject, $check);
 									foreach ($sections as $section) {
-										echo '<li class="left10'.(@$section['trial'] ? ' trial-3-level-1': '').'" style="color:#2696c4"><h5><strong>';?><?php if(pzk_user_special()): ?>#{section[id]}<?php endif;?> - <?php echo $section['name'].'</strong></h5>';
+										echo '<li class="left10'.(@$section['trial'] ? ' trial-3-level-1': '').'" style="color:#2696c4"><h5><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$section['id']?><?php endif;?> - <?php echo $section['name'].'</strong></h5>';
 										$topicChilds= $data->getTopics($section['id'], $check);
 										if(count($topicChilds) == 0) {
 											$practices = $data->getPractices($class,$section['id'], $check);
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li <?php if(pzk_request('topic') == $section['id'] && pzk_request('de') == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de={i}; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-{subjectEntity.get('alias')}-{subject}/topic-{section[alias]}-{section[id]}/examination-{i}"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+												<li <?php if(pzk_request('topic') == $section['id'] && pzk_request('de') == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 											<?php 
 											}
 										} else {										
 											foreach ($topicChilds as $topic) {
-												echo '<li class="left20'.(@$topic['trial'] ? ' trial-3-level-2': '').'" style="color:#d9534f"><strong>';?><?php if(pzk_user_special()): ?>#{topic[id]}<?php endif;?> - <?php echo $topic['name'].'</strong>';
+												echo '<li class="left20'.(@$topic['trial'] ? ' trial-3-level-2': '').'" style="color:#d9534f"><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?><?php endif;?> - <?php echo $topic['name'].'</strong>';
 												$practices = $data->getPractices($class,$topic['id'], $check);
 												for($i = 1; $i <= $practices; $i++){  ?>
-													<li <?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de={i}; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-{subjectEntity.get('alias')}-{subject}/topic-{topic[alias]}-{topic[id]}/examination-{i}"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+													<li <?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 												<?php 
 												} 
 											}
@@ -149,30 +149,30 @@
 								}elseif($level == '4'){
 									$sections1= $data->getTopics($subject, $check);
 									foreach ($sections1 as $section1) {
-										echo '<li class="left10'.(@$section1['trial'] ? ' trial-4-level-1': '').'" style="color:#B6D452"><h5><strong>';?><?php if(pzk_user_special()): ?>#{section1[id]}<?php endif;?> - <?php echo $section1['name'].'</strong></h5>';
+										echo '<li class="left10'.(@$section1['trial'] ? ' trial-4-level-1': '').'" style="color:#B6D452"><h5><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$section1['id']?><?php endif;?> - <?php echo $section1['name'].'</strong></h5>';
 										$sections2= $data->getTopics($section1['id'], $check);
 										if(count($sections2) == 0) {
 											$practices = $data->getPractices($class,$section1['id'], $check);
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li <?php if(pzk_request('topic') == $section1['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de={i}; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-{subjectEntity.get('alias')}-{subject}/topic-{section1[alias]}-{section1[id]}/examination-{i}"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+												<li <?php if(pzk_request('topic') == $section1['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 											<?php 
 											}
 										} else {
 											foreach ($sections2 as $section2) {
-												echo '<li class="left20'.(@$section2['trial'] ? ' trial-4-level-2': '').'" style="color:#2696c4"><h5><strong>';?><?php if(pzk_user_special()): ?>#{section2[id]}<?php endif;?> - <?php echo $section2['name'].'</strong></h5>';
+												echo '<li class="left20'.(@$section2['trial'] ? ' trial-4-level-2': '').'" style="color:#2696c4"><h5><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$section2['id']?><?php endif;?> - <?php echo $section2['name'].'</strong></h5>';
 												$topicChilds= $data->getTopics($section2['id'], $check);
 												if(count($topicChilds) == 0) {
 													$practices = $data->getPractices($class,$section2['id'], $check);
 													for($i = 1; $i <= $practices; $i++){  ?>
-														<li <?php if(pzk_request('topic') == $section2['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de={i}; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-{subjectEntity.get('alias')}-{subject}/topic-{section2[alias]}-{section2[id]}/examination-{i}"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+														<li <?php if(pzk_request('topic') == $section2['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 													<?php 
 													}
 												} else {
 													foreach ($topicChilds as $topic) {
-														echo '<li class="'.(@$topic['trial'] ? ' trial-4-level-3': '').'" style="color:#d9534f; padding-left: 40px;"><h5><strong>';?><?php if(pzk_user_special()): ?>#{topic[id]}<?php endif;?> - <?php echo $topic['name'].'</strong></h5>';
+														echo '<li class="'.(@$topic['trial'] ? ' trial-4-level-3': '').'" style="color:#d9534f; padding-left: 40px;"><h5><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?><?php endif;?> - <?php echo $topic['name'].'</strong></h5>';
 														$practices = $data->getPractices($class,$topic['id'], $check);
 														for($i = 1; $i <= $practices; $i++){  ?>
-															<li <?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de={i}; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-{subjectEntity.get('alias')}-{subject}/topic-{topic[alias]}-{topic[id]}/examination-{i}"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+															<li <?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 														<?php 
 														} 
 													}	
@@ -233,7 +233,7 @@
 								
 									<div class="order">Câu : <?=$key+1;?>
 									<?php if(pzk_user_special()) :?><br />
-									(#{value[id]})
+									(#<?php echo @$value['id']?>)
 									<?php endif; ?>
 									</div>
 									
@@ -365,11 +365,11 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-sm btn-danger pull-left" onclick="window.location='/?class={class}'"> Chọn luyện tập các môn khác <span class="glyphicon glyphicon-arrow-left"></span></button>
+							<button type="button" class="btn btn-sm btn-danger pull-left" onclick="window.location='/?class=<?php echo $class ?>'"> Chọn luyện tập các môn khác <span class="glyphicon glyphicon-arrow-left"></span></button>
 							<button id="show-answers-on-dialog" class="btn btn-danger" name="show-answers" onclick="show_answers(); $('#exampleModal').modal('hide');" type="button">
 								Xem đáp án 
 							</button>
-							<button type="button" class="btn btn-sm btn-success pull-right" onclick="window.location = '/practice/detail/{subject}?class={class}&de=1'"><span class="glyphicon glyphicon-arrow-right"></span> Làm bài khác</button>
+							<button type="button" class="btn btn-sm btn-success pull-right" onclick="window.location = '/practice/detail/<?php echo $subject ?>?class=<?php echo $class ?>&de=1'"><span class="glyphicon glyphicon-arrow-right"></span> Làm bài khác</button>
 						</div>
 					</div>
 				</div>

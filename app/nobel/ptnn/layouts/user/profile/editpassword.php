@@ -28,7 +28,7 @@
     <div class="layout_title">  THAY ĐỔI MẬT KHẨU </div>
     <div> 
     <div class="clearfix"></div>
-    <form method="post" id="formEditpass" onsubmit="pzk_{data.id}.frmEditpass();return false;" >
+    <form method="post" id="formEditpass" onsubmit="pzk_<?php echo @$data->id?>.frmEditpass();return false;" >
     
      <p style="padding-left:10px;" class="message_note">Để thay đổi mật khẩu bạn vui lòng điền đầy đủ các thông tin bên dưới</p>
      

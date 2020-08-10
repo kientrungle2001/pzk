@@ -6,7 +6,7 @@
 	$lang = pzk_session('language');
 	
 ?>
-{children [position=public-header]}
+<?php $data->displayChildren('[position=public-header]') ?>
 
 
 
@@ -33,7 +33,7 @@
 <?php ?>
 <div class="container mgb30" id="subject">
 	<div id="practice-section" class="row fivecolumns">
-		{children [position=show-subject]}
+		<?php $data->displayChildren('[position=show-subject]') ?>
 	</div>
 </div>
 <div id="practice-test" class="item">
@@ -53,7 +53,7 @@
 
 	<div id="practice-test-section" class="container mgt-25">
 		<div class="row">
-			{children [position=practice-place]}
+			<?php $data->displayChildren('[position=practice-place]') ?>
 		</div>
 	</div>
 	<div id="test" class="container">
@@ -64,7 +64,7 @@
 	</div>
 	<div id="test-section" class="container pdb80">
 		<div class="row">
-			{children [position=test-place]}
+			<?php $data->displayChildren('[position=test-place]') ?>
 		</div>
 	</div>
 	
@@ -76,20 +76,20 @@
 	</div>
 	<div class="container pdb80">
 		<div class="row">
-			{children [position=test-compability]}
+			<?php $data->displayChildren('[position=test-compability]') ?>
 		</div>
 	</div>
 	
 	<?php if(0):?>
 	<div id="testcompability" class="container">
-		<div class="t-weight text-center textlt mgb15 item">Ba?ng xê´p ha?ng <?php echo $language['compability'];?>
+		<div class="t-weight text-center textlt mgb15 item">Ba?ng xï¿½p ha?ng <?php echo $language['compability'];?>
 		</br>
 		-----
 		</div>
 	</div>
 	<div class="container pdb80">
 		<div class="row">
-			{children [position=test-compability-ranking]}
+			<?php $data->displayChildren('[position=test-compability-ranking]') ?>
 		</div>
 	</div>
 	<?php endif; ?>
@@ -157,7 +157,7 @@
 	- - - - -
 	</div>
 	
-	{children [position=box-achievement]}
+	<?php $data->displayChildren('[position=box-achievement]') ?>
 
 </div>
 
@@ -257,7 +257,7 @@
 </div>
 
 <div class="item bg6">
-{children [position=bottom-slide]}
+<?php $data->displayChildren('[position=bottom-slide]') ?>
 
 	<div class=" fff223 text-center  fs30 cadena mgt10 item">
 		<?php echo $language['statistic'];?></br>
@@ -290,17 +290,17 @@
 	
 	?>
 	<div class="container mgb50">
-		<div class="col-md-3 col-xs-12"> <b class="fff223 fs28" >{users[c]}</b> <span class="fs16 white"> <?php echo $language['member']; ?> </span>	</div>		
-		<div class="col-md-3 col-xs-12"> <b class="fff223 fs28" >{users5Months[c]}</b> <span class="fs16 white">
+		<div class="col-md-3 col-xs-12"> <b class="fff223 fs28" ><?php echo @$users['c']?></b> <span class="fs16 white"> <?php echo $language['member']; ?> </span>	</div>		
+		<div class="col-md-3 col-xs-12"> <b class="fff223 fs28" ><?php echo @$users5Months['c']?></b> <span class="fs16 white">
 		 
 		<?php echo $language['new-member']; ?>
 		</span>	</div>	
-		<div class="col-md-3 col-xs-12"> <b class="fff223 fs28" >{usersOnline[c]}</b> <span class="fs16 white">
+		<div class="col-md-3 col-xs-12"> <b class="fff223 fs28" ><?php echo @$usersOnline['c']?></b> <span class="fs16 white">
 		<?php echo $language['online-now']; ?>
 		
 		 </span>	</div>		
 		<div class="col-md-3 col-xs-12"> <span class="fs16 white">
-		<?php echo $language['latest-member']; ?>: </span><b class="white">{user[username]}</b></div>
+		<?php echo $language['latest-member']; ?>: </span><b class="white"><?php echo @$user['username']?></b></div>
 	</div>
 	
 </div>	
@@ -354,7 +354,7 @@
 			return false;
 		}else{
 			if(!validPhone(phone)) {
-				alert('S? di?n tho?i không dúng d?nh d?ng');
+				alert('S? di?n tho?i khï¿½ng dï¿½ng d?nh d?ng');
 				$("#tv_phone").focus();
 				return false;
 			}
@@ -366,7 +366,7 @@
 			return false;
 		}else{
 			if(!validEmail(email)) {
-				alert('Email không dúng d?nh d?ng');
+				alert('Email khï¿½ng dï¿½ng d?nh d?ng');
 				$("#tv_email").focus();
 				return false;
 			}
@@ -386,7 +386,7 @@
 						$("#tv_phone").val('');
 						$("#tv_email").val('');
 						$("#tv_name").val('');
-						alert('B?n dã dang kí tu v?n thành công!');
+						alert('B?n dï¿½ dang kï¿½ tu v?n thï¿½nh cï¿½ng!');
 					}
 				}
 			});

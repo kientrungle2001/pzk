@@ -42,7 +42,7 @@
 				</div>
 				<div class="col-xs-6 col-md-3">
 				<h4 style="margin-top: 0;margin-bottom: 0;"><a href="<?php echo HW_URL; ?>/">Thống kê</a></h4>
-				{children all}
+				<?php $data->displayChildren('all') ?>
 				</div>
 				<div class="row">
 					<div class="col-md-7">
@@ -78,8 +78,8 @@
 			<div class="col-xs-12 text-center">
 				<p>
 				MST: 0107658842 | 
-				<a href="{? echo HW_URL?}/dieu-khoan-su-dung" style="color: #fff; text-decoration: underline;">Điều khoản sử dụng</a> | 
-				<a href="{? echo HW_URL?}/chinh-sach-bao-mat" style="color: #fff; text-decoration: underline;">Chính sách bảo mật</a>
+				<a href="<?php  echo HW_URL?>/dieu-khoan-su-dung" style="color: #fff; text-decoration: underline;">Điều khoản sử dụng</a> | 
+				<a href="<?php  echo HW_URL?>/chinh-sach-bao-mat" style="color: #fff; text-decoration: underline;">Chính sách bảo mật</a>
 				
 			</p>
 			<h4 class="top-5 font-normal"><span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span>2017 - Công Ty Cổ Phần Giáo Dục Happy Way. All Rights Reserved</h4>

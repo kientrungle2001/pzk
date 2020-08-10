@@ -15,19 +15,19 @@
 	<div class="col-xs-12">
 		<form method="get">
 			Mã giảm giá:
-			<input type="text" name="coupon" value="{coupon}" />
+			<input type="text" name="coupon" value="<?php echo $coupon ?>" />
 			<button class="btn btn-danger">GỬI</button>
 		</form>
 	</div>
 	<div class="col-xs-12">
 		<h5><strong>Hãy chọn gói sản phẩm :</strong></h5>
-		{each $items as $item}
-			{? $price = $item->get('amount');
+		<?php foreach($items as $item): ?>
+			<?php  $price = $item->get('amount');
 				$price = $price * (1 - $discount / 100);
-			  ?}
-			<input type="radio" name="serviceId" id="serviceId" checked value="{? echo $item->get('id') ?}"><strong> {? echo $item->get('serviceName') ?} </strong> Giá ưu đãi: <strong>{? echo product_price($price) ?} {? if($discount): ?} <span>Giá gốc: {? echo product_price($item->get('amount')); ?}</span>{? endif; ?}</strong> <br>
+			  ?>
+			<input type="radio" name="serviceId" id="serviceId" checked value="<?php  echo $item->get('id') ?>"><strong> <?php  echo $item->get('serviceName') ?> </strong> Giá ưu đãi: <strong><?php  echo product_price($price) ?> <?php  if($discount): ?> <span>Giá gốc: <?php  echo product_price($item->get('amount')); ?></span><?php  endif; ?></strong> <br>
 		
-		{/each}
+		<?php endforeach; ?>
 	</div>
 	<div class="col-xs-12 top-20 "> 
 		<button class="btn btn-danger" id="bttService" onclick="BuyService()">MUA</button>
@@ -67,7 +67,7 @@
 	        url:'/Service/BuyService',
 	        data: {
 	          serviceId : serviceId, 
-			  coupon:	'{coupon}',
+			  coupon:	'<?php echo $coupon ?>',
 			  className : className
 	        },
 	        success: function(result)

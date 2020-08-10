@@ -43,19 +43,19 @@
 				</div>
 			</div>
 			<?php $items = $data->getItems(); ?>
-			{each $items as $item}
+			<?php foreach($items as $item): ?>
 			<div class="row"> 
 				<div class="col-xs-12 col-sm-3 col-md-3" style="overflow: hidden; height: 120px;">
-					<a href="/{item[alias]}">
-						<img src="{item[img]}" class="img-responsive img-box img-thumbnail"> 
+					<a href="/<?php echo @$item['alias']?>">
+						<img src="<?php echo @$item['img']?>" class="img-responsive img-box img-thumbnail"> 
 					</a>
 				</div> 
 				<div class="col-xs-12 col-sm-9 col-md-9">
-					<h4><a href="/{item[alias]}">{item[title]}</a></h4>
-					<p>{item[brief]}</p>
+					<h4><a href="/<?php echo @$item['alias']?>"><?php echo @$item['title']?></a></h4>
+					<p><?php echo @$item['brief']?></p>
 				</div> 
 			</div>
 			<hr>
-			{/each}
+			<?php endforeach; ?>
 		</div>
 	</div>

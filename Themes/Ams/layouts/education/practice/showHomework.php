@@ -30,10 +30,10 @@
 			
 			<div class="item fs18 top-content bold">	
 				
-				<a href="/#practice">Phiếu bài tập</a> &nbsp; &nbsp; > &nbsp; &nbsp; <a href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subjectEntity.get('id')}">Môn {subjectEntity.get('name')}</a>
+				<a href="/#practice">Phiếu bài tập</a> &nbsp; &nbsp; > &nbsp; &nbsp; <a href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subjectEntity->get('id')?>">Môn <?php echo $subjectEntity->get('name')?></a>
 				&nbsp; &nbsp; > 
 				&nbsp; &nbsp; 
-				{test[name]}
+				<?php echo @$test['name']?>
 				
 			</div>
 			
@@ -41,7 +41,7 @@
 				<!-- Tiêu đề, đồng hồ -->
 				<div style="margin: 15px 0px;" class="item ">
 					<div class="name-detail col-md-8 col-xs-12">
-					{test[name]}
+					<?php echo @$test['name']?>
 					</div>
 					<div class="col-md-4 col-xs-12 pr0 relative">
 					

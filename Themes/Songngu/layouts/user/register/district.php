@@ -6,6 +6,6 @@
 
  ?>
  <option value="all" >Chọn quận/ huyện</option>
-{each $areas as $item}
-	<option value="{item[id]}" >{item[name]}</option>
-{/each}
+<?php foreach($areas as $item): ?>
+	<option value="<?php echo @$item['id']?>" ><?php echo @$item['name']?></option>
+<?php endforeach; ?>

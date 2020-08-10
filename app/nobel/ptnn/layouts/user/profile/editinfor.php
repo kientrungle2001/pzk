@@ -32,7 +32,7 @@
 <div class="addinfor">
   <div class="layout_title">Thay đổi các thông tin cá nhân</div>	
   <div class="edit_area">
-    <form id="formEditinfor" class="register form-horizontal margin-top-20" method="post" onsubmit="pzk_{data.id}.frmEditinfor(); return false; ">
+    <form id="formEditinfor" class="register form-horizontal margin-top-20" method="post" onsubmit="pzk_<?php echo @$data->id?>.frmEditinfor(); return false; ">
                             <div class="form-group margin-top-10">
                                 <div class="clearfix"></div>
                                 <div class="col-xs-8 margin-top-10">
@@ -132,9 +132,9 @@
                                     <select  class="form-control" id="editinfor_areacode" title="Tỉnh/ Thành phố" name="editinfor_areacode" aria-label="Tỉnh/tp" data-toggle="tooltip" data-placement="top" title="Tỉnh/ Thành phố" >
                                        <option selected="1" value="{user.getareacode()}"><?php echo $user->loadByAreacode($user->getAreacode()); ?></option>
                                                 
-                                                {each $areas as $area}
+                                                <?php foreach($areas as $area): ?>
                                                 <option value="<?php echo $area['id']; ?>"><?php   echo $area['name']; ?></option>
-                                                {/each}
+                                                <?php endforeach; ?>
                                             
                                     </select>
                                 </div>

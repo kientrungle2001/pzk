@@ -23,7 +23,7 @@ $sttc = 1;
 
 
 
-        {each $items as $item}
+        <?php foreach($items as $item): ?>
         <?php
 
 
@@ -31,7 +31,7 @@ $sttc = 1;
         ?>
 
 
-                        <strong>Câu {sttc}: <?php echo getLatex(strip_tags($item['name'])); ?></br></strong>
+                        <strong>Câu <?php echo $sttc ?>: <?php echo getLatex(strip_tags($item['name'])); ?></br></strong>
                         <?php
                         $i = 1;
                         $recomend = false;
@@ -82,7 +82,7 @@ $sttc = 1;
         <?php $sttc++;
         ?>
 
-        {/each}
+        <?php endforeach; ?>
 
 
 

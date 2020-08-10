@@ -3,10 +3,10 @@ $question = $data->getItem();
 $i= $question['id'];
 ?>
 <div class="step">
- 	<span><strong>Yêu Cầu: </strong> {? echo $question['request']; ?}</span>
+ 	<span><strong>Yêu Cầu: </strong> <?php  echo $question['request']; ?></span>
 </div>
 <div class="step">
-	<span><strong> Câu hỏi:</strong> {? echo $question['name']; ?}</span>
+	<span><strong> Câu hỏi:</strong> <?php  echo $question['name']; ?></span>
 </div>
 
 <div class="step" >

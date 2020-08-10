@@ -5,7 +5,7 @@
     	<h4 class="modal-title text-center" id="myModalLabel">ĐĂNG KÝ TÀI KHOẢŃ</h4>
   	</div>
   	<div class="row"><!-- visible-xs -->
-    	<form id="registerForm" class="register form-horizontal top20 " onsubmit="return pzk_{data.id}.register()">
+    	<form id="registerForm" class="register form-horizontal top20 " onsubmit="return pzk_<?php echo @$data->id?>.register()">
 	    		<div class="form-group top10">
 	    			
 				  	<div class="col-xs-12 top10">
@@ -86,9 +86,9 @@
 										$areacode=_db()->getEntity('User.Account.User');
 										$areas= $areacode->loadArea();
 									?>
-									{each $areas as $area}
+									<?php foreach($areas as $area): ?>
 									<option value="<?php echo $area['id']; ?>"><?php   echo $area['name']; ?></option>
-									{/each}
+									<?php endforeach; ?>
 								
 								</select>
 				    	
@@ -106,7 +106,7 @@
 			    	</div>
 			    	<div class="clearfix"></div>
 			    	<div class="col-xs-12 top10">
-			    		<button type="submit" id="registerButton" onclick="return pzk_{data.id}.set_birthday()" class="btn btn-primary sharp">Đăng ký</button>
+			    		<button type="submit" id="registerButton" onclick="return pzk_<?php echo @$data->id?>.set_birthday()" class="btn btn-primary sharp">Đăng ký</button>
 			    	</div>
 			  	</div>
 	    	</form>

@@ -21,16 +21,16 @@
     $listlessions = $data->viewListLesson($member, $lesson_historyId);
      $listlessions = array_reverse($listlessions);
    ?>
-   {each $listlessions as $listlession} 
+   <?php foreach($listlessions as $listlession): ?> 
   <div class="list_lesson_row">
    
-     <div class="lesson_history_name_row"><a href="/favorite/detailLesson?member={member}&lesson={listlession[id]}">Bài {listlession[id]}</a></div>
-     <div class="lesson_history_type_row"><a href="/favorite/detailLesson?member={member}&lesson={listlession[id]}">{listlession[name]}</a></div>
-     <div class="lesson_history_type_row">{listlession[date]}</div>
+     <div class="lesson_history_name_row"><a href="/favorite/detailLesson?member=<?php echo $member ?>&lesson=<?php echo @$listlession['id']?>">Bài <?php echo @$listlession['id']?></a></div>
+     <div class="lesson_history_type_row"><a href="/favorite/detailLesson?member=<?php echo $member ?>&lesson=<?php echo @$listlession['id']?>"><?php echo @$listlession['name']?></a></div>
+     <div class="lesson_history_type_row"><?php echo @$listlession['date']?></div>
      
   
   </div>
-  {/each}
+  <?php endforeach; ?>
   <div id="view_more_history">
 
       <a href="#" onclick="viewMore(); return false;"><span>Xem thêm <span id="count_lesson_history"></span> bài khác >></span></a>

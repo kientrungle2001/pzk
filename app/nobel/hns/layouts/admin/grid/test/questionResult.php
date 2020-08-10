@@ -60,7 +60,7 @@ if($items) {
 
             <th colspan="2">Action</th>
         </tr>
-        {each $items as $item}
+        <?php foreach($items as $item): ?>
         <?php
         $catNames = getCategoriesName($item, $cats);
         $answer = _db()->useCB()->select('*')->from('answers_question_tn')->where(array('question_id', $item['id']))->result();
@@ -128,23 +128,23 @@ if($items) {
         </div>
 
         <tr>
-            <td><input class="checkIds" type="checkbox" name="checkIds[]" value="{item[id]}"></td>
+            <td><input class="checkIds" type="checkbox" name="checkIds[]" value="<?php echo @$item['id']?>"></td>
             <td><?php echo ($sttt +  $pageSize * $data->pageNum);?></td>
-            <td>{item[id]}</td>
+            <td><?php echo @$item['id']?></td>
 
-            <td><a href="{url /admin_questions/detail}/{item[id]}"> <?php if($item['name'] !='') echo strip_tags($item['name']);?></a></td>
-            <td>{catNames}</td>
+            <td><a href="<?php echo BASE_REQUEST . '/admin_questions/detail' ?>/<?php echo @$item['id']?>"> <?php if($item['name'] !='') echo strip_tags($item['name']);?></a></td>
+            <td><?php echo $catNames ?></td>
 
             <td width="12%">
                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal<?php echo $item['id']; ?>">
                     Chi tiết
                 </button>
-                <a href="{url /admin_questions/edit}/{item[id]}"  class="text-center" title="Sửa"><span class="glyphicon glyphicon-edit"></span></a>
-                <button rel="{item[testId]}" type="button" class="btn-primary text-center" onclick="addTest(this, {item[id]});" title="Xóa"><span class="glyphicon glyphicon-plus"></span></button>
+                <a href="<?php echo BASE_REQUEST . '/admin_questions/edit' ?>/<?php echo @$item['id']?>"  class="text-center" title="Sửa"><span class="glyphicon glyphicon-edit"></span></a>
+                <button rel="<?php echo @$item['testId']?>" type="button" class="btn-primary text-center" onclick="addTest(this, <?php echo @$item['id']?>);" title="Xóa"><span class="glyphicon glyphicon-plus"></span></button>
             </td>
         </tr>
         <?php $sttt++; ?>
-        {/each}
+        <?php endforeach; ?>
     </table>
 </div>
 <?php } else { ?>
@@ -162,7 +162,7 @@ if($items) {
             var testId = <?php echo $testId; ?>;
             $.ajax({
                 type: "POST",
-                url: "{url}/admin_test/addTest",
+                url: "<?php echo BASE_REQUEST ?>/admin_test/addTest",
                 data:{questionId:questionId, testIds:testIds, testId:testId},
                 success: function(data) {
                     if(data ==1){

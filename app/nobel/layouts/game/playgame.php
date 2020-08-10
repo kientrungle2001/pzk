@@ -33,9 +33,9 @@
 			//ctx.clearRect(0, 0, can.width, can.height);// xoa nhung anh khi chu da di qua
             ctx.save();	
             ctx.translate(350, step);//chuyen dong
-			{each $word as $game}
-					ctx.fillText("{game[game_title]}", <?php echo rand(-350,350);?>, <?php echo rand(0,350);?>);
-			{/each}
+			<?php foreach($word as $game): ?>
+					ctx.fillText("<?php echo @$game['game_title']?>", <?php echo rand(-350,350);?>, <?php echo rand(0,350);?>);
+			<?php endforeach; ?>
 			ctx.restore(); // in chu ra game va luu lai
             if (step == steps)
                 step = 0;

@@ -13,7 +13,7 @@
 
         <div  class="item slider">
             <div style=" margin-left: 2%; width: 96%; box-shadow: -2px -2px 2px 0px #18081c;">
-                <a class="item" href="/video.php?id={video[id]}&token={token}&time={time}" style="display:block;width:100%;height:500px;" id="player"></a>
+                <a class="item" href="/video.php?id=<?php echo @$video['id']?>&token=<?php echo $token ?>&time=<?php echo $time ?>" style="display:block;width:100%;height:500px;" id="player"></a>
             </div>
         </div>
         <script>

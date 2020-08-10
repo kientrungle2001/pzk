@@ -15,7 +15,7 @@
 		<h5><strong>Nhập mã giảm giá(nếu có) :</strong></h5>
 		<form>
 			<input type="hidden" name="tab6" value="1" /> 
-			<input type="text" name="coupon" value="{coupon}" /> 
+			<input type="text" name="coupon" value="<?php echo $coupon ?>" /> 
 			<button class="btn btn-primary">Gửi</button>
 		</form>
 	</div>
@@ -38,7 +38,7 @@
         ?>
 
     
-      <input type="radio" name="serviceId" checked value="{item[id]}/{price}"><strong >{item[serviceName]}</strong> Giá : <strong>{? echo $item['amount'].'VNĐ'; ?}{? if($discountPercent):?} <span>Giá gốc: {? echo product_price($item['amount']); ?}</span> {? endif;?}</strong> 
+      <input type="radio" name="serviceId" checked value="<?php echo @$item['id']?>/<?php echo $price ?>"><strong ><?php echo @$item['serviceName']?></strong> Giá : <strong><?php  echo $item['amount'].'VNĐ'; ?><?php  if($discountPercent):?> <span>Giá gốc: <?php  echo product_price($item['amount']); ?></span> <?php  endif;?></strong> 
     <?php 
               if($discountPercent){
                 echo '<div class="label label-danger"> Giảm '.$discountPercent.'% chỉ còn :<b style="font-size: 14px;">'.product_price($price). '</b>VNĐ </div>';

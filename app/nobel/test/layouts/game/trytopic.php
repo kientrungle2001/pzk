@@ -10,7 +10,7 @@ $i = 1;
 	<label  for="">Topic</label>
 	<select onchange = "trygame(this);"  class="form-control input-sm" name="gameTopic" id="gameTopic">
 		<!--option value="">-- Choose topic </option-->
-		{each $gameTopic as $parent}
+		<?php foreach($gameTopic as $parent): ?>
 			<?php if($i ==1) { ?>
 			<option <?php if(isset($getTopic) && ($getTopic == $parent['id'])){ echo 'selected';} ?> value="<?php echo $parent['id']; ?>" >
 				<?php echo str_repeat('--', $parent['level']);  ?>
@@ -23,7 +23,7 @@ $i = 1;
 				</option>
 			<?php } ?>
 			<?php $i++; ?>
-		{/each}
+		<?php endforeach; ?>
 
 	</select>
 	<script>

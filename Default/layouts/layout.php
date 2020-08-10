@@ -4,9 +4,9 @@ $columns = $data->getColumns();
 ?>
 
 <div class="row">
-{each $columns as $column}
-<div class="col-xs-{column[col]}">
+<?php foreach($columns as $column): ?>
+<div class="col-xs-<?php echo @$column['col']?>">
     <?php $data->displayChildren('[column='.$column['index'].']');?>
 </div>
-{/each}
+<?php endforeach; ?>
 </div>

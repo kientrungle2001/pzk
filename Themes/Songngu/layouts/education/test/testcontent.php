@@ -12,7 +12,7 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 	<div class="row bc-test">
 		<div style="font-size: 20px;" class="col-md-10 col-md-offset-1">
 			
-			Lớp {class} &nbsp; &nbsp; > &nbsp; &nbsp; {ifvar practice}Đề luyện tập{else}Đề thi{/if}
+			Lớp <?php echo $class ?> &nbsp; &nbsp; > &nbsp; &nbsp; <?php if(${'practice'}): ?>Đề luyện tập<?php else: ?>Đề thi<?php endif; ?>
 			 
 		</div>
 		
@@ -30,7 +30,7 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 		<div class="col-md-1 col-xs-1"></div>
 		<?php if(!pzk_session('userId')){ ?>
 		<div class="col-xs-12 pd-0">
-			<h3 class="pd-top-15" style="width: 100%; text-align: center;">Bạn phải <a rel="{_SERVER[REQUEST_URI]}" class="login_required" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer;">Đăng nhập</a> thì mới được thi thử</h3>
+			<h3 class="pd-top-15" style="width: 100%; text-align: center;">Bạn phải <a rel="<?php echo @$_SERVER['REQUEST_URI']?>" class="login_required" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer;">Đăng nhập</a> thì mới được thi thử</h3>
 		</div>
 		<?php }else{ ?>
 		<!-- sau khi đã đăng nhập -->
@@ -54,7 +54,7 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 					<?php 
 						$tests = $data->getTestSN($week2, $practice, $check, $class);
 						if($practice== 1 || $practice == '1'){  ?>
-							{each $tests as $test }
+							<?php foreach($tests as $test ): ?>
 							<?php 
 								if($test['name_sn']){
 									$testName = $test['name_sn'];
@@ -62,14 +62,14 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 							?>
 								<li >
 									
-									<a onclick="id = {week[id]};document.getElementById('chonde').innerHTML = '{testName}';"  data-de="{testName}" class="getdata" href="/practice-examination/class-{class}/week-{week2}/examination-{test[id]}" data-type="group"><?php if(pzk_user_special()) { echo '#'.$test['id']; } ?> {testName}</a>
+									<a onclick="id = <?php echo @$week['id']?>;document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';"  data-de="<?php echo $testName ?>" class="getdata" href="/practice-examination/class-<?php echo $class ?>/week-<?php echo $week2 ?>/examination-<?php echo @$test['id']?>" data-type="group"><?php if(pzk_user_special()) { echo '#'.$test['id']; } ?> <?php echo $testName ?></a>
 									
 								</li>
-							{/each}
+							<?php endforeach; ?>
 					<?php
 						}else{
 					 ?>						
-						{each $tests as $test }
+						<?php foreach($tests as $test ): ?>
 						<?php 
 							if($test['name_sn']){
 								$testName = $test['name_sn'];
@@ -77,10 +77,10 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 						?>
 						<li>
 							
-							<a  onclick="id = {week[id]};document.getElementById('chonde').innerHTML = '{testName}';" data-id="{week[id]}" data-de="{testName}" class="getdata" href="/test/class-{class}/week-{week2}/examination-{test[id]}" data-type="group"><?php if(pzk_user_special()) { echo '#'.$test['id']; } ?> {testName}</a>
+							<a  onclick="id = <?php echo @$week['id']?>;document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';" data-id="<?php echo @$week['id']?>" data-de="<?php echo $testName ?>" class="getdata" href="/test/class-<?php echo $class ?>/week-<?php echo $week2 ?>/examination-<?php echo @$test['id']?>" data-type="group"><?php if(pzk_user_special()) { echo '#'.$test['id']; } ?> <?php echo $testName ?></a>
 							
 						</li>
-						{/each}
+						<?php endforeach; ?>
 						<?php } ?>
 					</ul>
 					
@@ -94,17 +94,17 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 							<?php 
 		    				$weeks = $data->getWeekTestSN(ROOT_WEEK_CATEGORY_ID,$practice, $check, $class);
 		    			 ?>
-		    			{each $weeks as $week }
+		    			<?php foreach($weeks as $week ): ?>
 							<?php 
 							$firsttest= $data->getFirstTestByWeek($week['id'], $practice, $check, $class);
 							if($practice== 1 || $practice == '1'){  
 							?>
-							<li><a href="/practice-examination/class-{class}/week-{week[id]}/examination-{firsttest[id]}"><?php if(pzk_user_special()) { echo '#'.$week['id']; } ?> {week[name]}</a></li>
+							<li><a href="/practice-examination/class-<?php echo $class ?>/week-<?php echo @$week['id']?>/examination-<?php echo @$firsttest['id']?>"><?php if(pzk_user_special()) { echo '#'.$week['id']; } ?> <?php echo @$week['name']?></a></li>
 							<?php } else { ?>
-							<li><a href="/test/class-{class}/week-{week[id]}/examination-{firsttest[id]}"><?php if(pzk_user_special()) { echo '#'.$week['id']; } ?> {week[name]}</a></li>
+							<li><a href="/test/class-<?php echo $class ?>/week-<?php echo @$week['id']?>/examination-<?php echo @$firsttest['id']?>"><?php if(pzk_user_special()) { echo '#'.$week['id']; } ?> <?php echo @$week['name']?></a></li>
 							<?php } ?>
 						
-						{/each}
+						<?php endforeach; ?>
 						</ul>
 					</div>
 					

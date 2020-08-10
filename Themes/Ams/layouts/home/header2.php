@@ -69,7 +69,7 @@ if(!$lang){
 				<a  href="/home/payment">
 				<img src="/Themes/Songngu3/skin/images/card.png" /> 
 				<?php echo $language['recharge'];?></a>
-			<div class="btn-user">{children [id=userAccountUser]}<span class="caret"></span></div> 
+			<div class="btn-user"><?php $data->displayChildren('[id=userAccountUser]') ?><span class="caret"></span></div> 
 			<a href="/account/logout" style="color: blue; font-weight: bold;"><?php echo $language['logout'];?></a> 
 			
 			<?php endif;?>
@@ -85,7 +85,7 @@ if(!$lang){
 				<a class="logo" href="/"><img src="<?php echo pzk_or(pzk_config('site_logo') ,'/Themes/Songngu3/skin/images/logo.png');?>" /></a>
 			</div>
 			<div class="col-md-10 col-xs-12">
-				{children [id=menu]}	
+				<?php $data->displayChildren('[id=menu]') ?>	
 			</div>
 		</div>
 	</div>

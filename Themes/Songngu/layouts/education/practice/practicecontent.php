@@ -67,7 +67,7 @@
 		<div class="col-md-10 col-xs-10">
 			<div class="row">
 				<?php if(!empty($category['child'])):?>
-				{children [position=choice]}
+				<?php $data->displayChildren('[position=choice]') ?>
 				<div class="dropdown col-md-4 col-sm-4 col-xs-12 mgleft pd0 mg0">
 					<button class="btn fix_hover btn-default col-md-12 col-sm-12 col-xs-12 sharp" type="button" data-toggle="dropdown" data-bind="enable: !noResults()" aria-haspopup="true" aria-expanded="true"><span id="chonde" class="fontsize19"><?php echo $language['choice'];?></span><img class="img-responsive imgwh hidden-xs hidden-sm pull-right" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/icon1.png" /></span>
 					</button>
@@ -79,7 +79,7 @@
 							foreach($dataCategoryCurrent['child'] as $k =>$value):
 								if(strpos($value['classes'], $class) === false) continue;
 						?>
-							<li class="list-group-item"><a onclick="subject = {value[id]};document.getElementById('chonde').innerHTML = '{value[name]}'; return check_display({value[trial]});" data-de="{value[name]}" class="getdata" href="/practice/doQuestion/{value[id]}?subject={subject}&class={class}&de={value[alias]}" data-type="group"><?php if(pzk_user_special()): ?>#{value[id]} - <?php endif; ?>{value[name]}</a></li>
+							<li class="list-group-item"><a onclick="subject = <?php echo @$value['id']?>;document.getElementById('chonde').innerHTML = '<?php echo @$value['name']?>'; return check_display(<?php echo @$value['trial']?>);" data-de="<?php echo @$value['name']?>" class="getdata" href="/practice/doQuestion/<?php echo @$value['id']?>?subject=<?php echo $subject ?>&class=<?php echo $class ?>&de=<?php echo @$value['alias']?>" data-type="group"><?php if(pzk_user_special()): ?>#<?php echo @$value['id']?> - <?php endif; ?><?php echo @$value['name']?></a></li>
 						<?php endforeach;
 						} else { ?>
 							<?php 
@@ -89,29 +89,29 @@
 									$practices = $data->getPracticesSN($class,$subject);
 									$medias		=	$data->getMedias($subject);
 									foreach($medias as $media) {  ?>
-										<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/media-{media[id]}">{media[name]}</a></li>
+										<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
 							<?php	}
 										for($i = 1; $i <= $practices; $i++){  ?>
-											<li class="list-group-item"><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de={i}; return check_display({catetype[trial]});" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/examination-{i}"><?php echo $language['lesson'].$i;?></a></li>
+											<li class="list-group-item"><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$catetype['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 										<?php } //end for
 								}elseif($level== '2'){
 									$topics= $data->getTopicsSN($subject, $class);
 									
 										foreach ($topics as $topic) {
 											echo '<li class="left20" style="color:#d9534f;cursor: pointer;" onclick="$(\'.exercise-of-topic-'.$topic['id'].'\').toggle();"  onmouseover="$(this).css(\'border-bottom\', \'1px solid #333\');" onmouseout="$(this).css(\'border-bottom\', \'none\');"><h5><strong>'; ?>
-											<?php if(pzk_user_special()): ?>#{topic[id]} - <?php endif; ?>
+											<?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?> - <?php endif; ?>
 											<?php
 											echo $topic['name'].'</strong><span class="glyphicon glyphicon-play-circle" style="float: right;"></span></h5></li>';
 											$practices = $data->getPracticesSN($class,$topic['id']);
 											
 											$medias		=	$data->getMedias($topic['id']);
 													foreach($medias as $media) {  ?>
-														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{topic[alias]}-{topic[id]}/media-{media[id]}">{media[name]}</a></li>
+														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
 											<?php	}
 											
 											for($i = 1; $i <= $practices; $i++){  ?>
 												
-												<li class="list-group-item"><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de={i}; return check_display({topic[trial]});" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{topic[alias]}-{topic[id]}/examination-{i}"><?php echo $language['lesson'].$i;?></a></li>
+												<li class="list-group-item"><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 											<?php } //end for
 										} //end foreach
 
@@ -119,7 +119,7 @@
 									$sections= $data->getTopicsSN($subject, $class);
 									foreach ($sections as $section) {
 										echo '<li class="left10'.(@$section['trial'] ? ' trial-3-level-1': '').'" style="color:#2696c4;cursor: pointer;" onclick="$(\'.exercise-of-topic-'.$section['id'].'\').toggle();" onmouseover="$(this).css(\'border-bottom\', \'1px solid #333\');" onmouseout="$(this).css(\'border-bottom\', \'none\');"><h5><strong>'; ?>
-										<?php if(pzk_user_special()): ?>#{section[id]} - <?php endif; ?>
+										<?php if(pzk_user_special()): ?>#<?php echo @$section['id']?> - <?php endif; ?>
 										<?php
 										echo $section['name'].'</strong><span class="glyphicon glyphicon-play-circle" style="float: right;"></span></h5></li>';
 										$topicChilds= $data->getTopicsSN($section['id'], $class);
@@ -127,24 +127,24 @@
 											$practices = $data->getPracticesSN($class,$section['id']);
 											$medias		=	$data->getMedias($section['id']);
 													foreach($medias as $media) {  ?>
-														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{section[alias]}-{section[id]}/media-{media[id]}">{media[name]}</a></li>
+														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
 											<?php	}
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li class="list-group-item"><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de={i}; return check_display({section[trial]});" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{section[alias]}-{section[id]}/examination-{i}"><?php echo $language['lesson'].$i;?></a></li>
+												<li class="list-group-item"><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 											<?php 
 											}
 										} else {										
 											foreach ($topicChilds as $topic) {
 												echo '<li class="left20'.(@$topic['trial'] ? ' trial-3-level-2': '').'" style="color:#d9534f;cursor: pointer;" onclick="$(\'.exercise-of-topic-'.$topic['id'].'\').toggle();" onmouseover="$(this).css(\'border-bottom\', \'1px solid #333\');" onmouseout="$(this).css(\'border-bottom\', \'none\');"><strong>'; ?>
-												<?php if(pzk_user_special()): ?>#{topic[id]} - <?php endif; ?>
+												<?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?> - <?php endif; ?>
 												<?php echo $topic['name'].'</strong><span class="glyphicon glyphicon-play-circle" style="float: right;"></span></li>';
 												$practices = $data->getPracticesSN($class,$topic['id']);
 												$medias		=	$data->getMedias($topic['id']);
 													foreach($medias as $media) {  ?>
-														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{topic[alias]}-{topic[id]}/media-{media[id]}">{media[name]}</a></li>
+														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
 											<?php	}
 												for($i = 1; $i <= $practices; $i++){  ?>
-													<li class="list-group-item"><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de={i}; return check_display({topic[trial]});" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{topic[alias]}-{topic[id]}/examination-{i}"><?php echo $language['lesson'].$i;?></a></li>
+													<li class="list-group-item"><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 												<?php 
 												} 
 											}
@@ -156,48 +156,48 @@
 									foreach ($sections1 as $section1) {
 										echo '<li class="left10'.(@$section1['trial'] ? ' trial-4-level-1': '').'" style="color:#B6D452"><h5><strong>';
 										?>
-										<?php if(pzk_user_special()): ?>#{section1[id]} - <?php endif; ?>
+										<?php if(pzk_user_special()): ?>#<?php echo @$section1['id']?> - <?php endif; ?>
 										<?php echo $section1['name'].'</strong></h5></li>';
 										$sections2= $data->getTopicsSN($section1['id'], $class);
 										if(count($sections2) == 0) {
 											$practices = $data->getPracticesSN($class,$section1['id']);
 											$medias		=	$data->getMedias($section1['id']);
 													foreach($medias as $media) {  ?>
-														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{section1[alias]}-{section1[id]}/media-{media[id]}">{media[name]}</a></li>
+														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
 											<?php	}
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li class="list-group-item"><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de={i}; return check_display({section1[trial]});" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{section1[alias]}-{section1[id]}/examination-{i}"><?php echo $language['lesson'].$i;?></a></li>
+												<li class="list-group-item"><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section1['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 											<?php 
 											}
 										} else {
 											foreach ($sections2 as $section2) {
 												echo '<li onclick="$(\'.exercise-of-topic-'.$section2['id'].'\').toggle();" onmouseover="$(this).css(\'border-bottom\', \'1px solid #333\');" onmouseout="$(this).css(\'border-bottom\', \'none\');" class="left20'.(@$section2['trial'] ? ' trial-4-level-2': '').'" style="color:#2696c4;cursor: pointer;"><h5><strong>';?>
-												<?php if(pzk_user_special()): ?>#{section2[id]} - <?php endif; ?>
+												<?php if(pzk_user_special()): ?>#<?php echo @$section2['id']?> - <?php endif; ?>
 												<?php echo $section2['name'].'</strong><span class="glyphicon glyphicon-play-circle" style="float: right;"></span></h5>';
 												$topicChilds= $data->getTopicsSN($section2['id'], $class);
 												if(count($topicChilds) == 0) {
 													$practices = $data->getPracticesSN($class,$section2['id']);
 													$medias		=	$data->getMedias($section2['id']);
 													foreach($medias as $media) {  ?>
-														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{section2[alias]}-{section2[id]}/media-{media[id]}">{media[name]}</a></li>
+														<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
 											<?php	}
 													for($i = 1; $i <= $practices; $i++){  ?>
-														<li class="list-group-item"><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de={i}; return check_display({section2[trial]});" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{section2[alias]}-{section2[id]}/examination-{i}"><?php echo $language['lesson'].$i;?></a></li>
+														<li class="list-group-item"><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section2['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 													<?php 
 													}
 												} else {
 													foreach ($topicChilds as $topic) {
 														echo '<li onclick="$(\'.exercise-of-topic-'.$topic['id'].'\').toggle();" class="'.(@$topic['trial'] ? ' trial-4-level-3': '').'" style="color:#d9534f; padding-left: 40px;cursor: pointer;" onmouseover="$(this).css(\'border-bottom\', \'1px solid #333\');" onmouseout="$(this).css(\'border-bottom\', \'none\');"><h5><strong>';
 														?>
-														<?php if(pzk_user_special()): ?>#{topic[id]} - <?php endif; ?>
+														<?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?> - <?php endif; ?>
 														<?php echo $topic['name'].'</strong><span class="glyphicon glyphicon-play-circle" style="float: right;"></span></h5></li>';
 														$practices = $data->getPracticesSN($class,$topic['id']);
 														$medias		=	$data->getMedias($topic['id']);
 														foreach($medias as $media) {  ?>
-															<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{topic[alias]}-{topic[id]}/media-{media[id]}">{media[name]}</a></li>
+															<li class="list-group-item"><a style="padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
 												<?php	}
 														for($i = 1; $i <= $practices; $i++){  ?>
-															<li class="list-group-item"><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de={i}; return check_display({topic[trial]});" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-{class}/subject-{subjectEntity.get('alias')}-{subject}/topic-{topic[alias]}-{topic[id]}/examination-{i}"><?php echo $language['lesson'].$i;?></a></li>
+															<li class="list-group-item"><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 														<?php 
 														} 
 													}	
@@ -311,7 +311,7 @@
 			$('.nomgin2').show();
 		  });
 	});
-	var check = '{check}';
+	var check = '<?php echo $check ?>';
 	function check_display(trial){
 		if(check == 1){
 			return true;

@@ -63,7 +63,7 @@ function sw_get_current_weekday() {
                 <?php if(pzk_session()->getUserId() <= 0):?>
                 	<a id="nobelLogin" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="pd-left-10"> Đăng nhập/ Đăng ký</span></a>
                 <?php elseif(pzk_session()->getUserId() >0 ):?>
-                	<span  class="color-white user_name pd-left-10"> Xin chào ( {children [id=userAccountUser]} )</span>
+                	<span  class="color-white user_name pd-left-10"> Xin chào ( <?php $data->displayChildren('[id=userAccountUser]') ?> )</span>
                	 	<a  href="<?=BASE_REQUEST?>/account/logout"><span>Thoát</span></a>
                 <?php endif;?>
             </div>
@@ -82,5 +82,5 @@ function sw_get_current_weekday() {
 		</div>
 	</div>
 	
-	{children [id=userAccountDialog]}
+	<?php $data->displayChildren('[id=userAccountDialog]') ?>
 </div>

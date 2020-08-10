@@ -162,19 +162,19 @@ font-size: 12px;
         $notes=$data->loadNote();
 
       ?>
-      {each $notes as $note}
+      <?php foreach($notes as $note): ?>
       <div>
       <div style="float:left;">
         <img src="<?php echo BASE_URL.'/3rdparty/uploads/img/usernote.png' ; ?>" alt="">
       </div>
       <div class="prf_titlenote">
-         {note[titlenote]}
+         <?php echo @$note['titlenote']?>
       </div>
 
       <div class="prf_clear"> </div>
        
       </div>
-      {/each}
+      <?php endforeach; ?>
       <div class="pr_bt_viewmore_c">
         <a href="#">Xem tất cả</a>
       </div>
@@ -221,27 +221,27 @@ font-size: 12px;
         $write_walls=$data->loadWriteWall();
 
       ?>
-      {each $write_walls as $write_wall}
+      <?php foreach($write_walls as $write_wall): ?>
       <div>
     <div class="prf_write_wall" >
       <div class="pfr_avatar_wall">
         <img src="<?php echo BASE_URL.'/3rdparty/uploads/img/noavatar.gif' ; ?>" alt="" width="60" height="60">
       </div>
       <div class="prf_titlenote" style="width:30%; height: auto; float:left;">
-        <a href="/user/profilefriend?member=<?php echo $write_wall['userwritewall']; ?>" >{write_wall[userwritewall]}</a>
+        <a href="/user/profilefriend?member=<?php echo $write_wall['userwritewall']; ?>" ><?php echo @$write_wall['userwritewall']?></a>
          
       </div>
       <div class="prf_titlenote"style="width:30%; height: auto; float:left;">
-         {write_wall[content]}
+         <?php echo @$write_wall['content']?>
       </div>
       <div class="prf_titlenote">
-         {write_wall[datewrite]}
+         <?php echo @$write_wall['datewrite']?>
       </div>
       <div class="prf_clear"> </div>
        
       </div>
     </div>
-      {/each}
+      <?php endforeach; ?>
       <div class="pr_bt_viewmore_c">
         <a href="#">Xem tất cả</a>
       </div>

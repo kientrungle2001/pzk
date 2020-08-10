@@ -23,7 +23,7 @@ $items = $data->getAllTestCompability();
 $i = 1;
 ?>
 
-{each $items as $item}
+<?php foreach($items as $item): ?>
 <?php 
 $testcheck = pzk_user()->checkCompabilityTestAccess($item['id']);
 ?>
@@ -99,10 +99,10 @@ $testcheck = pzk_user()->checkCompabilityTestAccess($item['id']);
 	
 </div>
 <?php $i++; ?>
-{/each}
+<?php endforeach; ?>
 
 <script>
-$(".is_{data.action}").click(function(){
+$(".is_<?php echo @$data->action?>").click(function(){
 	<?php if(pzk_session('userId')): ?>
 		var test = $(this).data("test");
 		var check = $(this).data("check");
@@ -127,7 +127,7 @@ $(".is_{data.action}").click(function(){
 			return false;
 		}
 		
-		window.location = BASE_REQUEST+'/Compability/{data.action}/'+test;
+		window.location = BASE_REQUEST+'/Compability/<?php echo @$data->action?>/'+test;
 	<?php else: ?>
 		var state = confirm("<?php echo $language['login'];?>");
 		if(state == true){

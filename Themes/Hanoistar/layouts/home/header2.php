@@ -53,7 +53,7 @@ if(!$lang){
 			<!-- <a class="login_required_mobile">Đăng nhập - Đăng ký1</a> -->
 			<?php elseif(pzk_session('userId') >0 ):?>
 			
-			<div class="btn-user">{children [id=userAccountUser]}<span class="caret"></span></div> 
+			<div class="btn-user"><?php $data->displayChildren('[id=userAccountUser]') ?><span class="caret"></span></div> 
 			<a href="/account/logout" style="color: blue; font-weight: bold;"><?php echo $language['logout'];?></a> 
 			
 			<?php endif;?>
@@ -69,7 +69,7 @@ if(!$lang){
 				<a href="/"><img style="max-width: 70px;" src="/Themes/Hanoistar/skin/images/logo.png" /></a>
 			</div>
 			<div class="col-md-10 col-xs-12">
-				{children [id=menu]}	
+				<?php $data->displayChildren('[id=menu]') ?>	
 			</div>
 		</div>
 	</div>

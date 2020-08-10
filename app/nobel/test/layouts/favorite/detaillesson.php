@@ -21,11 +21,11 @@
 
                 <div class="w_question item"   id="ctg_question_fill">
                     <?php $i = 1;  ?>
-                    {each $listlessions as $item}
+                    <?php foreach($listlessions as $item): ?>
                     <?php $question = $data->getQuestionById($item['questionId']); ?>
                     <div style="margin: 5px 0px; padding: 10px 0px;" class="question item">
                         <div class="step">
-                            <span><strong> Câu {i}:</strong> {question[name]}</span>
+                            <span><strong> Câu <?php echo $i ?>:</strong> <?php echo @$question['name']?></span>
                         </div>
                         <div class="step" >
 
@@ -33,18 +33,18 @@
                             $answers = _db()->useCB()->select('*')->from('answers_question_tn')->where(array('question_id', $item['questionId']))->result();
                             ?>
                             <table>
-                                {each $answers as $val}
+                                <?php foreach($answers as $val): ?>
                                 <tr >
-                                    <td><input style="width: 15px; height: 15px;" <?php if($val['content'] == $item['content']) { echo "checked";} ?> name="answers[<?=$item['id'];?>][]" value="{val[id]}" type="radio" />
-                                    {val[content]}</td>
+                                    <td><input style="width: 15px; height: 15px;" <?php if($val['content'] == $item['content']) { echo "checked";} ?> name="answers[<?=$item['id'];?>][]" value="<?php echo @$val['id']?>" type="radio" />
+                                    <?php echo @$val['content']?></td>
                                 </tr>
-                                {/each}
+                                <?php endforeach; ?>
                             </table>
                         </div>
                     </div>
 
                     <?php $i++; ?>
-                    {/each}
+                    <?php endforeach; ?>
 
                 </div>
 

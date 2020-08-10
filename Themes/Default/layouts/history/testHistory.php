@@ -31,24 +31,24 @@
 					<?php } ?>
 					<th>Ngày</th>
 				</tr>
-				{each $items as $val}
+				<?php foreach($items as $val): ?>
 				<tr>
 					<td><?php echo $i+$data->pageNum*$data->pageSize; ?></td>
-					<td>{val[username]}</td>
-					<td>{val[name]}</td>
-					<td>{val[mark]}</td>
+					<td><?php echo @$val['username']?></td>
+					<td><?php echo @$val['name']?></td>
+					<td><?php echo @$val['mark']?></td>
 					<?php
 					$time = $val['duringTime'];
 					$resultStrTime = time_duration($time);
 					?>
 					<td><span class="glyphicon glyphicon-time" aria-hidden="true"></span>  <?php  echo $resultStrTime; ?></td>
 					<?php if($practice == 0) { ?>
-					<td>{val[rank]}</td>
+					<td><?php echo @$val['rank']?></td>
 					<?php } ?>
 					<td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:i:s A', strtotime($val['startTime'])); ?></td>
 				</tr>
 				<?php $i++; ?>
-				{/each}
+				<?php endforeach; ?>
 			</table>
 			
 			<div class="panel-footer ">
@@ -65,11 +65,11 @@
 										<?php
 										if($data->pageNum >= 1) { ?>
 											<li>
-												<a onclick="getPage({UserId},{practice},0, '<?php echo $idResult; ?>')" aria-label="End">
+												<a onclick="getPage(<?php echo $UserId ?>,<?php echo $practice ?>,0, '<?php echo $idResult; ?>')" aria-label="End">
 													<span aria-hidden="true">Trang đầu</span>
 												</a>
 											<li>
-												<a aria-label="Previous" onclick ="getPage({UserId}, {practice}, '<?php echo $data->pageNum -1; ?>', '<?php echo $idResult; ?>')">
+												<a aria-label="Previous" onclick ="getPage(<?php echo $UserId ?>, <?php echo $practice ?>, '<?php echo $data->pageNum -1; ?>', '<?php echo $idResult; ?>')">
 													<span aria-hidden="true">&laquo;</span>
 												</a>
 											</li>
@@ -86,19 +86,19 @@
 												$active = '';
 											}
 											?>
-											<li class="{active}">
-												<a  onclick = "getPage({UserId}, {practice}, {page}, '<?php echo $idResult; ?>')">{? echo ($page + 1)?}</a>
+											<li class="<?php echo $active ?>">
+												<a  onclick = "getPage(<?php echo $UserId ?>, <?php echo $practice ?>, <?php echo $page ?>, '<?php echo $idResult; ?>')"><?php  echo ($page + 1)?></a>
 											</li>
 										<?php } ?>
 
 										<?php if($data->pageNum < $pages-1) { ?>
 										<li>
-											<a onclick = "getPage({UserId}, {practice}, '<?php echo $data->pageNum + 1; ?>', '<?php echo $idResult; ?>')" aria-label="Next">
+											<a onclick = "getPage(<?php echo $UserId ?>, <?php echo $practice ?>, '<?php echo $data->pageNum + 1; ?>', '<?php echo $idResult; ?>')" aria-label="Next">
 												<span aria-hidden="true">&raquo;</span>
 											</a>
 											</li>
 											<li>
-											<a onclick =" getPage({UserId}, {practice}, '<?php echo $pages-1; ?>','<?php echo $idResult; ?>')" aria-label="end">
+											<a onclick =" getPage(<?php echo $UserId ?>, <?php echo $practice ?>, '<?php echo $pages-1; ?>','<?php echo $idResult; ?>')" aria-label="end">
 												<span aria-hidden="true">Trang cuối</span>
 											</a>
 										</li>

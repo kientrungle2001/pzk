@@ -93,15 +93,15 @@ if(pzk_request()->is('POST') && is_numeric($parent_id)) {
     <!--dang phat trien chu diem-->
         <div class="w_question item"   id="ctg_question_fill">
         <?php $i = 1;  ?>
-            {each $items as $item}
+            <?php foreach($items as $item): ?>
             <?php if($item['type'] == 'Q2' or $item['type'] == 'Q22') { ?>
             <div class="question item">
                 <div class="step">
-                   <p class="item"><strong > Câu {i}:</strong></p>
+                   <p class="item"><strong > Câu <?php echo $i ?>:</strong></p>
                     <p class="item"><i >
-                        <strong>{item[request]}</strong>
+                        <strong><?php echo @$item['request']?></strong>
                     </i></p>
-                    <div class="item">{item[name]}</div>
+                    <div class="item"><?php echo @$item['name']?></div>
                 </div>
                 <div class="step" >
                     <div style="clear:both;"><span><strong>Đáp án:</strong></span></div>
@@ -124,11 +124,11 @@ if(pzk_request()->is('POST') && is_numeric($parent_id)) {
             <?php } elseif($item['type'] == 'Q21' or $item['type'] == 'Q29' or $item['type'] == 'Q26' or $item['type'] == 'Q27' ) { ?>
         <div class="question item">
                 <div class="step">
-                    <p class="item"><strong > Câu {i}:</strong></p>
+                    <p class="item"><strong > Câu <?php echo $i ?>:</strong></p>
                     <p class="item"><i >
-                            <strong>{item[request]}</strong>
+                            <strong><?php echo @$item['request']?></strong>
                         </i></p>
-                    <div class="item">{item[name]}</div>
+                    <div class="item"><?php echo @$item['name']?></div>
                 </div>
                 <div class="step" >
                     <div style="clear:both;"><span><strong>Đáp án:</strong></span></div>
@@ -145,8 +145,8 @@ if(pzk_request()->is('POST') && is_numeric($parent_id)) {
             <?php } elseif($item['type'] == 'Q0') { ?>
             <div class="question item">
                 <div class="step">
-                    <p class="item"><strong > Câu {i}:</strong></p>
-                    <div class="item">{item[name]}</div>
+                    <p class="item"><strong > Câu <?php echo $i ?>:</strong></p>
+                    <div class="item"><?php echo @$item['name']?></div>
                 </div>
                 <div class="step" >
                     <div style="clear:both;"><span><strong>Đáp án:</strong></span></div>
@@ -156,17 +156,17 @@ if(pzk_request()->is('POST') && is_numeric($parent_id)) {
                         ?>
                         <table>
                             <tr >
-                        {each $answers as $val}
-                            <td><input style="width: 15px; height: 15px;" name="answers[<?=$item['id'];?>][]" value="{val[id]}" type="radio" /></td>
-                            <td id="answers_<?php echo $val['id']; ?>">{val[content]}</td>
-                        {/each}
+                        <?php foreach($answers as $val): ?>
+                            <td><input style="width: 15px; height: 15px;" name="answers[<?=$item['id'];?>][]" value="<?php echo @$val['id']?>" type="radio" /></td>
+                            <td id="answers_<?php echo $val['id']; ?>"><?php echo @$val['content']?></td>
+                        <?php endforeach; ?>
                             </tr>
                         </table>
                 </div>
             </div>
             <?php } ?>
         <?php $i++; ?>
-            {/each}
+            <?php endforeach; ?>
 
         </div>
 
@@ -208,7 +208,7 @@ if(pzk_request()->is('POST') && is_numeric($parent_id)) {
     </form>
     
     <div class="item bg_footer">
-        {children all}
+        <?php $data->displayChildren('all') ?>
     </div>
 
         <?php

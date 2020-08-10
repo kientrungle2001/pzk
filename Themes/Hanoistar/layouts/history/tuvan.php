@@ -30,7 +30,7 @@ $chucsn = $data->getChucSn($userId);
 				</thead>
 				<tbody>
 				<?php $i =1;?>
-				{each $chucsn as $val}
+				<?php foreach($chucsn as $val): ?>
 				<tr>
 					<td><?php echo $i; ?></td>
 					<td><?php echo $userProcess[$val['senderId']]; ?></td>
@@ -39,7 +39,7 @@ $chucsn = $data->getChucSn($userId);
 					<td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:i:s A', strtotime($val['created'])); ?></td>
 				</tr>
 				<?php $i++; ?>
-				{/each}
+				<?php endforeach; ?>
 				</tbody>
 			</table>
 			</div>
@@ -61,10 +61,10 @@ $chucsn = $data->getChucSn($userId);
 				</thead>
 				<tbody>
 				<?php $i =1;?>
-				{each $tuvans as $val}
+				<?php foreach($tuvans as $val): ?>
 				<tr>
 					<td><?php echo $i; ?></td>
-					<td>{val[content]}</td>
+					<td><?php echo @$val['content']?></td>
 					<td>
 					<?php if($val['type'] == 'tamly') { echo 'Tâm lý'; }else { echo 'Học tập';} ?></td>
 					<td>
@@ -92,7 +92,7 @@ $chucsn = $data->getChucSn($userId);
 					<td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:i:s A', strtotime($val['created'])); ?></td>
 				</tr>
 				<?php $i++; ?>
-				{/each}
+				<?php endforeach; ?>
 				</tbody>
 			</table>
 			</div>

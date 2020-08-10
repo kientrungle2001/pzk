@@ -50,7 +50,7 @@
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <?php if(pzk_session('login')) { ?>
 <div class="container">
 	<p class="t-weight text-center btn-custom8 mgright textcl">Luyện tập - Lớp <?php echo $class; ?></p>
@@ -72,13 +72,13 @@
 	<div id="question-wrapper">
 	<div class="row form-group view_practice margin-top-20">	
 		<div class="col-xs-12 col-sm-10 col-md-7 col-md-offset-1 pull-left">
-				{children [position=choice]}
+				<?php $data->displayChildren('[position=choice]') ?>
 			<div class="dropdown col-md-6 col-sm-6 col-xs-6 nomgin">
 				<button class="btn fix_hover btn-default dropdown-toggle col-md-12 sharp" type="button" data-toggle="dropdown"><span id="chonde" class="fontsize19" style="width: 240px; overflow: hidden; float: left; display: block;">
 				<?php if($parentSubject == 87 || $parentSubject == 88) { ?>
-					{de}
+					<?php echo $de ?>
 				<?php } else { ?>
-					Bài {de}
+					Bài <?php echo $de ?>
 				<?php } ?>
 				</span><span class="pull-right"><img class="img-responsive imgwh" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/icon1.png" /></span>
 				</button>
@@ -95,11 +95,11 @@
 						
 						if(@$dataCategoryCurrent['child'])
 						foreach($dataCategoryCurrent['child'] as $k =>$value):?>
-						<li><a onclick="subject = {value[id]};document.getElementById('chonde').innerHTML = '{value[name]}';" data-de="{value[name]}" class="getdata" href="/practice/doQuestion/{value[id]}?class=5&de={value[name]}">{value[name]}</a></li>
+						<li><a onclick="subject = <?php echo @$value['id']?>;document.getElementById('chonde').innerHTML = '<?php echo @$value['name']?>';" data-de="<?php echo @$value['name']?>" class="getdata" href="/practice/doQuestion/<?php echo @$value['id']?>?class=5&de=<?php echo @$value['name']?>"><?php echo @$value['name']?></a></li>
 					<?php endforeach;
 					} else { ?>
 						<?php for($i = 1; $i <= $practices; $i++){ ?>
-							<li><a onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>';" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-{subjectEntity.get('alias')}-{subject}/examination-{i}"><?php echo "Bài ".$i;?></a></li>
+							<li><a onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>';" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?></a></li>
 						<?php }?>
 					<?php } ?>
 					</ul>
@@ -150,7 +150,7 @@
 								
 									<div class="order">Câu : <?=$key+1;?>
 									<?php if(pzk_user_special()) :?><br />
-									(#{value[id]})
+									(#<?php echo @$value['id']?>)
 									<?php endif; ?>
 									</div>
 									
@@ -282,11 +282,11 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-sm btn-danger pull-left" onclick="window.location='/?class={class}'"> Chọn luyện tập các môn khác <span class="glyphicon glyphicon-arrow-left"></span></button>
+							<button type="button" class="btn btn-sm btn-danger pull-left" onclick="window.location='/?class=<?php echo $class ?>'"> Chọn luyện tập các môn khác <span class="glyphicon glyphicon-arrow-left"></span></button>
 							<button id="show-answers-on-dialog" class="btn btn-danger" name="show-answers" onclick="show_answers(); $('#exampleModal').modal('hide');" type="button">
 								Xem đáp án 
 							</button>
-							<button type="button" class="btn btn-sm btn-success pull-right" onclick="window.location = '/practice/detail/{subject}?class={class}&de=1'"><span class="glyphicon glyphicon-arrow-right"></span> Làm bài khác</button>
+							<button type="button" class="btn btn-sm btn-success pull-right" onclick="window.location = '/practice/detail/<?php echo $subject ?>?class=<?php echo $class ?>&de=1'"><span class="glyphicon glyphicon-arrow-right"></span> Làm bài khác</button>
 						</div>
 					</div>
 				</div>

@@ -8,13 +8,13 @@ if(@$data->featured) {
 $type = $data->get('type');
 ?>
 <div class="row box support-subscribe-box">
-	<div class="{class}">
+	<div class="<?php echo $class ?>">
 	</div>
     <div class="box-inner col-xs-12">
-	<h3 class="text-center text-uppercase font-large color-white bgcolor1-bold padding-10">{title}</h3>
+	<h3 class="text-center text-uppercase font-large color-white bgcolor1-bold padding-10"><?php echo $title ?></h3>
 	<div class="box-content border-purple">
 	<form class="form" method="post"  action="/support/subscribe" >
-		<input type="hidden" name="type" value="{type}" />
+		<input type="hidden" name="type" value="<?php echo $type ?>" />
 	<?php echo @$data->get('error'); ?>
 	   <div class="form-group">
 			<input class="form-control" placeholder="Họ và tên" type="text" name="name" value="">

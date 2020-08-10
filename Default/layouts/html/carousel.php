@@ -1,23 +1,23 @@
 <div class="row carousel-holder">
 
 	<div class="col-xs-12">
-		<div id="{prop id}" class="carousel slide" data-ride="carousel">
+		<div id="<?php echo @$data->id?>" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
-				{? foreach($data->children as $index => $child):?}
-				<li data-target="#{prop id}" data-slide-to="{index}"></li>
-				{? endforeach;?}
+				<?php  foreach($data->children as $index => $child):?>
+				<li data-target="#<?php echo @$data->id?>" data-slide-to="<?php echo $index ?>"></li>
+				<?php  endforeach;?>
 			</ol>
 			<div class="carousel-inner">
-			{? foreach($data->children as $child):?}
+			<?php  foreach($data->children as $child):?>
 				<div class="item">
-					{? $child->display(); ?}
+					<?php  $child->display(); ?>
 				</div>
-			{? endforeach;?}
+			<?php  endforeach;?>
 			</div>
-			<a class="left carousel-control" href="#{prop id}" data-slide="prev">
+			<a class="left carousel-control" href="#<?php echo @$data->id?>" data-slide="prev">
 				<span class="glyphicon glyphicon-chevron-left"></span>
 			</a>
-			<a class="right carousel-control" href="#{prop id}" data-slide="next">
+			<a class="right carousel-control" href="#<?php echo @$data->id?>" data-slide="next">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 			</a>
 		</div>

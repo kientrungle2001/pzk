@@ -7,7 +7,7 @@
 <div class="prffriend_right">
     <div class="prf_hello">Chào mừng bạn đã ghé thăm góc học tập của tôi</div>
     <div class="prf_clear" style="width: 100%; height: 30px;"></div>
-    <div class="request">Bạn có <a href="/profile/message?message={quanttMess}">{quanttMess}</a> thông báo mới</div>
+    <div class="request">Bạn có <a href="/profile/message?message=<?php echo $quanttMess ?>"><?php echo $quanttMess ?></a> thông báo mới</div>
     <div class="prf_title" style="width:30%;">Ghi chép cá nhân</div>
     <div class="prf_note">
       <?php 
@@ -18,27 +18,27 @@
         //$checkNote= $data->checkNote($member);
         $i=0;
       ?>
-      {each $notes as $note}
+      <?php foreach($notes as $note): ?>
       <?php
         $i++; 
         $countComment=$user_note->countComment($note->getId());
         $date= $user_note->formatDate($note->getDatenote());
        ?>
-     <div id="listnote{note.get('id')}">
+     <div id="listnote<?php echo $note->get('id')?>">
       <div style="float:left;">
         <img src="/default/skin/nobel/ptnn/media/usernote.png" alt="">
       </div>
     <div class="prf_titlenote">
-      <a href="/note/detailnote?member={member}&id={note.get('id')}">{note.gettitlenote()}</a>
+      <a href="/note/detailnote?member=<?php echo $member ?>&id=<?php echo $note->get('id')?>">{note.gettitlenote()}</a>
 
     </div>
-    <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_{data.id}.delNote({note.get('id')});">[Xoá]</a></div>
+    <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_<?php echo @$data->id?>.delNote(<?php echo $note->get('id')?>);">[Xoá]</a></div>
     <div class="prf_clear1">
-      <span class="titel_detail1">Bình luận: {countComment}  |   Vào lúc: {date[1]} Ngày {date[0]} </span>
+      <span class="titel_detail1">Bình luận: <?php echo $countComment ?>  |   Vào lúc: <?php echo @$date['1']?> Ngày <?php echo @$date['0']?> </span>
     </div>
 
       </div>
-      {/each}      
+      <?php endforeach; ?>      
      
     <div class="prf_clear"></div>
       <?php $user_note->checkNote($member,$i); ?>
@@ -55,7 +55,7 @@
     
     <div class="prf_clear" style="width: 100%; height: 50px; margin-bottom: 100px;">
       <textarea id="pr_post_wall" style="border:1px solid #cecece; min-height:110px;width:100%;" required="required" placeholder="Nhập nội dung... " rel="false"></textarea>
-      <input type="button" class="btn btn-primary" onclick="pzk_{data.id}.PostComment('{avatar1}','{usercommId}', '{usercomm}','{member}','{datetime}');" id="prfwrite_wall" name="send" value=" Gửi ">
+      <input type="button" class="btn btn-primary" onclick="pzk_<?php echo @$data->id?>.PostComment('<?php echo $avatar1 ?>','<?php echo $usercommId ?>', '<?php echo $usercomm ?>','<?php echo $member ?>','<?php echo $datetime ?>');" id="prfwrite_wall" name="send" value=" Gửi ">
       
     </div>
     
@@ -66,7 +66,7 @@
       $write_walls=$entt->loadWriteWall($member);
       $i=0;
       ?>
-      {each $write_walls as $write_wall}
+      <?php foreach($write_walls as $write_wall): ?>
       <?php
          $i++;
          $loadUserID = $entt->loadUserID($write_wall['userWrite']);
@@ -74,26 +74,26 @@
          $avatar= $entt->checkAvatar($loadUserID['avatar']);
     ?>
     <div>
-    <div id="listwrite{write_wall[id]}" class="prf_write_wall">
+    <div id="listwrite<?php echo @$write_wall['id']?>" class="prf_write_wall">
       <div class="pfr_avatar_wall">
-        <img src="{avatar}" alt="" width="60" height="60">
+        <img src="<?php echo $avatar ?>" alt="" width="60" height="60">
       </div>
       <div class="prf_titlenote">
-       <a href="/profile/user?member={write_wall[userWrite]}" >{usernameWrite} :</a>
+       <a href="/profile/user?member=<?php echo @$write_wall['userWrite']?>" ><?php echo $usernameWrite ?> :</a>
          
       </div>
       <div class="titel_detail">
-        {write_wall[content]}    
+        <?php echo @$write_wall['content']?>    
        </div>
       <div class="titel_time">   Được viết lúc: 
-        {write_wall[datewrite]}   
+        <?php echo @$write_wall['datewrite']?>   
       </div>
-      <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_{data.id}.delWrite({write_wall[id]});">[Xoá]</a></div>
+      <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_<?php echo @$data->id?>.delWrite(<?php echo @$write_wall['id']?>);">[Xoá]</a></div>
       <div class="prf_clear"> </div>
        
       </div>
     </div>
-    {/each}
+    <?php endforeach; ?>
     
     <?php $check= $entt->checkWall($i,$member); ?>
 

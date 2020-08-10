@@ -15,7 +15,7 @@
 			        	<h4 class="modal-title text-center" id="myModalLabel">Đăng nhập - Đăng ký́</h4>
 			      	</div>
 			      	<div class="modal-body">
-				    	<form id="loginForm" class="login form-horizontal" onsubmit="return pzk_{data.id}.login()" method="post">
+				    	<form id="loginForm" class="login form-horizontal" onsubmit="return pzk_<?php echo @$data->id?>.login()" method="post">
 				    		<div class="form-group margin-top-10">
 				    			<div class="col-xs-2">
 							  		<label class="login-title" for="userlogin">Đăng nhập :</label>
@@ -38,16 +38,16 @@
 							  		<label class="login-title" for="userlogin">Đăng nhập bằng tài khoản:</label>
 							  	</div>
 							  	<div class="col-xs-2 control-group">
-							  		<img width="122px" height="42px" onclick="return pzk_{data.id}.LoginFB()" alt="Đăng nhập bằng tài khoản facebook" src="<?php echo BASE_URL.'/default/skin/test/media/facebook.png'; ?>" data-toggle="tooltip" data-placement="top" title="Đăng nhập bằng tài khoản Facebook">
+							  		<img width="122px" height="42px" onclick="return pzk_<?php echo @$data->id?>.LoginFB()" alt="Đăng nhập bằng tài khoản facebook" src="<?php echo BASE_URL.'/default/skin/test/media/facebook.png'; ?>" data-toggle="tooltip" data-placement="top" title="Đăng nhập bằng tài khoản Facebook">
 							  	</div>
 							  	<div class="col-xs-2 control-group">
-							  		<img width="117px" height="43px" onclick="return pzk_{data.id}.LoginGoogle()" src="<?php echo BASE_URL.'/default/skin/test/media/google.png'; ?>" data-toggle="tooltip" data-placement="top" title="Đăng nhập bằng tài khoản Gmail">
+							  		<img width="117px" height="43px" onclick="return pzk_<?php echo @$data->id?>.LoginGoogle()" src="<?php echo BASE_URL.'/default/skin/test/media/google.png'; ?>" data-toggle="tooltip" data-placement="top" title="Đăng nhập bằng tài khoản Gmail">
 							  	</div>
 							  	
 							</div>
 				    	</form>
 				    	
-				    	<form id="registerForm" class="register form-horizontal margin-top-20" onsubmit="return pzk_{data.id}.register()">
+				    	<form id="registerForm" class="register form-horizontal margin-top-20" onsubmit="return pzk_<?php echo @$data->id?>.register()">
 				    		<div class="form-group margin-top-10">
 				    			<div class="col-xs-2">
 							  		<label class="login-title">Đăng ký :</label>
@@ -127,9 +127,9 @@
 													$areacode=_db()->getEntity('User.Account.User');
 													$areas= $areacode->loadArea();
 												?>
-												{each $areas as $area}
+												<?php foreach($areas as $area): ?>
 												<option value="<?php echo $area['id']; ?>"><?php   echo $area['name']; ?></option>
-												{/each}
+												<?php endforeach; ?>
 											
 											</select>
 							    	
@@ -146,7 +146,7 @@
 							    	</div>
 						    	</div>
 						    	<div class="col-xs-2 margin-top-33">
-						    		<button type="submit" id="registerButton" onclick="return pzk_{data.id}.set_birthday()" class="btn btn-primary">Đăng ký</button>
+						    		<button type="submit" id="registerButton" onclick="return pzk_<?php echo @$data->id?>.set_birthday()" class="btn btn-primary">Đăng ký</button>
 						    	</div>
 						  	</div>
 				    	</form>

@@ -20,7 +20,7 @@
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div>
 	
     <h2 class="text-center robotofont">Danh sách các bài thi</h2>
@@ -29,7 +29,7 @@
 <?php $practice = intval(pzk_request('practice'));?>
  
 <div class="container">
-<a href="/Home/rating?practice={practice}" class="btn btn-primary">Quay lại <span class="glyphicon glyphicon-arrow-left"></span></a>
+<a href="/Home/rating?practice=<?php echo $practice ?>" class="btn btn-primary">Quay lại <span class="glyphicon glyphicon-arrow-left"></span></a>
 <?php
 $UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId'));
 
@@ -59,12 +59,12 @@ if($items) {
             <th>Thời gian làm bài</th>
             <th>Ngày</th>
         </tr>
-        {each $items as $val}
+        <?php foreach($items as $val): ?>
         <tr>
             <td><?php echo $i+$data->pageNum*$pageSize; ?></td>
-            <td>{val[username]}</td>
-            <td>{val[name]}</td>
-            <td>{val[mark]}</td>
+            <td><?php echo @$val['username']?></td>
+            <td><?php echo @$val['name']?></td>
+            <td><?php echo @$val['mark']?></td>
             <?php
             $time = $val['duringTime'];
             $time = secondsToTime($time);
@@ -90,7 +90,7 @@ if($items) {
             <td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:m:i A', strtotime($val['startTime'])); ?></td>
         </tr>
         <?php $i++; ?>
-        {/each}
+        <?php endforeach; ?>
     </table>
     <div class="panel-footer ">
         <form class="form-inline" role="form">
@@ -106,11 +106,11 @@ if($items) {
                                 <?php
                                 if($data->pageNum >= 1) { ?>
                                     <li>
-                                        <a href="{url} /home/listTest/{UserId}?practice={practice}&page=0" aria-label="End">
+                                        <a href="<?php echo BASE_REQUEST ?> /home/listTest/<?php echo $UserId ?>?practice=<?php echo $practice ?>&page=0" aria-label="End">
                                             <span aria-hidden="true">Trang đầu</span>
                                         </a>
                                     <li>
-                                        <a aria-label="Previous" href="{url} /home/listTest/{UserId}?practice={practice}&page=<?php echo $data->pageNum -1; ?>">
+                                        <a aria-label="Previous" href="<?php echo BASE_REQUEST ?> /home/listTest/<?php echo $UserId ?>?practice=<?php echo $practice ?>&page=<?php echo $data->pageNum -1; ?>">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
@@ -127,19 +127,19 @@ if($items) {
                                         $active = '';
                                     }
                                     ?>
-                                    <li class="{active}">
-                                        <a  href="{url} /home/listTest/{UserId}?practice={practice}&page={page}">{? echo ($page + 1)?}</a>
+                                    <li class="<?php echo $active ?>">
+                                        <a  href="<?php echo BASE_REQUEST ?> /home/listTest/<?php echo $UserId ?>?practice=<?php echo $practice ?>&page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
                                     </li>
                                 <?php } ?>
 
                                 <?php if($data->pageNum < $pages-1) { ?>
                                 <li>
-                                    <a href="{url} /home/listTest/{UserId}?practice={practice}&page=<?php echo $data->pageNum + 1; ?>" aria-label="Next">
+                                    <a href="<?php echo BASE_REQUEST ?> /home/listTest/<?php echo $UserId ?>?practice=<?php echo $practice ?>&page=<?php echo $data->pageNum + 1; ?>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                     </li>
                                     <li>
-                                    <a href="{url} /home/listTest/{UserId}?practice={practice}&page=<?php echo $pages-1; ?>" aria-label="end">
+                                    <a href="<?php echo BASE_REQUEST ?> /home/listTest/<?php echo $UserId ?>?practice=<?php echo $practice ?>&page=<?php echo $pages-1; ?>" aria-label="end">
                                         <span aria-hidden="true">Trang cuối</span>
                                     </a>
                                 </li>

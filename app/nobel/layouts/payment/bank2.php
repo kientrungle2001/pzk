@@ -15,120 +15,120 @@
       <span class="txt_bank_title" style="color: green;" > Bước 2. Bạn có thể mua tài khoản theo 2 cách : </span> <br>
       <br>
       <span class="txt_bank_title" > 1. Nộp tiền trực tiếp tại văn phòng </span> <br>
-      <span class="pm_change_detail" style="color: green; font-weight: bold;">({? echo pzk_config('name_office')?})</span>
+      <span class="pm_change_detail" style="color: green; font-weight: bold;">(<?php  echo pzk_config('name_office')?>)</span>
        <br> <br>
 
       <span class="pm_change1">Địa chỉ : </span>
-      <span class="pm_change_detail">{? echo pzk_config('address_office')?}</span>
+      <span class="pm_change_detail"><?php  echo pzk_config('address_office')?></span>
       <br>
 
       <span class="pm_change1">Số điện thoại : </span>
-      <span class="pm_change_detail">{? echo pzk_config('phone_office')?}</span>
+      <span class="pm_change_detail"><?php  echo pzk_config('phone_office')?></span>
       <br>
 
       <span class="pm_change1">Ghi chú : </span>
-      <span class="pm_change_detail">{? echo pzk_config('note_office')?}</span>
+      <span class="pm_change_detail"><?php  echo pzk_config('note_office')?></span>
       <br>
     </div>
     <div class="pm_change">
     <span class="txt_bank_title"> 2. Chuyển khoản ngân hàng</span> <br>
-    <span class="pm_change1" style="color: green;">1. Ngân hàng  {? echo pzk_config('bank_name1')?} </span>
+    <span class="pm_change1" style="color: green;">1. Ngân hàng  <?php  echo pzk_config('bank_name1')?> </span>
     
     <br>
     <span class="pm_change1">Số tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_number1')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_number1')?></span>
     <br>
     <span class="pm_change1">Chủ tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_user1')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_user1')?></span>
     <br>
     <span class="pm_change1">Ngân hàng: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_name1')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_name1')?></span>
     <br>
     <span class="pm_change1">Chi nhánh: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_place1')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_place1')?></span>
     <br>
     <span class="pm_change1">Nội dung: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_content1')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_content1')?></span>
     <br>
     <br>
     
-    <span class="pm_change1" style="color: green;">2. Ngân hàng  {? echo pzk_config('bank_name2')?} </span>
+    <span class="pm_change1" style="color: green;">2. Ngân hàng  <?php  echo pzk_config('bank_name2')?> </span>
     
     <br>
     <span class="pm_change1">Số tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_number2')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_number2')?></span>
     <br>
     <span class="pm_change1">Chủ tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_user2')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_user2')?></span>
     <br>
     <span class="pm_change1">Ngân hàng: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_name2')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_name2')?></span>
     <br>
     <span class="pm_change1">Chi nhánh: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_place2')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_place2')?></span>
     <br>
     <span class="pm_change1">Nội dung: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_content2')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_content2')?></span>
     <br>
     <br>
     
-    <span class="pm_change1" style="color: green;">3. Ngân hàng  {? echo pzk_config('bank_name3')?} </span>
+    <span class="pm_change1" style="color: green;">3. Ngân hàng  <?php  echo pzk_config('bank_name3')?> </span>
     
     <br>
     <span class="pm_change1">Số tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_number3')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_number3')?></span>
     <br>
     <span class="pm_change1">Chủ tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_user3')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_user3')?></span>
     <br>
     <span class="pm_change1">Ngân hàng: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_name3')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_name3')?></span>
     <br>
     <span class="pm_change1">Chi nhánh: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_place3')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_place3')?></span>
     <br>
     <span class="pm_change1">Nội dung: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_content3')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_content3')?></span>
     <br>
     <br>
     
-    <span class="pm_change1" style="color: green;">4. Ngân hàng  {? echo pzk_config('bank_name4')?} </span>
+    <span class="pm_change1" style="color: green;">4. Ngân hàng  <?php  echo pzk_config('bank_name4')?> </span>
     
     <br>
     <span class="pm_change1">Số tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_number4')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_number4')?></span>
     <br>
     <span class="pm_change1">Chủ tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_user4')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_user4')?></span>
     <br>
     <span class="pm_change1">Ngân hàng: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_name4')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_name4')?></span>
     <br>
     <span class="pm_change1">Chi nhánh: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_place4')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_place4')?></span>
     <br>
     <span class="pm_change1">Nội dung: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_content4')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_content4')?></span>
     <br>
     <br>
     
-    <span class="pm_change1" style="color: green;">5. Ngân hàng  {? echo pzk_config('bank_name5')?} </span>
+    <span class="pm_change1" style="color: green;">5. Ngân hàng  <?php  echo pzk_config('bank_name5')?> </span>
     
     <br>
     <span class="pm_change1">Số tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_number5')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_number5')?></span>
     <br>
     <span class="pm_change1">Chủ tài khoản: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_user5')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_user5')?></span>
     <br>
     <span class="pm_change1">Ngân hàng: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_name5')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_name5')?></span>
     <br>
     <span class="pm_change1">Chi nhánh: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_place5')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_place5')?></span>
     <br>
     <span class="pm_change1">Nội dung: </span>
-    <span class="pm_change_detail">{? echo pzk_config('bank_content5')?}</span>
+    <span class="pm_change_detail"><?php  echo pzk_config('bank_content5')?></span>
     <br>
   </div>
   </div>

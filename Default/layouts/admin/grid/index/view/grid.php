@@ -132,10 +132,10 @@ $(function() {
 </script>
 <div class="row">
 	<div id="grid-nav" class="col-sm-2">
-	{children [role=nav]}
+	<?php $data->displayChildren('[role=nav]') ?>
 	</div>
 	
-	<div id="grid-list" class="col-sm-{colSize}">
+	<div id="grid-list" class="col-sm-<?php echo $colSize ?>">
 		<!-- Show data -->
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -145,15 +145,15 @@ $(function() {
 				
 				<a class="btn  btn-xs btn-primary" href="#" onclick="pzk_list.toggleLabel(); return false;" data-toggle="tooltip" data-placement="top" title="Thu gọn nhãn"><span class="glyphicon glyphicon-tasks"></span></a>
 				
-				<b>{ifprop title}{? echo $data->get('title') ?}{else}{? echo $request->get('controller') ?}/{? echo $request->get('action') ?}{/if}</b>
+				<b>{ifprop title}<?php  echo $data->get('title') ?><?php else: ?><?php  echo $request->get('controller') ?>/<?php  echo $request->get('action') ?><?php endif; ?></b>
 				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="#" onclick="pzk_list.verify();" data-toggle="tooltip" data-placement="top" title="Kiểm tra"><span class="glyphicon glyphicon-warning-sign"></span></a>
-				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="{url /Admin}_{? echo $data->get('module') ?}/changeQuickMode" data-toggle="tooltip" data-placement="top" title="Xem Nhanh"><span class="glyphicon glyphicon-list-alt"></span></a>
+				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/changeQuickMode" data-toggle="tooltip" data-placement="top" title="Xem Nhanh"><span class="glyphicon glyphicon-list-alt"></span></a>
 				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="#" onclick="$('#columnDialog').modal('show'); return false;" data-toggle="tooltip" data-placement="top" title="Ẩn / Hiện Cột"><span class="glyphicon glyphicon-th"></span></a>
 				<?php if($data->get('checkAdd')) { ?>
-					<a style="margin-left: 10px;" class="btn  btn-xs btn-primary pull-right" href="{url /Admin}_{? echo $data->get('module') ?}/add"><span class="glyphicon glyphicon-plus"></span> {ifvar normalMode}{? echo $data->get('addLabel') ?}{/if}</a>
+					<a style="margin-left: 10px;" class="btn  btn-xs btn-primary pull-right" href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/add"><span class="glyphicon glyphicon-plus"></span> <?php if(${'normalMode'}): ?><?php  echo $data->get('addLabel') ?><?php endif; ?></a>
 				<?php } ?>
 				<span class="pull-right">
-				{children [role=filter]}
+				<?php $data->displayChildren('[role=filter]') ?>
 				</span>
 				<?php
 				//add more menu link
@@ -161,34 +161,34 @@ $(function() {
 					foreach($data->get('links') as $val) {
 						
 						?>
-							<a target="{val[target]}" style="margin-left: 10px;" class="btn  btn-xs btn-primary pull-right " href="{val[href]}">{val[name]}</a>
+							<a target="<?php echo @$val['target']?>" style="margin-left: 10px;" class="btn  btn-xs btn-primary pull-right " href="<?php echo @$val['href']?>"><?php echo @$val['name']?></a>
 						<?php
 					}
 				}
 				?>
 
 			</div>
-			<table id="admin_table_{? echo $data->get('id') ?}" class="table table-hover table-bordered table-striped table-condensed">
+			<table id="admin_table_<?php  echo $data->get('id') ?>" class="table table-hover table-bordered table-striped table-condensed">
 				<thead class="header">
 				<tr>
 					<th><input type="checkbox" id="selecctall"/></th>
 					<th>#</th>
-					{each $listFieldSettings as $field}
-					{? if ($columnDisplay && !@$columnDisplay[$field['index']]) { continue; }
+					<?php foreach($listFieldSettings as $field): ?>
+					<?php  if ($columnDisplay && !@$columnDisplay[$field['index']]) { continue; }
 					if(@$field['role'] && pzk_session('adminLevel') != @$field['role']) {continue;}
-					?}
+					?>
 					<th>
-					<span title="{field[label]}" class="glyphicon glyphicon-remove-circle column-toogle-{field[index]}" style="cursor: pointer;" onclick="pzk_list.toogleDisplay('{field[index]}');"></span>
-					{? if ($field['type'] == 'ordering') { ?}
-						<span class="glyphicon glyphicon-floppy-disk" style="cursor: pointer;" onclick="pzk_list.saveOrdering('{field[index]}');"></span>
-					{? } ?}
-					<span class="column-header-{field[index]}">
-					{? if ($field['type'] != 'group') { ?}
-					<a href="#" onclick="pzk_list.toggleOrderBy('{field[index]}'); return false;">{field[label]}</a>
-					{? } else { ?}
-						{field[label]}
-					{? } ?}
-					{? if(@$field['filter']) { ?}
+					<span title="<?php echo @$field['label']?>" class="glyphicon glyphicon-remove-circle column-toogle-<?php echo @$field['index']?>" style="cursor: pointer;" onclick="pzk_list.toogleDisplay('<?php echo @$field['index']?>');"></span>
+					<?php  if ($field['type'] == 'ordering') { ?>
+						<span class="glyphicon glyphicon-floppy-disk" style="cursor: pointer;" onclick="pzk_list.saveOrdering('<?php echo @$field['index']?>');"></span>
+					<?php  } ?>
+					<span class="column-header-<?php echo @$field['index']?>">
+					<?php  if ($field['type'] != 'group') { ?>
+					<a href="#" onclick="pzk_list.toggleOrderBy('<?php echo @$field['index']?>'); return false;"><?php echo @$field['label']?></a>
+					<?php  } else { ?>
+						<?php echo @$field['label']?>
+					<?php  } ?>
+					<?php  if(@$field['filter']) { ?>
 					<?php 
 						$filterField = @$field['filter'];
 						$filterFieldObj = pzk_obj ( 'Core.Db.Grid.Edit.' . ucfirst($filterField ['type']));
@@ -200,14 +200,14 @@ $(function() {
 						$filterFieldObj->set ('value', $value );
 						$filterFieldObj->display ();
 					?>
-					{? } ?}
+					<?php  } ?>
 					</span>
-					&nbsp;<span class="column-sorter-{field[index]} glyphicon glyphicon-chevron-up" style="cursor: pointer;"></span>
+					&nbsp;<span class="column-sorter-<?php echo @$field['index']?> glyphicon glyphicon-chevron-up" style="cursor: pointer;"></span>
 					</th>
-					{/each}
-					{ifvar normalMode}
+					<?php endforeach; ?>
+					<?php if(${'normalMode'}): ?>
 					<th>Hành động</th>
-					{/if}
+					<?php endif; ?>
 				</tr>
 				</thead>
 				<tbody>
@@ -215,7 +215,7 @@ $(function() {
 					<td colspan="<?php echo (3 + count($listFieldSettings))?>">
 					
 					<form class="form-inline">
-					{ifvar normalMode}<strong>Số mục: </strong>{/if}
+					<?php if(${'normalMode'}): ?><strong>Số mục: </strong><?php endif; ?>
 					<select name="pageSize" class="form-control input-sm pageSize" onchange="pzk_list.changePageSize(this.value);">
 						<option value="10">10</option>
 						<option value="20">20</option>
@@ -227,29 +227,29 @@ $(function() {
 						<option value="1000">1000</option>
 					  </select>
 					  <script type="text/javascript">
-						$('#pageSize').val('{pageSize}');
+						$('#pageSize').val('<?php echo $pageSize ?>');
 					  </script>
 					
-					{ifvar normalMode}<strong>Trang: </strong>{/if}
+					<?php if(${'normalMode'}): ?><strong>Trang: </strong><?php endif; ?>
 					<?php for ($page = 0; $page < $pages; $page++) {
 						if($pages > 10 && ($page < $data->pageNum - 5 || $page > $data->pageNum + 5) && $page != 0 && $page != $pages-1)
 							continue;
 						if($page == $data->pageNum) { $btn = 'btn-primary'; }
 						else { $btn = 'btn-default'; }
 					?>
-					<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+					<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 					<?php } ?>
-					{ifvar normalMode}(<?php echo $countItems. ' bản ghi'; ?>){/if}{ifvar quickMode}<?php echo $countItems . ' rows'; ?>{/if}
+					<?php if(${'normalMode'}): ?>(<?php echo $countItems. ' bản ghi'; ?>)<?php endif; ?><?php if(${'quickMode'}): ?><?php echo $countItems . ' rows'; ?><?php endif; ?>
 					<?php if(count($actions)): ?>
 					<div style="float:right;">
 					<strong>Hành động: </strong>
 				  <select id="gridAction" name="action" class="form-control input-sm">
 						<option selected="selected" value="">Thao tác</option>
-						{each $actions as $action}
-							<option value="{action[value]}">{action[label]}</option>
-						{/each}
+						<?php foreach($actions as $action): ?>
+							<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
+						<?php endforeach; ?>
 					</select>
-					<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_{? echo $data->get('id') ?}.performAction()" >
+					<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php  echo $data->get('id') ?>.performAction()" >
 						<span class="glyphicon glyphicon-execute"></span> Thực hiện
 					</div>
 					</div>
@@ -258,23 +258,23 @@ $(function() {
 					</td>
 				</tr>
 				<?php if($items) {  ?>
-				{each $items as $item}
+				<?php foreach($items as $item): ?>
 
-				<tr id="row-{item[id]}" class="row-item row-item-{item[id]} row-parent-{item[parent]}" rel="{item[id]}">
-					<td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="{item[id]}" /></td>
+				<tr id="row-<?php echo @$item['id']?>" class="row-item row-item-<?php echo @$item['id']?> row-parent-<?php echo @$item['parent']?>" rel="<?php echo @$item['id']?>">
+					<td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="<?php echo @$item['id']?>" /></td>
 					<td style="white-space: nowrap;">
 					<?php if($listSettingType == 'parent'):?>
-					<a class="row-toggle-btn" id="row-toggle-btn-{item[id]}" rel="{item[id]}" data-expansionDisplay="1" href="#" onclick="pzk_list.toggleRow({item[id]}); event.stopPropagation(); return false;"><span class="glyphicon glyphicon-folder-open"></span></a><?php endif; ?> {item[id]} | 
-					{ifvar normalMode}
-					<?php if($data->get('checkEdit')) { ?><a href="{url /Admin}_{? echo $data->get('module') ?}/edit/{item[id]}" class="text-center"><span class="glyphicon glyphicon-edit"></span></a><?php } ?>
-					{/if}
+					<a class="row-toggle-btn" id="row-toggle-btn-<?php echo @$item['id']?>" rel="<?php echo @$item['id']?>" data-expansionDisplay="1" href="#" onclick="pzk_list.toggleRow(<?php echo @$item['id']?>); event.stopPropagation(); return false;"><span class="glyphicon glyphicon-folder-open"></span></a><?php endif; ?> <?php echo @$item['id']?> | 
+					<?php if(${'normalMode'}): ?>
+					<?php if($data->get('checkEdit')) { ?><a href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/edit/<?php echo @$item['id']?>" class="text-center"><span class="glyphicon glyphicon-edit"></span></a><?php } ?>
+					<?php endif; ?>
 					</td>
-					{? $isOrderingField = false; ?}
-					{each $listFieldSettings as $field}
-					{? if ($columnDisplay && !@$columnDisplay[$field['index']]) { continue; }
+					<?php  $isOrderingField = false; ?>
+					<?php foreach($listFieldSettings as $field): ?>
+					<?php  if ($columnDisplay && !@$columnDisplay[$field['index']]) { continue; }
 					if(@$field['role'] && pzk_session('adminLevel') != @$field['role']) {continue;}
-					?}
-					{?
+					?>
+					<?php 
 						$fieldObj = pzk_obj('Core.Db.Grid.Field.' . ucfirst($field['type']));
 						foreach($field as $key => $val) {
 							$fieldObj->set($key, $val);
@@ -289,22 +289,22 @@ $(function() {
 						}
 						$fieldObj->set('row', $item);
 						$fieldObj->set('value', @$item[$field['index']]);
-					?}
-				<td <?php if($isOrderingField): ?>style="white-space: nowrap;"<?php endif; ?>><span class="column-{field[index]}">{? $fieldObj->display(); ?}</span>{? if($fieldObj->get('link')): ?} <a href="{? echo $fieldObj->get('link')?}{? echo $fieldObj->get('itemId') ?}"><span class="glyphicon glyphicon-link"></span></a>{? endif;?}</td>
-					{/each}
-					{ifvar normalMode}
-					<td style="white-space: nowrap"><?php if($data->get('checkEdit')) { ?><a href="{url /Admin}_{? echo $data->get('module') ?}/edit/{item[id]}" class="text-center"><span class="glyphicon glyphicon-edit"></span></a><?php } ?>
-					<?php if($data->get('checkDialog')) { ?><a href="#" onclick="pzk_list.dialog({item[id]}); return false;"><span class="glyphicon glyphicon-info-sign"></span></a><?php } ?>
-					<?php if($data->get('checkDel')) { ?><a class="color_delete text-center" href="{url /Admin}_{? echo $data->get('module') ?}/del/{item[id]}"><span class="glyphicon glyphicon-remove"></span><?php } ?>
+					?>
+				<td <?php if($isOrderingField): ?>style="white-space: nowrap;"<?php endif; ?>><span class="column-<?php echo @$field['index']?>"><?php  $fieldObj->display(); ?></span><?php  if($fieldObj->get('link')): ?> <a href="<?php  echo $fieldObj->get('link')?><?php  echo $fieldObj->get('itemId') ?>"><span class="glyphicon glyphicon-link"></span></a><?php  endif;?></td>
+					<?php endforeach; ?>
+					<?php if(${'normalMode'}): ?>
+					<td style="white-space: nowrap"><?php if($data->get('checkEdit')) { ?><a href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/edit/<?php echo @$item['id']?>" class="text-center"><span class="glyphicon glyphicon-edit"></span></a><?php } ?>
+					<?php if($data->get('checkDialog')) { ?><a href="#" onclick="pzk_list.dialog(<?php echo @$item['id']?>); return false;"><span class="glyphicon glyphicon-info-sign"></span></a><?php } ?>
+					<?php if($data->get('checkDel')) { ?><a class="color_delete text-center" href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/del/<?php echo @$item['id']?>"><span class="glyphicon glyphicon-remove"></span><?php } ?>
 					</td>
-					{/if}
+					<?php endif; ?>
 				</tr>
-				{/each}
+				<?php endforeach; ?>
 				<?php } ?>
 				<tr>
 					<td colspan="<?php echo (3 + count($listFieldSettings))?>">
 					<form class="form-inline">
-					{ifvar normalMode}<strong>Số mục: </strong>{/if}
+					<?php if(${'normalMode'}): ?><strong>Số mục: </strong><?php endif; ?>
 					<select name="pageSize" class="pageSize form-control input-sm" onchange="pzk_list.changePageSize(this.value);">
 						<option value="10">10</option>
 						<option value="20">20</option>
@@ -316,28 +316,28 @@ $(function() {
 						<option value="1000">1000</option>
 					  </select>
 					  <script type="text/javascript">
-						$('.pageSize').val('{pageSize}');
+						$('.pageSize').val('<?php echo $pageSize ?>');
 					  </script>
 
-					{ifvar normalMode}<strong>Trang: </strong>{/if}
+					<?php if(${'normalMode'}): ?><strong>Trang: </strong><?php endif; ?>
 					<?php for ($page = 0; $page < $pages; $page++) {
 						if($pages > 10 && ($page < $data->pageNum - 5 || $page > $data->pageNum + 5) && $page != 0 && $page != $pages-1)
 							continue;
 						if($page == $data->pageNum) { $btn = 'btn-primary'; }
 						else { $btn = 'btn-default'; }
 					?>
-					<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+					<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 					<?php } ?>
 					<?php if(count($actions)): ?>
 					<div style="float:right;">
 					<strong>Hành động: </strong>
 				  <select id="gridAction" name="action" class="form-control input-sm">
 						<option selected="selected" value="">Thao tác</option>
-						{each $actions as $action}
-							<option value="{action[value]}">{action[label]}</option>
-						{/each}
+						<?php foreach($actions as $action): ?>
+							<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
+						<?php endforeach; ?>
 					</select>
-					<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_{? echo $data->get('id') ?}.performAction()" >
+					<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php  echo $data->get('id') ?>.performAction()" >
 						<span class="glyphicon glyphicon-execute"></span> Thực hiện
 					</div>
 					</div>
@@ -351,25 +351,25 @@ $(function() {
 			<div class="panel-footer item">
 				<?php if($data->get('checkDel')) { ?>
 				<div  id="griddelete" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" >
-					<span class="glyphicon glyphicon-remove"></span>{ifvar normalMode} Xóa tất{/if}
+					<span class="glyphicon glyphicon-remove"></span><?php if(${'normalMode'}): ?> Xóa tất<?php endif; ?>
 				</div>
 				<?php } ?>
 				<?php if($data->get('checkAdd')) { ?>
-				<a class="btn  btn-sm btn-primary pull-right" href="{url /Admin}_{? echo $data->get('module') ?}/add"><span class="glyphicon glyphicon-plus"></span> {ifvar normalMode}{? echo $data->get('addLabel') ?}{/if}</a>
+				<a class="btn  btn-sm btn-primary pull-right" href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/add"><span class="glyphicon glyphicon-plus"></span> <?php if(${'normalMode'}): ?><?php  echo $data->get('addLabel') ?><?php endif; ?></a>
 				<?php } ?>
 				<div>
-				{children [role=export]}
+				<?php $data->displayChildren('[role=export]') ?>
 				</div>
 
 
 			</div>
 		</div>
 	</div>
-	{ifvar quickMode}
+	<?php if(${'quickMode'}): ?>
 	<div id="grid-detail" class="col-sm-8">
 		
 	</div>
-	{/if}
+	<?php endif; ?>
 </div>
 
 	
@@ -400,21 +400,21 @@ $(function() {
         <h4 class="modal-title">Ẩn hiện các cột</h4>
       </div>
       <div class="modal-body">
-		<form method="post" action="/Admin_{? echo $data->get('module') ?}/columnDisplay">
+		<form method="post" action="/Admin_<?php  echo $data->get('module') ?>/columnDisplay">
 		  <div class="form-group row">
 		  
-		  {each $listFieldSettings as $field}
-			  {? 
+		  <?php foreach($listFieldSettings as $field): ?>
+			  <?php  
 			  $checked = 'checked';
 			  if ($columnDisplay && !@$columnDisplay[$field['index']]) { $checked = ''; }
 			  if(@$field['role'] && pzk_session('adminLevel') != @$field['role']) {continue;}
-			  ?}
+			  ?>
 			<div class="col-sm-12">
 				<label>
-				  <input {checked} name="columnDisplay[{field[index]}]" value="1" type="checkbox"> {field[label]}
+				  <input <?php echo $checked ?> name="columnDisplay[<?php echo @$field['index']?>]" value="1" type="checkbox"> <?php echo @$field['label']?>
 				</label>
 			</div>
-		  {/each}
+		  <?php endforeach; ?>
 		  </div>
 		  <button type="submit" class="btn btn-default">Submit</button>
 			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -431,7 +431,7 @@ $(function() {
 <tr>
 		<td colspan="<?php echo (3 + count($listFieldSettings))?>">
 		<form class="form-inline" role="form">
-		{ifvar normalMode}<strong>Số mục: </strong>{/if}
+		<?php if(${'normalMode'}): ?><strong>Số mục: </strong><?php endif; ?>
 		<select name="pageSize" class="pageSize form-control input-sm" onchange="pzk_list.changePageSize(this.value);">
 			<option value="10">10</option>
 			<option value="20">20</option>
@@ -441,26 +441,26 @@ $(function() {
 			<option value="200">200</option>
 		  </select>
 
-		{ifvar normalMode}<strong>Trang: </strong>{/if}
+		<?php if(${'normalMode'}): ?><strong>Trang: </strong><?php endif; ?>
 		<?php for ($page = 0; $page < $pages; $page++) {
 			if($pages > 10 && ($page < $data->pageNum - 5 || $page > $data->pageNum + 5) && $page != 0 && $page != $pages-1)
 				continue;
 			if($page == $data->pageNum) { $btn = 'btn-primary'; }
 			else { $btn = 'btn-default'; }
 		?>
-		<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+		<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 		<?php } ?>
-		{ifvar normalMode}(<?php echo $countItems. ' bản ghi'; ?>){/if}{ifvar quickMode}<?php echo $countItems . ' rows'; ?>{/if}
+		<?php if(${'normalMode'}): ?>(<?php echo $countItems. ' bản ghi'; ?>)<?php endif; ?><?php if(${'quickMode'}): ?><?php echo $countItems . ' rows'; ?><?php endif; ?>
 		<?php if(count($actions)): ?>
 		<div style="float:right;">
 		<strong>Hành động: </strong>
 	  <select id="gridAction" name="action" class="form-control input-sm">
 			<option selected="selected" value="">Thao tác</option>
-			{each $actions as $action}
-				<option value="{action[value]}">{action[label]}</option>
-			{/each}
+			<?php foreach($actions as $action): ?>
+				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
+			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_{? echo $data->get('id') ?}.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php  echo $data->get('id') ?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>
@@ -469,21 +469,21 @@ $(function() {
 		</td>
 	</tr>
     <?php if($items) {  ?>
-	{each $items as $item}
+	<?php foreach($items as $item): ?>
 
-	<tr id="row-{item[id]}" class="row-item row-item-{item[id]} row-parent-{item[parent]}" rel="{item[id]}">
-		<td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="{item[id]}" /></td>
-        <td style="white-space: nowrap;"><?php if($listSettingType == 'parent'):?><a class="row-toggle-btn" id="row-toggle-btn-{item[id]}" rel="{item[id]}" data-expansionDisplay="1" href="#" onclick="pzk_list.toggleRow({item[id]}); event.stopPropagation(); return false;"><span class="glyphicon glyphicon-folder-open"></span></a><?php endif;?> {item[id]} 
-		{ifvar normalMode}
-		<?php if($data->get('checkEdit')) { ?><a href="{url /Admin}_{? echo $data->get('module') ?}/edit/{item[id]}" class="text-center"><span class="glyphicon glyphicon-edit"></span></a><?php } ?>
-		{/if}
+	<tr id="row-<?php echo @$item['id']?>" class="row-item row-item-<?php echo @$item['id']?> row-parent-<?php echo @$item['parent']?>" rel="<?php echo @$item['id']?>">
+		<td><input class="grid_checkbox" type="checkbox" name="grid_check[]" value="<?php echo @$item['id']?>" /></td>
+        <td style="white-space: nowrap;"><?php if($listSettingType == 'parent'):?><a class="row-toggle-btn" id="row-toggle-btn-<?php echo @$item['id']?>" rel="<?php echo @$item['id']?>" data-expansionDisplay="1" href="#" onclick="pzk_list.toggleRow(<?php echo @$item['id']?>); event.stopPropagation(); return false;"><span class="glyphicon glyphicon-folder-open"></span></a><?php endif;?> <?php echo @$item['id']?> 
+		<?php if(${'normalMode'}): ?>
+		<?php if($data->get('checkEdit')) { ?><a href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/edit/<?php echo @$item['id']?>" class="text-center"><span class="glyphicon glyphicon-edit"></span></a><?php } ?>
+		<?php endif; ?>
 		</td>
-		{? $isOrderingField = false; ?}
-		{each $listFieldSettings as $field}
-		{? if ($columnDisplay && !@$columnDisplay[$field['index']]) { continue; }
+		<?php  $isOrderingField = false; ?>
+		<?php foreach($listFieldSettings as $field): ?>
+		<?php  if ($columnDisplay && !@$columnDisplay[$field['index']]) { continue; }
 		if(@$field['role'] && pzk_session('adminLevel') != @$field['role']) {continue;}
-		?}
-		{?
+		?>
+		<?php 
 			$fieldObj = pzk_obj('Core.Db.Grid.Field.' . ucfirst($field['type']));
 			foreach($field as $key => $val) {
 				$fieldObj->set($key, $val);
@@ -498,30 +498,30 @@ $(function() {
 			}
 			$fieldObj->set('row', $item);
 			$fieldObj->set('value', @$item[$field['index']]);
-		?}
-			<td <?php if($isOrderingField): ?>style="white-space: nowrap;"<?php endif; ?>><span class="column-{field[index]}">{? $fieldObj->display(); ?}</span>{? if($fieldObj->get('link')): ?} <a href="{? echo $fieldObj->get('link')?}{? echo $fieldObj->get('itemId')?}"><span class="glyphicon glyphicon-link"></span></a>{? endif;?}</td>
-		{/each}
-		{ifvar normalMode}
+		?>
+			<td <?php if($isOrderingField): ?>style="white-space: nowrap;"<?php endif; ?>><span class="column-<?php echo @$field['index']?>"><?php  $fieldObj->display(); ?></span><?php  if($fieldObj->get('link')): ?> <a href="<?php  echo $fieldObj->get('link')?><?php  echo $fieldObj->get('itemId')?>"><span class="glyphicon glyphicon-link"></span></a><?php  endif;?></td>
+		<?php endforeach; ?>
+		<?php if(${'normalMode'}): ?>
 		<td style="white-space: nowrap">
 		<?php if($data->get('checkEdit')) { ?>
-			<a href="{url /Admin}_{? echo $data->get('module') ?}/edit/{item[id]}" class="text-center"><span class="glyphicon glyphicon-edit"></span></a>
+			<a href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/edit/<?php echo @$item['id']?>" class="text-center"><span class="glyphicon glyphicon-edit"></span></a>
 			<?php } ?>
 			<?php if($data->get('checkDialog')) { ?>
-			<a href="#" onclick="pzk_list.dialog({item[id]}); return false;"><span class="glyphicon glyphicon-info-sign"></span></a>
+			<a href="#" onclick="pzk_list.dialog(<?php echo @$item['id']?>); return false;"><span class="glyphicon glyphicon-info-sign"></span></a>
 			<?php } ?>
 			<?php if($data->get('checkDel')) { ?>
-			<a class="color_delete text-center" href="{url /Admin}_{? echo $data->get('module') ?}/del/{item[id]}"><span class="glyphicon glyphicon-remove"></span>
+			<a class="color_delete text-center" href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/del/<?php echo @$item['id']?>"><span class="glyphicon glyphicon-remove"></span>
 			<?php } ?>
 			</td>
-		{/if}
+		<?php endif; ?>
 		
 	</tr>
-	{/each}
+	<?php endforeach; ?>
     <?php } ?>
 	<tr>
 		<td colspan="<?php echo (3 + count($listFieldSettings))?>">
 		<form class="form-inline" role="form">
-		{ifvar normalMode}<strong>Số mục: </strong>{/if}
+		<?php if(${'normalMode'}): ?><strong>Số mục: </strong><?php endif; ?>
 		<select name="pageSize" class="pageSize form-control input-sm" onchange="pzk_list.changePageSize(this.value);">
 			<option value="10">10</option>
 			<option value="20">20</option>
@@ -531,28 +531,28 @@ $(function() {
 			<option value="200">200</option>
 		  </select>
 		  <script type="text/javascript">
-			$('.pageSize').val('{pageSize}');
+			$('.pageSize').val('<?php echo $pageSize ?>');
 		  </script>
 
-		{ifvar normalMode}<strong>Trang: </strong>{/if}
+		<?php if(${'normalMode'}): ?><strong>Trang: </strong><?php endif; ?>
 		<?php for ($page = 0; $page < $pages; $page++) {
 			if($pages > 10 && ($page < $data->pageNum - 5 || $page > $data->pageNum + 5) && $page != 0 && $page != $pages-1)
 				continue;
 			if($page == $data->pageNum) { $btn = 'btn-primary'; }
 			else { $btn = 'btn-default'; }
 		?>
-		<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+		<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 		<?php } ?>
 		<?php if(count($actions)): ?>
 		<div style="float:right;">
 		<strong>Hành động: </strong>
 	  <select id="gridAction" name="action" class="form-control input-sm">
 			<option selected="selected" value="">Thao tác</option>
-			{each $actions as $action}
-				<option value="{action[value]}">{action[label]}</option>
-			{/each}
+			<?php foreach($actions as $action): ?>
+				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
+			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_{? echo $data->get('id') ?}.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php  echo $data->get('id') ?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>

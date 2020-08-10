@@ -42,18 +42,18 @@ $setEditTabs = $controller->getEditFieldSettingTabs();
 <div class="panel panel-default">
 <div class="panel-heading">
     <b><?php echo pzk_or($controller->editLabel, 'Cập nhật'); ?></b>
-	<a class="btn  btn-xs btn-primary pull-right" href="{url /admin}_{controller.module}/index"><span class="glyphicon glyphicon-list"></span> Quay lại</a>
+	<a class="btn  btn-xs btn-primary pull-right" href="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/index"><span class="glyphicon glyphicon-list"></span> Quay lại</a>
 </div>
 <div class="panel-body borderadmin">
-<form role="form" method="post" enctype="multipart/form-data"  action="{url /admin}_{controller.module}/editPost">
-  <input type="hidden" name="id" value="{item[id]}" />
+<form role="form" method="post" enctype="multipart/form-data"  action="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/editPost">
+  <input type="hidden" name="id" value="<?php echo @$item['id']?>" />
    <?php if($setEditTabs) { ?>
        <div class="form-group clearfix">
            <ul class="nav nav-tabs" role="tablist" id="myTab">
                <?php
                $i=1;
                foreach($setEditTabs as $val) { ?>
-                   <li role="presentation" <?php if($i == 1) { echo "class='active'"; }?> ><a href="#{val[name]}" aria-controls="{val[name]}" role="tab" data-toggle="tab">{val[name]}</a></li>
+                   <li role="presentation" <?php if($i == 1) { echo "class='active'"; }?> ><a href="#<?php echo @$val['name']?>" aria-controls="<?php echo @$val['name']?>" role="tab" data-toggle="tab"><?php echo @$val['name']?></a></li>
                    <?php $i++; } ?>
 
            </ul>
@@ -62,9 +62,9 @@ $setEditTabs = $controller->getEditFieldSettingTabs();
                <?php
                $i=1;
                foreach($setEditTabs as $val) { ?>
-                   <div role="tabpanel" class="tab-pane <?php if($i == 1) { echo "active"; }?>" id="{val[name]}">
+                   <div role="tabpanel" class="tab-pane <?php if($i == 1) { echo "active"; }?>" id="<?php echo @$val['name']?>">
                        <?php foreach($val['listFields'] as $field ) { ?>
-{?
+<?php 
 		    if ($field['type'] == 'text' || $field['type'] == 'date' || $field['type'] == 'email' || $field['type'] == 'password') {
 		    	$fieldObj = pzk_obj('Core.Db.Grid.Edit.Input'); 
 		    } else {
@@ -76,7 +76,7 @@ $setEditTabs = $controller->getEditFieldSettingTabs();
 			}
 			$fieldObj->setValue(@$row[$field['index']]); 
 			$fieldObj->display();
-	?}
+	?>
                        <?php } ?>
                    </div>
                    <?php $i++; } ?>
@@ -87,8 +87,8 @@ $setEditTabs = $controller->getEditFieldSettingTabs();
        </div>
     <?php }else { ?>
 
-  {each $editFieldSettings as $field}
-  {?
+  <?php foreach($editFieldSettings as $field): ?>
+  <?php 
 		    if ($field['type'] == 'text' || $field['type'] == 'date' || $field['type'] == 'email' || $field['type'] == 'password') {
 		    	$fieldObj = pzk_obj('Core.Db.Grid.Edit.Input'); 
 		    } else {
@@ -100,15 +100,15 @@ $setEditTabs = $controller->getEditFieldSettingTabs();
 			}
 			$fieldObj->setValue(@$row[$field['index']]); 
 			$fieldObj->display();
-	?}
-  {/each}
+	?>
+  <?php endforeach; ?>
 
   <?php } ?>
 
   <button type="submit" name="<?= BTN_EDIT_AND_CLOSE?>" value="1" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> Sửa</button>
   <button type="submit" name="<?= BTN_EDIT_AND_CONTINUE?>" value="1" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> Sửa và tiếp tục</button>
   <button type="submit" name="<?= BTN_EDIT_AND_DETAIL?>" value="1" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> Sửa và xem chi tiết</button>
-  <a class="btn btn-default" href="{url /admin}_{controller.module}/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
+  <a class="btn btn-default" href="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
 </form>
 </div>
 </div>

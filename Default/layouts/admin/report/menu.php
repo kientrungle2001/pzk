@@ -9,6 +9,6 @@ $setting = pzk_controller();
         <div class="panel-heading"><b>Menu</b></div>
     </div>
 
-    <a class="list-group-item <?php if($action =='index') { echo 'active'; } ?>" href="{url /}{controller}/index">Danh sách</a>
+    <a class="list-group-item <?php if($action =='index') { echo 'active'; } ?>" href="<?php echo BASE_REQUEST . '/' ?><?php echo $controller ?>/index">Danh sách</a>
 
 </div>

@@ -72,6 +72,6 @@
 			alert('Bạn phải đăng nhập mới được nạp thẻ');
 			return false;
 		}
-		pzk_{data.id}.postCard();
+		pzk_<?php echo @$data->id?>.postCard();
 	}
 </script>

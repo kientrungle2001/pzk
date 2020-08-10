@@ -92,22 +92,22 @@ $.fn.fixedHeader = function (options) {
 	<thead class="header">
 	<tr>
 		<th>Danh mục</th>
-		{each $roles as $role}
-		<th>{role[level]}</th>
-		{/each}
+		<?php foreach($roles as $role): ?>
+		<th><?php echo @$role['level']?></th>
+		<?php endforeach; ?>
 	</tr>
 	</thead>
 	
 	<tbody>
-	{each $menus as $menu}
-	{?	$tabs = rtrim(str_repeat($tab, $menu['level']), '&nbsp;'); ?}
+	<?php foreach($menus as $menu): ?>
+	<?php 	$tabs = rtrim(str_repeat($tab, $menu['level']), '&nbsp;'); ?>
 		<tr>
-			<td>{tabs}__{menu[name]}</td>
-			{each $roles as $role}
+			<td><?php echo $tabs ?>__<?php echo @$menu['name']?></td>
+			<?php foreach($roles as $role): ?>
 			
 			<td>
-			{? if(strpos($menu['admin_controller'], '0_') === false): ?}
-			{each $privileges as $priv} 
+			<?php  if(strpos($menu['admin_controller'], '0_') === false): ?>
+			<?php foreach($privileges as $priv): ?> 
 			<?php 
 			$hasRole = @$hasRoles[$priv][$menu['admin_controller']][$role['level']];
 			if($hasRole) {
@@ -116,8 +116,8 @@ $.fn.fixedHeader = function (options) {
 				$style	='';
 			}
 			?>
-			<span id="priv-{priv}-{menu[admin_controller]}-{role[level]}" class="glyphicon glyphicon-{? echo $icons[$priv]?}" style="{style}" title="{priv}" onclick="privilege_toggle('{priv}','{menu[admin_controller]}', '{role[level]}');" ></span> {/each}
-			{else}
+			<span id="priv-<?php echo $priv ?>-<?php echo @$menu['admin_controller']?>-<?php echo @$role['level']?>" class="glyphicon glyphicon-<?php  echo $icons[$priv]?>" style="<?php echo $style ?>" title="<?php echo $priv ?>" onclick="privilege_toggle('<?php echo $priv ?>','<?php echo @$menu['admin_controller']?>', '<?php echo @$role['level']?>');" ></span> <?php endforeach; ?>
+			<?php else: ?>
 			<?php 
 			$hasRole = @$hasRoles['index'][$menu['admin_controller']][$role['level']];
 			if($hasRole) {
@@ -126,12 +126,12 @@ $.fn.fixedHeader = function (options) {
 				$style	='';
 			}
 			?>
-			<span id="priv-index-{menu[admin_controller]}-{role[level]}" class="priv-index glyphicon glyphicon-{? echo $icons['index']?}" style="{style}" title="index" onclick="privilege_toggle('index','{menu[admin_controller]}', '{role[level]}');" ></span>
-			{/if}
+			<span id="priv-index-<?php echo @$menu['admin_controller']?>-<?php echo @$role['level']?>" class="priv-index glyphicon glyphicon-<?php  echo $icons['index']?>" style="<?php echo $style ?>" title="index" onclick="privilege_toggle('index','<?php echo @$menu['admin_controller']?>', '<?php echo @$role['level']?>');" ></span>
+			<?php endif; ?>
 			</td>
-			{/each}
+			<?php endforeach; ?>
 		</tr>
-	{/each}
+	<?php endforeach; ?>
 	</tbody>
 	</table>
 </div>

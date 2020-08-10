@@ -4,7 +4,7 @@ $categories = buildArr($categories,'parent',0);
 $tests = _db()->select('*')->from('tests')->result();
 
 ?>
-<form id="questionsAddForm" role="form" method="post" action="{url /admin_questions/addPost}">
+<form id="questionsAddForm" role="form" method="post" action="<?php echo BASE_REQUEST . '/admin_questions/addPost' ?>">
   	<input type="hidden" name="id" value="" />
   	<div class="form-group col-xs-12">
 	  	<div class="col-xs-2">
@@ -29,7 +29,7 @@ $tests = _db()->select('*')->from('tests')->result();
             <label for="level">Mức độ câu hỏi</label>
         </div>
         <div class="col-xs-10">
-            <select class="form-control" id="level" name="level" placeholder="Loại" value="{item[level]}">
+            <select class="form-control" id="level" name="level" placeholder="Loại" value="<?php echo @$item['level']?>">
                 <option value="">-- Chọn mức độ câu hỏi --</option>
                 <option value="<?=EASY;?>">Dễ</option>
                 <option value="<?=NORMAL?>">Bình thường</option>
@@ -75,15 +75,15 @@ $tests = _db()->select('*')->from('tests')->result();
 	    	<label for="categoryIds">Danh mục</label>
 	    </div>
 	    <div class="col-xs-10">
-		    <select multiple="multiple" class="form-control" id="categoryIds" name="categoryIds[]" placeholder="Danh mục" value="{item[categoryIds]}" style="height: 300px">
-			{each $categories as $cat}
+		    <select multiple="multiple" class="form-control" id="categoryIds" name="categoryIds[]" placeholder="Danh mục" value="<?php echo @$item['categoryIds']?>" style="height: 300px">
+			<?php foreach($categories as $cat): ?>
 			<?php 
 			$tab = '&nbsp;&nbsp;&nbsp;&nbsp;';	
 			$tabs = str_repeat($tab, $cat['level']);
 			$catName = $tabs.$cat['name'];
 			?>
-			<option value="{cat[id]}">{catName}</option>
-			{/each}
+			<option value="<?php echo @$cat['id']?>"><?php echo $catName ?></option>
+			<?php endforeach; ?>
 			</select>
 		</div>
   	</div>
@@ -94,9 +94,9 @@ $tests = _db()->select('*')->from('tests')->result();
         </div>
         <div class="col-xs-10">
             <select multiple class="form-control" id="testId" name="testId[]" placeholder="Đề thi" >
-                {each $tests as $val}
-                <option value="{val[id]}">{val[name]}</option>
-                {/each}
+                <?php foreach($tests as $val): ?>
+                <option value="<?php echo @$val['id']?>"><?php echo @$val['name']?></option>
+                <?php endforeach; ?>
             </select>
         </div>
     </div>
@@ -104,7 +104,7 @@ $tests = _db()->select('*')->from('tests')->result();
   	<div class="col-xs-12">
   		<div class="col-xs-4 col-xs-offset-2">
 		  	<button type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-save"></span> Cập nhật</button>
-		  	<a class="btn btn-default" href="{url /admin_questions/index}">Quay lại</a>
+		  	<a class="btn btn-default" href="<?php echo BASE_REQUEST . '/admin_questions/index' ?>">Quay lại</a>
 		</div>
   	</div>
 </form>
@@ -112,7 +112,7 @@ $tests = _db()->select('*')->from('tests')->result();
 $addValidator = json_encode(pzk_controller()->addValidator);
 ?>
 <script>
-	$('#questionsAddForm').validate({addValidator});
+	$('#questionsAddForm').validate(<?php echo $addValidator ?>);
     <?php if(pzk_request()->getSoftwareId() == 1) { ?>
         setTinymce(2);
     <?php } else { ?>

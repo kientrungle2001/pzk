@@ -36,7 +36,7 @@ $login = pzk_session('userId');
     						<img style="width:20px; height:20px;" src="<?=BASE_SKIN_URL?>/Themes/Songngu/skin/media/vn.png" title="Việt Nam"/><span class="hidden-xs"><strong> <?php echo $language['vn'];?></strong></span>
     					</div></a>
     					<a href="#" onclick="select_ev(); return false;"><div class="col-md-4 col-sm-4 col-xs-4 top10">
-    						<img style="width:20px; height:20px;" src="<?=BASE_SKIN_URL?>/Themes/Songngu/skin/media/ev.png" title="Song Ngữ"/><span class="hidden-xs"><strong> {language[ev]}</strong></span>
+    						<img style="width:20px; height:20px;" src="<?=BASE_SKIN_URL?>/Themes/Songngu/skin/media/ev.png" title="Song Ngữ"/><span class="hidden-xs"><strong> <?php echo @$language['ev']?></strong></span>
     					</div></a>
 					</div>
 				</div>
@@ -67,7 +67,7 @@ $login = pzk_session('userId');
 			<img style="width:20px; height:20px;" src="<?=BASE_SKIN_URL?>/Themes/Songngu/skin/media/vn.png" title="Việt Nam"/><span class="hidden-xs"> <?php echo $language['vn'];?></span>
 		</div></a>
 		<a href="#" onclick="select_ev(); return false;"><div class="col-md-4 col-sm-4 col-xs-4 bot10">
-			<img style="width:20px; height:20px;" src="<?=BASE_SKIN_URL?>/Themes/Songngu/skin/media/ev.png" title="Song Ngữ"/><span class="hidden-xs"> {language[ev]}</span>
+			<img style="width:20px; height:20px;" src="<?=BASE_SKIN_URL?>/Themes/Songngu/skin/media/ev.png" title="Song Ngữ"/><span class="hidden-xs"> <?php echo @$language['ev']?></span>
 		</div></a>
 	</div>
 </div>

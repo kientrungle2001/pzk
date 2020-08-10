@@ -3,36 +3,36 @@ $layoutType = $data->getProp('layoutType', 'div');
 $displayFields = explode(',',$data->displayFields);
 ?>
 <!-- hien thi theo kieu ul -->
-{ifvar layoutType=ul}
+<?php if(${'layoutType=ul'}): ?>
 <ul>
-{each $items as $item}
-	<li>{item[name]}</li>
-{/each}
+<?php foreach($items as $item): ?>
+	<li><?php echo @$item['name']?></li>
+<?php endforeach; ?>
 </ul>
-{/if}
+<?php endif; ?>
 
 <!-- hien thi theo kieu div -->
-{ifvar layoutType=div}
+<?php if(${'layoutType=div'}): ?>
 <div class="core_db_list">
-{each $items as $item}
+<?php foreach($items as $item): ?>
 	<div class="core_db_list_item">
-	{each $displayFields as $field}
-	{? 	$field = trim($field); 
+	<?php foreach($displayFields as $field): ?>
+	<?php  	$field = trim($field); 
 		$fieldTag = $field . 'Tag'; 
 		$fieldTag=@$data->$fieldTag?@$data->$fieldTag: 'div';
 		$value = @$item[$field]; 
-	?}
-	<{fieldTag} class="{data.classPrefix}{field}" rel="{item[id]}">
-		{? if(@$data->titleField==$field && @$data->linkTitle) : ?}
-		<a href="/{item[alias]}">
-		{? endif;?}
-	{value}
-		{? if(@$data->titleField==$field && @$data->linkTitle) : ?}
+	?>
+	<<?php echo $fieldTag ?> class="<?php echo @$data->classPrefix?><?php echo $field ?>" rel="<?php echo @$item['id']?>">
+		<?php  if(@$data->titleField==$field && @$data->linkTitle) : ?>
+		<a href="/<?php echo @$item['alias']?>">
+		<?php  endif;?>
+	<?php echo $value ?>
+		<?php  if(@$data->titleField==$field && @$data->linkTitle) : ?>
 		</a>
-		{? endif;?}
-	</{fieldTag}>
-	{/each}
+		<?php  endif;?>
+	</<?php echo $fieldTag ?>>
+	<?php endforeach; ?>
 	</div>
-{/each}
+<?php endforeach; ?>
 </div>
-{/if}
+<?php endif; ?>

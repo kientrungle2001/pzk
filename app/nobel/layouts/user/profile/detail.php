@@ -25,27 +25,27 @@
     <div class="pfr_infor">
       <div class="prf_label">
         <span class="prf_labels">Họ tên :</span>
-        <span>{? echo $user->getName();?}</span>
+        <span><?php  echo $user->getName();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Nickname :</span>
-        <span>{? echo $user->getUsername();?}</span>
+        <span><?php  echo $user->getUsername();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Ngày sinh :</span>
-        <span>{? echo $user->getBirthday();?}</span>
+        <span><?php  echo $user->getBirthday();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Giới tính :</span>
-        <span>{? $data->checkSex($user->getSex()) ;?}</span>
+        <span><?php  $data->checkSex($user->getSex()) ;?></span>
       </div>
       <div class="prf_label2">
         <span class="prf_labels">Địa chỉ :</span>
-        <span>{? echo $user->getAddress();?}</span>
+        <span><?php  echo $user->getAddress();?></span>
       </div>
       <div class="prf_label3">
         <span class="prf_labels">Trường :</span>
-        <span>{? echo $user->getSchool();?}</span>
+        <span><?php  echo $user->getSchool();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Thời hạn sản phẩm :</span>
@@ -55,7 +55,7 @@
     <div class="pfr_imgavatar">
       <div class="pfravatar">
         <div class="pfravatar_img">
-          <img src="{? echo $user->getAvatar();?}" alt="" width="197px" height="192px">
+          <img src="<?php  echo $user->getAvatar();?>" alt="" width="197px" height="192px">
         </div>
       </div>
       <div class="pfrbutton">

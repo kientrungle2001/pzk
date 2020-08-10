@@ -47,7 +47,7 @@
 			<?php if($otherTest){ ?>
 			<ul class="item menu-test" >
 				<?php foreach($otherTest as $test){ ?>
-					<li><a href="/Compability/test/{class}/{test[id]}">
+					<li><a href="/Compability/test/<?php echo $class ?>/<?php echo @$test['id']?>">
 					<?php 
 					if ($lang == 'en' || $lang == 'ev'){
 						echo $test['name_en'];
@@ -65,7 +65,7 @@
 		<div class="col-md-9 content-full col-xs-12 ">
 		
 			<div class="item fs18 top-content bold">	
-				{language[examination]}
+				<?php echo @$language['examination']?>
 				&nbsp; &nbsp; > 
 				&nbsp; &nbsp; 
 				<?php 

@@ -39,7 +39,7 @@
               }else $price_service=$item['amount'];
 
            ?>
-            <option  value="{item[id]} {price_service}">Gói:{item[serviceName]} (Giá :{item[amount]} VNĐ
+            <option  value="<?php echo @$item['id']?> <?php echo $price_service ?>">Gói:<?php echo @$item['serviceName']?> (Giá :<?php echo @$item['amount']?> VNĐ
             <?php 
               if(isset($discount[$item['id']])){
                 $price= $item['amount'] -$item['amount']* $discount[$item['id']]['discount']/100;

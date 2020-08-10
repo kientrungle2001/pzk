@@ -10,7 +10,7 @@
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class='container'>		
 	<div class="col-md-10 col-xs-10 bd-div bgclor form_search_test top10 bot20 imgbg col-md-offset-1">
 		<form class="form_search_test" style="margin: 15px 0px"  method="post" onsubmit="return check_select_test()">

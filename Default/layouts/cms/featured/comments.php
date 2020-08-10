@@ -28,22 +28,22 @@ span.comment_date{font-weight:none; font-size:12px;}
 		<h4 class="text-center"><span class="label label-primary">Nhận xét về bài viết</span></h4>
 <?php $allcomments=$data->getComments($featuredid); ?>
 
-{each $allcomments as $allcomment}		
+<?php foreach($allcomments as $allcomment): ?>		
 <div class="panel-group" >
   <div class="panel panel-default">
     <div class="panel-heading" id="accordion2">
-      <h4 data-toggle="collapse" data-parent="#accordion2" href="#2{allcomment[id]}" class="panel-title">
-		<a href="/user/profileusercontent?member={allcomment[username]}">{allcomment[name]}</a>
-		<span>{allcomment[created]}</span>
+      <h4 data-toggle="collapse" data-parent="#accordion2" href="#2<?php echo @$allcomment['id']?>" class="panel-title">
+		<a href="/user/profileusercontent?member=<?php echo @$allcomment['username']?>"><?php echo @$allcomment['name']?></a>
+		<span><?php echo @$allcomment['created']?></span>
       </h4>
     </div>
-    <div id="2{allcomment[id]}" class="panel-collapse collapse in">
+    <div id="2<?php echo @$allcomment['id']?>" class="panel-collapse collapse in">
       <div class="panel-body">
-	  {allcomment[comment]}</div>
+	  <?php echo @$allcomment['comment']?></div>
     </div>
   </div>
 </div>
-{/each}	
+<?php endforeach; ?>	
 
 <?php 
 			$total = $data->countItems();
@@ -59,7 +59,7 @@ span.comment_date{font-weight:none; font-size:12px;}
 				}
 				$page = $i + 1;
 			?>
-			<a onclick="commentpage({i}); return false;" href="#" class="btn {btnActive}">{page}</a>
+			<a onclick="commentpage(<?php echo $i ?>); return false;" href="#" class="btn <?php echo $btnActive ?>"><?php echo $page ?></a>
 			<?php }?>	
 			</p>
 			</div>	
@@ -89,7 +89,7 @@ function commentpage(i){
 		url: BASE_REQUEST + '/featured/page',
 		data: {
 			page: i,
-			id: {featuredid}
+			id: <?php echo $featuredid ?>
 		},
 		type: 'post',
 		success: function(resp) {
@@ -127,22 +127,22 @@ span.comment_date{font-weight:none; font-size:12px;}
 		
 		<h4 class="text-center"><span class="label label-primary">Nhận xét về bài viết</span></h4>
 <?php $allcomments=$data->getComments($featuredid,pzk_request('page')); ?>
-{each $allcomments as $allcomment}		
+<?php foreach($allcomments as $allcomment): ?>		
 <div class="panel-group" id="accordion2">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 data-toggle="collapse" data-parent="#accordion2" href="#2{allcomment[id]}" class="panel-title">
-		<a href="/user/profileusercontent?member={allcomment[username]}">{allcomment[name]}</a>
-		<span>{allcomment[created]}</span>
+      <h4 data-toggle="collapse" data-parent="#accordion2" href="#2<?php echo @$allcomment['id']?>" class="panel-title">
+		<a href="/user/profileusercontent?member=<?php echo @$allcomment['username']?>"><?php echo @$allcomment['name']?></a>
+		<span><?php echo @$allcomment['created']?></span>
       </h4>
     </div>
-    <div id="2{allcomment[id]}" class="panel-collapse collapse in">
+    <div id="2<?php echo @$allcomment['id']?>" class="panel-collapse collapse in">
       <div class="panel-body">
-	  {allcomment[comment]}</div>
+	  <?php echo @$allcomment['comment']?></div>
     </div>
   </div>
 </div>
-{/each}		
+<?php endforeach; ?>		
 <?php 
 			$total = $data->countItems();
 			$pages = ceil($total / 5);
@@ -157,7 +157,7 @@ span.comment_date{font-weight:none; font-size:12px;}
 				}
 				$page = $i + 1;
 			?>
-			<a onclick="commentpage({i}); return false;" href="#" class="btn {btnActive}">{page}</a>
+			<a onclick="commentpage(<?php echo $i ?>); return false;" href="#" class="btn <?php echo $btnActive ?>"><?php echo $page ?></a>
 			<?php }?>	
 			</p>
 <?php endif;?>

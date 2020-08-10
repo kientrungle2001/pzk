@@ -24,7 +24,7 @@
 		
 	}
 ?>
-<form role="form" name="update_book" action="{url /Admin_Book/updatePost}" method='post'>
+<form role="form" name="update_book" action="<?php echo BASE_REQUEST . '/Admin_Book/updatePost' ?>" method='post'>
 <div class="panel panel-default">
   	<!-- Default panel contents -->
   	<div class="panel-heading col-xs-12">

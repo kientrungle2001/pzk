@@ -222,25 +222,25 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
         <!-- search, filter, sort -->
 <?php if($sortFields or $searchFields) { ?>
         <div class="well well-sm">
-            <form role="search" action="{url /Admin}_{controller.module}/searchFilter">
+            <form role="search" action="<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/searchFilter">
                 <div class="row">
                     <?php if($searchFields) {
                         ?>
                         <div class="form-group col-xs-12">
                             <label>Tìm theo  </label><br />
-                            <input type="text" name="keyword" class="form-control" placeholder="<?php if($Searchlabels){ echo $Searchlabels; } ?>" value="{keyword}" />
+                            <input type="text" name="keyword" class="form-control" placeholder="<?php if($Searchlabels){ echo $Searchlabels; } ?>" value="<?php echo $keyword ?>" />
                         </div>
                     <?Php } ?>
                     <?php if($sortFields) { ?>
                         <div class="form-group col-xs-12">
                             <label>Sắp xếp</label><br />
-                            <select id="orderBy" name="orderBy" class="form-control" placeholder="Sắp xếp theo" onchange="window.location='{url /Admin}_{controller.module}/changeOrderBy?orderBy=' + this.value;">
+                            <select id="orderBy" name="orderBy" class="form-control" placeholder="Sắp xếp theo" onchange="window.location='<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/changeOrderBy?orderBy=' + this.value;">
                                 <?php foreach ($sortFields as $value => $label){ ?>
-                                    <option value="{value}">{label}</option>
+                                    <option value="<?php echo $value ?>"><?php echo $label ?></option>
                                 <?php } ?>
                             </select>
                             <script type="text/javascript">
-                                $('#orderBy').val('{orderBy}');
+                                $('#orderBy').val('<?php echo $orderBy ?>');
                             </script>
                         </div>
                     <?php } ?>
@@ -264,15 +264,15 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
         <!-- end search, filter, sort -->
         <!-- report -->
         <div class="well well-sm">
-            <form role="search" action="{url /Admin}_{controller.module}/delSessionReport">
+            <form role="search" action="<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/delSessionReport">
                 <div class="row">
                     <?php if($reportColumns) { ?>
                         <div class="form-group col-xs-12">
                             <label style="width: 110px;">Lọc theo</label>
                             <div class="form-group col-xs-12">
-                                <select class="form-control" id="reportColumns" name="reportColumns" onchange="window.location='{url /Admin}_{controller.module}/reportColumn?reportColumn=' + this.value;" >
+                                <select class="form-control" id="reportColumns" name="reportColumns" onchange="window.location='<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/reportColumn?reportColumn=' + this.value;" >
                                     <?php foreach($reportColumns as $colum) { ?>
-                                        <option value="{colum[alias]}|<?php echo $colum['type']."(".$colum['index'].") as ".$colum['alias'];?>">{colum[label]}</option>
+                                        <option value="<?php echo @$colum['alias']?>|<?php echo $colum['type']."(".$colum['index'].") as ".$colum['alias'];?>"><?php echo @$colum['label']?></option>
                                     <?php } ?>
                                 </select>
                                 <script type="text/javascript">
@@ -290,13 +290,13 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
 
                             <?php foreach ($groupByColumns as $value){ ?>
                                 <div class="form-group col-xs-12">
-                                    <input value="{value[index]}|{value[type]}" <?php if(isset($sessionColumn[$value['index']])){ echo 'checked'; } ?> onchange="window.location='{url /Admin}_{controller.module}/changeGroupByColumns?groupByColumns=' + this.value + '&groupByColumnCheck=' + (this.checked?'1':'0');" type="checkbox" name="{value['index']}"><?php echo $value['label']; ?>
+                                    <input value="<?php echo @$value['index']?>|<?php echo @$value['type']?>" <?php if(isset($sessionColumn[$value['index']])){ echo 'checked'; } ?> onchange="window.location='<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/changeGroupByColumns?groupByColumns=' + this.value + '&groupByColumnCheck=' + (this.checked?'1':'0');" type="checkbox" name="{value['index']}"><?php echo $value['label']; ?>
                                     <?php
                                     if(isset($value['formatType']) && count($value['formatType']) >0) {
                                         ?>
-                                        <select id="gc{value[index]}" name="gc{value[index]}" class="form-control" placeholder="Sắp xếp theo" onchange="window.location='{url /Admin}_{controller.module}/changeGroupByColumnTypes?groupByColumn={value[index]}&groupByColumnType=' + this.value;">
+                                        <select id="gc<?php echo @$value['index']?>" name="gc<?php echo @$value['index']?>" class="form-control" placeholder="Sắp xếp theo" onchange="window.location='<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/changeGroupByColumnTypes?groupByColumn=<?php echo @$value['index']?>&groupByColumnType=' + this.value;">
                                             <?php foreach($value['formatType'] as $key =>$val) { ?>
-                                                <option value="{key}">{val}</option>
+                                                <option value="<?php echo $key ?>"><?php echo $val ?></option>
                                             <?php } ?>
                                         </select>
                                     <?php
@@ -306,10 +306,10 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
                                         $fromdate = @$arrDate["date" . $value['index']]['fromdate'];
                                     }
                                     ?>
-                                        From: <input id="from{value[index]}"  name="from{value[index]}" type='text' class="form-control datepicker" value="{fromdate}" />
-                                        To: <input id="to{value[index]}"  name="to{value[index]}" type='text' class="form-control datepicker" value="{todate}"/>
-                                        <button  onclick="updateCondition('{value[index]}');return false;" class="btn btn-default btn-sm">Update Filter</button>
-                                        <button  onclick="delCondition('{value[index]}');return false;" class="btn btn-default btn-sm">Bo Filter</button>
+                                        From: <input id="from<?php echo @$value['index']?>"  name="from<?php echo @$value['index']?>" type='text' class="form-control datepicker" value="<?php echo $fromdate ?>" />
+                                        To: <input id="to<?php echo @$value['index']?>"  name="to<?php echo @$value['index']?>" type='text' class="form-control datepicker" value="<?php echo $todate ?>"/>
+                                        <button  onclick="updateCondition('<?php echo @$value['index']?>');return false;" class="btn btn-default btn-sm">Update Filter</button>
+                                        <button  onclick="delCondition('<?php echo @$value['index']?>');return false;" class="btn btn-default btn-sm">Bo Filter</button>
 
 
                                         <script type="text/javascript">
@@ -324,7 +324,7 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
                                         </script>
 
                                         <script type="text/javascript">
-                                            $('#gc{value[index]}').val("<?php echo $sessionColumnType[$value['index']]; ?>");
+                                            $('#gc<?php echo @$value['index']?>').val("<?php echo $sessionColumnType[$value['index']]; ?>");
                                         </script>
                                     <?php } ?>
                                     <?php if(isset($value['condition']) && count($value['condition']) >0) {
@@ -334,7 +334,7 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
                                         $selectcon = $valuecon.', '.$showcon;
                                         $datacon = _db()->useCB()->select($selectcon)->from($tablecon)->result();
                                         ?>
-                                        <select id="nc{value[index]}" onchange="window.location='{url /Admin}_{controller.module}/changeNormalCondition?column={value[index]}&value=' + this.value;" class="form-control hiden" placeholder="Sắp xếp theo">
+                                        <select id="nc<?php echo @$value['index']?>" onchange="window.location='<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/changeNormalCondition?column=<?php echo @$value['index']?>&value=' + this.value;" class="form-control hiden" placeholder="Sắp xếp theo">
                                             <option value="">Chọn tất</option>
                                             <?php foreach($datacon as $val) { ?>
                                                 <option value="<?php echo $val[$valuecon]; ?>"><?php echo $val[$showcon]; ?></option>
@@ -342,7 +342,7 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
                                         </select>
                                         <?php $check = @$normalCondition[$value['index']]; ?>
                                         <script type="text/javascript">
-                                            $('#nc{value[index]}').val('{check}');
+                                            $('#nc<?php echo @$value['index']?>').val('<?php echo $check ?>');
                                         </script>
                                     <?php } ?>
                                 </div>
@@ -362,11 +362,11 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
         if(todate && fromdate) {
             $.ajax({
                 method: "POST",
-                url: BASE_REQUEST+"/Admin_"+"{setting.module}"+"/fillterReport",
+                url: BASE_REQUEST+"/Admin_"+"<?php echo @$setting->module?>"+"/fillterReport",
                 data: { column: column, todate: todate, fromdate:fromdate }
             }).done(function( msg ) {
                 if(msg == 1) {
-                    location.href= BASE_REQUEST+"/Admin_"+"{setting.module}"+"/index";
+                    location.href= BASE_REQUEST+"/Admin_"+"<?php echo @$setting->module?>"+"/index";
                 }else {
                     alert( msg );
                 }
@@ -379,10 +379,10 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
     function delCondition(column) {
         $.ajax({
             method: "POST",
-            url: BASE_REQUEST+"/Admin_"+"{setting.module}"+"/delCondition",
+            url: BASE_REQUEST+"/Admin_"+"<?php echo @$setting->module?>"+"/delCondition",
             data: { column: column }
         }).done(function( msg ) {
-            location.href= BASE_REQUEST+"/Admin_"+"{setting.module}"+"/index";
+            location.href= BASE_REQUEST+"/Admin_"+"<?php echo @$setting->module?>"+"/index";
         });
         return false;
     }
@@ -443,14 +443,14 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
                     <div class="form-group col-xs-3">
                         <label>Chọn loại biểu đồ</label><br />
                         <select class="form-control" id="type" name="type"
-                                onchange="window.location='{url /Admin}_{setting.module}/highchart?type=' + this.value;">
-                            {each $typeChart as $item }
-                            <option value="{item[value]}">{item[index]}</option>
-                            {/each}
+                                onchange="window.location='<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$setting->module?>/highchart?type=' + this.value;">
+                            <?php foreach($typeChart as $item ): ?>
+                            <option value="<?php echo @$item['value']?>"><?php echo @$item['index']?></option>
+                            <?php endforeach; ?>
                         </select>
                         <script type="text/javascript">
                             <?php $select = pzk_session('report_type'); ?>
-                            $('#type').val('{select}');
+                            $('#type').val('<?php echo $select ?>');
                         </script>
                     </div>
                 </div>
@@ -467,26 +467,26 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
             </div>
             <table class="table table-hover">
                 <tr>
-                    {each $arListReportLable as $val}
-                    <th>{val}</th>
-                    {/each}
+                    <?php foreach($arListReportLable as $val): ?>
+                    <th><?php echo $val ?></th>
+                    <?php endforeach; ?>
                 </tr>
                 <?php if($items) {  ?>
-                    {each $items as $item}
+                    <?php foreach($items as $item): ?>
 
                     <tr>
-                        {each $arListReportValue as $val}
+                        <?php foreach($arListReportValue as $val): ?>
 
                         <td><?php echo $item[$val]; ?></td>
-                        {/each}
+                        <?php endforeach; ?>
                     </tr>
-                    {/each}
+                    <?php endforeach; ?>
                 <?php } ?>
                 <tr>
                     <td colspan="8">
                         <form class="form-inline" role="form">
                             <strong>Số mục: </strong>
-                            <select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='{url /Admin}_{setting.module}/changePageSize?pageSize=' + this.value;">
+                            <select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$setting->module?>/changePageSize?pageSize=' + this.value;">
                                 <option value="10">10</option>
                                 <option value="20">20</option>
                                 <option value="30">30</option>
@@ -495,14 +495,14 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
                                 <option value="200">200</option>
                             </select>
                             <script type="text/javascript">
-                                $('#pageSize').val('{pageSize}');
+                                $('#pageSize').val('<?php echo $pageSize ?>');
                             </script>
                             <strong>Trang: </strong>
                             <?php for ($page = 0; $page < $pages; $page++) {
                                 if($page == $data->pageNum) { $btn = 'btn-primary'; }
                                 else { $btn = 'btn-default'; }
                                 ?>
-                                <a class="btn btn-xs {btn}" href="{url /Admin}_{setting.module}/index?page={page}">{? echo ($page + 1)?}</a>
+                                <a class="btn btn-xs <?php echo $btn ?>" href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$setting->module?>/index?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
                             <?php } ?>
                         </form>
 
@@ -519,13 +519,13 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
                     if(!$username) $username = 'ongkien';
                     $token = md5($time.$username . 'onghuu');
                     ?>
-                    <form id="fromexport"  class="col-md-3 pull-right" action="/export.php?token={token}&time={time}" method="post">
+                    <form id="fromexport"  class="col-md-3 pull-right" action="/export.php?token=<?php echo $token ?>&time=<?php echo $time ?>" method="post">
                         <input type="hidden" name="q" value="<?php echo base64_encode(encrypt($query, SECRETKEY)); ?>" />
                         <input type="hidden" name="exportFields" value="<?php echo implode(',', $exportFields); ?>"/>
                         <select style="border: 1px solid #ccc;" class="btn" name="type">
-                            {each $exportTypes as $val}
-                            <option value="{val}">Export {val}</option>
-                            {/each}
+                            <?php foreach($exportTypes as $val): ?>
+                            <option value="<?php echo $val ?>">Export <?php echo $val ?></option>
+                            <?php endforeach; ?>
                         </select>
                         <div id="exportdata" class="btn  btn-sm pull-right btn-success ">
                             <span class="glyphicon glyphicon-export"></span>

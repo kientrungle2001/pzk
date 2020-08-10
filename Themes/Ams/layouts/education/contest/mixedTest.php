@@ -32,7 +32,7 @@
 		<div class="content-full col-xs-12 ">
 			
 			<div class="item fs18 top-content bold">
-				Đề thi: {test[name]}
+				Đề thi: <?php echo @$test['name']?>
 				
 			</div>
 			
@@ -40,7 +40,7 @@
 				<!-- Tiêu đề, đồng hồ -->
 				<div style="margin: 15px 0px;" class="item ">
 					<div class="name-detail col-md-8 col-xs-12">
-					{test[name]}
+					<?php echo @$test['name']?>
 					</div>
 					<div class="col-md-4 col-xs-12 pr0 relative">
 					

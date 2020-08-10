@@ -1,4 +1,4 @@
-<p class="lead">{prop title}</p>
+<p class="lead"><?php echo @$data->title?></p>
 <div class="list-group">
-	{children all}
+	<?php $data->displayChildren('all') ?>
 </div>

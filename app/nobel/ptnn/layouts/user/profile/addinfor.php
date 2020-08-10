@@ -73,7 +73,7 @@
                 </div>
                 <div class="clear"></div>    
                    
-                    <form id="formAddinfor" class="register form-horizontal margin-top-20" method="post" onsubmit="pzk_{data.id}.frmAddinfor(); return false; ">
+                    <form id="formAddinfor" class="register form-horizontal margin-top-20" method="post" onsubmit="pzk_<?php echo @$data->id?>.frmAddinfor(); return false; ">
                             <div class="form-group margin-top-10">
                                 
                                 <div class="col-xs-4 margin-top-10">
@@ -168,9 +168,9 @@
                                     <select  class="form-control" id="addareacode" style="width: 164px;" title="Tỉnh/ Thành phố" name="addareacode" aria-label="Tỉnh/tp" data-toggle="tooltip" data-placement="top" title="Tỉnh/ Thành phố" >
                                        
                                                 
-                                                {each $areas as $area}
+                                                <?php foreach($areas as $area): ?>
                                                 <option value="<?php echo $area['id']; ?>"><?php   echo $area['name']; ?></option>
-                                                {/each}
+                                                <?php endforeach; ?>
                                             
                                     </select>
                                 </div>
@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-xs-2 margin-top-33 " style="margin-top: 10px;" >
-                                    <button type="submit" id="addButton" onclick="return pzk_{data.id}.set_birthday()" class="btn btn-primary">Cập Nhật</button>
+                                    <button type="submit" id="addButton" onclick="return pzk_<?php echo @$data->id?>.set_birthday()" class="btn btn-primary">Cập Nhật</button>
                                 </div>
                             </div>
                         </form>

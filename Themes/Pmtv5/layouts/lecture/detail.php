@@ -5,8 +5,8 @@ $exercises = $data->getExercises();
 ?>
 <div class="lecture-region">
 	<div class="container">
-		{? if($item['video'] || $item['content']):?}
-		<h1 class="text-center font-larger">Bài giảng: {item[name]}</h1>
+		<?php  if($item['video'] || $item['content']):?>
+		<h1 class="text-center font-larger">Bài giảng: <?php echo @$item['name']?></h1>
 		<div class="row">
 			<div class="col-sm-8 col-sm-offset-2 col-xs-12 box news-box">
 				<div class="row">
@@ -16,7 +16,7 @@ $exercises = $data->getExercises();
 							<?php for($i = 0; $i < 7; $i++): ?>
 								<?php if($i===0) {} else { if(!@$item['video'. $i]) continue; } ?>
 								<?php if($i !== 0): ?>
-									<option value="{i}"><?php echo @$item['video'. $i.'_title']?></option>
+									<option value="<?php echo $i ?>"><?php echo @$item['video'. $i.'_title']?></option>
 								<?php else: ?>
 									<option value=""><?php echo @$item['video_title']?></option>
 								<?php endif;?>
@@ -25,10 +25,10 @@ $exercises = $data->getExercises();
 					</div>
 					<div class="form-group col-xs-12 col-sm-6">
 						<select id="other-topic-select" class="form-control {cssclass select-background}" onchange="window.location=$(this).val();">
-							<option>Chọn Bài giảng khác trong mục {?php echo $otherSections[0]['name']; ?}</option>
-							{each $otherSections as $other}
-							<option value="/{other[alias]}" <?php if($other['alias'] == $item['alias']):?>selected="selected"<?php endif;?>><?php echo str_repeat('--', @$other['level']-1); ?>{other[name]}</option>
-							{/each}
+							<option>Chọn Bài giảng khác trong mục <?php php echo $otherSections[0]['name']; ?></option>
+							<?php foreach($otherSections as $other): ?>
+							<option value="/<?php echo @$other['alias']?>" <?php if($other['alias'] == $item['alias']):?>selected="selected"<?php endif;?>><?php echo str_repeat('--', @$other['level']-1); ?><?php echo @$other['name']?></option>
+							<?php endforeach; ?>
 						</select>
 					</div>
 				</div>
@@ -51,16 +51,16 @@ $exercises = $data->getExercises();
 				  <div id="video" class="video-wrapper">
 					<video id="my-video" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" width="700" height="390"
 					  poster="<?php echo pzk_or(@$item['video_image'], '/Themes/pmtv4/skin/media/video-player.png'); ?>" <?php if(!pzk_request()->isMobile() && !pzk_request()->isTablet()):?>data-setup='{"techOrder": ["html5", "flash"]}'<?php endif;?>>
-						<source src="<?php if(pzk_request()->isMobile() || pzk_request()->isTablet()):?>/videos/video-{file}-0.mp4<?php else: ?>rtmp://103.15.50.19:1935/vod/video-{file}-0.mp4<?php endif;?>" <?php if(!pzk_request()->isMobile() && !pzk_request()->isTablet()):?>type="rtmp/mp4"<?php else:?>type="video/mp4"<?php endif; ?>>
+						<source src="<?php if(pzk_request()->isMobile() || pzk_request()->isTablet()):?>/videos/video-<?php echo $file ?>-0.mp4<?php else: ?>rtmp://103.15.50.19:1935/vod/video-<?php echo $file ?>-0.mp4<?php endif;?>" <?php if(!pzk_request()->isMobile() && !pzk_request()->isTablet()):?>type="rtmp/mp4"<?php else:?>type="video/mp4"<?php endif; ?>>
 					</video>
 				  </div>
 				  <?php for($i = 1; $i < 7; $i++):
 				  if(!@$item['video'. $i]) continue;
 				  ?>
-				  <div id="video{i}" class="video-wrapper" style="display: none;">
-					<video id="my-video-{i}" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" width="700" height="390"
+				  <div id="video<?php echo $i ?>" class="video-wrapper" style="display: none;">
+					<video id="my-video-<?php echo $i ?>" class="video-js vjs-16-9 vjs-big-play-centered" controls preload="auto" width="700" height="390"
 					  poster="<?php echo pzk_or(@$item['video'.$i.'_image'], '/Themes/pmtv4/skin/media/video-player.png'); ?>"  <?php if(!pzk_request()->isMobile() && !pzk_request()->isTablet()):?>data-setup='{"techOrder": ["html5", "flash"]}'<?php endif; ?>>
-						<source src="<?php if(pzk_request()->isMobile() || pzk_request()->isTablet()):?>/videos/video-{file}-{i}.mp4<?php else :?>rtmp://103.15.50.19:1935/vod/video-{file}-{i}.mp4<?php endif; ?>" <?php if(!pzk_request()->isMobile() && !pzk_request()->isTablet()):?>type="rtmp/mp4"<?php else: ?>type="video/mp4"<?php endif;?>>
+						<source src="<?php if(pzk_request()->isMobile() || pzk_request()->isTablet()):?>/videos/video-<?php echo $file ?>-<?php echo $i ?>.mp4<?php else :?>rtmp://103.15.50.19:1935/vod/video-<?php echo $file ?>-<?php echo $i ?>.mp4<?php endif; ?>" <?php if(!pzk_request()->isMobile() && !pzk_request()->isTablet()):?>type="rtmp/mp4"<?php else: ?>type="video/mp4"<?php endif;?>>
 					</video>
 				  </div>
 				  <?php endfor;?>
@@ -98,17 +98,17 @@ $exercises = $data->getExercises();
 				$currentVideo = $allVideos[$i];
 				$nextVideo = $allVideos[$nextI];
 				?>
-				var video{currentVideo} = videojs('my-video{suffix}').ready(function(){
+				var video<?php echo $currentVideo ?> = videojs('my-video<?php echo $suffix ?>').ready(function(){
 				  var player = this;
 
 				  player.on('ended', function() {
-					var video{nextVideo} = videojs('my-video{nextSuffix}');
-					$('#video-select').val('{nextI}');
+					var video<?php echo $nextVideo ?> = videojs('my-video<?php echo $nextSuffix ?>');
+					$('#video-select').val('<?php echo $nextI ?>');
 					$('#video-select').change();
-					video{nextVideo}.play();
+					video<?php echo $nextVideo ?>.play();
 					setTimeout(function() {
-						$('#video{currentVideo} .vjs-fullscreen-control').click();
-						$('#video{nextVideo} .vjs-fullscreen-control').click();
+						$('#video<?php echo $currentVideo ?> .vjs-fullscreen-control').click();
+						$('#video<?php echo $nextVideo ?> .vjs-fullscreen-control').click();
 					}, 1000);
 				  });
 				});
@@ -124,7 +124,7 @@ $exercises = $data->getExercises();
     background: #00ADEF;
     border-bottom: 1px solid #00ADEF;" />
 				</div>
-				{item[content]}
+				<?php echo @$item['content']?>
 				<!-- end check has content -->
 				<?php endif;?>
 				<!-- end check payment success -->
@@ -132,7 +132,7 @@ $exercises = $data->getExercises();
 			</div>
 		</div>
 		</div>
-		{/if}
+		<?php endif; ?>
 		
 		<!-- end check has video or content -->
 		<div class="clear"></div>
@@ -142,19 +142,19 @@ $exercises = $data->getExercises();
 		</div>
 		</div>
 		
-		<h1 class="text-center">Bài tập - {item[name]}</h1>
+		<h1 class="text-center">Bài tập - <?php echo @$item['name']?></h1>
 		<div class="col-sm-10 col-sm-offset-1 col-xs-12">
 			<form class="form">
 				<div class="row">
 					<div class="form-group col-xs-12 col-sm-5">
 						<select id="lecture-select" class="form-control">
 							<option disabled="disabled">Chọn dạng bài tập</option>
-							{each $others as $other}
-							<option value="/{other[alias]}">{other[name]}</option>
-							{/each}
+							<?php foreach($others as $other): ?>
+							<option value="/<?php echo @$other['alias']?>"><?php echo @$other['name']?></option>
+							<?php endforeach; ?>
 						</select>
 						<script type="text/javascript">
-							$('#lecture-select').val('/{item[alias]}');
+							$('#lecture-select').val('/<?php echo @$item['alias']?>');
 							$('#lecture-select').change(function() {
 								var url = $(this).val();
 								if(!!url) {
@@ -167,7 +167,7 @@ $exercises = $data->getExercises();
 						<select id="lecture-detail-select" class="form-control">
 							<option value="">Chọn bài tập</option>
 							<?php for($i = 1; $i <= $exercises; $i++) :?>
-							<option value="{i}">Bài {i}</option>
+							<option value="<?php echo $i ?>">Bài <?php echo $i ?></option>
 							<?php endfor; ?>
 						</select>
 					</div>
@@ -245,39 +245,39 @@ $exercises = $data->getExercises();
 						$index = 1;
 						$questionIds = array();
 						?>
-						{each $questions as $question}
+						<?php foreach($questions as $question): ?>
 						<div class="row">
 							<div class="col-xs-12">
-								<h4>Câu {index}: {question[name]}</h4>
+								<h4>Câu <?php echo $index ?>: <?php echo @$question['name']?></h4>
 							</div>
 						</div>
-						{? 
+						<?php  
 						$questionIds[] = $question['id'];
-						$answers = $data->getAnswers($question); ?}
+						$answers = $data->getAnswers($question); ?>
 						<Blockquote>
 						<div class="row">
-							{each $answers as $answer}
+							<?php foreach($answers as $answer): ?>
 							<div class="col-xs-12 form-group answer-item">
-								<input id="answers_{question[id]}_{answer[id]}" type="radio" name="answers[{question[id]}]" value="{answer[id]}" /> <label for="answers_{question[id]}_{answer[id]}" class="font-normal">{answer[content]}</label>
+								<input id="answers_<?php echo @$question['id']?>_<?php echo @$answer['id']?>" type="radio" name="answers[<?php echo @$question['id']?>]" value="<?php echo @$answer['id']?>" /> <label for="answers_<?php echo @$question['id']?>_<?php echo @$answer['id']?>" class="font-normal"><?php echo @$answer['content']?></label>
 							</div>
-							{/each}
+							<?php endforeach; ?>
 							<div class="col-xs-12 form-group question-explaination hidden">
-								<button onclick="$('#explaination_{question[id]}').toggleClass('hidden');" type="button" class="btn btn-success">
+								<button onclick="$('#explaination_<?php echo @$question['id']?>').toggleClass('hidden');" type="button" class="btn btn-success">
 									<span class="glyphicon glyphicon-search"></span> Giải thích
 								</button>
-								<div id="explaination_{question[id]}" class="well hidden font-normal"></div>
+								<div id="explaination_<?php echo @$question['id']?>" class="well hidden font-normal"></div>
 							</div>
 						</div>
 						
 						</Blockquote>
-						{? $index++; ?}
-						{/each}
+						<?php  $index++; ?>
+						<?php endforeach; ?>
 						<div class="row">
 							<div class="col-xs-12 form-group text-center">
-								<input type="hidden" name="categoryId" value="{item[id]}" />
-								<input type="hidden" name="quantity" value="{? echo ($index-1); ?}" />
-								<input type="hidden" name="exerciseNum" value="{? echo pzk_request('exerciseNum'); ?}" />
-								<input type="hidden" name="questionIds" value="{? echo implode(',', $questionIds); ?}" />
+								<input type="hidden" name="categoryId" value="<?php echo @$item['id']?>" />
+								<input type="hidden" name="quantity" value="<?php  echo ($index-1); ?>" />
+								<input type="hidden" name="exerciseNum" value="<?php  echo pzk_request('exerciseNum'); ?>" />
+								<input type="hidden" name="questionIds" value="<?php  echo implode(',', $questionIds); ?>" />
 								<button id="saveChoiceBtn" type="submit" class="btn btn-primary">
 									<span class="glyphicon glyphicon-ok"></span> Hoàn thành
 								</button>
@@ -330,11 +330,11 @@ $exercises = $data->getExercises();
 			</div>
 			
 			<script type="text/javascript">
-				pzk.beforeload('{data.id}', function() {
-					this.setUrl('/{item[alias]}');
+				pzk.beforeload('<?php echo @$data->id?>', function() {
+					this.setUrl('/<?php echo @$item['alias']?>');
 					this.selectExerciseNum('<?php echo pzk_request('exerciseNum'); ?>');
 				});
-				pzk.onload('{data.id}', function() {
+				pzk.onload('<?php echo @$data->id?>', function() {
 					// do nothing
 				});
 			</script>

@@ -25,27 +25,27 @@
     <div class="pfr_infor">
       <div class="prf_label">
         <span class="prf_labels">Họ tên :</span>
-        <span>{? echo $user->getName();?}</span>
+        <span><?php  echo $user->getName();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Nickname :</span>
-        <span>{? echo $user->getUsername();?}</span>
+        <span><?php  echo $user->getUsername();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Ngày sinh :</span>
-        <span>{? echo $user->getBirthday();?}</span>
+        <span><?php  echo $user->getBirthday();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Giới tính :</span>
-        <span>{? $data->checkSex($user->getSex()) ;?}</span>
+        <span><?php  $data->checkSex($user->getSex()) ;?></span>
       </div>
       <div class="prf_label2">
         <span class="prf_labels">Địa chỉ :</span>
-        <span>{? echo $user->getAddress();?}</span>
+        <span><?php  echo $user->getAddress();?></span>
       </div>
       <div class="prf_label3">
         <span class="prf_labels">Trường :</span>
-        <span>{? echo $user->getSchool();?}</span>
+        <span><?php  echo $user->getSchool();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Thời hạn sản phẩm :</span>
@@ -55,7 +55,7 @@
     <div class="pfr_imgavatar">
       <div class="pfravatar">
         <div class="pfravatar_img">
-          <img src="{? echo $user->getAvatar();?}" alt="" width="197px" height="192px">
+          <img src="<?php  echo $user->getAvatar();?>" alt="" width="197px" height="192px">
         </div>
       </div>
       <div class="pfrbutton">
@@ -103,12 +103,12 @@ if($items) {
             <th>Thời gian làm bài</th>
             <th>Ngày</th>
         </tr>
-        {each $items as $val}
+        <?php foreach($items as $val): ?>
         <tr>
             <td><?php echo $i+$page*$pageSize; ?></td>
-            <td>{val[username]}</td>
-            <td>{val[name]}</td>
-            <td>{val[mark]}</td>
+            <td><?php echo @$val['username']?></td>
+            <td><?php echo @$val['name']?></td>
+            <td><?php echo @$val['mark']?></td>
             <?php
             $time = $val['duringTime'] - 7*3600;
             $strTime = date('H:i:s', $time);
@@ -131,7 +131,7 @@ if($items) {
             <td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:m:i A', strtotime($val['startTime'])); ?></td>
         </tr>
         <?php $i++; ?>
-        {/each}
+        <?php endforeach; ?>
     </table>
     <div class="panel-footer ">
         <form class="form-inline" role="form">
@@ -147,7 +147,7 @@ if($items) {
                     $btn = 'btn-default';
                 }
                 ?>
-                <a class="btn btn-sm {btn}" href="{url} /profile/detail?page={page}">{? echo ($page + 1)?}</a>
+                <a class="btn btn-sm <?php echo $btn ?>" href="<?php echo BASE_REQUEST ?> /profile/detail?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
             <?php endfor; ?>
         </form>
 

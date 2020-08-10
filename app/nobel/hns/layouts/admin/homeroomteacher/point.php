@@ -9,18 +9,18 @@ $subjects = $data->getSubject($classroom['gradeNum']);
 ?>
 <div class="panel">
   <!-- Default panel contents -->
-  <div class="panel-heading"><h2 class="text-center">Kết quả học tập của lớp {classroom[gradeNum]}{classroom[className]} Niên khóa {classroom[schoolYear]}</h2></div>
+  <div class="panel-heading"><h2 class="text-center">Kết quả học tập của lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> Niên khóa <?php echo @$classroom['schoolYear']?></h2></div>
   <div class="panel-body">
     <div id="viewstudents" class="row">
 	<form class="form form-inline">
 		<select	id="subjects" class="form-control">
 			<option value="">Chọn Môn</option>
 			<option value="all">Tất cả các môn</option>
-			{each $subjects as $subject}
+			<?php foreach($subjects as $subject): ?>
 			<?php if($subject['subjectName'] != 'Practice'): ?>
-				<option value="{subject[subjectId]}">{subject[subjectName]}</option>
+				<option value="<?php echo @$subject['subjectId']?>"><?php echo @$subject['subjectName']?></option>
 			<?php endif; ?>
-			{/each}
+			<?php endforeach; ?>
 		</select>
 		<select	id="selectweeks" class="form-control" >Lọc theo
 			<option value="">Lọc theo</option>
@@ -33,13 +33,13 @@ $subjects = $data->getSubject($classroom['gradeNum']);
 		<select	id="weeks" class="form-control">Chọn tuần học
 			<option value="">Chọn tuần</option>
 			<?php for ($i= 1; $i<=36; $i++){ ?>
-			<option value="{i}">Tuần {i}</option>
+			<option value="<?php echo $i ?>">Tuần <?php echo $i ?></option>
 			<?php } ?>			
 		</select>
 		<select	id="months" class="form-control">Chọn tháng
 			<option value="">Chọn tháng</option>
 			<?php for ($i= 1; $i<=12; $i++){ ?>
-			<option value="{i}">Tháng {i}</option>
+			<option value="<?php echo $i ?>">Tháng <?php echo $i ?></option>
 			<?php } ?>			
 		</select>
 		<select	id="semesters" class="form-control">Chọn học kỳ
@@ -67,16 +67,16 @@ $subjects = $data->getSubject($classroom['gradeNum']);
 	<tbody>
 		
 	
-{each $students as $student}
+<?php foreach($students as $student): ?>
 	<tr class="bg-warning">
 		
-		<td>{student[studentId]}</td>
-		<td>{student[username]}</td>
-		<td>{student[name]}</td>
-		<td>{? echo date('d/m/Y', strtotime($student['birthday']))?}</td>
+		<td><?php echo @$student['studentId']?></td>
+		<td><?php echo @$student['username']?></td>
+		<td><?php echo @$student['name']?></td>
+		<td><?php  echo date('d/m/Y', strtotime($student['birthday']))?></td>
 		
 	</tr>
-{/each}
+<?php endforeach; ?>
 </tbody>
 </table>
 </div>
@@ -123,7 +123,7 @@ function addStudentToClassroom(studentId) {
 	$.ajax({
 		url: '/Admin_Schedule_Teacher/addStudent',
 		data: {
-			classroomId: {classroom[id]},
+			classroomId: <?php echo @$classroom['id']?>,
 			studentId: studentId
 		},
 		type: 'POST',
@@ -200,9 +200,9 @@ function getPoint() {
 	$.ajax({
 		url: '/Admin_Home_HomeroomTeacher/getPoint',
 		data: {
-			classes: {classroom[gradeNum]},
-			classroomId: {classroom[id]},
-			schoolYear: {classroom[schoolYear]},
+			classes: <?php echo @$classroom['gradeNum']?>,
+			classroomId: <?php echo @$classroom['id']?>,
+			schoolYear: <?php echo @$classroom['schoolYear']?>,
 			subjectId: subjectId,
 			weeks: weeks,
 			months: months,

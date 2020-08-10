@@ -17,8 +17,8 @@ table.tb_catruc td {
 	$tab6 = intval(pzk_request('tab6'));
 ?>
 
-{children [position=public-header]}
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=public-header]') ?>
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container text-justify">
 	<div class="row">
 		<div class="col-md-12">
@@ -59,7 +59,7 @@ table.tb_catruc td {
 	     <h3 class="label-warning">ĐẶT MUA THẺ TẠI WEBSITE, NHẬN THẺ TẠI NHÀ</h3>
 	    </div>
 		<div class="col-md-12 col-sm-12 col-xs-12">
-			{children [position=ordercardflsn]}
+			<?php $data->displayChildren('[position=ordercardflsn]') ?>
 		</div>
 	</div>
 </div>
@@ -72,7 +72,7 @@ table.tb_catruc td {
 	      <h2 class="label label-danger ">NẠP THẺ FULL LOOK SONG NGỮ</h2>
 	    </div>
 	    <div class="col-md-12 col-sm-12 col-xs-12">	
-			{children [position=paycardflsn]}
+			<?php $data->displayChildren('[position=paycardflsn]') ?>
 		</div>
 	</div>
 </div>
@@ -85,8 +85,8 @@ table.tb_catruc td {
 	      <h2 class="label label-success">THANH TOÁN BẰNG THẺ CÀO ĐIỆN THOẠI</h2>
 	    </div>
 	    <div class="row">
-	    	{children [position=paycard]}
-			{children [position=service]}
+	    	<?php $data->displayChildren('[position=paycard]') ?>
+			<?php $data->displayChildren('[position=service]') ?>
 	    </div>
 	</div>
 </div>
@@ -99,7 +99,7 @@ table.tb_catruc td {
 	      <h2 class="label label-info">THANH TOÁN TẠI VĂN PHÒNG CÔNG TY </h2>
 	    </div>
 	    <div class="row">
-	    	{children [position=money]}
+	    	<?php $data->displayChildren('[position=money]') ?>
 	    </div>
 	</div>
 </div>
@@ -112,7 +112,7 @@ table.tb_catruc td {
 	      <h2 class="label label-primary">THANH TOÁN BẰNG CHUYỂN KHOẢN NGÂN HÀNG</h2>
 	    </div>
 	    <div class="row">
-	    	{children [position=bank]}
+	    	<?php $data->displayChildren('[position=bank]') ?>
 	    </div>
 	</div>
 </div>

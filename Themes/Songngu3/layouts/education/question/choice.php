@@ -11,12 +11,12 @@ $stt=$data->get('stt');
 <div class="item cau">
 	<div class="stt"><?php echo $language['question'];?> <?=$stt;?>
 	<?php if(pzk_user_special()) :?><br />
-	(#{? echo $items->get('id') ?})
+	(#<?php  echo $items->get('id') ?>)
 	<?php endif; ?>
 	</div>
 
 	<?php if($audio): ?>
-		<span class="btn volume glyphicon glyphicon-volume-up" onclick="read_question(this, '{audio}');"></span>
+		<span class="btn volume glyphicon glyphicon-volume-up" onclick="read_question(this, '<?php echo $audio ?>');"></span>
 	<?php endif; ?>
 </div>
 
@@ -44,7 +44,7 @@ $stt=$data->get('stt');
 	<?php foreach($answers as $key =>$value):?>
 	<tr>
 		<td>
-			<input type="radio" style="font-weight: normal; float:left" name="answers[<?=$items->get('id')?>]" id="answers_<?=$items->get('id')?>_<?=$value->get('id')?>" value="{? echo $value->get('id')?}"/>
+			<input type="radio" style="font-weight: normal; float:left" name="answers[<?=$items->get('id')?>]" id="answers_<?=$items->get('id')?>_<?=$value->get('id')?>" value="<?php  echo $value->get('id')?>"/>
 			<span  class="answers_<?=$items->get('id')?>_<?=$value->get('id')?>" style="padding-left:10px;">
 			<?php if($value->get('content') == NULL) {
 				echo "0";

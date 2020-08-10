@@ -27,11 +27,11 @@
 					echo 'title="'.$languagevn['practice'].'"'; }?>><a data-toggle="tab" href="#home"><?php echo $language['practice'];?></a></li>
 					</ul> 
 				   <div class="row tab-pane fade in active text-center pding10" id="home">
-						{? $items = $data->getSubjectByClass($class); ?}	
-						{each $items as $item}
-							<div class="col-md-2 col-xs-3 top10 height80 width20 btn-menu bgcl choicesubject" onclick="return false;" data-class="5"  data-alias="{item[alias]}" data-subject="{item[id]}" <?php if($lang == 'ev'){
+						<?php  $items = $data->getSubjectByClass($class); ?>	
+						<?php foreach($items as $item): ?>
+							<div class="col-md-2 col-xs-3 top10 height80 width20 btn-menu bgcl choicesubject" onclick="return false;" data-class="5"  data-alias="<?php echo @$item['alias']?>" data-subject="<?php echo @$item['id']?>" <?php if($lang == 'ev'){
 							echo 'title="'.$item['name_vn'].'"'; }?>>
-								<a href=""><img src="<?=BASE_SKIN_URL?>{item[img]}" class="img-thumnail wheight50"/></a>
+								<a href=""><img src="<?=BASE_SKIN_URL?><?php echo @$item['img']?>" class="img-thumnail wheight50"/></a>
 								<p class="text-uppercase robotofont weight10">
 								<?php 
 								if(pzk_user_special()) { echo '#' . $item['id']; }
@@ -43,7 +43,7 @@
 								 ?>
 								</p>
 							</div>
-						{/each}
+						<?php endforeach; ?>
 		            </div>
 	            </div>
 	        </li>
@@ -99,13 +99,13 @@
 
 								$items = $data->getMonthTest($class, $classroomIds);
 							?>
-							{each $items as $item}
+							<?php foreach($items as $item): ?>
 							
 							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetestmonth"> 
-								<a href="/Compability/test/{class}/{item[id]}">
+								<a href="/Compability/test/<?php echo $class ?>/<?php echo @$item['id']?>">
 								<img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" />
 								</a>
-								<a href="/Compability/test/{class}/{item[id]}">
+								<a href="/Compability/test/<?php echo $class ?>/<?php echo @$item['id']?>">
 								<p class="text-uppercase white robotofont weight10 top10">
 								<?php 
 								if(pzk_user_special()) { echo '#' . $item['id']; }
@@ -117,7 +117,7 @@
 								</a>
 							</div>
 							<?php $i++; ?>
-							{/each}
+							<?php endforeach; ?>
 							  
 							</div>
 							
@@ -217,7 +217,7 @@
 	});
 	$(".choicepractice").click(function(){
 		<?php if(pzk_session('userId')){ ?>
-			var check = '{check}';
+			var check = '<?php echo $check ?>';
 			var trial = $(this).data("trial");
 			if(check == 1){
 				var week = $(this).data("week");

@@ -1,1 +1,1 @@
-{? echo product_price($data->get('value')); ?}
+<?php  echo product_price($data->get('value')); ?>

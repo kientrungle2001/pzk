@@ -18,7 +18,7 @@
 		</div>
 	</div>
 </div>
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container">
 	<div class="row">
 		<div class="col-md-4 col-sm-4 col-xs-4"></div>
@@ -29,23 +29,23 @@
 	</div>
 	<div class="row top20">
 		<div class="col-md-4 col-sm-4 col-xs-4 avatar">
-			<img src="{? echo $user->get('avatar');?}" alt="trang cá nhân" class="img-circle center-block" style="width:120px; height:120px;">
+			<img src="<?php  echo $user->get('avatar');?>" alt="trang cá nhân" class="img-circle center-block" style="width:120px; height:120px;">
 			<button type="button" class="btn btn-primary sharp  center-block top10" onclick="$('.profile-edit-area').show(); $('.profile-detail-area').hide(); $(window).scrollTop(900); return false;">Đổi avatar</button>
 		</div>
 		<div class="co-md-8 col-sm-8 col-xs-12">
 			<div class="profile-detail-area">
 				
 				<ul class="list-unstyled">
-					<li><strong>Họ và tên:</strong> {user.get('name')}</li>
-					<li><strong>Nick name:</strong> {user.get('username')}</li>
-					<li><strong>Ngày sinh:</strong> {user.get('birthDate')}</li>
+					<li><strong>Họ và tên:</strong> <?php echo $user->get('name')?></li>
+					<li><strong>Nick name:</strong> <?php echo $user->get('username')?></li>
+					<li><strong>Ngày sinh:</strong> <?php echo $user->get('birthDate')?></li>
 					<li><strong>Giới tính:</strong> {user.getGender()}</li>
-					<li><strong>Địa chỉ:</strong> {user.get('address')}</li>
-					<li><strong>Trường:</strong> {user.get('schoolname')}</li>
-					<li><strong>Lớp:</strong> {user.get('classname')}</li>
-					<li><strong>Thành phố:</strong> {? echo $user->getCity()->get('name'); ?}</li>
+					<li><strong>Địa chỉ:</strong> <?php echo $user->get('address')?></li>
+					<li><strong>Trường:</strong> <?php echo $user->get('schoolname')?></li>
+					<li><strong>Lớp:</strong> <?php echo $user->get('classname')?></li>
+					<li><strong>Thành phố:</strong> <?php  echo $user->getCity()->get('name'); ?></li>
 					<?php if(pzk_session('checkPayment')) :?>						
-					<li><strong>Thời hạn sản phẩm 1 năm ({date})</strong></li>
+					<li><strong>Thời hạn sản phẩm 1 năm (<?php echo $date ?>)</strong></li>
 					<?php endif;?>
 				</ul>
 				
@@ -55,7 +55,7 @@
 				</div>
 			</div>
 			<div class="profile-edit-area" style="display: none;">
-			{children [position=profile-edit-area]}
+			<?php $data->displayChildren('[position=profile-edit-area]') ?>
 			</div>
 		</div>
 	</div>

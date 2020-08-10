@@ -14,11 +14,11 @@
 <div class="container text-justify">
     <div class="row">
 		<div class="col-xs-8">
-			<h1> {news[title]}</h1>
+			<h1> <?php echo @$news['title']?></h1>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-8">{news[brief]}</div>
+		<div class="col-xs-8"><?php echo @$news['brief']?></div>
 		<div class="col-xs-8">
 		<?php 
 	  $content= $news['content'];
@@ -39,16 +39,16 @@
 		</div>
 	</div>
 	<h3>Luyện thi tiếng Anh kiểu mới vào trường Trần Đại Nghĩa <a href="http://s1.nextnobels.com/">Tại Đây</a></h3>
-	<div class="fb-comments" style="margin-left:150px;" data-href="http://www.nextnobels.com/{news[alias]}" data-numposts="5"></div>
+	<div class="fb-comments" style="margin-left:150px;" data-href="http://www.nextnobels.com/<?php echo @$news['alias']?>" data-numposts="5"></div>
     <div class="row">
       <div class="col-xs-8">
 		  <h4>Các tin liên quan</h4>
 		  <ul> 
-		  {each $lists as $item}
+		  <?php foreach($lists as $item): ?>
 			<li>
-				<a href="/{item[alias]} ">{item[title]}</a>
+				<a href="/<?php echo @$item['alias']?> "><?php echo @$item['title']?></a>
 			</li>
-		  {/each}
+		  <?php endforeach; ?>
 		  </ul>
 	  </div>
     </div>

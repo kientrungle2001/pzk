@@ -9,11 +9,11 @@ $topics = treefy($topics);
 $schedules = $data->getSchedules();
 $teacherScheduleId = $data->getTeacherScheduleId();
 ?>
-<h1>Lớp {classroom[gradeNum]}{classroom[className]} năm {classroom[schoolYear]}</h1>
-{each $topics as $topic}
+<h1>Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> năm <?php echo @$classroom['schoolYear']?></h1>
+<?php foreach($topics as $topic): ?>
 <?php if($topic['type'] == 'subject') {continue;} ?>
 <a href="#" onclick="return false;">
-<?php echo str_repeat('&nbsp;', 4 * $topic['level']);?>{topic[name]}
+<?php echo str_repeat('&nbsp;', 4 * $topic['level']);?><?php echo @$topic['name']?>
 </a>
 <br />
 <div class="row">
@@ -26,7 +26,7 @@ $exerciseNum = $i + 1;
 ?>
 <?php echo str_repeat('&nbsp;', 4 * $topic['level']);?><a href="#" onclick="return false;" class="btn btn-default">
 Bài <?php echo $exerciseNum; ?>
-</a> <input type="datetime-local" id="expiredDate-{teacherScheduleId}-{topic[id]}-1-{exerciseNum}" name="schedules[]" /> <button class="btn btn-primary" onclick="saveLectureSchedule({teacherScheduleId}, {topic[id]}, 1, {exerciseNum});">Lưu</button>
+</a> <input type="datetime-local" id="expiredDate-<?php echo $teacherScheduleId ?>-<?php echo @$topic['id']?>-1-<?php echo $exerciseNum ?>" name="schedules[]" /> <button class="btn btn-primary" onclick="saveLectureSchedule(<?php echo $teacherScheduleId ?>, <?php echo @$topic['id']?>, 1, <?php echo $exerciseNum ?>);">Lưu</button>
 
 <br />
 <?php endfor;?>
@@ -45,7 +45,7 @@ $exerciseNum = $i + 1;
 ?>
 <?php echo str_repeat('&nbsp;', 4 * $topic['level']);?><a href="#" onclick="return false;" class="btn btn-default">
 Bài <?php echo $exerciseNum; ?>
-</a> <input type="datetime-local" id="expiredDate-{teacherScheduleId}-{topic[id]}-4-{exerciseNum}" name="schedules[]" /> <button class="btn btn-primary" onclick="saveLectureSchedule({teacherScheduleId}, {topic[id]}, 4, {exerciseNum});">Lưu</button>
+</a> <input type="datetime-local" id="expiredDate-<?php echo $teacherScheduleId ?>-<?php echo @$topic['id']?>-4-<?php echo $exerciseNum ?>" name="schedules[]" /> <button class="btn btn-primary" onclick="saveLectureSchedule(<?php echo $teacherScheduleId ?>, <?php echo @$topic['id']?>, 4, <?php echo $exerciseNum ?>);">Lưu</button>
 
 <br />
 <?php endfor;?>
@@ -53,7 +53,7 @@ Bài <?php echo $exerciseNum; ?>
 <?php } ?>
 </div>
 </div>
-{/each}
+<?php endforeach; ?>
 
 <script>
 function saveLectureSchedule(teacherScheduleId, topicId, questionType, exerciseNum) {

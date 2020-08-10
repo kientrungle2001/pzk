@@ -6,17 +6,17 @@ $subjects = _db()->selectAll()->fromCategories()->whereParent($subject->getParen
 <div class="col-md-12 col-xs-12 btn-custom4">
 	<ul class="breadcrumb text-center">
 		<li><a href="#">Tài liệu học tập</a></li>
-		<li><a href="#">Lớp {data.get('class')}</a></li>
+		<li><a href="#">Lớp <?php echo $data->get('class')?></a></li>
 		<li class="active">
 			<span class="dropdown">
 			  <a class="dropdown-toggle" type="button" id="dropdownSubjectDocument" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				{subject.get('name')}
+				<?php echo $subject->get('name')?>
 				<span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
-			  {each $subjects as $sbj}
-				<li><a href="/document/index/{sbj[id]}?class={? echo intval(pzk_request()->get('class'))?}">{sbj[name]}</a></li>
-			  {/each}
+			  <?php foreach($subjects as $sbj): ?>
+				<li><a href="/document/index/<?php echo @$sbj['id']?>?class=<?php  echo intval(pzk_request()->get('class'))?>"><?php echo @$sbj['name']?></a></li>
+			  <?php endforeach; ?>
 			  </ul>
 			</span>
 		</li>
@@ -34,22 +34,22 @@ $subjects = _db()->selectAll()->fromCategories()->whereParent($subject->getParen
 	  </tr>
 	</thead>
 	<tbody>
-	{? $items = $data->getItems();
+	<?php  $items = $data->getItems();
 		$itemTotal = $data->getCountItems();
 		$pages = ceil($itemTotal / 10);
-	?}
-		{each $items as $item}
+	?>
+		<?php foreach($items as $item): ?>
 	  <tr>
-		<td><a href="/document/detail/{data.get('categoryId')}?class={data.get('class')}&id={item[id]}">{item[title]}</a></td>
-		<td>{item[created]}</td>
+		<td><a href="/document/detail/<?php echo $data->get('categoryId')?>?class=<?php echo $data->get('class')?>&id=<?php echo @$item['id']?>"><?php echo @$item['title']?></a></td>
+		<td><?php echo @$item['created']?></td>
 		<td>
 		<?php 
 		echo humanFileSize(@filesize(BASE_DIR . $item['file']));
 		?></td>
-		<td>{item[downloads]}</td>
-		<td><a href="{item[file]}">Tải về</a></td>
+		<td><?php echo @$item['downloads']?></td>
+		<td><a href="<?php echo @$item['file']?>">Tải về</a></td>
 	  </tr>
-		{/each}
+		<?php endforeach; ?>
 	</tbody>
   </table>
 </div>
@@ -65,7 +65,7 @@ $subjects = _db()->selectAll()->fromCategories()->whereParent($subject->getParen
 			else { $btn = 'btn-default'; }
 		?>
 		<li>
-		<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+		<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 		</li>
 		<?php } ?>
 			</ul>

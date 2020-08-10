@@ -10,7 +10,7 @@
     $items  =  $service->loadService();
     ?>
 <div class="col-xs-12">
-  <form id="orderCardForm"  onsubmit="return pzk_{data.id}.ordercard()" method="post">
+  <form id="orderCardForm"  onsubmit="return pzk_<?php echo @$data->id?>.ordercard()" method="post">
         <div class="row row-npd">
 		  <h4><strong>Hãy chọn lớp học :</strong></h4>
           <input type="radio" name="className"  value="3">Lớp 3
@@ -19,9 +19,9 @@
         </div>
 		<div class="row row-npd">
 		  <h4><strong>Hãy chọn gói sản phẩm :</strong></h4>
-          {each $items as $item}
-            <input type="radio" name="serviceId"  checked value="<?php echo $item->get('id').'/'.$item->get('amount') ?>"><strong> {? echo $item->get('serviceName') ?} </strong> Giá : <strong>{? echo product_price($item->get('amount')) ?}</strong> <br>         
-          {/each}
+          <?php foreach($items as $item): ?>
+            <input type="radio" name="serviceId"  checked value="<?php echo $item->get('id').'/'.$item->get('amount') ?>"><strong> <?php  echo $item->get('serviceName') ?> </strong> Giá : <strong><?php  echo product_price($item->get('amount')) ?></strong> <br>         
+          <?php endforeach; ?>
 		</div>
 		<div class="row row-npd">
           <label for="">Họ và tên:</label> <br>

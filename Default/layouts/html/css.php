@@ -1,1 +1,1 @@
-<link type="text/css" property="stylesheet" rel="stylesheet" href="{prop src}" />
+<link type="text/css" property="stylesheet" rel="stylesheet" href="<?php echo @$data->src?>" />

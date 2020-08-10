@@ -41,7 +41,7 @@
 				
 			 </div>
 			<?php $i =1; ?>
-			{each $achievementByTrees as $achievementByTree}
+			<?php foreach($achievementByTrees as $achievementByTree): ?>
 			 <div class='child-box-achie item'>
 				<b class="stt2"><?= $i; ?>. </b>
 				<span><b><?=$achievementByTree['name'];?></b>
@@ -49,7 +49,7 @@
 				</span>
 			 </div>
 			 <?php $i ++;?>
-			 {/each}
+			 <?php endforeach; ?>
 			<?php } ?>
 			
 			
@@ -70,7 +70,7 @@
 			 </div>
 			
 			<?php $i =1; ?>
-			{each $achievementByFlowers as $achievementByFlower}
+			<?php foreach($achievementByFlowers as $achievementByFlower): ?>
 				 <div class='child-box-achie item'>
 					
 					<b class="stt2"><?= $i; ?>. </b>
@@ -80,7 +80,7 @@
 					</span>
 				 </div>
 				 <?php $i ++;?>
-			 {/each}
+			 <?php endforeach; ?>
 			 <?php } ?>
 			 </div>
 			 
@@ -96,7 +96,7 @@
 				
 			 </div>
 			<?php $i =1; ?>
-			{each $achievementByApples as $achievementByApple}
+			<?php foreach($achievementByApples as $achievementByApple): ?>
 			 <div class='child-box-achie item'>
 				<b class="stt2"><?= $i; ?>. </b>
 				
@@ -104,7 +104,7 @@
 				<p>(<?=$achievementByApple['username'];?>)</p>
 			 </div>
 			 <?php $i++; ?>
-			 {/each}
+			 <?php endforeach; ?>
 			<?php } ?>
 			</div>
 		</div>

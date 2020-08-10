@@ -36,9 +36,9 @@
                         $messages = pzk_notifier_messages();
                         if($messages) {
                             ?>
-                            {each $messages as $item}
-                            <h4 style="color: red;">{item[message]}</h4>
-                            {/each}
+                            <?php foreach($messages as $item): ?>
+                            <h4 style="color: red;"><?php echo @$item['message']?></h4>
+                            <?php endforeach; ?>
                         <?php } ?>
                     </form>
                 </div>

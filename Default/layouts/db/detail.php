@@ -8,13 +8,13 @@ $displayFields = explode(',',$data->displayFields);
 	$imgs = @$matches[1];
 	?>
 	<div>
-	{each $imgs as $img}
+	<?php foreach($imgs as $img): ?>
 	<?php if($img) { ?>
 		<div style="display: block; float: left; width: 162px; height: 110px;margin: 5px; border: 1px solid #ddd;">
-		<a href="javascript:void(0);" rel="{img}" onclick="showImage('{img}');">{thumb 160x108 $img}</a>
+		<a href="javascript:void(0);" rel="<?php echo $img ?>" onclick="showImage('<?php echo $img ?>');">{thumb 160x108 $img}</a>
 		</div>
 	<?php } ?>
-	{/each}
+	<?php endforeach; ?>
 	<div style="clear:both;"></div>
 	<script>
 	function showImage(url) {
@@ -30,42 +30,42 @@ $displayFields = explode(',',$data->displayFields);
 	}
 	</script>
 	</div>
-{/if}
+<?php endif; ?>
 <!-- hien thi noi dung -->
-{each $displayFields as $field}
-{? 	$field = trim($field); 
+<?php foreach($displayFields as $field): ?>
+<?php  	$field = trim($field); 
 	$fieldTag = $field . 'Tag'; 
 	$fieldTag=@$data->$fieldTag?@$data->$fieldTag: 'div'; 
-	$value = @$item[$field]; ?}
-<{fieldTag} class="{data.classPrefix}{field}">{value}</{fieldTag}>
-{/each}
+	$value = @$item[$field]; ?>
+<<?php echo $fieldTag ?> class="<?php echo @$data->classPrefix?><?php echo $field ?>"><?php echo $value ?></<?php echo $fieldTag ?>>
+<?php endforeach; ?>
 
 <!-- hien thi cac object con -->
-{children all}
+<?php $data->displayChildren('all') ?>
 
 <!-- hien thi cac navigation next, prev -->
 {ifprop showNav=true}
-{?
+<?php 
 	$next = $data->getNextItem(array('categories', $item['categories']));
 	$prev = $data->getPrevItem(array('categories', $item['categories']));
-?}
+?>
 	<div class="row">
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-left">
 		<?php if($prev) { ?>
-		<a href="/{prev[alias]}" style="padding: 5px; color: yellow;">Bài trước</a>
+		<a href="/<?php echo @$prev['alias']?>" style="padding: 5px; color: yellow;">Bài trước</a>
 		<?php } ?>
 		</div>
 		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
 		<?php if($next) { ?>
-		<a href="/{next[alias]}" style="padding: 5px; color: yellow;">Bài tiếp</a>
+		<a href="/<?php echo @$next['alias']?>" style="padding: 5px; color: yellow;">Bài tiếp</a>
 		<?php } ?>
 		</div>
 	</div>
-{/if}
+<?php endif; ?>
 
 <!-- hien thi facebook comment-->
 {ifprop facebookComment=true}
 <div style="background: #ddd;">
-	<fb:comments width="100%" xid="16626" href="http://{_SERVER[HTTP_HOST]}{_SERVER[REQUEST_URI]}"></fb:comments>
+	<fb:comments width="100%" xid="16626" href="http://<?php echo @$_SERVER['HTTP_HOST']?><?php echo @$_SERVER['REQUEST_URI']?>"></fb:comments>
 </div>
-{/if}
+<?php endif; ?>

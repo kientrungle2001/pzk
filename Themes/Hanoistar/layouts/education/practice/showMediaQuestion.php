@@ -25,8 +25,8 @@
 	$lang = pzk_session('language');
 	
 ?>
-{children [position=public-header]}	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=public-header]') ?>	
+<?php $data->displayChildren('[position=top-menu]') ?>
 <?php if(pzk_session('login')) { ?>
 
 <div class="container-fluid bgcontent">
@@ -77,7 +77,7 @@
 						<div class="name-detail col-md-12 col-xs-12">
 							
 							<?php if($psubject == 88) { ?>
-								{de}
+								<?php echo $de ?>
 							<?php } else { 
 								if($check == 0){ 
 									echo $language['trialpractice']; 

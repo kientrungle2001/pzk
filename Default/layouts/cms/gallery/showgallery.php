@@ -13,7 +13,7 @@
 		<h1>Các hoạt động vui chơi</h1>
 	</header>
 <?php $gallerys=$data->getGallery(); ?>
-{each $gallerys as $gallery}
+<?php foreach($gallerys as $gallery): ?>
 	<section id="cd-timeline" class="cd-container">
 		<div class="cd-timeline-block">
 			<div class="cd-timeline-img cd-picture">
@@ -21,11 +21,11 @@
 			</div> <!-- cd-timeline-img -->
 
 			<div class="cd-timeline-content">
-				<h2>{gallery[title]}</h2>
-				<p>{gallery[brief]}</p>
-				<a href="/gallery/thumbnailgallery?id={gallery[id]}" class="cd-read-more">Xem thêm</a>
-				<a href="/gallery/slidegallery?id={gallery[id]}" class="cd-read-more">Xem slide</a>
-				<span class="cd-date">{gallery[date]}</span>
+				<h2><?php echo @$gallery['title']?></h2>
+				<p><?php echo @$gallery['brief']?></p>
+				<a href="/gallery/thumbnailgallery?id=<?php echo @$gallery['id']?>" class="cd-read-more">Xem thêm</a>
+				<a href="/gallery/slidegallery?id=<?php echo @$gallery['id']?>" class="cd-read-more">Xem slide</a>
+				<span class="cd-date"><?php echo @$gallery['date']?></span>
 			</div> <!-- cd-timeline-content -->
 		</div> <!-- cd-timeline-block -->
 		<div class="cd-timeline-block">
@@ -36,15 +36,15 @@
 			<div class="cd-timeline-content">
 				
 				<?php $subimage=$data->getSubgallery($gallery['id']); ?>
-				{each $subimage as $gallery2}
-				<img src="{gallery2[url]}"></img>
-				{/each}
+				<?php foreach($subimage as $gallery2): ?>
+				<img src="<?php echo @$gallery2['url']?>"></img>
+				<?php endforeach; ?>
 				
 				
 			</div> <!-- cd-timeline-content -->
 		</div> <!-- cd-timeline-block -->
 	</section> <!-- cd-timeline -->
-{/each}
+<?php endforeach; ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="/default/layouts/cms/gallery/js/main.js"></script> <!-- Resource jQuery -->
 </body>

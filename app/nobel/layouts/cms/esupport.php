@@ -18,12 +18,12 @@
                 <span class="img_tooltip" ><img src="<?php echo BASE_URL.'/default/skin/test/media/icon-mobile.gif'; ?>" alt=""></span>
 				        <span class="txt_tooltip">Hotline 1: 0965.90.91.95</span><br>
 				        <span class="img_tooltip" ><img src="<?php echo BASE_URL.'/default/skin/test/media/icon-mobile.gif'; ?>" alt=""></span>
-                <span class="txt_tooltip">Hotline 2: {? echo pzk_config('hotline')?}</span><br>
+                <span class="txt_tooltip">Hotline 2: <?php  echo pzk_config('hotline')?></span><br>
                 <span class="img_tooltip" ><img src="<?php echo BASE_URL.'/default/skin/test/media/Email.gif'; ?>" alt=""></span>
-                <span class="txt_tooltip">Email: {? echo pzk_config('email')?}</span>
+                <span class="txt_tooltip">Email: <?php  echo pzk_config('email')?></span>
                 <br>
-                <span class="img_tooltip"><a title="Hỗ trợ Skype " href="skype:{? echo pzk_config('skype')?}?chat"><img src="<?php echo BASE_URL.'/default/skin/test/media/icon-skype.gif'; ?>" alt=""></a>
-                <a href="ymsgr:sendIM?{? echo pzk_config('yahoo')?}" title="Hỗ trợ Yahoo"><img src="<?php echo BASE_URL.'/default/skin/test/media/icon-ym.gif'; ?>" alt=""> </a> 
+                <span class="img_tooltip"><a title="Hỗ trợ Skype " href="skype:<?php  echo pzk_config('skype')?>?chat"><img src="<?php echo BASE_URL.'/default/skin/test/media/icon-skype.gif'; ?>" alt=""></a>
+                <a href="ymsgr:sendIM?<?php  echo pzk_config('yahoo')?>" title="Hỗ trợ Yahoo"><img src="<?php echo BASE_URL.'/default/skin/test/media/icon-ym.gif'; ?>" alt=""> </a> 
                 </span>
                 <span class="txt_tooltip">Chat với hỗ trợ kỹ thuật</span>
             </div>

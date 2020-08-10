@@ -20,14 +20,14 @@ $check= pzk_session('checkPayment');
                             $weeks = $data->getWeekTest(ROOT_WEEK_CATEGORY_ID, $practice, $check);
                             
                          ?>
-                        {each $weeks as $week }
+                        <?php foreach($weeks as $week ): ?>
                         
-                        <li class="left20" style="color:#d9534f"><h5><strong>{week[name]}</strong></h5>
+                        <li class="left20" style="color:#d9534f"><h5><strong><?php echo @$week['name']?></strong></h5>
                            
                         <?php 
                             $tests = $data->getTestSN($week['id'], $practice, $check);
                             if($practice== 1 || $practice == '1'){  ?>
-                                {each $tests as $test }
+                                <?php foreach($tests as $test ): ?>
                                 <?php 
                                     if($test['name_sn']){
                                         $testName = $test['name_sn'];
@@ -35,14 +35,14 @@ $check= pzk_session('checkPayment');
                                 ?>
                                     <li style="padding-left: 40px;">
                                         
-                                        <a onclick="document.getElementById('chonde').innerHTML = '{testName}';"  data-de="{testName}" class="getdata" href="/Home/showRating?week={week[id]}&practice=1&examination={test[id]}" data-type="group">{testName}</a>
+                                        <a onclick="document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';"  data-de="<?php echo $testName ?>" class="getdata" href="/Home/showRating?week=<?php echo @$week['id']?>&practice=1&examination=<?php echo @$test['id']?>" data-type="group"><?php echo $testName ?></a>
                                         
                                     </li>
-                                {/each}
+                                <?php endforeach; ?>
                         <?php
                             }else{
                          ?>                     
-                            {each $tests as $test }
+                            <?php foreach($tests as $test ): ?>
                             <?php 
                                     if($test['name_sn']){
                                         $testName = $test['name_sn'];
@@ -50,14 +50,14 @@ $check= pzk_session('checkPayment');
                             ?>
                             <li style="padding-left: 40px;">
                                 
-                                <a onclick="id = {week[id]};document.getElementById('chonde').innerHTML = '{testName}';"  data-de="{testName}" class="getdata" href="/Home/showRating?week={week[id]}&practice=0&examination={test[id]}" data-type="group">{testName}</a>
+                                <a onclick="id = <?php echo @$week['id']?>;document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';"  data-de="<?php echo $testName ?>" class="getdata" href="/Home/showRating?week=<?php echo @$week['id']?>&practice=0&examination=<?php echo @$test['id']?>" data-type="group"><?php echo $testName ?></a>
                                 
                             </li>
-                            {/each}
+                            <?php endforeach; ?>
                             <?php } ?>
                            
                         </li>
-                        {/each}
+                        <?php endforeach; ?>
                         </ul>
                 </div>
                 <div class="col-xs-12 col-md-4 col-sm-2 bd pull-right mgleft">

@@ -26,7 +26,7 @@
  ?>
    <div class="clear" style="margin-bottom: 10px;"></div>
    <div class="pm_payment">
-     <div  id="pay_nganlluong" class="payment_click"><a onclick="pzk_{data.id}.Nganluong('{nganluong}');" href="#">NẠP QUA NGÂNLƯỢNG.VN</a></div>
+     <div  id="pay_nganlluong" class="payment_click"><a onclick="pzk_<?php echo @$data->id?>.Nganluong('<?php echo $nganluong ?>');" href="#">NẠP QUA NGÂNLƯỢNG.VN</a></div>
      
    </div>
    

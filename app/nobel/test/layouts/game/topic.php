@@ -9,12 +9,12 @@ $gameTopic = buildArr($gameTopic, 'parent', 0);
 	<label  for="">Topic</label>
 	<select class="form-control input-sm" name="gameTopic" id="gameTopic">
 		<option value="">-- Choose topic </option>
-		{each $gameTopic as $parent}
+		<?php foreach($gameTopic as $parent): ?>
 		<option <?php if(isset($getTopic) && ($getTopic == $parent['id'])){ echo 'selected';} ?> value="<?php echo $parent['id']; ?>" >
 			<?php echo str_repeat('--', $parent['level']);  ?>
 			<?php echo $parent['game_topic']; ?>
 		</option>
-		{/each}
+		<?php endforeach; ?>
 
 	</select>
 </div>

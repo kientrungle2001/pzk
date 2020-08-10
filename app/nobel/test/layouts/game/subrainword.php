@@ -3,6 +3,6 @@ $id=pzk_request()->getId();
 $games= $data->getGames($id); 
 ?>
 <strong><center>Chọn trọng điểm miêu tả</strong><br>
-{each $games as $game}
-<a href="/Game/playgame?id={game[id]}"><img src="{game[img]}" width="200" height="200" style="margin:10px;" title="{game[game_title]}"></a>
-{/each}
+<?php foreach($games as $game): ?>
+<a href="/Game/playgame?id=<?php echo @$game['id']?>"><img src="<?php echo @$game['img']?>" width="200" height="200" style="margin:10px;" title="<?php echo @$game['game_title']?>"></a>
+<?php endforeach; ?>

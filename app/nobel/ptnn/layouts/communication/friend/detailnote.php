@@ -15,11 +15,11 @@
 
     <div style="float:left;"><img src="../default/skin/test/media/usernote.png" alt=""></div>
 
-    <div class="prf_titlenote">{note[titlenote]}  </div>  
+    <div class="prf_titlenote"><?php echo @$note['titlenote']?>  </div>  
     <div class="prf_clear"> </div>
-    <div class="prf_titlenote"><span>Nội dung: </span>{note[contentnote]}</div>
+    <div class="prf_titlenote"><span>Nội dung: </span><?php echo @$note['contentnote']?></div>
     <div class="clear"></div>
-    <div class="prf_titlenote"><span>Ngày: {note[datenote]}</span></div> 
+    <div class="prf_titlenote"><span>Ngày: <?php echo @$note['datenote']?></span></div> 
     <div class="clear"></div>
     <div>
       <div><textarea id="txt_comment_note" class="txt_comment_note" required="required" placeholder="Bình luận" rel="false"></textarea></div>
@@ -47,10 +47,10 @@
      <div class="pfr_avatar_wall"><?php echo $data->checkAvatar($userId) ?></div> 
      <div class="prf_titlenote" style="width:30%; height: auto; float:left;">
        <a href="/profile/user?member=<?php echo $userId; ?>" ><?php echo $username ?></a>
-       <br><span>{comment_note[date]}</span>
+       <br><span><?php echo @$comment_note['date']?></span>
      </div>
        
-    <div class="prf_titlenote" style="width:30%; height: auto; float:left;">{comment_note[comment]}</div>
+    <div class="prf_titlenote" style="width:30%; height: auto; float:left;"><?php echo @$comment_note['comment']?></div>
     <div class="prf_titlenote"></div>
     </div>
 

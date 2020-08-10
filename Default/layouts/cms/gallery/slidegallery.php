@@ -18,9 +18,9 @@ $gallerys=$data->getSubgallery($id);
     <div id="wrapper">
         <div class="slider-wrapper theme-default">
             <div id="slider" class="nivoSlider">
-			{each $gallerys as $gallery}
-                <img src="{gallery[url]}" data-thumb="{gallery[url]}" alt="" />
-              {/each}   				
+			<?php foreach($gallerys as $gallery): ?>
+                <img src="<?php echo @$gallery['url']?>" data-thumb="<?php echo @$gallery['url']?>" alt="" />
+              <?php endforeach; ?>   				
             </div>
         </div>
     </div>

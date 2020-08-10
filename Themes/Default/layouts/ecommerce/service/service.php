@@ -13,10 +13,10 @@
 		  ?>
 		  
 	<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
-		{each $items as $item}
-				<input type="radio" name="serviceId" id="serviceId"  checked value="{? echo $item->get('id') ?}"><strong> {? echo $item->get('serviceName') ?} </strong> Giá : <strong>{? echo product_price($item->get('amount')) ?}</strong> <br>
+		<?php foreach($items as $item): ?>
+				<input type="radio" name="serviceId" id="serviceId"  checked value="<?php  echo $item->get('id') ?>"><strong> <?php  echo $item->get('serviceName') ?> </strong> Giá : <strong><?php  echo product_price($item->get('amount')) ?></strong> <br>
 				<p></p>
-		  {/each}
+		  <?php endforeach; ?>
 	</div>
 	<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12 top10"> 
 		<button class="btn btn-success" id="bttService" onclick="BuyService()">Mua</button>

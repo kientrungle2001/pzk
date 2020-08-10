@@ -23,19 +23,19 @@
 <div class="container" style="margin-top:60px;">
 	<div class="item">
 		<div class="col-md-8" style="border: solid 4px #337ab7; padding: 0px;">
-			{children [position=slider]}
+			<?php $data->displayChildren('[position=slider]') ?>
 		</div>
 		<div class="col-md-4 fontutm" >
-			{each $commonNews as $new}
+			<?php foreach($commonNews as $new): ?>
 			<div class="col-md-12" style="border-bottom: #337ab7 4px solid; margin-bottom: 10px;">
 				<div class="row" style="margin-bottom: 20px;">
 					<div style="padding: 0px;" class ="col-md-4 col-xs-12">
-						<a href="/{new[alias]}">
-						<img class="item bdimgvct" src="{new[img]}"/>
+						<a href="/<?php echo @$new['alias']?>">
+						<img class="item bdimgvct" src="<?php echo @$new['img']?>"/>
 						</a>
 					</div>
 					<div class ="col-md-8 col-xs-12">
-						<strong><a style="color: #040737;" href="/{new[alias]}"><?php echo cut_words($new['title'], 10); ?></a></strong>
+						<strong><a style="color: #040737;" href="/<?php echo @$new['alias']?>"><?php echo cut_words($new['title'], 10); ?></a></strong>
 						<div style="margin-bottom: 4px;"><?php echo cut_words($new['brief'], 18); ?></div>
 						<p>	
 							<span>
@@ -44,17 +44,17 @@
 							</span>
 							<span>
 								<span class="glyphicon glyphicon-comment"></span>
-								{new[comments]} -
+								<?php echo @$new['comments']?> -
 							</span>
 							<span>
-								<span class="glyphicon glyphicon-eye-open"></span> {new[views]}
+								<span class="glyphicon glyphicon-eye-open"></span> <?php echo @$new['views']?>
 							</span>
 							
 						</p>
 					</div>
 				</div>
 			</div>
-			{/each}
+			<?php endforeach; ?>
 		</div>
 	</div>
 </div>

@@ -60,23 +60,23 @@ $practice = intval(pzk_request('practice'));
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container">
 		<p class="t-weight text-center btn-custom8 textcl">Bảng xếp hạng</p>
 </div>
 <div class="container  panel-default">
     <div class=" panel-heading">
-        <form role="search" action="{url /home/searchPost}">
+        <form role="search" action="<?php echo BASE_REQUEST . '/home/searchPost' ?>">
             <div class="row">
                 <div class="col-md-2 co-xs-12">
                     <label for="testId"> Chọn đề thi</label>
-                    <select style="margin-left: 4px;"  class="form-control input-sm" id="testId" name="testId" onchange="window.location = '/home/onchangeTestId?testId='+this.value+'&practice={practice}';" >
+                    <select style="margin-left: 4px;"  class="form-control input-sm" id="testId" name="testId" onchange="window.location = '/home/onchangeTestId?testId='+this.value+'&practice=<?php echo $practice ?>';" >
                         <option value="" >Chọn đề</option>
-                        {each $dataTest as $item}
-                        <option value="{item[id]}">{item[name]}</option>
-                        {/each}
+                        <?php foreach($dataTest as $item): ?>
+                        <option value="<?php echo @$item['id']?>"><?php echo @$item['name']?></option>
+                        <?php endforeach; ?>
                         <script type="text/javascript">
-                            $('#testId').val('{testId}');
+                            $('#testId').val('<?php echo $testId ?>');
                         </script>
                     </select>
                 </div>
@@ -103,12 +103,12 @@ $practice = intval(pzk_request('practice'));
 		</tr>
 		</thead>
 		<tbody>
-        {each $items as $val}
+        <?php foreach($items as $val): ?>
         <tr>
             <td><?php echo $i+ $data->pageNum*$data->pageSize; ?></td>
-            <td><a href="/home/listTest/{val[userId]}?practice={practice}">{val[username]}</a></td>
-            <td>{val[name]}</td>
-            <td>{val[mark]}</td>
+            <td><a href="/home/listTest/<?php echo @$val['userId']?>?practice=<?php echo $practice ?>"><?php echo @$val['username']?></a></td>
+            <td><?php echo @$val['name']?></td>
+            <td><?php echo @$val['mark']?></td>
             <?php
                 $time = $val['duringTime'];
                 $time = secondsToTime($time);
@@ -134,7 +134,7 @@ $practice = intval(pzk_request('practice'));
             <td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:m:i A', strtotime($val['startTime'])); ?></td>
         </tr>
         <?php $i++; ?>
-        {/each}
+        <?php endforeach; ?>
 		</tbody>
     </table>
 	
@@ -142,14 +142,14 @@ $practice = intval(pzk_request('practice'));
         <form class="form-inline" role="form">
 			<div style="padding-left: 0px ;" class='col-md-2 co-xs-12'>
 				<strong>Số mục: </strong>
-				<select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='{url /home/changePageSize}?pageSize=' + this.value;">
+				<select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/home/changePageSize' ?>?pageSize=' + this.value;">
 					<option value="5">5</option>
 					<option value="10">10</option>
 					<option value="20">20</option>
 					<option value="25">25</option>
 				</select>
 				<script type="text/javascript">
-					$('#pageSize').val('{pageSize}');
+					$('#pageSize').val('<?php echo $pageSize ?>');
 				</script>
                     
 			</div>
@@ -164,11 +164,11 @@ $practice = intval(pzk_request('practice'));
                                 <?php
                                 if($data->pageNum >= 1) { ?>
                                     <li>
-                                        <a href="{url} /Home/rating?page=0" aria-label="End">
+                                        <a href="<?php echo BASE_REQUEST ?> /Home/rating?page=0" aria-label="End">
                                             <span aria-hidden="true">Trang đầu</span>
                                         </a>
                                     <li>
-                                        <a aria-label="Previous" href="{url} /Home/rating?page=<?php echo $data->pageNum -1; ?>">
+                                        <a aria-label="Previous" href="<?php echo BASE_REQUEST ?> /Home/rating?page=<?php echo $data->pageNum -1; ?>">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
@@ -185,19 +185,19 @@ $practice = intval(pzk_request('practice'));
                                         $active = '';
                                     }
                                     ?>
-                                    <li class="{active}">
-                                        <a  href="{url} /Home/rating?practice={practice}&page={page}">{? echo ($page + 1)?}</a>
+                                    <li class="<?php echo $active ?>">
+                                        <a  href="<?php echo BASE_REQUEST ?> /Home/rating?practice=<?php echo $practice ?>&page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
                                     </li>
                                 <?php } ?>
 
                                 <?php if($data->pageNum < $pages-1) { ?>
                                     <li>
-                                        <a href="{url} /Home/rating?practice={practice}&page=<?php echo $data->pageNum + 1; ?>" aria-label="Next">
+                                        <a href="<?php echo BASE_REQUEST ?> /Home/rating?practice=<?php echo $practice ?>&page=<?php echo $data->pageNum + 1; ?>" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{url} /Home/rating?practice={practice}&page=<?php echo $pages-1; ?>" aria-label="end">
+                                        <a href="<?php echo BASE_REQUEST ?> /Home/rating?practice=<?php echo $practice ?>&page=<?php echo $pages-1; ?>" aria-label="end">
                                             <span aria-hidden="true">Trang cuối</span>
                                         </a>
                                     </li>

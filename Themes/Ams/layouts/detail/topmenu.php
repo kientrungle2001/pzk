@@ -35,9 +35,9 @@
 						  <!-- Wrapper for slides -->
 						  <div class="carousel-inner" role="listbox">
 							<div class="item active">
-							{each $testsOfWeek as $firsttest}
+							<?php foreach($testsOfWeek as $firsttest): ?>
 							
-							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="{firsttest[id]}" data-trial="{firsttest[trial]}" data-week="1409" data-class="<?php echo pzk_session('lop') ?>">
+							<div class="col-md-2 col-xs-3 top10 height80 btn-menu bgcl choicetest" onclick="return false;" data-test="<?php echo @$firsttest['id']?>" data-trial="<?php echo @$firsttest['trial']?>" data-week="1409" data-class="<?php echo pzk_session('lop') ?>">
 								<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
 								<p class="text-uppercase robotofont weight10 top10">
 								<?php 
@@ -51,7 +51,7 @@
 						
 							}
 							?>
-							{/each}
+							<?php endforeach; ?>
 							  
 							</div>
 						</div>
@@ -160,7 +160,7 @@
 	});
 	$(".choicepractice").click(function(){
 		<?php if(pzk_session('userId')){ ?>
-			var check = '{check}';
+			var check = '<?php echo $check ?>';
 			var trial = $(this).data("trial");
 			if(check == 1){
 				var week = $(this).data("week");
@@ -187,7 +187,7 @@
 	});
 	$(".choicetest").click(function(){
 		<?php if(pzk_session('userId')){ ?>
-			var check = '{check}';
+			var check = '<?php echo $check ?>';
 			var trial = $(this).data("trial");
 			if(check == 1){
 				var week = $(this).data("week");

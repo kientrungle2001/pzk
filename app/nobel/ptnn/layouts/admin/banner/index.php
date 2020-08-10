@@ -14,7 +14,7 @@
 		<th>Code</th>
 		<th colspan="2">Hành động</th>
 	</tr>
-	{each $items as $item}
+	<?php foreach($items as $item): ?>
 	<?php 
 	$tab = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp';
 	$banner = str_repeat($tab, $item['level'])
@@ -24,24 +24,24 @@
 	.$item['code'];
 	?>
 	<tr>
-		<td>{item[id]}</td>
-		<td>{item[title]}</td>
-		<td>{item[ngaytao]}</td>
-		<td>{item[url]}</td>
-		<td>{item[code]}</td>
+		<td><?php echo @$item['id']?></td>
+		<td><?php echo @$item['title']?></td>
+		<td><?php echo @$item['ngaytao']?></td>
+		<td><?php echo @$item['url']?></td>
+		<td><?php echo @$item['code']?></td>
 		<td colspan="3">
-		<a href="{url /admin_banner/add}/{item[id]}">Thêm 
-        <a href="{url /admin_banner/edit}/{item[id]}">Sửa		
-		<a href="{url /admin_banner/del}/{item[id]}">Xóa
+		<a href="<?php echo BASE_REQUEST . '/admin_banner/add' ?>/<?php echo @$item['id']?>">Thêm 
+        <a href="<?php echo BASE_REQUEST . '/admin_banner/edit' ?>/<?php echo @$item['id']?>">Sửa		
+		<a href="<?php echo BASE_REQUEST . '/admin_banner/del' ?>/<?php echo @$item['id']?>">Xóa
 		</td>
 	
 	</tr>
-	{/each}
+	<?php endforeach; ?>
 	<tr>
 		<td colspan="6">
 		<form class="form-inline" role="form">
 		<strong>Số mục: </strong>
-		<select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='{url /admin_banner/changePageSize}?pageSize=' + this.value;">
+		<select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/admin_banner/changePageSize' ?>?pageSize=' + this.value;">
 			<option value="10">10</option>
 			<option value="20">20</option>
 			<option value="30">30</option>
@@ -50,7 +50,7 @@
 			<option value="200">200</option>
 		  </select>
 		  <script type="text/javascript">
-			$('#pageSize').val('{pageSize}');
+			$('#pageSize').val('<?php echo $pageSize ?>');
 		  </script>
 		<strong>Trang: </strong>
 		<?php for ($page = 0; $page < $pages; $page++) { 
@@ -60,7 +60,7 @@
 				$btn = 'btn-default';
 			}
 		?>
-		<a class="btn {btn}" href="{url /admin_banner/index}?page={page}">{? echo ($page + 1)?}</a>
+		<a class="btn <?php echo $btn ?>" href="<?php echo BASE_REQUEST . '/admin_banner/index' ?>?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
 		<?php } ?>
 		</form>
 		</td>

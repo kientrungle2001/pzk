@@ -173,7 +173,7 @@
 			if(lessonId) {
 				$.ajax({
 					type: "POST",
-					url: "{url}/form/setLesson",
+					url: "<?php echo BASE_REQUEST ?>/form/setLesson",
 					data:{lessonId:lessonId, category_root:category_root},
 					success: function(data) {
 						$('#resultLesson').show();

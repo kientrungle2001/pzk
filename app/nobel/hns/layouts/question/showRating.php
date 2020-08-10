@@ -52,18 +52,18 @@ if($testId) {
 <div style="border: 4px solid #017F3F; float: left; width: 94%; margin: 0px 3%;" class="panel panel-default">
 
     <div class="panel-heading">
-        <form role="search" action="{url /Ngonngu/searchPost}">
+        <form role="search" action="<?php echo BASE_REQUEST . '/Ngonngu/searchPost' ?>">
             <div class="row">
 
                 <div class="col-xs-2">
                     <label for="testId"> Chọn đề thi</label>
                     <select style="margin-left: 4px;"  class="form-control input-sm" id="testId" name="testId" onchange="window.location = 'onchangeTestId?testId='+this.value;" >
                         <option value="" >Chọn đề</option>
-                        {each $dataTest as $item}
-                        <option value="{item[id]}">{item[name]}</option>
-                        {/each}
+                        <?php foreach($dataTest as $item): ?>
+                        <option value="<?php echo @$item['id']?>"><?php echo @$item['name']?></option>
+                        <?php endforeach; ?>
                         <script type="text/javascript">
-                            $('#testId').val('{testId}');
+                            $('#testId').val('<?php echo $testId ?>');
                         </script>
                     </select>
                 </div>
@@ -89,12 +89,12 @@ if($items) {
             <th>Thời gian làm bài</th>
             <th>Ngày</th>
         </tr>
-        {each $items as $val}
+        <?php foreach($items as $val): ?>
         <tr>
             <td><?php echo $i+ $data->pageNum*$data->pageSize; ?></td>
-            <td><a href="/Ngonngu/listTest/{val[userId]}">{val[username]}</a></td>
-            <td>{val[name]}</td>
-            <td>{val[mark]}</td>
+            <td><a href="/Ngonngu/listTest/<?php echo @$val['userId']?>"><?php echo @$val['username']?></a></td>
+            <td><?php echo @$val['name']?></td>
+            <td><?php echo @$val['mark']?></td>
             <?php
                 $time = $val['duringTime'];
                 $time = secondsToTime($time);
@@ -120,7 +120,7 @@ if($items) {
             <td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:m:i A', strtotime($val['startTime'])); ?></td>
         </tr>
         <?php $i++; ?>
-        {/each}
+        <?php endforeach; ?>
     </table>
 <div class="panel-footer ">
         <form class="form-inline" role="form">
@@ -128,14 +128,14 @@ if($items) {
             <table style="margin: 0px;">
                 <tr>
                     <td style="width: 135px;"> <strong>Số mục: </strong>
-                        <select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='{url /Ngonngu/changePageSize}?pageSize=' + this.value;">
+                        <select id="pageSize" name="pageSize" class="form-control input-sm" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/Ngonngu/changePageSize' ?>?pageSize=' + this.value;">
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="25">25</option>
                         </select>
                         <script type="text/javascript">
-                            $('#pageSize').val('{pageSize}');
+                            $('#pageSize').val('<?php echo $pageSize ?>');
                         </script>
                     </td>
                     <td>
@@ -146,11 +146,11 @@ if($items) {
                                 <?php
                                 if($data->pageNum >= 1) { ?>
                                     <li>
-                                        <a href="{url} /Ngonngu/rating?page=0" aria-label="End">
+                                        <a href="<?php echo BASE_REQUEST ?> /Ngonngu/rating?page=0" aria-label="End">
                                             <span aria-hidden="true">Trang đầu</span>
                                         </a>
                                     <li>
-                                        <a aria-label="Previous" href="{url} /Ngonngu/rating?page=<?php echo $data->pageNum -1; ?>">
+                                        <a aria-label="Previous" href="<?php echo BASE_REQUEST ?> /Ngonngu/rating?page=<?php echo $data->pageNum -1; ?>">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
                                     </li>
@@ -167,19 +167,19 @@ if($items) {
                                         $active = '';
                                     }
                                     ?>
-                                    <li class="{active}">
-                                        <a  href="{url} /Ngonngu/rating?page={page}">{? echo ($page + 1)?}</a>
+                                    <li class="<?php echo $active ?>">
+                                        <a  href="<?php echo BASE_REQUEST ?> /Ngonngu/rating?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
                                     </li>
                                 <?php } ?>
 
                                 <?php if($data->pageNum < $pages-1) { ?>
                                     <li>
-                                        <a href="{url} /Ngonngu/rating?page=<?php echo $data->pageNum + 1; ?>" aria-label="Next">
+                                        <a href="<?php echo BASE_REQUEST ?> /Ngonngu/rating?page=<?php echo $data->pageNum + 1; ?>" aria-label="Next">
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{url} /Ngonngu/rating?page=<?php echo $pages-1; ?>" aria-label="end">
+                                        <a href="<?php echo BASE_REQUEST ?> /Ngonngu/rating?page=<?php echo $pages-1; ?>" aria-label="end">
                                             <span aria-hidden="true">Trang cuối</span>
                                         </a>
                                     </li>

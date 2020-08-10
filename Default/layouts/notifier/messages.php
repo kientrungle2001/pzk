@@ -4,9 +4,9 @@
 	?>
 <div id="notifier_user" style='margin-top: 30px;' class="container">
 	
-	{each $messages as $item}
-		<div class="alert alert-{item[type]}">{item[message]}</div>
-	{/each}
+	<?php foreach($messages as $item): ?>
+		<div class="alert alert-<?php echo @$item['type']?>"><?php echo @$item['message']?></div>
+	<?php endforeach; ?>
 	
 </div>
 	<?php } ?>

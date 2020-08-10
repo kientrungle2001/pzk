@@ -15,7 +15,7 @@ $testName = $data->get('testName');
     </div>
     <div class="form-group">
         <input type="submit" class="btn btn-primary" value="Cập nhật" />
-        <a class="btn btn-default" href="{url /Admin}_{controller.module}/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
+        <a class="btn btn-default" href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
     </div>
 </form>
 </div>

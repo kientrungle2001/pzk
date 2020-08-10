@@ -15,7 +15,7 @@
         <div  class="item slider">
             <div style=" margin-left: 2%; width: 96%; box-shadow: -2px -2px 2px 0px #18081c;">
                 <video id="video" class="video-js vjs-default-skin" controls preload="auto"  width="100%" >
-                    <source src="/video.php?id={video[id]}&token={token}&time={time}" type='video/mp4' />
+                    <source src="/video.php?id=<?php echo @$video['id']?>&token=<?php echo $token ?>&time=<?php echo $time ?>" type='video/mp4' />
                 </video>
             </div>
         </div>
@@ -37,18 +37,18 @@
     <input type="hidden" name="id_category" value="<?php  echo $curentCateId; ?>"/>
     <div class="col-md-10">
         <label for="">Chọn dạng</label>
-        {each $cateEp as $val}
-        <a <?php if($curentCateId == $val['id']) { echo "class='active_type'"; } ?> href="<?php echo pzk_request()->build($val['router'].'/'.$val['id']); ?>">{val[name]} |</a>
-        {/each}
+        <?php foreach($cateEp as $val): ?>
+        <a <?php if($curentCateId == $val['id']) { echo "class='active_type'"; } ?> href="<?php echo pzk_request()->build($val['router'].'/'.$val['id']); ?>"><?php echo @$val['name']?> |</a>
+        <?php endforeach; ?>
     </div>
     <?php if($topics){ ?>
     <div class="col-md-6">
         <label for="">Chủ đề</label>
         <select name="subject" id="">
             <option value="">Chọn chủ đề ...</option>
-            {each $topics as $topic}
-            <option value="{topic[id]}"><?php echo $topic['name']; ?></option>
-            {/each}
+            <?php foreach($topics as $topic): ?>
+            <option value="<?php echo @$topic['id']?>"><?php echo $topic['name']; ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
     <?php } ?>

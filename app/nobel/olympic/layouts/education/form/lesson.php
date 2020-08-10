@@ -19,7 +19,10 @@
 	
 		
 	<div class='item center'>
-		<a href="<?=BASE_REQUEST.'/'.$lessons['router'].'/'.$lessons['id'].'#flat'?>" class='bt-lesson' onclick='showtailieu();'>		<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 		Bài giảng</a><a href="<?=BASE_REQUEST.'/'.$lessons['router'].'/'.$lessons['id'].'#flat'?>" class='bt-lesson' onclick='showluyen();'><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Luyện tập</a>
+		<a href="<?=BASE_REQUEST.'/'.$lessons['router'].'/'.$lessons['id'].'#flat'?>" class='bt-lesson' onclick='showtailieu();'>
+		<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> 
+		Bài giảng</a>
+<a href="<?=BASE_REQUEST.'/'.$lessons['router'].'/'.$lessons['id'].'#flat'?>" class='bt-lesson' onclick='showluyen();'><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Luyện tập</a>
 	</div>	
 		
 	<div id="baigiang" class="guide an">
@@ -177,10 +180,10 @@
 			var lessonId = $('#lessons').val();	
 			var category_root = $('#category_root').val();
 			$(that).prop( "disabled", true );
-			if(lessonId) {
+			if(lesso<?php echo BASE_REQUEST ?>{
 				$.ajax({
 					type: "POST",
-					url: "{url}/form/setLesson",
+					url: "<?php echo $url ?>/form/setLesson",
 					data:{lessonId:lessonId, category_root:category_root},
 					success: function(data) {
 						$('#resultLesson').show();

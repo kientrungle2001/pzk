@@ -17,7 +17,7 @@
 	<div class="col-xs-12">
 		<form method="get">
 			Mã giảm giá:
-			<input type="text" name="coupon" value="{coupon}" />
+			<input type="text" name="coupon" value="<?php echo $coupon ?>" />
 			<button class="btn btn-danger">GỬI</button>
 		</form>
 	</div>
@@ -25,12 +25,12 @@
         <div class="row">
 		<div class="col-xs-12"> 
           <h4><strong>Hãy chọn gói sản phẩm :</strong></h4>
-          {each $items as $item}
-			  {? $price = $item->get('amount');
+          <?php foreach($items as $item): ?>
+			  <?php  $price = $item->get('amount');
 				$price = $price * (1 - $discount / 100);
-			  ?}
-            <input type="radio" name="serviceId"  checked value="<?php echo $item->get('id').'/'.$item->get('amount') ?>"><strong> {? echo $item->get('serviceName') ?} </strong> Giá ưu đãi: <strong>{? echo product_price($price) ?}{? if($discount): ?} <span>Giá gốc: {? echo product_price($item->get('amount')); ?}</span>{? endif; ?}</strong> <br>         
-          {/each}
+			  ?>
+            <input type="radio" name="serviceId"  checked value="<?php echo $item->get('id').'/'.$item->get('amount') ?>"><strong> <?php  echo $item->get('serviceName') ?> </strong> Giá ưu đãi: <strong><?php  echo product_price($price) ?><?php  if($discount): ?> <span>Giá gốc: <?php  echo product_price($item->get('amount')); ?></span><?php  endif; ?></strong> <br>         
+          <?php endforeach; ?>
 		</div>
         </div>
         <div class="row">

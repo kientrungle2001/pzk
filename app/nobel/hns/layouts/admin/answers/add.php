@@ -1,9 +1,9 @@
-<form role="form" method="post" action="{url /admin_answers/addPost}">
+<form role="form" method="post" action="<?php echo BASE_REQUEST . '/admin_answers/addPost' ?>">
   <input type="hidden" name="id" value="" />
-  <input type="hidden" name="questionId" value="{prop questionId}" />
+  <input type="hidden" name="questionId" value="<?php echo @$data->questionId?>" />
   <div class="form-group">
     <label for="value">Tên câu trả lời</label>
-    <input type="text" class="form-control" id="value" name="value" placeholder="Tên câu trả lời" value="{_REQUEST[name]}">
+    <input type="text" class="form-control" id="value" name="value" placeholder="Tên câu trả lời" value="<?php echo @$_REQUEST['name']?>">
   </div>
   <div class="form-group clearfix">
 	<label for="valueTrue">Trạng thái</label>
@@ -14,6 +14,6 @@
   </div>
   <div class="form-group">
   <button type="submit" class="btn btn-primary">Cập nhật</button>
-  <a href="{url /admin_questions/detail}/{prop questionId}">Quay lại</a>
+  <a href="<?php echo BASE_REQUEST . '/admin_questions/detail' ?>/<?php echo @$data->questionId?>">Quay lại</a>
   </div>
 </form>

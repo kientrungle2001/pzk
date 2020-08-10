@@ -32,20 +32,20 @@
     
       <div class="infor_user1" ><span style="font-size:35px;" class="glyphicon glyphicon-star"></span></div>
       <div class="infor_user2">
-        <a href="/profile/user?member={member}">{user.get('username')}</a>
+        <a href="/profile/user?member=<?php echo $member ?>"><?php echo $user->get('username')?></a>
       </div>
    
     <div class="avatar_user">
-      <img style="border-radius:10%" src="{avatar}" alt="" width="115px" height="115px">
+      <img style="border-radius:10%" src="<?php echo $avatar ?>" alt="" width="115px" height="115px">
     </div>
     <div class="clear"></div>
-    <div class="line"><span class="text_infor_user"><strong>{checkMember}</strong></span></div>
-    <div class="line"><span class="text_infor_user">Danh hiệu: <strong>{sortTrophies}</strong></span></div>
-    <div class="line"><span class="text_infor_user">Giới tính: <strong>{sex}</strong></span></div>
-    <div class="line"><span class="text_infor_user">Sinh nhật: <strong>{user.get('birthday')}</strong></span></div>
-    <div class="line"><span class="text_infor_user">Địa chỉ: <strong>{user.get('address')}</strong></span></div>
-    <div class="line"><span class="text_infor_user">Sổ học bạ: <strong>{sortPoint}</strong></span></div>
-    <div class="line"><span class="text_infor_user">Điểm thành tích:<strong>{hieghtPoint}</strong></span></div>
+    <div class="line"><span class="text_infor_user"><strong><?php echo $checkMember ?></strong></span></div>
+    <div class="line"><span class="text_infor_user">Danh hiệu: <strong><?php echo $sortTrophies ?></strong></span></div>
+    <div class="line"><span class="text_infor_user">Giới tính: <strong><?php echo $sex ?></strong></span></div>
+    <div class="line"><span class="text_infor_user">Sinh nhật: <strong><?php echo $user->get('birthday')?></strong></span></div>
+    <div class="line"><span class="text_infor_user">Địa chỉ: <strong><?php echo $user->get('address')?></strong></span></div>
+    <div class="line"><span class="text_infor_user">Sổ học bạ: <strong><?php echo $sortPoint ?></strong></span></div>
+    <div class="line"><span class="text_infor_user">Điểm thành tích:<strong><?php echo $hieghtPoint ?></strong></span></div>
     <!-- <div class="line"><span class="text_infor_user">Biểu đồ phát triển</strong></span></div>
     <div class="grow_map"> </div> -->
   </div>
@@ -64,13 +64,13 @@
       $checkG=$data->checkIdGoogle($member);*/
      ?>
     <div class="prf_friend" style="height: 45px;">
-      <a class="userfriend" href="/profile/editinfor?member={member}">Sửa thông tin cá nhân</a>
+      <a class="userfriend" href="/profile/editinfor?member=<?php echo $member ?>">Sửa thông tin cá nhân</a>
     </div>
     <div class="prf_friend" style="height: 45px;">
-      <a class="userfriend" href="/profile/changePassword?member={member}">Thay đổi mật khẩu</a>
+      <a class="userfriend" href="/profile/changePassword?member=<?php echo $member ?>">Thay đổi mật khẩu</a>
     </div>
     <div class="prf_friend" style="height: 45px;">
-      <a class="userfriend" href="/profile/editavatar?member={member}">Thay đổi avatar</a>
+      <a class="userfriend" href="/profile/editavatar?member=<?php echo $member ?>">Thay đổi avatar</a>
     </div>
   </div>
 
@@ -93,8 +93,8 @@
     <div class="prf_friend_title">
       <span style="color:#00adef;" class="glyphicon glyphicon-asterisk"></span>
       <span class="prf_text_title">Danh sách bạn bè</span><br>
-      <a href="/invitation/list" title=""><span class="count_friend">(Có {countInvi} lời mời kết bạn)</span></a> <br>
-      <span class="count_friend">(Có {friend} bạn bè)</span> <br>
+      <a href="/invitation/list" title=""><span class="count_friend">(Có <?php echo $countInvi ?> lời mời kết bạn)</span></a> <br>
+      <span class="count_friend">(Có <?php echo $friend ?> bạn bè)</span> <br>
     </div>
     <?php 
           $friends= $user->getFriends();
@@ -104,19 +104,19 @@
       ?>
     <div class="prf_friend">
       <div class="prf_avatar_friend">
-        <a href="/profile/user?member={friend.get('id')}">
-          <img style="border-radius:6%" src="{avatar_friend}" alt="" width="60px" height="60px">
+        <a href="/profile/user?member=<?php echo $friend->get('id')?>">
+          <img style="border-radius:6%" src="<?php echo $avatar_friend ?>" alt="" width="60px" height="60px">
         </a>
         
       </div>
       <div class="prf_name_friend">
-      <a class="userfriend" href="/profile/user?member={friend.get('id')}">{userfriend}</a>
+      <a class="userfriend" href="/profile/user?member=<?php echo $friend->get('id')?>"><?php echo $userfriend ?></a>
       </div>
     </div>
     <?php } ?>
     
     <div class="prf_friend_more">
-      <div style=" float:right;"><a style="color: #fefeff;" href="/friend/list?member={member}">Xem tiếp >></a></div>
+      <div style=" float:right;"><a style="color: #fefeff;" href="/friend/list?member=<?php echo $member ?>">Xem tiếp >></a></div>
     </div>
   </div>
 
@@ -144,10 +144,10 @@
     </div>
     
     <div class="prf_lesson_list">
-      <a class="prf_a" href="/favorite/lessonfavorite?member={member}">Bài học yêu thích</a>
+      <a class="prf_a" href="/favorite/lessonfavorite?member=<?php echo $member ?>">Bài học yêu thích</a>
     </div>
     <div class="prf_lesson_list">
-      <a class="prf_a" href="/favorite/lessonhistory?member={member}">Lịch sử học tập</a>
+      <a class="prf_a" href="/favorite/lessonhistory?member=<?php echo $member ?>">Lịch sử học tập</a>
     </div>
     <div class="prf_lesson_list">
       <a class="prf_a" href="">Điểm thành tích</a>

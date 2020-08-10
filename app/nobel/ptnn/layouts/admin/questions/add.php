@@ -3,7 +3,7 @@ $categories = _db()->select('*')->from('categories')->result();
 $categories = buildArr($categories,'parent',0);
 $questionTypes = _db()->select('*')->from('questiontype')->result();
 ?>
-<form id="questionsAddForm" role="form" method="post" action="{url /admin_questions/addPost}">
+<form id="questionsAddForm" role="form" method="post" action="<?php echo BASE_REQUEST . '/admin_questions/addPost' ?>">
     <input type="hidden" name="software" value="<?php echo pzk_request()->getSoftwareId(); ?>" />
   	<input type="hidden" name="id" value="" />
   	<div class="form-group col-xs-12">
@@ -64,7 +64,7 @@ $questionTypes = _db()->select('*')->from('questiontype')->result();
         	<label for="level">Mức độ câu hỏi</label>
         </div>
         <div class="col-xs-10">
-	        <select class="form-control" id="level" name="level" placeholder="Loại" value="{item[level]}">
+	        <select class="form-control" id="level" name="level" placeholder="Loại" value="<?php echo @$item['level']?>">
 	            <option value="">-- Chọn mức độ câu hỏi --</option>
 	            <option value="<?=EASY;?>">Dễ</option>
 	            <option value="<?=NORMAL?>">Bình thường</option>
@@ -74,7 +74,7 @@ $questionTypes = _db()->select('*')->from('questiontype')->result();
 	        </select>
         </div>
         <script>
-            $('#type').val('{item[type]}');
+            $('#type').val('<?php echo @$item['type']?>');
         </script>
     </div>
   	<div class="form-group col-xs-12">
@@ -82,22 +82,22 @@ $questionTypes = _db()->select('*')->from('questiontype')->result();
 	    	<label for="categoryIds">Danh mục</label>
 	    </div>
 	    <div class="col-xs-10">
-		    <select multiple="multiple" class="form-control" id="categoryIds" name="categoryIds[]" placeholder="Danh mục" value="{item[categoryIds]}" style="height: 300px">
-			{each $categories as $cat}
+		    <select multiple="multiple" class="form-control" id="categoryIds" name="categoryIds[]" placeholder="Danh mục" value="<?php echo @$item['categoryIds']?>" style="height: 300px">
+			<?php foreach($categories as $cat): ?>
 			<?php 
 			$tab = '&nbsp;&nbsp;&nbsp;&nbsp;';	
 			$tabs = str_repeat($tab, $cat['level']);
 			$catName = $tabs.$cat['name'];
 			?>
-			<option value="{cat[id]}">{catName}</option>
-			{/each}
+			<option value="<?php echo @$cat['id']?>"><?php echo $catName ?></option>
+			<?php endforeach; ?>
 			</select>
 		</div>
   	</div>
   	<div class="col-xs-12">
   		<div class="col-xs-4 col-xs-offset-2">
 		  	<button type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-save"></span> Cập nhật</button>
-		  	<a class="btn btn-default" href="{url /admin_questions/index}">Quay lại</a>
+		  	<a class="btn btn-default" href="<?php echo BASE_REQUEST . '/admin_questions/index' ?>">Quay lại</a>
 		</div>
   	</div>
 </form>
@@ -105,7 +105,7 @@ $questionTypes = _db()->select('*')->from('questiontype')->result();
 $addValidator = json_encode(pzk_controller()->addValidator);
 ?>
 <script>
-	$('#questionsAddForm').validate({addValidator});
+	$('#questionsAddForm').validate(<?php echo $addValidator ?>);
 	//setTinymce();
 	setInputTinymce();
 	function request_question(){

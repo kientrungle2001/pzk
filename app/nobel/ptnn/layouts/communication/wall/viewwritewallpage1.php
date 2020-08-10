@@ -6,7 +6,7 @@
       $write_walls=$entt->loadWriteWall($member);
       $i=0;
       ?>
-      {each $write_walls as $write_wall}
+      <?php foreach($write_walls as $write_wall): ?>
       <?php
          $i++;
          $loadUserID = $entt->loadUserID($write_wall['userWrite']);
@@ -15,21 +15,21 @@
     ?>
 <div class="prf_write_wall">
       <div class="pfr_avatar_wall">
-        <img src="{avatar}" alt="" width="60" height="60">
+        <img src="<?php echo $avatar ?>" alt="" width="60" height="60">
       </div>
       <div class="prf_titlenote">
-       <a href="/profile/user?member={write_wall[userWrite]}" >{usernameWrite} :</a>
+       <a href="/profile/user?member=<?php echo @$write_wall['userWrite']?>" ><?php echo $usernameWrite ?> :</a>
          
       </div>
       <div class="titel_detail">
-        {write_wall[content]}    
+        <?php echo @$write_wall['content']?>    
        </div>
       <div class="titel_time">   Được viết lúc: 
-        {write_wall[datewrite]}   
+        <?php echo @$write_wall['datewrite']?>   
       </div>      
       <div class="prf_clear"> </div>
        
       </div>
     </div>
-{/each} 
+<?php endforeach; ?> 
 

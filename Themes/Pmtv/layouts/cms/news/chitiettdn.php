@@ -11,9 +11,9 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 <div class="row text-justify">
-	<h1 class="text-center">{news[title]}</h1>
+	<h1 class="text-center"><?php echo @$news['title']?></h1>
 	<div class="row">
-		<div class="col-md-12  col-sm-12  col-xs-12">{news[brief]}</div>
+		<div class="col-md-12  col-sm-12  col-xs-12"><?php echo @$news['brief']?></div>
 		<div class="col-md-12  col-sm-12  col-xs-12">
 		<?php 
 		$content= $news['content'];
@@ -27,16 +27,16 @@
 		  data-show-faces="true">
 		</div>
 	</div>
-	<div class="fb-comments col-md-12  col-sm-12 col-xs-12" style="margin-left:150px;" data-href="http://www.nextnobels.com/{news[alias]}" data-numposts="5"></div>
+	<div class="fb-comments col-md-12  col-sm-12 col-xs-12" style="margin-left:150px;" data-href="http://www.nextnobels.com/<?php echo @$news['alias']?>" data-numposts="5"></div>
     <div class="row">
       <div class="col-md-12  col-sm-12 col-xs-12">
 		  <h4>Các tin liên quan</h4>
 		  <ul> 
-		  {each $lists as $item}
+		  <?php foreach($lists as $item): ?>
 			<li>
-				<a href="/{item[alias]} ">{item[title]}</a>
+				<a href="/<?php echo @$item['alias']?> "><?php echo @$item['title']?></a>
 			</li>
-		  {/each}
+		  <?php endforeach; ?>
 		  </ul>
 	  </div>
     </div>

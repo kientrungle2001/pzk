@@ -11,7 +11,7 @@
 	</div>
 </div>
 
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 
 <div class="container text-left">
 	<div class="row">
@@ -195,7 +195,7 @@ Tiến sĩ Thực vật, côn trùng, và vi sinh vật tương tác đh Missour
 	      <span class="label label-success ">ĐẶT MUA THẺ FULLOOK</span>
 	    </div>
 	    <div class="row">	
-			{children [position=ordercardfl]}
+			<?php $data->displayChildren('[position=ordercardfl]') ?>
 		</div>
 	</div>
 </div>
@@ -205,7 +205,7 @@ Tiến sĩ Thực vật, côn trùng, và vi sinh vật tương tác đh Missour
 	      <span class="label label-danger ">NẠP THẺ FULLOOK</span>
 	    </div>
 	    <div class="row">	
-			{children [position=paycardfl]}
+			<?php $data->displayChildren('[position=paycardfl]') ?>
 		</div>
 	</div>
 	

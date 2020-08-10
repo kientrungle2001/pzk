@@ -6,9 +6,9 @@ $testId = $data->parentId;
     <div class="row">
         <div class="form-group col-xs-2">
             <label for="keyword">Tên câu hỏi or id</label><br>
-            <input  onfocus="clearText(this)" onblur="clearText(this)" class="form-control input-sm" type="text" name="keyword" id="sques"  placeholder="Câu hỏi" value="{keyword}" />
+            <input  onfocus="clearText(this)" onblur="clearText(this)" class="form-control input-sm" type="text" name="keyword" id="sques"  placeholder="Câu hỏi" value="<?php echo $keyword ?>" />
         </div>
-        <input type="hidden" name="testId" value="{testId}"/>
+        <input type="hidden" name="testId" value="<?php echo $testId ?>"/>
 
         <div class="form-group col-xs-1">
             <label>&nbsp;</label> <br>
@@ -28,7 +28,7 @@ $testId = $data->parentId;
         if(namequestion) {
             $.ajax({
                 type: "POST",
-                url: "{url}/admin_test/resultQuestion/{testId}",
+                url: "<?php echo BASE_REQUEST ?>/admin_test/resultQuestion/<?php echo $testId ?>",
                 data:{namequestion:namequestion},
                 success: function(data) {
                     $('#resultQuestion').html(data)
@@ -88,17 +88,17 @@ function getCategoriesName($item, $categories) {
 ?>
 
 <div class="well">
-    <form role="search" action="{url /admin_test/searchPost}">
+    <form role="search" action="<?php echo BASE_REQUEST . '/admin_test/searchPost' ?>">
         <div class="row">
             <div class="form-group col-xs-2">
                 <label for="keyword">Tên câu hỏi or id</label><br>
-                <input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Câu hỏi" value="{keyword}" />
+                <input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Câu hỏi" value="<?php echo $keyword ?>" />
             </div>
-            <input type="hidden" name="testId" value="{testId}"/>
+            <input type="hidden" name="testId" value="<?php echo $testId ?>"/>
 
             <div class="form-group col-xs-2">
                 <label>Sắp xếp</label><br>
-                <select id="orderBy" name="orderBy" class="form-control" placeholder="Sắp xếp theo" onchange="window.location='{url /admin}_test/changeOrderBy?testId={testId}&orderBy=' + this.value;">
+                <select id="orderBy" name="orderBy" class="form-control" placeholder="Sắp xếp theo" onchange="window.location='<?php echo BASE_REQUEST . '/admin' ?>_test/changeOrderBy?testId=<?php echo $testId ?>&orderBy=' + this.value;">
                     <option value="id asc">ID tăng</option>
                     <option value="id desc">ID giảm</option>
                     <option value="ordering asc">Ordering tăng</option>
@@ -106,7 +106,7 @@ function getCategoriesName($item, $categories) {
 
                 </select>
                 <script type="text/javascript">
-                    $('#orderBy').val('{testQuestionOrderBy}');
+                    $('#orderBy').val('<?php echo $testQuestionOrderBy ?>');
                 </script>
             </div>
 
@@ -126,7 +126,7 @@ function getCategoriesName($item, $categories) {
     <div class="panel-heading">
         Danh sách câu hỏi(<strong><?php echo $countItems; ?> câu</strong>)
         <div style="margin-top: -6px;" class="col-xs-2 pull-right">
-            <select id="printTest" name="printTest" class="form-control" placeholder="print" onchange="window.location='{url /admin}_test/print?testId={testId}&orderBy=' + this.value;">
+            <select id="printTest" name="printTest" class="form-control" placeholder="print" onchange="window.location='<?php echo BASE_REQUEST . '/admin' ?>_test/print?testId=<?php echo $testId ?>&orderBy=' + this.value;">
                 <option value="0">Chọn in</option>
                 <option value="1">ID tăng</option>
                 <option value="2">Ordering tăng</option>
@@ -148,7 +148,7 @@ function getCategoriesName($item, $categories) {
 
             <th colspan="2">Action</th>
         </tr>
-        {each $items as $item}
+        <?php foreach($items as $item): ?>
         <?php
         $catNames = getCategoriesName($item, $cats);
 
@@ -215,25 +215,25 @@ function getCategoriesName($item, $categories) {
         </div>
 
         <tr>
-            <td><input class="checkIds" type="checkbox" name="checkIds[]" value="{item[id]}"></td>
+            <td><input class="checkIds" type="checkbox" name="checkIds[]" value="<?php echo @$item['id']?>"></td>
             <td><?php echo ($sttt +  $pageSize * $data->pageNum);?></td>
-            <td>{item[id]}</td>
-            <td><input name="ordering[{item[id]}]" rel="{item[id]}" value="{item[ordering]}" style="width: 20px" /></td>
-            <td><a href="{url /admin_questions/detail}/{item[id]}"> <?php if($item['name'] !='') echo substr(strip_tags($item['name']), 0, 30);?>...</a></td>
-            <td>{catNames}</td>
+            <td><?php echo @$item['id']?></td>
+            <td><input name="ordering[<?php echo @$item['id']?>]" rel="<?php echo @$item['id']?>" value="<?php echo @$item['ordering']?>" style="width: 20px" /></td>
+            <td><a href="<?php echo BASE_REQUEST . '/admin_questions/detail' ?>/<?php echo @$item['id']?>"> <?php if($item['name'] !='') echo substr(strip_tags($item['name']), 0, 30);?>...</a></td>
+            <td><?php echo $catNames ?></td>
             <td>
-                <span class="glyphicon glyphicon-star" onclick="window.location='{url /admin}_test/onchangeStatusTest?testId={testId}&field=status&id={item[id]}'" <?php if($item['status'] == QUESTION_ENABLE):?>style="color: blue; font-size: 100%; cursor: pointer;" <?php else:?> style="color: black; font-size: 100%; cursor: pointer;" <?php endif;?>></span>
+                <span class="glyphicon glyphicon-star" onclick="window.location='<?php echo BASE_REQUEST . '/admin' ?>_test/onchangeStatusTest?testId=<?php echo $testId ?>&field=status&id=<?php echo @$item['id']?>'" <?php if($item['status'] == QUESTION_ENABLE):?>style="color: blue; font-size: 100%; cursor: pointer;" <?php else:?> style="color: black; font-size: 100%; cursor: pointer;" <?php endif;?>></span>
             </td>
             <td width="12%">
                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#testModal<?php echo $item['id']; ?>">
                     Chi tiết
                 </button>
-                <a href="{url /admin_questions/edit}/{item[id]}"  class="text-center" title="Sửa"><span class="glyphicon glyphicon-edit"></span></a>
-                <button rel="{item[testId]}" type="button" class="color_delete text-center" onclick="delTest(this, {item[id]});" title="Xóa"><span class="glyphicon glyphicon-remove"></span></button>
+                <a href="<?php echo BASE_REQUEST . '/admin_questions/edit' ?>/<?php echo @$item['id']?>"  class="text-center" title="Sửa"><span class="glyphicon glyphicon-edit"></span></a>
+                <button rel="<?php echo @$item['testId']?>" type="button" class="color_delete text-center" onclick="delTest(this, <?php echo @$item['id']?>);" title="Xóa"><span class="glyphicon glyphicon-remove"></span></button>
             </td>
         </tr>
         <?php $sttt++; ?>
-        {/each}
+        <?php endforeach; ?>
     </table>
 </div>
 
@@ -252,7 +252,7 @@ function getCategoriesName($item, $categories) {
                 $btn = 'btn-default';
             }
             ?>
-            <a class="btn {btn}" href="{url /admin_test/detail/}{testId}?page={page}">{? echo ($page + 1)?}</a>
+            <a class="btn <?php echo $btn ?>" href="<?php echo BASE_REQUEST . '/admin_test/detail/' ?><?php echo $testId ?>?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
         <?php endfor; ?>
     </form>
 
@@ -281,7 +281,7 @@ function getCategoriesName($item, $categories) {
             var testId = <?php echo $testId; ?>;
             $.ajax({
                 type: "POST",
-                url: "{url}/admin_test/delTest",
+                url: "<?php echo BASE_REQUEST ?>/admin_test/delTest",
                 data:{questionId:questionId, testIds:testIds, testId:testId},
                 success: function(data) {
                     if(data ==1){
@@ -301,7 +301,7 @@ function getCategoriesName($item, $categories) {
             orderings[id] = val;
         });
         $.ajax({
-            url: "{url}/admin_test/saveDetailOrderings",
+            url: "<?php echo BASE_REQUEST ?>/admin_test/saveDetailOrderings",
             type: 'post',
             data: {orderings: orderings, field: field},
             success: function() {

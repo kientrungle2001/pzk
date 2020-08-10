@@ -12,7 +12,7 @@
 		</div>
 	</div>
 </div>
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class=" container alert alert-danger" role="alert">
 Bạn phải mua tài khoản, đăng nhập mới được chơi. Xem hướng dẫn mua tài khoản <a href="http://s1.nextnobels.com/payment/bank">tại đây</a>
 </div>

@@ -87,26 +87,26 @@ if(pzk_request()->is('POST') && is_numeric($parent_id)) {
         if($items[0]['type'] == 'Q0'){  ?>
         <table class="table">
             <?php $i = 1; ?>
-            {each $items as $item}
+            <?php foreach($items as $item): ?>
             <?php
 
                 $answers = _db()->useCB()->select('*')->from('answers_question_tn')->where(array('question_id', $item['id']))->result();
                 ?>
                 <tr>
                     <td><?php echo 'Câu '.$i.':'; ?></td>
-                    <td>{item[name]}
+                    <td><?php echo @$item['name']?>
                     </td>
                 </tr>
-                {each $answers as $val}
+                <?php foreach($answers as $val): ?>
                 <tr>
-                        <td><input style="width: 15px; height: 15px;" name="answers[<?=$item['id'];?>][]" value="{val[id]}" type="radio" /></td>
-                    <td>{val[content]}</td>
+                        <td><input style="width: 15px; height: 15px;" name="answers[<?=$item['id'];?>][]" value="<?php echo @$val['id']?>" type="radio" /></td>
+                    <td><?php echo @$val['content']?></td>
                 </tr>
-                {/each}
+                <?php endforeach; ?>
 
 
             <?php $i++; ?>
-            {/each}
+            <?php endforeach; ?>
 
 
         </table>
@@ -122,16 +122,16 @@ if(pzk_request()->is('POST') && is_numeric($parent_id)) {
 
         <div  id="ctg_question_fill">
         <?php $i = 1; ?>
-            {each $items as $item}
+            <?php foreach($items as $item): ?>
             <?php $answers = _db()->useCB()->select('*')->from('answers_question_tn')->where(array('question_id', $item['id']))->result();
             ?>
 
             <div class="step">
-                <span><strong>Yêu Cầu:</strong> {item[request]}</span>
+                <span><strong>Yêu Cầu:</strong> <?php echo @$item['request']?></span>
 
             </div>
             <div class="step">
-                <span><strong> Câu {i}:</strong> {item[name]}</span>
+                <span><strong> Câu <?php echo $i ?>:</strong> <?php echo @$item['name']?></span>
             </div>
             <div class="step" >
                 <div style="clear:both;"><span><strong>Đáp án:</strong></span></div>
@@ -149,7 +149,7 @@ if(pzk_request()->is('POST') && is_numeric($parent_id)) {
             </div>
 
         <?php $i++; ?>
-            {/each}
+            <?php endforeach; ?>
             <script>
                 function addInputRow(key){
 

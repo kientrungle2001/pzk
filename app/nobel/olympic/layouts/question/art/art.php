@@ -39,12 +39,12 @@ $page=1;
 <input type="hidden" name="time" value="<?php echo pzk_request()->getTime(); ?>">
 <input type="hidden" name="key_test" value="<?php echo pzk_request()->getKey(); ?>">
 <input type="hidden" name="quantity" value="<?php echo $data->getQuantity(); ?>">
-{each $questions as $question}
+<?php foreach($questions as $question): ?>
 <div class=" step_ answer_box question_page_<?php echo $page?>">
 	<input type="hidden" name="question_id[<?php echo $question['id']; ?>]" value="<?php echo $question['id']; ?>">
 	<input type="hidden" name="question_type[<?php echo $question['id']; ?>]" value="<?php echo $question['type']; ?>">
 <span><strong>Câu : <?php echo $i; ?> </strong> </span>
-{?
+<?php 
   $type= $question['type'];
   $layoutType= $data->getQuestionType($type);
 	$i++;
@@ -53,7 +53,7 @@ $page=1;
 	$obj->setItem($question);
 	$obj->setId($question['id']);
 	$obj->display();
-?}
+?>
 <div class="step view_answer_question ">
   <div style="float:left; padding-right: 10px;"><strong><span>Đáp án mẫu:</span></strong></div>
   <div class="view_answer_tamp_<?php echo $question['id']; ?>"></div>
@@ -64,7 +64,7 @@ $page=1;
 </div>
 <div class="clear_step"></div>
 </div>
-{/each}
+<?php endforeach; ?>
 
 </div>
 <div class="toeic_footer">

@@ -10,20 +10,20 @@
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container">
 	<p class="t-weight text-center btn-custom8 mgright">Tài liệu học tập</p>
 </div>
 <div class="container fivecolumns">
 	<div class="row">
 		<div class="col-md-2 col-xs-12">
-			{children [position=left-banner]}
+			<?php $data->displayChildren('[position=left-banner]') ?>
 		</div>
 		<div class="col-md-8 col-xs-12">
-			{children [position=index-content]}
+			<?php $data->displayChildren('[position=index-content]') ?>
 		</div>
 		<div class="col-md-2 col-xs-12 pd-15">
-			{children [position=right-banner]}
+			<?php $data->displayChildren('[position=right-banner]') ?>
 		</div>
 	</div>
 </div>

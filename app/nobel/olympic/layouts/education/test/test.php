@@ -150,7 +150,7 @@
 				
 				$.ajax({
 					type: "POST",
-					url: "{url}/test/getTime",
+					url: "<?php echo BASE_REQUEST ?>/test/getTime",
 					data:{testId:testId},
 					success: function(data) {
 						$('#countdown').text(data+':00');
@@ -169,7 +169,7 @@
 			if(testId) {
 				$.ajax({
 					type: "POST",
-					url: "{url}/test/setTest",
+					url: "<?php echo BASE_REQUEST ?>/test/setTest",
 					data:{testId:testId},
 					success: function(data) {
 						$('#resultLesson').show();

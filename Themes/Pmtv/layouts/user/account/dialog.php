@@ -9,7 +9,7 @@
 		      	<div class="modal-body">
 			    	<div class="container-fluid">
 			    		<div class="row">
-			    			<form id="loginForm" class="login form-horizontal" onsubmit="return pzk_{data.id}.login()" method="post">
+			    			<form id="loginForm" class="login form-horizontal" onsubmit="return pzk_<?php echo @$data->id?>.login()" method="post">
 				    			
 								<div style="margin-bottom: 25px" class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -48,7 +48,7 @@
 		      	<div class="modal-body loginform" >
 			    	<div class="container-fluid">
 			    		<div class="row">
-			    			<form id="registerForm" class="register form-horizontal top20" onsubmit="return pzk_{data.id}.register()">
+			    			<form id="registerForm" class="register form-horizontal top20" onsubmit="return pzk_<?php echo @$data->id?>.register()">
 								<div class="form-group">
 									<label class="control-label col-sm-2 hidden-xs" for="username">Tên đăng nhập:</label>
 									<div class="col-sm-4">

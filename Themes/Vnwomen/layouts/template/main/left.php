@@ -1,5 +1,5 @@
 <div class="col-xs-9">
 	<div class="pzk-left">
-		{children all}
+		<?php $data->displayChildren('all') ?>
 	</div><!-- End pzk-left -->
 </div>

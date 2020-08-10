@@ -263,18 +263,18 @@ Tiến sĩ Thực vật, côn trùng, và vi sinh vật tương tác đh Missour
 
 <div class="container t-color" id="bank">
 	<h4 class="text-center"><strong>Cách 1: Chuyển khoản ngân hàng</strong></h4>
-	{children [position=bank]}
+	<?php $data->displayChildren('[position=bank]') ?>
 </div>
 <div class="container t-color top20" id="money">
 	<h4 class="text-center"><strong>Cách 2: Thanh toán tại văn phòng</strong></h4>
 	<div class="col-md-11 col-md-offset-1 ">
-		{children [position=money]}
+		<?php $data->displayChildren('[position=money]') ?>
 	</div>	
 </div>
 <div class="container t-color top20" id="paycard">
 	<h4 class="text-center"><strong>Cách 3: Thanh toán bằng thẻ cào điện thoại</strong></h4>
-	{children [position=paycard]}
-	{children [position=service]}
+	<?php $data->displayChildren('[position=paycard]') ?>
+	<?php $data->displayChildren('[position=service]') ?>
 </div>
 
 

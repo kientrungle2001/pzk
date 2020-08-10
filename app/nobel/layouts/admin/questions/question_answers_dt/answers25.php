@@ -2,14 +2,14 @@
 $item = $data->getItem();
 $itemAnswers = $data->getItemAnswers();
 ?>
-<div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> {item[request]}</div></div>
+<div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> <?php echo @$item['request']?></div></div>
 
-<div class="row"><div class="col-xs-12"><span class="title-ptnn">Câu hỏi :</span> {item[name]}</div></div>
+<div class="row"><div class="col-xs-12"><span class="title-ptnn">Câu hỏi :</span> <?php echo @$item['name']?></div></div>
 
 <div class="row title-ptnn"><div class="col-xs-12"> Chủ đề : </div></div>
 <button type="button" class="btn btn-primary margin-top-10" id="add-input-test" style="margin-left: 15px;"><span class="glyphicon glyphicon-plus-sign"></span> Add Đoạn Văn</button>	 
-<form role="form" method="post" action="{url /admin_questions/edit_tn7Post}">
- 	<input type="hidden" name="id" value="{item[id]}" />
+<form role="form" method="post" action="<?php echo BASE_REQUEST . '/admin_questions/edit_tn7Post' ?>">
+ 	<input type="hidden" name="id" value="<?php echo @$item['id']?>" />
  	<input type="hidden" name="status" value ="1"/>
  	
   	<?php if($itemAnswers == NULL):?>
@@ -68,7 +68,7 @@ $itemAnswers = $data->getItemAnswers();
   	<div class="margin-top-20">
 	  	<div class="col-xs-4">
 			<button type="submit" class="btn btn-primary" onclick = "return validate_answers()" ><span class="glyphicon glyphicon-save"></span> Cập nhật</button>
-			<a class="btn btn-default" href="{url /admin_questions}/{item[questionId]}">Quay Lại</a>
+			<a class="btn btn-default" href="<?php echo BASE_REQUEST . '/admin_questions' ?>/<?php echo @$item['questionId']?>">Quay Lại</a>
 		</div>
 	</div>
 </form>

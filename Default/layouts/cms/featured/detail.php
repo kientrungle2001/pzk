@@ -20,16 +20,16 @@
 <?php }
 ?>
  >>   
-<a href="/featured/detail?id={featured[id]}">{featured[title]}</a>
+<a href="/featured/detail?id=<?php echo @$featured['id']?>"><?php echo @$featured['title']?></a>
 </p>
 
 <div id="showfeatured-wrapper" style="width:95%; ">
   <div id="showfeatured-left">
     <div class="showfeatured-container">
       <div class="showfeatured-title">
-	  <h3> {featured[title]}</h3>
+	  <h3> <?php echo @$featured['title']?></h3>
 	  </div>
-	  <div class="showfeatured-brief"><h6><strong>{featured[brief]}<strong></h6></div>
+	  <div class="showfeatured-brief"><h6><strong><?php echo @$featured['brief']?><strong></h6></div>
       <div class="showfeatured-content" style="margin-bottom:20px;">
 	  <?php 
 	  $content= $featured['content'];
@@ -45,15 +45,15 @@
 	 <iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fptnn.vn%2Fnews%2Fshownews&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=true&amp;share=false&amp;height=21&amp;appId=826319910759457" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:21px;" allowTransparency="true"></iframe>
    </div>
 	<div class="comments">
-		{children all}
+		<?php $data->displayChildren('all') ?>
 	</div>
     <div class="prf_other" style="margin-top: 20px;">
       <div class="prf_title">Các bài viết khác
 	  </div>
       <div class="prf_content"> 
-	  {each $lists as $list}
-	  <li><a href="/featured/detail?id={list[id]} ">{list[title]}<br></a></li>
-	  {/each}
+	  <?php foreach($lists as $list): ?>
+	  <li><a href="/featured/detail?id=<?php echo @$list['id']?> "><?php echo @$list['title']?><br></a></li>
+	  <?php endforeach; ?>
 	  </div>
       <div class="prf_clear"> </div>
     </div>

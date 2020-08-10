@@ -1,1 +1,1 @@
-<option value="{prop value}">{prop label}</option>
+<option value="<?php echo @$data->value?>"><?php echo @$data->label?></option>

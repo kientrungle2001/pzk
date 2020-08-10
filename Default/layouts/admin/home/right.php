@@ -4,7 +4,7 @@ if($setting->get('menuLinks') && count($setting->get('menuLinks'))):
 pzk_global()->set('admin_right_module', 1);
 ?>
 <div class="col-md-2">
-	{children all}
+	<?php $data->displayChildren('all') ?>
 </div>
 <?php endif; ?>
 <?php endif; ?>

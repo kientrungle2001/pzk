@@ -20,18 +20,18 @@ if($storeType == 'app') {
     </div>
     <div class="panel-body borderadmin">
     	<strong>Cấu hình cho: </strong>
-    	<select id="storeType" name="storeType" onchange="window.location='{url /admin}_{controller.module}/changeStoreType?config={? echo pzk_request()->get('config'); ?}&storeType=' + this.value;">
+    	<select id="storeType" name="storeType" onchange="window.location='<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/changeStoreType?config=<?php  echo pzk_request()->get('config'); ?>&storeType=' + this.value;">
     		<option value="site">Trang web</option>
     		<option value="app">Ứng dụng</option>
     	</select>
     	<script type="text/javascript">
-			$('#storeType').val('{storeType}');
+			$('#storeType').val('<?php echo $storeType ?>');
     	</script>
-        <form id="{controller.module}AddForm" role="form" enctype="multipart/form-data" method="post" action="{url /admin}_{controller.module}/writePost?config={? echo pzk_request()->get('config'); ?}">
+        <form id="<?php echo @$controller->module?>AddForm" role="form" enctype="multipart/form-data" method="post" action="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/writePost?config=<?php  echo pzk_request()->get('config'); ?>">
             <input type="hidden" name="id" value="" />
 
-                {each $addFieldSettings as $field}
-                {?
+                <?php foreach($addFieldSettings as $field): ?>
+                <?php 
                 if ($field['type'] == 'text' || $field['type'] == 'date' || $field['type'] == 'email' || $field['type'] == 'password') {
                 $fieldObj = pzk_obj('Core.Db.Grid.Edit.Input');
                 } else {
@@ -43,12 +43,12 @@ if($storeType == 'app') {
                 }
                 $fieldObj->set('value', @$row[$field['index']]);
                 $fieldObj->display();
-                ?}
-                {/each}
+                ?>
+                <?php endforeach; ?>
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-saved"></span> Cập nhật</button>
-                <a class="btn btn-default" href="{url /admin}_{controller.module}/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
+                <a class="btn btn-default" href="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
             </div>
         </form>
     </div>

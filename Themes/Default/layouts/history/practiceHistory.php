@@ -26,13 +26,13 @@
 					<th>Thời gian làm bài</th>
 					<th>Ngày</th>
 				</tr>
-				{each $items as $val}
+				<?php foreach($items as $val): ?>
 				<tr>
 					<td><?php echo $i+$data->pageNum*$data->pageSize; ?></td>
-					<td>{val[username]}</td>
-					<td>{val[namecate]}</td>
-					<td><a href="/profile/book/{val[id]}"><?php if($val['exercise_number']) { echo 'Bài '.$val['exercise_number'];} ?></a></td>
-					<td>{val[mark]}</td>
+					<td><?php echo @$val['username']?></td>
+					<td><?php echo @$val['namecate']?></td>
+					<td><a href="/profile/book/<?php echo @$val['id']?>"><?php if($val['exercise_number']) { echo 'Bài '.$val['exercise_number'];} ?></a></td>
+					<td><?php echo @$val['mark']?></td>
 					<?php
 					$time = $val['duringTime'];
 					$resultStrTime = time_duration($time);
@@ -41,7 +41,7 @@
 					<td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:i:s A', strtotime($val['startTime'])); ?></td>
 				</tr>
 				<?php $i++; ?>
-				{/each}
+				<?php endforeach; ?>
 			</table>
 			<div class="panel-footer ">
 				<form class="form-inline" role="form">
@@ -57,11 +57,11 @@
 										<?php
 										if($data->pageNum >= 1) { ?>
 											<li>
-												<a onclick="practice({UserId},0)" aria-label="End">
+												<a onclick="practice(<?php echo $UserId ?>,0)" aria-label="End">
 													<span aria-hidden="true">Trang đầu</span>
 												</a>
 											<li>
-												<a aria-label="Previous" onclick="practice({UserId},'<?php echo $data->pageNum -1; ?>')">
+												<a aria-label="Previous" onclick="practice(<?php echo $UserId ?>,'<?php echo $data->pageNum -1; ?>')">
 													<span aria-hidden="true">&laquo;</span>
 												</a>
 											</li>
@@ -78,19 +78,19 @@
 												$active = '';
 											}
 											?>
-											<li class="{active}">
-												<a  onclick="practice({UserId}, {page})">{? echo ($page + 1)?}</a>
+											<li class="<?php echo $active ?>">
+												<a  onclick="practice(<?php echo $UserId ?>, <?php echo $page ?>)"><?php  echo ($page + 1)?></a>
 											</li>
 										<?php } ?>
 
 										<?php if($data->pageNum < $pages-1) { ?>
 										<li>
-											<a onclick="practice({UserId}, '<?php echo $data->pageNum + 1; ?>')" aria-label="Next">
+											<a onclick="practice(<?php echo $UserId ?>, '<?php echo $data->pageNum + 1; ?>')" aria-label="Next">
 												<span aria-hidden="true">&raquo;</span>
 											</a>
 											</li>
 											<li>
-											<a onclick="practice({UserId}, '<?php echo $pages-1; ?>')" aria-label="end">
+											<a onclick="practice(<?php echo $UserId ?>, '<?php echo $pages-1; ?>')" aria-label="end">
 												<span aria-hidden="true">Trang cuối</span>
 											</a>
 										</li>

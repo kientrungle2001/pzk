@@ -4,10 +4,10 @@ $items 				= 	buildTree($items);
 $root 				= 	$items[0];
 $children 			= 	$root['children'];
 ?>
-<div class="lecture-region {root[alias]}">
+<div class="lecture-region <?php echo @$root['alias']?>">
 	<div class="lecture-bird-2"></div>
 	<div class="container">
-		<h1 class="text-center color6-bold">{root[name]}</h1>
+		<h1 class="text-center color6-bold"><?php echo @$root['name']?></h1>
 		<div class="row columns-lecture">
 			<div class="col-md-1">&nbsp;</div>
 			<div class="col-md-10 ">
@@ -17,13 +17,13 @@ $children 			= 	$root['children'];
 						<div class="col-md-2"></div>
 						<div class="col-md-8">
 							<div class="row">
-							{each $children as $child}
+							<?php foreach($children as $child): ?>
 								<div class="col-sm-3 top-25 lecture-title">
 									<div class="table-bordered padding-5 bdcolor6 text-center bgcolor6-bold">
-										<a class="color-white font-large" href="/{child[alias]}">{child[name]}</a>
+										<a class="color-white font-large" href="/<?php echo @$child['alias']?>"><?php echo @$child['name']?></a>
 									</div>
 								</div>
-							{/each}
+							<?php endforeach; ?>
 							</div>
 						</div>
 						<div class="col-md-2"></div>

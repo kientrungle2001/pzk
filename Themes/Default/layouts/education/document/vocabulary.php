@@ -21,10 +21,10 @@ $id = intval(pzk_request()->get('id'));
   <!-- Tab panes -->
   <div class="tab-content scrollquestion" style="width:100%; height:750px">
     <div role="tabpanel" class="tab-pane active" id="tuvung" >
-		{? $item = $data->getItem(); ?}
+		<?php  $item = $data->getItem(); ?>
 		<div id="document-detail">
 			<br>
-			<p class="t-weight text-center">{item[title]}</p>
+			<p class="t-weight text-center"><?php echo @$item['title']?></p>
 			<?php if(@$item['file']) : ?>
 			 
 			<script type="text/javascript" src="/3rdparty/jquery.gdocsviewer.v1.0/jquery.gdocsviewer.min.js"></script>

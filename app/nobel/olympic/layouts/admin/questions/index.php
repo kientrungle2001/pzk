@@ -91,16 +91,16 @@ function saveOrdering(field) {
 }
 </script>
 <div class="well">
-<form role="search" action="{url /admin_questions/searchPost}">
+<form role="search" action="<?php echo BASE_REQUEST . '/admin_questions/searchPost' ?>">
 	<div class="row">
 		<div class="form-group col-xs-2">
 			<label for="keyword">Tên câu hỏi</label><br>
-        	<input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Câu hỏi" value="{keyword}" />
+        	<input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Câu hỏi" value="<?php echo $keyword ?>" />
        	</div>
         <div class="form-group col-xs-2">
         	<label for="type">Loại câu hỏi</label><br>
         	
-			<select class="form-control input-sm" id="type" name="type" onchange="window.location='{url /admin_questions/changeType}?type=' + this.value;">
+			<select class="form-control input-sm" id="type" name="type" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questions/changeType' ?>?type=' + this.value;">
 				<option value="">-- Tất cả --</option>
 				<?php if(isset($question_types)):?>
 					<?php foreach($question_types as $key	=>$value):?>
@@ -111,33 +111,33 @@ function saveOrdering(field) {
 				<?php endif;?>
 			</select>
 			<script type="text/javascript">
-				$('#type').val('{type}');
+				$('#type').val('<?php echo $type ?>');
   			</script>
 		</div>
 		
 		<div class="form-group col-xs-4">
 			<label for="categoryId">Dạng bài tập</label><br>
-          	<select id="categoryId" name="categoryId" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='{url /admin_questions/changeCategoryId}?categoryId=' + this.value;">
+          	<select id="categoryId" name="categoryId" class="form-control input-sm" placeholder="Danh mục" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questions/changeCategoryId' ?>?categoryId=' + this.value;">
 			<option value="">-- Tất cả --</option>
-			{each $categoryTree as $cat}
-				<option value="{cat[id]}"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $cat['level']);?>{cat[name]}</option>
-			{/each}
+			<?php foreach($categoryTree as $cat): ?>
+				<option value="<?php echo @$cat['id']?>"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $cat['level']);?><?php echo @$cat['name']?></option>
+			<?php endforeach; ?>
  		 	</select>
   			<script type="text/javascript">
-				$('#categoryId').val('{categoryId}');
+				$('#categoryId').val('<?php echo $categoryId ?>');
   			</script>
         </div>
         
         <div class="form-group col-xs-2">
         	<label for="topic_id">Chủ đề</label><br>
-        	<select id="topic_id" name="topic_id" class="form-control input-sm" placeholder="Chủ đề" onchange="window.location='{url /admin_questions/changeTopics}?topic_id=' + this.value;">
+        	<select id="topic_id" name="topic_id" class="form-control input-sm" placeholder="Chủ đề" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questions/changeTopics' ?>?topic_id=' + this.value;">
         		<option value="">-- Tất cả --</option>
-        		{each $topics as $topic}
-        			<option value="{topic[id]}">{topic[name]}</option>
-        		{/each}
+        		<?php foreach($topics as $topic): ?>
+        			<option value="<?php echo @$topic['id']?>"><?php echo @$topic['name']?></option>
+        		<?php endforeach; ?>
         	</select>
         	<script type="text/javascript">
-				$('#topic_id').val('{topic_id}');
+				$('#topic_id').val('<?php echo $topic_id ?>');
   			</script>
         </div>
         
@@ -155,7 +155,7 @@ function saveOrdering(field) {
 
 <div class="panel panel-default">
 	<div class="panel-heading">
-		Danh sách câu hỏi  <a class="btn btn-primary btn-xs pull-right" role="button" href="{url /admin_questions/add}"><span class="glyphicon glyphicon-circle-arrow-right"></span> Thêm câu hỏi</a>
+		Danh sách câu hỏi  <a class="btn btn-primary btn-xs pull-right" role="button" href="<?php echo BASE_REQUEST . '/admin_questions/add' ?>"><span class="glyphicon glyphicon-circle-arrow-right"></span> Thêm câu hỏi</a>
 	</div>
 	<table class="table">
 		<tr>
@@ -173,19 +173,19 @@ function saveOrdering(field) {
 			<th>Deleted</th>
 			<th colspan="2">Action</th>
 		</tr>
-		{each $items as $item}
+		<?php foreach($items as $item): ?>
 		<?php 
 		$catNames = getCategoriesName($item, $cats);
 		?>
 		<tr>
-			<td>{item[id]}</td>
-			<td><input name="ordering[{item[id]}]" rel="{item[id]}" value="{item[ordering]}" style="width: 20px" /></td>
-			<td><a href="{url /admin_questions/detail}/{item[id]}"><?php if($item['name'] !='') echo substr(strip_tags($item['name']), 0 , 100);?>...</a></td>
-			<td>{catNames}</td>
+			<td><?php echo @$item['id']?></td>
+			<td><input name="ordering[<?php echo @$item['id']?>]" rel="<?php echo @$item['id']?>" value="<?php echo @$item['ordering']?>" style="width: 20px" /></td>
+			<td><a href="<?php echo BASE_REQUEST . '/admin_questions/detail' ?>/<?php echo @$item['id']?>"><?php if($item['name'] !='') echo substr(strip_tags($item['name']), 0 , 100);?>...</a></td>
+			<td><?php echo $catNames ?></td>
 			<td><?php $obj_question = get_value_question_tyle($question_types, $item['type']); echo $obj_question['name']?></td>
-			<td><input name="level[{item[id]}]" rel="{item[id]}" value="{item[level]}" style="width: 20px" /></td>
+			<td><input name="level[<?php echo @$item['id']?>]" rel="<?php echo @$item['id']?>" value="<?php echo @$item['level']?>" style="width: 20px" /></td>
 			<td>
-                <select id="trial" name="trial" onchange="window.location = 'onchangeTrial?id={item[id]}&field=trial&value='+this.value;">
+                <select id="trial" name="trial" onchange="window.location = 'onchangeTrial?id=<?php echo @$item['id']?>&field=trial&value='+this.value;">
                     <option <?php if($item['trial'] ==0){ echo 'selected="1"';} ?> value="0">Mất phí</option>
                     <option <?php if($item['trial'] ==1){ echo 'selected="1"';} ?> value="1">Dùng thử</option>
                 </select>
@@ -193,22 +193,22 @@ function saveOrdering(field) {
 			<td><?=get('name'$item['createdId'], $admin); ?></td>
 			<td><?=date('d/m/y H:i', strtotime($item['created'])); ?></td>
 			<td>
-				<span class="glyphicon glyphicon-star" onclick="window.location='onchangeStatus?field=check&id={item[id]}&page={requestpage}'" <?php if($item['check'] == QUESTION_CHECKED):?>style="color: blue; font-size: 100%; cursor: pointer;" <?php else:?> style="color: black; font-size: 100%; cursor: pointer;" <?php endif;?>></span>
+				<span class="glyphicon glyphicon-star" onclick="window.location='onchangeStatus?field=check&id=<?php echo @$item['id']?>&page=<?php echo $requestpage ?>'" <?php if($item['check'] == QUESTION_CHECKED):?>style="color: blue; font-size: 100%; cursor: pointer;" <?php else:?> style="color: black; font-size: 100%; cursor: pointer;" <?php endif;?>></span>
 			</td>
 			<td>
-				<span class="glyphicon glyphicon-star" onclick="window.location='onchangeStatus?field=status&id={item[id]}&page={requestpage}'" <?php if($item['status'] == QUESTION_ENABLE):?>style="color: blue; font-size: 100%; cursor: pointer;" <?php else:?> style="color: black; font-size: 100%; cursor: pointer;" <?php endif;?>></span>
+				<span class="glyphicon glyphicon-star" onclick="window.location='onchangeStatus?field=status&id=<?php echo @$item['id']?>&page=<?php echo $requestpage ?>'" <?php if($item['status'] == QUESTION_ENABLE):?>style="color: blue; font-size: 100%; cursor: pointer;" <?php else:?> style="color: black; font-size: 100%; cursor: pointer;" <?php endif;?>></span>
 			</td>
 			<?php if(pzk_session()->getAdminLevel() === 'Administrator'):?>
 			<td>
-				<span class="glyphicon glyphicon-star" onclick="window.location='onchangeStatus?field=deleted&id={item[id]}&page={requestpage}'" <?php if($item['deleted'] == DELETED):?>style="color: red; font-size: 100%; cursor: pointer;" <?php else:?> style="color: blue; font-size: 100%; cursor: pointer;" <?php endif;?>></span>
+				<span class="glyphicon glyphicon-star" onclick="window.location='onchangeStatus?field=deleted&id=<?php echo @$item['id']?>&page=<?php echo $requestpage ?>'" <?php if($item['deleted'] == DELETED):?>style="color: red; font-size: 100%; cursor: pointer;" <?php else:?> style="color: blue; font-size: 100%; cursor: pointer;" <?php endif;?>></span>
 			</td>
 			<?php endif;?>
 			<td width="7%">
-				<a href="{url /admin_questions/edit}/{item[id]}"  class="text-center" title="Sửa"><span class="glyphicon glyphicon-edit"></span></a>
-				<a class="color_delete text-center" onclick="return confirm_delete('Do you want delete this record?')" title="Xóa" href="{url /admin_questions/del}/{item[id]}"><span class="glyphicon glyphicon-remove"></span></a>
+				<a href="<?php echo BASE_REQUEST . '/admin_questions/edit' ?>/<?php echo @$item['id']?>"  class="text-center" title="Sửa"><span class="glyphicon glyphicon-edit"></span></a>
+				<a class="color_delete text-center" onclick="return confirm_delete('Do you want delete this record?')" title="Xóa" href="<?php echo BASE_REQUEST . '/admin_questions/del' ?>/<?php echo @$item['id']?>"><span class="glyphicon glyphicon-remove"></span></a>
 			</td>
 		</tr>
-		{/each}
+		<?php endforeach; ?>
 	</table>
 </div>
 
@@ -216,7 +216,7 @@ function saveOrdering(field) {
 <div class="clearfix pull-right">
 	<form class="form-inline" role="form">
 		<strong>Số mục: </strong>
-		<select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='{url /admin_questions/changePageSize}?pageSize=' + this.value;">
+		<select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questions/changePageSize' ?>?pageSize=' + this.value;">
 			<option value="10">10</option>
 			<option value="20">20</option>
 			<option value="30">30</option>
@@ -225,7 +225,7 @@ function saveOrdering(field) {
 			<option value="200">200</option>
 		  </select>
 		  <script type="text/javascript">
-			$('#pageSize').val('{pageSize}');
+			$('#pageSize').val('<?php echo $pageSize ?>');
 		  </script>
 		<strong>Trang: </strong>
 		<?php 
@@ -237,7 +237,7 @@ function saveOrdering(field) {
 					$btn = 'btn-default';
 				}
 				?>
-		<a class="btn {btn}" href="{url /admin_questions/index}?page={page}">{? echo ($page + 1)?}</a>
+		<a class="btn <?php echo $btn ?>" href="<?php echo BASE_REQUEST . '/admin_questions/index' ?>?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
 		<?php endfor; ?>
 	</form>
 </div>

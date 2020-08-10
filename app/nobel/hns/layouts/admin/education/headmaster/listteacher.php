@@ -10,13 +10,13 @@
 			<th>Họ và tên</th>
 			<th>Điện thoại</th>
 		</tr>
-	{each $listTeachers as $teacher}
+	<?php foreach($listTeachers as $teacher): ?>
 		<tr>
-			<td>{teacher[id]}</td>
-			<td>{teacher[name]}</td>
-			<td>{teacher[fullName]}</td>
-			<td>{teacher[phone]}</td>
+			<td><?php echo @$teacher['id']?></td>
+			<td><?php echo @$teacher['name']?></td>
+			<td><?php echo @$teacher['fullName']?></td>
+			<td><?php echo @$teacher['phone']?></td>
 		</tr>
-	{/each}
+	<?php endforeach; ?>
 	</table>
 <?php } ?>	

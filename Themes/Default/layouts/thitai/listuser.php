@@ -17,17 +17,17 @@
                 <th>Điện thoại</th>
                 <th>Tổng điểm</th>
             </tr>
-            {? $index = 1; ?}
-			{each $test1 as $item}
+            <?php  $index = 1; ?>
+			<?php foreach($test1 as $item): ?>
             <tr>
-                <td>{index}</td>
-                <td>{item[username]}</td>
-                <td>{item[name]}</td>
-                <td>{item[phone]}</td>
-                <td>{item[totalMark]}</td>
+                <td><?php echo $index ?></td>
+                <td><?php echo @$item['username']?></td>
+                <td><?php echo @$item['name']?></td>
+                <td><?php echo @$item['phone']?></td>
+                <td><?php echo @$item['totalMark']?></td>
             </tr>
-			{? $index++; ?}
-			{/each}
+			<?php  $index++; ?>
+			<?php endforeach; ?>
             
         </table>
         

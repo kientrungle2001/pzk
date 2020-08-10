@@ -26,7 +26,7 @@ require_once BASE_DIR . '/Themes/Songngu/language/'.$lang.'.php';
 		</div>
 		<div style="width: 100%; float: left;">
 		<?php if($audio): ?>
-			<span class="btn btn-success glyphicon glyphicon-volume-up" onclick="read_question(this, '{audio}');"></span>
+			<span class="btn btn-success glyphicon glyphicon-volume-up" onclick="read_question(this, '<?php echo $audio ?>');"></span>
 		<?php endif; ?>
 		</div>
 	</div>
@@ -35,7 +35,7 @@ require_once BASE_DIR . '/Themes/Songngu/language/'.$lang.'.php';
 	<?php foreach($answers as $key =>$value):?>
 	<tr>
 		<td>
-			<input type="radio" style="font-weight: normal; float:left" name="answers[<?=$items->get('id')?>]" id="answers_<?=$items->get('id')?>_<?=$value->get('id')?>" value="{value.get('id')}"/>
+			<input type="radio" style="font-weight: normal; float:left" name="answers[<?=$items->get('id')?>]" id="answers_<?=$items->get('id')?>_<?=$value->get('id')?>" value="<?php echo $value->get('id')?>"/>
 			<span  class="answers_<?=$items->get('id')?>_<?=$value->get('id')?>" style="padding-left:10px;">
 			<?php if($value->get('content') == NULL) {
 				echo "0";

@@ -47,16 +47,16 @@
 				<th>Thời điểm nộp bài</th>
 			</thead>
 			<tbody>
-			{each $tests as $index => $test}
+			<?php foreach($tests as $index => $test): ?>
 				<tr>
 					<td><?php echo ($index + 1)?></td>
-					<td>{test[name]}</td>
-					<td>{test[mark]}</td>
-					<td>{test[quantity_question]}</td>
-					<td>{? echo time_duration($test['duringTime']) ?}</td>
+					<td><?php echo @$test['name']?></td>
+					<td><?php echo @$test['mark']?></td>
+					<td><?php echo @$test['quantity_question']?></td>
+					<td><?php  echo time_duration($test['duringTime']) ?></td>
 					<td><?php echo date('H:i d/m/Y', strtotime($test['startTime']))?></td>
 				</tr>
-			{/each}
+			<?php endforeach; ?>
 			</tbody>
 		  </table>
         </div>
@@ -74,16 +74,16 @@
 				<th>Thời điểm nộp bài</th>
 			</thead>
 			<tbody>
-			{each $contests as $index => $test}
+			<?php foreach($contests as $index => $test): ?>
 				<tr>
 					<td><?php echo ($index + 1)?></td>
-					<td>{test[name]}</td>
-					<td>{test[mark]}</td>
-					<td>{test[quantity_question]}</td>
-					<td>{? echo time_duration($test['duringTime']) ?}</td>
+					<td><?php echo @$test['name']?></td>
+					<td><?php echo @$test['mark']?></td>
+					<td><?php echo @$test['quantity_question']?></td>
+					<td><?php  echo time_duration($test['duringTime']) ?></td>
 					<td><?php echo date('H:i d/m/Y', strtotime($test['startTime']))?></td>
 				</tr>
-			{/each}
+			<?php endforeach; ?>
 			</tbody>
 		  </table>
         </div>

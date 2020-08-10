@@ -3,10 +3,10 @@ $question = $data->getItem();
 $i= $question->getId();
 ?>
 <div class="step">
- 	<span><strong>Yêu Cầu: </strong> {? echo $question->getRequest(); ?}</span>
+ 	<span><strong>Yêu Cầu: </strong> <?php  echo $question->getRequest(); ?></span>
 </div>
 <div class="step">
-	<span><strong> Câu hỏi:</strong> {? echo $question->getName(); ?}</span>
+	<span><strong> Câu hỏi:</strong> <?php  echo $question->getName(); ?></span>
 </div>
 <div class="step" >
   		<div style="clear:both;"><span><strong>Điền từ sai:</strong></span></div>

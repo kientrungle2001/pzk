@@ -1,11 +1,11 @@
-{children [position=public-header]}
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=public-header]') ?>
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container top20">
 	<div class="col-md-6 col-sm-6 col-xs-12 top10">
-		{children [position=top-left-left]}
+		<?php $data->displayChildren('[position=top-left-left]') ?>
 	</div>
 	<div class="col-md-6 col-sm-6 col-xs-12 top10">
-		{children [position=top-right-left]}
+		<?php $data->displayChildren('[position=top-right-left]') ?>
 	</div>	
 </div>
 <div class="container top20">
@@ -17,7 +17,7 @@
 	</div>
 </div>
 <div class="container top20 text-justify" id="chitiet">
-	{children [position=showdetail]}
+	<?php $data->displayChildren('[position=showdetail]') ?>
 </div>
 <script>
 function chitiet(id){

@@ -28,7 +28,7 @@ if($bookId) {
 	<div class="item cau">
 		<div class="stt"><?php echo $language['question'];?> <?=$data->get('stt');?>
 		<?php if(pzk_user_special()) :?><br />
-		(#{? echo $items->get('id') ?})
+		(#<?php  echo $items->get('id') ?>)
 		<?php endif; ?>
 		</div>
 
@@ -66,7 +66,7 @@ if($bookId) {
 	<?php if($recommend_mark):?>
 	<div class="item" style="color: red;">
 	<strong>
-	Nhận xét của GV: {recommend_mark}
+	Nhận xét của GV: <?php echo $recommend_mark ?>
 	</strong>
 	</div>
 	<?php endif; ?>

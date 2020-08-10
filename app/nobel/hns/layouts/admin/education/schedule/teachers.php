@@ -5,7 +5,7 @@ $classrooms = $data->getClassrooms();
 $teachers = $data->getTeachers();
 $homeroomTeacher = $data->getHomeroomTeacher();
 ?>
-<h1 class="text-center">Lớp {classroom[gradeNum]}{classroom[className]} Niên khóa {classroom[schoolYear]}</h1>
+<h1 class="text-center">Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> Niên khóa <?php echo @$classroom['schoolYear']?></h1>
 <h2 class="text-center"> Giáo viên chủ nhiệm:  </h2>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
@@ -16,9 +16,9 @@ $homeroomTeacher = $data->getHomeroomTeacher();
 				<th> Điện thoại</th>
 			</tr>
 			<tr>
-				<td>{homeroomTeacher[fullName]}</td>
-				<td>{homeroomTeacher[name]}</td>
-				<td>{homeroomTeacher[phone]}</td>
+				<td><?php echo @$homeroomTeacher['fullName']?></td>
+				<td><?php echo @$homeroomTeacher['name']?></td>
+				<td><?php echo @$homeroomTeacher['phone']?></td>
 			</tr>
 		</table>
 	</div>
@@ -54,29 +54,29 @@ $homeroomTeacher = $data->getHomeroomTeacher();
 		<th>Chi tiết</th>
 		<th colspan="2">Hành động</th>
 	</tr>
-{each $teachers as $teacher}
+<?php foreach($teachers as $teacher): ?>
 	<tr>
-		<td><input class="teacher_checkbox" type="checkbox" name="teachers[]" value="{teacher[id]}" /></td>
+		<td><input class="teacher_checkbox" type="checkbox" name="teachers[]" value="<?php echo @$teacher['id']?>" /></td>
 		
-		<td><a href="/Admin_Schedule_Teacher/teacher/{classroom[id]}/{teacher[id]}/{teacher[teacherId]}">{teacher[name]}</a></td>
-		<td><a href="/Admin_Schedule_Teacher/teacher/{classroom[id]}/{teacher[id]}/{teacher[teacherId]}">{teacher[fullName]}</a></td>
-		<td>{teacher[phone]}</td>
-		<td>{teacher[subjectName]}</td>
-		<td><a class="btn btn-primary btn-xs" href="/Admin_Schedule_Teacher/teacher/{classroom[id]}/{teacher[id]}/{teacher[teacherId]}">Chi tiết</a></td>
-		<td><button class="btn btn-danger btn-xs" onclick="removeTeacherFromClassroom({teacher[id]}); return false;">Xóa</button>
+		<td><a href="/Admin_Schedule_Teacher/teacher/<?php echo @$classroom['id']?>/<?php echo @$teacher['id']?>/<?php echo @$teacher['teacherId']?>"><?php echo @$teacher['name']?></a></td>
+		<td><a href="/Admin_Schedule_Teacher/teacher/<?php echo @$classroom['id']?>/<?php echo @$teacher['id']?>/<?php echo @$teacher['teacherId']?>"><?php echo @$teacher['fullName']?></a></td>
+		<td><?php echo @$teacher['phone']?></td>
+		<td><?php echo @$teacher['subjectName']?></td>
+		<td><a class="btn btn-primary btn-xs" href="/Admin_Schedule_Teacher/teacher/<?php echo @$classroom['id']?>/<?php echo @$teacher['id']?>/<?php echo @$teacher['teacherId']?>">Chi tiết</a></td>
+		<td><button class="btn btn-danger btn-xs" onclick="removeTeacherFromClassroom(<?php echo @$teacher['id']?>); return false;">Xóa</button>
 		</td>
 		<td>
-			<button class="btn btn-success btn-xs" onclick="addHomeroomTeachersToClassroom({teacher[teacherId]}); return false;">Đặt làm GVCN</button>
+			<button class="btn btn-success btn-xs" onclick="addHomeroomTeachersToClassroom(<?php echo @$teacher['teacherId']?>); return false;">Đặt làm GVCN</button>
 		</td>
 	</tr>
-{/each}
+<?php endforeach; ?>
 </table>
 <form class="form form-inline">
 	<select	id="classrooms" class="form-control">
 		<option value="">Chọn lớp</option>
-		{each $classrooms as $cr}
-		<option value="{cr[id]}">Niên khóa {cr[schoolYear]} - Lớp {cr[gradeNum]}{cr[className]}</option>
-		{/each}
+		<?php foreach($classrooms as $cr): ?>
+		<option value="<?php echo @$cr['id']?>">Niên khóa <?php echo @$cr['schoolYear']?> - Lớp <?php echo @$cr['gradeNum']?><?php echo @$cr['className']?></option>
+		<?php endforeach; ?>
 	</select>
 	<button class="btn btn-warning" onclick="addTeachersToOtherClassroom(); return false;">Chuyển lớp</button>
 	
@@ -101,7 +101,7 @@ function addTeacherToClassroom(teacherId) {
 	$.ajax({
 		url: '/Admin_Schedule_Teacher/addTeacher',
 		data: {
-			classroomId: {classroom[id]},
+			classroomId: <?php echo @$classroom['id']?>,
 			teacherId: teacherId,
 			subjectId: subjectId
 		},
@@ -124,7 +124,7 @@ function addHomeroomTeachersToClassroom(id) {
 		url: '/Admin_Schedule_Teacher/changeHomeroomTeacher',
 		data: {
 			teacherId: id,
-			classroomId: {classroom[id]}
+			classroomId: <?php echo @$classroom['id']?>
 		},
 		type: 'POST',
 		success: function(resp) {

@@ -25,25 +25,25 @@
       var id=[];
      
       </script>
-      {each $notes as $note}
+      <?php foreach($notes as $note): ?>
 
-     <div class="{note[id]}">
+     <div class="<?php echo @$note['id']?>">
        <script>
-       var val='{note[id]}';
+       var val='<?php echo @$note['id']?>';
        id.push(val);
       </script>
       <div style="float:left;">
-        <input style=" float:left;width:15px; height:15px;" type="checkbox" value="{note[id]}" name="ckbdel" >
+        <input style=" float:left;width:15px; height:15px;" type="checkbox" value="<?php echo @$note['id']?>" name="ckbdel" >
         <img src="/3rdparty/uploads/img/usernote.png" alt="">
       </div>
     <div class="prf_titlenote">
-         <a href="/note/detailnote?member=<?php echo $member ?>&id={note[id]}">{note[titlenote]}</a>
+         <a href="/note/detailnote?member=<?php echo $member ?>&id=<?php echo @$note['id']?>"><?php echo @$note['titlenote']?></a>
       </div>
 
       <div class="prf_clear"> </div>
        
       </div>
-      {/each}
+      <?php endforeach; ?>
        
       
            

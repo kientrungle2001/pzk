@@ -1,5 +1,5 @@
-<span class="hidden">{data.get('label')}</span>
-<select class="select2-container form-control select2" id="{data.get('index')}-{rand}" name="{data->get('index')}" onchange="pzk_list.filter('{data->get('type')}', '{data.get('index')}', this.value);">
+<span class="hidden"><?php echo $data->get('label')?></span>
+<select class="select2-container form-control select2" id="<?php echo $data->get('index')?>-<?php echo $rand ?>" name="{data->get('index')}" onchange="pzk_list.filter('{data->get('type')}', '<?php echo $data->get('index')?>', this.value);">
 	<?php
 $parents = _db ()->select ( '*' )->from ( $data->get('table') )->where(pzk_or($data->get('condition'), '1'))->orderBy(pzk_or($data->get('orderBy'), 'id asc'))->result ();
 	if (isset ( $parents [0] ['parent'] )) {
@@ -12,12 +12,12 @@ $parents = _db ()->select ( '*' )->from ( $data->get('table') )->where(pzk_or($d
 	<?php if($data->get('notAccept') == '1'):?>
 		<option value='0'>(Trống)</option>
 	<?php endif;?>
-	{each $parents as $parent}
+	<?php foreach($parents as $parent): ?>
 	<option value="<?php echo $parent[$data->get('show_value')]; ?>"><?php if(isset($parent['parent'])){ echo str_repeat('--', @$parent['level']); } ?>
-		#{parent[id]} - <?php echo $parent[$data->get('show_name')]; ?>
-	</option> {/each}
+		#<?php echo @$parent['id']?> - <?php echo $parent[$data->get('show_name')]; ?>
+	</option> <?php endforeach; ?>
 </select>
 <script type="text/javascript">
-	$('#{data.get('index')}{rand}').val('{data.get('value')}');
-	$( "#{data.get('index')}{rand}" ).select2( { placeholder: "{data.get('label')}", maximumSelectionSize: 6 } );
+	$('#<?php echo $data->get('index')?><?php echo $rand ?>').val('<?php echo $data->get('value')?>');
+	$( "#<?php echo $data->get('index')?><?php echo $rand ?>" ).select2( { placeholder: "<?php echo $data->get('label')?>", maximumSelectionSize: 6 } );
 </script>

@@ -1,6 +1,6 @@
 <div>
-{prop string}
+<?php echo @$data->string?>
 </div>
 <div>
-{? echo $data->array['key']?}
+<?php  echo $data->array['key']?>
 </div>

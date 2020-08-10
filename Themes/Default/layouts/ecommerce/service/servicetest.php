@@ -14,7 +14,7 @@
           <div class="col-md-6 col-xs-12 top10">
 		  <select name="service_type" id="opt_service_type" class="form-control input-normal sharp">
           
-            <option  value="{item[id]} {item[amount]}">{item[serviceName]} (Giá: {? echo product_price($item['amount']); ?}
+            <option  value="<?php echo @$item['id']?> <?php echo @$item['amount']?>"><?php echo @$item['serviceName']?> (Giá: <?php  echo product_price($item['amount']); ?>
             </option>
 
            

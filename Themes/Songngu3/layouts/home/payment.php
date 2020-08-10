@@ -38,7 +38,7 @@
 			     	<h2 class="label label-danger ">NẠP THẺ FULLLOOK SONG NGỮ</h2>
 			    </div>
 	  			<div class="row">
-	  				{children [position=paycardflsn]}
+	  				<?php $data->displayChildren('[position=paycardflsn]') ?>
 	  			</div>
 	  		</div>
 			
@@ -50,7 +50,7 @@
 			     	<h2 class="label label-warning ">ĐẶT MUA THẺ FULLLOOK SONG NGỮ</h2>
 			    </div>
 	  			<div class="row">
-	  				{children [position=ordercardflsn]}
+	  				<?php $data->displayChildren('[position=ordercardflsn]') ?>
 	  			</div>
 	  		</div>
 		

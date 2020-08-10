@@ -1,3 +1,3 @@
 <div class="container boder nomg contentheight robotofont">
-	{children [position=all]}
+	<?php $data->displayChildren('[position=all]') ?>
 </div>

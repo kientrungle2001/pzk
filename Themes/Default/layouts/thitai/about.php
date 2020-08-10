@@ -37,12 +37,12 @@
 			
 			<!--Begin the cao-->
 			<div id="paycard" class="tab-pane fade bgcolor">
-			{children [position=paycard]}
-			{children [position=service]}	
+			<?php $data->displayChildren('[position=paycard]') ?>
+			<?php $data->displayChildren('[position=service]') ?>	
 			</div><!--End the cao-->
 			<!--Chuyen khoan ngan hang-->
 			<div id="bank" class="tab-pane fade  bgcolor">
-			{children [position=bank]}
+			<?php $data->displayChildren('[position=bank]') ?>
 			</div><!--End Chuyen khoan ngan hang-->
 			
 		</div><!--end id tab-->

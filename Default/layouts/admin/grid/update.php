@@ -1,6 +1,6 @@
 <div style="border: 1px solid #cccccc; padding: 15px;">
     <h4>Cập nhật plugin</h4>
-<form  method="post" enctype="multipart/form-data" action="{url /Admin}_{? echo $data.get('module') ?}/updatePost">
+<form  method="post" enctype="multipart/form-data" action="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data.get('module') ?>/updatePost">
     <div class="form-group">
         <label for="filename">Chọn plugin(file zip)</label>
         <input id="filename" type="file" name="filename">

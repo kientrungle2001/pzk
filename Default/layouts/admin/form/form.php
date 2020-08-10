@@ -8,25 +8,25 @@ $actions = $data->get('actions');
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
-    {? if(@$data->backHref && @$data->backLabel) { ?}
-  <a class="btn btn-xs btn-default" href="{data.backHref}"><span class="glyphicon glyphicon-arrow-left"></span></a>
-  {? } ?}
+    <?php  if(@$data->backHref && @$data->backLabel) { ?>
+  <a class="btn btn-xs btn-default" href="<?php echo @$data->backHref?>"><span class="glyphicon glyphicon-arrow-left"></span></a>
+  <?php  } ?>
 	<b><?php echo $data->get('label'); ?>
-	{? if(@$data->backHref && @$data->backLabel) { ?}
-  <a class="btn btn-xs btn-default pull-right" href="{data.backHref}"><span class="glyphicon glyphicon-remove-sign"></span> {data.backLabel}</a>
-  {? } ?}
+	<?php  if(@$data->backHref && @$data->backLabel) { ?>
+  <a class="btn btn-xs btn-default pull-right" href="<?php echo @$data->backHref?>"><span class="glyphicon glyphicon-remove-sign"></span> <?php echo @$data->backLabel?></a>
+  <?php  } ?>
 	</b>
 </div>
 <div class="panel-body borderadmin">
-<form role="form" method="{data.method}" enctype="multipart/form-data"  action="{data.action}">
-  <input type="hidden" name="id" value="{item[id]}" />
+<form role="form" method="<?php echo @$data->method?>" enctype="multipart/form-data"  action="<?php echo @$data->action?>">
+  <input type="hidden" name="id" value="<?php echo @$item['id']?>" />
    <?php if($tabs) { ?>
        <div class="form-group clearfix">
            <ul class="nav nav-tabs" role="tablist">
                <?php
                $i=1;
                foreach($tabs as $tab) { ?>
-                   <li role="presentation" <?php if($i == 1) { echo "class='active'"; }?> ><a href="#{tab[index]}" aria-controls="{tab[name]}" role="tab" data-toggle="tab">{tab[name]}</a></li>
+                   <li role="presentation" <?php if($i == 1) { echo "class='active'"; }?> ><a href="#<?php echo @$tab['index']?>" aria-controls="<?php echo @$tab['name']?>" role="tab" data-toggle="tab"><?php echo @$tab['name']?></a></li>
                    <?php $i++; } ?>
 
            </ul>
@@ -35,8 +35,8 @@ $actions = $data->get('actions');
                <?php
                $i=1;
                foreach($tabs as $tab) { ?>
-                   <div role="tabpanel" class="tab-pane <?php if($i == 1) { echo "active"; }?>" id="{tab[index]}">
-						{? 
+                   <div role="tabpanel" class="tab-pane <?php if($i == 1) { echo "active"; }?>" id="<?php echo @$tab['index']?>">
+						<?php  
 						foreach($tab['fields'] as $field ) { 
 							$fieldObj = pzk_obj('Core.Db.Grid.Edit.' . ucfirst($field['type'])); 
 					
@@ -46,7 +46,7 @@ $actions = $data->get('actions');
 							$fieldObj->set('value', @$row[$field['index']]); 
 							$fieldObj->display();
 					   } 
-					   ?}
+					   ?>
                    </div>
                    <?php $i++; } ?>
 
@@ -56,9 +56,9 @@ $actions = $data->get('actions');
        </div>
     <?php }else { ?>
 
-  {each $fieldSettings as $field}
+  <?php foreach($fieldSettings as $field): ?>
   
-  {?
+  <?php 
 			if(pzk_request('hidden_' . $field['index'])) {
 				echo '<div style="display: none;">';
 			}
@@ -72,17 +72,17 @@ $actions = $data->get('actions');
 			if(pzk_request('hidden_' . $field['index'])) {
 				echo '</div>';
 			}
-	?}
-  {/each}
+	?>
+  <?php endforeach; ?>
 
   <?php } ?>
   <div class="col-xs-12" style="position: fixed; bottom: 50px; padding: 10px; background: #555;">
-  {each $actions as $action}
-  <button type="submit" name="{action[name]}" value="1" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span> {action[label]}</button>
-  {/each}
-  {? if(@$data->backHref && @$data->backLabel) { ?}
-  <a class="btn btn-default" href="{data.backHref}"><span class="glyphicon glyphicon-remove-sign"></span> {data.backLabel}</a>
-  {? } ?}
+  <?php foreach($actions as $action): ?>
+  <button type="submit" name="<?php echo @$action['name']?>" value="1" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span> <?php echo @$action['label']?></button>
+  <?php endforeach; ?>
+  <?php  if(@$data->backHref && @$data->backLabel) { ?>
+  <a class="btn btn-default" href="<?php echo @$data->backHref?>"><span class="glyphicon glyphicon-remove-sign"></span> <?php echo @$data->backLabel?></a>
+  <?php  } ?>
   </div>
 </form>
  <script type="text/javascript">

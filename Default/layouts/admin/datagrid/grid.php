@@ -26,24 +26,24 @@ h4 {
 		<!-- Show data -->
 		<div class="panel panel-default">
 			
-			<table id="admin_table_{data.get('id')}" class="table table-hover table-bordered table-striped table-condensed">
+			<table id="admin_table_<?php echo $data->get('id')?>" class="table table-hover table-bordered table-striped table-condensed">
 				<thead>
 				<tr>
 					<th><input type="checkbox" id="selecctall"/></th>
 					<th>#</th>
-					{each $listFieldSettings as $field}
+					<?php foreach($listFieldSettings as $field): ?>
 					<th>
-					<span title="{field[label]}" class="glyphicon glyphicon-remove-circle column-toogle-{field[index]}" style="cursor: pointer;" onclick="pzk_list.toogleDisplay('{field[index]}');"></span>
-					{? if ($field['type'] == 'ordering') { ?}
-						<span class="glyphicon glyphicon-floppy-disk" style="cursor: pointer;" onclick="pzk_list.saveOrdering('{field[index]}');"></span>
-					{? } ?}
-					<span class="column-header-{field[index]}">
-					{? if ($field['type'] != 'group') { ?}
-					<a href="#" onclick="pzk_list.toggleOrderBy('{field[index]}'); return false;">{field[label]}</a>
-					{? } else { ?}
-						{field[label]}
-					{? } ?}
-					{? if(@$field['filter']) { ?}
+					<span title="<?php echo @$field['label']?>" class="glyphicon glyphicon-remove-circle column-toogle-<?php echo @$field['index']?>" style="cursor: pointer;" onclick="pzk_list.toogleDisplay('<?php echo @$field['index']?>');"></span>
+					<?php  if ($field['type'] == 'ordering') { ?>
+						<span class="glyphicon glyphicon-floppy-disk" style="cursor: pointer;" onclick="pzk_list.saveOrdering('<?php echo @$field['index']?>');"></span>
+					<?php  } ?>
+					<span class="column-header-<?php echo @$field['index']?>">
+					<?php  if ($field['type'] != 'group') { ?>
+					<a href="#" onclick="pzk_list.toggleOrderBy('<?php echo @$field['index']?>'); return false;"><?php echo @$field['label']?></a>
+					<?php  } else { ?>
+						<?php echo @$field['label']?>
+					<?php  } ?>
+					<?php  if(@$field['filter']) { ?>
 					<?php 
 						$filterField = @$field['filter'];
 						$filterFieldObj = pzk_obj_once ( 'Core.Db.Grid.Edit.' . ucfirst($filterField ['type']) );
@@ -55,11 +55,11 @@ h4 {
 						$filterFieldObj->setValue ( $value );
 						$filterFieldObj->display ();
 					?>
-					{? } ?}
+					<?php  } ?>
 					</span>
-					&nbsp;<span class="column-sorter-{field[index]} glyphicon glyphicon-chevron-up" style="cursor: pointer;"></span>
+					&nbsp;<span class="column-sorter-<?php echo @$field['index']?> glyphicon glyphicon-chevron-up" style="cursor: pointer;"></span>
 					</th>
-					{/each}
+					<?php endforeach; ?>
 					<th>Hành động</th>
 				</tr>
 				</thead>
@@ -72,10 +72,10 @@ h4 {
 					<span class="glyphicon glyphicon-remove"></span>Xóa tất
 				</div>
 
-				<a class="btn  btn-sm btn-primary pull-right" href="{url /admin}_{data.getModule()}/add"><span class="glyphicon glyphicon-plus"></span>{data.getAddLabel()}</a>
+				<a class="btn  btn-sm btn-primary pull-right" href="<?php echo BASE_REQUEST . '/admin' ?>_{data.getModule()}/add"><span class="glyphicon glyphicon-plus"></span>{data.getAddLabel()}</a>
 
 				<div>
-				{children [role=export]}
+				<?php $data->displayChildren('[role=export]') ?>
 				</div>
 
 
@@ -140,7 +140,7 @@ var listFieldSettings 	= <?php echo json_encode($listFieldSettings);?>;
 {/jstmpl grid_row}
 
 <script>
-pzk.beforeload('{data.get('id')}', function(){
+pzk.beforeload('<?php echo $data->get('id')?>', function(){
 	var objectJs = <?php echo json_encode($objectJs)?>;
 	$.extend(this, objectJs);
 });

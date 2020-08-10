@@ -1,4 +1,4 @@
-{? 
+<?php  
 $request 	= pzk_request();
 $controller = $request->get('controller');
 $rand 		= rand(1, 100);
@@ -9,12 +9,12 @@ $nocompact	= !$compact;
 if($compact) {
 	$data->set('selectLabel', $data->get('label'));
 }
-?}
-<div class="col-xs-{xssize} col-md-{mdsize}">
+?>
+<div class="col-xs-<?php echo $xssize ?> col-md-<?php echo $mdsize ?>">
 	<div class="form-group clearfix">
-		{ifvar nocompact}<label for="{? echo $data->get('index')?}{rand}">{? echo $data->get('label')?}</label>{/if}<div class="col-xs-12"><select
-			class="select2-container form-control select2" id="{? echo $data->get('index')?}{rand}"
-			name="{? echo $data->get('index')?}" {ifprop relative}onchange="loadRelativeData_{data.id}_{rand}('{data.relative}', '{data.referenceField}', this.value);"{/if}>
+		<?php if(${'nocompact'}): ?><label for="<?php  echo $data->get('index')?><?php echo $rand ?>"><?php  echo $data->get('label')?></label><?php endif; ?><div class="col-xs-12"><select
+			class="select2-container form-control select2" id="<?php  echo $data->get('index')?><?php echo $rand ?>"
+			name="<?php  echo $data->get('index')?>" {ifprop relative}onchange="loadRelativeData_<?php echo @$data->id?>_<?php echo $rand ?>('<?php echo @$data->relative?>', '<?php echo @$data->referenceField?>', this.value);"<?php endif; ?>>
             <?php
 												$parents = _db ()->select ( pzk_or($data->get ('fields'), '*') )->from ( $data->get ('table') )->where ( pzk_or ( @$data->get ('condition'), '1' ) )->orderBy(pzk_or(@$data->get('orderBy'), 'id asc'))->result ();
 												if (isset ( $parents [0] ['parent'] )) {
@@ -29,22 +29,22 @@ if($compact) {
 												}
 												?>
 											
-			{each $parents as $parent}
+			<?php foreach($parents as $parent): ?>
 			<option value="<?php echo $parent[$data->get('show_value')]; ?>">
 				<?php if(isset($parent['parent'])){ echo str_repeat('--', $parent['level']); } ?>
-				#{parent[id]} - <?php echo $parent[$data->get('show_name')]; ?>
-			</option> {/each}
+				#<?php echo @$parent['id']?> - <?php echo $parent[$data->get('show_name')]; ?>
+			</option> <?php endforeach; ?>
 
 		</select>
 		</div>
 		<script type="text/javascript">
-			$('#{? echo $data->get('index')?}{rand}').val('{? echo $data->get('value')?}');
-			$( "#{? echo $data->get('index')?}{rand}" ).select2( { placeholder: "{? echo $data->get('label')?}", maximumSelectionSize: 6 } );
+			$('#<?php  echo $data->get('index')?><?php echo $rand ?>').val('<?php  echo $data->get('value')?>');
+			$( "#<?php  echo $data->get('index')?><?php echo $rand ?>" ).select2( { placeholder: "<?php  echo $data->get('label')?>", maximumSelectionSize: 6 } );
 			{ifprop relative}
-				function loadRelativeData_{data.id}_{rand}(relative, referenceField, value) {
-					var sl = $('#{data.index}{rand}').parents('form').find('select[name='+relative+']');
+				function loadRelativeData_<?php echo @$data->id?>_<?php echo $rand ?>(relative, referenceField, value) {
+					var sl = $('#<?php echo @$data->index?><?php echo $rand ?>').parents('form').find('select[name='+relative+']');
 					$.ajax({
-						url: '/{controller}/relative',
+						url: '/<?php echo $controller ?>/relative',
 						data: {
 							relative: relative,
 							referenceField: referenceField,
@@ -56,7 +56,7 @@ if($compact) {
 					});
 					
 				}
-			{/if}
+			<?php endif; ?>
         </script>
 	</div>
 </div>

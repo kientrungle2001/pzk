@@ -1,59 +1,59 @@
-{? 
-$rand = rand(1, 100);?}
+<?php  
+$rand = rand(1, 100);?>
 <div class="form-group clearfix">
-        <label for="{? echo $data->get('index')?}{rand}">{? echo $data->get('label')?}</label>
-        <div id="{? echo $data->get('index')?}{rand}-json-editor" class="json-editor"></div>
-		<input type="hidden" name="{? echo $data->get('index')?}" id="{? echo $data->get('index')?}{rand}" />
+        <label for="<?php  echo $data->get('index')?><?php echo $rand ?>"><?php  echo $data->get('label')?></label>
+        <div id="<?php  echo $data->get('index')?><?php echo $rand ?>-json-editor" class="json-editor"></div>
+		<input type="hidden" name="<?php  echo $data->get('index')?>" id="<?php  echo $data->get('index')?><?php echo $rand ?>" />
     </div>
 	<link rel="stylesheet" href="/3rdparty/FlexiJsonEditor/jsoneditor.css"/>
 	<script type="text/javascript" src="/3rdparty/FlexiJsonEditor/json2.js"></script>
 	<script type="text/javascript" src="/3rdparty/FlexiJsonEditor/jquery.jsoneditor.js"></script>
     <script type="text/javascript">
 		<?php if($data->get('value')): ?>
-			var {? echo $data->get('index')?}{rand}json = {? echo $data->get('value')?};
+			var <?php  echo $data->get('index')?><?php echo $rand ?>json = <?php  echo $data->get('value')?>;
 		<?php else: ?>
 			<?php if($data->getIsArray()): ?>
-			var {? echo $data->get('index')?}{rand}json = [];
+			var <?php  echo $data->get('index')?><?php echo $rand ?>json = [];
 			<?php else: ?>
-			var {? echo $data->get('index')?}{rand}json = {};
+			var <?php  echo $data->get('index')?><?php echo $rand ?>json = {};
 			<?php endif; ?>
 		<?php endif; ?>
-function {? echo $data->get('index')?}{rand}printJSON() {
-    $('#{? echo $data->get('index')?}{rand}').val(JSON.stringify({? echo $data->get('index')?}{rand}json));
+function <?php  echo $data->get('index')?><?php echo $rand ?>printJSON() {
+    $('#<?php  echo $data->get('index')?><?php echo $rand ?>').val(JSON.stringify(<?php  echo $data->get('index')?><?php echo $rand ?>json));
 
 }
 
-function {? echo $data->get('index')?}{rand}updateJSON(data) {
-    {? echo $data->get('index')?}{rand}json = data;
-    {? echo $data->get('index')?}{rand}printJSON();
+function <?php  echo $data->get('index')?><?php echo $rand ?>updateJSON(data) {
+    <?php  echo $data->get('index')?><?php echo $rand ?>json = data;
+    <?php  echo $data->get('index')?><?php echo $rand ?>printJSON();
 }
 
-function {? echo $data->get('index')?}showPath(path) {
-    $('#{? echo $data->get('index')?}-path').text(path);
+function <?php  echo $data->get('index')?>showPath(path) {
+    $('#<?php  echo $data->get('index')?>-path').text(path);
 }
 
 $(document).ready(function() {
 
-    $('#{? echo $data->get('index')?}{rand}').change(function() {
-        var val = $('#{? echo $data->get('index')?}{rand}').val();
+    $('#<?php  echo $data->get('index')?><?php echo $rand ?>').change(function() {
+        var val = $('#<?php  echo $data->get('index')?><?php echo $rand ?>').val();
 
         if (val) {
-            try { {? echo $data->get('index')?}{rand}json = JSON.parse(val); }
+            try { <?php  echo $data->get('index')?><?php echo $rand ?>json = JSON.parse(val); }
             catch (e) { alert('Error in parsing json. ' + e); }
         } else {
-            {? echo $data->get('index')?}{rand}json = {};
+            <?php  echo $data->get('index')?><?php echo $rand ?>json = {};
         }
         
-        $('#{? echo $data->get('index')?}{rand}-json-editor').jsonEditor({? echo $data->get('index')?}{rand}json, { change: {? echo $data->get('index')?}{rand}updateJSON, propertyclick: {? echo $data->get('index')?}{rand}showPath });
+        $('#<?php  echo $data->get('index')?><?php echo $rand ?>-json-editor').jsonEditor(<?php  echo $data->get('index')?><?php echo $rand ?>json, { change: <?php  echo $data->get('index')?><?php echo $rand ?>updateJSON, propertyclick: <?php  echo $data->get('index')?><?php echo $rand ?>showPath });
     });
 
     $('#expander').click(function() {
-        var editor = $('#{? echo $data->get('index')?}{rand}-json-editor');
+        var editor = $('#<?php  echo $data->get('index')?><?php echo $rand ?>-json-editor');
         editor.toggleClass('expanded');
         $(this).text(editor.hasClass('expanded') ? 'Collapse' : 'Expand all');
     });
     
-    {? echo $data->get('index')?}{rand}printJSON();
-    $('#{? echo $data->get('index')?}{rand}-json-editor').jsonEditor({? echo $data->get('index')?}{rand}json, { change: {? echo $data->get('index')?}{rand}updateJSON, propertyclick: {? echo $data->get('index')?}{rand}showPath });
+    <?php  echo $data->get('index')?><?php echo $rand ?>printJSON();
+    $('#<?php  echo $data->get('index')?><?php echo $rand ?>-json-editor').jsonEditor(<?php  echo $data->get('index')?><?php echo $rand ?>json, { change: <?php  echo $data->get('index')?><?php echo $rand ?>updateJSON, propertyclick: <?php  echo $data->get('index')?><?php echo $rand ?>showPath });
 });
     </script>

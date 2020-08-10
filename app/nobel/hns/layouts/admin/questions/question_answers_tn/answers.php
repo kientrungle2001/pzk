@@ -10,14 +10,14 @@ $itemAnswers = $data->getItemAnswers();
 $backHref = pzk_request()->getBackHref();
 
 ?>
-<div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> {item[request]}</div></div>
+<div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> <?php echo @$item['request']?></div></div>
 
-<div class="row"><div class="col-xs-12"><span class="title-ptnn">Câu hỏi :</span> {item[name_vn]}</div></div>
+<div class="row"><div class="col-xs-12"><span class="title-ptnn">Câu hỏi :</span> <?php echo @$item['name_vn']?></div></div>
 
 <div class="row title-ptnn"><div class="col-xs-12"> Đáp án : </div></div>
 <button type="button" class="btn btn-primary margin-top-10" id="add-input-test" style="margin-left: 15px;"><span class="glyphicon glyphicon-plus-sign"></span> Add</button>
-<form id="formAnswers" role="form" method="post" action="{url /Admin_Question2/edit_tnPost}">
- 	<input type="hidden" name="id" value="{item[id]}" />
+<form id="formAnswers" role="form" method="post" action="<?php echo BASE_REQUEST . '/Admin_Question2/edit_tnPost' ?>">
+ 	<input type="hidden" name="id" value="<?php echo @$item['id']?>" />
  	
   	<?php if($itemAnswers == NULL):?>
   	<div id="content">
@@ -56,18 +56,18 @@ $backHref = pzk_request()->getBackHref();
 	  		<div class="col-xs-6 margin-top-10 element-input">
 			    <div class="input-group">
 			      	<span class="input-group-addon">
-			      		<input class="status_value" type="radio" name="status" <?php if($value['status'] == 1){ echo 'checked = "1"';}?> value="{value[id]}"/>
+			      		<input class="status_value" type="radio" name="status" <?php if($value['status'] == 1){ echo 'checked = "1"';}?> value="<?php echo @$value['id']?>"/>
 			      	</span>
 					<div class="row-no-padding">
 						<div class="col-xs-12 hidden">
-							<textarea class="form-control content_value tinymce_input" name="content[{value[id]}]"  aria-required="true" aria-invalid="false"><?=$value['content']?></textarea>
+							<textarea class="form-control content_value tinymce_input" name="content[<?php echo @$value['id']?>]"  aria-required="true" aria-invalid="false"><?=$value['content']?></textarea>
 						</div>
 						<div class="col-xs-12">
-							<textarea class="form-control content_value tinymce_input" name="content_vn[{value[id]}]"  aria-required="true" aria-invalid="false"><?=@$value['content_vn']?></textarea>
+							<textarea class="form-control content_value tinymce_input" name="content_vn[<?php echo @$value['id']?>]"  aria-required="true" aria-invalid="false"><?=@$value['content_vn']?></textarea>
 						</div>
 					</div>
 			    </div>
-			    <div class="remove-input"><a href="javascript:void(0)" class="color_delete" title="Xóa" onclick="remove({value[id]});"><span class="glyphicon glyphicon-remove-circle"></span></a></div>
+			    <div class="remove-input"><a href="javascript:void(0)" class="color_delete" title="Xóa" onclick="remove(<?php echo @$value['id']?>);"><span class="glyphicon glyphicon-remove-circle"></span></a></div>
 			</div>
 			<?php $i = $value['id'];?>
   			<?php endforeach;?>
@@ -93,11 +93,11 @@ $backHref = pzk_request()->getBackHref();
   	<div class="row margin-top-20" style="position: fixed; bottom: 50px; background: #555; width: 100%; padding: 10px;">
 	  	<div class="col-xs-12">
 			<button type="submit" class="btn btn-primary" onclick = "return validate_answers()" ><span class="glyphicon glyphicon-save"></span> Cập nhật</button>
-			{ifvar backHref}
-			<a class="btn btn-default" href="{backHref}">Quay Lại</a>
-			{else}
-			<a class="btn btn-default" href="{url /}{? echo pzk_request()->getController(); ?}/{item[questionId]}">Quay Lại</a>
-			{/if}
+			<?php if(${'backHref'}): ?>
+			<a class="btn btn-default" href="<?php echo $backHref ?>">Quay Lại</a>
+			<?php else: ?>
+			<a class="btn btn-default" href="<?php echo BASE_REQUEST . '/' ?><?php  echo pzk_request()->getController(); ?>/<?php echo @$item['questionId']?>">Quay Lại</a>
+			<?php endif; ?>
 		</div>
 	</div>
 </form>

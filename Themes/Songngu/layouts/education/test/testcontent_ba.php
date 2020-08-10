@@ -8,10 +8,10 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 
  ?>
 <div class="container hidden-xs">
-	<p class="t-weight text-center btn-custom8 mgright textcl">Làm {ifvar practice}bài luyện tập{else}đề thi{/if} - Lớp <?php echo $class; ?></p>
+	<p class="t-weight text-center btn-custom8 mgright textcl">Làm <?php if(${'practice'}): ?>bài luyện tập<?php else: ?>đề thi<?php endif; ?> - Lớp <?php echo $class; ?></p>
 </div>
 <div class="container visible-xs top10">
-	<p class="t-weight text-center btn-custom8 textcl">Làm {ifvar practice}bài luyện tập{else}đề thi{/if} - Lớp <?php echo $class; ?></p>
+	<p class="t-weight text-center btn-custom8 textcl">Làm <?php if(${'practice'}): ?>bài luyện tập<?php else: ?>đề thi<?php endif; ?> - Lớp <?php echo $class; ?></p>
 </div>
 
 <div class="container">
@@ -19,7 +19,7 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 		<div class="col-md-1 col-xs-1"></div>
 		<?php if(!pzk_session('userId')){ ?>
 		<div class="col-xs-12 pd-0">
-			<h3 class="pd-top-15" style="width: 100%; text-align: center;">Bạn phải <a rel="{_SERVER[REQUEST_URI]}" class="login_required" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer;">Đăng nhập</a> thì mới được thi thử</h3>
+			<h3 class="pd-top-15" style="width: 100%; text-align: center;">Bạn phải <a rel="<?php echo @$_SERVER['REQUEST_URI']?>" class="login_required" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer;">Đăng nhập</a> thì mới được thi thử</h3>
 		</div>
 		<?php }else{ ?>
 		<!-- sau khi đã đăng nhập -->
@@ -38,14 +38,14 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 		    			<?php 
 		    				$weeks = $data->getWeekTestSN(ROOT_WEEK_CATEGORY_ID,$practice, $check, $class);
 		    			 ?>
-		    			{each $weeks as $week }
+		    			<?php foreach($weeks as $week ): ?>
 		    			
-		    			<li class="left20" style="color:#d9534f;"><h5><strong><?php if(pzk_user_special()): ?>#{week[id]} - <?php endif; ?>{week[name]}</strong></h5>
+		    			<li class="left20" style="color:#d9534f;"><h5><strong><?php if(pzk_user_special()): ?>#<?php echo @$week['id']?> - <?php endif; ?><?php echo @$week['name']?></strong></h5>
 							
 						<?php 
 							$tests = $data->getTestSN($week['id'], $practice, $check, $class);
 							if($practice== 1 || $practice == '1'){  ?>
-								{each $tests as $test }
+								<?php foreach($tests as $test ): ?>
 								<?php 
 	                                if($test['name_sn']){
 	                                    $testName = $test['name_sn'];
@@ -53,14 +53,14 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 	                            ?>
 									<li style="padding-left: 40px;">
 										
-										<a onclick="id = {week[id]};document.getElementById('chonde').innerHTML = '{testName}';"  data-de="{testName}" class="getdata" href="/practice-examination/class-{class}/week-{week[id]}/examination-{test[id]}" data-type="group"><?php if(pzk_user_special()): ?>#{test[id]} - <?php endif; ?>{testName}</a>
+										<a onclick="id = <?php echo @$week['id']?>;document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';"  data-de="<?php echo $testName ?>" class="getdata" href="/practice-examination/class-<?php echo $class ?>/week-<?php echo @$week['id']?>/examination-<?php echo @$test['id']?>" data-type="group"><?php if(pzk_user_special()): ?>#<?php echo @$test['id']?> - <?php endif; ?><?php echo $testName ?></a>
 										
 									</li>
-								{/each}
+								<?php endforeach; ?>
 						<?php
 							}else{
 						 ?>						
-							{each $tests as $test }
+							<?php foreach($tests as $test ): ?>
 							<?php 
                                 if($test['name_sn']){
                                     $testName = $test['name_sn'];
@@ -68,14 +68,14 @@ $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
                             ?>
 							<li style="padding-left: 40px;">
 								
-								<a onclick="id = {week[id]};document.getElementById('chonde').innerHTML = '{testName}';" data-id="{week[id]}" data-de="{testName}" class="getdata" href="/test/class-{class}/week-{week[id]}/examination-{test[id]}" data-type="group"><?php if(pzk_user_special()): ?>#{test[id]} - <?php endif; ?>{testName}</a>
+								<a onclick="id = <?php echo @$week['id']?>;document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';" data-id="<?php echo @$week['id']?>" data-de="<?php echo $testName ?>" class="getdata" href="/test/class-<?php echo $class ?>/week-<?php echo @$week['id']?>/examination-<?php echo @$test['id']?>" data-type="group"><?php if(pzk_user_special()): ?>#<?php echo @$test['id']?> - <?php endif; ?><?php echo $testName ?></a>
 								
 							</li>
-							{/each}
+							<?php endforeach; ?>
 							<?php } ?>
 							
 						</li>
-						{/each}
+						<?php endforeach; ?>
 						</ul>
 				</div>
 				<div class="col-xs-12 col-md-4 col-sm-2 bd pull-right mgleft">

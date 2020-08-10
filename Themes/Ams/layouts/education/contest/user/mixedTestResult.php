@@ -18,5 +18,5 @@
 	</table>
 </div>
 </div>
-{children all}
+<?php $data->displayChildren('all') ?>
 </div>

@@ -90,7 +90,7 @@ $topics = $subject->getTopics();
 			</a>	
 			&nbsp; &nbsp; &gt; &nbsp; &nbsp;
 			<a href="/practice/class-5/subject-Mathematics-51">
-			{subject.get('name')}		</a>
+			<?php echo $subject->get('name')?>		</a>
 		</div>
 		
 		<div class="row">
@@ -112,7 +112,7 @@ $topics = $subject->getTopics();
 			</div>
 			
 			<div class="col-xs-12 col-md-4">
-				<h2 style="margin-top: 0px;">{subject.get('name')}</h2>
+				<h2 style="margin-top: 0px;"><?php echo $subject->get('name')?></h2>
 				
 				<div class="item">
                     <span class="hot">HOT </span>
@@ -141,7 +141,7 @@ $topics = $subject->getTopics();
 				
 				<div class="item">
 					<div id="chitiet" class="chitiet">
-						{subject.get('content')}
+						<?php echo $subject->get('content')?>
 					</div>
 					<div id="decuong">
 						<div class="panel panel-primary">

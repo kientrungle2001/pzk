@@ -17,7 +17,7 @@
 			<p class="text-center top20"><strong>Các trung tâm luyện thi vào Trần Đại Nghĩa</strong></p>
 		</div>
 	</a>
-	<a href="{? echo FL_URL ?}/aqs">
+	<a href="<?php  echo FL_URL ?>/aqs">
 		<div class="full top20 left15 robotofont">
 			<img class="image-responsive center-block" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/test/Themes/Default/media/hoidap.png">
 			<p class="text-center top20"><strong>Hỏi đáp kinh nghiệm ôn thi vào trường Trần Đại Nghĩa</strong></p>

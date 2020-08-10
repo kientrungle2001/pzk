@@ -1,3 +1,3 @@
 <div class="row">
-{children all}
+<?php $data->displayChildren('all') ?>
 </div>

@@ -12,14 +12,14 @@
       $user=$user_note->loadUserName($userId);
       $username=$user['username'];
    ?>
-    <div id="commId{comment_note[id]}" class="user_note_comment">
+    <div id="commId<?php echo @$comment_note['id']?>" class="user_note_comment">
      <div class="pfr_avatar_wall"><?php echo $user_note->checkAvatar($user['avatar']) ?></div> 
      <div class="prf_titlenote">
-       <a href="/profile/user?member={userId}" >{username}</a>
+       <a href="/profile/user?member=<?php echo $userId ?>" ><?php echo $username ?></a>
      </div>
-    <div class="titel_detail">{comment_note[comment]}</div>
-    <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_{data.id}.delComm({comment_note[id]});">[Xoá]</a></div>
-    <div class="titel_time">Đước viết lúc: {comment_note[date]}</div>
+    <div class="titel_detail"><?php echo @$comment_note['comment']?></div>
+    <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_<?php echo @$data->id?>.delComm(<?php echo @$comment_note['id']?>);">[Xoá]</a></div>
+    <div class="titel_time">Đước viết lúc: <?php echo @$comment_note['date']?></div>
     </div>
 
   <?php } 

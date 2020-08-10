@@ -7,12 +7,12 @@ $root = $items[0]; ?>
 		<div class="col-xs-12">			
 			<div class="header bgcolor1-bold">
 				<h2 class="text-center margin-0 padding-10 font-large">
-					<a class="color-white font-large text-bold" href="{root[alias]}">{root[name]}</a>
+					<a class="color-white font-large text-bold" href="<?php echo @$root['alias']?>"><?php echo @$root['name']?></a>
 				</h2>
 			</div>
-			<div class="row top-10" id="carousel-{data.id}">
-			{? $children = $root['children']; $index = 0; ?}
-			{each $children as $item}
+			<div class="row top-10" id="carousel-<?php echo @$data->id?>">
+			<?php  $children = $root['children']; $index = 0; ?>
+			<?php foreach($children as $item): ?>
 			<div class="col-sm-3">
 				<div class="bgcolor1">
 				<div class="img-4-columns">
@@ -20,29 +20,29 @@ $root = $items[0]; ?>
 				</div>
 				
 				<h3 class="bgcolor1-bold text-left margin-0 padding-10 font-large">
-					<a href="/{item[alias]}" class="color-white font-large text-bold">{item[name]}</a>
+					<a href="/<?php echo @$item['alias']?>" class="color-white font-large text-bold"><?php echo @$item['name']?></a>
 				</h3>
 				<div class="hidden-xs">
 				<p class="lesson">
-					<span class="intro-text">{item[content]}</span>
+					<span class="intro-text"><?php echo @$item['content']?></span>
 				</p>
 				<div class="separator"></div>
-				{? 	$course 	= 	$item['children'][0]; 
+				<?php  	$course 	= 	$item['children'][0]; 
 					$practice	=	$item['children'][1];
-				?}
+				?>
 				<ul class="lesson-detail">
 					<li class="course">
-						<a class="color-white" href="/{item[alias]}"> <span class="glyphicon glyphicon-book"></span> Bài giảng cơ bản & nâng cao</a>
+						<a class="color-white" href="/<?php echo @$item['alias']?>"> <span class="glyphicon glyphicon-book"></span> Bài giảng cơ bản & nâng cao</a>
 					</li>
 					<li class="practice">
-						<a class="color-white" href="/{item[alias]}"> <span class="glyphicon glyphicon-pencil"></span> Luyện tập cơ bản & nâng cao</a>
+						<a class="color-white" href="/<?php echo @$item['alias']?>"> <span class="glyphicon glyphicon-pencil"></span> Luyện tập cơ bản & nâng cao</a>
 					</li>
 				</ul>
 				</div>
 				</div>
 			</div>
-			{? $index++; ?}
-			{/each}
+			<?php  $index++; ?>
+			<?php endforeach; ?>
 			<div class="clear"></div>
 			</div>
 		</div>
@@ -168,7 +168,7 @@ $.fn.carousel = function(options) {
 	}
 };
 
-$('#carousel-{data.id}').carousel({
+$('#carousel-<?php echo @$data->id?>').carousel({
 	size: 1,
 	childSelector: 	'.col-sm-3',
 	desktop: {size: 4}

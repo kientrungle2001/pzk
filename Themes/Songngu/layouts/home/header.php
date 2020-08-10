@@ -16,7 +16,7 @@
 		
 		<div id="myNavbar">
 		  <ul>
-			<li><a href="{? echo NOBEL_URL; ?}">Trang chủ</a></li>
+			<li><a href="<?php  echo NOBEL_URL; ?>">Trang chủ</a></li>
 			<!--li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Phần mềm học tập</a>
 				<ul class="dropdown-menu">
 					<li><a href="<?=FL_URL?>">Full Look Trần Đại Nghĩa</a></li>
@@ -30,7 +30,7 @@
 			<li><a class="register_head" href="javascript:void(0)" data-toggle="modal" data-target="#RegisterModal"><span class="glyphicon glyphicon-user"></span> Đăng ký</a></li>
 			<li><a class="login_head" href="javascript:void(0)" data-toggle="modal" data-target="#LoginModal"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
 			<?php elseif(pzk_session('userId') >0 ):?>
-			<li class="top10">Xin chào <div class="btn-user">{children [id=userAccountUser][position=user]}<span class="caret"></span></div></li>
+			<li class="top10">Xin chào <div class="btn-user"><?php $data->displayChildren('[id=userAccountUser][position=user]') ?><span class="caret"></span></div></li>
 			<li><a href="/account/logout">Thoát</a></li>
 			<?php endif;?>
 		  </ul>

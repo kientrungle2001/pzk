@@ -1,10 +1,10 @@
 <?php $rand = rand(0, 100000);
 $controller = pzk_controller();
 ?>
-<span class="hidden">{data.label}</span>
-<select id="{data.index}-{rand}"
-	name="{data.index}"
-	onchange="pzk_list.filter('{data.type}', '{data.index}', this.value);">
+<span class="hidden"><?php echo @$data->label?></span>
+<select id="<?php echo @$data->index?>-<?php echo $rand ?>"
+	name="<?php echo @$data->index?>"
+	onchange="pzk_list.filter('<?php echo @$data->type?>', '<?php echo @$data->index?>', this.value);">
 	<option value="">All</option>
 	<option value="1">Yes</option>
 	<option value="0">No</option>
@@ -12,5 +12,5 @@ $controller = pzk_controller();
 </select>
 <script type="text/javascript">
 	<?php $status = $controller->getFilterSession()->get($data->index); ?>
-	$('#{data.index}-{rand}').val('{status}');
+	$('#<?php echo @$data->index?>-<?php echo $rand ?>').val('<?php echo $status ?>');
 </script>

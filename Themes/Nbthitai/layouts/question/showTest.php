@@ -39,7 +39,7 @@
 ?>
 
 
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 
 <div class="container">
 	<div class="row">
@@ -47,10 +47,10 @@
 		<div class="col-md-10 col-xs-10 bd-div bgclor form_search_test top10 bot20">
 			<div class="col-xs-12 form-group  top20">
 				<div class="col-xs-9 pd-0">
-					<form id="form_search_test" action="<?=BASE_REQUEST?>/test/doTest/?practice={type}&class={class}" method="post">
+					<form id="form_search_test" action="<?=BASE_REQUEST?>/test/doTest/?practice=<?php echo $type ?>&class=<?php echo $class ?>" method="post">
 					<select id="test" name="test" class="form-control select_type title-blue" onchange = "$('#form_search_test').submit();" >
 		    			
-						<option value="" select="selected" data_time="--:--">{data_criteria[name]} </option>
+						<option value="" select="selected" data_time="--:--"><?php echo @$data_criteria['name']?> </option>
 						<?php foreach ($dataTest as $key => $test):?>
 							<option value="<?=$test['id'];?>" data_time="<?=$test['time'];?>"><?=$test['name'];?> - Số câu <?=$test['quantity']?></option>
 						<?php endforeach;?>

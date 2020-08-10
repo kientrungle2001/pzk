@@ -10,7 +10,7 @@
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 
 
 <?php  
@@ -38,24 +38,24 @@
 
 </style>
 <div class="container">
-	<p class="t-weight text-center btn-custom8 mgright textcl">Luyện tập - Lớp {class}</p>
+	<p class="t-weight text-center btn-custom8 mgright textcl">Luyện tập - Lớp <?php echo $class ?></p>
 </div>
-<h3 class="text-center text-uppercase"><strong>{category[name]}</strong></h3>
+<h3 class="text-center text-uppercase"><strong><?php echo @$category['name']?></strong></h3>
 <div class="container">
 	<div class="item">
 		<div class="col-xs-12">
 			<div class="row">
 				<div class="col-xs-12 col-md-10 pull-left mgleft">
-					{children [position=choice]}
+					<?php $data->displayChildren('[position=choice]') ?>
 					<div class="dropdown col-md-4 col-xs-12 mgleft">
 						<button class="btn fix_hover btn-default col-md-12 col-sm-12 col-xs-12 sharp" type="button">
 						<span id="chonde" class="fontsize19"> Chọn chủ đề</span>
 						<img class="img-responsive imgwh hidden-xs hidden-sm pull-right" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/icon1.png" />
 						</button>
 						<ul id="topics" class="dropdown-menu col-md-12 col-sm-12 col-xs-12" style="top:35px; max-height:350px; overflow-y: scroll;">
-						{each $topics as $topic}
-							<li id="topic-{topic[id]}" <?php if($topicId == $topic['id']):?>class="active"<?php endif;?>><a class="text-wrap" href="#" onclick="reload_exercises({topic[id]}); return false;"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $topic['level']); ?><?php if(pzk_user_special()):?>#{topic[id]} - <?php endif;?>{topic[name]}</a></li>
-						{/each}
+						<?php foreach($topics as $topic): ?>
+							<li id="topic-<?php echo @$topic['id']?>" <?php if($topicId == $topic['id']):?>class="active"<?php endif;?>><a class="text-wrap" href="#" onclick="reload_exercises(<?php echo @$topic['id']?>); return false;"><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $topic['level']); ?><?php if(pzk_user_special()):?>#<?php echo @$topic['id']?> - <?php endif;?><?php echo @$topic['name']?></a></li>
+						<?php endforeach; ?>
 						</ul>
 					</div>	
 					<div class="dropdown col-md-3 col-xs-12 mgleft">
@@ -141,7 +141,7 @@
 								
 									<div class="order">Câu : <?=$questionIndex+1;?>
 									<?php if(pzk_user_special()) :?><br />
-									(#{question[id]})
+									(#<?php echo @$question['id']?>)
 									<?php endif; ?>
 									</div>
 									
@@ -200,7 +200,7 @@
 						<?php endforeach;?>
 						</fieldset>
 						<input type = 'hidden' name='exercise_number' value = '<?=$de?>'/>
-						<input type="hidden" name="category_id" value="{category_id}"/>
+						<input type="hidden" name="category_id" value="<?php echo $category_id ?>"/>
 						<input type="hidden" name="question_time" value="<?=$data_criteria['question_time']?>"/>
 						
 						<input type="hidden" id="start_time" name="start_time" value="<?=$_SERVER['REQUEST_TIME'];?>" />
@@ -253,11 +253,11 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-sm btn-danger pull-left" onclick="window.location='/?class={class}'"> Chọn luyện tập các môn khác <span class="glyphicon glyphicon-arrow-left"></span></button>
+				<button type="button" class="btn btn-sm btn-danger pull-left" onclick="window.location='/?class=<?php echo $class ?>'"> Chọn luyện tập các môn khác <span class="glyphicon glyphicon-arrow-left"></span></button>
 				<button id="show-answers-on-dialog" class="btn btn-danger" name="show-answers" onclick="show_answers(); $('#exampleModal').modal('hide');" type="button">
 					Xem đáp án 
 				</button>
-				<button type="button" class="btn btn-sm btn-success pull-right" onclick="window.location = '/practice/detail/{subject}?class={class}&de=1'"><span class="glyphicon glyphicon-arrow-right"></span> Làm bài khác</button>
+				<button type="button" class="btn btn-sm btn-success pull-right" onclick="window.location = '/practice/detail/<?php echo $subject ?>?class=<?php echo $class ?>&de=1'"><span class="glyphicon glyphicon-arrow-right"></span> Làm bài khác</button>
 			</div>
 		</div>
 	</div>
@@ -276,7 +276,7 @@
 			type: 'post',
 			data: {
 				topicId: topicId,
-				class: {class},
+				class: <?php echo $class ?>,
 				check: <?php if($check):?>1<?php else: ?>0<?php endif;?>
 			},
 			dataType: 'json',
@@ -285,8 +285,8 @@
 				$('#exercises').html('');
 				for(var i = 0; i < exercises; i++) {
 					var activeClass = '';
-					if(i+1 == {exercise_number} && topicId == {topicId})	activeClass = 'class="active"';
-					$('#exercises').append('<li '+activeClass+'><a href="/practice/class-{class}/subject-{category[alias]}-{category[id]}/topic-'+resp.alias+'-'+resp.id+'/examination-'+(i + 1)+'">Bài ' + (i + 1) + '</a></li>');
+					if(i+1 == <?php echo $exercise_number ?> && topicId == <?php echo $topicId ?>)	activeClass = 'class="active"';
+					$('#exercises').append('<li '+activeClass+'><a href="/practice/class-<?php echo $class ?>/subject-<?php echo @$category['alias']?>-<?php echo @$category['id']?>/topic-'+resp.alias+'-'+resp.id+'/examination-'+(i + 1)+'">Bài ' + (i + 1) + '</a></li>');
 				}
 				$('#exercises').stop(true, true).delay(100).fadeIn();
 			}
@@ -300,7 +300,7 @@
 	});
 	
 	$(function(){
-		reload_exercises({topicId});
+		reload_exercises(<?php echo $topicId ?>);
 		setTimeout(function(){
 			$('#exercises').stop(true, true).delay(200).fadeOut();
 		}, 200);

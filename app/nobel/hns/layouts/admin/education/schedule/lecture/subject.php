@@ -8,11 +8,11 @@ $topics = $data->getTopics();
 $topics = treefy($topics);
 $schedules = $data->getSchedules();
 ?>
-<h1>Lớp {classroom[gradeNum]}{classroom[className]} năm {classroom[schoolYear]}</h1>
-{each $topics as $topic}
+<h1>Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> năm <?php echo @$classroom['schoolYear']?></h1>
+<?php foreach($topics as $topic): ?>
 <?php if($topic['type'] == 'subject') {continue;} ?>
 <a href="#" onclick="return false;">
-<?php echo str_repeat('&nbsp;', 4 * $topic['level']);?>{topic[name]}
+<?php echo str_repeat('&nbsp;', 4 * $topic['level']);?><?php echo @$topic['name']?>
 </a>
 <br />
 
@@ -23,12 +23,12 @@ $exerciseNum = $i + 1;
 ?>
 <?php echo str_repeat('&nbsp;', 4 * $topic['level']);?><a href="#" onclick="return false;" class="btn btn-default">
 Bài <?php echo $exerciseNum; ?>
-</a> <input type="datetime-local" id="expiredDate-{classroomId}-{subjectId}-{topic[id]}-{exerciseNum}" name="schedules[]" /> <button class="btn btn-primary" onclick="saveLectureSchedule({classroomId}, {subjectId}, {topic[id]}, {exerciseNum}); return false;">Lưu</button>
+</a> <input type="datetime-local" id="expiredDate-<?php echo $classroomId ?>-<?php echo $subjectId ?>-<?php echo @$topic['id']?>-<?php echo $exerciseNum ?>" name="schedules[]" /> <button class="btn btn-primary" onclick="saveLectureSchedule(<?php echo $classroomId ?>, <?php echo $subjectId ?>, <?php echo @$topic['id']?>, <?php echo $exerciseNum ?>); return false;">Lưu</button>
 
 <br /><br />
 <?php endfor;?>
 <br />
-{/each}
+<?php endforeach; ?>
 
 <script>
 function saveLectureSchedule(classroomId, subjectId, topicId, exerciseNum) {

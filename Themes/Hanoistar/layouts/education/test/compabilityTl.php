@@ -56,7 +56,7 @@
 									
 										<div class="stt"><?php echo $language['question'];?> <?=$key+1;?> 
 										<?php if(pzk_user_special()) :?><br />
-									(#{value[id]})
+									(#<?php echo @$value['id']?>)
 									<?php endif; ?>
 										</div>
 

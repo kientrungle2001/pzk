@@ -13,7 +13,7 @@
 	<p><i class="ptnn-title"><?=$items->get('request')?></i></p>
 	<p><span class="ptnn-title"> <?=getLatex($items->get('name'))?></span>
 	<?php if($items->get('audio')): ?>
-		<span class="glyphicon glyphicon-volume-up" onclick="read_question(this, '{items.get('audio')}');"></span>
+		<span class="glyphicon glyphicon-volume-up" onclick="read_question(this, '<?php echo $items->get('audio')?>');"></span>
 	<?php endif; ?>
 	</p>
 	<table>

@@ -2,14 +2,14 @@
 $item = $data->getItem();
 $itemAnswers = $data->getItemAnswers();
 ?>
-<div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> {item[request]}</div></div>
+<div class="row"><div class="col-xs-12"><span class="title-ptnn">Yêu cầu :</span> <?php echo @$item['request']?></div></div>
 
-<div class="row"><div class="col-xs-12"><span class="title-ptnn">Câu hỏi :<br/></span> {item[name]}</div></div>
+<div class="row"><div class="col-xs-12"><span class="title-ptnn">Câu hỏi :<br/></span> <?php echo @$item['name']?></div></div>
 
 <div class="row title-ptnn"><div class="col-xs-12"> Đáp án : </div></div>
 	 
-<form role="form" method="post" action="{url /admin_questions/edit_tn20Post}">
- 	<input type="hidden" name="id" value="{item[id]}" />
+<form role="form" method="post" action="<?php echo BASE_REQUEST . '/admin_questions/edit_tn20Post' ?>">
+ 	<input type="hidden" name="id" value="<?php echo @$item['id']?>" />
   	
   	<div class="form-group col-xs-12 margin-top-10">
 		<input type="text" name="content" class="form-control" <?php if(isset($itemAnswers)):?>  value="<?=$itemAnswers[0]['content']?> <?php endif;?>"/>
@@ -31,7 +31,7 @@ $itemAnswers = $data->getItemAnswers();
   	<div class="margin-top-20">
 	  	<div class="col-xs-4">
 			<button type="submit" class="btn btn-primary" onclick = "return validate_answers()"><span class="glyphicon glyphicon-save"></span> Cập nhật</button>
-			<a class="btn btn-default" href="{url /admin_questions}/{item[questionId]}">Quay Lại</a>
+			<a class="btn btn-default" href="<?php echo BASE_REQUEST . '/admin_questions' ?>/<?php echo @$item['questionId']?>">Quay Lại</a>
 		</div>
 	</div>
 </form>

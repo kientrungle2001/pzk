@@ -2,7 +2,7 @@
 	$dataShowUserBook= $data->getDataShowUserBook();
 	$dataUserAnswers = $data->getDataUserAnswers();
 ?>
-<form role="form" name="update_book" action="{url /admin_book/updatePost}">
+<form role="form" name="update_book" action="<?php echo BASE_REQUEST . '/admin_book/updatePost' ?>">
 <div class="panel panel-default">
   	<!-- Default panel contents -->
   	<div class="panel-heading col-xs-12">

@@ -13,7 +13,7 @@
     ?>
     <div class="clearfix">
       <textarea id="viewall_post_wall1" style="border:1px solid #cecece; min-height:110px;width:100%;" placeholder="Nhập nội dung... " rel="false"></textarea>
-      <input type="button" style="width:50px;float:left;color:black; margin-bottom: 10px;" onclick="pzk_{data.id}.viewWall1('{avatar1}','{usercommId}','{usercomm}','{member}','{datetime}');" class="pne_st1_r_file_bt" name="send" value="Gửi">
+      <input type="button" style="width:50px;float:left;color:black; margin-bottom: 10px;" onclick="pzk_<?php echo @$data->id?>.viewWall1('<?php echo $avatar1 ?>','<?php echo $usercommId ?>','<?php echo $usercomm ?>','<?php echo $member ?>','<?php echo $datetime ?>');" class="pne_st1_r_file_bt" name="send" value="Gửi">
       
     </div>
     
@@ -24,7 +24,7 @@
       $write_walls=$entt->loadWriteWall($member);
       $i=0;
       ?>
-      {each $write_walls as $write_wall}
+      <?php foreach($write_walls as $write_wall): ?>
       <?php
          $i++;
          $loadUserID = $entt->loadUserID($write_wall['userWrite']);
@@ -35,24 +35,24 @@
     
     <div class="prf_write_wall">
       <div class="pfr_avatar_wall">
-        <img src="{avatar}" alt="" width="60" height="60">
+        <img src="<?php echo $avatar ?>" alt="" width="60" height="60">
       </div>
       <div class="prf_titlenote">
-       <a href="/profile/user?member={write_wall[userWrite]}" >{usernameWrite} :</a>
+       <a href="/profile/user?member=<?php echo @$write_wall['userWrite']?>" ><?php echo $usernameWrite ?> :</a>
          
       </div>
       <div class="titel_detail">
-        {write_wall[content]}    
+        <?php echo @$write_wall['content']?>    
        </div>
       <div class="titel_time">   Được viết lúc: 
-        {write_wall[datewrite]}   
+        <?php echo @$write_wall['datewrite']?>   
       </div>
       
       <div class="prf_clear"> </div>
        
       </div>
     </div>
-    {/each}
+    <?php endforeach; ?>
     </div>
    
     <div>
@@ -61,8 +61,8 @@
       $check =$entt->checkPage($i); 
       $pages= $entt->arrPage($i,$member);
     ?>
-    {each $pages as $page}
-     <a href="#" onclick="pzk_{data.id}.loadpage1({page}, {member})" >{page}</a>
-    {/each}
+    <?php foreach($pages as $page): ?>
+     <a href="#" onclick="pzk_<?php echo @$data->id?>.loadpage1(<?php echo $page ?>, <?php echo $member ?>)" ><?php echo $page ?></a>
+    <?php endforeach; ?>
     </div>
   </div>

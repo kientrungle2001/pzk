@@ -66,10 +66,10 @@
 					</tr>
 					</thead>
 					<tbody>
-					{each $homeworks as $homework}
+					<?php foreach($homeworks as $homework): ?>
 					<tr>
 						<td><?php echo $i; ?></td>
-						<td><a href="/Profile/book/{homework[id]}"><?php echo $arrNameHomework[$homework['testId']]; ?></a></td>
+						<td><a href="/Profile/book/<?php echo @$homework['id']?>"><?php echo $arrNameHomework[$homework['testId']]; ?></a></td>
 						<td><?php echo $homework['week'] ?></td>
 						<td><?= $homework['totalMark'];?></td>
 						
@@ -98,14 +98,14 @@
 						<td><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?php echo date('d/m/Y H:i:m A', strtotime($homework['startTime'])); ?></td>
 						<td>
 							<?php if($homework['status'] == 1){ ?>
-								<a href="/Profile/book/{homework[id]}"><div class="btn btn-primary">Đã chấm</div></a>
+								<a href="/Profile/book/<?php echo @$homework['id']?>"><div class="btn btn-primary">Đã chấm</div></a>
 							<?php } else { ?>
-								<a href="/Profile/book/{homework[id]}"><div class="btn btn-danger">Chưa chấm</div></a>
+								<a href="/Profile/book/<?php echo @$homework['id']?>"><div class="btn btn-danger">Chưa chấm</div></a>
 							<?php } ?>
 						</td>
 					</tr>
 					<?php $i++; ?>
-					{/each}
+					<?php endforeach; ?>
 					</tbody>
 				</table>
 			</div>
@@ -159,20 +159,20 @@
 				</tr>
 				</thead>
 				<tbody>
-				{each $compabilities as $compability}
+				<?php foreach($compabilities as $compability): ?>
 					<tr>
-					<td>{i}</td>
+					<td><?php echo $i ?></td>
 					<td><?php echo $nameParentTest[$compability['parentTest']]; ?></td>
 					<td>
 					<?php 
 					if($compability['trytest'] == 1){ 
 					?>
-					<a href="/Profile/book/{compability[id]}" >Đề trắc nghiệm</a>
+					<a href="/Profile/book/<?php echo @$compability['id']?>" >Đề trắc nghiệm</a>
 					<?php
 					 
 					} else { 
 					?>
-						<a href="/Profile/booktl/{compability[id]}">Đề tự luận</a>
+						<a href="/Profile/booktl/<?php echo @$compability['id']?>">Đề tự luận</a>
 				
 					<?php } ?>
 					
@@ -204,15 +204,15 @@
 					<td>
 					<?php if($compability['trytest'] == 2){ 
 						if($compability['status'] == 1){ ?>
-							<a href="/Profile/booktl/{compability[id]}"><div class="btn btn-primary">Đã chấm</div></a>
+							<a href="/Profile/booktl/<?php echo @$compability['id']?>"><div class="btn btn-primary">Đã chấm</div></a>
 						<?php } else { ?>
-							<a href="/Profile/booktl/{compability[id]}"><div class="btn btn-primary">Đã chấm</div></a>
+							<a href="/Profile/booktl/<?php echo @$compability['id']?>"><div class="btn btn-primary">Đã chấm</div></a>
 						<?php } ?>
 					<?php } ?>
 					</td>
 					<?php $i++;?>
 					</tr>
-				{/each}
+				<?php endforeach; ?>
 				</tbody>
 			</table>
 		</div>	

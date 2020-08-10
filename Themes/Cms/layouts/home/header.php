@@ -13,7 +13,7 @@
 				</div>
 				
 				<div class="collapse navbar-collapse" id="myNavbar">
-				  {children [id=menu]}
+				  <?php $data->displayChildren('[id=menu]') ?>
 				</div>
 			</div>
 </nav>

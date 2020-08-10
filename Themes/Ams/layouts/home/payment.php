@@ -22,12 +22,12 @@
 		<div class="tab-content bgcolor">
 			<div id="bank" class="tab-pane  in active fade  bgcolor">
 			<div class="item bgcolor">
-			{children [position=bank]}
+			<?php $data->displayChildren('[position=bank]') ?>
 			</div>
 			</div>
 			<div id="service" class="tab-pane fade  bgcolor">
 			<div class="item bgcolor">
-			{children [position=service]}
+			<?php $data->displayChildren('[position=service]') ?>
 			</div>
 			</div>
 		
@@ -60,7 +60,7 @@
 			     	<h2 class="label label-danger ">NẠP THẺ FULLLOOK SONG NGỮ</h2>
 			    </div>
 	  			<div class="row">
-	  				{children [position=paycardflsn]}
+	  				<?php $data->displayChildren('[position=paycardflsn]') ?>
 	  			</div>
 	  		</div>
 			
@@ -72,7 +72,7 @@
 			     	<h2 class="label label-warning ">ĐẶT MUA THẺ FULLLOOK SONG NGỮ</h2>
 			    </div>
 	  			<div class="row">
-	  				{children [position=ordercardflsn]}
+	  				<?php $data->displayChildren('[position=ordercardflsn]') ?>
 	  			</div>
 	  		</div>
 			<?php endif; ?>

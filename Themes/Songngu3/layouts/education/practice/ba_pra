@@ -6,7 +6,7 @@
 	$lang = pzk_session('language');
 	
 ?>
-{children [position=public-header]}
+<?php $data->displayChildren('[position=public-header]') ?>
 
 
 
@@ -33,7 +33,7 @@
 <?php ?>
 <div class="container mgb30" id="subject">
 	<div id="practice-section" class="row fivecolumns">
-		{children [position=show-subject]}
+		<?php $data->displayChildren('[position=show-subject]') ?>
 	</div>
 </div>
 <div id="practice-test" class="item">
@@ -53,7 +53,7 @@
 
 	<div id="practice-test-section" class="container mgt-25">
 		<div class="row">
-			{children [position=practice-place]}
+			<?php $data->displayChildren('[position=practice-place]') ?>
 		</div>
 	</div>
 	<div id="test" class="container">
@@ -64,13 +64,13 @@
 	</div>
 	<div id="test-section" class="container pdb80">
 		<div class="row">
-			{children [position=test-place]}
+			<?php $data->displayChildren('[position=test-place]') ?>
 		</div>
 	</div>
 	
 	<!-- thi am giay -->
 	
-	{children [position=thithu]}
+	<?php $data->displayChildren('[position=thithu]') ?>
 
 
 </div>
@@ -133,7 +133,7 @@
 	- - - - -
 	</div>
 	
-	{children [position=box-achievement]}
+	<?php $data->displayChildren('[position=box-achievement]') ?>
 
 </div>
 
@@ -231,15 +231,15 @@
 		</div>
 	</div>
 	<div style="bottom: 10px; font-size: 20px; width: 100%; font-weight: bold;" class="absolute text-center hidden-xs">
-	Uu dãi v? giá (2/4/2018 – 2/5/2018): Gói 3. Ch? còn 350k/6 tháng; Gói 4. Ch? còn 500k/12 tháng.
+	Uu dï¿½i v? giï¿½ (2/4/2018 ï¿½ 2/5/2018): Gï¿½i 3. Ch? cï¿½n 350k/6 thï¿½ng; Gï¿½i 4. Ch? cï¿½n 500k/12 thï¿½ng.
 	</div>
 	<div style="bottom: 10px; width: 100%; font-weight: bold;" class="absolute text-center visible-xs">
-	Uu dãi v? giá (2/4/2018 – 2/5/2018): Gói 3. Ch? còn 350k/6 tháng; Gói 4. Ch? còn 500k/12 tháng.
+	Uu dï¿½i v? giï¿½ (2/4/2018 ï¿½ 2/5/2018): Gï¿½i 3. Ch? cï¿½n 350k/6 thï¿½ng; Gï¿½i 4. Ch? cï¿½n 500k/12 thï¿½ng.
 	</div>
 </div>
 
 <div class="item bg6">
-{children [position=bottom-slide]}
+<?php $data->displayChildren('[position=bottom-slide]') ?>
 
 	<div class=" fff223 text-center  fs30 cadena mgt10 item">
 		<?php echo $language['statistic'];?></br>
@@ -336,7 +336,7 @@
 			return false;
 		}else{
 			if(!validPhone(phone)) {
-				alert('S? di?n tho?i không dúng d?nh d?ng');
+				alert('S? di?n tho?i khï¿½ng dï¿½ng d?nh d?ng');
 				$("#tv_phone").focus();
 				return false;
 			}
@@ -348,7 +348,7 @@
 			return false;
 		}else{
 			if(!validEmail(email)) {
-				alert('Email không dúng d?nh d?ng');
+				alert('Email khï¿½ng dï¿½ng d?nh d?ng');
 				$("#tv_email").focus();
 				return false;
 			}
@@ -368,7 +368,7 @@
 						$("#tv_phone").val('');
 						$("#tv_email").val('');
 						$("#tv_name").val('');
-						alert('B?n dã dang kí tu v?n thành công!');
+						alert('B?n dï¿½ dang kï¿½ tu v?n thï¿½nh cï¿½ng!');
 					}
 				}
 			});

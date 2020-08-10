@@ -1,1 +1,1 @@
-<button type="submit" class="btn btn-default">{prop label}</button>
+<button type="submit" class="btn btn-default"><?php echo @$data->label?></button>

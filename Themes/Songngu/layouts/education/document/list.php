@@ -8,17 +8,17 @@ $lang = pzk_session('language');
 <div class="col-md-12 col-xs-12 btn-custom4">
 	<ul class="breadcrumb text-center">
 		<li><a href="/document/home"><?php echo $language['materials'];?></a></li>
-		<li><a href="/document/home"><?php echo $language['class'];?> {data.get('class')}</a></li>
+		<li><a href="/document/home"><?php echo $language['class'];?> <?php echo $data->get('class')?></a></li>
 		<li class="active">
 			<span class="dropdown">
 			  <a class="dropdown-toggle" type="button" id="dropdownSubjectDocument" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				{subject.get('name')}
+				<?php echo $subject->get('name')?>
 				<span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
-			  {each $subjects as $sbj}
-				<li><a href="/document/index/{sbj[id]}?class={? echo pzk_request()->get('class')?}">{sbj[name]}</a></li>
-			  {/each}
+			  <?php foreach($subjects as $sbj): ?>
+				<li><a href="/document/index/<?php echo @$sbj['id']?>?class=<?php  echo pzk_request()->get('class')?>"><?php echo @$sbj['name']?></a></li>
+			  <?php endforeach; ?>
 			  </ul>
 			</span>
 		</li>
@@ -36,22 +36,22 @@ $lang = pzk_session('language');
 	  </tr>
 	</thead>
 	<tbody>
-	{? $items = $data->getItems();
+	<?php  $items = $data->getItems();
 		$itemTotal = $data->getCountItems();
 		$pages = ceil($itemTotal / 10);
-	?}
-		{each $items as $item}
+	?>
+		<?php foreach($items as $item): ?>
 	  <tr>
-		<td><a href="/document/detail/{data.get('categoryId')}?class={data.get('class')}&id={item[id]}">{item[title]}</a></td>
-		<td class="hidden-xs">{item[created]}</td>
+		<td><a href="/document/detail/<?php echo $data->get('categoryId')?>?class=<?php echo $data->get('class')?>&id=<?php echo @$item['id']?>"><?php echo @$item['title']?></a></td>
+		<td class="hidden-xs"><?php echo @$item['created']?></td>
 		<td class="hidden-xs">
 		<?php 
 		echo humanFileSize(@filesize(BASE_DIR . $item['file']));
 		?></td>
-		<td class="hidden-xs">{item[downloads]}</td>
-		<td><a href="{item[file]}"><?php echo $language['download'];?></a></td>
+		<td class="hidden-xs"><?php echo @$item['downloads']?></td>
+		<td><a href="<?php echo @$item['file']?>"><?php echo $language['download'];?></a></td>
 	  </tr>
-		{/each}
+		<?php endforeach; ?>
 	</tbody>
   </table>
 </div>
@@ -67,7 +67,7 @@ $lang = pzk_session('language');
 			else { $btn = 'btn-default'; }
 		?>
 		<li>
-		<a class="btn btn-xs {btn}" href="#" onclick="pzk_list.changePage({page}); return false;">{? echo ($page + 1)?}</a>
+		<a class="btn btn-xs <?php echo $btn ?>" href="#" onclick="pzk_list.changePage(<?php echo $page ?>); return false;"><?php  echo ($page + 1)?></a>
 		</li>
 		<?php } ?>
 			</ul>

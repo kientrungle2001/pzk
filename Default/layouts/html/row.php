@@ -1,3 +1,3 @@
-<div class="row {prop class}" {attrs id, title, rel}>
-{children all}
+<div class="row <?php echo @$data->class?>" {attrs id, title, rel}>
+<?php $data->displayChildren('all') ?>
 </div>

@@ -15,7 +15,7 @@
         <div  class="item slider">
             <div style=" margin-left: 2%; width: 96%; box-shadow: -2px -2px 2px 0px #18081c;">
                 <video id="video" class="video-js vjs-default-skin" controls preload="auto"  width="100%" >
-                    <source src="/video.php?id={video[id]}&token={token}&time={time}" type='video/mp4' />
+                    <source src="/video.php?id=<?php echo @$video['id']?>&token=<?php echo $token ?>&time=<?php echo $time ?>" type='video/mp4' />
                 </video>
             </div>
         </div>
@@ -40,13 +40,13 @@
     <div class="row">
         <div class="col-md-8">
             <label for="">Chọn dạng</label>
-            {each $cateEp as $val}
-            <a <?php if($curentCateId == $val['id']) { echo "class='active_type'"; } ?> href="<?php echo pzk_request()->build($val['router'].'/'.$val['id']); ?>">{val[name]}</a>
-            {/each}
+            <?php foreach($cateEp as $val): ?>
+            <a <?php if($curentCateId == $val['id']) { echo "class='active_type'"; } ?> href="<?php echo pzk_request()->build($val['router'].'/'.$val['id']); ?>"><?php echo @$val['name']?></a>
+            <?php endforeach; ?>
             <?php if(isset($configCategory[$curentCateId])) {
               foreach($configCategory[$curentCateId] as $item) {
             ?>
-            <input class="form-control" type="radio" value="<?php echo $item['category_id']; ?>" name="categoryId2"/>{item[name]}
+            <input class="form-control" type="radio" value="<?php echo $item['category_id']; ?>" name="categoryId2"/><?php echo @$item['name']?>
             <?Php }} ?>
 
         </div>
@@ -57,9 +57,9 @@
                     <label  for="">Chọn cách làm</label>
                     <select style="float: left; width: 100%;" class="form-control input-sm" name="make" id="">
                         <option value="">Chọn cách làm ...</option>
-                        {each $config_filter as $topic}
-                        <option value="{topic[id]}"><?php echo $topic['name']; ?></option>
-                        {/each}
+                        <?php foreach($config_filter as $topic): ?>
+                        <option value="<?php echo @$topic['id']?>"><?php echo $topic['name']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </div>
@@ -71,9 +71,9 @@
                     <label  for="">Chủ đề</label>
                     <select class="form-control input-sm" name="subject" id="">
                         <option value="">Chọn chủ đề ...</option>
-                        {each $topics as $topic}
-                        <option value="{topic[id]}"><?php echo $topic['name']; ?></option>
-                        {/each}
+                        <?php foreach($topics as $topic): ?>
+                        <option value="<?php echo @$topic['id']?>"><?php echo $topic['name']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
             </div>
@@ -121,6 +121,6 @@
     </table>
 </form>
 </div>
-    {children all}
+    <?php $data->displayChildren('all') ?>
 
 </div>

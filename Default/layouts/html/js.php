@@ -1,1 +1,1 @@
-<script type="text/javascript" src="{prop src}"></script>
+<script type="text/javascript" src="<?php echo @$data->src?>"></script>

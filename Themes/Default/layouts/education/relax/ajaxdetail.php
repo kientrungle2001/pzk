@@ -1,8 +1,8 @@
-{? $item = $data->getItem(); ?}
+<?php  $item = $data->getItem(); ?>
 <?php $datacontent = @explode('=====',$item['content']);
  ?>
-	<h2 class="text-center">{item[title]}</h2>
-	<p class="text-justify">{item[brief]}</p>
+	<h2 class="text-center"><?php echo @$item['title']?></h2>
+	<p class="text-justify"><?php echo @$item['brief']?></p>
 	<p class="text-justify"><?=$datacontent[0];?></p>
 	<?php if(strlen(@$datacontent[1]) > 10) { ?>
 	<div class='text-center'>
@@ -29,7 +29,7 @@
 </script>
 
 
-{children [position=comment]}
+<?php $data->displayChildren('[position=comment]') ?>
 
 <div id="fb-root"></div>
 <script>
@@ -42,7 +42,7 @@
 		}(document, 'script', 'facebook-jssdk'));
 		FB.XFBML.parse();
 </script>
-	<div class="fb-comments cmface" data-href="http://s1.nextnobels.com/relax/home/{item[id]}" data-numposts="5"></div>
+	<div class="fb-comments cmface" data-href="http://s1.nextnobels.com/relax/home/<?php echo @$item['id']?>" data-numposts="5"></div>
 
 <style>
 .cmface{width: 100%;}

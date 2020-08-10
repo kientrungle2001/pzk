@@ -17,8 +17,8 @@ table.tb_catruc td {
 	$tab6 = intval(pzk_request('tab6'));
 ?>
 
-{children [position=public-header]}
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=public-header]') ?>
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container text-justify">
 	<div class="row">
 		<div class="col-md-12">
@@ -64,7 +64,7 @@ table.tb_catruc td {
 			</div>
 			<div id="tinmoi" class="tab-pane fade bgcolor">
 				<div class="row">
-					{children [position=lastestnews]}
+					<?php $data->displayChildren('[position=lastestnews]') ?>
 				</div>
 			</div>
 		</div>

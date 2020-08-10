@@ -59,18 +59,18 @@ if(isset($classrooms)){
 <ul id="schoolMenu" class="nav">
 	<?php foreach($tree as $schoolYear => $grades) :?>
 	<li class="padding-left-10 school-year">
-		<a href="#">Niên khóa {schoolYear}</a>
+		<a href="#">Niên khóa <?php echo $schoolYear ?></a>
 		<ul class="nav">
 			<?php foreach($grades as $gradeNum => $classes) :?>
-			<li class="padding-left-10 school-grade"><a href="#">Khối {gradeNum}</a>
+			<li class="padding-left-10 school-grade"><a href="#">Khối <?php echo $gradeNum ?></a>
 			<ul class="nav">
 				<?php foreach($classes as $className => $classroomId) :?>
-				<li class="padding-left-10 school-class"><a href="#">Lớp {className}</a>
+				<li class="padding-left-10 school-class"><a href="#">Lớp <?php echo $className ?></a>
 				<ul class="nav">
-					<li class="padding-left-10 school-action"><a href="/Admin_Home_HomeroomTeacher/students/{classroomId}">Học sinh</a></li>
-					<li class="padding-left-10 school-action"><a href="/Admin_Home_HomeroomTeacher/teachers/{classroomId}">Giáo viên</a></li>
+					<li class="padding-left-10 school-action"><a href="/Admin_Home_HomeroomTeacher/students/<?php echo $classroomId ?>">Học sinh</a></li>
+					<li class="padding-left-10 school-action"><a href="/Admin_Home_HomeroomTeacher/teachers/<?php echo $classroomId ?>">Giáo viên</a></li>
 					
-					<li class="padding-left-10 school-action"><a href="/Admin_Home_HomeroomTeacher/point/{classroomId}">Kết quả học tập</a></li>
+					<li class="padding-left-10 school-action"><a href="/Admin_Home_HomeroomTeacher/point/<?php echo $classroomId ?>">Kết quả học tập</a></li>
 					
 					
 					
@@ -103,7 +103,7 @@ if(isset($classrooms)){
 		<div id="collapseOne" class="panel-collapse collapse in">
 			<div class="panel-body">
 				<div id="contentDetail">
-				{children all}
+				<?php $data->displayChildren('all') ?>
 				</div>
 			</div>
 		</div>

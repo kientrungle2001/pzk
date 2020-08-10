@@ -1,6 +1,6 @@
-<!--? 
+<?php 
 $themes = $data->getItems();
- ?-->
+ ?>
  
  <!--jstmpl tmpl_theme-->
  <h3>Theme (*= data.theme*)</h3>
@@ -42,13 +42,13 @@ $themes = $data->getItems();
 	<div class="row">
 	<!--each $themes as $theme-->
 		<div class="col-sm-3 text-center">
-		<a href="/admin_directory_theme/detail/{theme[id]}">
+		<a href="/admin_directory_theme/detail/<?php echo @$theme['id']?>">
 		<span class="glyphicon glyphicon-folder-open" style="font-size: 72px; color: blue;"></span>
 		</a>
-		<h2>{theme[name]}</h2>
+		<h2><?php echo @$theme['name']?></h2>
 		<div class="link-icons">
-			<a href="/admin_directory_theme/detail/{theme[id]}">Chi tiết</a> |
-			<a href="/admin_directory_theme/del/{theme[id]}">Xóa</a>
+			<a href="/admin_directory_theme/detail/<?php echo @$theme['id']?>">Chi tiết</a> |
+			<a href="/admin_directory_theme/del/<?php echo @$theme['id']?>">Xóa</a>
 		</div>
 		</div>
 	<!--/each-->

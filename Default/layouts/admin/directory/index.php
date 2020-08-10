@@ -4,26 +4,26 @@ $parentItem 	= $data->getParentItem();
 $allNews 		= $data->getAllNews();
 $allQuestions 	= $data->getAllQuestions();
 ?>
-<h2>Thư mục "{parentItem[name]}"</h2>
+<h2>Thư mục "<?php echo @$parentItem['name']?>"</h2>
 <div class="col-xs-1">
-<a href="/admin_directory/index/{parentItem[parent]}">
+<a href="/admin_directory/index/<?php echo @$parentItem['parent']?>">
 	<div class="thumbnail text-center" style="height: 100px;">
 		<span>..</span>
 	</div>
 </a>
 </div>
-{each $items as $item}
+<?php foreach($items as $item): ?>
 <div class="col-xs-1">
-<a href="/admin_directory/index/{item[id]}">
-	<div class="context-menu thumbnail text-center" data-itemId="{item[id]}" rel="{item[id]}" style="height: 100px;">
-		<span>{? echo cut_words($item['name'], 8); ?}</span>
+<a href="/admin_directory/index/<?php echo @$item['id']?>">
+	<div class="context-menu thumbnail text-center" data-itemId="<?php echo @$item['id']?>" rel="<?php echo @$item['id']?>" style="height: 100px;">
+		<span><?php  echo cut_words($item['name'], 8); ?></span>
 	</div>
 </a>
 </div>
-{/each}
+<?php endforeach; ?>
 
 <div class="col-xs-1">
-<a href="/admin_category/add?parent={parentItem[id]}&status=1&display=1&backHref=" onclick="window.location=$(this).attr('href') + encodeURI(window.location.href); return false;">
+<a href="/admin_category/add?parent=<?php echo @$parentItem['id']?>&status=1&display=1&backHref=" onclick="window.location=$(this).attr('href') + encodeURI(window.location.href); return false;">
 	<div class="thumbnail text-center" style="height: 100px;">
 		<span>[+] Thêm mới</span>
 	</div>
@@ -33,22 +33,22 @@ $allQuestions 	= $data->getAllQuestions();
 
 <div class="clearfix"></div>
 <hr />
-<h2>Tin tức mục "{parentItem[name]}"</h2>
-{? if(count($allNews)):?}
+<h2>Tin tức mục "<?php echo @$parentItem['name']?>"</h2>
+<?php  if(count($allNews)):?>
 
-{each $allNews as $item}
+<?php foreach($allNews as $item): ?>
 <div class="col-xs-2">
-<a target="_blank" href="/admin_news/view/{item[id]}">
-	<div class="thumbnail context-news text-center" rel="{item[id]}" style="height: 100px;">
-		<span>{item[title]}</span>
+<a target="_blank" href="/admin_news/view/<?php echo @$item['id']?>">
+	<div class="thumbnail context-news text-center" rel="<?php echo @$item['id']?>" style="height: 100px;">
+		<span><?php echo @$item['title']?></span>
 	</div>
 </a>
 </div>
-{/each}
-{? endif; ?}
+<?php endforeach; ?>
+<?php  endif; ?>
 
 <div class="col-xs-2">
-<a href="/admin_news/add?categoryId={parentItem[id]}&status=1&backHref=" onclick="window.location=$(this).attr('href') + encodeURI(window.location.href); return false;">
+<a href="/admin_news/add?categoryId=<?php echo @$parentItem['id']?>&status=1&backHref=" onclick="window.location=$(this).attr('href') + encodeURI(window.location.href); return false;">
 	<div class="thumbnail text-center" style="height: 100px;">
 		<span>[+] Thêm mới</span>
 	</div>
@@ -57,9 +57,9 @@ $allQuestions 	= $data->getAllQuestions();
 
 <div class="clearfix"></div>
 <hr />
-<h2>Câu hỏi mục "{parentItem[name]}"</h2>
+<h2>Câu hỏi mục "<?php echo @$parentItem['name']?>"</h2>
 <div class="question">
-<a target="_blank" href="/admin_category/importQuestions/{parentItem[id]}">
+<a target="_blank" href="/admin_category/importQuestions/<?php echo @$parentItem['id']?>">
 	<div class="thumbnail text-center red">
 		<span>Import câu hỏi</span>
 	</div>
@@ -67,25 +67,25 @@ $allQuestions 	= $data->getAllQuestions();
 </div>
 
 
-{? if(count($allQuestions)):?}
+<?php  if(count($allQuestions)):?>
 <div class="col-xs-2" style="height: 500px; overflow-x: hidden;">
-{each $allQuestions as $item}
+<?php foreach($allQuestions as $item): ?>
 <div class="question">
-<a target="_blank" href="/admin_question2/detail/{item[id]}"
-		onclick="$('#questionDetail').load('/admin_question2/detailFull/{item[id]}'); return false;">
-	<div class="context-question thumbnail text-left" rel="{item[id]}" style="height: 100px;">
-		<span><strong>{item[id]} #{item[ordering]}. </strong>{? echo cut_words(strip_tags($item['name']), 20);?}</span>
+<a target="_blank" href="/admin_question2/detail/<?php echo @$item['id']?>"
+		onclick="$('#questionDetail').load('/admin_question2/detailFull/<?php echo @$item['id']?>'); return false;">
+	<div class="context-question thumbnail text-left" rel="<?php echo @$item['id']?>" style="height: 100px;">
+		<span><strong><?php echo @$item['id']?> #<?php echo @$item['ordering']?>. </strong><?php  echo cut_words(strip_tags($item['name']), 20);?></span>
 	</div>
 </a>
 </div>
-{/each}
+<?php endforeach; ?>
 </div>
 <div class="col-xs-10">
 	<div id="questionDetail">
 	
 	</div>
 </div>
-{? endif; ?}
+<?php  endif; ?>
 
 <style type="text/css">
 .label-success-important {

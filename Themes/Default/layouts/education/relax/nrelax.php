@@ -20,15 +20,15 @@
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container top20">
 	<div class="col-md-5 col-xs-5">
-		{children [position=top-left-left]}
+		<?php $data->displayChildren('[position=top-left-left]') ?>
 	</div>
 	<div class="col-md-7 col-xs-7">
 		<div class="row">
 			<div class="col-md-8 col-xs-8">
-				{children [position=top-right-left]}
+				<?php $data->displayChildren('[position=top-right-left]') ?>
 			</div>
 			<div class="col-md-4 col-xs-4">
 				<div class="row">
@@ -37,7 +37,7 @@
 						<p class="top10">FULL LOOK</p>
 						</div>
 						<div class="col-md-4">
-						<a href="{? echo FL_URL ?}"><img class="image-responsive center-block" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/test/Themes/Default/media/full.png"></a>
+						<a href="<?php  echo FL_URL ?>"><img class="image-responsive center-block" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/test/Themes/Default/media/full.png"></a>
 						</div>
 					</div>
 					<div onclick="return false;" class="col-md-12 col-xs-12 full padding5 vvclick pointer">
@@ -45,7 +45,7 @@
 						<p class="top10">Luyện viết văn miêu tả</p>
 						</div>
 						<div class="col-md-4">
-						<a href="{? echo NOBEL_URL ?}"><img class="image-responsive center-block" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/test/Themes/Default/media/vietvan.png"></a>
+						<a href="<?php  echo NOBEL_URL ?>"><img class="image-responsive center-block" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/test/Themes/Default/media/vietvan.png"></a>
 						</div>
 					</div>
 					<div onclick="return false;" class="col-md-12 col-xs-12 full padding5 allclick pointer">
@@ -53,7 +53,7 @@
 						<p class="top10">Khảo sát năng lực toàn diện</p>
 						</div>
 						<div class="col-md-4">
-						<a href="{? echo NOBEL_URL ?}"><img class="image-responsive center-block" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/test/Themes/Default/media/khaosat.png"></a>
+						<a href="<?php  echo NOBEL_URL ?>"><img class="image-responsive center-block" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/test/Themes/Default/media/khaosat.png"></a>
 						</div>
 					</div>
 					<div onclick="return false;" class="col-md-12 col-xs-12 full padding5 tvclick pointer">
@@ -61,7 +61,7 @@
 						<p class="top10">Tiếng việt vui</p>
 						</div>
 						<div class="col-md-4">
-						<a href="{? echo NOBEL_URL ?}"><img class="image-responsive center-block" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/test/Themes/Default/media/tiengvietvui.png"></a>
+						<a href="<?php  echo NOBEL_URL ?>"><img class="image-responsive center-block" src="<?=BASE_SKIN_URL?>/Default/skin/nobel/test/Themes/Default/media/tiengvietvui.png"></a>
 						</div>
 					</div>
 				</div>
@@ -78,7 +78,7 @@
 	</div>
 </div>
 <div class="container top20 text-justify" id="chitiet">
-	{children [position=showdetail]}
+	<?php $data->displayChildren('[position=showdetail]') ?>
 </div>
 <script>
 function chitiet(id){

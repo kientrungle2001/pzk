@@ -5,24 +5,24 @@
         $notes=$user_note->loadNote($member);      
         $pages= $user_note->arrPage($member);      
       ?>
-      {each $notes as $note}
+      <?php foreach($notes as $note): ?>
       <?php 
         $countComment=$user_note->countComment($note->getId());
         $date= $user_note->formatDate($note->getDatenote());
        ?>
-     <div class="{note.get('id')}">
+     <div class="<?php echo $note->get('id')?>">
       
       <div style="float:left;">
-        <input style=" float:left;width:15px; height:15px;" type="checkbox" value="{note.get('id')}" name="ckbdel" >
+        <input style=" float:left;width:15px; height:15px;" type="checkbox" value="<?php echo $note->get('id')?>" name="ckbdel" >
         <img src=" <?php echo BASE_URL.'/default/skin/nobel/ptnn/media/usernote.png' ?> " alt="">
       </div>
       <div class="prf_titlenote">
-        <a href="/note/detailnote?member={member}&id={note.get('id')}">{note.getTitlenote()}</a>
+        <a href="/note/detailnote?member=<?php echo $member ?>&id=<?php echo $note->get('id')?>">{note.getTitlenote()}</a>
       </div>
-      <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_{data.id}.delNote1({note.get('id')});">[Xoá]</a></div>
+      <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_<?php echo @$data->id?>.delNote1(<?php echo $note->get('id')?>);">[Xoá]</a></div>
       <div class="prf_clear1">
-        <span class="titel_detail1">Bình luận: {countComment}  |   Vào lúc: {date[1]} Ngày {date[0]} </span>
+        <span class="titel_detail1">Bình luận: <?php echo $countComment ?>  |   Vào lúc: <?php echo @$date['1']?> Ngày <?php echo @$date['0']?> </span>
       </div>
       </div>
-      {/each}
+      <?php endforeach; ?>
     

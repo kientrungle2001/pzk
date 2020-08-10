@@ -63,7 +63,7 @@ $lessonvalue = unserialize($lesson['answer_value']);
         <?php $i = 1; ?>
 
 
-        {each $lessonvalue as $key=>$item}
+        <?php foreach($lessonvalue as $key=>$item): ?>
 
             <div class="item"><strong><?php echo 'Câu '.$i.':'; ?></strong> <?php echo $data->getNameById($key, 'questions', 'name'); ?></div>
 
@@ -71,18 +71,18 @@ $lessonvalue = unserialize($lesson['answer_value']);
         $typeQuestion = $data->getTypeByquestionId($key);
         if($typeQuestion == 'Q0') {
         ?>
-        {each $item as $val}
+        <?php foreach($item as $val): ?>
                 <input style="height: 15px; width: 15px;" disabled   <?php if(isset($lessonvalue[$item]) && $lessonvalue[$item] == $val['id']){ echo 'checked'; }  ?> type="radio" />
 
-            <?php if($val['status'] == 1) { echo "class='highlinght'";} ?> >{val[content]}
-        {/each}
+            <?php if($val['status'] == 1) { echo "class='highlinght'";} ?> ><?php echo @$val['content']?>
+        <?php endforeach; ?>
         <?php } elseif($typeQuestion == 'Q2') { ?>
             <div class="item">
                 <strong>Đáp án: </strong><?php echo implode(', ', $item); ?>
             </div>
         <?php } ?>
         <?php $i++; ?>
-        {/each}
+        <?php endforeach; ?>
 
 
     </div>

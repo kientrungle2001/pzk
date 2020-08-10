@@ -1,3 +1,3 @@
-<div class="homepage {data.get('page')}">
-{children all}
+<div class="homepage <?php echo $data->get('page')?>">
+<?php $data->displayChildren('all') ?>
 </div>

@@ -15,10 +15,10 @@
     <div class="user_note_comment">
      <div class="pfr_avatar_wall"><?php echo $user_note->checkAvatar($user['avatar']) ?></div> 
      <div class="prf_titlenote">
-       <a href="/profile/user?member={userId}" >{username}</a>
+       <a href="/profile/user?member=<?php echo $userId ?>" ><?php echo $username ?></a>
      </div>
-    <div class="titel_detail">{comment_note[comment]}</div>
-    <div class="titel_time">Đước viết lúc: {comment_note[date]}</div>
+    <div class="titel_detail"><?php echo @$comment_note['comment']?></div>
+    <div class="titel_time">Đước viết lúc: <?php echo @$comment_note['date']?></div>
     </div>
 
   <?php } 

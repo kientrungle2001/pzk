@@ -2,19 +2,19 @@
 	$members = $data->getMembers();
 ?>
 	Thành viên: 
-	{each $members as $member}
-		<span>{member[username]}</span> | 
-	{/each}
+	<?php foreach($members as $member): ?>
+		<span><?php echo @$member['username']?></span> | 
+	<?php endforeach; ?>
 <?php else: ?>
 <?php
 	$room = $data->getRoom();
 	$members = $data->getMembers();
 ?>
-<h1>{room[name]}</h1>
+<h1><?php echo @$room['name']?></h1>
 <p id="room_members">
 	Thành viên: 
-	{each $members as $member}
-		<span>{member[username]}</span> | 
-	{/each}
+	<?php foreach($members as $member): ?>
+		<span><?php echo @$member['username']?></span> | 
+	<?php endforeach; ?>
 </p>
 <?php endif; ?>

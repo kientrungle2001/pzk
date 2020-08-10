@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label for="{prop name}">{prop label}</label>
-	<select name="{prop name}" id="{prop name}" class="form-control">
-		{children all}
+    <label for="<?php echo @$data->name?>"><?php echo @$data->label?></label>
+	<select name="<?php echo @$data->name?>" id="<?php echo @$data->name?>" class="form-control">
+		<?php $data->displayChildren('all') ?>
 	</select>
   </div>

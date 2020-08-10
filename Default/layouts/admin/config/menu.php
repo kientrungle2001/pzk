@@ -16,7 +16,7 @@ $config = pzk_request()->get('config');
             $linkaction = end($tam);
             ?>
 			<li class="<?php if($config == $linkaction) { echo 'active'; } ?>">
-            <a href="{val[href]}">{val[name]}</a>
+            <a href="<?php echo @$val['href']?>"><?php echo @$val['name']?></a>
 			</li>
 		<?php
         }

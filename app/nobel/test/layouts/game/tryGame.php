@@ -22,7 +22,7 @@ $getTopic = $post->getGameTopic();
 	</div>
 </div>
 
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 
 <div class="container">
 <div class='well'> 
@@ -33,9 +33,9 @@ $getTopic = $post->getGameTopic();
                 <?php if(isset($gameType)) { ?>
                     <select onchange="getGameType(this);" class="form-control input-sm" name="gameType" id="gameType">
                         <option value="">Choose game</option>
-                        {each $gameType as $topic}
-                        <option <?php if(isset($getGameType) && ($getGameType == $topic['gamecode'])){ echo 'selected';} ?> value="{topic[gamecode]}"><?php echo $topic['game_type']; ?></option>
-                        {/each}
+                        <?php foreach($gameType as $topic): ?>
+                        <option <?php if(isset($getGameType) && ($getGameType == $topic['gamecode'])){ echo 'selected';} ?> value="<?php echo @$topic['gamecode']?>"><?php echo $topic['game_type']; ?></option>
+                        <?php endforeach; ?>
                     </select>
                 <?php } ?>
 
@@ -49,7 +49,7 @@ $getTopic = $post->getGameTopic();
 						<label  for="">Topic</label>
 						<select onchange = "trygame(this);"  class="form-control input-sm" name="gameTopic" id="gameTopic">
 							<!--option value="">-- Choose topic </option-->
-							{each $gameTopic as $parent}
+							<?php foreach($gameTopic as $parent): ?>
 								<?php if($i ==1) { ?>
 								<option <?php if(isset($getTopic) && ($getTopic == $parent['id'])){ echo 'selected';} ?> value="<?php echo $parent['id']; ?>" >
 									<?php echo str_repeat('--', $parent['level']);  ?>
@@ -62,7 +62,7 @@ $getTopic = $post->getGameTopic();
 									</option>
 								<?php } ?>
 								<?php $i++; ?>
-							{/each}
+							<?php endforeach; ?>
 
 						</select>
 						<script>

@@ -8,16 +8,16 @@
     $listlessions= array_reverse($listlessions);
     
    ?>
-   {each $listlessions as $listlession} 
+   <?php foreach($listlessions as $listlession): ?> 
   <div class="list_lesson_row">
    
-     <div class="lesson_name_row" style="width: 40%;">{listlession[lessonName]}</div>
-     <div class="lesson_type_row" style="width: 40%;">{listlession[categoriesName]}</div>
-     <div class="lesson_type_row" style="width: 20%;">{listlession[date]}</div>
+     <div class="lesson_name_row" style="width: 40%;"><?php echo @$listlession['lessonName']?></div>
+     <div class="lesson_type_row" style="width: 40%;"><?php echo @$listlession['categoriesName']?></div>
+     <div class="lesson_type_row" style="width: 20%;"><?php echo @$listlession['date']?></div>
     
   
   </div>
-  {/each}
+  <?php endforeach; ?>
 <?php 
 
   $count_arr= count($listlessions);

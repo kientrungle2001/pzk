@@ -1,4 +1,4 @@
-<!--? $item = $data->getItem();
+<?php $item = $data->getItem();
 $layouts = $item['layouts'];
 if($layouts) {
 	$layouts = json_decode($layouts, true);
@@ -33,50 +33,50 @@ if($objects) {
 } else {
 	$objects = array();
 }
- ?-->
+ ?>
 <div class="container">
-<h2>Theme: <a href="/admin_themes/edit/{item[id]}?backHref=<?php echo urlencode(BASE_REQUEST . '/admin_directory_theme/detail/'. $item['id']); ?>">{item[name]}</a> - Object Editor: <a href="/Admin_Editor">Editor</a></h2>
+<h2>Theme: <a href="/admin_themes/edit/<?php echo @$item['id']?>?backHref=<?php echo urlencode(BASE_REQUEST . '/admin_directory_theme/detail/'. $item['id']); ?>"><?php echo @$item['name']?></a> - Object Editor: <a href="/Admin_Editor">Editor</a></h2>
 <hr />
 <h3>Layouts</h3>
 <div class="row">
-{? foreach ($layouts as $name => $positions): ?}
+<?php  foreach ($layouts as $name => $positions): ?>
 <div class="col-xs-6">
-	<h4><a href="/Admin_Editor/open?file=/Themes/{item[name]}/pages/{name}.php&type=xml&backHref=/admin_directory_theme/detail/{item[id]}">{name}</a></h4>
+	<h4><a href="/Admin_Editor/open?file=/Themes/<?php echo @$item['name']?>/pages/<?php echo $name ?>.php&type=xml&backHref=/admin_directory_theme/detail/<?php echo @$item['id']?>"><?php echo $name ?></a></h4>
 	<div class="row">
-		{? foreach ($positions as $posName => $posLabel): ?}
+		<?php  foreach ($positions as $posName => $posLabel): ?>
 			<div class="col-xs-4">
-			{posName} - {posLabel[name]}
+			<?php echo $posName ?> - <?php echo @$posLabel['name']?>
 			</div>
-		{? endforeach;?}
+		<?php  endforeach;?>
 	</div>
 </div>
-{? endforeach;?}
+<?php  endforeach;?>
 </div>
 <hr />
 <h3>Controllers</h3>
 <div class="row">
 <div class="col-xs-12">
 <ul class="nav navbar-nav">
-{each $controllers as $controller}
+<?php foreach($controllers as $controller): ?>
 	<li>
 	<a class="bg-success dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-      {controller[name]} - {controller[path]} <span class="caret"></span>
+      <?php echo @$controller['name']?> - <?php echo @$controller['path']?> <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
       <?php if(file_exists(BASE_DIR . '/Themes/'.$item['name'] . '/controller/' . ucfirst(substr($controller['path'], 0, strpos($controller['path'], '/'))) . '.php')):?>
 	  <li>
-	  <a class="bg-success"href="/Admin_Editor/open?file=/Themes/{item[name]}/controller/{? echo ucfirst(substr($controller['path'], 0, strpos($controller['path'], '/'))); ?}.php&type=php&backHref=/admin_directory_theme/detail/{item[id]}" role="button">Controller</a>
+	  <a class="bg-success"href="/Admin_Editor/open?file=/Themes/<?php echo @$item['name']?>/controller/<?php  echo ucfirst(substr($controller['path'], 0, strpos($controller['path'], '/'))); ?>.php&type=php&backHref=/admin_directory_theme/detail/<?php echo @$item['id']?>" role="button">Controller</a>
 	  </li>
 	  <?php endif;?>
 	  <?php if(file_exists(BASE_DIR . '/Themes/' . $item['name'] . '/pages/' . $controller['layout'].'.php')): ?>
-	  <li><a class="bg-success"href="/Admin_Editor/open?file=/Themes/{item[name]}/pages/{controller[layout]}.php&type=xml&backHref=/admin_directory_theme/detail/{item[id]}" role="button">Master Page</a></li>
+	  <li><a class="bg-success"href="/Admin_Editor/open?file=/Themes/<?php echo @$item['name']?>/pages/<?php echo @$controller['layout']?>.php&type=xml&backHref=/admin_directory_theme/detail/<?php echo @$item['id']?>" role="button">Master Page</a></li>
 	  <?php endif; ?>
 	  <?php if( file_exists(BASE_DIR . '/Themes/'.$item['name']. '/pages/'. $controller['page'].'.php')):?>
-	  <li><a class="bg-success"href="/Admin_Editor/open?file=/Themes/{item[name]}/pages/{controller[page]}.php&type=xml&backHref=/admin_directory_theme/detail/{item[id]}" role="button">Page</a></li>
+	  <li><a class="bg-success"href="/Admin_Editor/open?file=/Themes/<?php echo @$item['name']?>/pages/<?php echo @$controller['page']?>.php&type=xml&backHref=/admin_directory_theme/detail/<?php echo @$item['id']?>" role="button">Page</a></li>
 	  <?php endif;?>
     </ul>
 	</li>
-{/each}
+<?php endforeach; ?>
 </ul>
 </div>
 </div>
@@ -86,31 +86,31 @@ if($objects) {
 <div class="row">
 <div class="col-xs-12">
 <ul class="nav navbar-nav">
-{each $objects as $object}
+<?php foreach($objects as $object): ?>
 	<li>
 	<a class="bg-success dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-      {object[name]}<span class="caret"></span>
+      <?php echo @$object['name']?><span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
       <?php if($object['object'] && file_exists(BASE_DIR . '/objects/'. $object['object'] . '.php')):?>
 	  <li>
-	  <a class="bg-success"href="/Admin_Editor/open?file=/objects/{object[object]}.php&type=php&backHref=/admin_directory_theme/detail/{item[id]}" role="button">Object</a>
+	  <a class="bg-success"href="/Admin_Editor/open?file=/objects/<?php echo @$object['object']?>.php&type=php&backHref=/admin_directory_theme/detail/<?php echo @$item['id']?>" role="button">Object</a>
 	  </li>
 	  <?php endif;?>
 	  
 	  <?php if($object['layout'] && file_exists(BASE_DIR . '/Themes/' . $item['name'] . '/layouts/' . $object['layout'].'.php')): ?>
-	  <li><a class="bg-success"href="/Admin_Editor/open?file=/Themes/{item[name]}/layouts/{object[layout]}.php&type=xml&backHref=/admin_directory_theme/detail/{item[id]}" role="button">Layout</a></li>
+	  <li><a class="bg-success"href="/Admin_Editor/open?file=/Themes/<?php echo @$item['name']?>/layouts/<?php echo @$object['layout']?>.php&type=xml&backHref=/admin_directory_theme/detail/<?php echo @$item['id']?>" role="button">Layout</a></li>
 	  <?php endif; ?>
 	  
 	  <?php if($object['js'] && file_exists(BASE_DIR . '/js/'. $object['js'] . '.js')):?>
 	  <li>
-	  <a class="bg-success"href="/Admin_Editor/open?file=/js/{object[js]}.js&type=js&backHref=/admin_directory_theme/detail/{item[id]}" role="button">Javascript</a>
+	  <a class="bg-success"href="/Admin_Editor/open?file=/js/<?php echo @$object['js']?>.js&type=js&backHref=/admin_directory_theme/detail/<?php echo @$item['id']?>" role="button">Javascript</a>
 	  </li>
 	  <?php endif;?>
 	  
     </ul>
 	</li>
-{/each}
+<?php endforeach; ?>
 </ul>
 </div>
 </div>
@@ -120,9 +120,9 @@ if($objects) {
 <div class="row">
 <div class="col-xs-12">
 <ul class="nav nav-pills nav-stacked">
-{each $files as $file}
-	<li><a class="bg-success" href="/Admin_Editor/open?file=/Themes/{item[name]}/{file[path]}&type={file[type]}&backHref=/admin_directory_theme/detail/{item[id]}">{file[path]}</a></li>
-{/each}
+<?php foreach($files as $file): ?>
+	<li><a class="bg-success" href="/Admin_Editor/open?file=/Themes/<?php echo @$item['name']?>/<?php echo @$file['path']?>&type=<?php echo @$file['type']?>&backHref=/admin_directory_theme/detail/<?php echo @$item['id']?>"><?php echo @$file['path']?></a></li>
+<?php endforeach; ?>
 </ul>
 </div>
 </div>

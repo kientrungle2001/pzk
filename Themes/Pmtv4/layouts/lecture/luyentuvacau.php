@@ -4,15 +4,15 @@ $items 				= 	buildTree($items);
 $root				= 	$items[0];
 $sections			= 	$root['children'];
 ?>
-<div class="lecture-region {root[alias]}">
-	<div class="container"><h1 class="text-center color1-bold">{root[name]}</h1>
+<div class="lecture-region <?php echo @$root['alias']?>">
+	<div class="container"><h1 class="text-center color1-bold"><?php echo @$root['name']?></h1>
 	<div class="row columns-lecture"><div class="col-xs-12">
 		<div class="lecture-index">
-		{each $sections as $section}
+		<?php foreach($sections as $section): ?>
 			<center>
-			<h3 class="lecture-section-heading top20">{section[name]}</h3>
+			<h3 class="lecture-section-heading top20"><?php echo @$section['name']?></h3>
 			</center>
-			{? $items = $section['children']; 
+			<?php  $items = $section['children']; 
 			$basic = $items[0];
 			$advance = @$items[1];
 			$basicChildren = array();
@@ -31,14 +31,14 @@ $sections			= 	$root['children'];
 				}
 			}
 			
-			?}
+			?>
 			
 					<div class="lecture-left">
-						<h3 class="lecture-section-heading lecture-basic bgcolor1 hidden">{basic[name]}</h3>
-						{? 	$index = 1; ?}
-						{each $basicChildren as $item}
-						<div class="lecture-item blcolor1-bold num{index}">
-							<div class="lecture-title color1-bold"><a href="/{item[alias]}">{item[name]}</a></div>
+						<h3 class="lecture-section-heading lecture-basic bgcolor1 hidden"><?php echo @$basic['name']?></h3>
+						<?php  	$index = 1; ?>
+						<?php foreach($basicChildren as $item): ?>
+						<div class="lecture-item blcolor1-bold num<?php echo $index ?>">
+							<div class="lecture-title color1-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
 							<?php if(@$item['content'] || @$item['video']):?>
 								<?php for($i = 0; $i < 9; $i++):
 							$j = $i;
@@ -48,22 +48,22 @@ $sections			= 	$root['children'];
 							if(!isset($item['video' . $j]) || !$item['video' . $j]) continue;
 							?>
 							<div class="lecture-detail" style="width: 100%; white-space: normal;">
-							<a href="/{item[alias]}?video={j}"><?php echo $item['video' . $j . '_title']?></a>
+							<a href="/<?php echo @$item['alias']?>?video=<?php echo $j ?>"><?php echo $item['video' . $j . '_title']?></a>
 							</div>
 							<?php endfor;?>
 							<?php endif;?>
-							<div class="lecture-practice" style="width: 100%; white-space: normal;"><a href="/{item[alias]}#practice-section" style="position: relative; top: -4px;">Bài tập</a></div>
+							<div class="lecture-practice" style="width: 100%; white-space: normal;"><a href="/<?php echo @$item['alias']?>#practice-section" style="position: relative; top: -4px;">Bài tập</a></div>
 							<div class="clear"></div>
 						</div>
-						{?	$index++; ?}
-						{/each}
+						<?php 	$index++; ?>
+						<?php endforeach; ?>
 					</div>
 					<div class="lecture-right">
-						<h3 class="lecture-section-heading lecture-advance bgcolor1 hidden">{advance[name]}</h3>
+						<h3 class="lecture-section-heading lecture-advance bgcolor1 hidden"><?php echo @$advance['name']?></h3>
 						
-						{each $advanceChildren as $item}
-						<div class="lecture-item blcolor1-bold num{index}">
-							<div class="lecture-title color1-bold"><a href="/{item[alias]}">{item[name]}</a></div>
+						<?php foreach($advanceChildren as $item): ?>
+						<div class="lecture-item blcolor1-bold num<?php echo $index ?>">
+							<div class="lecture-title color1-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
 							<?php if(@$item['content'] || @$item['video']):?>
 								<?php for($i = 0; $i < 9; $i++):
 							$j = $i;
@@ -73,18 +73,18 @@ $sections			= 	$root['children'];
 							if(!isset($item['video' . $j]) || !$item['video' . $j]) continue;
 							?>
 							<div class="lecture-detail" style="width: 100%; white-space: normal;">
-							<a href="/{item[alias]}?video={j}"><?php echo $item['video' . $j . '_title']?></a>
+							<a href="/<?php echo @$item['alias']?>?video=<?php echo $j ?>"><?php echo $item['video' . $j . '_title']?></a>
 							</div>
 							<?php endfor;?>
 							<?php endif;?>
-							<div class="lecture-practice" style="width: 100%; white-space: normal;"><a href="/{item[alias]}#practice-section" style="position: relative; top: -4px;">Bài tập</a></div>
+							<div class="lecture-practice" style="width: 100%; white-space: normal;"><a href="/<?php echo @$item['alias']?>#practice-section" style="position: relative; top: -4px;">Bài tập</a></div>
 							<div class="clear"></div>
 						</div>
-						{?	$index++; ?}
-						{/each}
+						<?php 	$index++; ?>
+						<?php endforeach; ?>
 					</div>
 					<div class="clear"></div>
-		{/each}
+		<?php endforeach; ?>
 		</div>
 	</div></div>
 	</div>

@@ -15,7 +15,7 @@
 		
 		<div id="myNavbar">
 		  <ul>
-			<li><a href="{? echo NOBEL_URL; ?}">Trang chủ</a></li>
+			<li><a href="<?php  echo NOBEL_URL; ?>">Trang chủ</a></li>
 			<!--li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Phần mềm học tập</a>
 				<ul class="dropdown-menu">
 					<li><a href="<?=FL_URL?>">Full Look Trần Đại Nghĩa</a></li>
@@ -28,7 +28,7 @@
 			<li><a class="register_login_required"> Đăng ký</a></li>
 			<li><a class="login_login_required"> Đăng nhập</a></li>
 			<?php elseif(pzk_session('userId') >0 ):?>
-			<li class="top10">Xin chào <div class="btn-user">{children [id=userAccountUser][position=user]}<span class="caret"></span></div></li>
+			<li class="top10">Xin chào <div class="btn-user"><?php $data->displayChildren('[id=userAccountUser][position=user]') ?><span class="caret"></span></div></li>
 			<li><a href="/account/logout">Thoát</a></li>
 			<li class="top10"><div class="btn-user btn btn-danger btn-info dropdown"><a style="color: white;font-weight: bold;" href="/home/about#paycardfl"><span class="glyphicon glyphicon-arrow-down"></span>Nạp Thẻ</a></div></li>
 			<?php endif;?>

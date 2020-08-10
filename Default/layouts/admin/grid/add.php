@@ -50,8 +50,8 @@ function setTinymce() {
 ?>
 <script type="text/javascript">
 $(function() {
-	$('#{controller.module}AddForm input[type!=hidden], #{controller.module}AddForm select, #{controller.module}AddForm textarea').first().focus();
-	$('#{controller.module}AddForm input, #{controller.module}AddForm select, #{controller.module}AddForm textarea').keydown(function(evt){
+	$('#<?php echo @$controller->module?>AddForm input[type!=hidden], #<?php echo @$controller->module?>AddForm select, #<?php echo @$controller->module?>AddForm textarea').first().focus();
+	$('#<?php echo @$controller->module?>AddForm input, #<?php echo @$controller->module?>AddForm select, #<?php echo @$controller->module?>AddForm textarea').keydown(function(evt){
 		if(evt.ctrlKey && evt.keyCode == 40) {
 			evt.preventDefault();
 			var next = $(this).parents('.form-group:first').nextAll('.form-group:first').find('input:first, select:first, textarea:first');
@@ -81,10 +81,10 @@ $(function() {
 <div class="panel panel-default">
 <div class="panel-heading">
     <b><?php echo $controller->addLabel; ?></b>
-	<a class="btn  btn-xs btn-primary pull-right" href="{url /admin}_{controller.module}/index"><span class="glyphicon glyphicon-list"></span> Quay lại</a>
+	<a class="btn  btn-xs btn-primary pull-right" href="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/index"><span class="glyphicon glyphicon-list"></span> Quay lại</a>
 </div>
 <div class="panel-body borderadmin">
-<form id="{controller.module}AddForm" role="form" enctype="multipart/form-data" method="post" action="{url /Admin}_{controller.module}/addPost">
+<form id="<?php echo @$controller->module?>AddForm" role="form" enctype="multipart/form-data" method="post" action="<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/addPost">
   <input type="hidden" name="id" value="" />
     <?php if(!empty($setAddTabs)) { ?>
 
@@ -93,7 +93,7 @@ $(function() {
             <?php
             $i=1;
             foreach($setAddTabs as $val) { ?>
-            <li role="presentation" <?php if($i == 1) { echo "class='active'"; }?> ><a href="#tab-{i}" aria-controls="tab-{i}" role="tab" data-toggle="tab">{val[name]}</a></li>
+            <li role="presentation" <?php if($i == 1) { echo "class='active'"; }?> ><a href="#tab-<?php echo $i ?>" aria-controls="tab-<?php echo $i ?>" role="tab" data-toggle="tab"><?php echo @$val['name']?></a></li>
             <?php $i++; } ?>
 
         </ul>
@@ -102,9 +102,9 @@ $(function() {
             <?php
             $i=1;
             foreach($setAddTabs as $val) { ?>
-                <div role="tabpanel" class="tab-pane <?php if($i == 1) { echo "active"; }?>" id="tab-{i}">
+                <div role="tabpanel" class="tab-pane <?php if($i == 1) { echo "active"; }?>" id="tab-<?php echo $i ?>">
                     <?php foreach($val['listFields'] as $field ) { ?>
-    {?
+    <?php 
 		    if ($field['type'] == 'text' || $field['type'] == 'date' || $field['type'] == 'email' || $field['type'] == 'password') {
 		    	$fieldObj = pzk_obj('Core.Db.Grid.Edit.Input');
 		    } else {
@@ -116,7 +116,7 @@ $(function() {
 			}
 			$fieldObj->setValue(@$row[$field['index']]);
 			$fieldObj->display();
-	?}
+	?>
                     <?php } ?>
                 </div>
                 <?php $i++; } ?>
@@ -128,8 +128,8 @@ $(function() {
     <?php } else { ?>
 
 
-    {each $addFieldSettings as $field}
-    {?
+    <?php foreach($addFieldSettings as $field): ?>
+    <?php 
 		    if ($field['type'] == 'text' || $field['type'] == 'date' || $field['type'] == 'email' || $field['type'] == 'password') {
 		    	$fieldObj = pzk_obj('Core.Db.Grid.Edit.Input');
 		    } else {
@@ -141,8 +141,8 @@ $(function() {
 			}
 			$fieldObj->setValue(@$row[$field['index']]);
 			$fieldObj->display();
-	?}
-  {/each}
+	?>
+  <?php endforeach; ?>
 
 
 <?php } ?>
@@ -151,7 +151,7 @@ $(function() {
   <button type="submit" class="btn btn-primary" name="<?= BTN_ADD_AND_CLOSE?>" value="1"><span class="glyphicon glyphicon-saved"></span> Thêm</button>
   <button type="submit" class="btn btn-primary" name="<?= BTN_ADD_AND_EDIT?>" value="1"><span class="glyphicon glyphicon-saved"></span> Thêm và sửa</button>
   <button type="submit" class="btn btn-primary" name="<?= BTN_ADD_AND_CONTINUE?>" value="1"><span class="glyphicon glyphicon-saved"></span> Thêm và tạo mới</button>
-  <a class="btn btn-default" href="{url /Admin}_{controller.module}/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
+  <a class="btn btn-default" href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/index"><span class="glyphicon glyphicon-refresh"></span> Quay lại</a>
   </div>
 </form>
 </div>

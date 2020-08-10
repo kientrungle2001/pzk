@@ -13,11 +13,11 @@
 
 ?>
 <div class="well">
-<form role="search" action="{url /admin_questiontype/searchPost}">
+<form role="search" action="<?php echo BASE_REQUEST . '/admin_questiontype/searchPost' ?>">
 	<div class="row">
 		<div class="form-group col-xs-3">
 			<label for="keyword">Dạng câu hỏi</label><br>
-        	<input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Dạng bài" value="{keyword}" />
+        	<input class="form-control input-sm" type="text" name="keyword" id="keyword"  placeholder="Dạng bài" value="<?php echo $keyword ?>" />
        	</div>
        	
         <div class="form-group col-xs-2">
@@ -39,7 +39,7 @@
 </div>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		Danh mục dạng câu hỏi  <a class="btn btn-primary btn-xs pull-right" role="button" href="{url /admin_questiontype/add}"><span class="glyphicon glyphicon-circle-arrow-right"></span> Thêm dạng câu hỏi</a>
+		Danh mục dạng câu hỏi  <a class="btn btn-primary btn-xs pull-right" role="button" href="<?php echo BASE_REQUEST . '/admin_questiontype/add' ?>"><span class="glyphicon glyphicon-circle-arrow-right"></span> Thêm dạng câu hỏi</a>
 	</div>
 	<table class="table">
 		<tr>
@@ -49,27 +49,27 @@
 			<th>Dạng bài tập</th>
 			<th colspan="2">Hành động</th>
 		</tr>
-		{each $items as $item}
+		<?php foreach($items as $item): ?>
 	
 		<tr>
-			<td>{item[id]}</td>
-			<td><a href="{url /admin_questiontype/edit}/{item[id]}"  class="text-center">{item[name]}</a></td>
-			<td>{item[question_type]}</td>
-			<td>{item[group_question]}</td>
+			<td><?php echo @$item['id']?></td>
+			<td><a href="<?php echo BASE_REQUEST . '/admin_questiontype/edit' ?>/<?php echo @$item['id']?>"  class="text-center"><?php echo @$item['name']?></a></td>
+			<td><?php echo @$item['question_type']?></td>
+			<td><?php echo @$item['group_question']?></td>
 			<td width="7%">
-				<a href="{url /admin_questiontype/edit}/{item[id]}"  class="text-center"><span class="glyphicon glyphicon-edit"></span> Sửa</a>
+				<a href="<?php echo BASE_REQUEST . '/admin_questiontype/edit' ?>/<?php echo @$item['id']?>"  class="text-center"><span class="glyphicon glyphicon-edit"></span> Sửa</a>
 			</td>
 			<td width="7%"> 
-				<a class="color_delete text-center" onclick="return confirm_delete('Do you want delete this record?')" href="{url /admin_questiontype/del}/{item[id]}"><span class="glyphicon glyphicon-remove"></span> Xóa</a>
+				<a class="color_delete text-center" onclick="return confirm_delete('Do you want delete this record?')" href="<?php echo BASE_REQUEST . '/admin_questiontype/del' ?>/<?php echo @$item['id']?>"><span class="glyphicon glyphicon-remove"></span> Xóa</a>
 			</td>
 		</tr>
-		{/each}
+		<?php endforeach; ?>
 	</table>
 </div>
 <div class="clearfix pull-right">
 	<form class="form-inline" role="form">
 		<strong>Số mục: </strong>
-		<select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='{url /admin_questiontype/changePageSize}?pageSize=' + this.value;">
+		<select id="pageSize" name="pageSize" class="form-control" placeholder="Số mục / trang" onchange="window.location='<?php echo BASE_REQUEST . '/admin_questiontype/changePageSize' ?>?pageSize=' + this.value;">
 			<option value="10">10</option>
 			<option value="20">20</option>
 			<option value="30">30</option>
@@ -78,7 +78,7 @@
 			<option value="200">200</option>
 		  </select>
 		  <script type="text/javascript">
-			$('#pageSize').val('{pageSize}');
+			$('#pageSize').val('<?php echo $pageSize ?>');
 		  </script>
 		<strong>Trang: </strong>
 		<?php for ($page = 0; $page < $pages; $page++) { 
@@ -88,7 +88,7 @@
 				$btn = 'btn-default';
 			}
 		?>
-		<a class="btn {btn}" href="{url /admin_questiontype/index}?page={page}">{? echo ($page + 1)?}</a>
+		<a class="btn <?php echo $btn ?>" href="<?php echo BASE_REQUEST . '/admin_questiontype/index' ?>?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
 		<?php } ?>
 	</form>
 

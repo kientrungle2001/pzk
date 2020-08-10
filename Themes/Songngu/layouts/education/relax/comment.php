@@ -29,30 +29,30 @@ span.comment_date{font-weight:none; font-size:12px;}
 				<div style="float:left;"><h4>Ý kiến thành viên</h4></div> 
 				<div style="float:right;">
 				<?php $count=$data->getCountComment($newsid); ?>
-				<h4> {count} Bình luận</h4>
+				<h4> <?php echo $count ?> Bình luận</h4>
 				</div>
 			
 			<div class="comments row">
 			<?php $allcomments=$data->getComments($newsid); ?>
 			<?php if($allcomments){ ?>
-			{each $allcomments as $allcomment}
+			<?php foreach($allcomments as $allcomment): ?>
 				<div class=" col-xs-12" style="margin-top:20px;">
 					<div class="avatar col-xs-2" >
 						<?php if($allcomment['avatar']) { ?>
-						<img src="{allcomment[avatar]}" class="useravatar"></img>
+						<img src="<?php echo @$allcomment['avatar']?>" class="useravatar"></img>
 						<?php }else { ?>
 							<img src="<?= BASE_URL; ?>/Default/skin/nobel/ptnn/media/noavatar.gif" class="useravatar"></img>
 						<?php } ?>
 					</div>
 					<div class="user-comments col-xs-10">
 						<div class="user-id" style="float:left;">
-							<div class="comment-name" align="left"><span>{allcomment[name]}</span></div>
-							<div align="left"><span class="comment_date">on {allcomment[created]} says: </span></div>
-							<div>{allcomment[content]}</div>
+							<div class="comment-name" align="left"><span><?php echo @$allcomment['name']?></span></div>
+							<div align="left"><span class="comment_date">on <?php echo @$allcomment['created']?> says: </span></div>
+							<div><?php echo @$allcomment['content']?></div>
 						</div>
 					</div>
 				</div>
-			{/each}
+			<?php endforeach; ?>
 			<?php } ?>
 			</div>
 		</div>

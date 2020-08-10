@@ -4,8 +4,8 @@
   $user=$user->load($userId, 300);*/
   
  ?>
-{children [position=public-header]}
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=public-header]') ?>
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container">
 	
 	<div class="row top20">
@@ -44,7 +44,7 @@
 							 <?php if($dates) :
 							 $class = 5;
 							 ?>
-							 {each $dates as $item}
+							 <?php foreach($dates as $item): ?>
 							 <?php
 							 	echo "<li>";
 							 	
@@ -65,7 +65,7 @@
 								}
 							  ?>
 							</li>
-							{/each}
+							<?php endforeach; ?>
 							<?php endif;?>
 						</ul>
 					</li>
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 			<div class="profile-edit-area" style="display: none;">
-			{children [position=profile-edit-area]}
+			<?php $data->displayChildren('[position=profile-edit-area]') ?>
 			</div>
 		</div>
 	</div>

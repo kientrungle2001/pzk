@@ -57,20 +57,20 @@ foreach($classrooms as $classroom) {
 <ul id="schoolMenu" class="nav">
 	<?php foreach($tree as $schoolYear => $grades) :?>
 	<li class="padding-left-10 school-year">
-		<a href="#" class="bg-danger">Niên khóa {schoolYear}</a>
+		<a href="#" class="bg-danger">Niên khóa <?php echo $schoolYear ?></a>
 		<ul class="nav">
 			<?php foreach($grades as $gradeNum => $classes) :?>
-			<li class="padding-left-10 school-grade"><a href="#" class="bg-warning">Khối {gradeNum}</a>
+			<li class="padding-left-10 school-grade"><a href="#" class="bg-warning">Khối <?php echo $gradeNum ?></a>
 			<ul class="nav">
 				<?php foreach($classes as $className => $classroomId) :?>
-				<li class="padding-left-10 school-class <?php if($activeClassroom && $activeClassroom['schoolYear'] == $schoolYear && $activeClassroom['gradeNum'] == $gradeNum && $activeClassroom['className'] == $className):?>active<?php endif;?>"><a href="#" class="bg-success">Lớp {className}</a>
+				<li class="padding-left-10 school-class <?php if($activeClassroom && $activeClassroom['schoolYear'] == $schoolYear && $activeClassroom['gradeNum'] == $gradeNum && $activeClassroom['className'] == $className):?>active<?php endif;?>"><a href="#" class="bg-success">Lớp <?php echo $className ?></a>
 				<ul class="nav">
-					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/students/{classroomId}">Học sinh</a></li>
+					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/students/<?php echo $classroomId ?>">Học sinh</a></li>
 					<?php if(pzk_session()->getAdminLevel() !== 'Teacher'):?>
-					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/teachers/{classroomId}">Giáo viên</a></li>
+					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/teachers/<?php echo $classroomId ?>">Giáo viên</a></li>
 					<?php endif; ?>
-					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/homeworks/{classroomId}">Phiếu bài tập</a></li>
-					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/books/{classroomId}">Bài làm</a></li>
+					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/homeworks/<?php echo $classroomId ?>">Phiếu bài tập</a></li>
+					<li class="padding-left-10 school-action"><a href="/Admin_Schedule_Teacher/books/<?php echo $classroomId ?>">Bài làm</a></li>
 				</ul>
 				</li>
 				
@@ -100,7 +100,7 @@ foreach($classrooms as $classroom) {
 		<div id="collapseOne" class="panel-collapse collapse in">
 			<div class="panel-body">
 				<div id="contentDetail">
-				{children all}
+				<?php $data->displayChildren('all') ?>
 				</div>
 			</div>
 		</div>

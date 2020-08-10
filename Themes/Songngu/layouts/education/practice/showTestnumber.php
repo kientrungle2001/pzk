@@ -7,9 +7,9 @@ if(pzk_session('lop')) {
 	$class = pzk_session('lop');	
 }
 ?>
-{? $items = $data->getTest($class); ?}
-{each $items as $item}
-<div class="col-md-2 text-center col-xs-4 text-uppercase btn-custom3 pd-10 weight-16 widthfix testnumber<?php if(@$item['isNew']): echo ' isNew'; endif;?>" onclick ="return false;" data-week="{item[id]}" data-trial="{item[trial]}" <?php if($lang == 'ev'){
+<?php  $items = $data->getTest($class); ?>
+<?php foreach($items as $item): ?>
+<div class="col-md-2 text-center col-xs-4 text-uppercase btn-custom3 pd-10 weight-16 widthfix testnumber<?php if(@$item['isNew']): echo ' isNew'; endif;?>" onclick ="return false;" data-week="<?php echo @$item['id']?>" data-trial="<?php echo @$item['trial']?>" <?php if($lang == 'ev'){
 					echo 'title="'.$item['name'].'"'; }?>>
 	<a href="" class="text-color">
 	<?php 
@@ -20,7 +20,7 @@ if(pzk_session('lop')) {
 	} ?>
 	</a>
 </div>
-{/each}
+<?php endforeach; ?>
 <div class="col-md-2 text-center col-xs-4 text-uppercase btn-custom3 pd-10 weight-16 widthfix other2" onclick ="return false;">
 	<a href="" class="text-color"><?php if(!$items){ echo "Đang cập nhật!";}else{ echo "...";} ?></a>
 </div>
@@ -29,14 +29,14 @@ if(pzk_session('lop')) {
 $(".testnumber").click(function(){
 	<?php if(pzk_session('userId')): ?>
 		var week = $(this).data("week");
-		window.location = BASE_REQUEST+'/test/class-{class}/week-'+week;
+		window.location = BASE_REQUEST+'/test/class-<?php echo $class ?>/week-'+week;
 	<?php else: ?>
 		alert('<?php echo $language['login'];?>');
 	<?php endif; ?>
 });
 $(".other2").click(function(){
 	<?php if(pzk_session('userId')): ?>
-		window.location = BASE_REQUEST+'/test/class-{class}';
+		window.location = BASE_REQUEST+'/test/class-<?php echo $class ?>';
 	<?php else: ?>
 		alert('<?php echo $language['login'];?>');
 	<?php endif; ?>

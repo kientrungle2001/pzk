@@ -13,20 +13,20 @@ $totalMark = $data->get('teacherMark') + $item['totalTn'];
 <br/>
 <div class="well">
 	<div class="text-center">
-		<b>Tổng điểm: </b> <b style="color:red;font-size: 18px;">{totalMark} điểm</b><br>
+		<b>Tổng điểm: </b> <b style="color:red;font-size: 18px;"><?php echo $totalMark ?> điểm</b><br>
 	</div>
 </div>
 
 <?php $index = 1;?>
 <div class="well">
 	<div class="text-center">
-		<b>Điểm bài thi trắc nghiệm: </b> <b style="color:red;font-size: 18px;">{item[totalTn]} điểm</b><br>
+		<b>Điểm bài thi trắc nghiệm: </b> <b style="color:red;font-size: 18px;"><?php echo @$item['totalTn']?> điểm</b><br>
 	</div>
 </div>
-{each $questions as $question}
+<?php foreach($questions as $question): ?>
 	<div class="row">
 		<div class="col-xs-12">
-			<strong> <?php if($lang == 'vn'){ echo 'Câu'; }else{ echo 'Question';} ?> {index}</strong>
+			<strong> <?php if($lang == 'vn'){ echo 'Câu'; }else{ echo 'Question';} ?> <?php echo $index ?></strong>
 		</div>
 		<div class="col-xs-12">
 		<?php 
@@ -46,9 +46,9 @@ $totalMark = $data->get('teacherMark') + $item['totalTn'];
 		
 		 
 		?>
-		{each $answers as $answer}
+		<?php foreach($answers as $answer): ?>
 		<div>
-			<input type="radio" name="answer_question_{question[questionId]}" 
+			<input type="radio" name="answer_question_<?php echo @$question['questionId']?>" 
 			<?php 
 			if($question['answerId'] == $answer['id']){ echo 'checked'; }
 			?>
@@ -60,10 +60,10 @@ $totalMark = $data->get('teacherMark') + $item['totalTn'];
 					echo getLatex($answer['content']);
 				} ?>
 				<?php if($answer['status']):?><span class="glyphicon glyphicon-ok text-success"></span><?php endif;?></div>
-		{/each}
+		<?php endforeach; ?>
 		</div>
 	</div>
 	<hr />
 <?php $index++;?>
-{/each}
+<?php endforeach; ?>
 </div>

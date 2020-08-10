@@ -1,14 +1,14 @@
-<!--? 
+<?php 
 $positions = $data->getItems();
- ?-->
+ ?>
 <div class="container">
 	<div class="row">
 	<!--each $positions as $position-->
 		<div class="col-sm-3 text-center">
 		<span class="glyphicon glyphicon-folder-open" style="font-size: 72px; color: blue;"></span>
-		<h4>{position[position]}</h4>
+		<h4><?php echo @$position['position']?></h4>
 		<div class="link-icons">
-			<a href="/admin_directory_theme/delPosition/{position[id]}">Xóa</a>
+			<a href="/admin_directory_theme/delPosition/<?php echo @$position['id']?>">Xóa</a>
 		</div>
 		</div>
 	<!--/each-->

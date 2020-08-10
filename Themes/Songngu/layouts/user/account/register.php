@@ -32,7 +32,7 @@ overflow-y: scroll !important;
 		      	<div class="modal-body loginform" >
 			    	<div class="container-fluid">
 			    		<div class="row">
-			    			<form id="registerForm" class="register form-horizontal top20" onsubmit="return pzk_{data.id}.register()">
+			    			<form id="registerForm" class="register form-horizontal top20" onsubmit="return pzk_<?php echo @$data->id?>.register()">
 					    		<div class="form-group top10">
 								  	<div class="col-md-3 col-md-offset-2 col-xs-12 top10">
 								  		<label for="username">Tên đăng nhập :</label> <span class="validate">(*)</span>
@@ -110,23 +110,23 @@ overflow-y: scroll !important;
 							    	<div class="clearfix"></div>
 							    	<div class="col-md-4 col-sm-4 col-xs-12 col-md-offset-2 top10">
 								  		<label for="name">Chọn gói dịch vụ :</label> <span class="validate">(*)</span>
-							    		<select id="servicePackage" onchange="return pzk_{data.id}.MyService()" class="form-control sharp" title="Chọn gói dịch vụ" name="servicePackage" aria-label="gói dịch vụ" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+							    		<select id="servicePackage" onchange="return pzk_<?php echo @$data->id?>.MyService()" class="form-control sharp" title="Chọn gói dịch vụ" name="servicePackage" aria-label="gói dịch vụ" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
 											<option value="freedom" checked>Tự do</option>
 											<option value="classroom">Theo trường</option>
 										</select>
 							    	</div>
 							    	<div class="col-md-4  col-sm-4  col-xs-12 top10 ">
 							    		<label for="areacode">Tỉnh/ TP :</label>  <span class="validate">(*)</span>
-							    				<select id="areacode" onchange="return pzk_{data.id}.myDistrict()" class="form-control sharp" title="Tỉnh/ Thành phố" name="areacode" aria-label="Tỉnh/tp" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+							    				<select id="areacode" onchange="return pzk_<?php echo @$data->id?>.myDistrict()" class="form-control sharp" title="Tỉnh/ Thành phố" name="areacode" aria-label="Tỉnh/tp" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
 													<?php if(0):?>
 													<option value="">Chọn Tỉnh/TP</option>
 													<?php 
 														$areacode=_db()->getEntity('User.Account.User');
 														$areas= $areacode->loadProvince();
 													?>
-													{each $areas as $area}
+													<?php foreach($areas as $area): ?>
 													<option value="<?php echo $area['id']; ?>"><?php   echo $area['name']; ?></option>
-													{/each}
+													<?php endforeach; ?>
 													<?php endif;?>
 												
 												</select>
@@ -170,7 +170,7 @@ overflow-y: scroll !important;
 							    	</div>
 							    	<div class="clearfix"></div>
 							    	<div class="col-md-2 col-md-offset-2 top10 ">
-							    		<button type="submit" id="registerButton" onclick="return pzk_{data.id}.set_birthday()" class="btn btn-primary sharp">Đăng ký</button>
+							    		<button type="submit" id="registerButton" onclick="return pzk_<?php echo @$data->id?>.set_birthday()" class="btn btn-primary sharp">Đăng ký</button>
 							    	</div>
 									
 							  	</div>

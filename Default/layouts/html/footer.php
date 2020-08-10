@@ -1,3 +1,3 @@
 <footer>
-{children all}
+<?php $data->displayChildren('all') ?>
 </footer>

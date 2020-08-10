@@ -1,1 +1,1 @@
-{data.value}
+<?php echo @$data->value?>

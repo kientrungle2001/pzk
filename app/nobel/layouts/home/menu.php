@@ -22,7 +22,7 @@ require_once(BASE_DIR.'/lib/recursive.php');
 			if(!pzk_request()->getSegment(3)) {
 				$active = 'active';
 			}?>
-            <li><a class="{active}" style="border-right: 1px solid #F7E308;" href="<?=BASE_REQUEST?>/Home">Trang Chủ</a></li>
+            <li><a class="<?php echo $active ?>" style="border-right: 1px solid #F7E308;" href="<?=BASE_REQUEST?>/Home">Trang Chủ</a></li>
 		</ul>
 		<a href="/news/rssfeed"><img src="/default/skin/nobel/media/rss_button.gif" style="float:right; margin-top:14px; margin-right: 12px;"></a>
         <?php 

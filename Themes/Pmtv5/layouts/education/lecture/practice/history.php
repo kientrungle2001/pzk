@@ -20,19 +20,19 @@ $index	=	1;
 </tr>
 </thead>
 <tbody>
-{each $items as $item}
+<?php foreach($items as $item): ?>
 <tr>
-	<td>{index}</td>
-	<td>{item[username]}</td>
-	<td><a href="/{item[categoryAlias]}">{item[categoryName]}</a></td>
-	<td>{item[exerciseNum]}</td>
-	<td>{item[quantity]}</td>
-	<td>{item[rights]}</td>
-	<td>{? echo time_duration($item['duration']); ?}</td>
-	<td>{? echo date('H:i d/m/Y', strtotime($item['created'])); ?}</td>
+	<td><?php echo $index ?></td>
+	<td><?php echo @$item['username']?></td>
+	<td><a href="/<?php echo @$item['categoryAlias']?>"><?php echo @$item['categoryName']?></a></td>
+	<td><?php echo @$item['exerciseNum']?></td>
+	<td><?php echo @$item['quantity']?></td>
+	<td><?php echo @$item['rights']?></td>
+	<td><?php  echo time_duration($item['duration']); ?></td>
+	<td><?php  echo date('H:i d/m/Y', strtotime($item['created'])); ?></td>
 </tr>
-{? $index++; ?}
-{/each}
+<?php  $index++; ?>
+<?php endforeach; ?>
 </tbody>
 </table>
 </div>

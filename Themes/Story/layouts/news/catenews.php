@@ -1,6 +1,6 @@
 <ul class="list-unstyled">
-{? $items = $data->getItems(); ?}
-{each $items as $item}
-	<a href="newsdetail.php?id={item[id]}&parentid={item[categoryId]}"><li class="left40">{item[title]}</li></a>
-{/each}
+<?php  $items = $data->getItems(); ?>
+<?php foreach($items as $item): ?>
+	<a href="newsdetail.php?id=<?php echo @$item['id']?>&parentid=<?php echo @$item['categoryId']?>"><li class="left40"><?php echo @$item['title']?></li></a>
+<?php endforeach; ?>
 </ul>

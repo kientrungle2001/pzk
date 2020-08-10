@@ -54,19 +54,19 @@
 						 $i=9;
 						 $class=3;
 						 ?>
-						{? $items = $data->getPractice($class); ?}
-						{each $items as $item}
+						<?php  $items = $data->getPractice($class); ?>
+						<?php foreach($items as $item): ?>
 						
-						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicepractice" onclick="return false;" data-number="{item[id]}" data-class="3">
+						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicepractice" onclick="return false;" data-number="<?php echo @$item['id']?>" data-class="3">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
-							<p class="text-uppercase robotofont weight10 top10">{item[name]}</p>
+							<p class="text-uppercase robotofont weight10 top10"><?php echo @$item['name']?></p>
 						</div>
 						<?php $i--;
 						if($i==0){
 							$i=9;
 						}
 						?>
-						{/each}
+						<?php endforeach; ?>
 						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl otherpractice" onclick="return false;" data-class="3">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de1.png" class="img-thumnail wheight50" /></a>
 							<p class="text-uppercase robotofont weight10 top10">Làm bài khác</p>
@@ -77,18 +77,18 @@
 						 $i=9;
 						 $class=3;
 						 ?>
-						{? $items = $data->getTest($class); ?}
-						{each $items as $item}
-						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicetest" onclick="return false;" data-number="{item[id]}" data-class="3">
+						<?php  $items = $data->getTest($class); ?>
+						<?php foreach($items as $item): ?>
+						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicetest" onclick="return false;" data-number="<?php echo @$item['id']?>" data-class="3">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
-							<p class="text-uppercase robotofont weight10 top10">{item[name]}</p>
+							<p class="text-uppercase robotofont weight10 top10"><?php echo @$item['name']?></p>
 						</div>
 						<?php $i--;
 						if($i==0){
 							$i=9;
 						}
 						?>
-						{/each}
+						<?php endforeach; ?>
 						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl othertest" onclick="return false;" data-class="3">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh1.png" class="img-thumnail wheight50" /></a>
 							<p class="text-uppercase robotofont weight10 top10">Làm đề khác</p>
@@ -189,19 +189,19 @@
 						 $i=9;
 						 $class=4;
 						 ?>
-						{? $items = $data->getPractice($class); ?}
-						{each $items as $item}
+						<?php  $items = $data->getPractice($class); ?>
+						<?php foreach($items as $item): ?>
 						
-						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicepractice" onclick="return false;" data-number="{item[id]}" data-class="4">
+						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicepractice" onclick="return false;" data-number="<?php echo @$item['id']?>" data-class="4">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de<?php echo $i;?>.png" class="img-thumnail wheight50"></a>
-							<p class="text-uppercase robotofont weight10 top10">{item[name]}</p>
+							<p class="text-uppercase robotofont weight10 top10"><?php echo @$item['name']?></p>
 						</div>
 						<?php $i--;
 						if($i==0){
 							$i=9;
 						}
 						?>
-						{/each}
+						<?php endforeach; ?>
 						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl otherpractice" onclick="return false;" data-class="4">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de1.png" class="img-thumnail wheight50" /></a>
 							<p class="text-uppercase robotofont weight10 top10">Làm bài khác</p>
@@ -212,18 +212,18 @@
 						 $i=9;
 						 $class=4;
 						 ?>
-						{? $items = $data->getTest($class); ?}
-						{each $items as $item}
-						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicetest" onclick="return false;" data-number="{item[id]}" data-class="4">
+						<?php  $items = $data->getTest($class); ?>
+						<?php foreach($items as $item): ?>
+						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicetest" onclick="return false;" data-number="<?php echo @$item['id']?>" data-class="4">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
-							<p class="text-uppercase robotofont weight10 top10">{item[name]}</p>
+							<p class="text-uppercase robotofont weight10 top10"><?php echo @$item['name']?></p>
 						</div>
 						<?php $i--;
 						if($i==0){
 							$i=9;
 						}
 						?>
-						{/each}
+						<?php endforeach; ?>
 						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl othertest" onclick="return false;" data-class="4">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh1.png" class="img-thumnail wheight50" /></a>
 							<p class="text-uppercase robotofont weight10 top10">Làm đề khác</p>
@@ -324,19 +324,19 @@
 						 $i=9;
 						 $class=5;
 						 ?>
-						{? $items = $data->getPractice($class); ?}
-						{each $items as $item}
+						<?php  $items = $data->getPractice($class); ?>
+						<?php foreach($items as $item): ?>
 						
-						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicepractice" onclick="return false;" data-number="{item[id]}" data-class="5">
+						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicepractice" onclick="return false;" data-number="<?php echo @$item['id']?>" data-class="5">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
-							<p class="text-uppercase robotofont weight10 top10">{item[name]}</p>
+							<p class="text-uppercase robotofont weight10 top10"><?php echo @$item['name']?></p>
 						</div>
 						<?php $i--;
 						if($i==0){
 							$i=9;
 						}
 						?>
-						{/each}
+						<?php endforeach; ?>
 						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl otherpractice" onclick="return false;" data-class="5">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/de1.png" class="img-thumnail wheight50" /></a>
 							<p class="text-uppercase robotofont weight10 top10">Làm bài khác</p>
@@ -347,18 +347,18 @@
 						 $i=9;
 						 $class=5;
 						 ?>
-						{? $items = $data->getTest($class); ?}
-						{each $items as $item}
-						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicetest" onclick="return false;" data-number="{item[id]}" data-class="5">
+						<?php  $items = $data->getTest($class); ?>
+						<?php foreach($items as $item): ?>
+						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl choicetest" onclick="return false;" data-number="<?php echo @$item['id']?>" data-class="5">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh<?php echo $i;?>.png" class="img-thumnail wheight50" /></a>
-							<p class="text-uppercase robotofont weight10 top10">{item[name]}</p>
+							<p class="text-uppercase robotofont weight10 top10"><?php echo @$item['name']?></p>
 						</div>
 						<?php $i--;
 						if($i==0){
 							$i=9;
 						}
 						?>
-						{/each}
+						<?php endforeach; ?>
 						<div class="col-md-2 col-xs-3 top10 height80 width20 btn-custom3 bgcl othertest" onclick="return false;" data-class="5">
 							<a href=""><img src="<?=BASE_SKIN_URL?>/Default/skin/nobel/Themes/Story/media/hinh1.png" class="img-thumnail wheight50" /></a>
 							<p class="text-uppercase robotofont weight10 top10">Làm đề khác</p>

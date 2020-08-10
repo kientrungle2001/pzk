@@ -5,7 +5,7 @@ $homeworks 			= $data->getHomeworks();
 $tests 				= $data->getTests();
 $studentHomeworks 	= $data->getStudentHomeworks();
 ?>
-<h2 class="text-center">{teacher[fullName]}</h2>
+<h2 class="text-center"><?php echo @$teacher['fullName']?></h2>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<table class="table table-bordered">
@@ -15,9 +15,9 @@ $studentHomeworks 	= $data->getStudentHomeworks();
 				<th>Lớp</th>
 			</tr>
 			<tr>
-				<td>{teacher[name]}</td>
-				<td>{teacher[phone]}</td>
-				<td>{each $classrooms as $classroom} - {classroom[schoolYear]} {classroom[gradeNum]}{classroom[className]} - Môn {classroom[subject]}<br /> {/each}</td>
+				<td><?php echo @$teacher['name']?></td>
+				<td><?php echo @$teacher['phone']?></td>
+				<td><?php foreach($classrooms as $classroom): ?> - <?php echo @$classroom['schoolYear']?> <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> - Môn <?php echo @$classroom['subject']?><br /> <?php endforeach; ?></td>
 			</tr>
 		</table>
 	</div>
@@ -33,25 +33,25 @@ $studentHomeworks 	= $data->getStudentHomeworks();
 	<th>Học kỳ</th>
 </tr>
 
-{each $homeworks as $homework}
+<?php foreach($homeworks as $homework): ?>
 <tr class="<?php if($homework['status']):?>bg-success<?php else:?>bg-warning<?php endif;?>">
 	<td>
-	{homework[name]} 
+	<?php echo @$homework['name']?> 
 	</td>
 	<td>
-	{homework[subject]} 
+	<?php echo @$homework['subject']?> 
 	</td>
 	<td>
-	{homework[week]} 
+	<?php echo @$homework['week']?> 
 	</td>
 	<td>
-	{homework[month]} 
+	<?php echo @$homework['month']?> 
 	</td>
 	<td>
-	{homework[semester]}
+	<?php echo @$homework['semester']?>
 	</td>
 </tr>
-{/each}
+<?php endforeach; ?>
 </table>
 
 <hr />
@@ -65,25 +65,25 @@ $studentHomeworks 	= $data->getStudentHomeworks();
 	<th>Học kỳ</th>
 </tr>
 
-{each $tests as $test}
+<?php foreach($tests as $test): ?>
 <tr class="<?php if($test['status']):?>bg-success<?php else:?>bg-warning<?php endif;?>">
 	<td>
-	{test[name]} 
+	<?php echo @$test['name']?> 
 	</td>
 	<td>
-	{test[subject]} 
+	<?php echo @$test['subject']?> 
 	</td>
 	<td>
-	{test[week]} 
+	<?php echo @$test['week']?> 
 	</td>
 	<td>
-	{test[month]} 
+	<?php echo @$test['month']?> 
 	</td>
 	<td>
-	{test[semester]}
+	<?php echo @$test['semester']?>
 	</td>
 </tr>
-{/each}
+<?php endforeach; ?>
 </table>
 
 <hr />
@@ -102,38 +102,38 @@ $studentHomeworks 	= $data->getStudentHomeworks();
 	<th>Trạng thái</th>
 </tr>
 
-{each $studentHomeworks as $homework}
+<?php foreach($studentHomeworks as $homework): ?>
 <tr class="<?php if($homework['status']):?>bg-success<?php else:?>bg-warning<?php endif;?>">
 	<td>
-	{homework[username]} 
+	<?php echo @$homework['username']?> 
 	</td>
 	<td>
-	{homework[fullName]} 
+	<?php echo @$homework['fullName']?> 
 	</td>
 	<td>
-	{homework[homeworkName]} 
+	<?php echo @$homework['homeworkName']?> 
 	</td>
 	<td>
-	{homework[subject]} 
+	<?php echo @$homework['subject']?> 
 	</td>
 	<td>
-	{homework[week]} 
+	<?php echo @$homework['week']?> 
 	</td>
 	<td>
-	{homework[month]} 
+	<?php echo @$homework['month']?> 
 	</td>
 	<td>
-	{homework[semester]}
+	<?php echo @$homework['semester']?>
 	</td>
 	<td>
-	{homework[startTime]}
+	<?php echo @$homework['startTime']?>
 	</td>
 	<td>
-	{homework[mark]}
+	<?php echo @$homework['mark']?>
 	</td>
 	<td>
 	<?php if($homework['status']):?><span class="btn btn-success btn-xs">Đã chấm</span><?php else: ?><span class="btn btn-warning btn-xs">Chưa chấm</span><?php endif;?>
 	</td>
 </tr>
-{/each}
+<?php endforeach; ?>
 </table>

@@ -1,4 +1,4 @@
-<div id="{data.id}">
+<div id="<?php echo @$data->id?>">
 </div>
 <script>
 pzk.onload('list', function() {

@@ -21,7 +21,7 @@
 				<a href="#"><button type="button" class="btn btn-default sharp btn-custom">Lưu</button></a>
 				<a href="#"><button type="button" class="btn btn-default sharp btn-custom">Hủy</button></a>
 			</div>
-			{children all}
+			<?php $data->displayChildren('all') ?>
 		</div>
 	</div>
 </div>

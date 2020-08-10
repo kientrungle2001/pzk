@@ -12,7 +12,7 @@
 	<div class="note_upload">
 		<span class="note_favorite">Lưu ý khi upload ảnh: </span><br>
 		<span >Upload ảnh lên từ máy của bạn:Chỉ chấp nhận định dạng ảnh .JPG và .JPEGdung lượng ảnh tối đa 488kb.</span> <br>
-		<span>Sau khi upload ảnh thành công, bạn nhấn <a href onclick="pzk_{data.id}.reloadAvatar();">Vào đây</a> để cập nhật ảnh đại diện</span>
+		<span>Sau khi upload ảnh thành công, bạn nhấn <a href onclick="pzk_<?php echo @$data->id?>.reloadAvatar();">Vào đây</a> để cập nhật ảnh đại diện</span>
 	</div>
 	<div class="showmessage"></div>
 	<div class="clear"></div>

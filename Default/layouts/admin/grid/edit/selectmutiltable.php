@@ -1,13 +1,13 @@
-{? 
+<?php  
 $rand 		= rand(1, 100);
 $xssize 	= pzk_or($data->get('xssize'), 12);
 $mdsize 		= pzk_or($data->get('mdsize'), 12);
-?}
-<div class="col-xs-{xssize} col-md-{mdsize}">
+?>
+<div class="col-xs-<?php echo $xssize ?> col-md-<?php echo $mdsize ?>">
 	<div class="form-group clearfix">
-		<label for="{? echo $data->get('index')?}{rand}">{? echo $data->get('label')?}</label> <select
-			class="form-control" id="{? echo $data->get('index')?}{rand}"
-			name="{? echo $data->get('index')?}">
+		<label for="<?php  echo $data->get('index')?><?php echo $rand ?>"><?php  echo $data->get('label')?></label> <select
+			class="form-control" id="<?php  echo $data->get('index')?><?php echo $rand ?>"
+			name="<?php  echo $data->get('index')?>">
             <?php
 												$tables = $data->get('tables');
 												if (isset ( $tables )) {
@@ -22,15 +22,15 @@ $mdsize 		= pzk_or($data->get('mdsize'), 12);
 													echo "<option value='0'>" . pzk_or ( @$data->get('selectLabel'), '--Chọn danh mục--' ) . " </option>";
 												}
 												?>
-			{each $parents as $parent}
+			<?php foreach($parents as $parent): ?>
 			<option value="<?php echo $parent[$data->get('show_value')]; ?>">
 				<?php if(isset($parent['parent'])){ echo str_repeat('--', $parent['level']); } ?>
-				#{parent[id]}<?php echo $parent[$data->get('show_name')]; ?>
-			</option> {/each}
+				#<?php echo @$parent['id']?><?php echo $parent[$data->get('show_name')]; ?>
+			</option> <?php endforeach; ?>
 
 		</select>
 		<script type="text/javascript">
-			$('#{? echo $data->get('index')?}{rand}').val('{? echo $data->get('value')?}');
+			$('#<?php  echo $data->get('index')?><?php echo $rand ?>').val('<?php  echo $data->get('value')?>');
         </script>
 	</div>
 </div>

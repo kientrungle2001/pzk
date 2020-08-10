@@ -39,7 +39,7 @@
 	 <br />
 	<div class="row question" id="aqs_questions">
 	<?php $allquestions=$data->getQuestion();?>
-		{each $allquestions as $allquestion}
+		<?php foreach($allquestions as $allquestion): ?>
 		<?php 
 				$questionid = $allquestion['id'];
 				$count 		= $data->getCountAnswer($allquestion['id']); 
@@ -49,8 +49,8 @@
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
 		
-		<p class="text-left"><strong>{allquestion[username]}:</strong> {allquestion[question]} <span onclick="$('#answer-button-{allquestion[id]}').click();" style="cursor: pointer;"><span style="font-size: 13px; color: blue; font-style: italic;">({count} <sup><span class="glyphicon glyphicon-comment"></span></sup>)</span></span></p>
-		<a id="answer-button-{allquestion[id]}" role="button" data-toggle="collapse" data-parent="#accordion" href="#<?=$allquestion['id']?>" aria-expanded="true" aria-controls="<?=$allquestion['id']?>" style="color:blue; font-size: 12px;">Trả lời</a>
+		<p class="text-left"><strong><?php echo @$allquestion['username']?>:</strong> <?php echo @$allquestion['question']?> <span onclick="$('#answer-button-<?php echo @$allquestion['id']?>').click();" style="cursor: pointer;"><span style="font-size: 13px; color: blue; font-style: italic;">(<?php echo $count ?> <sup><span class="glyphicon glyphicon-comment"></span></sup>)</span></span></p>
+		<a id="answer-button-<?php echo @$allquestion['id']?>" role="button" data-toggle="collapse" data-parent="#accordion" href="#<?=$allquestion['id']?>" aria-expanded="true" aria-controls="<?=$allquestion['id']?>" style="color:blue; font-size: 12px;">Trả lời</a>
 		 
         </a>
       </h4>
@@ -58,9 +58,9 @@
     <div id="<?=$allquestion['id']?>" class="panel-collapse collapsing" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         <Blockquote>
-			{each $allanswers as $allanswer}
-			<p class="text-left weight13"><strong>{allanswer[username]}:</strong> {allanswer[answer]}</p>
-			{/each}
+			<?php foreach($allanswers as $allanswer): ?>
+			<p class="text-left weight13"><strong><?php echo @$allanswer['username']?>:</strong> <?php echo @$allanswer['answer']?></p>
+			<?php endforeach; ?>
 			<form role="form" method="post" action="/aqs/answerPost">
 				<input type="hidden" name="id" value=""/>
 				<div class="form-group">
@@ -84,7 +84,7 @@
     </div>
   </div>
   
-  {/each}
+  <?php endforeach; ?>
 	<?php 
 			$total = $data->countItems();
 			$pages = ceil($total / 5);
@@ -99,7 +99,7 @@
 				}
 				$page = $i + 1;
 			?>
-			<a onclick="aqs_changepage({i}); return false;" href="#" class="btn {btnActive}">{page}</a>
+			<a onclick="aqs_changepage(<?php echo $i ?>); return false;" href="#" class="btn <?php echo $btnActive ?>"><?php echo $page ?></a>
 			<?php }?>	
 			</p>
 	</div>
@@ -137,27 +137,27 @@ function aqs_changepage(i){
 	}
 ?>
 	<?php $allquestions=$data->getQuestion(intval(pzk_request('page')));?>
-		{each $allquestions as $allquestion}
+		<?php foreach($allquestions as $allquestion): ?>
 		<div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
-		<p class="text-left"><span class="label label-primary">{allquestion[username]}</span>: {allquestion[question]}</p>
+		<p class="text-left"><span class="label label-primary"><?php echo @$allquestion['username']?></span>: <?php echo @$allquestion['question']?></p>
 		<a role="button" data-toggle="collapse" data-parent="#accordion" href="#<?=$allquestion['id']?>" aria-expanded="true" aria-controls="<?=$allquestion['id']?>">
          <?php 
 				$questionid=$allquestion['id'];
 				$count=$data->getCountAnswer($allquestion['id']); 
 				$allanswers=$data->getAnswer($allquestion['id']);
 				?>
-		 <button type="button"  class="btn-xs btn-primary" >Trả lời <span class="badge">{count}</span></button>
+		 <button type="button"  class="btn-xs btn-primary" >Trả lời <span class="badge"><?php echo $count ?></span></button>
         </a>
       </h4>
     </div>
     <div id="<?=$allquestion['id']?>" class="panel-collapse collapsing" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
         
-				{each $allanswers as $allanswer}
-				<p class="text-left"><span class="label label-primary">{allanswer[username]}</span>: {allanswer[answer]}</p>
-				{/each}
+				<?php foreach($allanswers as $allanswer): ?>
+				<p class="text-left"><span class="label label-primary"><?php echo @$allanswer['username']?></span>: <?php echo @$allanswer['answer']?></p>
+				<?php endforeach; ?>
 				<form role="form" method="post" action="/AQs/answerPost">
 					<input type="hidden" name="id" value=""/>
 					<div class="form-group">
@@ -174,7 +174,7 @@ function aqs_changepage(i){
 	  </div>
     </div>
   </div>
-  {/each}
+  <?php endforeach; ?>
 	<?php 
 			$total = $data->countItems();
 			$pages = ceil($total / 5);
@@ -189,7 +189,7 @@ function aqs_changepage(i){
 				}
 				$page = $i + 1;
 			?>
-			<a onclick="aqs_changepage({i}); return false;" href="#" class="btn {btnActive}">{page}</a>
+			<a onclick="aqs_changepage(<?php echo $i ?>); return false;" href="#" class="btn <?php echo $btnActive ?>"><?php echo $page ?></a>
 			<?php }?>	
 			</p>
 <?php endif;?>

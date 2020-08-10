@@ -7,7 +7,7 @@ $students = $data->getStudents();
 ?>
 
 
-<h1 class="text-center">Lớp {classroom[gradeNum]}{classroom[className]} Niên khóa {classroom[schoolYear]}</h1>
+<h1 class="text-center">Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?> Niên khóa <?php echo @$classroom['schoolYear']?></h1>
 <div class="row">
 <div class="col-md-4">
 <!-- Button trigger modal -->
@@ -44,27 +44,27 @@ $students = $data->getStudents();
 		<th>Chi tiết</th>
 		<th>Hành động</th>
 	</tr>
-{each $students as $index => $student}
+<?php foreach($students as $index => $student): ?>
 	<tr>
-		<td><input class="student_checkbox" type="checkbox" name="students[]" value="{student[id]}" /></td>
-		<td>{? echo ($index+1)?}. {student[studentId]}</td>
-		<td><a href="/Admin_Schedule_Teacher/student/{classroom[id]}/{student[id]}/{student[studentId]}">{student[username]}</a></td>
-		<td><a href="/Admin_Schedule_Teacher/student/{classroom[id]}/{student[id]}/{student[studentId]}">{student[name]}</a></td>
-		<td>{? echo date('d/m/Y', strtotime($student['birthday']))?}</td>
-		<td><a class="btn btn-primary btn-xs" href="/Admin_Schedule_Teacher/student/{classroom[id]}/{student[id]}/{student[studentId]}">Chi tiết</a></td>
-		<td><a class="btn btn-primary btn-xs" href="/Admin_User/edit/{student[studentId]}?backHref=<?php echo urlencode(BASE_REQUEST . '/Admin_Schedule_Teacher/students/' . $classroom['id'])?>">Sửa</a>
+		<td><input class="student_checkbox" type="checkbox" name="students[]" value="<?php echo @$student['id']?>" /></td>
+		<td><?php  echo ($index+1)?>. <?php echo @$student['studentId']?></td>
+		<td><a href="/Admin_Schedule_Teacher/student/<?php echo @$classroom['id']?>/<?php echo @$student['id']?>/<?php echo @$student['studentId']?>"><?php echo @$student['username']?></a></td>
+		<td><a href="/Admin_Schedule_Teacher/student/<?php echo @$classroom['id']?>/<?php echo @$student['id']?>/<?php echo @$student['studentId']?>"><?php echo @$student['name']?></a></td>
+		<td><?php  echo date('d/m/Y', strtotime($student['birthday']))?></td>
+		<td><a class="btn btn-primary btn-xs" href="/Admin_Schedule_Teacher/student/<?php echo @$classroom['id']?>/<?php echo @$student['id']?>/<?php echo @$student['studentId']?>">Chi tiết</a></td>
+		<td><a class="btn btn-primary btn-xs" href="/Admin_User/edit/<?php echo @$student['studentId']?>?backHref=<?php echo urlencode(BASE_REQUEST . '/Admin_Schedule_Teacher/students/' . $classroom['id'])?>">Sửa</a>
 		
-		<button class="btn btn-danger btn-xs" onclick="removeStudentFromClassroom({student[id]}); return false;">Xóa</button></td>
+		<button class="btn btn-danger btn-xs" onclick="removeStudentFromClassroom(<?php echo @$student['id']?>); return false;">Xóa</button></td>
 	</tr>
-{/each}
+<?php endforeach; ?>
 	
 </table>
 <form class="form form-inline">
 	<select	id="classrooms" class="form-control">
 		<option value="">Chọn lớp</option>
-		{each $classrooms as $cr}
-		<option value="{cr[id]}">Niên khóa {cr[schoolYear]} - Lớp {cr[gradeNum]}{cr[className]}</option>
-		{/each}
+		<?php foreach($classrooms as $cr): ?>
+		<option value="<?php echo @$cr['id']?>">Niên khóa <?php echo @$cr['schoolYear']?> - Lớp <?php echo @$cr['gradeNum']?><?php echo @$cr['className']?></option>
+		<?php endforeach; ?>
 	</select>
 	<button class="btn btn-warning" onclick="addStudentsToOtherClassroom(); return false;">Chuyển lớp</button>
 </form>
@@ -158,10 +158,10 @@ function register(){
 	var txtEmail = $('#txtEmail').val();
 	var txtBirthday = $('#txtBirthday').val();
 	var txtSex = $('#txtSex').val();
-	var classroomId = {classroom[id]};
-	var gradeNum = {classroom[gradeNum]};
-	//var className = {classroom[className]};
-	var schoolYear = {classroom[schoolYear]};
+	var classroomId = <?php echo @$classroom['id']?>;
+	var gradeNum = <?php echo @$classroom['gradeNum']?>;
+	//var className = <?php echo @$classroom['className']?>;
+	var schoolYear = <?php echo @$classroom['schoolYear']?>;
 	//alert(schoolYear);
 	//return false;
 	/*
@@ -214,7 +214,7 @@ function addStudentToClassroom(studentId) {
 	$.ajax({
 		url: '/Admin_Schedule_Teacher/addStudent',
 		data: {
-			classroomId: {classroom[id]},
+			classroomId: <?php echo @$classroom['id']?>,
 			studentId: studentId
 		},
 		type: 'POST',

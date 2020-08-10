@@ -8,10 +8,10 @@ $delimiter = $data->get('delimiter');
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12">
-		{each $categories as $cat}
-			<a href="/{? echo $cat->get('alias') ?}"><{categoryTag} class="breadcrumbs">{? $cat->get('name') ?}</{categoryTag}></a> {delimiter}
-		{/each}
-			<a href="/{item[alias]}"><{newsTag} class="breadcrumbs">{item[title]}</{newsTag}></a>
+		<?php foreach($categories as $cat): ?>
+			<a href="/<?php  echo $cat->get('alias') ?>"><<?php echo $categoryTag ?> class="breadcrumbs"><?php  $cat->get('name') ?></<?php echo $categoryTag ?>></a> <?php echo $delimiter ?>
+		<?php endforeach; ?>
+			<a href="/<?php echo @$item['alias']?>"><<?php echo $newsTag ?> class="breadcrumbs"><?php echo @$item['title']?></<?php echo $newsTag ?>></a>
 		</div>
 	</div>
 </div>

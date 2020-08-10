@@ -18,11 +18,11 @@
 	</div>
 	<div class="col-xs-12">
 		<h5><strong>Hãy chọn gói sản phẩm :</strong></h5>
-		{each $items as $item}
+		<?php foreach($items as $item): ?>
 		
-			<input type="radio" name="serviceId" id="serviceId" checked value="{? echo $item->get('id') ?}"><strong> {? echo $item->get('serviceName') ?} </strong> Giá : <strong>{? echo product_price($item->get('amount')) ?}</strong> <br>
+			<input type="radio" name="serviceId" id="serviceId" checked value="<?php  echo $item->get('id') ?>"><strong> <?php  echo $item->get('serviceName') ?> </strong> Giá : <strong><?php  echo product_price($item->get('amount')) ?></strong> <br>
 		
-		{/each}
+		<?php endforeach; ?>
 	</div>
 	<div class="col-xs-12 top20 "> 
 		<button class="btn btn-success" id="bttService" onclick="BuyService()">MUA</button>

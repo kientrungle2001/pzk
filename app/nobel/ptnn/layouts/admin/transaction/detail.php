@@ -30,46 +30,46 @@
  ?>
  <div class="panel panel-default">
  <div class="panel-heading">
- 	<p align="center"> <strong>CHI TIẾT GIAO DỊCH {id}</strong></p>
- 	<p align="center"><strong>(Ngày : {paymentDate} - trạng thái giao dịch: {status})</strong></p>
+ 	<p align="center"> <strong>CHI TIẾT GIAO DỊCH <?php echo $id ?></strong></p>
+ 	<p align="center"><strong>(Ngày : <?php echo $paymentDate ?> - trạng thái giao dịch: <?php echo $status ?>)</strong></p>
  </div>
  <table id="admin_table_list" class="table table-hover">
  	
  
  <tr>
 
-  <th>userId: {userId}</th>
-  <th>username: {username}</th>
-  <th>Mã hoá đơn: {orderId}</th>
+  <th>userId: <?php echo $userId ?></th>
+  <th>username: <?php echo $username ?></th>
+  <th>Mã hoá đơn: <?php echo $orderId ?></th>
   
  </tr>
  
  <tr>  
-  <th>Mã dịch vụ: {serviceId}</th>
-  <th>Tên dịch vụ: {serviceName}</th>
+  <th>Mã dịch vụ: <?php echo $serviceId ?></th>
+  <th>Tên dịch vụ: <?php echo $serviceName ?></th>
  
-  <th>Tổng tiền: {amount}</th>  
+  <th>Tổng tiền: <?php echo $amount ?></th>  
  </tr>
  <tr>  
-  <th>Hình thức thanh toán: {paymentType}</th>
-  <th>Mã giao dịch( Ngân Lượng): {transactionId}</th>
-  <th>Kiểu thanh toán(Ngân Lượng):{paymentOption}</th>
+  <th>Hình thức thanh toán: <?php echo $paymentType ?></th>
+  <th>Mã giao dịch( Ngân Lượng): <?php echo $transactionId ?></th>
+  <th>Kiểu thanh toán(Ngân Lượng):<?php echo $paymentOption ?></th>
   
  </tr>
  <tr>
- 	<th>Loại thẻ cào: {cardType}</th>
- 	<th>Mệnh giá thẻ: {cardAmount}</th>
- 	<th>Trạng thái thanh toán: {transactionStatus}</th>
+ 	<th>Loại thẻ cào: <?php echo $cardType ?></th>
+ 	<th>Mệnh giá thẻ: <?php echo $cardAmount ?></th>
+ 	<th>Trạng thái thanh toán: <?php echo $transactionStatus ?></th>
   	
  </tr>
  <tr>
- 	<th>Diễn giải: {reason}</th>
- 	<th>Trạng thái giao dịch: {status}</th>  
+ 	<th>Diễn giải: <?php echo $reason ?></th>
+ 	<th>Trạng thái giao dịch: <?php echo $status ?></th>  
  </tr>
  <tr>
  	<th colspan="4" style="padding-left: 400px;" >
- 		<a class="btn btn-primary" href="{url /admin_Ordertransaction/edit}/{id}">Sửa</a>
- 		<a class="btn btn-primary" href="{url /admin_Ordertransaction/index}">Trở lại</a>
+ 		<a class="btn btn-primary" href="<?php echo BASE_REQUEST . '/admin_Ordertransaction/edit' ?>/<?php echo $id ?>">Sửa</a>
+ 		<a class="btn btn-primary" href="<?php echo BASE_REQUEST . '/admin_Ordertransaction/index' ?>">Trở lại</a>
  	</th>
  </tr>
  </table>

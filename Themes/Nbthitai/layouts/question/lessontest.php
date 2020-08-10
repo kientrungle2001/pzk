@@ -22,7 +22,7 @@
 	</div>
 </div>	
 
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 
 <?php if(1): ?>
 

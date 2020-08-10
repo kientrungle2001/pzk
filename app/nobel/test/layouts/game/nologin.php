@@ -12,7 +12,7 @@
 		</div>
 	</div>
 </div>
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 
 <style>
 .fix-nologin{float: left; width: 98.7%; margin-right: 1%;}

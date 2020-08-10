@@ -53,7 +53,7 @@
                 <th>Thời gian làm bài</th>
                 
             </tr>
-            {each $users as $item}
+            <?php foreach($users as $item): ?>
             <?php 
                 $rank++;
                 $username= $item['username'];
@@ -62,14 +62,14 @@
                
             ?>
             <tr>
-                <td>{rank}</td>
-                <td>{username}</td>
-				<td>{sdt}</td>
-                <td>{item[mark]}</td>
-                <td><span class="glyphicon glyphicon-time" aria-hidden="true"></span>{duringTime}</td>
+                <td><?php echo $rank ?></td>
+                <td><?php echo $username ?></td>
+				<td><?php echo $sdt ?></td>
+                <td><?php echo @$item['mark']?></td>
+                <td><span class="glyphicon glyphicon-time" aria-hidden="true"></span><?php echo $duringTime ?></td>
                 
             </tr>
-            {/each}
+            <?php endforeach; ?>
         </table>
         
     </div>
@@ -96,8 +96,8 @@
                                     $active='active';
                                 }else $active='';
                          ?>
-                        <li class="{active}">
-                        <a  href="{url} /contest/rating/{testId}?page={page}">{? echo ($page + 1)?}</a>
+                        <li class="<?php echo $active ?>">
+                        <a  href="<?php echo BASE_REQUEST ?> /contest/rating/<?php echo $testId ?>?page=<?php echo $page ?>"><?php  echo ($page + 1)?></a>
                         </li>
                         <?php } ?>
                     </ul>

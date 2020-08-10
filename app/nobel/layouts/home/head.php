@@ -8,7 +8,7 @@
   ga('send', 'pageview');
 
 </script>
-{children all}
+<?php $data->displayChildren('all') ?>
 <?php 
 $browser = getBrowser();
 ?>

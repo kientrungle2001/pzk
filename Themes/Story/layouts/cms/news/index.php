@@ -40,20 +40,20 @@ $subcategories = $data->getSubCategory($category);
 				}
 				
 			?>
-			<div style="margin-bottom: 15px;" class="{class} pull-left">
+			<div style="margin-bottom: 15px;" class="<?php echo $class ?> pull-left">
 				
 				<div class="item mgb10">
-					<div class="col-md-5 col-xs-12"><strong class="fs35 nabila {color}">{curentcat[name]}</strong></div>
-					<div class="col-md-7 hidden-xs"> <img class="thanhngang" src="/Themes/story/skin/media/{ngang}.png" /></div>
+					<div class="col-md-5 col-xs-12"><strong class="fs35 nabila <?php echo $color ?>"><?php echo @$curentcat['name']?></strong></div>
+					<div class="col-md-7 hidden-xs"> <img class="thanhngang" src="/Themes/story/skin/media/<?php echo $ngang ?>.png" /></div>
 				</div>	
 				
 				
-				{each $curentnews as $title}
+				<?php foreach($curentnews as $title): ?>
 					<div class="item" style="margin-bottom:10px; padding-bottom: 10px; border-bottom: 1px solid #bababa">
 						<div class="col-md-4">
 							
-							<a href="/{title[alias]}">
-								<img class="img-responsive w100p {bdimg}" src="<?php echo BASE_URL.$title['img'] ; ?>" />
+							<a href="/<?php echo @$title['alias']?>">
+								<img class="img-responsive w100p <?php echo $bdimg ?>" src="<?php echo BASE_URL.$title['img'] ; ?>" />
 							</a>
 							
 						</div>
@@ -61,8 +61,8 @@ $subcategories = $data->getSubCategory($category);
 							<div class="col-md-12">
 							
 								<strong>
-								<a style="font-size: 20px; color: #040737;" href="/{title[alias]}">
-									{title[title]}  
+								<a style="font-size: 20px; color: #040737;" href="/<?php echo @$title['alias']?>">
+									<?php echo @$title['title']?>  
 								</a>									
 								</strong>
 								
@@ -70,7 +70,7 @@ $subcategories = $data->getSubCategory($category);
 							</div>
 							
 							<div class="col-md-12 font15">
-								{title[brief]}
+								<?php echo @$title['brief']?>
 							</div>
 							
 							<div style="margin-left: 15px; border-bottom: solid 2px #bababa; padding-bottom: 5px; width: 200px; margin-bottom: 10px;">
@@ -80,10 +80,10 @@ $subcategories = $data->getSubCategory($category);
 								</span>
 								<span>
 									<span class="glyphicon glyphicon-comment"></span>
-									{title[comments]} -
+									<?php echo @$title['comments']?> -
 								</span>
 								<span>
-									<span class="glyphicon glyphicon-eye-open"></span> {title[views]}
+									<span class="glyphicon glyphicon-eye-open"></span> <?php echo @$title['views']?>
 								</span>
 								
 							</div>
@@ -92,7 +92,7 @@ $subcategories = $data->getSubCategory($category);
 					</div>
 						
 				
-				{/each}
+				<?php endforeach; ?>
 			</div>	
 			<div class="item">
 				<?php 
@@ -109,7 +109,7 @@ $subcategories = $data->getSubCategory($category);
 					}
 					$page = $i + 1;
 				?>
-				<a href="/{curentcat[alias]}?page={i}" class="btn btn-sm {btnActive}">{page}</a>
+				<a href="/<?php echo @$curentcat['alias']?>?page=<?php echo $i ?>" class="btn btn-sm <?php echo $btnActive ?>"><?php echo $page ?></a>
 				<?php }?>
 				<?php endif; ?>
 			</div>
@@ -119,7 +119,7 @@ $subcategories = $data->getSubCategory($category);
             if($subcategories) {
 				$i =1;
             ?>
-            {each $subcategories as $item}
+            <?php foreach($subcategories as $item): ?>
 				
                 <?php 
 					$color = 'colorvct';
@@ -144,19 +144,19 @@ $subcategories = $data->getSubCategory($category);
 				<div class="item rela <?php echo $class; ?>">
 					
 					<div class="<?php if($i != 1){ echo "mgt20";} ?> item mgb10">
-						<div class="col-md-5 col-xs-12"><a href="/{item[alias]}"><strong class="fs35 nabila {color}">{item[name]}</strong></a></div>
-						<div class="col-md-7 hidden-xs"> <img class="thanhngang" src="/Themes/story/skin/media/{ngang}.png" /></div>
+						<div class="col-md-5 col-xs-12"><a href="/<?php echo @$item['alias']?>"><strong class="fs35 nabila <?php echo $color ?>"><?php echo @$item['name']?></strong></a></div>
+						<div class="col-md-7 hidden-xs"> <img class="thanhngang" src="/Themes/story/skin/media/<?php echo $ngang ?>.png" /></div>
 					</div>
 					
 					<?php $i++; $news= $data->getNews($item['id']);?>
-					{each $news as $title}
+					<?php foreach($news as $title): ?>
                 
 				
 					<div class="item" style="margin-bottom:20px;">
 						<div class="col-md-4">
 							
-							<a href="/{title[alias]}">
-								<img class="img-responsive w100p {bdimg}" src="<?php echo BASE_URL.$title['img'] ; ?>" />
+							<a href="/<?php echo @$title['alias']?>">
+								<img class="img-responsive w100p <?php echo $bdimg ?>" src="<?php echo BASE_URL.$title['img'] ; ?>" />
 							</a>
 							
 						</div>
@@ -164,8 +164,8 @@ $subcategories = $data->getSubCategory($category);
 							<div class="col-md-12">
 							
 								<strong>
-								<a style="color: #040737; font-size: 20px;" href="/{title[alias]}">
-									{title[title]}  
+								<a style="color: #040737; font-size: 20px;" href="/<?php echo @$title['alias']?>">
+									<?php echo @$title['title']?>  
 								</a>									
 								</strong>
 								
@@ -173,7 +173,7 @@ $subcategories = $data->getSubCategory($category);
 							</div>
 							
 							<div style="margin-bottom: 10px;" class="col-md-12 font15">
-								{title[brief]}
+								<?php echo @$title['brief']?>
 							</div>
 							<div style="margin-left: 15px; border-bottom: solid 2px #bababa; padding-bottom: 5px; width: 200px; margin-bottom: 10px;">
 								<span>
@@ -182,10 +182,10 @@ $subcategories = $data->getSubCategory($category);
 								</span>
 								<span>
 									<span class="glyphicon glyphicon-comment"></span>
-									{title[comments]} -
+									<?php echo @$title['comments']?> -
 								</span>
 								<span>
-									<span class="glyphicon glyphicon-eye-open"></span> {title[views]}
+									<span class="glyphicon glyphicon-eye-open"></span> <?php echo @$title['views']?>
 								</span>
 								
 							</div>
@@ -194,12 +194,12 @@ $subcategories = $data->getSubCategory($category);
 					
 					
 				
-                {/each}
+                <?php endforeach; ?>
 				
-				<a href="/{item[alias]}"><button class="btn {classnut} sharp"  style="position: absolute; left:44%; bottom: -17px;; z-index: 9999;">XEM THÊM  <span class="glyphicon glyphicon-chevron-right"></span></button></a>
+				<a href="/<?php echo @$item['alias']?>"><button class="btn <?php echo $classnut ?> sharp"  style="position: absolute; left:44%; bottom: -17px;; z-index: 9999;">XEM THÊM  <span class="glyphicon glyphicon-chevron-right"></span></button></a>
 				</div>
 				
-            {/each}
+            <?php endforeach; ?>
             <?php } ?>
  
 </div>

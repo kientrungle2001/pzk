@@ -29,9 +29,9 @@
 		$dataTest = $data->get('practice');
 	}
 ?>
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container">
-	<p class="t-weight text-center btn-custom8 mgright textcl">Làm đề {ifvar type}luyện tập{else}thi{/if} - Lớp <?php echo $class; ?></p>
+	<p class="t-weight text-center btn-custom8 mgright textcl">Làm đề <?php if(${'type'}): ?>luyện tập<?php else: ?>thi<?php endif; ?> - Lớp <?php echo $class; ?></p>
 </div>
 <div class="container">
 	<div class="row">
@@ -39,12 +39,12 @@
 		<div class="col-md-10 col-xs-10 bd-div bgclor form_search_test top10 bot20">
 			<div class="col-xs-12 form-group  top20">
 				<div class="col-xs-9 pd-0">
-					<form id="form_search_test" action="<?=BASE_REQUEST?>/test/doTest/?practice={type}&class={class}" method="post">
+					<form id="form_search_test" action="<?=BASE_REQUEST?>/test/doTest/?practice=<?php echo $type ?>&class=<?php echo $class ?>" method="post">
 					<select id="test" name="test" class="form-control select_type title-blue" onchange = "$('#form_search_test').submit();" >
 		    			
-						<option value="" select="selected" data_time="--:--">{data_criteria[name]} </option>
+						<option value="" select="selected" data_time="--:--"><?php echo @$data_criteria['name']?> </option>
 						<?php foreach ($dataTest as $key => $test):?>
-							<option value="<?=$test['id'];?>" data_time="<?=$test['time'];?>"><?php if(pzk_user_special()): ?>#{test[id]}<?php endif;?> - <?=$test['name'];?> - Số câu <?=$test['quantity']?></option>
+							<option value="<?=$test['id'];?>" data_time="<?=$test['time'];?>"><?php if(pzk_user_special()): ?>#<?php echo @$test['id']?><?php endif;?> - <?=$test['name'];?> - Số câu <?=$test['quantity']?></option>
 						<?php endforeach;?>
 					</select>
 					</form>
@@ -76,7 +76,7 @@
 								
 									<div class="order">Câu : <?=$key+1;?>
 									<?php if(pzk_user_special()) :?><br />
-									(#{value[id]})
+									(#<?php echo @$value['id']?>)
 									<?php endif; ?>
 									</div>
 									<div class="col-md-12 top10">

@@ -50,94 +50,94 @@ $item11 = $items[11];
 <div class="row row-no-padding topbt15">
 	<div class="col-sm-12">
 		<div class="col-sm-4">
-			<a href="/{item0[alias]}">
+			<a href="/<?php echo @$item0['alias']?>">
 			<div class="responsive-box" data-ratio="0.4" data-bgcolor="#fff">
-				<img src="{item0[img]}"
+				<img src="<?php echo @$item0['img']?>"
 					class="img-responsive" />
-				<h2>{item0[title]}</h2>
+				<h2><?php echo @$item0['title']?></h2>
 			</div>
 			</a>
-			<a href="/{item1[alias]}">
+			<a href="/<?php echo @$item1['alias']?>">
 			<div class="responsive-box" data-ratio="0.8" data-bgcolor="#fff">
-				<img src="{item1[img]}"
+				<img src="<?php echo @$item1['img']?>"
 					class="img-responsive" />
-				<h2>{item1[title]}</h2>
+				<h2><?php echo @$item1['title']?></h2>
 			</div>
 			</a>
-			<a href="/{item2[alias]}">
+			<a href="/<?php echo @$item2['alias']?>">
 			<div class="responsive-box" data-ratio="0.4" data-bgcolor="#fff">
-				<img src="{item2[img]}"
+				<img src="<?php echo @$item2['img']?>"
 					class="img-responsive" />
-				<h2>{item2[title]}</h2>
+				<h2><?php echo @$item2['title']?></h2>
 			</div>
 			</a>
-			<a href="/{item3[alias]}">
+			<a href="/<?php echo @$item3['alias']?>">
 			<div class="responsive-box" data-ratio="0.4" data-bgcolor="#fff">
-				<img src="{item3[img]}"
+				<img src="<?php echo @$item3['img']?>"
 					class="img-responsive" />
-				<h2>{item3[title]}</h2>
+				<h2><?php echo @$item3['title']?></h2>
 			</div>
 			</a>
 		</div>
 		
 		<div class="col-sm-4">
-			<a href="/{item4[alias]}">
+			<a href="/<?php echo @$item4['alias']?>">
 			<div class="responsive-box" data-ratio="0.5" data-bgcolor="#fff">
-				<img src="{item4[img]}"
+				<img src="<?php echo @$item4['img']?>"
 					class="img-responsive" />
-				<h2>{item4[title]}</h2>
+				<h2><?php echo @$item4['title']?></h2>
 			</div>
 			</a>
-			<a href="/{item5[alias]}">
+			<a href="/<?php echo @$item5['alias']?>">
 			<div class="responsive-box" data-ratio="0.5" data-bgcolor="#fff">
-				<img src="{item5[img]}"
+				<img src="<?php echo @$item5['img']?>"
 					class="img-responsive" />
-				<h2>{item5[title]}</h2>
+				<h2><?php echo @$item5['title']?></h2>
 			</div>
 			</a>
-			<a href="/{item6[alias]}">
+			<a href="/<?php echo @$item6['alias']?>">
 			<div class="responsive-box" data-ratio="0.5" data-bgcolor="#fff">
-				<img src="{item6[img]}"
+				<img src="<?php echo @$item6['img']?>"
 					class="img-responsive" />
-				<h2>{item6[title]}</h2>
+				<h2><?php echo @$item6['title']?></h2>
 			</div>
 			</a>
-			<a href="/{item7[alias]}">
+			<a href="/<?php echo @$item7['alias']?>">
 			<div class="responsive-box" data-ratio="0.5" data-bgcolor="#fff">
-				<img src="{item7[img]}"
+				<img src="<?php echo @$item7['img']?>"
 					class="img-responsive" />
-				<h2>{item7[title]}</h2>
+				<h2><?php echo @$item7['title']?></h2>
 			</div>
 			</a>
 		</div>
 		
 		<div class="col-sm-4">
-			<a href="/{item8[alias]}">
+			<a href="/<?php echo @$item8['alias']?>">
 			<div class="responsive-box" data-ratio="0.4" data-bgcolor="#fff">
-				<img src="{item8[img]}"
+				<img src="<?php echo @$item8['img']?>"
 					class="img-responsive" />
-				<h2>{item8[title]}</h2>
+				<h2><?php echo @$item8['title']?></h2>
 			</div>
 			</a>
-			<a href="/{item9[alias]}">
+			<a href="/<?php echo @$item9['alias']?>">
 			<div class="responsive-box" data-ratio="0.7" data-bgcolor="#fff">
-				<img src="{item9[img]}"
+				<img src="<?php echo @$item9['img']?>"
 					class="img-responsive" />
-				<h2>{item9[title]}</h2>
+				<h2><?php echo @$item9['title']?></h2>
 			</div>
 			</a>
-			<a href="/{item10[alias]}">
+			<a href="/<?php echo @$item10['alias']?>">
 			<div class="responsive-box" data-ratio="0.4" data-bgcolor="#fff">
-				<img src="{item10[img]}"
+				<img src="<?php echo @$item10['img']?>"
 					class="img-responsive" />
-				<h2>{item10[title]}</h2>
+				<h2><?php echo @$item10['title']?></h2>
 			</div>
 			</a>
-			<a href="/{item11[alias]}">
+			<a href="/<?php echo @$item11['alias']?>">
 			<div class="responsive-box" data-ratio="0.5" data-bgcolor="#fff">
-				<img src="{item11[img]}"
+				<img src="<?php echo @$item11['img']?>"
 					class="img-responsive" />
-				<h2>{item11[title]}</h2>
+				<h2><?php echo @$item11['title']?></h2>
 			</div>
 			</a>
 		</div>
@@ -158,44 +158,44 @@ setInterval(function() {
 </script>
 {ifprop listType=row}
 <div class="row">
-{each $items as $item}
+<?php foreach($items as $item): ?>
 <div class="col-sm-12">
 <article class="row post topbt15">
 	<?php if($data->get('showThumbnail') !== 'false') { ?>
 	<div class="col-sm-4">
-		<a href="/{item[alias]}">
+		<a href="/<?php echo @$item['alias']?>">
 		<img class="img-responsive img-thumbnail" src="<?php echo BASE_URL. @createThumb($item['img'], 480, 480) ; ?>" />
 			</a>
 	</div>
 	<div class="col-sm-8">
-		<a href="/{item[alias]}">
-			<{data.get('titleTag')} class="entry-title text-justify"> {item[title]}</{data.get('titleTag')}>
+		<a href="/<?php echo @$item['alias']?>">
+			<<?php echo $data->get('titleTag')?> class="entry-title text-justify"> <?php echo @$item['title']?></<?php echo $data->get('titleTag')?>>
 		</a>
 		<?php if($data->get('showBrief') !== 'false') { ?>
-		<{data.get('briefTag')} class="article-summary text-justify">{item[brief]}</{data.get('briefTag')}>
+		<<?php echo $data->get('briefTag')?> class="article-summary text-justify"><?php echo @$item['brief']?></<?php echo $data->get('briefTag')?>>
 		<?php } ?>
 	</div>
 	<?php } else { ?>
 	<div class="col-sm-12">
-		<a href="/{item[alias]}">
-			<{data.get('titleTag')} class="entry-title text-justify"> {item[title]}</{data.get('titleTag')}>
+		<a href="/<?php echo @$item['alias']?>">
+			<<?php echo $data->get('titleTag')?> class="entry-title text-justify"> <?php echo @$item['title']?></<?php echo $data->get('titleTag')?>>
 		</a>
 		<?php if($data->get('showBrief') !== 'false') { ?>
-		<{data.get('briefTag')} class="article-summary text-justify">{item[brief]}</{data.get('briefTag')}>
+		<<?php echo $data->get('briefTag')?> class="article-summary text-justify"><?php echo @$item['brief']?></<?php echo $data->get('briefTag')?>>
 		<?php } ?>
 	</div>
 	<?php } ?>
 	
 </article>
 </div>
-{/each}
+<?php endforeach; ?>
 </div>
-{else}
-<ul class="{data.get('ulClass')}">
-{each $items as $item}
-<li class="{data.get('liClass')}"><a href="/{item[alias]}">
-			<{data.get('titleTag')} class="entry-title"> {item[title]}</{data.get('titleTag')}>
+<?php else: ?>
+<ul class="<?php echo $data->get('ulClass')?>">
+<?php foreach($items as $item): ?>
+<li class="<?php echo $data->get('liClass')?>"><a href="/<?php echo @$item['alias']?>">
+			<<?php echo $data->get('titleTag')?> class="entry-title"> <?php echo @$item['title']?></<?php echo $data->get('titleTag')?>>
 		</a></li>
-{/each}
+<?php endforeach; ?>
 </ul>
-{/if}
+<?php endif; ?>

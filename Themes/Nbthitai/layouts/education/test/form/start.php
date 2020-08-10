@@ -16,12 +16,12 @@ if(!$doTestPostUrl) {
 		<?php else:?>
 		<div class="col-md-10 col-xs-10 bd-div bgclor form_search_test top10 bot20 imgbg">
 			<?php if(!pzk_session('userId')): ?>
-			<form class="form_search_test" style="margin: 15px 0px" action="<?=BASE_REQUEST?>{doTestPostUrl}" method="post" onsubmit = "return check_select_test()">
+			<form class="form_search_test" style="margin: 15px 0px" action="<?=BASE_REQUEST?><?php echo $doTestPostUrl ?>" method="post" onsubmit = "return check_select_test()">
 				<div class="col-xs-12 border-question" style="z-index: 9">
 					<div class="question_content pd-0 margin-top-20">
 						<div class="clearfix margin-top-10">
 							<div class="col-xs-12 pd-0">
-								<h3 class="pd-top-15" style="width: 100%; text-align: center;">Bạn phải <a rel="{_SERVER[REQUEST_URI]}" class="login_required" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer;">Đăng nhập</a> thì mới được thi thử</h3>
+								<h3 class="pd-top-15" style="width: 100%; text-align: center;">Bạn phải <a rel="<?php echo @$_SERVER['REQUEST_URI']?>" class="login_required" data-toggle="modal" data-target=".bs-example-modal-lg" style="cursor:pointer;">Đăng nhập</a> thì mới được thi thử</h3>
 							</div>
 							<div class="col-xs-5 pd-0">
 								
@@ -34,18 +34,18 @@ if(!$doTestPostUrl) {
 				</div>
 			</form>
 		<?php else: ?>
-		<form class="form_search_test" style="margin: 15px 0px" action="<?=BASE_REQUEST?>{doTestPostUrl}?practice={data.get('practice')}&class={data.get('class')}" method="post" onsubmit = "return check_select_test()">
-		    <input type="hidden" id="question_time" name = "question_time" value = "{test.get('time')}"/>
+		<form class="form_search_test" style="margin: 15px 0px" action="<?=BASE_REQUEST?><?php echo $doTestPostUrl ?>?practice=<?php echo $data->get('practice')?>&class=<?php echo $data->get('class')?>" method="post" onsubmit = "return check_select_test()">
+		    <input type="hidden" id="question_time" name = "question_time" value = "<?php echo $test->get('time')?>"/>
 			<div class="row form-group">
 		    	<div class="col-xs-9 pd-0">
 		    		<select id="test" name="test" class="form-control select_type title-blue" onchange = "get_time_test(this.options[this.selectedIndex].getAttribute('data_time'))" >
 		    			<?php if($test):?>
-							<option value="{test.get('id')}" select="selected" data_time="--:--">{test.get('name')} </option>
+							<option value="<?php echo $test->get('id')?>" select="selected" data_time="--:--"><?php echo $test->get('name')?> </option>
 						<?php else:?>
 							<option value="" data_time="--:--">Chọn đề</option>
 						<?php endif;?>
 						<?php foreach ($tests as $testEntity):?>
-							<option value="{testEntity.get('id')}" data_time="{testEntity.get('time')}">{testEntity.get('name')} - Số câu {testEntity.get('quantity')}</option>
+							<option value="<?php echo $testEntity->get('id')?>" data_time="<?php echo $testEntity->get('time')?>"><?php echo $testEntity->get('name')?> - Số câu <?php echo $testEntity->get('quantity')?></option>
 						<?php endforeach;?>
 					</select>
 		    	</div>
@@ -74,7 +74,7 @@ if(!$doTestPostUrl) {
 	</div>
 </div>
 <script>
-		var test_id = '{testId}';
+		var test_id = '<?php echo $testId ?>';
 		$(function() {
 			$('#test').val(test_id);
 			$('#test').change();

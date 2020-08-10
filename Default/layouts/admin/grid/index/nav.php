@@ -19,22 +19,22 @@ $updateDataTo = $data->get('updateDataTo');
 			<a href="#" onclick="$('#navbarForm').toggle(); return false;"><span class="glyphicon glyphicon-minus"></span></a>
 	  </div>
 	  <form id="navbarForm"
-		action="{url /Admin}_{controller.module}/searchFilter">
+		action="<?php echo BASE_REQUEST . '/Admin' ?>_<?php echo @$controller->module?>/searchFilter">
 		<div class="row">
            <?php if ($searchFields) : ?>
               <div class="form-group col-xs-12">
 				<label>Tìm theo </label><br /> <input type="text" name="keyword" class="form-control"
-					placeholder="<?php if($Searchlabels){ echo $Searchlabels; } ?>" value="{keyword}" onkeyup="pzk_list.search(this.value);" />
+					placeholder="<?php if($Searchlabels){ echo $Searchlabels; } ?>" value="<?php echo $keyword ?>" onkeyup="pzk_list.search(this.value);" />
 			</div>
             <?php endif; ?>
         <?php if ($filterFields) :?>
 			<?php foreach ( $filterFields as $field ) :?>
 				<?php if ($field ['type'] == 'status') : ?>
                 <div class="form-group col-xs-12">
-					<label>{field[label]}</label><br /> 
-					<select id="{field[index]}"
-						name="{field[index]}" class="form-control"
-						onchange="pzk_list.filter('{field[type]}', '{field[index]}', this.value);">
+					<label><?php echo @$field['label']?></label><br /> 
+					<select id="<?php echo @$field['index']?>"
+						name="<?php echo @$field['index']?>" class="form-control"
+						onchange="pzk_list.filter('<?php echo @$field['type']?>', '<?php echo @$field['index']?>', this.value);">
 						<option value="">Tất cả</option>
 						<option value="0">Chưa kích hoạt</option>
 						<option value="1">kích hoạt</option>
@@ -42,13 +42,13 @@ $updateDataTo = $data->get('updateDataTo');
 					</select>
 					<script type="text/javascript">
 	                	<?php $status = $controller->getFilterSession()->get($field['index']); ?>
-	                    $('#{field[index]}').val('{status}');
+	                    $('#<?php echo @$field['index']?>').val('<?php echo $status ?>');
 	                </script>
 				</div>
                 <?php  elseif($field['type'] == 'select') : ?>
                     <div class="form-group col-xs-12">
-						<label>{field[label]}</label><br /> 
-						<select id="{field[index]}" name="{field[index]}" class="select2-container form-control select2" onchange="pzk_list.filter('{field[type]}', '{field[index]}', this.value);">
+						<label><?php echo @$field['label']?></label><br /> 
+						<select id="<?php echo @$field['index']?>" name="<?php echo @$field['index']?>" class="select2-container form-control select2" onchange="pzk_list.filter('<?php echo @$field['type']?>', '<?php echo @$field['index']?>', this.value);">
                             <?php
 						$parents = _db ()->select ( '*' )->from ( $field ['table'] )->where(pzk_or(@$field['condition'], '1'))->orderBy(pzk_or(@$field['orderBy'], 'id asc'))->result ();
 							if (isset ( $parents [0] ['parent'] )) {
@@ -61,21 +61,21 @@ $updateDataTo = $data->get('updateDataTo');
 							<?php if(isset($field['notAccept']) && $field['notAccept'] == '1'):?>
 								<option value='0'>(Trống)</option>
 							<?php endif;?>
-                            {each $parents as $parent}
+                            <?php foreach($parents as $parent): ?>
                             <option value="<?php echo $parent[$field['show_value']]; ?>"><?php if(isset($parent['parent'])){ echo str_repeat('--', @$parent['level']); } ?>
-                                #{parent[id]} - <?php echo $parent[$field['show_name']]; ?>
-                            </option> {/each}
+                                #<?php echo @$parent['id']?> - <?php echo $parent[$field['show_name']]; ?>
+                            </option> <?php endforeach; ?>
 						</select>
 						<script type="text/javascript">
                             <?php $select = $controller->getFilterSession()->get($field['index']); ?>
-                            $('#{field[index]}').val('{select}');
-							$( "#{field[index]}" ).select2( { placeholder: "{field[label]}", maximumSelectionSize: 6 } );
+                            $('#<?php echo @$field['index']?>').val('<?php echo $select ?>');
+							$( "#<?php echo @$field['index']?>" ).select2( { placeholder: "<?php echo @$field['label']?>", maximumSelectionSize: 6 } );
                         </script>
 					</div>
                	<?php elseif($field['type'] == 'datetime'):?>
                 	<div class="form-group col-xs-12">
-                		<label>{field[label]}</label><br /> 
-                		<select id="{field[index]}" name="{field[index]}" class="form-control" onchange="pzk_list.filter('{field[type]}', '{field[index]}', this.value);">
+                		<label><?php echo @$field['label']?></label><br /> 
+                		<select id="<?php echo @$field['index']?>" name="<?php echo @$field['index']?>" class="form-control" onchange="pzk_list.filter('<?php echo @$field['type']?>', '<?php echo @$field['index']?>', this.value);">
                 			<option value="">Tất cả</option>
                 			<?php foreach($field['option'] as $key => $value):?>
                 				<option value="<?=$key;?>"><?=$value;?></option>
@@ -83,7 +83,7 @@ $updateDataTo = $data->get('updateDataTo');
                 		</select>
                 		<script type="text/javascript">
                             <?php $datetime = $controller->getFilterSession()->get($field['index']); ?>
-                            $('#{field[index]}').val('{datetime}');
+                            $('#<?php echo @$field['index']?>').val('<?php echo $datetime ?>');
                         </script>
                 	</div>
                 <?php else :?>
@@ -105,11 +105,11 @@ $updateDataTo = $data->get('updateDataTo');
 					<label>Sắp xếp</label><br /> 
 					<select id="orderBy" name="orderBy" class="select2-container form-control select2" onchange="pzk_list.changeOrderBy(this.value);">
 	                	<?php foreach ($sortFields as $value => $label){ ?>
-	                    <option value="{value}">{label}</option>
+	                    <option value="<?php echo $value ?>"><?php echo $label ?></option>
 	                    <?php } ?>
 	                </select>
 					<script type="text/javascript">
-	                	$('#orderBy').val('{orderBy}');
+	                	$('#orderBy').val('<?php echo $orderBy ?>');
 						$("#orderBy" ).select2( { placeholder: "Sắp xếp", maximumSelectionSize: 6 } );
 	                </script>
 				</div>
@@ -138,7 +138,7 @@ $updateDataTo = $data->get('updateDataTo');
 					<option value="tile">Tile</option>
 				</select>
 				<script type="text/javascript">
-                      $('#view').val('{view}');
+                      $('#view').val('<?php echo $view ?>');
                   </script>
 			</div>
 			<div class="form-group col-xs-12 hidden">
@@ -153,7 +153,7 @@ $updateDataTo = $data->get('updateDataTo');
 					<option value="12">12</option>
 				</select>
 				<script type="text/javascript">
-                      $('#columns').val('{columns}');
+                      $('#columns').val('<?php echo $columns ?>');
                   </script>
 			</div>
 			<div class="form-group col-xs-12 hidden">
@@ -170,7 +170,7 @@ $updateDataTo = $data->get('updateDataTo');
 				<label>&nbsp;</label><br />
 				<button type="button" value="" name="submit_action"
 					class="btn btn-primary btn-sm"
-					onclick="window.location='/Admin_{? echo $data->get('module') ?}/add';">
+					onclick="window.location='/Admin_<?php  echo $data->get('module') ?>/add';">
 					<span class="glyphicon glyphicon-add"></span> Thêm mới
 				</button>
 			</div>

@@ -35,19 +35,19 @@ $subjects = $data->getSubjects();
 			<th>Tên đăng nhập</th>
 			<th>Họ và tên</th>
 			
-			{each $subjects as $subject}
+			<?php foreach($subjects as $subject): ?>
 			<?php if($subject['subjectName'] != 'Practice'): ?>
-				<th>Điểm {subject[subjectName]}</th>
+				<th>Điểm <?php echo @$subject['subjectName']?></th>
 			<?php endif; ?>
-			{/each}
+			<?php endforeach; ?>
 		</tr>
-	{each $showsTudents as $showsTudent}
+	<?php foreach($showsTudents as $showsTudent): ?>
 	
 		<tr>		
-			<td>{showsTudent[studentId]}</td>
-			<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/{classroomId}/{showsTudent[id]}/{showsTudent[studentId]}">{showsTudent[username]}</a></td>
-			<td>{showsTudent[name]}</td>
-			{each $subjects as $subject}
+			<td><?php echo @$showsTudent['studentId']?></td>
+			<td><a target="blank" href="/Admin_Home_HomeroomTeacher/student/<?php echo $classroomId ?>/<?php echo @$showsTudent['id']?>/<?php echo @$showsTudent['studentId']?>"><?php echo @$showsTudent['username']?></a></td>
+			<td><?php echo @$showsTudent['name']?></td>
+			<?php foreach($subjects as $subject): ?>
 			<?php if($subject['subjectName'] != 'Practice'): ?>
 			<td><?php 
 				if(isset($showPoints[$subject['subjectId']][$showsTudent['studentId']]['homeworkStatus'])){
@@ -61,12 +61,12 @@ $subjects = $data->getSubjects();
 				
 			?></td>
 			<?php endif; ?>
-			{/each}	
+			<?php endforeach; ?>	
 			
 			
 
 		</tr>
-	{/each}
+	<?php endforeach; ?>
 
 	  </table>
 

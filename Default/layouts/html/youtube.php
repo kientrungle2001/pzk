@@ -1,1 +1,1 @@
-<iframe width="{prop width}" height="{prop height}" src="https://www.youtube.com/embed/{prop code}?controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+<iframe width="<?php echo @$data->width?>" height="<?php echo @$data->height?>" src="https://www.youtube.com/embed/<?php echo @$data->code?>?controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>

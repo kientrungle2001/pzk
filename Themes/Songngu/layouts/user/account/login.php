@@ -10,7 +10,7 @@
 		      	<div class="modal-body">
 			    	<div class="container-fluid">
 			    		<div class="row">
-			    			<form id="loginForm" class="login form-horizontal" onsubmit="return pzk_{data.id}.login()" method="post">
+			    			<form id="loginForm" class="login form-horizontal" onsubmit="return pzk_<?php echo @$data->id?>.login()" method="post">
 				    			
 								<div style="margin-bottom: 25px" class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -38,8 +38,8 @@
                                 </div>
 								<div class="form-group">
                                     <div class="col-sm-12 controls">
-                                    	<input type="image" onclick="return pzk_{data.id}.LoginFB()" alt="Đăng nhập bằng tài khoản facebook" src="<?php echo BASE_URL.'/Default/skin/nobel/test/media/facebook.png'; ?>" data-toggle="tooltip" data-placement="top" title="Đăng nhập bằng tài khoản Facebook" >
-										<input type="image"  onclick="return pzk_{data.id}.LoginGoogle()" src="<?php echo BASE_URL.'/Default/skin/nobel/test/media/google.png'; ?>" data-toggle="tooltip" data-placement="top" title="Đăng nhập bằng tài khoản Gmail" >
+                                    	<input type="image" onclick="return pzk_<?php echo @$data->id?>.LoginFB()" alt="Đăng nhập bằng tài khoản facebook" src="<?php echo BASE_URL.'/Default/skin/nobel/test/media/facebook.png'; ?>" data-toggle="tooltip" data-placement="top" title="Đăng nhập bằng tài khoản Facebook" >
+										<input type="image"  onclick="return pzk_<?php echo @$data->id?>.LoginGoogle()" src="<?php echo BASE_URL.'/Default/skin/nobel/test/media/google.png'; ?>" data-toggle="tooltip" data-placement="top" title="Đăng nhập bằng tài khoản Gmail" >
                                       
                                     </div>
                                     

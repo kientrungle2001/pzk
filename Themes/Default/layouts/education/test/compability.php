@@ -115,7 +115,7 @@ $lang = pzk_session('language');
 										Hoàn thành 
 									</button>
 								
-									<a style='display:none;' id='testtl' href ="<?=BASE_REQUEST;?>/Compability/showtl/{class}/{parentId}" class='btn btn-info'>Thi tự luận</a>
+									<a style='display:none;' id='testtl' href ="<?=BASE_REQUEST;?>/Compability/showtl/<?php echo $class ?>/<?php echo $parentId ?>" class='btn btn-info'>Thi tự luận</a>
 
 							
 						</div>
@@ -141,7 +141,7 @@ $lang = pzk_session('language');
 	        </div>
 	        <div class="modal-footer">
 				<a>Xem đáp án</a>
-				<a href ="<?=BASE_REQUEST;?>/Compability/showtl/{class}/{parentId}" class='btn btn-info'>Thi tự luận</a>
+				<a href ="<?=BASE_REQUEST;?>/Compability/showtl/<?php echo $class ?>/<?php echo $parentId ?>" class='btn btn-info'>Thi tự luận</a>
 	        </div>
       	</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

@@ -15,7 +15,7 @@ $advance			= 	$cautaotu['children'][1];
 $basicChildren		=	$basic['children'];
 $advanceChildren	=	$advance['children'];
 ?>
-<div class="lecture-region {cautaotu[alias]}">
+<div class="lecture-region <?php echo @$cautaotu['alias']?>">
 	<div class="lecture-bird hidden-xs"></div>
 	<div class="container">
 		<h1 class="text-center">Luyện từ và câu</h1>
@@ -25,9 +25,9 @@ $advanceChildren	=	$advance['children'];
 				<div class="lecture-menu">
 				
 				<ul class="row">
-					{each $children as $item}
-					<li class="col-lg-12 col-md-6"><a href="/{item[alias]}">{item[name]}</a></li>
-					{/each}
+					<?php foreach($children as $item): ?>
+					<li class="col-lg-12 col-md-6"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></li>
+					<?php endforeach; ?>
 				</ul>
 				</div>
 			</div>
@@ -35,11 +35,11 @@ $advanceChildren	=	$advance['children'];
 				
 				<div class="lecture-index">
 					<div class="lecture-left">
-						<h3 class="lecture-section-heading lecture-basic bgcolor1">{basic[name]}</h3>
-						{? 	$index = 1; ?}
-						{each $basicChildren as $item}
-						<div class="lecture-item blcolor1-bold num{index}">
-							<div class="lecture-title color1-bold"><a href="/{item[alias]}">{item[name]}</a></div>
+						<h3 class="lecture-section-heading lecture-basic bgcolor1"><?php echo @$basic['name']?></h3>
+						<?php  	$index = 1; ?>
+						<?php foreach($basicChildren as $item): ?>
+						<div class="lecture-item blcolor1-bold num<?php echo $index ?>">
+							<div class="lecture-title color1-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
 							<?php for($i = 0; $i < 9; $i++):
 							$j = $i;
 							if($i == 0) {
@@ -48,20 +48,20 @@ $advanceChildren	=	$advance['children'];
 							if(!isset($item['video' . $j]) || !$item['video' . $j]) continue;
 							?>
 							<div class="lecture-detail">
-							<a href="/{item[alias]}?video={j}"><?php echo $item['video' . $j . '_title']?></a>
+							<a href="/<?php echo @$item['alias']?>?video=<?php echo $j ?>"><?php echo $item['video' . $j . '_title']?></a>
 							</div>
 							<?php endfor;?>
-							<div class="lecture-practice"><a href="/{item[alias]}">Bài tập</a></div>
+							<div class="lecture-practice"><a href="/<?php echo @$item['alias']?>">Bài tập</a></div>
 						</div>
-						{?	$index++; ?}
-						{/each}
+						<?php 	$index++; ?>
+						<?php endforeach; ?>
 					</div>
 					<div class="lecture-right">
-						<h3 class="lecture-section-heading lecture-advance bgcolor1">{advance[name]}</h3>
-						{? 	$index = 1; ?}
-						{each $advanceChildren as $item}
-						<div class="lecture-item blcolor1-bold num{index}">
-							<div class="lecture-title color1-bold"><a href="/{item[alias]}">{item[name]}</a></div>
+						<h3 class="lecture-section-heading lecture-advance bgcolor1"><?php echo @$advance['name']?></h3>
+						<?php  	$index = 1; ?>
+						<?php foreach($advanceChildren as $item): ?>
+						<div class="lecture-item blcolor1-bold num<?php echo $index ?>">
+							<div class="lecture-title color1-bold"><a href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></div>
 							<?php for($i = 0; $i < 9; $i++):
 							$j = $i;
 							if($i == 0) {
@@ -70,13 +70,13 @@ $advanceChildren	=	$advance['children'];
 							if(!isset($item['video' . $j]) || !$item['video' . $j]) continue;
 							?>
 							<div class="lecture-detail">
-							<a href="/{item[alias]}?video={j}"><?php echo $item['video' . $j . '_title']?></a>
+							<a href="/<?php echo @$item['alias']?>?video=<?php echo $j ?>"><?php echo $item['video' . $j . '_title']?></a>
 							</div>
 							<?php endfor;?>
-							<div class="lecture-practice"><a href="/{item[alias]}">Bài tập</a></div>
+							<div class="lecture-practice"><a href="/<?php echo @$item['alias']?>">Bài tập</a></div>
 						</div>
-						{?	$index++; ?}
-						{/each}
+						<?php 	$index++; ?>
+						<?php endforeach; ?>
 					</div>
 					<div class="clear"></div>
 				</div>

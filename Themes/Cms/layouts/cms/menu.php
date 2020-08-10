@@ -5,19 +5,19 @@
 ?>
 		
 <ul class="nav navbar-nav navbar-right">
-{each $items as $item}
-<li class="dropdown"><a class="dropdown-toggle js-activated" href="/{item[alias]}">{item[name]}</a>
-	{? if(isset($item['children'])){ 
+<?php foreach($items as $item): ?>
+<li class="dropdown"><a class="dropdown-toggle js-activated" href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a>
+	<?php  if(isset($item['children'])){ 
 		$children = $item['children'];
-	?}
+	?>
 	<ul class="dropdown-menu">
-		{each $children as $subItem}
-		<li><a href="/{subItem[alias]}">{subItem[name]}</a></li>
-		{/each}
+		<?php foreach($children as $subItem): ?>
+		<li><a href="/<?php echo @$subItem['alias']?>"><?php echo @$subItem['name']?></a></li>
+		<?php endforeach; ?>
 	</ul>
-	{? } ?}
+	<?php  } ?>
 </li>
-{/each}
+<?php endforeach; ?>
 
 <?php if(pzk_session('userId') <= 0):?>
 <li>
@@ -26,7 +26,7 @@
 	<a id="nobelLogin" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
 <?php elseif(pzk_session('userId') >0 ):?>
 <li>
-	<span  class="color-white user_name pd-left-10"> Xin chào ( {children [id=userAccountUser]} )</span>
+	<span  class="color-white user_name pd-left-10"> Xin chào ( <?php $data->displayChildren('[id=userAccountUser]') ?> )</span>
 </li>
 <li>
 	<a  href="<?=BASE_REQUEST?>/account/logout"><span>Thoát</span></a>

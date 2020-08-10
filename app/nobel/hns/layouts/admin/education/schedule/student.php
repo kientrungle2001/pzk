@@ -4,7 +4,7 @@ $classrooms = $data->getClassrooms();
 $homeworks = $data->getHomeworks();
 $tests = $data->getTests();
 ?>
-<h2 class="text-center">{student[name]}</h2>
+<h2 class="text-center"><?php echo @$student['name']?></h2>
 <div class="row">
 <div class="col-md-6 col-md-offset-3">
 <table class="table table-bordered">
@@ -15,10 +15,10 @@ $tests = $data->getTests();
 		<th>Lớp</th>
 	</tr>
 	<tr>
-		<td> {student[id]}</td>
-		<td> {student[username]}</td>
-		<td> {student[birthday]}</td>
-		<td> {each $classrooms as $classroom}{classroom[schoolYear]} {classroom[gradeNum]}{classroom[className]}, {/each}</td>
+		<td> <?php echo @$student['id']?></td>
+		<td> <?php echo @$student['username']?></td>
+		<td> <?php echo @$student['birthday']?></td>
+		<td> <?php foreach($classrooms as $classroom): ?><?php echo @$classroom['schoolYear']?> <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?>, <?php endforeach; ?></td>
 	</tr>
 </table>
 </div>
@@ -41,41 +41,41 @@ $tests = $data->getTests();
 	<th>Trạng thái</th>
 </tr>
 
-{each $homeworks as $homework}
+<?php foreach($homeworks as $homework): ?>
 	<?php if (!$homework['homeworkStatus']): continue; endif; ?>
 <tr class="<?php if($homework['status']):?>bg-success<?php else:?>bg-warning<?php endif;?>">
 	<td>
-	{homework[homeworkName]} 
+	<?php echo @$homework['homeworkName']?> 
 	</td>
 	<td>
-	{homework[subject]} 
+	<?php echo @$homework['subject']?> 
 	</td>
 	<td>
-	{homework[week]} 
+	<?php echo @$homework['week']?> 
 	</td>
 	<td>
-	{homework[month]} 
+	<?php echo @$homework['month']?> 
 	</td>
 	<td>
-	{homework[semester]}
+	<?php echo @$homework['semester']?>
 	</td>
 	<td>
-	{homework[autoMark]}
+	<?php echo @$homework['autoMark']?>
 	</td>
 	<td>
-	{homework[teacherMark]}
+	<?php echo @$homework['teacherMark']?>
 	</td>
 	<td>
-	{homework[totalMark]}
+	<?php echo @$homework['totalMark']?>
 	</td>
 	<td>
-	{homework[startTime]}
+	<?php echo @$homework['startTime']?>
 	</td>
 	<td>
 	<?php if($homework['status']):?>Đã chấm<?php else: ?>Chưa chấm<?php endif;?>
 	</td>
 </tr>
-{/each}
+<?php endforeach; ?>
 </table>
 </div>
 <div class="col-md-12">
@@ -94,40 +94,40 @@ $tests = $data->getTests();
 	<th>Trạng thái</th>
 </tr>
 
-{each $tests as $test}
+<?php foreach($tests as $test): ?>
 <tr class="<?php if($test['status']):?>bg-success<?php else:?>bg-warning<?php endif;?>">
 	<td>
-	{test[testName]} 
+	<?php echo @$test['testName']?> 
 	</td>
 	<td>
-	{test[subject]} 
+	<?php echo @$test['subject']?> 
 	</td>
 	<td>
-	{test[week]} 
+	<?php echo @$test['week']?> 
 	</td>
 	<td>
-	{test[month]} 
+	<?php echo @$test['month']?> 
 	</td>
 	<td>
-	{test[semester]}
+	<?php echo @$test['semester']?>
 	</td>
 	<td>
-	{test[autoMark]}
+	<?php echo @$test['autoMark']?>
 	</td>
 	<td>
-	{test[teacherMark]}
+	<?php echo @$test['teacherMark']?>
 	</td>
 	<td>
-	{test[totalMark]}
+	<?php echo @$test['totalMark']?>
 	</td>
 	<td>
-	{test[startTime]}
+	<?php echo @$test['startTime']?>
 	</td>
 	<td>
 	<?php if($test['status']):?>Đã chấm<?php else: ?>Chưa chấm<?php endif;?>
 	</td>
 </tr>
-{/each}
+<?php endforeach; ?>
 </table>
 </div>
 </div>
@@ -140,34 +140,34 @@ endforeach;
 
 	<ul class="nav nav-tabs">
 <?php $first = true;?>
-    {each $classrooms as $classroom}
-	<li <?php if($first):?>class="active"<?php $first = false; endif;?>><a data-toggle="tab" href="#classroom-{classroom[id]}">Niên khóa {classroom[schoolYear]} Lớp {classroom[gradeNum]}{classroom[className]}</a></li>
-	{/each}
+    <?php foreach($classrooms as $classroom): ?>
+	<li <?php if($first):?>class="active"<?php $first = false; endif;?>><a data-toggle="tab" href="#classroom-<?php echo @$classroom['id']?>">Niên khóa <?php echo @$classroom['schoolYear']?> Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?></a></li>
+	<?php endforeach; ?>
   </ul>
 
   <div class="tab-content">
 <?php $first = true;?>
-    {each $classrooms as $classroom}    
-	<div id="classroom-{classroom[id]}" class="tab-pane fade <?php if($first):?>in active<?php $first = false; endif;?>">
-      <h3 class="text-center">Niên khóa {classroom[schoolYear]} Lớp {classroom[gradeNum]}{classroom[className]}</h3>
+    <?php foreach($classrooms as $classroom): ?>    
+	<div id="classroom-<?php echo @$classroom['id']?>" class="tab-pane fade <?php if($first):?>in active<?php $first = false; endif;?>">
+      <h3 class="text-center">Niên khóa <?php echo @$classroom['schoolYear']?> Lớp <?php echo @$classroom['gradeNum']?><?php echo @$classroom['className']?></h3>
       <?php	$subjects = $data->getSubjects($classroom['gradeNum']);	?>
 	  <table class="table table-condense table-hovered">
 		<tr>
 		<td>&nbsp;</td>
-		{each $subjects as $subject}
-			<th>{subject[name]}</th>
-		{/each}
+		<?php foreach($subjects as $subject): ?>
+			<th><?php echo @$subject['name']?></th>
+		<?php endforeach; ?>
 		</tr>
 		
 		<?php for($week = 1; $week < 36; $week++):?>
 		<tr>
-		<th>Tuần {week}</th>
-		{each $subjects as $subject}
+		<th>Tuần <?php echo $week ?></th>
+		<?php foreach($subjects as $subject): ?>
 			<td>
 			<?php if(isset($indexedHomeworks[$subject['id']]) && isset($indexedHomeworks[$subject['id']][$week])):?>
 			<?php $homework = $indexedHomeworks[$subject['id']][$week];?>
 			<?php if($homework['status']):?>
-				<strong class="text-success">{homework[totalMark]}</strong>
+				<strong class="text-success"><?php echo @$homework['totalMark']?></strong>
 			<?php else: ?>
 				<strong class="text-danger">Chưa chấm</strong>
 			<?php endif;?>
@@ -175,10 +175,10 @@ endforeach;
 			<span class="text-warning">Chưa làm</span>
 			<?php endif;?>
 			</td>
-		{/each}
+		<?php endforeach; ?>
 		</tr>
 		<?php endfor;?>
 	  </table>
     </div>
-	{/each}
+	<?php endforeach; ?>
   </div>

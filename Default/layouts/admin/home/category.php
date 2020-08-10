@@ -5,7 +5,7 @@
 	if($cateParent) {
  ?>
 <label for="">Categories</label><br />
-	{each $cateParent as $value}
+	<?php foreach($cateParent as $value): ?>
 	<?php 
 		$tab = "&nbsp;&nbsp;&nbsp;&nbsp;";
 		if($value['id'] == $data->rootId) {
@@ -21,6 +21,6 @@
 			$cate = $tab.$value['name'];
 		}
 	 ?>
-	<a href="/admin_home/category/{value[id]}" style="text-decoration: none;"><?php echo $cate; ?></a><br />
-	{/each}
+	<a href="/admin_home/category/<?php echo @$value['id']?>" style="text-decoration: none;"><?php echo $cate; ?></a><br />
+	<?php endforeach; ?>
 <?php } ?>

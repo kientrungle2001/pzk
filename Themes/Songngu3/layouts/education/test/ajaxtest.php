@@ -7,7 +7,7 @@ $check = pzk_session('checkPayment');
 	$items = $data->getTests($class, 1410, $page, 15);	
 ?>
 
-{each $items as $item}
+<?php foreach($items as $item): ?>
 <?php $tests= $data->getTestByWeek($item['id'], 0, $check, $class); 
 $pattern = '/(\(.+\))/i';
 $replacement = '';
@@ -29,8 +29,8 @@ $replacement = '';
 			</h2>
 			<div class="box-body">
 			<?php $i =1;  ?>
-				{each $tests as $test}
-					<div class="text-uppercase link-box testnumber text-center" onclick ="testnumber(this);return false;" data-test="{test[id]}" data-week="{item[id]}" data-trial="{item[trial]}" <?php if($lang == 'ev'){
+				<?php foreach($tests as $test): ?>
+					<div class="text-uppercase link-box testnumber text-center" onclick ="testnumber(this);return false;" data-test="<?php echo @$test['id']?>" data-week="<?php echo @$item['id']?>" data-trial="<?php echo @$item['trial']?>" <?php if($lang == 'ev'){
 										echo 'title="'.$test['name'].'"'; }?>>
 						<a href="" class="text-color">
 						<?php 
@@ -43,9 +43,9 @@ $replacement = '';
 					</div>
 					<?php ?>
 					<?php $i++; ?>
-				{/each}
+				<?php endforeach; ?>
 			</div>	
 		</div>
 	</div>
 	
-{/each}
+<?php endforeach; ?>

@@ -45,38 +45,38 @@
  ?>
  <div class="panel panel-default">
  <div class="panel-heading">
- 	<p align="center"> <strong>HOÁ ĐƠN {id}</strong></p>
- 	<p align="center"><strong>(Ngày : {orderDate} - trạng thái hoá đơn: {status})</strong></p>
+ 	<p align="center"> <strong>HOÁ ĐƠN <?php echo $id ?></strong></p>
+ 	<p align="center"><strong>(Ngày : <?php echo $orderDate ?> - trạng thái hoá đơn: <?php echo $status ?>)</strong></p>
  </div>
  <table id="admin_table_list" class="table table-hover">
  	
  
  <tr>
-  <th>userId: {userId}</th>
-  <th>username: {username}</th>
-  <th>Tên: {name}</th>
-  <th>Điện thoại: {phone}</th>  
+  <th>userId: <?php echo $userId ?></th>
+  <th>username: <?php echo $username ?></th>
+  <th>Tên: <?php echo $name ?></th>
+  <th>Điện thoại: <?php echo $phone ?></th>  
  </tr>
  <tr>
- 	<th colspan="2">Địa chỉ: {address}</th>
- 	<th colspan="2">Đặt mua thẻ Nextnobels: {note}</th>
+ 	<th colspan="2">Địa chỉ: <?php echo $address ?></th>
+ 	<th colspan="2">Đặt mua thẻ Nextnobels: <?php echo $note ?></th>
  </tr>
  <tr>  
-  <th>Mã dịch vụ: {serviceId}</th>
-  <th>Tên dịch vụ: {serviceName}</th>
-  <th>Số lượng: {quantity}</th>
-  <th>Tổng tiền: {amount}</th>  
+  <th>Mã dịch vụ: <?php echo $serviceId ?></th>
+  <th>Tên dịch vụ: <?php echo $serviceName ?></th>
+  <th>Số lượng: <?php echo $quantity ?></th>
+  <th>Tổng tiền: <?php echo $amount ?></th>  
  </tr>
  <tr>  
-  <th>Hình thức thanh toán: {paymentType}</th>
-  <th>Ngân hàng: {bank}</th>
-  <th>Trạng thái thanh toán: {paymentStatus}</th>
-  <th>Trạng thái hoá đơn: {status}</th>  
+  <th>Hình thức thanh toán: <?php echo $paymentType ?></th>
+  <th>Ngân hàng: <?php echo $bank ?></th>
+  <th>Trạng thái thanh toán: <?php echo $paymentStatus ?></th>
+  <th>Trạng thái hoá đơn: <?php echo $status ?></th>  
  </tr>
  <tr>
  	<th colspan="4" style="padding-left: 400px;" >
- 		<a class="btn btn-primary" href="{url /admin_order/edit}/{id}">Sửa</a>
- 		<a class="btn btn-primary" href="{url /admin_order/index}">Trở lại</a>
+ 		<a class="btn btn-primary" href="<?php echo BASE_REQUEST . '/admin_order/edit' ?>/<?php echo $id ?>">Sửa</a>
+ 		<a class="btn btn-primary" href="<?php echo BASE_REQUEST . '/admin_order/index' ?>">Trở lại</a>
  	</th>
  </tr>
  </table>
@@ -92,7 +92,7 @@
  ?>
 <div class="panel panel-default">
  <div class="panel-heading">
- 	<p align="center"> <strong>CHI TIẾT HOÁ ĐƠN {id}</strong></p>
+ 	<p align="center"> <strong>CHI TIẾT HOÁ ĐƠN <?php echo $id ?></strong></p>
  	
  </div>
  <table id="admin_table_list" class="table table-hover">
@@ -106,21 +106,21 @@
   <th>Giá</th>  
   <th>Thành tiền</th>  
  </tr>	
- {each $orderships as $item}
+ <?php foreach($orderships as $item): ?>
  <?php 
  	$i++; 
  	$enttService->loadWhere(array('id',$item['serviceId']));
  ?>
  <tr>
- 	<th>{i}</th>
-  <th>{item[serviceId]}</th>
+ 	<th><?php echo $i ?></th>
+  <th><?php echo @$item['serviceId']?></th>
   <th>{enttService.getServiceName()} </th>
-  <th>{item[serviceType]}</th>
-  <th>{item[quantity]}</th>
-  <th>{item[price]}</th>  
-  <th>{item[amount]}</th>
+  <th><?php echo @$item['serviceType']?></th>
+  <th><?php echo @$item['quantity']?></th>
+  <th><?php echo @$item['price']?></th>  
+  <th><?php echo @$item['amount']?></th>
  </tr>
- {/each}
+ <?php endforeach; ?>
  </table>
 </div>
 <?php } ?>	
@@ -134,7 +134,7 @@
  ?>
 <div class="panel panel-default">
  <div class="panel-heading">
- 	<p align="center"> <strong>CHI TIẾT HOÁ ĐƠN {id}</strong></p>
+ 	<p align="center"> <strong>CHI TIẾT HOÁ ĐƠN <?php echo $id ?></strong></p>
  	
  </div>
  <table id="admin_table_list" class="table table-hover">
@@ -146,20 +146,20 @@
   <th>Giá</th>  
   <th>Thành tiền</th>  
  </tr>	
- {each $orderships as $item}
+ <?php foreach($orderships as $item): ?>
  <?php 
  	$i++; 
  	$enttService->loadWhere(array('id',$item['serviceId']));
  ?>
  <tr>
- 	<th>{i}</th>
-  <th>{item[serviceId]}</th>
+ 	<th><?php echo $i ?></th>
+  <th><?php echo @$item['serviceId']?></th>
   <th>{enttService.getServiceName()} </th>
-  <th>{item[quantity]}</th>
-  <th>{item[price]}</th>  
-  <th>{item[amount]}</th>
+  <th><?php echo @$item['quantity']?></th>
+  <th><?php echo @$item['price']?></th>  
+  <th><?php echo @$item['amount']?></th>
  </tr>
- {/each}
+ <?php endforeach; ?>
  </table>
 </div>
 <?php } ?>	

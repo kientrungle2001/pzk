@@ -69,7 +69,7 @@ if(pzk_request()->is('POST')) {
             <?php $i = 1; ?>
 
 
-            {each $items as $key => $item}
+            <?php foreach($items as $key => $item): ?>
             <?php
             $answers = _db()->useCB()->select('*')->from('answers_question_tn')->where(array('question_id', $key))->result();
             ?>
@@ -81,19 +81,19 @@ if(pzk_request()->is('POST')) {
                     ?>
                 </td>
             </tr>
-            {each $answers as $val}
+            <?php foreach($answers as $val): ?>
             <tr>
                 <?php $postAnswer = $item[0]; ?>
                 <td>
                     <input style="width: 15px; height: 15px;" disabled   <?php if(isset($postAnswer) && $postAnswer == $val['id']){ echo 'checked'; }  ?> type="radio" />
-                    <input style="display: none;" name="answers[<?=$key;?>][]"  value="{val[id]}" <?php if(isset($postAnswer) && $postAnswer == $val['id']){ echo 'checked'; }  ?> type="radio" />
+                    <input style="display: none;" name="answers[<?=$key;?>][]"  value="<?php echo @$val['id']?>" <?php if(isset($postAnswer) && $postAnswer == $val['id']){ echo 'checked'; }  ?> type="radio" />
 
                 </td>
-                <td>{val[content]}</td>
+                <td><?php echo @$val['content']?></td>
             </tr>
-            {/each}
+            <?php endforeach; ?>
             <?php $i++; ?>
-            {/each}
+            <?php endforeach; ?>
 
 
         </table>

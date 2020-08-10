@@ -12,7 +12,7 @@
         $items=$data->viewListInvitation();
        
       ?>
-      {each $items as $item}
+      <?php foreach($items as $item): ?>
       <?php 
         $username=$item['username'];
         $user=$data->loadUserId($username);
@@ -27,22 +27,22 @@
      ?>
      <div class="list_invitation_row">
       <div class="invi_avatar">
-        <img src="{testAvatar}" alt="" width="80" height="80">
+        <img src="<?php echo $testAvatar ?>" alt="" width="80" height="80">
       </div>
 
       <div class="invi_content" >
         <div>
-          <a href="/profile/profileusercontent?member={userid}" ><span>Tên: {name}</span></a>
+          <a href="/profile/profileusercontent?member=<?php echo $userid ?>" ><span>Tên: <?php echo $name ?></span></a>
         </div>
         <div>
-          <a href="/profile/profileusercontent?member={userid}" ><span>Nickname: {userfriend}</span></a>
+          <a href="/profile/profileusercontent?member=<?php echo $userid ?>" ><span>Nickname: <?php echo $userfriend ?></span></a>
         </div>
         <div>
           <span>Bài viết: 0   |   Tham gia:ngày</span>
         </div>
         <div>
-          <span><a href="{url /invitation/agree}?userinvitation={username}"><img src="<?php echo BASE_URL.'/3rdparty/uploads/img/pr_bt_ketban.png' ; ?>" alt="Kết bạn"></a></span>
-          <span><a href="{url /invitation/deny}?userinvitation={username}"><img src="<?php echo BASE_URL.'/3rdparty/uploads/img/huyketban.png' ; ?>" alt="Hủy Kết bạn"></a></span>
+          <span><a href="<?php echo BASE_REQUEST . '/invitation/agree' ?>?userinvitation=<?php echo $username ?>"><img src="<?php echo BASE_URL.'/3rdparty/uploads/img/pr_bt_ketban.png' ; ?>" alt="Kết bạn"></a></span>
+          <span><a href="<?php echo BASE_REQUEST . '/invitation/deny' ?>?userinvitation=<?php echo $username ?>"><img src="<?php echo BASE_URL.'/3rdparty/uploads/img/huyketban.png' ; ?>" alt="Hủy Kết bạn"></a></span>
         </div>
       </div>
        
@@ -64,7 +64,7 @@
       <div class="clear"> </div>
        
       </div>
-  {/each}
+  <?php endforeach; ?>
     
  
 

@@ -22,7 +22,7 @@
 			<li><a rel="/contest/index" class="login_required" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-user"></span> Đăng ký</a></li>
 			<li><a rel="/contest/index" class="login_required" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-log-in"></span> Đăng nhập</a></li>
 			<?php elseif(pzk_session('userId') >0 ):?>
-			<li class="top10">Xin chào <div class="btn btn-success dropdown">{children [id=userAccountUser][position=user]}<span class="caret"></span></div></li>
+			<li class="top10">Xin chào <div class="btn btn-success dropdown"><?php $data->displayChildren('[id=userAccountUser][position=user]') ?><span class="caret"></span></div></li>
 			<li class="top4"><a  href="/api_account/logout?backHref=contest/index">Thoát</a></li>
 			<?php endif;?>
 		  </ul>
@@ -31,7 +31,7 @@
 </nav>
 <div class="container header top50">
 	<div class="col-md-4 col-sm-4 col-xs-10 pull-right rmargin">
-		{children [position=stat]}
+		<?php $data->displayChildren('[position=stat]') ?>
 	</div>
 </div>
 <nav class="nav navbar navbar-default container nomg pdright0 mgmobile" role="navigation">

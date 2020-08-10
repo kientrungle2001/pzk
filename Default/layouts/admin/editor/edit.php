@@ -1,19 +1,19 @@
 <table class="table">
 <tr>
 	<td>
-	{data.get('object')}
+	<?php echo $data->get('object')?>
 	</td>
 	<td>
-	<a href="/Admin_Editor/edit?object={data.get('object')}&type=object"><img src="/default/images/icon/object.gif" /></a>
+	<a href="/Admin_Editor/edit?object=<?php echo $data->get('object')?>&type=object"><img src="/default/images/icon/object.gif" /></a>
 	</td>
 	<td>
-		<a href="/Admin_Editor/edit?object={data.get('object')}&type=layout"><img src="/default/images/icon/layout.png" /></a>
+		<a href="/Admin_Editor/edit?object=<?php echo $data->get('object')?>&type=layout"><img src="/default/images/icon/layout.png" /></a>
 	</td>
 	<td>
-		<a href="/Admin_Editor/edit?object={data.get('object')}&type=js"><img src="/default/images/icon/js.png" /></a>
+		<a href="/Admin_Editor/edit?object=<?php echo $data->get('object')?>&type=js"><img src="/default/images/icon/js.png" /></a>
 	</td>
 	<td>
-		<a href="/Admin_Editor/edit?object={data.get('object')}&type=css"><img src="/default/images/icon/css.png" /></a>
+		<a href="/Admin_Editor/edit?object=<?php echo $data->get('object')?>&type=css"><img src="/default/images/icon/css.png" /></a>
 	</td>
 </tr>
 </table>
@@ -57,18 +57,18 @@ if($type == 'object') {
 ?>
 <form method="post" 
 	onsubmit="$('#fileContent').val(aceEditor.getValue());"
-	action="/Admin_Editor/save?object={data.get('object')}&type={type}">
+	action="/Admin_Editor/save?object=<?php echo $data->get('object')?>&type=<?php echo $type ?>">
 <input type="submit" name="btn_submit" value="Lưu" class="btn btn-primary" />
 <a href="/Admin_Editor/index">Quay lại</a>
 <br /><br />
-{fileName}<br />
-<input type="hidden" name="fileName" value="{fileName}" />
+<?php echo $fileName ?><br />
+<input type="hidden" name="fileName" value="<?php echo $fileName ?>" />
 
 <?php if($type == 'layout'): ?>
 
-  <textarea id="content" class="form-control" style="height: 800px" name="content">{content}</textarea>
+  <textarea id="content" class="form-control" style="height: 800px" name="content"><?php echo $content ?></textarea>
 <?php else: ?>
-<textarea id="content" class="form-control" style="height: 800px" name="content">{content}</textarea>
+<textarea id="content" class="form-control" style="height: 800px" name="content"><?php echo $content ?></textarea>
 <?php endif; ?>
 <input type="hidden" name="fileContent" id="fileContent" />
 </form>

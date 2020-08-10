@@ -26,7 +26,7 @@
 			<?php if(pzk_session('userId') <= 0):?>
 			<li><a id="nobelLogin" href="javascript:void(0)" data-toggle="modal" data-target=".bs-example-modal-lg"><span class="glyphicon glyphicon-user"></span> Đăng nhập|Đăng ký</a></li>
 			<?php elseif(pzk_session('userId') >0 ):?>
-			<li class="mgt15 colorh2">Xin chào ( {children [id=userAccountUser]} )</li>
+			<li class="mgt15 colorh2">Xin chào ( <?php $data->displayChildren('[id=userAccountUser]') ?> )</li>
 			<li><a  href="<?=BASE_REQUEST?>/account/logout">Thoát</a></li>
 			<?php endif;?>
 		  </ul>

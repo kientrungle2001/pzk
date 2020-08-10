@@ -21,10 +21,10 @@
           
             <th >
           
-                {each $easys as $easy}
-                    <a href="/test/lesson?id={easy[id]}"> Đề {i} </a> <br>
+                <?php foreach($easys as $easy): ?>
+                    <a href="/test/lesson?id=<?php echo @$easy['id']?>"> Đề <?php echo $i ?> </a> <br>
                     <?php $i++; ?>                   
-                {/each}
+                <?php endforeach; ?>
               
             </th>
         </tr>
@@ -33,10 +33,10 @@
           
             <th >
           
-                {each $normals as $normal}
-                    <a href="/test/lesson?id={normal[id]}"> Đề {j} </a> <br>
+                <?php foreach($normals as $normal): ?>
+                    <a href="/test/lesson?id=<?php echo @$normal['id']?>"> Đề <?php echo $j ?> </a> <br>
                     <?php $j++; ?>                   
-                {/each}
+                <?php endforeach; ?>
               
             </th>
         </tr>
@@ -45,10 +45,10 @@
           
             <th >
           
-                {each $difficults as $difficult}
-                    <a href="/test/lesson?id={difficult[id]}"> Đề {k} </a> <br>
+                <?php foreach($difficults as $difficult): ?>
+                    <a href="/test/lesson?id=<?php echo @$difficult['id']?>"> Đề <?php echo $k ?> </a> <br>
                     <?php $k++; ?>                   
-                {/each}
+                <?php endforeach; ?>
               
             </th>
         </tr>

@@ -20,24 +20,24 @@
 		</div>
 	</div>
 </div>	
-{children [position=top-menu]}
+<?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container">
 	<p class="t-weight text-center btn-custom8 mgright">Tài liệu học tập</p>
 </div>
-{?
+<?php 
 $subject = _db()->getTableEntity('categories')->load($data->get('categoryId'), 1800);
 $subjects = _db()->useCache(1800)->selectAll()->fromCategories()->whereParent($subject->get('parent'))->result();
-?}
+?>
 <div class="container fivecolumns">
 	<div class="row">
 		<div class="col-md-2 col-xs-12 pd-15">
-			{children [position=left-banner]}
+			<?php $data->displayChildren('[position=left-banner]') ?>
 		</div>
 		<div class="col-md-8 col-xs-12">
-			{children [position=mid-content]}
+			<?php $data->displayChildren('[position=mid-content]') ?>
 		</div>
 		<div class="col-md-2 col-xs-12 pd-15">
-			{children [position=right-banner]}
+			<?php $data->displayChildren('[position=right-banner]') ?>
 		</div>
 	</div>
 </div>

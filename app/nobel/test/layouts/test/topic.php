@@ -3,10 +3,10 @@ $questionTopic = $data->getItem();
 $i= $questionTopic->getId();
 ?>
 <div class="step">
- 	<span><strong>Q7 Yêu Cầu: </strong> {? echo $questionTopic->getRequest(); ?}</span>
+ 	<span><strong>Q7 Yêu Cầu: </strong> <?php  echo $questionTopic->getRequest(); ?></span>
 </div>
 <div class="step">
-	<span><strong>Đoạn văn:</strong> {? echo $questionTopic->getName(); ?}</span>
+	<span><strong>Đoạn văn:</strong> <?php  echo $questionTopic->getName(); ?></span>
 	
 </div>
 <?php 
@@ -14,7 +14,7 @@ $topicQuestion = $questionTopic->getRealEntity();
 $topics = $topicQuestion->getTopics();
 $j=1;
 ?>
-{each $topics as $topic}
+<?php foreach($topics as $topic): ?>
 <?php 
 	$content= $topic->getContent();
 	$id_topic=$topic->getId();
@@ -41,7 +41,7 @@ $j=1;
 	
 </div>
 <?php $j++; ?>
-{/each}
+<?php endforeach; ?>
 <script>
 	 	function addAnswerRow(id_question,id_topic){
 		
