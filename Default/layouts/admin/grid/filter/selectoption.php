@@ -5,6 +5,7 @@ $nocompact	= !$compact;
 if($compact) {
 	$data->set('selectLabel', $data->get('label'));
 }
+$rand = rand(1, 100000);
 ?>
 <div  class="form-group col-xs-12">
 	<?php if(${'nocompact'}): ?><label><?php  echo $data->get('label')?></label><br /><?php endif; ?>

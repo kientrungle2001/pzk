@@ -4,7 +4,7 @@ $tab = '|&nbsp;&nbsp;&nbsp;&nbsp;';
 
 $data->set('value', rtrim(str_repeat($tab, $data->get('level')), '&nbsp;').'__'.$data->get('value'));
 ?>
-{ifprop isRaw}
+<?php if(@$data->isRaw): ?>
 	<?php  echo $data->get('value')?>
 <?php else: ?>
 <span class="inline-edit" id="inline-item-<?php  echo $data->get('index') ?>-<?php  echo $data->get('itemId') ?>">

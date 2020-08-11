@@ -5,5 +5,5 @@ $bootstrapThemeFile = pzk_or(pzk_config('plugin_bootstrap_theme_src'), '/3rdpart
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $bootstrapCssFile ?>"/>
 <script src="<?php echo $bootstrapJsFile ?>" type="text/javascript"></script>
-{ifprop theme}<link rel="stylesheet" type="text/css" href="<?php echo $bootstrapThemeFile ?>"/><?php endif; ?>
+<?php if(@$data->theme):?><link rel="stylesheet" type="text/css" href="<?php echo $bootstrapThemeFile ?>"/><?php endif; ?>
 

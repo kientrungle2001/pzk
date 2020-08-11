@@ -145,7 +145,7 @@ $(function() {
 				
 				<a class="btn  btn-xs btn-primary" href="#" onclick="pzk_list.toggleLabel(); return false;" data-toggle="tooltip" data-placement="top" title="Thu gọn nhãn"><span class="glyphicon glyphicon-tasks"></span></a>
 				
-				<b>{ifprop title}<?php  echo $data->get('title') ?><?php else: ?><?php  echo $request->get('controller') ?>/<?php  echo $request->get('action') ?><?php endif; ?></b>
+				<b><?php if(@$data->title): ?><?php  echo $data->get('title') ?><?php else: ?><?php  echo $request->get('controller') ?>/<?php  echo $request->get('action') ?><?php endif; ?></b>
 				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="#" onclick="pzk_list.verify();" data-toggle="tooltip" data-placement="top" title="Kiểm tra"><span class="glyphicon glyphicon-warning-sign"></span></a>
 				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="<?php echo BASE_REQUEST . '/Admin' ?>_<?php  echo $data->get('module') ?>/changeQuickMode" data-toggle="tooltip" data-placement="top" title="Xem Nhanh"><span class="glyphicon glyphicon-list-alt"></span></a>
 				<a style="margin-left: 5px;" class="btn  btn-xs btn-primary pull-right" href="#" onclick="$('#columnDialog').modal('show'); return false;" data-toggle="tooltip" data-placement="top" title="Ẩn / Hiện Cột"><span class="glyphicon glyphicon-th"></span></a>

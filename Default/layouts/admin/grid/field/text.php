@@ -1,5 +1,5 @@
 <?php // require_once BASE_DIR . '/lib/string.php'; ?>
-{ifprop isRaw}
+<?php if(@$data->isRaw):?>
 	<?php  echo $data->get('value') ?>
 <?php else: ?>
 <span class="inline-edit" id="inline-item-<?php  echo $data->get('index') ?>-<?php  echo $data->get('itemId') ?>">

@@ -1,3 +1,4 @@
+<?php $rand = rand(1, 100000)?>
 <div style="margin-bottom: 10px; position: relative;" class="well well-sm item">
 	<div style="position: absolute; right: 5px; top: 1px; z-index: 1;">
 		<a href="#" onclick="$('#form-<?php echo $data->get('id')?>').toggle(); return false;"><span class="glyphicon glyphicon-minus"></span></a>
