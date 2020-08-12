@@ -124,14 +124,8 @@ class PzkSG {
 			return (array)$this->query;
 			else
 				return (array)$this;
-		} else if(count($arguments) == 1) {
-			if(is_string($arguments[0])) {
-				$fields = explodetrim(',', $arguments[0]);
-			} else if (is_array($arguments[0])) {
-				$fields = $arguments[0];
-			}
 		} else {
-			$fields = $arguments;
+			$fields = arguments_to_fields($arguments);
 		}
 		$data = array();
 		foreach($fields as $field) {

@@ -20,9 +20,33 @@ function explode_trim($delim, $str) {
 	return explodetrim($delim, $str);
 }
 
+/**
+ * Convert null or false to empty array
+ * @param mixed $arr
+ * @return Array
+ */
 function array_cast($arr) {
 	if(!$arr) return array();
 	return $arr;
+}
+
+/**
+ * Convert arguments to fields
+ * @param $arguments
+ * @return Array fields
+ */
+function arguments_to_fields($arguments) {
+	$fields = array();
+	if(count($arguments) == 1) {
+		if(is_string($arguments[0])) {
+			$fields = explode_trim(',', $arguments[0]);
+		} else if (is_array($arguments[0])) {
+			$fields = $arguments[0];
+		}
+	} else {
+		$fields = $arguments;
+	}
+	return $fields;
 }
 
 /**

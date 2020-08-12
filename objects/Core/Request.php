@@ -166,6 +166,22 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	public function un_set($key) {
 		unset($this->query[$key]);
 	}
+
+	/**
+	 * unset giá trị
+	 * @param String $key
+	 */
+	public function del($key) {
+		unset($this->query[$key]);
+	}
+
+	/**
+	 * unset giá trị
+	 * @param String $key
+	 */
+	public function has($key) {
+		return isset($this->query[$key]);
+	}
 	
 	/**
 	 * Lấy giá trị ra, nếu ko có thì lấy giá trị mặc định
@@ -302,14 +318,8 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 		$arguments = func_get_args();
 		if(count($arguments) == 0) {
 			return (array)$this->query;
-		} else if(count($arguments) == 1) {
-			if(is_string($arguments[0])) {
-				$fields = explodetrim(',', $arguments[0]);
-			} else if (is_array($arguments[0])) {
-				$fields = $arguments[0];
-			}
 		} else {
-			$fields = $arguments;
+			$fields = arguments_to_fields($arguments);
 		}
 		$data = array();
 		foreach($fields as $field) {
