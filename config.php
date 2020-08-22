@@ -69,7 +69,11 @@ define ('PHP_EXT', '.php');
 
 define ('HTML_EXT', '.html');
 
+define ('PHTML_EXT', '.phtml');
+
 define ('CSS_EXT', '.css');
+
+define ('XML_EXT', '.xml');
 
 // Thư mục hệ thống
 define('SYSTEM_DIR', dirname(__FILE__));
@@ -212,15 +216,7 @@ define('DEBUG_LEVEL', 2);
 define('PHAR_MODE', false);
 
 // Chế độ compile: Compile các file ra thư mục compile để chạy nhanh hơn
-if(isset($_SESSION['COMPILE_MODE'])) {
-	if($_SESSION['COMPILE_MODE']) {
-		define('COMPILE_MODE', true);
-	} else {
-		define('COMPILE_MODE', false);
-	}
-} else {
-	define('COMPILE_MODE', true);
-}
+define('COMPILE_MODE', true);
 
 
 // Chế độ compile nối các file require trong include.php thành một file

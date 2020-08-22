@@ -13,85 +13,45 @@ class PzkAdminController extends PzkBackendController
 	public function __construct()
 	{
 		parent::__construct(); //goi lop cha
-		$controller = pzk_request('controller');
-		$contrParts = explode('_', $controller);
+		$controller = pzk_request()->getController();
+		$contrParts = explode(UNS, $controller);
 		array_shift($contrParts);
-		$this->set('module', implode('_', $contrParts));
-		if (!$this->get('table')) {
-			$this->set('table', $this->get('module'));
+		$this->setModule(implode(UNS, $contrParts));
+		if (!$this->getTable()) {
+			$this->setTable($this->getModule());
 		}
 
-		if (method_exists($this, 'getJoins')) {
-			$this->set('joins', $this->getJoins());
-		}
-		if (method_exists($this, 'getLinks')) {
-			$this->set('links', $this->getLinks());
-		}
-		if (method_exists($this, 'getFilterFields')) {
-			$this->set('filterFields', $this->getFilterFields());
-		}
-		if (method_exists($this, 'getSortFields')) {
-			$this->set('sortFields', $this->getSortFields());
-		}
-		if (method_exists($this, 'getAddFields')) {
-			$this->set('addFields', $this->getAddFields());
-		}
-		if (method_exists($this, 'getEditFields')) {
-			$this->set('editFields', $this->getEditFields());
-		}
-		if (method_exists($this, 'getListFieldSettings')) {
-			$this->set('listFieldSettings', $this->getListFieldSettings());
-		}
-		if (method_exists($this, 'getQuickFieldSettings')) {
-			$this->set('quickFieldSettings', $this->getQuickFieldSettings());
-		}
-		if (method_exists($this, 'getAddFieldSettings')) {
-			$this->set('addFieldSettings', $this->getAddFieldSettings());
-		}
-		if (method_exists($this, 'getEditFieldSettings')) {
-			$this->set('editFieldSettings', $this->getEditFieldSettings());
-		}
-		if (method_exists($this, 'getViewFieldSettings')) {
-			$this->set('viewFieldSettings', $this->getViewFieldSettings());
-		}
-		if (method_exists($this, 'getChildrenGridSettings')) {
-			$this->set('childrenGridSettings', $this->getChildrenGridSettings());
-		}
-		if (method_exists($this, 'getParentDetailSettings')) {
-			$this->set('parentDetailSettings', $this->getParentDetailSettings());
+		$allFields = _db()->getFields($this->getTable());
+		if (!$this->getAddFields()) {
+			$this->setAddFields(implode(',', $allFields));
 		}
 
-		$allFields = _db()->getFields($this->table);
-		if (!$this->addFields) {
-			$this->addFields = implode(',', $allFields);
+		if (!$this->getEditFields()) {
+			$this->setEditFields($this->getAddFields());
 		}
 
-		if (!$this->editFields) {
-			$this->editFields = $this->addFields;
-		}
-
-		if (!$this->listFieldSettings) {
-			$this->listFieldSettings = $this->getDefaultListFieldSettings();
+		if (!$this->getListFieldSettings()) {
+			$this->setListFieldSettings($this->getDefaultListFieldSettings());
 		}
 
 		if (method_exists($this, 'alterListFieldSettings')) {
-			$this->alterListFieldSettings($this->listFieldSettings);
+			$this->alterListFieldSettings($this->getListFieldSettings());
 		}
 
-		if (!$this->addFieldSettings) {
-			$this->addFieldSettings = $this->getDefaultEditFieldSettings();
+		if (!$this->getAddFieldSettings()) {
+			$this->setAddFieldSettings($this->getDefaultEditFieldSettings());
 		}
 
 		if (method_exists($this, 'alterAddFieldSettings')) {
-			$this->alterAddFieldSettings($this->addFieldSettings);
+			$this->alterAddFieldSettings($this->getAddFieldSettings());
 		}
 
-		if (!$this->editFieldSettings) {
-			$this->editFieldSettings = $this->addFieldSettings;
+		if (!$this->getEditFieldSettings()) {
+			$this->setEditFieldSettings($this->getAddFieldSettings());
 		}
 
 		if (method_exists($this, 'alterEditFieldSettings')) {
-			$this->alterEditFieldSettings($this->editFieldSettings);
+			$this->alterEditFieldSettings($this->getEditFieldSettings());
 		}
 	}
 	public $_session = false;
@@ -118,7 +78,7 @@ class PzkAdminController extends PzkBackendController
 	{
 		if (!$this->_session) {
 			$this->_session = new PzkSGStorePrefix(pzk_session());
-			$this->_session->setPrefix($this->getModule() . '_' . $this->getCustomModule() . '_');
+			$this->_session->setPrefix($this->getModule() . UNS . $this->getCustomModule() . UNS);
 		}
 		return $this->_session;
 	}
@@ -127,7 +87,7 @@ class PzkAdminController extends PzkBackendController
 	{
 		if (!$this->_filterSession) {
 			$this->_filterSession = new PzkSGStorePrefix($this->getSession());
-			$this->_filterSession->setPrefix('filter_');
+			$this->_filterSession->setPrefix('filter' . UNS);
 		}
 		return $this->_filterSession;
 	}

@@ -6,25 +6,27 @@ class PzkParser
 	public static $layoutcache = null;
 
 	/**
-	 * 	@description: parse mot dom document
+	 * 	parse mot dom document
 	 * 	thanh cac object va init cac object do
-	 * 	@param $obj doi tuong can parse: co the la domdocument,
+	 * 	@param String|DOMDocument|DOMElement $obj doi tuong can parse: co the la domdocument,
 	 * 	domelement, string, filepath, dom node
+	 * 	@return PzkObject
 	 */
 	public static function parse($obj)
 	{
+
 		// neu obj la mot dom document
-		if (is_a($obj, 'DOMDocument')) {
+		if (is_a($obj, DOMDocument::class)) {
 			return self::parse($obj->documentElement);
 
 			// neu obj la mot dom node
-		} else if (is_a($obj, 'DOMElement')) {
+		} else if (is_a($obj, DOMElement::class)) {
 			return self::parseNode($obj);
 
 			// neu obj la mot string
 		} else if (is_string($obj)) {
 			// neu obj la mot duong dan den file
-			if (!preg_match('/[\<\>]/', $obj) && $filePath = BASE_DIR . '/' . $obj . '.php') {
+			if (!preg_match('/[\<\>]/', $obj) && $filePath = BASE_DIR . DS . $obj . PHP_EXT) {
 				return self::parseFile($obj);
 			}
 			return self::parseDocument($obj);
@@ -33,75 +35,25 @@ class PzkParser
 		}
 	}
 
+	/**
+	 * Chuyển một file thành một object
+	 * @param String $obj tên file, không có đuôi
+	 * @return PzkObject
+	 */
 	public static function parseFile($obj)
 	{
-		//if($rs = pzk_session()->get($obj)) return $rs;
-		if (COMPILE_MODE && COMPILE_PAGE_MODE) {
-			if (1) {
-				$fileName = BASE_DIR . '/compile/pages/' . str_replace('/', '_', $obj . '.php');
-				require $fileName;
-				return $obj0;
-			}
-
-			if (function_exists('pzk_layoutcache') && $fileContent = pzk_layoutcache()->get($obj . '.object.pages')) {
-				eval($fileContent);
-
-				return $obj0;
-			} else {
-				$fileName = BASE_DIR . '/compile/pages/' . str_replace('/', '_', $obj . '.php');
-				require $fileName;
-				if (function_exists('pzk_layoutcache'))
-					pzk_layoutcache()->set($obj . '.object.pages', str_replace('<?php', '', file_get_contents($fileName)));
-				return $obj0;
-			}
-		} else {
-			$fileName = BASE_DIR . '/compile/layouts/' . str_replace('/', '_', $obj . '.php');
-
-			$filePath = BASE_DIR . '/' . $obj . '.php';
-			if (!is_file($fileName) || filemtime($fileName) <= filemtime($filePath)) {
-				$fileContent = file_get_contents($filePath);
-				$fileContent = self::parseTemplate($fileContent, array());
-				file_put_contents($fileName, $fileContent);
-			}
-
-			$source = '';
-			ob_start();
-			require $fileName;
-			$source = ob_get_contents();
-			ob_end_clean();
-			$source = str_replace('&', '&amp;', $source);
-
-			$rs = self::parseDocument($source);
-			return $rs;
-		}
+		$fileName = BASE_DIR . '/compile/pages/' . str_replace(DS, UNS, $obj . PHP_EXT);
+		require $fileName;
+		return $obj0;
 	}
 
-	public static function parseFilePath($filePath)
-	{
-		$source = '';
-		ob_start();
-		require $filePath;
-		$source = ob_get_contents();
-		ob_end_clean();
-		$source = str_replace('&', '&amp;', $source);
-		$source = self::parseTemplate($source, array());
-		return self::parseDocument($source);
-	}
-
+	/**
+	 * Parse một chuỗi xml thành PzkObject
+	 * @param String $source xml string
+	 * @return PzkObject
+	 */
 	public static function parseDocument($source)
 	{
-		if (strpos($source, '<') === false) {
-			if (!is_dir(BASE_DIR . '/Default/pages/tmp')) {
-				mkdir(BASE_DIR . '/Default/pages/tmp');
-			}
-			$filePath = 'Default/pages/tmp/' . md5($source);
-			if (!is_file($filePath . '.php')) {
-				file_put_contents($filePath . '.php', $source);
-			}
-			return self::parseFile($filePath);
-		}
-
-
 		$pageDom = new DOMDocument('1.0', 'utf-8');
 		$pageDom->preserveWhiteSpace = false;
 		$pageDom->formatOutput = true;
@@ -120,22 +72,26 @@ class PzkParser
 
 	/**
 	 * Parse mot doi tuong tu array
+	 * @param Array $attrs các thuộc tính của object
+	 * @return PzkObject
+	 * 
 	 */
-	public static function parseArray($attrs, $parent = false)
+	public static function parseArray($attrs)
 	{
 		$name = $attrs['tagName'];
 		$package = $attrs['package'];
-		require_once 'objects/' . $package . '/' . ($name) . '.php';
+		require_once 'objects/' . $package . DS . ($name) . PHP_EXT;
 		$className = self::getClass($attrs['className']);
 		$obj = new $className($attrs);
-		pzk_store_element($obj->id, $obj);
+		pzk_element()->set($obj->id, $obj);
 		return $obj;
 	}
 
 	/**
 	 * Parse mot doi tuong tu mot node
-	 * @param $node node can parse
-	 * @param $parent la parent cua node can parse
+	 * @param DOMElement $node node can parse
+	 * @param PzkObject $parent la parent cua node can parse
+	 * @return PzkObject
 	 */
 	public static function parseNode($node, $parent = false)
 	{
@@ -159,9 +115,8 @@ class PzkParser
 
 			// tách tagName theo dấu .
 			$names 							= 	explode('.', $nodeName);
-			$namesCountLastIndex 			= 	count($names) - 1;
 			$className 						= 	self::getClass($names);
-			$object							=	implode('/',	$names);
+			$object							=	implode(DS,	$names);
 
 			// tìm kiếm object trong objectPaths
 			$objectPaths 					= 	array();
@@ -192,7 +147,7 @@ class PzkParser
 			$objectPaths[]					=	'objects';
 			$fileName 						=	null;
 			foreach ($objectPaths as $objectPath) {
-				if (is_file($fileObjectPath = BASE_DIR . '/' . ($tmp = $objectPath . '/' . $object . '.php'))) {
+				if (is_file(BASE_DIR . DS . ($tmp = $objectPath . DS . $object . PHP_EXT))) {
 					$fileName 				=	$tmp;
 					break;
 				}
@@ -219,31 +174,21 @@ class PzkParser
 			$objectClass = $className;
 
 			// lay ten class cua object khi da compile
-			$fileNameCompiled = str_replace('/', '.', $fileName);
-			$objectClassCompiled = str_replace('.php', '', $fileNameCompiled);
+			$fileNameCompiled = str_replace(DS, '.', $fileName);
+			$objectClassCompiled = str_replace(PHP_EXT, '', $fileNameCompiled);
 
 			$partsCompiled = explode('.', $objectClassCompiled);
-			if (@$partsCompiled[0] 	== 'objects') {
-				array_splice($partsCompiled, 0, 1);
-			} else if (@$partsCompiled[1] 	== 'objects') {
-				array_splice($partsCompiled, 1, 1);
-			} else if (@$partsCompiled[2] 	== 'objects') {
-				array_splice($partsCompiled, 2, 1);
-			} else if (@$partsCompiled[3] 	== 'objects') {
-				array_splice($partsCompiled, 3, 1);
-			} else if (@$partsCompiled[4] 	== 'objects') {
-				array_splice($partsCompiled, 4, 1);
-			}
+			$partsCompiled = array_remove($partsCompiled, 'objects');
 
 			$objectClassCompiled = self::getClass($partsCompiled);
 
 			// kiem tra xem da compile chua hoac file objects co thay doi
 			if (
 				!is_file(BASE_DIR . '/compile/objects/' . $fileNameCompiled)
-				|| (filemtime(BASE_DIR . '/compile/objects/' . $fileNameCompiled) < filemtime((BASE_DIR .  '/' . $fileName)))
+				|| (filemtime(BASE_DIR . '/compile/objects/' . $fileNameCompiled) < filemtime((BASE_DIR .  DS . $fileName)))
 			) {
 				// noi dung file object
-				$fileContent 			= file_get_contents(BASE_DIR . '/' . $fileName);
+				$fileContent 			= file_get_contents(BASE_DIR . DS . $fileName);
 
 				// noi dung duoc compile
 				$fileContentCompiled 	= str_replace($objectClass, $objectClassCompiled, $fileContent);
@@ -284,12 +229,12 @@ class PzkParser
 			}
 			$attrs['tagName'] = $node->nodeName;
 			$attrs['className'] = $className;
-			$attrs['pzkParentId'] = isset($parent->id) ? $parent->id : null;
+			$attrs['pzkParentId'] = $parent ? $parent->getId(): null;
 			$attrs['fullNames'] = $names;
 
 			// Tao ra obj
 			$obj = new $objectClassCompiled($attrs);
-			pzk_element($obj->id, $obj);
+			pzk_element($obj->getId(), $obj);
 
 			$obj->init();
 
@@ -321,6 +266,12 @@ class PzkParser
 		}
 	}
 
+	/**
+	 * Tạo ra className của object từ tên và đường dẫn
+	 * @param String $nodeName tên object
+	 * @param String $objectPath đường dẫn chứa object
+	 * @return String tên class của object
+	 */
 	public static function generateObject($nodeName, $objectPath = '')
 	{
 		if ($objectPath)
@@ -331,38 +282,28 @@ class PzkParser
 		$namesCountLastIndex 			= 	count($names) - 1;
 		$names[$namesCountLastIndex] 	= 	($names[$namesCountLastIndex]);
 		$objectClass 						= 	self::getClass($names);
-		$object							=	implode('/',	$names);
+		$object							=	implode(DS,	$names);
 
-		$fileObjectPath = BASE_DIR . '/' . ($fileName = $objectPath . '/' . $object . '.php');
+		$fileObjectPath = BASE_DIR . DS . ($fileName = $objectPath . DS . $object . PHP_EXT);
 		if (!is_file($fileObjectPath)) {
 			return null;
 		}
 		// lay ten class cua object khi da compile
-		$fileNameCompiled = str_replace('/', '.', $fileName);
-		$objectClassCompiled = str_replace('.php', '', $fileNameCompiled);
+		$fileNameCompiled = str_replace(DS, '.', $fileName);
+		$objectClassCompiled = str_replace(PHP_EXT, '', $fileNameCompiled);
 
 		$partsCompiled = explode('.', $objectClassCompiled);
-		if (@$partsCompiled[0] 	== 'objects') {
-			array_splice($partsCompiled, 0, 1);
-		} else if (@$partsCompiled[1] 	== 'objects') {
-			array_splice($partsCompiled, 1, 1);
-		} else if (@$partsCompiled[2] 	== 'objects') {
-			array_splice($partsCompiled, 2, 1);
-		} else if (@$partsCompiled[3] 	== 'objects') {
-			array_splice($partsCompiled, 3, 1);
-		} else if (@$partsCompiled[4] 	== 'objects') {
-			array_splice($partsCompiled, 4, 1);
-		}
+		$partsCompiled = array_remove($partsCompiled, 'objects');
 
 		$objectClassCompiled = self::getClass($partsCompiled);
 
 		// kiem tra xem da compile chua hoac file objects co thay doi
 		if (
 			!is_file(BASE_DIR . '/compile/objects/' . $fileNameCompiled)
-			|| (filemtime(BASE_DIR . '/compile/objects/' . $fileNameCompiled) < filemtime((BASE_DIR .  '/' . $fileName)))
+			|| (filemtime(BASE_DIR . '/compile/objects/' . $fileNameCompiled) < filemtime((BASE_DIR .  DS . $fileName)))
 		) {
 			// noi dung file object
-			$fileContent 			= file_get_contents(BASE_DIR . '/' . $fileName);
+			$fileContent 			= file_get_contents(BASE_DIR . DS . $fileName);
 
 			// noi dung duoc compile
 			$fileContentCompiled 	= str_replace($objectClass, $objectClassCompiled, $fileContent);
@@ -384,6 +325,12 @@ class PzkParser
 			require_once BASE_DIR . '/compile/objects/' . $fileNameCompiled;
 		return $objectClassCompiled;
 	}
+
+	/**
+	 * Import object theo themes, app hoặc package
+	 * @param String $nodeName tên object
+	 * @return String object class name
+	 */
 	public static function importObject($nodeName)
 	{
 		if (null === self::$layoutcache) {
@@ -404,7 +351,7 @@ class PzkParser
 		if (function_exists('pzk_request')) {
 			$request 	=	pzk_request();
 			if ($request)
-				$themes 	= 	$request->get('themes');
+				$themes 	= 	$request->getThemes();
 		}
 
 		if ($themes) {
@@ -450,6 +397,8 @@ class PzkParser
 
 	/**
 	 * lay ten class cua tagName
+	 * @param Array $fullNames ['Core', 'Db', 'List']
+	 * @return String $className PzkCoreDbList
 	 */
 	public static function getClass($fullNames)
 	{
@@ -461,7 +410,9 @@ class PzkParser
 	}
 
 	/**
-	 * La html tag
+	 * Kiểm tra một thẻ là html tag hay không
+	 * @param String $tagName
+	 * @return Boolean là html tag hay không
 	 */
 	public static function isHtmlTag($tagName)
 	{
@@ -485,7 +436,7 @@ class PzkParser
 			'Input' => true, 'Textarea' => true,
 			'Img' => true, 'Pre' => true, 'Header' => true
 		);
-		return isset($tags[$tagName]) ? $tags[$tagName] : FALSE;
+		return isset($tags[strtolower($tagName)]) ? $tags[strtolower($tagName)] : FALSE;
 	}
 
 	/**
@@ -509,8 +460,8 @@ class PzkParser
 					return;
 				}
 			}
-			$filePath = BASE_DIR . '/' . $layout . '.php';
-			$fileName = BASE_DIR . '/compile/layouts/' . str_replace('/', '_', $layout) . '.php';
+			$filePath = BASE_DIR . DS . $layout . PHP_EXT;
+			$fileName = BASE_DIR . '/compile/layouts/' . str_replace(DS, UNS, $layout) . PHP_EXT;
 			if (!is_file($fileName) || filemtime($fileName) < filemtime($filePath)) {
 				$content = self::parseTemplateFile($filePath, $data);
 				file_put_contents($fileName, $content);
@@ -541,8 +492,8 @@ class PzkParser
 
 	public function compileLayout($layout)
 	{
-		$filePath = BASE_DIR . '/' . $layout . '.php';
-		$fileName = BASE_DIR . '/compile/layouts/' . str_replace('/', '_', $layout) . '.php';
+		$filePath = BASE_DIR . DS . $layout . PHP_EXT;
+		$fileName = BASE_DIR . '/compile/layouts/' . str_replace(DS, UNS, $layout) . PHP_EXT;
 		if (!is_file($fileName) || filemtime($fileName) < filemtime($filePath)) {
 			$content = self::parseTemplateFile($filePath, null);
 			file_put_contents($fileName, $content);
@@ -554,7 +505,7 @@ class PzkParser
 	 */
 	public static function parseTemplateFile($filePath, $data)
 	{
-		if(@$_REQUEST['f'])
+		if (@$_REQUEST['f'])
 			echo $filePath;
 		return self::parseTemplate(file_get_contents($filePath), $data);
 	}
@@ -620,144 +571,145 @@ class PzkParser
 		// Thay {style width} thành width:< ?php echo $data->title ? >;
 		$content = preg_replace('/\{style ([^\}]+)\}/', '<?php $tmp = isset($data->$1): $data->$1? null; if (isset($data->$1) && $data->$1 !== "" && $data->$1 !== false) {echo \'$1:\'.$tmp.\';\'; } ?>', $content);
 		$content = preg_replace('/\{filter ([^\}]+)\}/', '$data->filter(\'$1\')', $content);
-		// thay <?php $data->displayChildren('[name=abc]') ?> thành $data->displayChildren('[name=abc]')
+		// thay <?php $data->displayChildren('[name=abc]') 
+?> thành $data->displayChildren('[name=abc]')
 		$content = preg_replace('/\<?php $data->displayChildren('([^\') ?>]+)\}/', '<?php $data->displayChildren(\'$1\');?>', $content);
-		$content = preg_replace('/\{event ([^\}]+)\}/', '<?php echo $data->onEvent(\'$1\');?>', $content);
-		$o = '\<\!--';
-		$c = '--\>';
-		$content = self::templater($content, $o, $c, $idExp);
-		// Thay {/} Thành BASE_URL/
-		$content = str_replace('{/}', '<?php echo BASE_URL; ?>/', $content);
-		// Thay {//} thành BASE_REQUEST/
-		$content = str_replace('{//}', '<?php echo BASE_REQUEST; ?>/', $content);
-		$content = str_replace('<<~~', '{{', $content);
-		$content = str_replace('~~>>', '}}', $content);
-		return $content;
-	}
+																$content = preg_replace('/\{event ([^\}]+)\}/', '<?php echo $data->onEvent(\'$1\');?>', $content);
+																$o = '\<\!--';
+																$c = '--\>';
+																$content = self::templater($content, $o, $c, $idExp);
+																// Thay {/} Thành BASE_URL/
+																$content = str_replace('{/}', '<?php echo BASE_URL; ?>/', $content);
+																// Thay {//} thành BASE_REQUEST/
+																$content = str_replace('{//}', '<?php echo BASE_REQUEST; ?>/', $content);
+																$content = str_replace('<<~~', '{{', $content);
+																$content = str_replace('~~>>', '}}', $content);
+																return $content;
+															}
 
-	public static function templater($content, $o, $c, $idExp)
-	{
-		// Thay {else} Thành < ?php else: ? >
-		$content = preg_replace("/{$o}else{$c}/", '<?php else: ?>', $content);
+															public static function templater($content, $o, $c, $idExp)
+															{
+																// Thay {else} Thành < ?php else: ? >
+																$content = preg_replace("/{$o}else{$c}/", '<?php else: ?>', $content);
 
-		// Thay {a} thành echo $a
-		$content = preg_replace("/{$o}({$idExp}){$c}/", '<' . '?php echo isset($$1)?$$1: \'\';?' . '>', $content);
-		// Thay {a.b} thành echo $a->b
-		$content = preg_replace("/{$o}({$idExp})\.({$idExp}){$c}/", '<' . '?php echo isset($$1)?$$1->$2: \'\';?>', $content);
-		// Thay {a.b()} thành echo $a->b()
-		$content = preg_replace("/{$o}({$idExp})\.({$idExp})\(\){$c}/", '<?php echo isset($$1)?$$1->$2(): \'\';?>', $content);
-		// Thay {a.b('c')} thành echo $a->b('c')
-		$content = preg_replace("/{$o}({$idExp})\.({$idExp})\('({$idExp})'\){$c}/", '<?php echo isset($$1)?$$1->$2(\'$3\'): \'\';?>', $content);
-		// Thay {a[b]} thành $a['b']
-		$content = preg_replace("/{$o}({$idExp})\[({$idExp})\]{$c}/", '<?php echo isset($$1[\'$2\'])?$$1[\'$2\']: \'\';?>', $content);
-		// Thay {a.b[c]} thành $a->b['c']
-		$content = preg_replace("/{$o}({$idExp})\.({$idExp})\[({$idExp})\]{$c}/", '<' . '?php echo isset($$1->$2[\'$3\']) ? $$1->$2[\'$3\']: \'\';?>', $content);
+																// Thay {a} thành echo $a
+																$content = preg_replace("/{$o}({$idExp}){$c}/", '<' . '?php echo isset($$1)?$$1: \'\';?' . '>', $content);
+																// Thay {a.b} thành echo $a->b
+																$content = preg_replace("/{$o}({$idExp})\.({$idExp}){$c}/", '<' . '?php echo isset($$1)?$$1->$2: \'\';?>', $content);
+																// Thay {a.b()} thành echo $a->b()
+																$content = preg_replace("/{$o}({$idExp})\.({$idExp})\(\){$c}/", '<?php echo isset($$1)?$$1->$2(): \'\';?>', $content);
+																// Thay {a.b('c')} thành echo $a->b('c')
+																$content = preg_replace("/{$o}({$idExp})\.({$idExp})\('({$idExp})'\){$c}/", '<?php echo isset($$1)?$$1->$2(\'$3\'): \'\';?>', $content);
+																// Thay {a[b]} thành $a['b']
+																$content = preg_replace("/{$o}({$idExp})\[({$idExp})\]{$c}/", '<?php echo isset($$1[\'$2\'])?$$1[\'$2\']: \'\';?>', $content);
+																// Thay {a.b[c]} thành $a->b['c']
+																$content = preg_replace("/{$o}({$idExp})\.({$idExp})\[({$idExp})\]{$c}/", '<' . '?php echo isset($$1->$2[\'$3\']) ? $$1->$2[\'$3\']: \'\';?>', $content);
 
 
-		// Thay {!a} thành echo $a
-		$content = preg_replace("/{$o}!({$idExp}){$c}/", '<' . '?php echo html_escape(isset($$1)?$$1: \'\');?' . '>', $content);
-		// Thay {!a.b} thành echo $a->b
-		$content = preg_replace("/{$o}!({$idExp})\.({$idExp}){$c}/", '<' . '?php echo html_escape(isset($$1)?$$1->$2: \'\');?>', $content);
-		// Thay {!a.b()} thành echo $a->b()
-		$content = preg_replace("/{$o}!({$idExp})\.({$idExp})\(\){$c}/", '<?php echo html_escape(isset($$1)?$$1->$2(): \'\');?>', $content);
-		// Thay {!a.b('c')} thành echo $a->b('c')
-		$content = preg_replace("/{$o}!({$idExp})\.({$idExp})\('({$idExp})'\){$c}/", '<?php echo html_escape(isset($$1)?$$1->$2(\'$3\'): \'\');?>', $content);
-		// Thay {!a[b]} thành $a['b']
-		$content = preg_replace("/{$o}!({$idExp})\[({$idExp})\]{$c}/", '<?php echo html_escape(isset($$1[\'$2\'])?$$1[\'$2\']: \'\');?>', $content);
-		// Thay {!a.b[c]} thành $a->b['c']
-		$content = preg_replace("/{$o}!({$idExp})\.({$idExp})\[({$idExp})\]{$c}/", '<' . '?php echo html_escape(isset($$1->$2[\'$3\']) ? $$1->$2[\'$3\']: \'\');?>', $content);
+																// Thay {!a} thành echo $a
+																$content = preg_replace("/{$o}!({$idExp}){$c}/", '<' . '?php echo html_escape(isset($$1)?$$1: \'\');?' . '>', $content);
+																// Thay {!a.b} thành echo $a->b
+																$content = preg_replace("/{$o}!({$idExp})\.({$idExp}){$c}/", '<' . '?php echo html_escape(isset($$1)?$$1->$2: \'\');?>', $content);
+																// Thay {!a.b()} thành echo $a->b()
+																$content = preg_replace("/{$o}!({$idExp})\.({$idExp})\(\){$c}/", '<?php echo html_escape(isset($$1)?$$1->$2(): \'\');?>', $content);
+																// Thay {!a.b('c')} thành echo $a->b('c')
+																$content = preg_replace("/{$o}!({$idExp})\.({$idExp})\('({$idExp})'\){$c}/", '<?php echo html_escape(isset($$1)?$$1->$2(\'$3\'): \'\');?>', $content);
+																// Thay {!a[b]} thành $a['b']
+																$content = preg_replace("/{$o}!({$idExp})\[({$idExp})\]{$c}/", '<?php echo html_escape(isset($$1[\'$2\'])?$$1[\'$2\']: \'\');?>', $content);
+																// Thay {!a.b[c]} thành $a->b['c']
+																$content = preg_replace("/{$o}!({$idExp})\.({$idExp})\[({$idExp})\]{$c}/", '<' . '?php echo html_escape(isset($$1->$2[\'$3\']) ? $$1->$2[\'$3\']: \'\');?>', $content);
 
-		// Thay {thumb WxH $src} thành <img src="filename($src)-WxH.ext($src)" />
-		$content = preg_replace("/{$o}thumb ([\d]+)x([\d]+) ([^{$c}]+){$c}/", '<img src="<?php echo BASE_URL . createThumb($3, $1, $2);?>" />', $content);
-		// Thay {each $arr as $val} thành foreach($arr as $val):
-		$content = preg_replace("/{$o}each ([^ ]+) as ([^{$c}]+){$c}/", '<?php foreach ( $1 as $2 ) : ?>', $content);
-		// Thay {each $arr as $key => $val} thành foreach($arr as $key => $val):
-		$content = preg_replace("/{$o}each ([^ ]+) as ([^= ]+)=>([^{$c}]+){$c}/", '<?php foreach ( $1 as $2 => $3 ) : ?>', $content);
-		// Thay {/each} thành endforeach
-		$content = preg_replace("/{$o}\/each{$c}/", '<?php endforeach; ?>', $content);
-		// Thay {if ($conds)} thành if($conds):
-		$content = preg_replace("/{$o}if ([^{$c}]+){$c}/", '<?php if ( $1 ) : ?>', $content);
-		$content = preg_replace("/{$o}ifvar ({$idExp}){$c}/", '<?php if ( isset($$1) && $$1 ) : ?>', $content);
-		$content = preg_replace("/{$o}ifvar ({$idExp})=([^{$c}]+){$c}/", '<?php if ( isset($$1) && $$1=="$2" ) : ?>', $content);
-		$content = preg_replace("/{$o}ifprop ({$idExp}){$c}/", '<?php if ( isset($data->$1) && $data->$1 ) : ?>', $content);
-		$content = preg_replace("/{$o}ifpermission ({$idExp})\/({$idExp}){$c}/", '<?php if ( pzk_element(\'permission\')->check(\'$1\', \'$2\') ) : ?>', $content);
-		$content = preg_replace("/{$o}ifprop ({$idExp})=([^{$c}]+){$c}/", '<?php if ( isset($data->$1) && $data->$1=="$2" ) : ?>', $content);
-		$content = preg_replace("/{$o}\/if{$c}/", '<?php endif; ?>', $content);
+																// Thay {thumb WxH $src} thành <img src="filename($src)-WxH.ext($src)" />
+																$content = preg_replace("/{$o}thumb ([\d]+)x([\d]+) ([^{$c}]+){$c}/", '<img src="<?php echo BASE_URL . createThumb($3, $1, $2);?>" />', $content);
+																// Thay {each $arr as $val} thành foreach($arr as $val):
+																$content = preg_replace("/{$o}each ([^ ]+) as ([^{$c}]+){$c}/", '<?php foreach ( $1 as $2 ) : ?>', $content);
+																// Thay {each $arr as $key => $val} thành foreach($arr as $key => $val):
+																$content = preg_replace("/{$o}each ([^ ]+) as ([^= ]+)=>([^{$c}]+){$c}/", '<?php foreach ( $1 as $2 => $3 ) : ?>', $content);
+																// Thay {/each} thành endforeach
+																$content = preg_replace("/{$o}\/each{$c}/", '<?php endforeach; ?>', $content);
+																// Thay {if ($conds)} thành if($conds):
+																$content = preg_replace("/{$o}if ([^{$c}]+){$c}/", '<?php if ( $1 ) : ?>', $content);
+																$content = preg_replace("/{$o}ifvar ({$idExp}){$c}/", '<?php if ( isset($$1) && $$1 ) : ?>', $content);
+																$content = preg_replace("/{$o}ifvar ({$idExp})=([^{$c}]+){$c}/", '<?php if ( isset($$1) && $$1=="$2" ) : ?>', $content);
+																$content = preg_replace("/{$o}ifprop ({$idExp}){$c}/", '<?php if ( isset($data->$1) && $data->$1 ) : ?>', $content);
+																$content = preg_replace("/{$o}ifpermission ({$idExp})\/({$idExp}){$c}/", '<?php if ( pzk_element(\'permission\')->check(\'$1\', \'$2\') ) : ?>', $content);
+																$content = preg_replace("/{$o}ifprop ({$idExp})=([^{$c}]+){$c}/", '<?php if ( isset($data->$1) && $data->$1=="$2" ) : ?>', $content);
+																$content = preg_replace("/{$o}\/if{$c}/", '<?php endif; ?>', $content);
 
-		$content = preg_replace("/{$o}date ([^{$c}]+){$c}/", '<?php echo date(\'G:i:s d/m/Y\', intval($1)) ?>', $content);
-		$content = preg_replace("/{$o}utf8 ([^{$c}]+){$c}/", '<?php echo html_entity_decode($1, ENT_COMPAT, "UTF-8"); ?>', $content);
-		$content = preg_replace("/{$o}jstmpl ([^{$c}]+){$c}/", '<?php function $1() { ob_start(); ?>', $content);
-		$content = preg_replace("/{$o}\/jstmpl ([^{$c}]+){$c}/", '<?php $content = ob_get_clean(); return $content; } echo \'<script>$1 = \' . json_encode($1()) . \';</script>\'; ?>', $content);
-		$content = preg_replace("/{$o}cssclass ([^{$c}]+){$c}/", '<?php echo pzk_theme_css_class(\'$1\') ?>', $content);
-		$content = preg_replace("/{$o}obj ([^{$c}]+){$c}/", '<?php $tmp = pzk_parse(\'$1\'); $tmp->display(); ?>', $content);
-		$cssExp = '[\w\d_-]+';
-		$content = preg_replace("/\<my\.($cssExp)\>/", '<?php echo pzk_theme_html_open_tag(\'$1\') ?>', $content);
-		$content = preg_replace("/\<\/my\.($cssExp)\>/", '<?php echo pzk_theme_html_close_tag(\'$1\') ?>', $content);
-		$content = preg_replace("/\<my\.($cssExp)\.($idExp)\>/", '<?php echo pzk_theme_html_open_tag(\'$1\') ?>', $content);
-		$content = preg_replace("/\<\/my\.($cssExp)\.($idExp)\>/", '<?php echo pzk_theme_html_close_tag(\'$1\') ?>', $content);
-		$content = preg_replace("/cls-($cssExp)/", '<?php echo pzk_theme_css_class(\'$1\') ?>', $content);
-		$content = str_replace('{continue}', '<?php continue; ?>', $content);
-		$content = preg_replace("/{$o}({$idExp})\s+=\s+([^{$c}]+){$c}/", '<?php $$1 = $2; ?>', $content);
-		$content = preg_replace("/{$o}:rseg([\d]+){$c}/", '<?php echo pzk_request()->getSegment($1); ?>', $content);
-		return $content;
-	}
-}
+																$content = preg_replace("/{$o}date ([^{$c}]+){$c}/", '<?php echo date(\'G:i:s d/m/Y\', intval($1)) ?>', $content);
+																$content = preg_replace("/{$o}utf8 ([^{$c}]+){$c}/", '<?php echo html_entity_decode($1, ENT_COMPAT, "UTF-8"); ?>', $content);
+																$content = preg_replace("/{$o}jstmpl ([^{$c}]+){$c}/", '<?php function $1() { ob_start(); ?>', $content);
+																$content = preg_replace("/{$o}\/jstmpl ([^{$c}]+){$c}/", '<?php $content = ob_get_clean(); return $content; } echo \'<script>$1 = \' . json_encode($1()) . \';</script>\'; ?>', $content);
+																$content = preg_replace("/{$o}cssclass ([^{$c}]+){$c}/", '<?php echo pzk_theme_css_class(\'$1\') ?>', $content);
+																$content = preg_replace("/{$o}obj ([^{$c}]+){$c}/", '<?php $tmp = pzk_parse(\'$1\'); $tmp->display(); ?>', $content);
+																$cssExp = '[\w\d_-]+';
+																$content = preg_replace("/\<my\.($cssExp)\>/", '<?php echo pzk_theme_html_open_tag(\'$1\') ?>', $content);
+																$content = preg_replace("/\<\/my\.($cssExp)\>/", '<?php echo pzk_theme_html_close_tag(\'$1\') ?>', $content);
+																$content = preg_replace("/\<my\.($cssExp)\.($idExp)\>/", '<?php echo pzk_theme_html_open_tag(\'$1\') ?>', $content);
+																$content = preg_replace("/\<\/my\.($cssExp)\.($idExp)\>/", '<?php echo pzk_theme_html_close_tag(\'$1\') ?>', $content);
+																$content = preg_replace("/cls-($cssExp)/", '<?php echo pzk_theme_css_class(\'$1\') ?>', $content);
+																$content = str_replace('{continue}', '<?php continue; ?>', $content);
+																$content = preg_replace("/{$o}({$idExp})\s+=\s+([^{$c}]+){$c}/", '<?php $$1 = $2; ?>', $content);
+																$content = preg_replace("/{$o}:rseg([\d]+){$c}/", '<?php echo pzk_request()->getSegment($1); ?>', $content);
+																return $content;
+															}
+														}
 
-/**
- * 
- * @param unknown $xml
- * @return PzkObject
- */
-function pzk_parse($xml)
-{
-	return PzkParser::parse($xml);
-}
+														/**
+														 * 
+														 * @param unknown $xml
+														 * @return PzkObject
+														 */
+														function pzk_parse($xml)
+														{
+															return PzkParser::parse($xml);
+														}
 
-function pzk_obj($obj, $arr = array())
-{
-	$pzk_element = pzk_element();
-	$className = PzkParser::importObject($obj);
-	$attrs = array(
-		'tagName' => $obj,
-		'className' => $className,
-		'fullNames' => explode('.', $obj),
-	);
-	foreach ($arr as $key => $val) {
-		$attrs[$key] = $val;
-	}
-	$attrs['className'] = $className;
-	$obj0 = new $className($attrs);
-	$pzk_element->set($obj0->id, $obj0);
+														function pzk_obj($obj, $arr = array())
+														{
+															$pzk_element = pzk_element();
+															$className = PzkParser::importObject($obj);
+															$attrs = array(
+																'tagName' => $obj,
+																'className' => $className,
+																'fullNames' => explode('.', $obj),
+															);
+															foreach ($arr as $key => $val) {
+																$attrs[$key] = $val;
+															}
+															$attrs['className'] = $className;
+															$obj0 = new $className($attrs);
+															$pzk_element->set($obj0->id, $obj0);
 
-	$obj0->init();
-	$obj0->finish();
+															$obj0->init();
+															$obj0->finish();
 
-	return $obj0;
-}
+															return $obj0;
+														}
 
-function pzk_obj_once($obj, $arr = array())
-{
-	static $objs = array();
-	if (is_string($obj)) {
-		if (isset($objs[$obj])) {
-			return $objs[$obj];
-		} else {
-			$objs[$obj] = pzk_obj($obj, $arr);
-			return $objs[$obj];
-		}
-	} elseif (is_array($obj)) {
-		$objName = $obj[0];
-		$objPool = $obj[1];
-		if (isset($objs[$objPool])) {
-			return $objs[$objPool];
-		} else {
-			$objs[$objPool] = pzk_obj($objName, $arr);
-			return $objs[$objPool];
-		}
-	}
-}
+														function pzk_obj_once($obj, $arr = array())
+														{
+															static $objs = array();
+															if (is_string($obj)) {
+																if (isset($objs[$obj])) {
+																	return $objs[$obj];
+																} else {
+																	$objs[$obj] = pzk_obj($obj, $arr);
+																	return $objs[$obj];
+																}
+															} elseif (is_array($obj)) {
+																$objName = $obj[0];
+																$objPool = $obj[1];
+																if (isset($objs[$objPool])) {
+																	return $objs[$objPool];
+																} else {
+																	$objs[$objPool] = pzk_obj($objName, $arr);
+																	return $objs[$objPool];
+																}
+															}
+														}
 
-function partial($layout, $data = false, $return = false)
-{
-	return PzkParser::parseLayout($layout, $data, $return);
-}
+														function partial($layout, $data = false, $return = false)
+														{
+															return PzkParser::parseLayout($layout, $data, $return);
+														}
