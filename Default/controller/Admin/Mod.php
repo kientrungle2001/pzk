@@ -1,14 +1,14 @@
 <?php
 class PzkAdminModController extends PzkGridAdminController
 {
-    public $titleController = 'Quản lí người dùng';
+    public $title = 'Quản lí người dùng';
     public $table = 'admin';
     //joins to many table
     public $joins = array(
         array(
-            'table' => 'admin_level',
-            'condition' => 'admin.usertype_id = admin_level.id',
-            'type' => JOIN_TYPE_LEFT
+            ATTR_TABLE => 'admin_level',
+            ATTR_CONDITION => 'admin.usertype_id = admin_level.id',
+            ATTR_TYPE => JOIN_TYPE_LEFT
         )
     );
     //select table
@@ -16,34 +16,34 @@ class PzkAdminModController extends PzkGridAdminController
     //show fields on page index
     public $listFieldSettings = array(
         array(
-            'index' => 'name',
-            'type' => 'text',
-            'label' => 'Tên User'
+            ATTR_INDEX => 'name',
+            ATTR_TYPE => 'text',
+            ATTR_LABEL => 'Tên User'
         ),
         array(
-            'index'     => 'parent',
-            'type'         => 'nameid',
-            'label'     => 'Cha',
-            'table'        =>    'admin',
-            'findField'    =>    'id',
-            'showField'    =>    'name'
+            ATTR_INDEX     => 'parent',
+            ATTR_TYPE         => 'nameid',
+            ATTR_LABEL     => 'Cha',
+            ATTR_TABLE        =>    'admin',
+            ATTR_FIND_FIELD    =>    'id',
+            ATTR_SHOW_FIELD    =>    'name'
         ),
         array(
-            'index' => 'categoryIds',
-            'type' => 'text',
-            'label' => 'Danh mục'
+            ATTR_INDEX => 'categoryIds',
+            ATTR_TYPE => 'text',
+            ATTR_LABEL => 'Danh mục'
         ),
         array(
-            'index' => 'level',
-            'type' => 'text',
-            'label' => 'Tên quyền',
-            'link'    => '/Admin_Mod/filter?type=select&index=usertype_id&id='
+            ATTR_INDEX => 'level',
+            ATTR_TYPE => 'text',
+            ATTR_LABEL => 'Tên quyền',
+            ATTR_LINK    => '/Admin_Mod/filter?type=select&index=usertype_id&id='
         ),
 
         array(
-            'index' => 'status',
-            'type' => 'status',
-            'label' => 'Trạng thái'
+            ATTR_INDEX => 'status',
+            ATTR_TYPE => 'status',
+            ATTR_LABEL => 'Trạng thái'
         )
 
     );
@@ -56,17 +56,17 @@ class PzkAdminModController extends PzkGridAdminController
     public $filterFields = array(
 
         array(
-            'index' => 'usertype_id',
-            'type' => 'select',
-            'label' => 'Tên quyền',
-            'table' => 'admin_level',
-            'show_value' => 'id',
-            'show_name' => 'level',
+            ATTR_INDEX => 'usertype_id',
+            ATTR_TYPE => 'select',
+            ATTR_LABEL => 'Tên quyền',
+            ATTR_TABLE => 'admin_level',
+            ATTR_SHOW_VALUE => 'id',
+            ATTR_SHOW_NAME => 'level',
         ),
         array(
-            'index' => 'status',
-            'type' => 'status',
-            'label' => 'Trạng thái'
+            ATTR_INDEX => 'status',
+            ATTR_TYPE => 'status',
+            ATTR_LABEL => 'Trạng thái'
         )
 
     );
@@ -84,78 +84,70 @@ class PzkAdminModController extends PzkGridAdminController
     //add theo dang binh thuong
     public $addFieldSettings = array(
         array(
-            'index' => 'name',
-            'type' => 'text',
-            'label' => 'Tên người dùng'
+            ATTR_INDEX => 'name',
+            ATTR_TYPE => EDIT_TYPE_TEXT,
+            ATTR_LABEL => 'Tên người dùng'
         ),
 
         array(
-            'index' => 'password',
-            'type' => 'password',
-            'label' => 'Mật khẩu'
+            ATTR_INDEX => 'password',
+            ATTR_TYPE => 'password',
+            ATTR_LABEL => 'Mật khẩu'
         ),
         array(
-            'index'         => 'parent',
-            'type'             => EDIT_TYPE_SELECT,
-            'label'           => 'Cha',
-            'table'           => 'admin',
-            'show_value'      => 'id',
-            'show_name'      => 'name'
+            ATTR_INDEX         => 'parent',
+            ATTR_TYPE             => EDIT_TYPE_SELECT,
+            ATTR_LABEL           => 'Cha',
+            ATTR_TABLE           => 'admin',
+            ATTR_SHOW_VALUE      => 'id',
+            ATTR_SHOW_NAME      => 'name'
         ),
         array(
-            'index'         => 'categoryIds',
-            'type'             => EDIT_TYPE_MULTISELECT,
-            'label'           => 'Danh mục cha',
-            'table'           => 'categories',
-            'show_value'      => 'id',
-            'show_name'      => 'name'
+            ATTR_INDEX         => 'categoryIds',
+            ATTR_TYPE             => EDIT_TYPE_MULTISELECT,
+            ATTR_LABEL           => 'Danh mục cha',
+            ATTR_TABLE           => 'categories',
+            ATTR_SHOW_VALUE      => 'id',
+            ATTR_SHOW_NAME      => 'name'
         ),
         array(
-            'index' => 'areacode',
-            'type' => 'text',
-            'label' => 'Tỉnh/Thành phố'
+            ATTR_INDEX => 'areacode',
+            ATTR_TYPE => EDIT_TYPE_TEXT,
+            ATTR_LABEL => 'Tỉnh/Thành phố'
         ),
         array(
-            'index' => 'district',
-            'type' => 'text',
-            'label' => 'Quận/Huyện'
+            ATTR_INDEX => 'district',
+            ATTR_TYPE => EDIT_TYPE_TEXT,
+            ATTR_LABEL => 'Quận/Huyện'
         ),
         array(
-            'index' => 'school',
-            'type' => 'text',
-            'label' => 'Trường'
+            ATTR_INDEX => 'school',
+            ATTR_TYPE => EDIT_TYPE_TEXT,
+            ATTR_LABEL => 'Trường'
         ),
         array(
-            'index' => 'class',
-            'type' => 'text',
-            'label' => 'Khối'
+            ATTR_INDEX => 'class',
+            ATTR_TYPE => EDIT_TYPE_TEXT,
+            ATTR_LABEL => 'Khối'
         ),
         array(
-            'index' => 'classname',
-            'type' => 'text',
-            'label' => 'Tên lớp'
+            ATTR_INDEX => 'classname',
+            ATTR_TYPE => EDIT_TYPE_TEXT,
+            ATTR_LABEL => 'Tên lớp'
         ),
         array(
-            'index' => 'usertype_id',
-            'type' => 'select',
-            'label' => 'Tên quyền',
-            'table' => 'admin_level',
-            'show_value' => 'id',
-            'show_name' => 'level',
+            ATTR_INDEX => 'usertype_id',
+            ATTR_TYPE => EDIT_TYPE_SELECT,
+            ATTR_LABEL => 'Tên quyền',
+            ATTR_TABLE => 'admin_level',
+            ATTR_SHOW_VALUE => 'id',
+            ATTR_SHOW_NAME => 'level',
         ),
 
         array(
-            'index' => 'status',
-            'type' => 'status',
-            'label' => 'Trạng thái',
-            'options' => array(
-                '0' => 'Không hoạt động',
-                '1' => 'Hoạt động'
-            ),
-            'actions' => array(
-                '0' => 'mở',
-                '1' => 'dừng'
-            )
+            ATTR_INDEX => 'status',
+            ATTR_TYPE => EDIT_TYPE_STATUS,
+            ATTR_LABEL => 'Trạng thái',
         )
     );
     public $addValidator = array(
@@ -192,78 +184,70 @@ class PzkAdminModController extends PzkGridAdminController
     //edit theo dang binh thuong
     public $editFieldSettings = array(
         array(
-            'index' => 'name',
-            'type' => 'text',
-            'label' => 'Tên người dùng'
+            ATTR_INDEX => 'name',
+            ATTR_TYPE => 'text',
+            ATTR_LABEL => 'Tên người dùng'
         ),
 
         array(
-            'index' => 'password',
-            'type' => 'password',
-            'label' => 'Mật khẩu mới'
+            ATTR_INDEX => 'password',
+            ATTR_TYPE => 'password',
+            ATTR_LABEL => 'Mật khẩu mới'
         ),
         array(
-            'index'         => 'parent',
-            'type'             => EDIT_TYPE_SELECT,
-            'label'           => 'Cha',
-            'table'           => 'admin',
-            'show_value'      => 'id',
-            'show_name'      => 'name'
+            ATTR_INDEX         => 'parent',
+            ATTR_TYPE             => EDIT_TYPE_SELECT,
+            ATTR_LABEL           => 'Cha',
+            ATTR_TABLE           => 'admin',
+            ATTR_SHOW_VALUE      => 'id',
+            ATTR_SHOW_NAME      => 'name'
         ),
         array(
-            'index'         => 'categoryIds',
-            'type'             => EDIT_TYPE_MULTISELECT,
-            'label'           => 'Danh mục cha',
-            'table'           => 'categories',
-            'show_value'      => 'id',
-            'show_name'      => 'name'
+            ATTR_INDEX         => 'categoryIds',
+            ATTR_TYPE             => EDIT_TYPE_MULTISELECT,
+            ATTR_LABEL           => 'Danh mục cha',
+            ATTR_TABLE           => 'categories',
+            ATTR_SHOW_VALUE      => 'id',
+            ATTR_SHOW_NAME      => 'name'
         ),
         array(
-            'index' => 'areacode',
-            'type' => 'text',
-            'label' => 'Tỉnh/Thành phố'
+            ATTR_INDEX => 'areacode',
+            ATTR_TYPE => 'text',
+            ATTR_LABEL => 'Tỉnh/Thành phố'
         ),
         array(
-            'index' => 'district',
-            'type' => 'text',
-            'label' => 'Quận/Huyện'
+            ATTR_INDEX => 'district',
+            ATTR_TYPE => 'text',
+            ATTR_LABEL => 'Quận/Huyện'
         ),
         array(
-            'index' => 'school',
-            'type' => 'text',
-            'label' => 'Trường'
+            ATTR_INDEX => 'school',
+            ATTR_TYPE => 'text',
+            ATTR_LABEL => 'Trường'
         ),
         array(
-            'index' => 'class',
-            'type' => 'text',
-            'label' => 'Khối'
+            ATTR_INDEX => 'class',
+            ATTR_TYPE => 'text',
+            ATTR_LABEL => 'Khối'
         ),
         array(
-            'index' => 'classname',
-            'type' => 'text',
-            'label' => 'Tên lớp'
+            ATTR_INDEX => 'classname',
+            ATTR_TYPE => 'text',
+            ATTR_LABEL => 'Tên lớp'
         ),
         array(
-            'index' => 'usertype_id',
-            'type' => 'select',
-            'label' => 'Tên quyền',
-            'table' => 'admin_level',
-            'show_value' => 'id',
-            'show_name' => 'level'
+            ATTR_INDEX => 'usertype_id',
+            ATTR_TYPE => 'select',
+            ATTR_LABEL => 'Tên quyền',
+            ATTR_TABLE => 'admin_level',
+            ATTR_SHOW_VALUE => 'id',
+            ATTR_SHOW_NAME => 'level'
         ),
 
         array(
-            'index' => 'status',
-            'type' => 'status',
-            'label' => 'Trạng thái',
-            'options' => array(
-                '0' => 'Không hoạt động',
-                '1' => 'Hoạt động'
-            ),
-            'actions' => array(
-                '0' => 'mở',
-                '1' => 'dừng'
-            )
+            ATTR_INDEX => 'status',
+            ATTR_TYPE => 'status',
+            ATTR_LABEL => 'Trạng thái',
         )
     );
 
