@@ -10,9 +10,8 @@ class PzkCoreDbGrid extends PzkCoreDbList {
         $join = $this->joins;
         if($join) {
             foreach($join as $val) {
-                $query->join($val['table'], $val['condition'], $val['type']);
+                $query->join($val['table'], $val['condition'], isset($val['type']) ? $val['type'] : null);
             }
         }
     }
 }
-?>

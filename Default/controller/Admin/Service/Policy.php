@@ -16,17 +16,17 @@ class PzkAdminServicePolicyController extends PzkGridAdminController {
 		array(
 			'table' => 'campaign',
 			'condition' => 'service_policy.campaignId = campaign.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `creator`',
 			'condition' => 'service_policy.creatorId = creator.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `modifier`',
 			'condition' => 'service_policy.modifiedId = modifier.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
     );
     public $selectFields = 'service_policy.*,service_packages.serviceName as serviceName, service_packages.serviceType as serviceType, campaign.name as campaignName,creator.name as creatorName, modifier.name as modifiedName';

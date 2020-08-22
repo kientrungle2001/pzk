@@ -52,7 +52,7 @@ class PzkTableConstant {
 	}
 	
 	public static function get_date($field, $options) {
-		return date($options['format']);
+		return date($options[ATTR_FORMAT]);
 	}
 	
 	public static function get_md5($field, $options) {

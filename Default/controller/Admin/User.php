@@ -6,17 +6,17 @@ class PzkAdminUserController extends PzkGridAdminController {
 			array (
 					'table' => 'areacode',
 					'condition' => 'user.areacode = areacode.id and areacode.parent = 0',
-					'type' => 'left' 
+					'type' => JOIN_TYPE_LEFT 
 			),
 			array (
 					'table' => '`admin` as `creator`',
 					'condition' => '`user`.creatorId = creator.id',
-					'type' => 'left' 
+					'type' => JOIN_TYPE_LEFT 
 			),
 			array (
 					'table' => '`admin` as `modifier`',
 					'condition' => '`user`.modifiedId = modifier.id',
-					'type' => 'left' 
+					'type' => JOIN_TYPE_LEFT 
 			)
 	);
 	public $selectFields = '`user`.*, areacode.name as areaname, creator.name as creatorName, modifier.name as modifiedName, paid_id as paid, paid_1_id as test_paid, paid_2_id as test_paid_2';

@@ -12,7 +12,7 @@ class PzkAdminHomeController extends PzkAdminController {
 		$menu =  pzk_session(MENU, 'admin_home');
 	}
 	public $masterPage = 'admin/home/index';
-	public $masterPosition = 'left';
+	public $masterPosition = JOIN_TYPE_LEFT;
 	public function indexAction() {
 		$this->initPage();
 		$this->append('admin/home/shortcut');

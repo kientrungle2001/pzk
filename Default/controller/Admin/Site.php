@@ -21,12 +21,12 @@ class PzkAdminSiteController extends PzkGridAdminController {
 		array(
 			'table' => '`admin` as `creator`',
 			'condition' => 'site_site.creatorId = creator.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `modifier`',
 			'condition' => 'site_site.modifiedId = modifier.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 	);
     public $searchFields = array('name');

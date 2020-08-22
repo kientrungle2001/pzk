@@ -5,7 +5,7 @@ class PzkAdminNewsletterClickController extends PzkGridAdminController {
 		array(
 			'table'		=> 	'newsletter_newsletter',
 			'condition'	=>	'newsletter_click.newsletterId = newsletter_newsletter.id',
-			'type'		=> 'left'
+			'type'		=> JOIN_TYPE_LEFT
 		)
 	);
 	public $selectFields = 'newsletter_click.*, newsletter_newsletter.subject as newsletterSubject';

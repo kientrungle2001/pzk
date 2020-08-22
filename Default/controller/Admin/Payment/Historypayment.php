@@ -5,7 +5,7 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
 	public $table='history_payment';	
 	public $selectFields = 'history_payment.*, user.name, user.username, user.email, user.phone, user.registered';
 	public $joins = array(		
-		array('table' => 'user', 'condition' => 'history_payment.username = user.username', 'type' => 'left')	);		
+		array('table' => 'user', 'condition' => 'history_payment.username = user.username', 'type' => JOIN_TYPE_LEFT)	);		
 	public $orderBy = 'history_payment.id desc';
 	public $sortFields = array(
 		'history_payment.id asc' 				=> 'ID tăng',

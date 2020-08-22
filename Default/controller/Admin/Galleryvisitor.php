@@ -5,12 +5,12 @@ class PzkAdminGalleryVisitorController extends PzkGridAdminController {
 		array(
 			'table' => 'gallery',
 			'condition' => 'gallery_visitor.galleryId = gallery.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => 'gallery_img',
 			'condition' => 'gallery_visitor.galleryId = gallery_img.galleryId',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 	);
 	public $sortFields = array(

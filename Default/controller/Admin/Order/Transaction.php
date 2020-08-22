@@ -10,22 +10,22 @@ class PzkAdminOrderTransactionController extends PzkGridAdminController {
 		array(
 			'table'	=> '`order`',
 			'condition'	=> 'order_transaction.orderId=`order`.id',
-			'type'	=> 'left'
+			'type'	=> JOIN_TYPE_LEFT
 		),
 		array(
 			'table'	=> 'service_packages',
 			'condition'	=> 'order_transaction.service=service_packages.id',
-			'type'	=> 'left'
+			'type'	=> JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `creator`',
 			'condition' => '`order_transaction`.creatorId = creator.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `modifier`',
 			'condition' => '`order_transaction`.modifiedId = modifier.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		)
 	);
 	public $selectFields = 'order_transaction.*, service_packages.serviceName as serviceName, creator.name as creatorName, modifier.name as modifiedName';
@@ -428,7 +428,7 @@ class PzkAdminOrderTransactionController extends PzkGridAdminController {
     );
     public function detailAction($id){
         $this->initPage();
-        $this->append('admin/transaction/detail', 'left'); 
+        $this->append('admin/transaction/detail', JOIN_TYPE_LEFT); 
         $this->append('admin/grid/menu', 'right'); 
         $this->display();
 

@@ -5,7 +5,7 @@ class PzkAdminGalleryCommentsController extends PzkGridAdminController {
 		array(
 			'table' => 'gallery',
 			'condition' => 'gallery_comment.galleryId = gallery.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		)
 	);
 	public $editFields = 'comment';

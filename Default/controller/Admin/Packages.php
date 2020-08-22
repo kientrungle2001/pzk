@@ -206,7 +206,7 @@ class PzkAdminPackagesController extends PzkGridAdminController {
         $layout = pzk_obj('Core.Layout');
         $layout->set('columns', array(
             array(
-                'index' => 'left',
+                'index' => JOIN_TYPE_LEFT,
                 'col'   => 3
             ),
             array(
@@ -224,7 +224,7 @@ class PzkAdminPackagesController extends PzkGridAdminController {
         $list->set('module', $this->get('module'));
         $list->set('itemId', $id);
         //gan new obj to property left in obj
-        $list->set('column', 'left');
+        $list->set('column', JOIN_TYPE_LEFT);
 
         $edit = $this->parse('admin/plugin/edit');
         $edit->set('module', $this->get('module'));

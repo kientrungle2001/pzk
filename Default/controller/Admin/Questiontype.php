@@ -1,7 +1,7 @@
 <?php
 class PzkAdminQuestiontypeController extends PzkGridAdminController {
     public $masterStructure = 'admin/home/index';
-    public $masterPosition = 'left';
+    public $masterPosition = JOIN_TYPE_LEFT;
     
 	public function getListFieldSettings() {
 		return array(

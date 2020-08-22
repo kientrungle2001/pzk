@@ -5,12 +5,12 @@ class PzkAdminFeaturedLikeController extends PzkGridAdminController {
 		array(
 			'table' => 'featured',
 			'condition' => 'featured_like.featuredId = featured.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => 'user',
 			'condition' => 'featured_like.userId = user.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		)
 	);
 	public $sortFields = array(

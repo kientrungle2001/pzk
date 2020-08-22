@@ -2,105 +2,105 @@
 class PzkFilterConstant {
 	
 	public static $areacodeParent = array(
-		'index' 		=> 'parent',
-		'type' 			=> 'select',
-		'label' 		=> 'Lọc theo địa điểm',
-		'table' 		=> 'areacode',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name',
+		ATTR_INDEX 		=> 'parent',
+		ATTR_TYPE 			=> 'select',
+		ATTR_LABEL 		=> 'Lọc theo địa điểm',
+		ATTR_TABLE 		=> 'areacode',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name',
 	);
 	public static $categoryIds = array(
-		'index' 		=> 'categoryIds',
-		'type' 			=> 'select',
-		'label' 		=> 'Dạng bài tập',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name',
+		ATTR_INDEX 		=> 'categoryIds',
+		ATTR_TYPE 			=> 'select',
+		ATTR_LABEL 		=> 'Dạng bài tập',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name',
 		'like' 			=> true,
-		'condition'		=> '`document`=1'
+		ATTR_CONDITION		=> '`document`=1'
 	);
 	public static $subjectCategory = array(
-		'index' 		=> 'categoryId',
-		'type' 			=> 'select',
-		'label' 		=> 'Theo danh mục',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name',
-		'condition'		=> 'parent = \'47\''
+		ATTR_INDEX 		=> 'categoryId',
+		ATTR_TYPE 			=> 'select',
+		ATTR_LABEL 		=> 'Theo danh mục',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_CONDITION		=> 'parent = \'47\''
 	);
 	public static $newsCategory = array(
-		'index' 		=> 'categoryId',
-		'type' 			=> 'select',
-		'label' 		=> 'Theo danh mục',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name',
-		'condition'		=> 'router like \'%news%\''
+		ATTR_INDEX 		=> 'categoryId',
+		ATTR_TYPE 			=> 'select',
+		ATTR_LABEL 		=> 'Theo danh mục',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_CONDITION		=> 'router like \'%news%\''
 	);
 	public static $featuredCategory = array(
-		'index' 		=> 'categoryId',
-		'type' 			=> 'select',
-		'label' 		=> 'Theo danh mục',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name',
-		'condition'		=> 'router like \'%featured%\''
+		ATTR_INDEX 		=> 'categoryId',
+		ATTR_TYPE 			=> 'select',
+		ATTR_LABEL 		=> 'Theo danh mục',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_CONDITION		=> 'router like \'%featured%\''
 	);
 	public static $documentCategory = array(
-		'index' 		=> 'categoryId',
-		'type' 			=> 'select',
-		'label' 		=> 'Theo danh mục',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name',
-		'condition'		=> 'router like \'%document%\''
+		ATTR_INDEX 		=> 'categoryId',
+		ATTR_TYPE 			=> 'select',
+		ATTR_LABEL 		=> 'Theo danh mục',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_CONDITION		=> 'router like \'%document%\''
 	);
 	public static $campaign = array(
-		'index' 		=> 'campaignId',
-		'type' 			=> 'select',
-		'label' 		=> 'Theo chiến dịch',
-		'table' 		=> 'campaign',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'campaignName',
+		ATTR_INDEX 		=> 'campaignId',
+		ATTR_TYPE 			=> 'select',
+		ATTR_LABEL 		=> 'Theo chiến dịch',
+		ATTR_TABLE 		=> 'campaign',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'campaignName',
 	);
 	
 	public static $status = array(
-		'index'			=>	'status',
-		'type' 			=> 	'status',
-		'label' 		=> 	'Trạng thái'
+		ATTR_INDEX			=>	'status',
+		ATTR_TYPE 			=> 	'status',
+		ATTR_LABEL 		=> 	'Trạng thái'
 	);
 	
 	public static $trial = array(
-		'index'			=>	'trial',
-		'type' 			=> 	'status',
-		'label' 		=> 	'Dùng thử'
+		ATTR_INDEX			=>	'trial',
+		ATTR_TYPE 			=> 	'status',
+		ATTR_LABEL 		=> 	'Dùng thử'
 	);
 	
 	public static $featuredId = array(
-		'index' => 'featuredId',
-		'type' => 'select',
-		'label' => 'Theo bài viết',
-		'table' => 'featured',
-		'show_value' => 'id',
-		'show_name' => 'title',
+		ATTR_INDEX => 'featuredId',
+		ATTR_TYPE => 'select',
+		ATTR_LABEL => 'Theo bài viết',
+		ATTR_TABLE => 'featured',
+		ATTR_SHOW_VALUE => 'id',
+		ATTR_SHOW_NAME => 'title',
 	);
 	
 	public static $newsId = array(
-		'index' => 'newsId',
-		'type' => 'select',
-		'label' => 'Theo bài viết',
-		'table' => 'news',
-		'show_value' => 'id',
-		'show_name' => 'title',
+		ATTR_INDEX => 'newsId',
+		ATTR_TYPE => 'select',
+		ATTR_LABEL => 'Theo bài viết',
+		ATTR_TABLE => 'news',
+		ATTR_SHOW_VALUE => 'id',
+		ATTR_SHOW_NAME => 'title',
 	);
 	
 	public static $positionOfModule = array(
-		'index' => 'position',
-		'type' => 'select',
-		'label' => 'Vị trí',
-		'table' => 'flat_module',
-		'show_value' => 'position',
-		'show_name' => 'position',
+		ATTR_INDEX => 'position',
+		ATTR_TYPE => 'select',
+		ATTR_LABEL => 'Vị trí',
+		ATTR_TABLE => 'flat_module',
+		ATTR_SHOW_VALUE => 'position',
+		ATTR_SHOW_NAME => 'position',
 	);
 	
 	public static function  get($field, $replace) {

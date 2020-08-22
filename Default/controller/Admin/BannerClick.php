@@ -5,7 +5,7 @@ class PzkAdminBannerclickController extends PzkGridAdminController {
 		array(
 			'table' => 'banner',
 			'condition' => 'banner_click.bannerId = banner.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		)
 	);
 	public $sortFields = array(

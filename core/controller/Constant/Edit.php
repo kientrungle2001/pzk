@@ -14,314 +14,315 @@ define('EDIT_TYPE_UPLOAD_TYPE_IMAGE', 	'image');
 define('EDIT_TYPE_UPLOAD_TYPE_VIDEO', 	'video');
 define('EDIT_TYPE_UPLOAD_TYPE_AUDIO', 	'audio');
 
-class PzkEditConstant {
-	public static $name = array (
-		'index' 		=> 'name', 
-		'type' 			=> EDIT_TYPE_TEXT, 
-		'label' 		=> 'Tên'
+class PzkEditConstant
+{
+	public static $name = array(
+		ATTR_INDEX 		=> 'name',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Tên'
 	);
-	
+
 	public static $nameOfAreatype = array(
-        'index' 		=> 'name',
-        'type' 			=> 'text',
-        'label' 		=> 'Tên loại địa điểm',
-    );
-	
-	public static $nameOfCategory = array (
-			'index' 		=> 'name',
-			'type' 			=> EDIT_TYPE_TEXT,
-			'label' 		=> 'Tên danh mục'
+		ATTR_INDEX 		=> 'name',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Tên loại địa điểm',
 	);
-	
-	public static $vn_title = array (
-			'index' 		=> 'vn_title',
-			'type' 			=> EDIT_TYPE_TEXT,
-			'label' 		=> 'Tên danh mục tiếng Việt'
+
+	public static $nameOfCategory = array(
+		ATTR_INDEX 		=> 'name',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Tên danh mục'
 	);
-	
-	public static $en_title = array (
-			'index' 		=> 'en_title',
-			'type' 			=> EDIT_TYPE_TEXT,
-			'label' 		=> 'Tên danh mục tiếng Anh'
+
+	public static $vn_title = array(
+		ATTR_INDEX 		=> 'vn_title',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Tên danh mục tiếng Việt'
 	);
-	
+
+	public static $en_title = array(
+		ATTR_INDEX 		=> 'en_title',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Tên danh mục tiếng Anh'
+	);
+
 	public static $title = array(
-		'index' 		=> 'title',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Tên tin tức',
+		ATTR_INDEX 		=> 'title',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Tên tin tức',
 	);
 	public static $img = array(
-		'index' 		=> 'img',
-		'type' 			=> EDIT_TYPE_UPLOAD,
-		'uploadtype'	=> EDIT_TYPE_UPLOAD_TYPE_IMAGE,
-		'label' 		=> 'Ảnh minh họa ',
+		ATTR_INDEX 		=> 'img',
+		ATTR_TYPE 			=> EDIT_TYPE_UPLOAD,
+		ATTR_UPLOADTYPE	=> EDIT_TYPE_UPLOAD_TYPE_IMAGE,
+		ATTR_LABEL 		=> 'Ảnh minh họa ',
 	);
 	public static $image = array(
-		'index' 		=> 'image',
-		'type' 			=> EDIT_TYPE_FILE_MANAGER,
-		'uploadtype'	=> EDIT_TYPE_UPLOAD_TYPE_IMAGE,
-		'label' 		=> 'Ảnh',
+		ATTR_INDEX 		=> 'image',
+		ATTR_TYPE 			=> EDIT_TYPE_FILE_MANAGER,
+		ATTR_UPLOADTYPE	=> EDIT_TYPE_UPLOAD_TYPE_IMAGE,
+		ATTR_LABEL 		=> 'Ảnh',
 	);
 	public static $file = array(
-		'index' 		=> 'file',
-		'type' 			=> EDIT_TYPE_FILE_MANAGER,
-		'uploadtype'	=> EDIT_TYPE_UPLOAD_TYPE_IMAGE,
-		'label' 		=> 'Chọn File',
+		ATTR_INDEX 		=> 'file',
+		ATTR_TYPE 			=> EDIT_TYPE_FILE_MANAGER,
+		ATTR_UPLOADTYPE	=> EDIT_TYPE_UPLOAD_TYPE_IMAGE,
+		ATTR_LABEL 		=> 'Chọn File',
 	);
 	public static $brief = array(
-		'index' 		=> 'brief',
-		'type' 			=> EDIT_TYPE_TEXT_AREA,
-		'label' 		=> 'Mô tả'
+		ATTR_INDEX 		=> 'brief',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT_AREA,
+		ATTR_LABEL 		=> 'Mô tả'
 	);
 	public static $content =  array(
-		'index' 		=> 'content',
-		'type' 			=> EDIT_TYPE_TINYMCE,
-		'label' 		=> 'Nội dung'
+		ATTR_INDEX 		=> 'content',
+		ATTR_TYPE 			=> EDIT_TYPE_TINYMCE,
+		ATTR_LABEL 		=> 'Nội dung'
 	);
 	public static $alias =  array(
-		'index' 		=> 'alias',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Alias'
+		ATTR_INDEX 		=> 'alias',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Alias'
 	);
 	public static $ordering = array(
-		'index' 		=> 'ordering',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Thứ tự sắp xếp'
+		ATTR_INDEX 		=> 'ordering',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Thứ tự sắp xếp'
 	);
 	public static $startDate =  array(
-		'index' 		=> 'startDate',
-		'type' 			=> EDIT_TYPE_DATEPICKER,
-		'label' 		=> 'Ngày bắt đầu'
+		ATTR_INDEX 		=> 'startDate',
+		ATTR_TYPE 			=> EDIT_TYPE_DATEPICKER,
+		ATTR_LABEL 		=> 'Ngày bắt đầu'
 	);
 	public static $endDate = array(
-		'index' 		=> 'endDate',
-		'type' 			=> EDIT_TYPE_DATEPICKER,
-		'label' 		=> 'Ngày kết thúc'
+		ATTR_INDEX 		=> 'endDate',
+		ATTR_TYPE 			=> EDIT_TYPE_DATEPICKER,
+		ATTR_LABEL 		=> 'Ngày kết thúc'
 	);
-	public static $extotal = array (
-		'index' 		=> 'extotal',
-		'type' 			=> 'text',
-		'label' 		=> 'Số lượng bài tập'
+	public static $extotal = array(
+		ATTR_INDEX 		=> 'extotal',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Số lượng bài tập'
 	);
 	public static $categoryId = array(
-		'index' 		=> 'categoryId',
-		'type' 			=> EDIT_TYPE_SELECT,
-		'label' 		=> 'Danh mục cha',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name'
+		ATTR_INDEX 		=> 'categoryId',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_LABEL 		=> 'Danh mục cha',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name'
 	);
 	public static $categoryIds = array(
-		'index' 		=> 'categoryIds',
-		'type' 			=> EDIT_TYPE_MULTISELECT,
-		'label' 		=> 'Danh mục cha',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name'
+		ATTR_INDEX 		=> 'categoryIds',
+		ATTR_TYPE 			=> EDIT_TYPE_MULTISELECT,
+		ATTR_LABEL 		=> 'Danh mục cha',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name'
 	);
 	public static $newsCategoryId = array(
-		'index' 		=> 'categoryId',
-		'type' 			=> EDIT_TYPE_SELECT,
-		'label' 		=> 'Danh mục cha',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name',
-		'condition'		=> 'router like \'%news%\''
+		ATTR_INDEX 		=> 'categoryId',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_LABEL 		=> 'Danh mục cha',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_CONDITION		=> 'router like \'%news%\''
 	);
 	public static $questionCategoryId = array(
-		'index' 		=> 'categoryId',
-		'type' 			=> EDIT_TYPE_SELECT,
-		'label' 		=> 'Danh mục cha',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name',
-		'condition'		=> 'router like \'%ngonngu%\''
+		ATTR_INDEX 		=> 'categoryId',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_LABEL 		=> 'Danh mục cha',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_CONDITION		=> 'router like \'%ngonngu%\''
 	);
 	public static $level = array(
-		'index' 		=> 'level',
-		'type' 			=> 'text',
-		'label' 		=> 'Nhóm người dùng'
+		ATTR_INDEX 		=> 'level',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Nhóm người dùng'
 	);
 	public static $meta_keywords = array(
-		'index' 		=> 'meta_keywords',
-		'type' 			=> EDIT_TYPE_TEXT_AREA,
-		'label' 		=> 'Từ khóa liên quan'
+		ATTR_INDEX 		=> 'meta_keywords',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT_AREA,
+		ATTR_LABEL 		=> 'Từ khóa liên quan'
 	);
 	public static $meta_description = array(
-		'index' 		=> 'meta_description',
-		'type' 			=> EDIT_TYPE_TEXT_AREA,
-		'label' 		=> 'Từ khóa mô tả'
+		ATTR_INDEX 		=> 'meta_description',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT_AREA,
+		ATTR_LABEL 		=> 'Từ khóa mô tả'
 	);
-	
+
 	public static $keywords = array(
-			'index' 		=> 'meta_keywords',
-			'type' 			=> EDIT_TYPE_TEXT_AREA,
-			'label' 		=> 'Từ khóa liên quan'
+		ATTR_INDEX 		=> 'meta_keywords',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT_AREA,
+		ATTR_LABEL 		=> 'Từ khóa liên quan'
 	);
 	public static $description = array(
-			'index' 		=> 'meta_description',
-			'type' 			=> EDIT_TYPE_TEXT_AREA,
-			'label' 		=> 'Từ khóa mô tả'
+		ATTR_INDEX 		=> 'meta_description',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT_AREA,
+		ATTR_LABEL 		=> 'Từ khóa mô tả'
 	);
 	public static $campaignId = array(
-		'index' 		=> 'campaignId',
-		'type' 			=> EDIT_TYPE_SELECT,
-		'label' 		=> 'Chiến dịch',
-		'table' 		=> 'campaign',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name'
+		ATTR_INDEX 		=> 'campaignId',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_LABEL 		=> 'Chiến dịch',
+		ATTR_TABLE 		=> 'campaign',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name'
 	);
 	public static $status = array(
-		'index' 		=> 'status',
-		'type' 			=> EDIT_TYPE_STATUS,
-		'label' 		=> 'Trạng thái'
+		ATTR_INDEX 		=> 'status',
+		ATTR_TYPE 			=> EDIT_TYPE_STATUS,
+		ATTR_LABEL 		=> 'Trạng thái'
 	);
 	public static $published = array(
-		'index' 		=> 'published',
-		'type' 			=> EDIT_TYPE_DATETIMEPICKER,
-		'label' 		=> 'Ngày xuất bản'
+		ATTR_INDEX 		=> 'published',
+		ATTR_TYPE 			=> EDIT_TYPE_DATETIMEPICKER,
+		ATTR_LABEL 		=> 'Ngày xuất bản'
 	);
 	public static $accountId = array(
-		'index' 		=> 'accountId',
-		'type' 			=> EDIT_TYPE_SELECT,
-		'table'			=> 'social_account',
-		'show_value'	=> 'id',
-		'show_name'		=> 'name',
-		'label' 		=> 'Profile'
+		ATTR_INDEX 		=> 'accountId',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_TABLE			=> 'social_account',
+		ATTR_SHOW_VALUE	=> 'id',
+		ATTR_SHOW_NAME		=> 'name',
+		ATTR_LABEL 		=> 'Profile'
 	);
-	public static $router = array (
-		'index' 		=> 'router',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Đường dẫn gốc'
+	public static $router = array(
+		ATTR_INDEX 		=> 'router',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Đường dẫn gốc'
 	);
-	public static $isSort = array (
-		'index' 		=> 'isSort',
-		'type' 			=> EDIT_TYPE_STATUS,
-		'label' 		=> 'Sắp xếp'
+	public static $isSort = array(
+		ATTR_INDEX 		=> 'isSort',
+		ATTR_TYPE 			=> EDIT_TYPE_STATUS,
+		ATTR_LABEL 		=> 'Sắp xếp'
 	);
 	public static $display = array(
-		'index' 		=> 'display',
-		'type' 			=> EDIT_TYPE_STATUS,
-		'label' 		=> 'Display',
+		ATTR_INDEX 		=> 'display',
+		ATTR_TYPE 			=> EDIT_TYPE_STATUS,
+		ATTR_LABEL 		=> 'Display',
 	);
-	public static $parent = array (
-		'index' 		=> 'parent',
-		'type' 			=> EDIT_TYPE_SELECT,
-		'table' 		=> 'categories',
-		'label' 		=> 'Danh mục cha',
-		'show_name' 	=> 'name',
-		'show_value' 	=> 'id'
+	public static $parent = array(
+		ATTR_INDEX 		=> 'parent',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_TABLE 		=> 'categories',
+		ATTR_LABEL 		=> 'Danh mục cha',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_SHOW_VALUE 	=> 'id'
 	);
-	public static $parentOfAreacode = array (
-		'index' 		=> 'parent',
-		'type' 			=> 'select',
-		'table' 		=> 'areacode',
-		'label' 		=> 'Địa phận',
-		'show_name' 	=> 'name',
-		'show_value' 	=> 'id'
+	public static $parentOfAreacode = array(
+		ATTR_INDEX 		=> 'parent',
+		ATTR_TYPE 			=> 'select',
+		ATTR_TABLE 		=> 'areacode',
+		ATTR_LABEL 		=> 'Địa phận',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_SHOW_VALUE 	=> 'id'
 	);
-	public static $parentOfAreatype = array (
-		'index' 		=> 'parent',
-		'type' 			=> 'select',
-		'table' 		=> 'areatype',
-		'label' 		=> 'Loại địa điểm cha',
-		'show_name' 	=> 'name',
-		'show_value' 	=> 'id'
+	public static $parentOfAreatype = array(
+		ATTR_INDEX 		=> 'parent',
+		ATTR_TYPE 			=> 'select',
+		ATTR_TABLE 		=> 'areatype',
+		ATTR_LABEL 		=> 'Loại địa điểm cha',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_SHOW_VALUE 	=> 'id'
 	);
 	public static $parentOfCategory = array(
-		'index' 		=> 'parent',
-		'type' 			=> 'select',
-		'label' 		=> 'Lọc theo danh mục',
-		'table' 		=> 'categories',
-		'show_value' 	=> 'id',
-		'show_name' 	=> 'name',
+		ATTR_INDEX 		=> 'parent',
+		ATTR_TYPE 			=> 'select',
+		ATTR_LABEL 		=> 'Lọc theo danh mục',
+		ATTR_TABLE 		=> 'categories',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'name',
 	);
-	public static $question_types = array (
-		'index' 		=> 'question_types',
-		'type' 			=> EDIT_TYPE_MULTISELECT,
-		'table' 		=> 'questiontype',
-		'label' 		=> 'Chọn dạng bài tập',
-		'show_name' 	=> 'name',
-		'show_value' 	=> 'id'
+	public static $question_types = array(
+		ATTR_INDEX 		=> 'question_types',
+		ATTR_TYPE 			=> EDIT_TYPE_MULTISELECT,
+		ATTR_TABLE 		=> 'questiontype',
+		ATTR_LABEL 		=> 'Chọn dạng bài tập',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_SHOW_VALUE 	=> 'id'
 	);
-	
+
 	public static $position = array(
-		'index' 		=> 'position',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Vị trí'
+		ATTR_INDEX 		=> 'position',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Vị trí'
 	);
-	
+
 	public static $url = array(
-		'index' 		=> 'url',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Liên kết đích'
+		ATTR_INDEX 		=> 'url',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Liên kết đích'
 	);
-	
+
 	public static $width = array(
-		'index' 		=> 'width',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Kích thước dài'
+		ATTR_INDEX 		=> 'width',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Kích thước dài'
 	);
 	public static $height = array(
-		'index' 		=> 'height',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Kích thước cao'
+		ATTR_INDEX 		=> 'height',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Kích thước cao'
 	);
 	public static $videoUrl = array(
-		'index' 		=> 'url',
-		'type' 			=> EDIT_TYPE_FILE_MANAGER,
-		'uploadtype'	=> EDIT_TYPE_UPLOAD_TYPE_VIDEO,
-		'label' 		=> 'Chọn Video',
+		ATTR_INDEX 		=> 'url',
+		ATTR_TYPE 			=> EDIT_TYPE_FILE_MANAGER,
+		ATTR_UPLOADTYPE	=> EDIT_TYPE_UPLOAD_TYPE_VIDEO,
+		ATTR_LABEL 		=> 'Chọn Video',
 	);
 	public static $mediaUrl = array(
-		'index' 		=> 'url',
-		'type' 			=> EDIT_TYPE_FILE_MANAGER,
-		'uploadtype'	=> EDIT_TYPE_UPLOAD_TYPE_VIDEO,
-		'label' 		=> 'Chọn Media',
+		ATTR_INDEX 		=> 'url',
+		ATTR_TYPE 			=> EDIT_TYPE_FILE_MANAGER,
+		ATTR_UPLOADTYPE	=> EDIT_TYPE_UPLOAD_TYPE_VIDEO,
+		ATTR_LABEL 		=> 'Chọn Media',
 	);
 	public static $gradeNum = array(
-		'index' 		=> 'gradeNum',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Khối'
+		ATTR_INDEX 		=> 'gradeNum',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Khối'
 	);
 	public static $group_question = array(
-		'index' 		=> 'group_question',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Dạng bài tập'
+		ATTR_INDEX 		=> 'group_question',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Dạng bài tập'
 	);
 	public static $question_type = array(
-		'index' 		=> 'question_type',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Code'
+		ATTR_INDEX 		=> 'question_type',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Code'
 	);
 
 	public static $recommend = array(
-		'index' 		=> 'recommend',
-		'type' 			=> 'tinymce',
-		'label' 		=> 'Nhập đoạn dịch'
+		ATTR_INDEX 		=> 'recommend',
+		ATTR_TYPE 			=> 'tinymce',
+		ATTR_LABEL 		=> 'Nhập đoạn dịch'
 	);
-	
+
 	public static $request = array(
-		'index' 		=> 'request',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Yêu cầu'
+		ATTR_INDEX 		=> 'request',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Yêu cầu'
 	);
-	
+
 	public static $classes = array(
-		'index' 		=> 'classes',
-		'type' 			=> EDIT_TYPE_MULTISELECTOPTION,
-		'label' 		=> 'Chọn lớp',
+		ATTR_INDEX 		=> 'classes',
+		ATTR_TYPE 			=> EDIT_TYPE_MULTISELECTOPTION,
+		ATTR_LABEL 		=> 'Chọn lớp',
 		'option' 		=> array(
 			CLASS3 			=> "Lớp 3",
 			CLASS4 			=> "Lớp 4",
 			CLASS5 			=> "Lớp 5"
 		)
 	);
-	
+
 	public static $sharedSoftwares = array(
-		'index' 		=> 'sharedSoftwares',
-		'type' 			=> EDIT_TYPE_MULTISELECTOPTION,
-		'label' 		=> 'Chia sẻ',
+		ATTR_INDEX 		=> 'sharedSoftwares',
+		ATTR_TYPE 			=> EDIT_TYPE_MULTISELECTOPTION,
+		ATTR_LABEL 		=> 'Chia sẻ',
 		'option' 		=> array(
 			'1' 			=> "Full Look",
 			'2' 			=> "IQ, EQ, CQ",
@@ -332,114 +333,115 @@ class PzkEditConstant {
 			'8' 			=> "Thi tài Next Nobels",
 		)
 	);
-	
+
 	public static $target = array(
-		'index' 		=> 'target',
-		'type' 			=> 'selectoption',
-		'label' 		=> 'Đích',
+		ATTR_INDEX 		=> 'target',
+		ATTR_TYPE 			=> 'selectoption',
+		ATTR_LABEL 		=> 'Đích',
 		'option' 		=> array(
 			'_blank' 			=> "Blank",
 			'static' 			=> "Cố định"
 		)
 	);
-	
-	public static $teacherId = array (
-		'index' 		=> 'teacherId',
-		'type' 			=> EDIT_TYPE_SELECT,
-		'table' 		=> 'admin',
-		'label' 		=> 'Giáo viên',
-		'show_name' 	=> 'name',
-		'show_value' 	=> 'id',
-		'condition'		=> 'usertype_id=5'
+
+	public static $teacherId = array(
+		ATTR_INDEX 		=> 'teacherId',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_TABLE 		=> 'admin',
+		ATTR_LABEL 		=> 'Giáo viên',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_CONDITION		=> 'usertype_id=5'
 	);
-	
-	public static $classroomId = array (
-		'index' 		=> 'classroomId',
-		'type' 			=> EDIT_TYPE_SELECT,
-		'table' 		=> 'education_classroom',
-		'fields'		=> 'id, concat(schoolYear, gradeNum, className) as name',
-		'label' 		=> 'Xếp lớp',
-		'show_name' 	=> 'name',
-		'show_value' 	=> 'id'
+
+	public static $classroomId = array(
+		ATTR_INDEX 		=> 'classroomId',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_TABLE 		=> 'education_classroom',
+		ATTR_FIELDS		=> 'id, concat(schoolYear, gradeNum, className) as name',
+		ATTR_LABEL 		=> 'Xếp lớp',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_SHOW_VALUE 	=> 'id'
 	);
-	
-	public static $subjectId = array (
-		'index' 		=> 'subjectId',
-		'type' 			=> EDIT_TYPE_SELECT,
-		'table' 		=> 'categories',
-		'fields'		=> 'id, concat(name, classes) as subject',
-		'label' 		=> 'Môn học',
-		'show_name' 	=> 'subject',
-		'show_value' 	=> 'id',
-		'condition'		=> 'type="subject"'
+
+	public static $subjectId = array(
+		ATTR_INDEX 		=> 'subjectId',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_TABLE 		=> 'categories',
+		ATTR_FIELDS		=> 'id, concat(name, classes) as subject',
+		ATTR_LABEL 		=> 'Môn học',
+		ATTR_SHOW_NAME 	=> 'subject',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_CONDITION		=> 'type="subject"'
 	);
-	
-	public static $typeOfDocument = array (
-			'index' 		=> 'type',
-			'type' 			=> 'selectoption',
-			'label'			=> 'Loại tài liệu',
-			'option'		=> array(
-				'document'		=>	'Tài liệu',
-				'vocabulary'	=>	'Từ vựng'
-			)
+
+	public static $typeOfDocument = array(
+		ATTR_INDEX 		=> ATTR_TYPE,
+		ATTR_TYPE 			=> 'selectoption',
+		ATTR_LABEL			=> 'Loại tài liệu',
+		'option'		=> array(
+			'document'		=>	'Tài liệu',
+			'vocabulary'	=>	'Từ vựng'
+		)
 	);
-	
+
 	public static $trial = array(
-		'index' 		=> 'trial',
-		'type' 			=> EDIT_TYPE_STATUS,
-		'label' 		=> 'Dùng thử'
+		ATTR_INDEX 		=> 'trial',
+		ATTR_TYPE 			=> EDIT_TYPE_STATUS,
+		ATTR_LABEL 		=> 'Dùng thử'
 	);
-	
-	public static $typeOfAreacode = array (
-		'index' 		=> 'type',
-		'type' 			=> 'select',
-		'table' 		=> 'areatype',
-		'label' 		=> 'Loại địa điểm',
-		'show_name' 	=> 'name',
-		'show_value' 	=> 'name'
+
+	public static $typeOfAreacode = array(
+		ATTR_INDEX 		=> ATTR_TYPE,
+		ATTR_TYPE 			=> 'select',
+		ATTR_TABLE 		=> 'areatype',
+		ATTR_LABEL 		=> 'Loại địa điểm',
+		ATTR_SHOW_NAME 	=> 'name',
+		ATTR_SHOW_VALUE 	=> 'name'
 	);
-	
+
 	public static $global = array(
-		'index' 		=> 'global',
-		'type' 			=> EDIT_TYPE_STATUS,
-		'label' 		=> 'Toàn cục',
+		ATTR_INDEX 		=> 'global',
+		ATTR_TYPE 			=> EDIT_TYPE_STATUS,
+		ATTR_LABEL 		=> 'Toàn cục',
 	);
-	
+
 	public static $yearNum = array(
-		'index' 		=> 'yearNum',
-		'type' 			=> EDIT_TYPE_TEXT,
-		'label' 		=> 'Niên khóa'
+		ATTR_INDEX 		=> 'yearNum',
+		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
+		ATTR_LABEL 		=> 'Niên khóa'
 	);
-	
-	public static function  get($field, $replace) {
+
+	public static function  get($field, $replace)
+	{
 		$dom = pzk_parse_selector($field);
 		$tagName = $dom['tagName'];
-		if(isset(self::$$tagName)){
+		if (isset(self::$$tagName)) {
 			$result = self::$$tagName;
 		} else {
 			$result = array(
-				'index'	=> 	$tagName,
-				'label'	=> 	$tagName,
-				'type'	=>	'text'
+				ATTR_INDEX	=> 	$tagName,
+				ATTR_LABEL	=> 	$tagName,
+				ATTR_TYPE	=>	EDIT_TYPE_TEXT
 			);
 		}
 		foreach ($dom['attrs'] as $attr) {
 			$result[$attr['name']] = $attr['value'];
 		}
-		foreach($result as $key => $val) {
-			if(is_string($val))
+		foreach ($result as $key => $val) {
+			if (is_string($val))
 				$result[$key] = str_replace('{replace}', $replace, $val);
 		}
 		return $result;
 	}
-	public static function  gets($fields, $replace) {
-		if(is_string($fields))
-		$fields = explodetrim(',', $fields);
+	public static function  gets($fields, $replace)
+	{
+		if (is_string($fields))
+			$fields = explodetrim(',', $fields);
 		$result = array();
-		foreach($fields as $field) {
+		foreach ($fields as $field) {
 			$result[] = self::get($field, $replace);
 		}
 		return $result;
 	}
 }
-?>

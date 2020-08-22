@@ -1,54 +1,54 @@
 <?php
 class PzkParentConstant {
 	public static $creator = array(
-		'index'	=> 'creator',
-		'table'	=> 'admin',
+		ATTR_INDEX	=> 'creator',
+		ATTR_TABLE	=> 'admin',
 		'title'	=> 'Người tạo',
-		'label'	=> 'Người tạo',
+		ATTR_LABEL	=> 'Người tạo',
 		'referenceField'	=> 'creatorId',
 		'fieldSettings' => array(
 			array(
-			'index' => 'name',
-			'type' => 'text',
-			'label' => 'Tên người tạo'
+			ATTR_INDEX => 'name',
+			ATTR_TYPE => 'text',
+			ATTR_LABEL => 'Tên người tạo'
 			)
 		)
 	
 	);
 	public static $modifier = array(
-		'index'	=> 'modifier',
-		'table'	=> 'admin',
+		ATTR_INDEX	=> 'modifier',
+		ATTR_TABLE	=> 'admin',
 		'title'	=> 'Người sửa',
-		'label'	=> 'Người sửa',
+		ATTR_LABEL	=> 'Người sửa',
 		'referenceField'	=> 'modifiedId',
 		'fieldSettings' => array(
 			array(
-			'index' => 'name',
-			'type' => 'text',
-			'label' => 'Tên người sửa'
+			ATTR_INDEX => 'name',
+			ATTR_TYPE => 'text',
+			ATTR_LABEL => 'Tên người sửa'
 			)
 		)
 	
 	);
 	
 	public static $category = array(
-		'index'	=> 'category',
-		'table'	=> 'categories',
+		ATTR_INDEX	=> 'category',
+		ATTR_TABLE	=> 'categories',
 		'module'	=> 'category',
 		'selectFields'	=> '*',
 		'title'	=> 'Danh mục',
-		'label'	=> 'Danh mục',
+		ATTR_LABEL	=> 'Danh mục',
 		'referenceField'	=> 'categoryId',
 		'fieldSettings' => false
 	);
 	
 	public static $parent = array(
-		'index'	=> 'category',
-		'table'	=> 'categories',
+		ATTR_INDEX	=> 'category',
+		ATTR_TABLE	=> 'categories',
 		'module'	=> 'category',
 		'selectFields'	=> '*',
 		'title'	=> 'Danh mục',
-		'label'	=> 'Danh mục',
+		ATTR_LABEL	=> 'Danh mục',
 		'referenceField'	=> 'parent',
 		'fieldSettings' => false
 	);

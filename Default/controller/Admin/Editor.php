@@ -1,7 +1,7 @@
 <?php
 class PzkAdminEditorController extends PzkBackendController {
 	public $masterPage = 'admin/home/index';
-	public $masterPosition = 'left';
+	public $masterPosition = JOIN_TYPE_LEFT;
 	public function indexAction() {
 		$this->render('admin/editor/index');
 	}

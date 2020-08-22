@@ -18,22 +18,22 @@ class PzkAdminGalleryController extends PzkGridAdminController {
 		array(
 			'table' => 'categories',
 			'condition' => 'gallery.categoryId = categories.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => 'campaign',
 			'condition' => 'gallery.campaignId = campaign.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `creator`',
 			'condition' => 'gallery.creatorId = creator.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `modifier`',
 			'condition' => 'gallery.modifiedId = modifier.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 	);
 	public $listFieldSettings = array(

@@ -5,12 +5,12 @@ class PzkAdminSocialScheduleClickController extends PzkGridAdminController {
 		array(
 			'table'		=> 	'social_schedule',
 			'condition'	=>	'social_schedule_click.scheduleId = social_schedule.id',
-			'type'		=> 'left'
+			'type'		=> JOIN_TYPE_LEFT
 		),
 		array(
 			'table'		=> 	'news',
 			'condition'	=>	'social_schedule.id = news.id',
-			'type'		=> 'left'
+			'type'		=> JOIN_TYPE_LEFT
 		)
 	);
 	public $selectFields = 'social_schedule_click.*, news.title as newsTitle';

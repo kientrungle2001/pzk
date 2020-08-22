@@ -15,7 +15,7 @@ class PzkAdminServiceOrdercardController extends PzkGridAdminController {
 		array(
 			'table' => 'service_packages',
 			'condition' => '`order_card`.cardId = service_packages.id',
-			'type'	=> 'left'
+			'type'	=> JOIN_TYPE_LEFT
 		)
 	);
 	public $selectFields = '`order_card`.*, service_packages.serviceName, service_packages.serviceType as serviceType';

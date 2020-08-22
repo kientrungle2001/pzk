@@ -11,7 +11,7 @@ class PzkAdminNewsletterController extends PzkGridAdminController {
 		array(
 			'table'		=> 	'`admin` as m',
 			'condition'	=>	'newsletter_newsletter.modifiedId = m.id',
-			'type'		=> 'left'
+			'type'		=> JOIN_TYPE_LEFT
 		)
 	);
 	public $selectFields = 'newsletter_newsletter.*, c.name as creator, m.name as modifier';

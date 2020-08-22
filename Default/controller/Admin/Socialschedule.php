@@ -14,22 +14,22 @@ class PzkAdminSocialscheduleController extends PzkGridAdminController {
 		array(
 			'table'		=> 	'social_account',
 			'condition'	=> 	'social_schedule.accountId = social_account.id',
-			'type'		=> 'left'
+			'type'		=> JOIN_TYPE_LEFT
 		),
 		array(
 			'table'		=> 	'social_app',
 			'condition'	=> 	'social_account.appId = social_app.id',
-			'type'		=> 'left'
+			'type'		=> JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `creator`',
 			'condition' => 'social_schedule.creatorId = creator.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `modifier`',
 			'condition' => 'social_schedule.modifiedId = modifier.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 	);
 	public $selectFields = 'social_schedule.*, 

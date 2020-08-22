@@ -193,20 +193,7 @@ define('CACHE_QUESTION_MODE', false);
 define('CACHE_ANSWER_MODE', false);
 
 // Chế độ debug
-if(isset($_REQUEST['showDebug'])) {
-	define('DEBUG_MODE', true);
-} else {
-	if(isset($_SESSION['DEBUG_MODE'])) {
-		if($_SESSION['DEBUG_MODE']) {
-			define('DEBUG_MODE', true);
-		} else {
-			define('DEBUG_MODE', false);
-		}
-	} else {
-		define('DEBUG_MODE', false);
-	}
-
-}
+define('DEBUG_MODE', false);
 
 
 // Mức debug: 1 thì chỉ hiển thị query của mysql, 2 thì hiển thị luồng chạy

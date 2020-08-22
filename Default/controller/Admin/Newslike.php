@@ -5,12 +5,12 @@ class PzkAdminNewsLikeController extends PzkGridAdminController {
 		array(
 			'table' => 'news',
 			'condition' => 'news_like.newsId = news.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => 'user',
 			'condition' => 'news_like.userId = user.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		)
 	);
 	public $sortFields = array(

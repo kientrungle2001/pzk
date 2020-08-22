@@ -5,7 +5,7 @@ class PzkAdminNewsVisitorController extends PzkGridAdminController {
 		array(
 			'table' => 'news',
 			'condition' => 'news_visitor.newsId = news.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 	);
 	public $sortFields = array(

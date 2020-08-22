@@ -1,7 +1,7 @@
 <?php
 class PzkAdminLevelactionController extends PzkAdminController {
     public $masterStructure 	= 'admin/home/index';
-    public $masterPosition 		= 'left';
+    public $masterPosition 		= JOIN_TYPE_LEFT;
     public $table 				= 'admin_level_action';
 	public $addLabel 			= 'Phân quyền';
     public $addFieldSettings 	= false ;

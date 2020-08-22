@@ -1,10 +1,10 @@
 <?php
-$time = $_REQUEST['t'];
+$time = intval($_REQUEST['t']);
 $currentTime = time();
 if($currentTime - $time > 5) {
 	die('Request timeout');
 }
-$id = $_REQUEST['id'];
+$id = intval($_REQUEST['id']);
 $key = $_REQUEST['k'];
 require_once 'config.php';
 

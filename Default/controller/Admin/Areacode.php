@@ -7,7 +7,7 @@ class PzkAdminAreacodeController extends PzkGridAdminController {
 		array(
 			'table'		=> 'areacode as p',
 			'condition'	=> 'areacode.parent = p.id',
-			'type'		=>	'left'
+			'type'		=>	JOIN_TYPE_LEFT
 		)
 	);
 	public $selectFields = 'areacode.*, p.name as parentName';

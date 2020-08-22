@@ -6,17 +6,17 @@ class PzkAdminGalleryAddController extends PzkGridAdminController {
 		array(
 			'table'	=> 	'gallery',
 			'condition'	=> 	'gallery_img.galleryId = gallery.id',
-			'type'		=> 	'left'
+			'type'		=> 	JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `creator`',
 			'condition' => 'gallery.creatorId = creator.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `modifier`',
 			'condition' => 'gallery.modifiedId = modifier.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 	 );
 	 public $selectFields ='gallery.title, gallery_img.*, creator.name as creatorName, modifier.name as modifiedName';

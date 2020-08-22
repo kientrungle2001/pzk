@@ -25,12 +25,12 @@ class PzkAdminSocialappController extends PzkGridAdminController {
 		array(
 			'table' => '`admin` as `creator`',
 			'condition' => 'social_app.creatorId = creator.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 		array(
 			'table' => '`admin` as `modifier`',
 			'condition' => 'social_app.modifiedId = modifier.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 	);
 	public $selectFields = 'social_app.*, creator.name as creatorName, modifier.name as modifiedName';

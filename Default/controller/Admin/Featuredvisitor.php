@@ -5,7 +5,7 @@ class PzkAdminFeaturedVisitorController extends PzkGridAdminController {
 		array(
 			'table' => 'featured',
 			'condition' => 'featured_visitor.featuredId = featured.id',
-			'type' => 'left'
+			'type' => JOIN_TYPE_LEFT
 		),
 	);
 	public $sortFields = array(
