@@ -1,26 +1,26 @@
 <?php 
 $controller = pzk_controller(); 
-$compact	= $data->get('compact');
+$compact	= $data->getCompact();
 $nocompact	= !$compact;
 if($compact) {
-	$data->set('selectLabel', $data->get('label'));
+	$data->setSelectLabel($data->getLabel());
 }
 $rand = rand(1, 100000);
 ?>
 <div  class="form-group col-xs-12">
-	<?php if(${'nocompact'}): ?><label><?php  echo $data->get('label')?></label><br /><?php endif; ?>
-	<select class="select2-container form-control select2"  id="<?php  echo $data->get('index')?>" name="<?php  echo $data->get('index')?>" onchange="pzk_list.filter('<?php  echo $data->get('type')?>', '<?php  echo $data->get('index')?>', this.value);" >
+	<?php if(${'nocompact'}): ?><label><?php  echo $data->getLabel()?></label><br /><?php endif; ?>
+	<select class="select2-container form-control select2"  id="<?php  echo $data->getIndex()?>" name="<?php  echo $data->getIndex()?>" onchange="pzk_list.filter('<?php  echo $data->getType()?>', '<?php  echo $data->getIndex()?>', this.value);" >
 		<?php if(${'nocompact'}): ?>
 		<option value="">Tất cả</option>
 		<?php else: ?>
-		<option value=""><?php  echo $data->get('label')?></option>
+		<option value=""><?php  echo $data->getLabel()?></option>
 		<?php endif; ?>
-		<?php foreach($data->get('option') as $key=>$val): ?>
+		<?php foreach($data->getOption() as $key=>$val): ?>
 		<option value="<?php echo $key ?>"><?php echo $val ?></option>
 		<?php endforeach; ?>
 	</select>
 	<script type="text/javascript">
-		$('#<?php  echo $data->get('index')?><?php echo $rand ?>').val('<?php  echo $data->get('value')?>');
-		$( "#<?php  echo $data->get('index')?><?php echo $rand ?>" ).select2( { placeholder: "<?php  echo $data->get('label')?>", maximumSelectionSize: 6 } );
+		$('#<?php  echo $data->getIndex()?><?php echo $rand ?>').val('<?php  echo $data->getValue()?>');
+		$( "#<?php  echo $data->getIndex()?><?php echo $rand ?>" ).select2( { placeholder: "<?php  echo $data->getLabel()?>", maximumSelectionSize: 6 } );
 	</script>
 </div>

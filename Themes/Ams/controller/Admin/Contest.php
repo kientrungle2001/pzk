@@ -84,7 +84,7 @@ class PzkAdminContestController extends PzkGridAdminController {
     );
 	//search fields co type la text
     public $searchFields = array('username', '`user_contest`.`id`');
-    public $searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
 
     public $filterFields = array(
 		array(

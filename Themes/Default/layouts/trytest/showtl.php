@@ -1,11 +1,11 @@
 
 <div class="container boder nomg contentheight robotofont">
 		<?php
-		$camp = $data->get('camp');
+		$camp = $data->getCamp();
 		$showQuestions 	= $data->getQuestionByTrytest(TL, $camp);
 		if(count($showQuestions) > 0) {
-		$data_criteria	= $data->get('data_criteria');
-		$userInfo = $data->get('userInfo');
+		$data_criteria	= $data->getData_criteria();
+		$userInfo = $data->getUserInfo();
 		?>
 		<h3 class="text-center"> Thông tin chi tiết của thí sinh </h3>
 		<div class='well'>
@@ -63,12 +63,12 @@
 											
 											$questionChoice = _db()->getEntity('Question.Choice');
 											$questionChoice->setData($value);
-											$QuestionObj->set('question', $questionChoice);
-											$QuestionObj->set('type', $questionChoice->get('type'));
+											$QuestionObj->setQuestion($questionChoice);
+											$QuestionObj->setType($questionChoice->getType());
 											
-											$QuestionObj->set('questionId', $value['id']);
-											$QuestionObj->set('cacheable', 'false');
-											$QuestionObj->set('cacheParams', 'layout, questionId');
+											$QuestionObj->setQuestionId($value['id']);
+											$QuestionObj->setCacheable('false');
+											$QuestionObj->setCacheParams('layout, questionId');
 											$QuestionObj->display();
 										?>
 										</div>

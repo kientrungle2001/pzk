@@ -1,5 +1,5 @@
 <?php
-$id = intval(pzk_request()->get('id'));
+$id = intval(pzk_request()->getId());
 
  ?>
 <div class="content text-center" style="background: transparent url('/Default/skin/nobel/test/Themes/Default/media/vocabg.jpg') no-repeat center center;    

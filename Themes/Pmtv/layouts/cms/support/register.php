@@ -9,7 +9,7 @@
 		<div class="col-sm-4">
 			<form class="form" method="post"  action="/support/subscribe" >
 			<h2 class="text-center text-uppercase font-large">Đăng ký mua sản phẩm</h2>
-			<?php echo @$data->get('error'); ?>
+			<?php echo @$data->getError(); ?>
 			   <div class="form-group">
 					<input class="form-control" placeholder="Họ và tên" type="text" name="name" value="">
 				</div>

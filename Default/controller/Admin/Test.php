@@ -90,7 +90,7 @@ class PzkAdminTestController extends PzkGridAdminController {
     );
 
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên đề thi';
+    public $searchLabel = 'Tên đề thi';
 	//filter
 	public $filterFields = array(
 		array(
@@ -489,8 +489,8 @@ class PzkAdminTestController extends PzkGridAdminController {
 
 
     public function saveDetailOrderingsAction(){
-        $orderings = pzk_request()->get('orderings');
-        $field = pzk_request()->get('field');
+        $orderings = pzk_request()->getOrderings();
+        $field = pzk_request()->getField();
         foreach($orderings as $id => $val) {
             $entity = _db ()->getTableEntity ('questions')->load ( $id );
             $entity->update ( array (
@@ -545,7 +545,7 @@ class PzkAdminTestController extends PzkGridAdminController {
     public function resultQuestionAction() {
 
         $obj = $this->parse('admin/grid/test/questionResult');
-        $obj->set('parentId', pzk_request()->getSegment(3));
+        $obj->setParentId(pzk_request()->getSegment(3));
         $obj->display();
     }
 

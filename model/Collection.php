@@ -88,7 +88,7 @@ class PzkCollectionModel extends PzkSG{
 	 * @return string điều kiện sql
 	 */
 	public function buildCondition($conds) {
-		$builder = pzk_element()->get('conditionBuilder');
+		$builder = pzk_element()->getConditionBuilder();
 		if($builder) {
 			return $this->prefixify($builder->build($conds));
 		}

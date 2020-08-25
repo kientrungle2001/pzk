@@ -16,7 +16,7 @@ class PzkSetTableController extends PzkController {
 		$this->attributes = $this->set->getAttributes();
 		$this->inserts[$table] = array();
 		$this->filters[$table] = array(); 
-		if($queryId = $this->set->get('queryId')) {
+		if($queryId = $this->set->getQueryId()) {
 			$this->query = _db()->getEntity('query.query')->load($queryId);
 			$this->tables[$table] = array(
 				'table' => $this->query->getTableSQL(),
@@ -24,9 +24,9 @@ class PzkSetTableController extends PzkController {
 			);
 		}
 		foreach($this->attributes as $attribute) {
-			$this->inserts[$table][] = $attribute->get('code');
-			if($attribute->get('filterable')) {
-				$this->filters[$table][$attribute->get('code')] = array('like' => (isset($this->query) && $this->query->get('code')?$this->query->get('code') . '`.`':'') . $attribute->get('code'));
+			$this->inserts[$table][] = $attribute->getCode();
+			if($attribute->getFilterable()) {
+				$this->filters[$table][$attribute->getCode()] = array('like' => (isset($this->query) && $this->query->getCode()?$this->query->getCode() . '`.`':'') . $attribute->getCode());
 			}
 		}
 		
@@ -120,7 +120,7 @@ class PzkSetTableController extends PzkController {
             $fields = $fields['fields'];
         }
         $conds = array();
-		$conds[] = (isset($this->query)? $this->query->get('code') . '.':'') . "parentId=$id";
+		$conds[] = (isset($this->query)? $this->query->getCode() . '.':'') . "parentId=$id";
         $rows = @$_REQUEST['rows'] ? @$_REQUEST['rows'] : 1000;
         $page = @$_REQUEST['page'] ? @$_REQUEST['page'] : 1;
         $total = _db()->select('count(*) as val')->from($oldTable)->result();
@@ -132,7 +132,7 @@ class PzkSetTableController extends PzkController {
         }
         $orderBy = implode(',', $orderBy);
         if (!trim($orderBy)) {
-            $orderBy = (isset($this->query)? $this->query->get('code') . '.':'') . 'id desc';
+            $orderBy = (isset($this->query)? $this->query->getCode() . '.':'') . 'id desc';
         }
         $items = _db()
                         ->select($fields)
@@ -173,10 +173,10 @@ class PzkSetTableController extends PzkController {
             }
         }
 		$entity = null;
-		if(isset($this->set)) $entity = _db()->getEntity($this->set->get('entity'));
+		if(isset($this->set)) $entity = _db()->getEntity($this->set->getEntity());
 		if($entity !== null) {
 			$entity->setData($data);
-			$entity->set('id', $_REQUEST['id']);
+			$entity->setId($_REQUEST['id']);
 			$entity->save();
 		} else {
 			$row = _db()->buildInsertData($table, $data);
@@ -207,7 +207,7 @@ class PzkSetTableController extends PzkController {
             return false;
         }
 		$entity = null;
-		if(isset($this->set)) $entity = _db()->getEntity($this->set->get('entity'));
+		if(isset($this->set)) $entity = _db()->getEntity($this->set->getEntity());
 		if($entity !== null) {
 			$entity->setData($data);
 			$entity->save();
@@ -225,7 +225,7 @@ class PzkSetTableController extends PzkController {
     public function delAction() {
         $table = @$_REQUEST['table'];
         if (isset($_REQUEST['id'])) {
-			if(isset($this->set)) $entity = _db()->getEntity($this->set->get('entity'));
+			if(isset($this->set)) $entity = _db()->getEntity($this->set->getEntity());
 			if($entity !== null) {
 				$entity->load($_REQUEST['id']);
 				$entity->children('delete');

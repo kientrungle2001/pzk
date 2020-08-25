@@ -11,18 +11,18 @@ class PzkHomeController extends PzkController{
 	public function indexAction(){
 		$this->initPage()
 		->append('home', 'wrapper');
-		pzk_page()->set('title', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setTitle('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 		$this->display();
         
 	}
 	public function pageAction(){
 		$obj = $this->parse('home/index');
-		$obj->set('isAjax', true);
-		$obj->set('page', pzk_request()->get('page'));
+		$obj->setIsAjax(true);
+		$obj->setPage(pzk_request()->getPage());
 		$obj->display();
 		
 	}
@@ -37,18 +37,18 @@ class PzkHomeController extends PzkController{
 			$id = pzk_request('id');
 			$parentid = pzk_request('parentid');
 			$detail = pzk_element()->getDetail();
-			$detail->set('itemId', $id);
+			$detail->setItemId($id);
 			$parent = pzk_element('parent');
-			$parent->set('parentId', $parentid);
+			$parent->setParentId($parentid);
 			$breadcrumbs = pzk_element('breadcrumbs');
-			$breadcrumbs->set('itemId', $id);
+			$breadcrumbs->setItemId($id);
 			$newsEntity = _db()->getTableEntity('news')->load($id);
 		
-			pzk_page()->set('title', $newsEntity->get('title'));
-			pzk_page()->set('keywords', $newsEntity->get('meta_keywords'));
-			pzk_page()->set('description', $newsEntity->get('meta_description'));
-			pzk_page()->set('img', $newsEntity->get('img'));
-			pzk_page()->set('brief', $newsEntity->get('brief'));
+			pzk_page()->setTitle($newsEntity->getTitle());
+			pzk_page()->setKeywords($newsEntity->getMeta_keywords());
+			pzk_page()->setDescription($newsEntity->getMeta_description());
+			pzk_page()->setImg($newsEntity->getImg());
+			pzk_page()->setBrief($newsEntity->getBrief());
 			$this->display();
 	}
 	

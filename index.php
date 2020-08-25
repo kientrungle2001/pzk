@@ -32,8 +32,8 @@ if(COMPILE_MODE) {
 		require_once BASE_DIR . '/app/'.pzk_request()->getAppPath().'/configuration.php';
 
 	// Include các cấu hình tùy chỉnh của phần mềm
-	if(is_file(BASE_DIR . '/app/'.pzk_request()->getAppPath().'/configuration.'.pzk_request()->get('softwareId').'.php'))
-		require_once BASE_DIR . '/app/'.pzk_request()->getAppPath().'/configuration.'.pzk_request()->get('softwareId').'.php';
+	if(is_file(BASE_DIR . '/app/'.pzk_request()->getAppPath().'/configuration.'.pzk_request()->getSoftwareId().'.php'))
+		require_once BASE_DIR . '/app/'.pzk_request()->getAppPath().'/configuration.'.pzk_request()->getSoftwareId().'.php';
 
 
 	// Chạy ứng dụng

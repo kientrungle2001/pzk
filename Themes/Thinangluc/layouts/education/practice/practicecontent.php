@@ -96,7 +96,7 @@ $class = pzk_session('lop');
 			</a>	
 			&nbsp; &nbsp; &gt; &nbsp; &nbsp;
 			<a href="/practice/class-5/subject-Mathematics-51">
-			<?php echo $subject->get('name')?>		</a>
+			<?php echo $subject->getName()?>		</a>
 		</div>
 		
 		<div class="row">
@@ -118,7 +118,7 @@ $class = pzk_session('lop');
 			</div>
 			
 			<div class="col-xs-12 col-md-4">
-				<h2 style="margin-top: 0px;"><?php echo $subject->get('name')?></h2>
+				<h2 style="margin-top: 0px;"><?php echo $subject->getName()?></h2>
 				
 				<div class="item">
                     <span class="hot">HOT </span>
@@ -149,22 +149,22 @@ $class = pzk_session('lop');
 				
 				<div class="item">
 					<div id="chitiet" class="chitiet">
-					<?php echo $subject->get('content')?>
+					<?php echo $subject->getContent()?>
 					</div>
 					<div id="decuong">
 					<?php foreach($topics as $topic): ?>
 						<?php $tests = $topic->getTests();?>
 						<div class="panel panel-primary">
 						  <div class="panel-heading">
-							<h3 class="panel-title"><?php echo $topic->get('name')?>  <span class="pull-right"><?php echo count($tests);?> Bài học</span></h3>
+							<h3 class="panel-title"><?php echo $topic->getName()?>  <span class="pull-right"><?php echo count($tests);?> Bài học</span></h3>
 						  </div>
 						  <div class="panel-body">
 							<ul class="list-group">
 							<?php foreach($tests as $test): ?>
 							  <li class="list-group-item">
 								<a href="<?php echo $test->getUrl($class, $subject)?>">
-								<?php echo $test->get('name')?>
-								<?php if($test->get('trial')):?>
+								<?php echo $test->getName()?>
+								<?php if($test->getTrial()):?>
 								<span class="badge">Dùng thử</span>
 								<?php endif;?>
 								</a>

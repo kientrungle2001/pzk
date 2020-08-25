@@ -39,9 +39,9 @@
 			if(pzk_session('sortAchievement')){
 				$orderBy = pzk_session('sortAchievement');
 			}
-			$data->set('week', $filterWeek);
-			$data->set('year', $filterYear);
-			$data->set('orderBy', $orderBy);
+			$data->setweek($filterWeek);
+			$data->setYear($filterYear);
+			$data->setOrderBy($orderBy);
 			
 			$weekYear = $filterWeek.'-'.$filterYear;
 			$achievement = $data->getAchievement(pzk_session('lop'));

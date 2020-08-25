@@ -61,8 +61,8 @@
 					$items = buildBs($items);
 					
 					$currentCategory = _db()->getTableEntity('categories')->load(pzk_request()->getSegment(3));
-					$controller = pzk_request()->get('controller');
-					$action = pzk_request()->get('action');
+					$controller = pzk_request()->getController();
+					$action = pzk_request()->getaction();
 					
 					if(isset($items[0])) {
 				?>
@@ -101,7 +101,7 @@
 					</li>
 				<?php
 						foreach($items[0] as $key => $val) {
-						$active = strpos($currentCategory->get('parents'), ',' . $val['id'] . ',') !== false ? 'active': '';
+						$active = strpos($currentCategory->getParents(), ',' . $val['id'] . ',') !== false ? 'active': '';
 				?>
 					<li class=" col-md-3 center d<?=$val['color'];?> <?php echo "$active"; ?>">
 					
@@ -118,7 +118,7 @@
 						<?php	
 								$data2 = $items[$val['id']];
 								foreach($data2 as $key => $val) {
-								$active = strpos($currentCategory->get('parents'), ',' . $val['id'] . ',') !== false ? 'active': '';
+								$active = strpos($currentCategory->getParents(), ',' . $val['id'] . ',') !== false ? 'active': '';
 						?>
 							<li <?php if(isset($items[$val['id']])) { ?> class="dropdown-submenu <?php echo $active;?>" <?php } else { echo "class='$active'"; } ?> >
 								<a  <?php if(@$items[$val['id']]) { ?> data-toggle="dropdown" <?php } ?> 
@@ -135,7 +135,7 @@
 									<ul class="dropdown-menu">
 									<?php
 									foreach($data3 as $key => $val) {
-									$active = strpos($currentCategory->get('parents'), ',' . $val['id'] . ',') !== false ? 'active': '';
+									$active = strpos($currentCategory->getParents(), ',' . $val['id'] . ',') !== false ? 'active': '';
 								?>
 									<li  <?php echo "class='$active'"; ?>>
 									<a href="<?php if(SEO_MODE && @$val['alias']) { echo BASE_REQUEST.'/'.$val['alias']; } else { echo BASE_REQUEST.'/'.$val['router'].'/'.$val['id']; }?>">

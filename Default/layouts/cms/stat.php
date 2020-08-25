@@ -38,7 +38,7 @@ $userId = pzk_session('userId');
 	<?php endif; ?>
 	<?php if(pzk_config('stat_show_online')): 
 		$onlinemember = $data->getOnline($ip);
-		//$names= $data->get('name');
+		//$names= $data->getName();
 		//$showonlines=$data->getShowonline();
 	?>
 		<li>Thành viên đang online:<span class="stat_li"><?php echo $onlinemember ?></span></li>

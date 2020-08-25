@@ -1,23 +1,23 @@
 <?php 
 
 $subject = _db()->getTableEntity('categories')->load(pzk_request()->getSegment(3));
-$subjects = _db()->selectAll()->fromCategories()->whereParent($subject->get('parent'))->result();
-$language = pzk_global()->get('language');
+$subjects = _db()->selectAll()->fromCategories()->whereParent($subject->getParent())->result();
+$language = pzk_global()->getLanguage();
 $lang = pzk_session('language');
  ?>
 <div class="col-md-12 col-xs-12 btn-custom4">
 	<ul class="breadcrumb text-center">
 		<li><a href="/document/home"><?php echo $language['materials'];?></a></li>
-		<li><a href="/document/home"><?php echo $language['class'];?> <?php echo $data->get('class')?></a></li>
+		<li><a href="/document/home"><?php echo $language['class'];?> <?php echo $data->getClass()?></a></li>
 		<li class="active">
 			<span class="dropdown">
 			  <a class="dropdown-toggle" type="button" id="dropdownSubjectDocument" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				<?php echo $subject->get('name')?>
+				<?php echo $subject->getName()?>
 				<span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
 			  <?php foreach($subjects as $sbj): ?>
-				<li><a href="/document/index/<?php echo @$sbj['id']?>?class=<?php  echo pzk_request()->get('class')?>"><?php echo @$sbj['name']?></a></li>
+				<li><a href="/document/index/<?php echo @$sbj['id']?>?class=<?php  echo pzk_request()->getClass()?>"><?php echo @$sbj['name']?></a></li>
 			  <?php endforeach; ?>
 			  </ul>
 			</span>
@@ -42,7 +42,7 @@ $lang = pzk_session('language');
 	?>
 		<?php foreach($items as $item): ?>
 	  <tr>
-		<td><a href="/document/detail/<?php echo $data->get('categoryId')?>?class=<?php echo $data->get('class')?>&id=<?php echo @$item['id']?>"><?php echo @$item['title']?></a></td>
+		<td><a href="/document/detail/<?php echo $data->getCategoryId()?>?class=<?php echo $data->getClass()?>&id=<?php echo @$item['id']?>"><?php echo @$item['title']?></a></td>
 		<td class="hidden-xs"><?php echo @$item['created']?></td>
 		<td class="hidden-xs">
 		<?php 

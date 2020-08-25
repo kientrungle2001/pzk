@@ -7,7 +7,7 @@ class PzkEntityImportQuestionSplitModel extends PzkEntityModel
 	public $table = "questions";
 	public function import() {
 		$answers = array();
-		$content = $this->get('content');
+		$content = $this->getContent();
 		$contents = explode('===', $content);
 		$nameRegion = $contents[0];
 		$answersRegion = $contents[1];
@@ -25,16 +25,16 @@ class PzkEntityImportQuestionSplitModel extends PzkEntityModel
 		$level = @$levelMatch[1];
 		$nameRepaired = preg_replace('/^[^\:\.]*[\:\.]\s*/', '', $nameRegion);
 		$nameRepaired = trim(nl2br($nameRepaired));
-		//$this->set('name', trim($name));
-		$this->set('name', $nameRepaired);
+		//$this->setName(trim($name));
+		$this->setName($nameRepaired);
 		foreach($answerContents as $answerContent) {
 			$answer = _db()->getEntity('Import.Answer');
-			$answer->set('content', $answerContent);
+			$answer->setContent($answerContent);
 			$answers[] = $answer;
 		}
 		if($rightIndex != -1) {
-			$answers[$rightIndex]->set('recommend', $request);
-			$answers[$rightIndex]->set('status', '1');
+			$answers[$rightIndex]->setRecommend($request);
+			$answers[$rightIndex]->setStatus('1');
 		} else {
 			if(!pzk_request('isAjax'))
 			pzk_notifier_add_message('Câu hỏi: '. $name . ' chưa có câu trả lời đúng', 'danger');
@@ -43,8 +43,8 @@ class PzkEntityImportQuestionSplitModel extends PzkEntityModel
 			if(!pzk_request('isAjax'))
 			pzk_notifier_add_message('Câu hỏi: '. $name . ' chưa có độ khó', 'danger');
 		}
-		$this->set('level', $level);
-		$this->set('answers', $answers);
+		$this->setLevel($level);
+		$this->setAnswers($answers);
 		if(!count($answers)) {
 			if(!pzk_request('isAjax'))
 			pzk_notifier_add_message('Câu hỏi: '. $name . ' chưa có câu trả lời nào', 'danger');

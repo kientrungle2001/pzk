@@ -18,16 +18,16 @@ class PzkAdminEditorController extends PzkBackendController {
 	}
 	
 	public function editAction() {
-		$object = pzk_request()->get('object');
-		$type = pzk_request()->get('type');
+		$object = pzk_request()->getObject();
+		$type = pzk_request()->getType();
 		$package = trim(preg_replace('/[^\/]*$/','', $object), '/');
-		pzk_request()->set('package', $package);
+		pzk_request()->setPackage($package);
 		$this->initPage();
 		$module = $this->parse('admin/editor/edit');
 		$editor = pzk_element('editor');
 		if($editor) {
-			$editor->set('object', $object);
-			$editor->set('type', $type);
+			$editor->setObject($object);
+			$editor->setType($type);
 		}
 		$this->append($module);
 		$this->display();
@@ -35,10 +35,10 @@ class PzkAdminEditorController extends PzkBackendController {
 	
 	
 	public function saveAction() {
-		$object = urldecode(pzk_request()->get('object'));
-		$type = pzk_request()->get('type');
-		$fileName = pzk_request()->get('fileName');
-		$fileContent = pzk_request()->get('fileContent');
+		$object = urldecode(pzk_request()->getObject());
+		$type = pzk_request()->getType();
+		$fileName = pzk_request()->getFileName();
+		$fileContent = pzk_request()->getFileContent();
 		if(file_exists($fileName)) {
 			file_put_contents($fileName, $fileContent);
 		}
@@ -69,9 +69,9 @@ class PzkAdminEditorController extends PzkBackendController {
 		$module = $this->parse('admin/editor/file');
 		$editor = pzk_element('editor');
 		if($editor) {
-			$editor->set('file', $file);
-			$editor->set('type', $type);
-			$editor->set('backHref', $backHref);
+			$editor->setFile($file);
+			$editor->setType($type);
+			$editor->setBackHref($backHref);
 		}
 		$this->append($module);
 		$this->display();

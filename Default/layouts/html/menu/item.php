@@ -1,1 +1,1 @@
-<a href="<?php echo @$data->src?>" class="list-group-item"><?php echo @$data->title?></a>
+<a href="<?php echo @$data->src?>" class="list-group-item"><?php echo @$data->getTitle()?></a>

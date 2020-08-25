@@ -43,29 +43,29 @@ class PzkServiceController extends PzkController
 		$service			= 	_db()->getEntity('Service.Service');
 		$service->load($serviceId);
 		if(!$price)
-		$price = $service->get('amount');
+		$price = $service->getamount();
 		if($coupon) {
 			$couponEntity 	= _db()->getTableEntity('coupon');
 			$couponEntity->loadWhere(array('code', $coupon));
-			if($couponEntity->get('id')) {
-				$discount 	= $couponEntity->get('discount');
+			if($couponEntity->getId()) {
+				$discount 	= $couponEntity->getDiscount();
 				$price 		=	$price * (1 - $discount / 100);
 			}
 		}
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
-		if($wallets->get('id')){
-			$amount			=	$wallets->get('amount');
+		if($wallets->getId()){
+			$amount			=	$wallets->getamount();
 			if($price <= $amount)
 			{
 				// cập nhật database
 				$amount 			= 	$amount - $price;
 				$wallets->update(array('amount' 	=> $amount));
-				$serviceType = $service->get('serviceType');
-				$serviceName = $service->get('serviceName');
-				$time = $service->get('duration');
+				$serviceType = $service->getServiceType();
+				$serviceName = $service->getServiceName();
+				$time = $service->getDuration();
 				if(!$time) $time = 365;
-				$languages = $service->get('languages');
+				$languages = $service->getLanguages();
 				
 				$paymentDate = Date('Y-m-d');
 				$date = date_create($paymentDate);
@@ -115,7 +115,7 @@ class PzkServiceController extends PzkController
 		$datetime		=	date("Y-m-d H:i:s");
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
-		$amount			=	$wallets->get('amount');
+		$amount			=	$wallets->getamount();
 		if($price <= $amount)
 		{
 			// cập nhật database
@@ -206,12 +206,12 @@ class PzkServiceController extends PzkController
 		$service			= 	_db()->getEntity('Service.Service');
 		$service->load($serviceId);
 		if(!$price)
-		$price = $service->get('amount');
+		$price = $service->getamount();
 		$couponEntity 	= 	_db()->getTableEntity('coupon');
 		$couponEntity->loadWhere(array('code', $txtcoupon));
 		$discount		=	0;
-		if($couponEntity->get('id')) {
-			$discount		=	$couponEntity->get('discount');
+		if($couponEntity->getId()) {
+			$discount		=	$couponEntity->getDiscount();
 		}
 		if($discount) {
 			$price		=	$price * ( 1 - $discount / 100 );
@@ -265,18 +265,18 @@ class PzkServiceController extends PzkController
 		$service->load($serviceId);
 		
 		// service detail
-		$contestId		= 	$service->get('contestId');
-		$price 			= 	$service->get('amount');
-		$serviceType 	= $service->get('serviceType');
-		$serviceName = $service->get('serviceName');
+		$contestId		= 	$service->getContestId();
+		$price 			= 	$service->getamount();
+		$serviceType 	= $service->getServiceType();
+		$serviceName = $service->getServiceName();
 		
 		// wallets
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
 		
-		if($wallets->get('id')){
+		if($wallets->getId()){
 			// so tien trong vi
-			$amount			=	$wallets->get('amount');
+			$amount			=	$wallets->getamount();
 			
 			// neu du tien de thanh toan
 			if($price <= $amount)
@@ -307,8 +307,8 @@ class PzkServiceController extends PzkController
 				// custom
 				if($serviceType == 'lecture') {
 					$paymentOption = array(
-						'scope' 	=> $service->get('scope'),
-						'serviceId'	=> $service->get('id')
+						'scope' 	=> $service->getScope(),
+						'serviceId'	=> $service->getId()
 					);
 					$serviceModel->insertPayment($paymentOption);
 				}

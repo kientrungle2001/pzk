@@ -26,10 +26,10 @@
 		<div class="col-xs-12"> 
           <h4><strong>Hãy chọn gói sản phẩm :</strong></h4>
           <?php foreach($items as $item): ?>
-			  <?php  $price = $item->get('amount');
+			  <?php  $price = $item->getamount();
 				$price = $price * (1 - $discount / 100);
 			  ?>
-            <input type="radio" name="serviceId"  checked value="<?php echo $item->get('id').'/'.$item->get('amount') ?>"><strong> <?php  echo $item->get('serviceName') ?> </strong> Giá ưu đãi: <strong><?php  echo product_price($price) ?><?php  if($discount): ?> <span>Giá gốc: <?php  echo product_price($item->get('amount')); ?></span><?php  endif; ?></strong> <br>         
+            <input type="radio" name="serviceId"  checked value="<?php echo $item->getId().'/'.$item->getamount() ?>"><strong> <?php  echo $item->getServiceName() ?> </strong> Giá ưu đãi: <strong><?php  echo product_price($price) ?><?php  if($discount): ?> <span>Giá gốc: <?php  echo product_price($item->getamount()); ?></span><?php  endif; ?></strong> <br>         
           <?php endforeach; ?>
 		</div>
         </div>

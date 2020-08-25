@@ -31,7 +31,7 @@ class PzkAdminGametypeController extends PzkGridAdminController {
     );
 
     public $searchFields = array('game_type');
-    public $Searchlabels = 'Loại trò chơi';
+    public $searchLabel = 'Loại trò chơi';
 
     public $addFields = 'game_type, status, userId, gamecode, vocabulary, createdId, modifiedId, software';
     public $addLabel = 'Thêm Loại trò chơi';

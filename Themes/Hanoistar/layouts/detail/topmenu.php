@@ -1,7 +1,7 @@
 <?php
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
-	$languagevn = pzk_global()->get('languagevn');
+	$languagevn = pzk_global()->getLanguagevn();
 	$check = pzk_session('checkPayment');
 	$class = 5;
 	if(pzk_session('lop')) {

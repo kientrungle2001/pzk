@@ -1,5 +1,5 @@
 
-<?php if(!pzk_session()->get('userId')): ?>
+<?php if(!pzk_session()->getUserId()): ?>
 <style>@media only screen and (max-device-width:768px){
 
 body.modal-open {

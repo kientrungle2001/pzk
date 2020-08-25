@@ -123,7 +123,7 @@ class PzkAdminTestController extends PzkGridAdminController {
     );
 
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên đề thi';
+    public $searchLabel = 'Tên đề thi';
 	//filter
 	public $filterFields = array(
 		array(

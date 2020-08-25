@@ -17,7 +17,7 @@
      ?>
 <div class="prf_write_wall" >
  <div class="pfr_avatar_wall">
-        <img src="<?php echo $user->get('avatar')?>" alt="" width="80" height="80">
+        <img src="<?php echo $user->getavatar()?>" alt="" width="80" height="80">
       </div>
 
       <div class="result_search_content" >

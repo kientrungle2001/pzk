@@ -1,7 +1,7 @@
 <?php 
 
 $subject = _db()->getTableEntity('categories')->load(intval(pzk_request()->getSegment(3)));
-$subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($subject->get('parent'))->result();
+$subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($subject->getParent())->result();
  ?>
 <div class="col-md-12 col-xs-12 btn-custom4">
 	<ul class="breadcrumb text-center">
@@ -9,7 +9,7 @@ $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($
 		<li class="active">
 			<span class="dropdown">
 			  <a class="dropdown-toggle" type="button" id="dropdownSubjectDocument" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				<?php echo $subject->get('name')?>
+				<?php echo $subject->getName()?>
 				<span class="caret"></span>
 			  </a>
 			  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
@@ -42,7 +42,7 @@ $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($
 		 
 		<td>
 		
-		<a href="/document/class-5/subject-<?php echo $subject->get('alias')?>-<?php echo $subject->get('id')?>/<?php echo @$item['alias']?>-<?php echo @$item['id']?>"><?php echo @$item['title']?></a>
+		<a href="/document/class-5/subject-<?php echo $subject->getalias()?>-<?php echo $subject->getId()?>/<?php echo @$item['alias']?>-<?php echo @$item['id']?>"><?php echo @$item['title']?></a>
 
 		</td>
 		

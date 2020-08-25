@@ -4,7 +4,7 @@ class PzkEntityNewsModel extends PzkEntityModel {
 	public $table = 'news';
 	public function getAuthor() {
 		$author = _db()->getEntity('user');
-		$author->load($this->get('userId'));
+		$author->load($this->getUserId());
 		return $author;
 	}
 }

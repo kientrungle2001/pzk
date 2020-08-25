@@ -11,7 +11,7 @@ class PzkTransactionModel {
 		$datetime=date("Y-m-d H:i:s");
 		$wallets=_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('userId',$userId));
-		if($wallets->get('id')){
+		if($wallets->getId()){
 			$wal_amount=$wallets->getAmount();
 			if($amount < $wal_amount){
 				$wal_amount= $wal_amount- $amount;
@@ -39,7 +39,7 @@ class PzkTransactionModel {
 		$wallets=_db()->getEntity('User.Account.WalletsAdmin');
 		$wallets->loadWhere(array('userId',$userId));
 		// User đã có ví
-		if($wallets->get('id')){
+		if($wallets->getId()){
 			$wal_amount=$wallets->getAmount();			
 			$wal_amount= $wal_amount+ $amount;
 			$wallets->update(array('amount'=>$wal_amount));
@@ -76,7 +76,7 @@ class PzkTransactionModel {
 		//Kiểm tra xem là gói học hay gói chấm
 		$service= _db()->getEntity('Service.Service');
 		$service->loadWhere(array('id',$serviceId));
-		if($service->get('id')){
+		if($service->getId()){
 			$serviceType= $service->getServiceType();
 			// nếu là gói học
 			if($serviceType=='goihoc'){				
@@ -89,7 +89,7 @@ class PzkTransactionModel {
 				$amountService= $service->getamount();
 				$wallets=_db()->getEntity('User.Account.Wallets');
 				$wallets->loadWhere(array('userId',$userId));
-				if($wallets->get('id')){
+				if($wallets->getId()){
 					$wal_amount=$wallets->getAmount();			
 					$wal_amount= $wal_amount+ $amountService;
 					$wallets->update(array('amount'=>$wal_amount));
@@ -114,19 +114,19 @@ class PzkTransactionModel {
 		$buyservice= _db()->getEntity('Service.Buyservice');
 		$buyservice->loadWhere(array('orderId',$orderId));
 		$datetime= date("y-m-d");
-		if($buyservice->get('id')){
+		if($buyservice->getId()){
 			$buyservice->update(array('status'=>$newStatus,'modified'=>$datetime,'modifiedId'=>pzk_session('userId')));
 		}
 		// Nếu là gói chấm thì trừ tiền trong tài khoản của user
 		$service= _db()->getEntity('Service.Service');
 		$service->loadWhere(array('id',$serviceId));
-		if($service->get('id')){
+		if($service->getId()){
 			$serviceType= $service->getServiceType();
 			if($serviceType='goicham'){
 				$amountService= $service->getAmount();
 				$wallets=_db()->getEntity('User.Account.Wallets');
 				$wallets->loadWhere(array('userId',$userId));
-				if($wallets->get('id')){
+				if($wallets->getId()){
 					$wal_amount=$wallets->getAmount();			
 					if($newStatus != 1){
 						$wal_amount= $wal_amount- $amountService;
@@ -141,13 +141,13 @@ class PzkTransactionModel {
 		// Đổi trạng thái của order_transaction
 		$transaction= _db()->getEntity('Payment.Transaction');
 		$transaction->loadWhere(array('orderId',$orderId));
-		if($transaction->get('id')){
+		if($transaction->getId()){
 			$transaction->update(array('status'=>$newStatus,'modified'=>$datetime,'modifiedId'=>pzk_session('userId')));
 		}
 		// Đổi trạng thái order_shipping 
 		$shipping=_db()->getEntity('Service.Ordershipping');
 		$shipping->loadWhere(array('orderId',$orderId));
-		if($shipping->get('id')){
+		if($shipping->getId()){
 			$shipping->update(array('status'=>$newStatus));
 		}
 		// Đổi trạng thái order_item
@@ -161,13 +161,13 @@ class PzkTransactionModel {
 		// Đổi trạng thái của order_transaction
 		$transaction= _db()->getEntity('Payment.Transaction');
 		$transaction->loadWhere(array('orderId',$orderId));
-		if($transaction->get('id')){
+		if($transaction->getId()){
 			$transaction->update(array('status'=>$newStatus,'modified'=>$datetime,'modifiedId'=>pzk_session('userId')));
 		}
 		// Đổi trạng thái order_shipping 
 		$shipping=_db()->getEntity('Service.Ordershipping');
 		$shipping->loadWhere(array('orderId',$orderId));
-		if($shipping->get('id')){
+		if($shipping->getId()){
 			$shipping->update(array('status'=>$newStatus));
 		}
 		// Đổi trạng thái order_item
@@ -179,18 +179,18 @@ class PzkTransactionModel {
 	}
 	// Chuyển trạng thái
 	public function changeStatus($transactionEntity, $newStatus) {
-		$transactionId=$transactionEntity->get('id');
+		$transactionId=$transactionEntity->getId();
 		$amount=$transactionEntity->getAmount();
-		$cardAmount=$transactionEntity->getcardAmount();
-		$userId=$transactionEntity->getuserId();
-		$username=$transactionEntity->getusername();
+		$cardAmount=$transactionEntity->getCardAmount();
+		$userId=$transactionEntity->getUserId();
+		$username=$transactionEntity->getUsername();
 		if($cardAmount== 0){
 			$amountService= $amount;
 		}else $amountService=$cardAmount;
 		// nạp tiền vào tài khoản cho user
                 $wallets=_db()->getEntity('User.Account.Wallets');
                 $wallets->loadWhere(array('userId',$userId));
-                if($wallets->get('id')){
+                if($wallets->getId()){
                     $wal_amount=$wallets->getAmount();          
                     if($newStatus== 1){
                         $wal_amount= $wal_amount + $amountService;

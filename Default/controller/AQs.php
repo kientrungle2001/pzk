@@ -11,8 +11,8 @@ class PzkAQsController extends PzkController {
 	
 	public function pageAction(){
 		$obj = $this->parse('cms/AQs/AQshome');
-		$obj->set('isAjax', true);
-		$obj->set('page', pzk_request()->get('page'));
+		$obj->setIsAjax(true);
+		$obj->setPage(pzk_request()->getPage());
 		$obj->display();
 	}
 	

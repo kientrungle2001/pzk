@@ -2,18 +2,18 @@
 if(method_exists($data, 'getQuestion')){
 	$items = $data->getQuestion();
 }else{
-	$items = $data->get('question');
+	$items = $data->getQuestion();
 }
-$language = pzk_global()->get('language');
+$language = pzk_global()->getLanguage();
 $lang = pzk_session('language');
-$bookId = @$data->get('bookId');
+$bookId = @$data->getBookId();
 // lấy kết quả đã làm đưa ra
 $answer = null;
 $recommend_mark = null;
 if($bookId) {
 	$userAnswer = _db()->select('*')->from('user_answers')
 		->whereUser_book_id($bookId)
-		->whereQuestionId($items->get('id'))
+		->whereQuestionId($items->getId())
 		->result_one();
 	if($userAnswer) {
 		$answer = unserialize($userAnswer['content']);
@@ -22,43 +22,43 @@ if($bookId) {
 }
 ?>
 
-<?php //debug($items->get('teacher_answers')); die(); ?>
+<?php //debug($items->getTeacher_answers()); die(); ?>
 <div class="nobel-list-md typedt">
-	<?php if($data->get('stt')):?>
+	<?php if($data->getStt()):?>
 	<div class="item cau">
-		<div class="stt"><?php echo $language['question'];?> <?=$data->get('stt');?>
+		<div class="stt"><?php echo $language['question'];?> <?=$data->getStt();?>
 		<?php if(pzk_user_special()) :?><br />
-		(#<?php  echo $items->get('id') ?>)
+		(#<?php  echo $items->getId() ?>)
 		<?php endif; ?>
 		</div>
 
 	</div>
 	<?php endif; ?>
-	<p class='dt-request'><i><?=$items->get('request');?></i></p>
+	<p class='dt-request'><i><?=$items->getRequest();?></i></p>
 	
 	<?php
 		
 		if ($lang == 'en' || $lang == 'ev'){
-			$name = $items->get('name');
+			$name = $items->getName();
 		}else{
-			$name = $items->get('name_vn');
+			$name = $items->getName_vn();
 		} 
 		
 		
 		$pattern = '/\[(input|i)([\d]+)(\[([\d]+)\])?\]/';
-		$replacement =	"<input size='$4' class='answers_".$items->get('id')."_i_$2' name='answers[".$items->get('id')."_i][$2]'/>";
+		$replacement =	"<input size='$4' class='answers_".$items->getId()."_i_$2' name='answers[".$items->getId()."_i][$2]'/>";
 		$content = preg_replace($pattern, $replacement, $name);
 		
 		$pattern2 = '/\[(tput|tp)([\d]+)(\[([\d]+)\])?\]/';
-		$replacement2 =	"<input class='input_dt answers_".$items->get('id')."_i_$2' size='$4' name='answers[".$items->get('id')."_i][$2]'/>";
+		$replacement2 =	"<input class='input_dt answers_".$items->getId()."_i_$2' size='$4' name='answers[".$items->getId()."_i][$2]'/>";
 		$content = preg_replace($pattern2, $replacement2, $content);
 		
 		$pattern3 = '/\[(upload|u)([\d]+)(\[([\d]+)\])?\]/';
-		$replacement3 =	"<input type=\"file\" class='input_upload' size='$4' name='answers[".$items->get('id')."_u][$2]'/>";
+		$replacement3 =	"<input type=\"file\" class='input_upload' size='$4' name='answers[".$items->getId()."_u][$2]'/>";
 		$content = preg_replace($pattern3, $replacement3, $content);
 		
 		$pTextarea = '/\[(textarea|t)([\d]+)\]/';
-		$reTextarea = "<textarea class='w100p tinymce_input' name='answers[".$items->get('id')."_t][$2]'></textarea>";	
+		$reTextarea = "<textarea class='w100p tinymce_input' name='answers[".$items->getId()."_t][$2]'></textarea>";	
 		$content = preg_replace($pTextarea, $reTextarea, $content);
 		
 			?>
@@ -72,11 +72,11 @@ if($bookId) {
 	<?php endif; ?>
 	
 	<?php 
-		$explanation = $items->get('explaination');
+		$explanation = $items->getExplaination();
 	?>
-	<a href="#mobile-explan-<?=$items->get('id')?>" class="explanation top10 hidden btn btn-success btn-show-exp" data-toggle="collapse">Lý giải</a>
+	<a href="#mobile-explan-<?=$items->getId()?>" class="explanation top10 hidden btn btn-success btn-show-exp" data-toggle="collapse">Lý giải</a>
 	
-	<div id="mobile-explan-<?=$items->get('id')?>" class="collapse top10 item" 
+	<div id="mobile-explan-<?=$items->getId()?>" class="collapse top10 item" 
 		style="	border: 1px solid rgb(221, 221, 221); border-radius: 5px;
 				padding: 10px; text-align: justify;
 				background: rgb(255, 255, 255); margin-bottom:10px;">
@@ -86,11 +86,11 @@ if($bookId) {
 		
 		<!--report-->
 		<div class="item">
-			<div class="btn btn-danger" data-toggle="modal" data-target="#report<?=$items->get('id')?>">
+			<div class="btn btn-danger" data-toggle="modal" data-target="#report<?=$items->getId()?>">
 			<?=$language['report']?>
 			</div>
 			
-			<div class="modal fade" id="report<?=$items->get('id')?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal fade" id="report<?=$items->getId()?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			  <div class="modal-dialog" role="document">
 				<div class="modal-content">
 				  <div class="modal-header">
@@ -100,13 +100,13 @@ if($bookId) {
 				  <div class="modal-body">
 					 <div class="w100p">
 						<label for="exampleInputEmail1"><?=$language['content']?>:</label>
-						<textarea style="height: 150px !important;" id="contentError<?=$items->get('id')?>" name="contentError" class="form-control"></textarea>
+						<textarea style="height: 150px !important;" id="contentError<?=$items->getId()?>" name="contentError" class="form-control"></textarea>
 					  </div>
 		 
 				  </div>
 				  <div class="modal-footer">
 					
-					<button onclick="reportError(<?=$items->get('id')?>);" type="button" class="btn btn-primary"><?=$language['report']?></button>
+					<button onclick="reportError(<?=$items->getId()?>);" type="button" class="btn btn-primary"><?=$language['report']?></button>
 				  </div>
 				</div>
 			  </div>
@@ -127,7 +127,7 @@ if($bookId) {
 		<label class="control-label red" ><?= $language['view-explanation'];?></label>
 		<div class="item content">
 		<?php 
-		$ligiai = $items->get('teacher_answers');
+		$ligiai = $items->getTeacher_answers();
 		if(isset($ligiai)) {
 			$content = json_decode($ligiai, true);
 			if(isset($content['content_full'])) {
@@ -141,10 +141,10 @@ if($bookId) {
 	<!-- bắt đầu phần tiếng việt cho song ngữ -->
 		<?php if($lang == 'ev'){ ?>
 		<div>
-			<p><i class="ptnn-title"><?=$items->get('request')?></i></p>
+			<p><i class="ptnn-title"><?=$items->getRequest()?></i></p>
 			<p><strong>Dịch tiếng Việt:</strong><span class="ptnn-title"> 
 			<?php 
-		$name = $items->get('name_vn');
+		$name = $items->getName_vn();
 		$name = strip_tags($name, '<img><b><i><br><i>');
 		$pattern = '/\[(input|i)([\d]+)(\[([\d]+)\])?\]/';
 		$replacement =	".....";
@@ -175,7 +175,7 @@ var answerData = <?php echo json_encode($answer);?>;
 for(var type in answerData) {
 	for(var index in answerData[type]) {
 		
-		$('[name="answers[<?php echo $items->get('id') ?>_'+type+']['+index+']"]').val(answerData[type][index]);
+		$('[name="answers[<?php echo $items->getId() ?>_'+type+']['+index+']"]').val(answerData[type][index]);
 	}
 }
 </script>

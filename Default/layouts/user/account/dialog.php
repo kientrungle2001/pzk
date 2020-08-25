@@ -1,4 +1,4 @@
-<?php if(!pzk_session()->get('userId')): ?>
+<?php if(!pzk_session()->getUserId()): ?>
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   	<div class="modal-dialog modal-lg">
     	<div class="modal-content">

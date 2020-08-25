@@ -20,7 +20,7 @@
 		<div class="row row-npd">
 		  <h4><strong>Hãy chọn gói sản phẩm :</strong></h4>
           <?php foreach($items as $item): ?>
-            <input type="radio" name="serviceId"  checked value="<?php echo $item->get('id').'/'.$item->get('amount') ?>"><strong> <?php  echo $item->get('serviceName') ?> </strong> Giá : <strong><?php  echo product_price($item->get('amount')) ?></strong> <br>         
+            <input type="radio" name="serviceId"  checked value="<?php echo $item->getId().'/'.$item->getamount() ?>"><strong> <?php  echo $item->getServiceName() ?> </strong> Giá : <strong><?php  echo product_price($item->getamount()) ?></strong> <br>         
           <?php endforeach; ?>
 		</div>
 		<div class="row row-npd">

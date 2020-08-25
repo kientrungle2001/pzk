@@ -4,7 +4,7 @@
 	}
 </style>
 <?php
-$language = pzk_global()->get('language');
+$language = pzk_global()->getLanguage();
 $lang = pzk_session('language');
 $check = pzk_session('checkPayment');
 $userId 	= pzk_session('userId');

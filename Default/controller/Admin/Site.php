@@ -30,7 +30,7 @@ class PzkAdminSiteController extends PzkGridAdminController {
 		),
 	);
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên trang web';
+    public $searchLabel = 'Tên trang web';
     public $listFieldSettings = array(
         array(
             'index' => 'name',

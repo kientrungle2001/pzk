@@ -7,7 +7,7 @@
    </div>
    <?php 
     $service  		=  $data->loadService();
-	$couponDiscount = 	pzk_session()->get('discount');
+	$couponDiscount = 	pzk_session()->getDiscount();
 	$coupon 		=	pzk_session('coupon');
     $discount		= $data->loadDiscount();
     ?>
@@ -52,7 +52,7 @@
 	
 	<div class="form-group">
           <label for="">Mã giảm giá nếu có: </label> <br>
-          <input type="text" class="form-control" id="txtcoupon" name="txtcoupon" value="<?= pzk_session()->get('coupon');?>"  placeholder="Điền mã giảm giá nếu có"> 
+          <input type="text" class="form-control" id="txtcoupon" name="txtcoupon" value="<?= pzk_session()->getCoupon();?>"  placeholder="Điền mã giảm giá nếu có"> 
         </div>
 	<div class="form-group">
           <label for="">Họ và tên: </label> <br>

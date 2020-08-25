@@ -1,9 +1,9 @@
 <?php
-		$UserId = $data->get('userId');
+		$UserId = $data->getUserId();
 		
-		$data->pageSize = $data->get('pageSize');
+		$data->pageSize = $data->getPageSize();
 		
-		$page = $data->get('page');
+		$page = $data->getPage();
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{

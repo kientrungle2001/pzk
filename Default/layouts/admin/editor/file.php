@@ -1,5 +1,5 @@
 <?php
-$type 		= $data->get('type');
+$type 		= $data->getType();
 $file 		= $data->getFile();
 $backHref 	= $data->getBackHref();
 $content 	= @file_get_contents(BASE_DIR . $file);

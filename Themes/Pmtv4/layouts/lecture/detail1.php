@@ -1,5 +1,5 @@
 <?php $item = $data->getItem(); 
-$hasVideo = $data->get('hasVideo');
+$hasVideo = $data->getHasVideo();
 $others = $data->getOthers();
 $exercises = $data->getExercises();
 $otherSections = $data->getOtherSections();

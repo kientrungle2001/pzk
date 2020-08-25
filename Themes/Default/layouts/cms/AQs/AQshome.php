@@ -1,4 +1,4 @@
-﻿<?php if(!$data->get('isAjax')): ?>
+﻿<?php if(!$data->getIsAjax()): ?>
 <?php
 	$username= pzk_session('username');
 	if(!$username){

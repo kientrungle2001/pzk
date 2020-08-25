@@ -9,7 +9,7 @@ class PzkEntityCmsPluginListModel extends PzkEntityModel{
 				foreach($match[1] as $i => $m) {
 					$obj = '<core.db.list table="article" '.$m.'/>';
 					$obj = pzk_parse($obj);
-					$content = $obj->get('content');
+					$content = $obj->getContent();
 					$val = str_replace($match[0][$i], $content, $val);
 				}
 			}

@@ -4,11 +4,11 @@ class PzkTuvanController extends PzkThemesDefaultHomeController{
 	
 	public function indexAction(){
 		$this->initPage();
-		pzk_page()->set('title', 'Tư vấn');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Tư vấn');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Tư vấn');
+		pzk_page()->setTitle('Tư vấn');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Tư vấn');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Tư vấn');
 		$this->append('tuvan/tuvan')
 		->display();
 	}
@@ -16,8 +16,8 @@ class PzkTuvanController extends PzkThemesDefaultHomeController{
 		$frontendmodel = pzk_model('Frontend');
 		$userId	=	pzk_session('userId');
 		$rows = array(
-				'content' => clean_value(pzk_request()->get('content')),
-				'type'  => clean_value(pzk_request()->get('type')),
+				'content' => clean_value(pzk_request()->getContent()),
+				'type'  => clean_value(pzk_request()->getType()),
 				'userId'  => $userId,
 				'created' => date(DATEFORMAT, $_SERVER['REQUEST_TIME'])
 				

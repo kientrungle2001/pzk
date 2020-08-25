@@ -7,11 +7,11 @@ class PzkCartController extends PzkController{
 	public function indexAction() {
 		$this->initPage()
 		->append('ecommerce/cart');
-		pzk_page()->set('title', 'Giỏ hàng');
-		pzk_page()->set('keywords', 'Giỏ hàng');
-		pzk_page()->set('description', 'Giỏ hàng');
-		pzk_page()->set('img', BASE_URL . '/default/skin/nobel/Themes/story/media/logo.png');
-		pzk_page()->set('brief', 'Giỏ hàng');
+		pzk_page()->setTitle('Giỏ hàng');
+		pzk_page()->setKeywords('Giỏ hàng');
+		pzk_page()->setDescription('Giỏ hàng');
+		pzk_page()->setImg(BASE_URL . '/default/skin/nobel/Themes/story/media/logo.png');
+		pzk_page()->setBrief('Giỏ hàng');
 		$this->display();
 	}
 }

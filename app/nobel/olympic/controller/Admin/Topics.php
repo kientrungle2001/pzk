@@ -12,7 +12,7 @@ class PzkAdminTopicsController extends PzkGridAdminController {
 	);
 	
 	public $searchFields = array('name');
-	public $Searchlabels = 'Chủ đề';
+	public $searchLabel = 'Chủ đề';
 	
 	public $addFields = 'name, category_id, status';
 	public $addLabel = 'Thêm chủ đề';

@@ -1,11 +1,11 @@
 <?php 
-$title = pzk_or(@$data->title, 'Đăng ký<br />nhận tư vấn');
+$title = pzk_or(@$data->getTitle(), 'Đăng ký<br />nhận tư vấn');
 $title = str_replace('|', '<br />', $title);
 $class = '';
 if(@$data->featured) {
 	$class = 'featured-box';
 }
-$type = $data->get('type');
+$type = $data->getType();
 ?>
 <div class="row box support-subscribe-box">
 	<div class="<?php echo $class ?>">
@@ -15,7 +15,7 @@ $type = $data->get('type');
 	<div class="box-content border-purple">
 	<form class="form" method="post"  action="/support/subscribe" >
 		<input type="hidden" name="type" value="<?php echo $type ?>" />
-	<?php echo @$data->get('error'); ?>
+	<?php echo @$data->getError(); ?>
 	   <div class="form-group">
 			<input class="form-control" placeholder="Họ và tên" type="text" name="name" value="">
 		</div>

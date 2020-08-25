@@ -13,8 +13,8 @@
 }
 </style>
 <?php
-	$language =pzk_global()->get('language');
-	$languagevn = pzk_global()->get('languagevn');
+	$language =pzk_global()->getLanguage();
+	$languagevn = pzk_global()->getLanguagevn();
 	$lang = pzk_session('language');
 ?>
 <?php $data->displayChildren('[position=public-header]') ?>

@@ -8,11 +8,11 @@ class PzkGameController extends PzkController {
 		$this->display();
 	}
 	public function getQuestionAction() {
-		$ids = Pzk_request()->get('ids');
+		$ids = Pzk_request()->getIds();
 		if($ids) {
 			$this->parse('game/getNewQuestion');
 			$getNewQuestion = pzk_element('getNewQuestion');
-			$getNewQuestion->set('ids', trim($ids, ','));
+			$getNewQuestion->setIds(trim($ids, ','));
 			$getNewQuestion->display();
 		}else {
 			$this->parse('game/getQuestion');
@@ -23,19 +23,19 @@ class PzkGameController extends PzkController {
 		
 	}
 	public function getNewQuestionAction() {
-		$ids = Pzk_request()->get('ids');
+		$ids = Pzk_request()->getIds();
 		
 		if($ids){
 			$this->parse('game/getNewQuestion');
 			$getNewQuestion = pzk_element('getNewQuestion');
-			$getNewQuestion->set('ids', trim($ids, ','));
+			$getNewQuestion->setIds(trim($ids, ','));
 			$getNewQuestion->display();
 		}
 		
 	}
 	public function checkAnswerAction() {
-		$questionId = Pzk_request()->get('questionId');
-		$answer = Pzk_request()->get('answer');
+		$questionId = Pzk_request()->getQuestionId();
+		$answer = Pzk_request()->getanswer();
 		if($questionId and $answer) {
 			$frontendmodel = Pzk_model('Frontend');
 			$checkAnswerTrue = $frontendmodel->getAnswerTrueByContent($answer, $questionId, "choice");

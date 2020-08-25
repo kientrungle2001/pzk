@@ -2,7 +2,7 @@
 class PzkEntityAttributeSetModel extends PzkEntityModel {
 	public $table = 'attribute_set';
 	public function getGroups() {
-		return _db()->selectAll()->from('attribute_set_groups')->where(array('setId', $this->get('id')))->result('Attribute.Set.Group');
+		return _db()->selectAll()->from('attribute_set_groups')->where(array('setId', $this->getId()))->result('Attribute.Set.Group');
 	}
 	public function getAttributes() {
 		$attributes = array();

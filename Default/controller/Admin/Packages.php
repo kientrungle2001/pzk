@@ -51,10 +51,10 @@ class PzkAdminPackagesController extends PzkGridAdminController {
     );
 
     public function updateAction() {
-        $module = $this->parse('admin/'.pzk_or($this->get('customModule'), $this->get('module')).'/update');
-        $module->set('module', $this->get('module'));
-        $module->set('fieldSettings', $this->get('addFieldSettings'));
-        $module->set('actions', $this->get('addActions'));
+        $module = $this->parse('admin/'.pzk_or($this->getCustomModule(), $this->getModule()).'/update');
+        $module->setModule($this->getModule());
+        $module->setFieldSettings($this->getaddFieldSettings());
+        $module->setActions($this->getaddActions());
 
         $page = $this->initPage()
             ->append($module);
@@ -104,9 +104,9 @@ class PzkAdminPackagesController extends PzkGridAdminController {
                     switch ($result['errorno']) {
                         case PACKAGE_SUCCESS : {
                             pzk_notifier()->addMessage($result['message']);
-                            $entity = _db()->getTableEntity($this->get('table'));
+                            $entity = _db()->getTableEntity($this->getTable());
                             $entity->loadWhere(array('name', $result['data']['name']));
-                            $result['data']['id'] = $entity->get('id');
+                            $result['data']['id'] = $entity->getId();
                             $entity->setData($result['data']);
                             $entity->save();
                             $this->redirect('index');
@@ -140,31 +140,31 @@ class PzkAdminPackagesController extends PzkGridAdminController {
     }
 
     public function configAction($id) {
-        $item = _db()->getTableEntity($this->get('table'))->load($id);
-        $settings = json_decode($item->get('settings'), true);
+        $item = _db()->getTableEntity($this->getTable())->load($id);
+        $settings = json_decode($item->getSettings(), true);
         $module = $this->parse('<Core.Form />');
-        $module->set('module', $this->get('module'));
-        $module->set('fieldSettings', $settings);
-        $module->set('action', '/admin_packages/configPost/'.$id);
-        $module->set('actions', $this->get('editActions'));
-        $module->set('backLabel', 'Quay lại');
-        $module->set('backHref', '/Admin_Packages/index');
+        $module->setModule($this->getModule());
+        $module->setFieldSettings($settings);
+        $module->setAction('/admin_packages/configPost/'.$id);
+        $module->setActions($this->getEditActions());
+        $module->setBackLabel('Quay lại');
+        $module->setBackHref('/Admin_Packages/index');
         $itemData = array();
         foreach ($settings as $setting) {
             $itemData[$setting['index']] = pzk_config($setting['index']);
         }
 
-        $module->set('item', $itemData);
+        $module->setItem($itemData);
         $this->initPage()
             ->append($module)
-            ->append('admin/'.pzk_or($this->get('customModule'), $this->get('module')).'/menu', 'right');
+            ->append('admin/'.pzk_or($this->getCustomModule(), $this->getModule()).'/menu', 'right');
         $this->prepareEditDisplay();
         $this->display();
     }
 
     public function configPostAction($id) {
-        $item = _db()->getTableEntity($this->get('table'))->load($id);
-        $settings = json_decode($item->get('settings'), true);
+        $item = _db()->getTableEntity($this->getTable())->load($id);
+        $settings = json_decode($item->getSettings(), true);
         $row = array();
         foreach($settings as $setting) {
             $row[$setting['index']] = pzk_request($setting['index']);
@@ -176,15 +176,15 @@ class PzkAdminPackagesController extends PzkGridAdminController {
 
         $config = merge_array($config, $row);
 
-        if(pzk_session()->get('storeType') == 'app') {
+        if(pzk_session()->getStoreType() == 'app') {
             file_put_contents("app/".pzk_app()->getPathByName()."/configuration.php", '<?php pzk_store_instance("'.pzk_request()->getAppPath() .'")->set(\'config\', '.var_export($config, true) . ');');
         } else {
-            file_put_contents("app/".pzk_app()->getPathByName()."/configuration.".pzk_request()->get('softwareId').".php", '<?php pzk_store_instance("'.pzk_request()->getAppPath() . '/' . pzk_request()->get('softwareId') .'")->set(\'config\', '.var_export($config, true) . ');');
+            file_put_contents("app/".pzk_app()->getPathByName()."/configuration.".pzk_request()->getSoftwareId().".php", '<?php pzk_store_instance("'.pzk_request()->getAppPath() . '/' . pzk_request()->getSoftwareId() .'")->set(\'config\', '.var_export($config, true) . ');');
         }
         $this->redirect('admin_packages/config/'.$id);
     }
     public function exportAction($id) {
-        $package = _db()->getTableEntity($this->get('table'))->load($id);
+        $package = _db()->getTableEntity($this->getTable())->load($id);
         $data = $package->data;
         $namePackage  = $data['name'];
         $folder = 'filePackages/';
@@ -204,7 +204,7 @@ class PzkAdminPackagesController extends PzkGridAdminController {
 
         //call one obj
         $layout = pzk_obj('Core.Layout');
-        $layout->set('columns', array(
+        $layout->setColumns(array(
             array(
                 'index' => JOIN_TYPE_LEFT,
                 'col'   => 3
@@ -220,16 +220,16 @@ class PzkAdminPackagesController extends PzkGridAdminController {
         $files = json_decode($item->getFiles(), true);
         //convert page to obj
         $list = $this->parse('admin/plugin/list');
-        $list->set('files', $files);
-        $list->set('module', $this->get('module'));
-        $list->set('itemId', $id);
+        $list->setFiles($files);
+        $list->setModule($this->getModule());
+        $list->setItemId($id);
         //gan new obj to property left in obj
-        $list->set('column', JOIN_TYPE_LEFT);
+        $list->setColumn(JOIN_TYPE_LEFT);
 
         $edit = $this->parse('admin/plugin/edit');
-        $edit->set('module', $this->get('module'));
-        $edit->set('itemId', $id);
-        $edit->set('column', 'right');
+        $edit->setModule($this->getModule());
+        $edit->setItemId($id);
+        $edit->setColumn('right');
 
         $layout->append($edit);
         $layout->append($list);
@@ -251,12 +251,12 @@ class PzkAdminPackagesController extends PzkGridAdminController {
         if($this->getChildTables()) {
             foreach($this->getChildTables() as $val) {
                 _db()->useCB()->delete()->from($val['table'])
-                    ->where(array($val['referenceField'], pzk_request()->get('id')))->result();
+                    ->where(array($val['referenceField'], pzk_request()->getId()))->result();
             }
 
         }
-        $entity = _db()->getTableEntity($this->get('table'));
-        $entity->load(pzk_request()->get('id'));
+        $entity = _db()->getTableEntity($this->getTable());
+        $entity->load(pzk_request()->getId());
 
         $dataPlugin = $entity->data;
         $namePlugin = $dataPlugin['name'];
@@ -267,15 +267,15 @@ class PzkAdminPackagesController extends PzkGridAdminController {
         if($this->getLogable()) {
             $logEntity = _db()->getTableEntity('admin_log');
             $logFields = explodetrim(',', $this->getLogFields());
-            $brief = pzk_session()->get('adminUser') . ' Xóa bản ghi: ' . $this->get('module');
+            $brief = pzk_session()->getadminUser() . ' Xóa bản ghi: ' . $this->getModule();
             foreach ($logFields as $field) {
                 $brief .= '[' . $field . ': ' . $entity->get($field) . ']';
             }
-            $logEntity->set('userId', pzk_session()->get('adminId'));
-            $logEntity->set('created', date('Y-m-d H:i:s'));
-            $logEntity->set('actionType', 'delete');
-            $logEntity->set('admin_controller', 'Admin_'.$this->get('module'));
-            $logEntity->set('brief', $brief);
+            $logEntity->setUserId(pzk_session()->getadminId());
+            $logEntity->setCreated(date('Y-m-d H:i:s'));
+            $logEntity->setActionType('delete');
+            $logEntity->setAdmin_controller('Admin_'.$this->getModule());
+            $logEntity->setBrief($brief);
             $logEntity->save();
         }
         $entity->delete();

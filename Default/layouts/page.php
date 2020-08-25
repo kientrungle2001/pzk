@@ -6,11 +6,11 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title><?php echo @$data->title ?></title>
+		<title><?php echo @$data->getTitle() ?></title>
 		<link rel="manifest" href="/manifest.json">
 		<meta property="og:type"  content="og:article" />
 		<meta property="og:image" content="<?php echo BASE_URL?><?php echo @$data->img ?>"/> 
-		<meta property="og:title" content="<?php echo @$data->title ?>"/> 
+		<meta property="og:title" content="<?php echo @$data->getTitle() ?>"/> 
 		<meta property="og:site_name" content="nextnobels.com"/> 
 		<meta property="og:url" content="<?php echo BASE_URL?><?php echo $_SERVER['REQUEST_URI']?>"/> 
 		<meta property="og:description" content="<?php echo @$data->brief ?>" />
@@ -50,7 +50,7 @@
 		<?php endif;?>
 		<?php $data->displayChildren('[id=head]')?>
 		<?php
-		if(!DEBUG_MODE && strpos(pzk_request()->get('controller'), 'Admin_') === false):
+		if(!DEBUG_MODE && strpos(pzk_request()->getController(), 'Admin_') === false):
 		?>
 		<?php if(pzk_request()->isDesktop()):?>
 		<script language="JavaScript">

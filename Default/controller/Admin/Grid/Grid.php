@@ -1,7 +1,7 @@
 <?php
 class PzkAdminGridGridController extends PzkGridAdminController {
-	public $addFields = 'name,table,selectFields,joins,childTables,filterFields,listSettingType,listFieldSettings,addLabel,addFields,addFieldSettings,editLabel,editFields,editFieldSettings,searchFields,searchLabels,filterFieldSettings,sortFields,title,fixedPageSize,orderBy';
-	public $editFields ='name,table,selectFields,joins,childTables,filterFields,listSettingType,listFieldSettings,addLabel,addFields,addFieldSettings,editLabel,editFields,editFieldSettings,searchFields,searchLabels,filterFieldSettings,sortFields,title,fixedPageSize,orderBy';
+	public $addFields = 'name,table,selectFields,joins,childTables,filterFields,listSettingType,listFieldSettings,addLabel,addFields,addFieldSettings,editLabel,editFields,editFieldSettings,searchFields,searchLabel,filterFieldSettings,sortFields,title,fixedPageSize,orderBy';
+	public $editFields ='name,table,selectFields,joins,childTables,filterFields,listSettingType,listFieldSettings,addLabel,addFields,addFieldSettings,editLabel,editFields,editFieldSettings,searchFields,searchLabel,filterFieldSettings,sortFields,title,fixedPageSize,orderBy';
 	public $table='grid_grid';
     public $selectFields = '*';
 	public $sortFields = array(
@@ -109,7 +109,7 @@ class PzkAdminGridGridController extends PzkGridAdminController {
 			)
 		),
 		array(
-			'index' 	=> 'searchLabels',
+			'index' 	=> 'searchLabel',
 			'type' 		=> 'text',
 			'label' 	=> 'Tiêu đề tìm kiếm'
 		),
@@ -283,7 +283,7 @@ class PzkAdminGridGridController extends PzkGridAdminController {
 			)
 		),
 		array(
-			'index' 	=> 'searchLabels',
+			'index' 	=> 'searchLabel',
 			'type' 		=> 'text',
 			'label' 	=> 'Tiêu đề tìm kiếm'
 		),

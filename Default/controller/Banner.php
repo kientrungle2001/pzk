@@ -58,9 +58,9 @@ class PzkBannerController extends PzkController {
 			$views 		= file_get_contents($file);
 			$entity 	= _db()->getTableEntity('banner');
 			$entity->load($id);
-			if($entity->get('id')) {
+			if($entity->getId()) {
 				@unlink($file);
-				$entity->set('views', $entity->get('views') + $views);
+				$entity->setViews($entity->getViews() + $views);
 				$entity->save();
 			}
 			

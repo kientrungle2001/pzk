@@ -13,7 +13,7 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 			->from('student')
 			->join('class_student', 'student.id = class_student.studentId')
 			->join('classes', 'class_student.classId = classes.id')
-			->where("class_student.classId= $this->get('id')")
+			->where("class_student.classId= $this->getId()")
 			if($studentId){
 				$query->where("class_student.studentId=$studentId");
 			}
@@ -43,7 +43,7 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 				->where($conds)->orderBy('startDate asc')->result('Edu.Period');
 			$periodByIds = array();
 			foreach($periods as $period) {
-				$periodByIds[$period->get('id')] = $period;
+				$periodByIds[$period->getId()] = $period;
 			}
 			$this->periods = $periodByIds;	
 		}
@@ -55,12 +55,12 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 			$rows = _db()->useCB()->select('student.id, student.phone, student.name, class_student.endClassDate, class_student.startClassDate')
 				->fromClass_student()
 				->joinStudent('class_student.studentId=student.id')
-				->whereClassId($this->get('id'))
+				->whereClassId($this->getId())
 				->orderBy('student.name asc')
 				->result('Edu.Student');
 			$students = array();
 			foreach($rows as $row) {
-				$students[$row->get('id')] = $row;
+				$students[$row->getId()] = $row;
 			}
 			$this->students = $students;	
 		}
@@ -70,7 +70,7 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 	public function getStudentIdPaids() {
 		$orders = _db()->useCB()->select('studentId')
 			->fromStudent_order()
-			->whereClassId($this->get('id'))
+			->whereClassId($this->getId())
 			->whereStatus('')
 			->result();
 		$payments = array();
@@ -92,7 +92,7 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 	
 	public function getSchedules($startDate, $endDate) {
 		return _db()->useCB()->select('studyDate')->fromSchedule()
-			->whereClassId($this->get('id'))
+			->whereClassId($this->getId())
 			->gteStudyDate($startDate)
 			->ltStudyDate($endDate)
 			->orderBy('studyDate asc')->result();
@@ -112,7 +112,7 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 		$studentSchedules = _db()->useCB()
 			->select('studentId, studyDate, status')
 			->fromStudent_schedule()
-			->whereClassId($this->get('id'))
+			->whereClassId($this->getId())
 			->gteStudyDate($minStartDate)
 			->ltStudyDate($maxEndDate)
 			->orderBy('studentId asc, studyDate asc')
@@ -127,7 +127,7 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 		
 		$offScheduleConds = AA(
 			AO(
-				AA(AE('classId', $this->get('id')), AE('type', 'class')), 
+				AA(AE('classId', $this->getId()), AE('type', 'class')), 
 				AE('type', 'center')
 			), 
 			AGE('offDate', $minStartDate), 
@@ -145,7 +145,7 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 		$orders = _db()->useCB()
 			->select('id, orderId, payment_periodId as periodId, studentId')
 			->from('student_order')
-			->where(array('and', array('classId', $this->get('id')), array('status', '')))
+			->where(array('and', array('classId', $this->getId()), array('status', '')))
 			->inPayment_periodId(array_keys($periods))
 			->inStudentId(array_keys($students))
 			->result();
@@ -232,7 +232,7 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 	}
 	
 	public function getTeacherSchedules() {
-		return _db()->select('*')->fromTeacher_schedule()->whereClassId($this->get('id'))->result();
+		return _db()->select('*')->fromTeacher_schedule()->whereClassId($this->getId())->result();
 	}
 	
 	public function getTeacher() {
@@ -256,7 +256,7 @@ class PzkEntityEduClassModel extends PzkEntityModel {
 	
 	public function getVMTSchedules() {
 		$rs = array();
-		$schedules = _db()->select('*')->fromStudent_schedule()->whereClassId($this->get('id'))->result();
+		$schedules = _db()->select('*')->fromStudent_schedule()->whereClassId($this->getId())->result();
 		foreach($schedules as $schedule) {
 			$rs[$schedule['studentId']][$schedule['studyDate']]['status'] = $schedule['status'];
 		}

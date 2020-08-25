@@ -13,7 +13,7 @@ class PzkAdminAreatypeController extends PzkGridAdminController {
     	return PzkSortConstant::gets('id, name', 'areatype');
     }
     public $searchFields = array('name');
-    public $Searchlabels = 'Loại địa điểm';
+    public $searchLabel = 'Loại địa điểm';
     
     public function getListFieldSettings() {
     	return PzkListConstant::gets('nameOfAreatype, status', 'areatype');

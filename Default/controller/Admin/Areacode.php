@@ -20,7 +20,7 @@ class PzkAdminAreacodeController extends PzkGridAdminController {
         'name desc' => 'name giảm',
     );
     public $searchFields = array('`areacode`.`name`', '`areacode`.`id`');
-    public $Searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
 	
 	public $listSettingType = 'parent';
     public $listFieldSettings = array(

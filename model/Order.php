@@ -2,7 +2,7 @@
 class PzkOrderModel {
 	public function changeStatus($orderEntity, $newStatus) {
 		
-			$orderId=$orderEntity->get('id');
+			$orderId=$orderEntity->getId();
 			$serviceId= $orderEntity->getServiceId();
 			$userId= $orderEntity->getUserId();
 			$model = pzk_model('Transaction');

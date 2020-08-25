@@ -7,7 +7,7 @@ if($type == 0){
 if($type==1){
 	$dataTest = $data->getPractice();
 }
-$doTestPostUrl = $data->get('doTestPostUrl');
+$doTestPostUrl = $data->getDoTestPostUrl();
 if(!$doTestPostUrl) {
 	$doTestPostUrl = '/test/doTest/';
 }
@@ -47,7 +47,7 @@ if(!$doTestPostUrl) {
 		<form class="form_search_test" style="margin: 15px 0px" action="<?=BASE_REQUEST?><?php echo $doTestPostUrl ?>?practice=<?php echo $type ?>&class=<?php echo $class ?>" method="post" onsubmit = "return check_select_test()">
 			<?php 
 			$isInList = false;
-			$testDetail = $data->get('testDetail');
+			$testDetail = $data->getTestDetail();
 			if($testDetail) {
 				foreach($dataTest as $test) {
 					if($testDetail['id'] == $test['id']) {

@@ -126,7 +126,7 @@
 			}
 			
 			
-			$active = strpos($currentCategory->get('parents'), ',' . $item['id'] . ',') !== false ? 'active': '';
+			$active = strpos($currentCategory->getParents(), ',' . $item['id'] . ',') !== false ? 'active': '';
             echo '<a class="'.$active.' dropdown-toggle menu_item_'.$item['id'].'" href="'.$href.'">';
             echo $item['name'];
             echo '</a>';

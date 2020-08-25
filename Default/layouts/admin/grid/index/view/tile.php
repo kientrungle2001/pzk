@@ -2,7 +2,7 @@
 $sortFields = $data->getSortFields();
 $filedFilters = $data->getFilterFields();
 $searchFields = $data->getSearchFields();
-$Searchlabels = $data->getSearchLabels();
+$searchLabel = $data->getSearchLabel();
 //type setting
 $listSettingType = $data->getListSettingType();
 $listFieldSettings = $data->getListFieldSettings();
@@ -29,7 +29,7 @@ if($listSettingType =='parent') {
     <div class="panel-heading">
         <b>{data.getTitle()} (<?php echo $countItems. ' bản ghi'; ?>)</b>
     </div>
-<table id="admin_table_<?php echo $data->get('id')?>" class="table table-hover">
+<table id="admin_table_<?php echo $data->getId()?>" class="table table-hover">
 	<thead>
 	<tr>
 		<th><input type="checkbox" id="selecctall"/></th>
@@ -80,7 +80,7 @@ if($listSettingType =='parent') {
 				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
 			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->get('id')?>.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->getId()?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>
@@ -108,10 +108,10 @@ if($listSettingType =='parent') {
 				$fieldObj->set($key, $val);
 			}
 			$fieldObj->setItemId($item['id']);
-			if($fieldObj->get('type') == 'parent') {
+			if($fieldObj->getType() == 'parent') {
 				$fieldObj->setLevel($item['level']);
 			}
-			if($listSettingType &&  $fieldObj->get('type') == 'ordering') {
+			if($listSettingType &&  $fieldObj->getType() == 'ordering') {
 				$isOrderingField = true;
 				$fieldObj->setLevel($item['level']);
 			}
@@ -163,7 +163,7 @@ if($listSettingType =='parent') {
 				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
 			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->get('id')?>.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->getId()?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>
@@ -215,7 +215,7 @@ if($listSettingType =='parent') {
 				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
 			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px; background: #6a737b; color: #fff;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->get('id')?>.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px; background: #6a737b; color: #fff;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->getId()?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>
@@ -243,10 +243,10 @@ if($listSettingType =='parent') {
 				$fieldObj->set($key, $val);
 			}
 			$fieldObj->setItemId($item['id']);
-			if($fieldObj->get('type') == 'parent') {
+			if($fieldObj->getType() == 'parent') {
 				$fieldObj->setLevel($item['level']);
 			}
-			if($listSettingType &&  $fieldObj->get('type') == 'ordering') {
+			if($listSettingType &&  $fieldObj->getType() == 'ordering') {
 				$isOrderingField = true;
 				$fieldObj->setLevel($item['level']);
 			}
@@ -300,7 +300,7 @@ if($listSettingType =='parent') {
 				<option value="<?php echo @$action['value']?>"><?php echo @$action['label']?></option>
 			<?php endforeach; ?>
 		</select>
-		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->get('id')?>.performAction()" >
+		<div  id="gridaction" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" onclick="pzk_<?php echo $data->getId()?>.performAction()" >
             <span class="glyphicon glyphicon-execute"></span> Thực hiện
         </div>
 		</div>

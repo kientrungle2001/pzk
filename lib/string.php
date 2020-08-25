@@ -228,7 +228,7 @@ function getLatex($content) {
 }
 
 function wordval($str) {
-	preg_match('/^[\w\d]*/', $str, $match);
+	preg_match('/^[\w\d_]*/', $str, $match);
 	return $match[0];
 }
 

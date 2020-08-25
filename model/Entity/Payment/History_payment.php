@@ -10,7 +10,7 @@ class PzkEntityPaymentHistory_paymentModel extends PzkEntityModel
 		$querys = _db()->select('*')->from('history_payment')->whereExpireddate('0000-00-00 00:00:00')->result('Payment.History_payment');
 		foreach ($querys as $key) {
 			// cập nhật database
-			$paymentDate	= $key->get('paymentDate');
+			$paymentDate	= $key->getPaymentDate();
 			
 			if($paymentDate == '0000-00-00 00:00:00') {
 				continue;
@@ -204,7 +204,7 @@ class PzkEntityPaymentHistory_paymentModel extends PzkEntityModel
 	public $usingDays = false;
 	function getUsingDays() {
 		if($this->usingDays) return $this->usingDays;
-		$date1=date_create(date('Y-m-d', strtotime($this->get('paymentDate'))));
+		$date1=date_create(date('Y-m-d', strtotime($this->getPaymentDate())));
 		$date2=date_create(date('Y-m-d'));
 		$diff=date_diff($date1,$date2);
 		return $this->usingDays = $diff->format("%a");

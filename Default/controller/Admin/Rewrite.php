@@ -19,7 +19,7 @@ class pzkAdminRewriteController extends pzkGridAdminController {
         )
     );
     public $searchFields = array('alias', 'path');
-    public $Searchlabels = 'Alias, Path';
+    public $searchLabel = 'Alias, Path';
     //sort by
     public $sortFields = array(
         'id asc' => 'ID tăng',

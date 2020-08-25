@@ -38,9 +38,9 @@
 			if(pzk_session('sortAchievement')){
 				$orderBy = pzk_session('sortAchievement');
 			}
-			$data->set('week', $filterWeek);
-			$data->set('year', $filterYear);
-			$data->set('orderBy', $orderBy);
+			$data->setweek($filterWeek);
+			$data->setYear($filterYear);
+			$data->setOrderBy($orderBy);
 			
 			$weekYear = $filterWeek.'-'.$filterYear;
 			
@@ -95,7 +95,7 @@
 		
 		<?php 
 			$cities = $data->getCities();
-			$areacode = $data->get('areacode');
+			$areacode = $data->getareacode();
 			if(pzk_session('cityAchievement')){
 				$areacode = pzk_session('cityAchievement');
 			}
@@ -144,7 +144,7 @@
 			
 			<?php 
 				$schools = $data->getAreaByParent($districtActive);
-				$schoolActive = $data->get('school');
+				$schoolActive = $data->getSchool();
 				if(pzk_session('schoolAchievement')){
 					$schoolActive = pzk_session('schoolAchievement');
 				}
@@ -166,7 +166,7 @@
 			
 			
 			<?php 
-				$classActive = $data->get('class');
+				$classActive = $data->getClass();
 				if(pzk_session('classAchievement')){
 					$classActive = pzk_session('classAchievement');
 				}
@@ -238,11 +238,11 @@
 			}
 			
 		}else{
-			$data->set('areacode', $areacode);
-			$data->set('district', $districtActive);
-			$data->set('school', $schoolActive);
-			$data->set('classId', $classActive);
-			$data->set('className', $classnameActive);
+			$data->setAreacode($areacode);
+			$data->setDistrict($districtActive);
+			$data->setSchool($schoolActive);
+			$data->setClassId($classActive);
+			$data->setClassName($classnameActive);
 			$achievement = $data->getAchievementByClass();
 		}
 		

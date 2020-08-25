@@ -7,6 +7,7 @@ define('EDIT_TYPE_MULTISELECTOPTION', 	'multiselectoption');
 define('EDIT_TYPE_SELECT', 				'select');
 define('EDIT_TYPE_STATUS', 				'status');
 define('EDIT_TYPE_TEXT', 				'text');
+define('EDIT_TYPE_PASSWORD', 				'password');
 define('EDIT_TYPE_TEXT_AREA',			'textarea');
 define('EDIT_TYPE_TINYMCE', 			'tinymce');
 define('EDIT_TYPE_UPLOAD', 				'upload');

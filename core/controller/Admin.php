@@ -71,7 +71,7 @@ class PzkAdminController extends PzkBackendController
 		)
 	);
 	/**
-	 * 
+	 * get Admin session for module
 	 * @return PzkSGStorePrefix
 	 */
 	public function getSession()
@@ -83,6 +83,10 @@ class PzkAdminController extends PzkBackendController
 		return $this->_session;
 	}
 
+	/**
+	 * get Admin filter session
+	 * @return PzkSGStorePrefix
+	 */
 	public function getFilterSession()
 	{
 		if (!$this->_filterSession) {
@@ -91,20 +95,24 @@ class PzkAdminController extends PzkBackendController
 		}
 		return $this->_filterSession;
 	}
+
+	/**
+	 * Chuyển trạng thái
+	 */
 	public function changeStatusAction()
 	{
 		$id = pzk_request()->getSegment(3);
-		$entity = _db()->getTableEntity($this->get('table'));
+		$entity = _db()->getTableEntity($this->getTable());
 		$entity->load($id);
-		$status = 1 - $entity->get('status');
+		$status = 1 - $entity->getStatus();
 		$entity->update(array('status' => $status));
 		$this->redirect('index');
 	}
 	public function changeOrderByAction()
 	{
 		$request = pzk_request();
-		$this->getSession()->set('orderBy', $request->get('orderBy'));
-		if ($request->get('isAjax')) {
+		$this->getSession()->setOrderBy($request->getOrderBy());
+		if ($request->getIsAjax()) {
 			echo 1;
 		} else {
 			$this->redirect('index');
@@ -115,12 +123,12 @@ class PzkAdminController extends PzkBackendController
 		$request = pzk_request();
 		$id = $request->getId();
 		$filterValue = $request->getSelect();
-		if($id) {
+		if ($id) {
 			$entity = _db()->getTableEntity($this->getTable());
 			$entity->load($id);
 			$filterValue = $entity->get($request->getIndex());
 		}
-		
+
 		$this->getFilterSession()->set($request->getIndex(), $filterValue);
 		if ($request->getIsAjax()) {
 			echo 1;
@@ -132,8 +140,8 @@ class PzkAdminController extends PzkBackendController
 	public function changePageSizeAction()
 	{
 		$request = pzk_request();
-		$this->getSession()->set('pageSize', $request->get('pageSize'));
-		if ($request->get('isAjax')) {
+		$this->getSession()->setPageSize($request->getPageSize());
+		if ($request->getIsAjax()) {
 			echo '1';
 		} else {
 			$this->redirect('index');
@@ -143,43 +151,43 @@ class PzkAdminController extends PzkBackendController
 	public function searchPostAction()
 	{
 		$request = pzk_request();
-		$action	=	$request->get('submit_action');
+		$action	=	$request->getSubmit_action();
 		if ($action != ACTION_RESET) {
-			$this->getSession()->set('keyword', $request->get('keyword'));
-			$this->getSession()->set('pageNum', $request->get('pageNum'));
+			$this->getSession()->setKeyword($request->getKeyword());
+			$this->getSession()->setPageNum($request->getPageNum());
 		} else {
-			$this->getSession()->del('keyword');
-			$this->getSession()->del('type');
-			$this->getSession()->del('categoryId');
-			$this->getSession()->del('topic_id');
-			$this->getSession()->del('testId');
-			$this->getSession()->del('trial');
-			$this->getSession()->del('questionType');
-			$this->getSession()->del('status');
-			$this->getSession()->del('check');
-			$this->getSession()->del('deleted');
-			$this->getSession()->del('pageNum');
+			$this->getSession()->delKeyword();
+			$this->getSession()->delType();
+			$this->getSession()->delCategoryId();
+			$this->getSession()->delTopic_id();
+			$this->getSession()->delTestId();
+			$this->getSession()->delTrial();
+			$this->getSession()->delQuestionType();
+			$this->getSession()->delStatus();
+			$this->getSession()->delCheck();
+			$this->getSession()->delDeleted();
+			$this->getSession()->delPageNum();
 		}
 		$this->redirect('index');
 	}
 	public function searchFilterAction()
 	{
 		$request = pzk_request();
-		$action	=	$request->get('submit_action');
+		$action	=	$request->getSubmit_action();
 		if ($action != ACTION_RESET) {
-			$this->getSession()->set('keyword', $request->get('keyword'));
-			$this->getSession()->del('pageNum');
+			$this->getSession()->setKeyword($request->getKeyword());
+			$this->getSession()->delPageNum();
 		} else {
-			$this->getSession()->del('keyword');
-			$this->getSession()->del('orderBy');
-			$fields = $this->get('filterFields');
+			$this->getSession()->delKeyword();
+			$this->getSession()->delOrderBy();
+			$fields = $this->getFilterFields();
 			if (!empty($fields)) {
 				foreach ($fields as $val) {
 					$this->getSession()->del($val['type'] . $val['index']);
 				}
 			}
 		}
-		if (pzk_request()->get('isAjax')) {
+		if (pzk_request()->getIsAjax()) {
 			echo 1;
 		} else {
 			$this->redirect('index');
@@ -188,8 +196,8 @@ class PzkAdminController extends PzkBackendController
 	public function searchAction()
 	{
 		$request = pzk_request();
-		$this->getSession()->set('keyword', $request->get('keyword'));
-		if ($request->get('isAjax')) {
+		$this->getSession()->setKeyword($request->getKeyword());
+		if ($request->getIsAjax()) {
 			echo 1;
 		} else {
 			$this->redirect('index');
@@ -198,8 +206,8 @@ class PzkAdminController extends PzkBackendController
 	public function indexAction()
 	{
 		$this->initPage()
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/index')
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/menu', 'right');
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/index')
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right');
 		$this->prepareListDisplay();
 		$this->display();
 	}
@@ -210,24 +218,24 @@ class PzkAdminController extends PzkBackendController
 
 	public function addAction()
 	{
-		$module = $this->parse('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/add');
-		$module->set('module', $this->get('module'));
-		$module->set('fieldSettings', $this->get('addFieldSettings'));
-		$module->set('actions', $this->get('addActions'));
-		$module->set('label', $this->get('addLabel'));
+		$module = $this->parse('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/add');
+		$module->setModule($this->getModule());
+		$module->setFieldSettings($this->getAddFieldSettings());
+		$module->setActions($this->getAddActions());
+		$module->setLabel($this->getAddLabel());
 		$row = pzk_validator()->getEditingData();
 		if ($row) {
-			$module->getFormObject()->set('item', $row);
+			$module->getFormObject()->setItem($row);
 		} else {
 			$row = $this->getAddData();
 			if ($row) {
 				if ($module->getFormObject())
-					$module->getFormObject()->set('item', $row);
+					$module->getFormObject()->setItem($row);
 			}
 		}
 		$page = $this->initPage()
 			->append($module)
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/menu', 'right');
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right');
 
 		$this->prepareAddDisplay();
 		$page->display();
@@ -238,7 +246,7 @@ class PzkAdminController extends PzkBackendController
 	public function addPostAction()
 	{
 		$row 		= $this->getAddData();
-		$backHref 	= pzk_request('backHref');
+		$backHref 	= pzk_request()->getBackHref();
 		if ($this->validateAddData($row)) {
 
 			$id 	= $this->add($row);
@@ -274,43 +282,43 @@ class PzkAdminController extends PzkBackendController
 	}
 	public function getAddData()
 	{
-		return pzk_request()->getFilterData($this->get('addFields'));
+		return pzk_request()->getFilterData($this->getAddFields());
 	}
 	public function validateAddData($row)
 	{
-		return $this->validate($row, $this->get('addValidator') ? $this->get('addValidator') : null);
+		return $this->validate($row, $this->getAddValidator() ? $this->getAddValidator() : null);
 	}
 	public function add($row)
 	{
-		$row['creatorId'] = pzk_session()->get('adminId');
+		$row['creatorId'] = pzk_session()->getAdminId();
 		$row['created'] = date(DATEFORMAT, $_SERVER['REQUEST_TIME']);
-		if ($this->get('entityTableEnabled')) {
-			$row['table']		= $this->get('table');
+		if ($this->getEntityTableEnabled()) {
+			$row['table']		= $this->getTable();
 			$entityTableEntity 	= _db()->getTableEntity('entity');
 			$entityTableEntity->setData($row);
 			$entityTableEntity->save();
-			if ($entityTableEntity->get('id')) {
-				$row['id'] = $entityTableEntity->get('id');
+			if ($entityTableEntity->getId()) {
+				$row['id'] = $entityTableEntity->getId();
 			}
 		}
-		$entity = _db()->getTableEntity($this->get('table'));
+		$entity = _db()->getTableEntity($this->getTable());
 		$entity->setData($row);
 		$entity->save();
-		if ($this->get('logable')) {
+		if ($this->getLogable()) {
 			$logEntity = _db()->getTableEntity('admin_log');
-			$logFields = explodetrim(',', $this->get('logFields'));
-			$brief = pzk_session()->get('adminUser') . ' Thêm mới bản ghi: ' . $this->get('module');
+			$logFields = explodetrim(',', $this->getLogFields());
+			$brief = pzk_session()->getAdminUser() . ' Thêm mới bản ghi: ' . $this->getModule();
 			foreach ($logFields as $field) {
 				$brief .= '[' . $field . ': ' . (isset($row[$field]) ? $row[$field] : '') . ']';
 			}
-			$logEntity->set('userId', pzk_session()->get('adminId'));
-			$logEntity->set('created', date('Y-m-d H:i:s'));
-			$logEntity->set('actionType', 'add');
-			$logEntity->set('admin_controller', 'admin_' . $this->get('module'));
-			$logEntity->set('brief', $brief);
+			$logEntity->setUserId(pzk_session()->getAdminId());
+			$logEntity->setCreated(date('Y-m-d H:i:s'));
+			$logEntity->setActionType('add');
+			$logEntity->setAdmin_controller('Admin' . UNS . $this->getModule());
+			$logEntity->setBrief($brief);
 			$logEntity->save();
 		}
-		return $entity->get('id');
+		return $entity->getId();
 	}
 	public function editAllCatePostAction()
 	{
@@ -335,7 +343,7 @@ class PzkAdminController extends PzkBackendController
 			$this->redirect('index');
 		} else {
 			pzk_validator()->setEditingData($row);
-			$this->redirect('edit/' . pzk_request()->get('id'));
+			$this->redirect('edit/' . pzk_request()->getId());
 		}
 	}
 	public function editPostAction()
@@ -360,9 +368,9 @@ class PzkAdminController extends PzkBackendController
 					$this->redirect('index');
 				}
 			} else if (pzk_request()->get(BTN_EDIT_AND_CONTINUE)) {
-				$this->redirect('edit/' . pzk_request()->get('id'));
+				$this->redirect('edit/' . pzk_request()->getId());
 			} else if (pzk_request()->get(BTN_EDIT_AND_DETAIL)) {
-				$this->redirect('detail/' . pzk_request()->get('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			} else {
 				if ($backHref) {
 					$this->redirect($backHref);
@@ -372,33 +380,33 @@ class PzkAdminController extends PzkBackendController
 			}
 		} else {
 			pzk_validator()->setEditingData($row);
-			$this->redirect('edit/' . pzk_request()->get('id'));
+			$this->redirect('edit/' . pzk_request()->getId());
 		}
 	}
 	public function getEditData()
 	{
-		return pzk_request()->getFilterData($this->get('editFields'));
+		return pzk_request()->getFilterData($this->getEditFields());
 	}
 	public function validateEditData($row)
 	{
-		return $this->validate($row, $this->get('editValidator') ? $this->get('editValidator') : null);
+		return $this->validate($row, $this->getEditValidator() ? $this->getEditValidator() : null);
 	}
 	public function edit($row)
 	{
-		$row['modifiedId'] = pzk_session()->get('adminId');
+		$row['modifiedId'] = pzk_session()->getAdminId();
 		$row['modified'] = date(DATEFORMAT, $_SERVER['REQUEST_TIME']);
 		$row['id']		= pzk_request('id');
-		if ($this->get('entityTableEnabled')) {
-			$row['table']		= $this->get('table');
+		if ($this->getEntityTableEnabled()) {
+			$row['table']		= $this->getTable();
 			$entityTableEntity 	= _db()->getTableEntity('entity');
 			$entityTableEntity->setData($row);
 			$entityTableEntity->save();
-			if ($entityTableEntity->get('id')) {
-				$row['id'] = $entityTableEntity->get('id');
+			if ($entityTableEntity->getId()) {
+				$row['id'] = $entityTableEntity->getId();
 			}
 		}
-		$entity = _db()->getTableEntity($this->get('table'));
-		$entity->load(pzk_request()->get('id'));
+		$entity = _db()->getTableEntity($this->getTable());
+		$entity->load(pzk_request()->getId());
 
 		//set index owner
 		$adminmodel = pzk_model('Admin');
@@ -407,13 +415,13 @@ class PzkAdminController extends PzkBackendController
 		$checkIndexOwner = $adminmodel->checkActionType('editOwner', $controller, pzk_session('adminLevel'));
 
 		if ($checkIndexOwner) {
-			if ($entity->get('creatorId') == pzk_session()->get('adminId')) {
+			if ($entity->getCreatorId() == pzk_session()->getAdminId()) {
 				$entity->update($row);
 				$entity->save();
-				if ($this->get('logable')) {
+				if ($this->getLogable()) {
 					$logEntity = _db()->getTableEntity('admin_log');
-					$logFields = explodetrim(',', $this->get('logFields'));
-					$brief = pzk_session()->get('adminUser') . ' Sửa bản ghi: ' . $this->get('module');
+					$logFields = explodetrim(',', $this->getLogFields());
+					$brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
 					foreach ($logFields as $field) {
 						if (1 || $entity->get($field) !== @$row[$field])
 							$brief .= '[' . $field . ': ' . $entity->get($field) . ']';
@@ -423,11 +431,11 @@ class PzkAdminController extends PzkBackendController
 						if (1 || $entity->get($field) !== @$row[$field])
 							$brief .= '[' . $field . ': ' . (isset($row[$field]) ? $row[$field] : '') . ']';
 					}
-					$logEntity->set('userId', pzk_session()->get('adminId'));
-					$logEntity->set('created', date('Y-m-d H:i:s'));
-					$logEntity->set('actionType', 'edit');
-					$logEntity->set('admin_controller', 'Admin_' . $this->get('module'));
-					$logEntity->set('brief', $brief);
+					$logEntity->setUserId(pzk_session()->getAdminId());
+					$logEntity->setCreated(date('Y-m-d H:i:s'));
+					$logEntity->setActionType('edit');
+					$logEntity->setAdmin_controller('Admin_' . $this->getModule());
+					$logEntity->setBrief($brief);
 					$logEntity->save();
 				}
 			}
@@ -437,10 +445,10 @@ class PzkAdminController extends PzkBackendController
 			$entity->update($row);
 			$entity->save();
 
-			if ($this->get('logable')) {
+			if ($this->getLogable()) {
 				$logEntity = _db()->getTableEntity('admin_log');
-				$logFields = explodetrim(',', $this->get('logFields'));
-				$brief = pzk_session()->get('adminUser') . ' Sửa bản ghi: ' . $this->get('module');
+				$logFields = explodetrim(',', $this->getLogFields());
+				$brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
 				foreach ($logFields as $field) {
 					if (1 || $entity->get($field) !== @$row[$field])
 						$brief .= '[' . $field . ': ' . $entity->get($field) . ']';
@@ -450,11 +458,11 @@ class PzkAdminController extends PzkBackendController
 					if (1 || $entity->get($field) !== @$row[$field])
 						$brief .= '[' . $field . ': ' . (isset($row[$field]) ? $row[$field] : '') . ']';
 				}
-				$logEntity->set('userId', pzk_session()->get('adminId'));
-				$logEntity->set('created', date('Y-m-d H:i:s'));
-				$logEntity->set('actionType', 'edit');
-				$logEntity->set('admin_controller', 'Admin_' . $this->get('module'));
-				$logEntity->set('brief', $brief);
+				$logEntity->setUserId(pzk_session()->getAdminId());
+				$logEntity->setCreated(date('Y-m-d H:i:s'));
+				$logEntity->setActionType('edit');
+				$logEntity->setAdmin_controller('Admin_' . $this->getModule());
+				$logEntity->setBrief($brief);
 				$logEntity->save();
 			}
 		}
@@ -462,8 +470,8 @@ class PzkAdminController extends PzkBackendController
 	public function importAction()
 	{
 		$this->initPage();
-		$this->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/import')
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/menu', 'right');
+		$this->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/import')
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right');
 		$this->display();
 	}
 	public function editAction($id)
@@ -480,7 +488,7 @@ class PzkAdminController extends PzkBackendController
 			$entity = _db()->getEntity('table')->setTable($this->table);
 			$entity->load($id);
 
-			if ($entity->get('creatorId') != pzk_session()->get('adminId')) {
+			if ($entity->getCreatorId() != pzk_session()->getAdminId()) {
 				$view = pzk_parse('<div layout="erorr/erorr" />');
 				$view->display();
 				pzk_system()->halt();
@@ -489,21 +497,21 @@ class PzkAdminController extends PzkBackendController
 
 
 
-		$module = $this->parse('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/edit');
-		$module->set('itemId', $id);
-		$module->set('entityTableEnabled', $this->get('entityTableEnabled'));
-		$module->set('module', $this->get('module'));
-		$module->set('fieldSettings', $this->get('editFieldSettings'));
-		$module->set('actions', $this->get('editActions'));
-		$module->set('label', $this->get('editLabel'));
+		$module = $this->parse('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/edit');
+		$module->setItemId($id);
+		$module->setEntityTableEnabled($this->getEntityTableEnabled());
+		$module->setModule($this->getModule());
+		$module->setFieldSettings($this->getEditFieldSettings());
+		$module->setActions($this->getEditActions());
+		$module->setLabel($this->getEditLabel());
 		$row = pzk_validator()->getEditingData();
 		if ($row) {
 			if ($module->getFormObject())
-				$module->getFormObject()->set('item', $row);
+				$module->getFormObject()->setItem($row);
 		}
 		$this->initPage()
 			->append($module)
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/menu', 'right');
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right');
 		$this->prepareEditDisplay();
 		$this->display();
 	}
@@ -512,14 +520,14 @@ class PzkAdminController extends PzkBackendController
 	}
 	public function detailAction($id)
 	{
-		$module = $this->parse('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/detail');
-		$module->set('itemId', $id);
-		$module->set('entityTableEnabled', $this->get('entityTableEnabled'));
+		$module = $this->parse('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/detail');
+		$module->setItemId($id);
+		$module->setEntityTableEnabled($this->getEntityTableEnabled());
 		$this->initPage()
 			->append($module)
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/menu', 'right');
-		if ($childList = pzk_element($this->get('module') . 'Children')) {
-			$childList->set('parentId', $id);
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right');
+		if ($childList = pzk_element($this->getModule() . 'Children')) {
+			$childList->setParentId($id);
 		}
 		$this->prepareDetailDisplay();
 		$this->display();
@@ -527,53 +535,53 @@ class PzkAdminController extends PzkBackendController
 	public function prepareDetailDisplay()
 	{
 		if ($detail = pzk_element()->getDetail()) {
-			if ($fieldSettings = $this->get('detailFieldSettings')) {
-				$detail->set('displayFields', $fieldSettings['displayFields']);
+			if ($fieldSettings = $this->getDetailFieldSettings()) {
+				$detail->setDisplayFields($fieldSettings['displayFields']);
 			}
 		}
 	}
 	public function delAction($id)
 	{
-		$module = $this->parse('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/del');
-		$module->set('itemId', $id);
-		$module->set('entityTableEnabled', $this->get('entityTableEnabled'));
+		$module = $this->parse('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/del');
+		$module->setItemId($id);
+		$module->setEntityTableEnabled($this->getEntityTableEnabled());
 		$this->initPage()
 			->append($module)
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/menu', 'right')
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right')
 			->display();
 	}
 
 	public function delPostAction()
 	{
 
-		if ($this->get('childTables')) {
-			foreach ($this->get('childTables') as $val) {
+		if ($this->getChildTables()) {
+			foreach ($this->getChildTables() as $val) {
 				_db()->useCB()->delete()->from($val['table'])
-					->where(array($val['referenceField'], pzk_request()->get('id')))->result();
+					->where(array($val['referenceField'], pzk_request()->getId()))->result();
 			}
 		}
-		$entity = _db()->getTableEntity($this->get('table'));
-		$entity->load(pzk_request()->get('id'));
+		$entity = _db()->getTableEntity($this->getTable());
+		$entity->load(pzk_request()->getId());
 
-		if ($this->get('logable')) {
+		if ($this->getLogable()) {
 			$logEntity = _db()->getTableEntity('admin_log');
-			$logFields = explodetrim(',', $this->get('logFields'));
-			$brief = pzk_session()->get('adminUser') . ' Xóa bản ghi: ' . $this->get('module');
+			$logFields = explodetrim(',', $this->getLogFields());
+			$brief = pzk_session()->getAdminUser() . ' Xóa bản ghi: ' . $this->getModule();
 			foreach ($logFields as $field) {
 				$brief .= '[' . $field . ': ' . $entity->get($field) . ']';
 			}
-			$logEntity->set('userId', pzk_session()->get('adminId'));
-			$logEntity->set('created', date('Y-m-d H:i:s'));
-			$logEntity->set('actionType', 'delete');
-			$logEntity->set('admin_controller', 'admin_' . $this->get('module'));
-			$logEntity->set('brief', $brief);
+			$logEntity->setUserId(pzk_session()->getAdminId());
+			$logEntity->setCreated(date('Y-m-d H:i:s'));
+			$logEntity->setActionType('delete');
+			$logEntity->setAdmin_controller('admin_' . $this->getModule());
+			$logEntity->setBrief($brief);
 			$logEntity->save();
 		}
 		$entity->delete();
 
-		if ($this->get('entityTableEnabled')) {
+		if ($this->getEntityTableEnabled()) {
 			$entityTableEntity 	= _db()->getTableEntity('entity');
-			$entityTableEntity->load(pzk_request()->get('id'));
+			$entityTableEntity->load(pzk_request()->getId());
 			$entityTableEntity->delete();
 		}
 		pzk_notifier()->addMessage('Xóa thành công');
@@ -582,11 +590,11 @@ class PzkAdminController extends PzkBackendController
 	public function delAllAction()
 	{
 		if (pzk_request('ids')) {
-			$arrIds = json_decode(pzk_request()->get('ids'));
+			$arrIds = json_decode(pzk_request()->getIds());
 			if (count($arrIds) > 0) {
-				_db()->useCB()->delete()->from($this->get('table'))
+				_db()->useCB()->delete()->from($this->getTable())
 					->where(array('in', 'id', $arrIds))->result();
-				if ($this->get('entityTableEnabled')) {
+				if ($this->getEntityTableEnabled()) {
 					_db()->useCB()->delete()->from('entity')
 						->where(array('in', 'id', $arrIds))->result();
 				}
@@ -600,13 +608,13 @@ class PzkAdminController extends PzkBackendController
 	public function uploadAction()
 	{
 		$this->initPage()
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/upload')
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/menu', 'right')
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/upload')
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right')
 			->display();
 	}
 	public function uploadPostAction()
 	{
-		$row = $this->get('uploadData');
+		$row = $this->getUploadData();
 		//debug($row);die();
 		if ($this->validateUploadData($row)) {
 			$this->upload($row);
@@ -619,15 +627,15 @@ class PzkAdminController extends PzkBackendController
 	}
 	public function getUploadData()
 	{
-		return pzk_request()->getFilterData($this->get('uploadFields'));
+		return pzk_request()->getFilterData($this->getUploadFields());
 	}
 	public function validateUploadData($row)
 	{
-		return $this->validate($row, $this->get('uploadValidator') ? $this->get('uploadValidator') : null);
+		return $this->validate($row, $this->getUploadValidator() ? $this->getUploadValidator() : null);
 	}
 	public function upload($row)
 	{
-		$entity = _db()->getTableEntity($this->get('table'));
+		$entity = _db()->getTableEntity($this->getTable());
 		$entity->setData($row);
 		$entity->save();
 	}
@@ -720,10 +728,10 @@ class PzkAdminController extends PzkBackendController
 	}
 	public function saveOrderingsAction()
 	{
-		$orderings = pzk_request()->get('orderings');
-		$field = pzk_request()->get('field');
+		$orderings = pzk_request()->getOrderings();
+		$field = pzk_request()->getField();
 		foreach ($orderings as $id => $val) {
-			$entity = _db()->getTableEntity($this->get('table'))->load($id);
+			$entity = _db()->getTableEntity($this->getTable())->load($id);
 			$entity->update(array(
 				$field => $val
 			));
@@ -731,10 +739,10 @@ class PzkAdminController extends PzkBackendController
 	}
 	public function saveOrderingAction()
 	{
-		$field = pzk_request()->get('field');
-		$id = pzk_request()->get('id');
-		$value = pzk_request()->get('value');
-		$entity = _db()->getTableEntity($this->get('table'))->load($id);
+		$field = pzk_request()->getField();
+		$id = pzk_request()->getId();
+		$value = pzk_request()->getValue();
+		$entity = _db()->getTableEntity($this->getTable())->load($id);
 		$entity->update(array(
 			$field => $value
 		));
@@ -749,10 +757,10 @@ class PzkAdminController extends PzkBackendController
 
 	public function aliasAction()
 	{
-		$items = _db()->selectAll()->from($this->get('table'))->whereAlias('')->result();
+		$items = _db()->selectAll()->from($this->getTable())->whereAlias('')->result();
 		foreach ($items as $item) {
 			$alias = khongdauAlias(pzk_or(@$item['title'], @$item['name']));
-			_db()->update($this->get('table'))
+			_db()->update($this->getTable())
 				->set(array('alias' => $alias))
 				->whereId($item['id'])->result();
 		}
@@ -761,7 +769,7 @@ class PzkAdminController extends PzkBackendController
 
 	public function duplicateAction($id)
 	{
-		$entity = _db()->getTableEntity($this->get('table'));
+		$entity = _db()->getTableEntity($this->getTable());
 		$entity->load($id);
 		$row = $entity->getData();
 		unset($row['id']);
@@ -771,22 +779,22 @@ class PzkAdminController extends PzkBackendController
 
 	public function getGridEditFields()
 	{
-		return array_diff(_db()->getFields($this->table), array('id', 'software', 'site', 'created', 'creatorId', 'modified', 'modifiedId'));
+		return array_diff(_db()->getFields($this->getTable()), array('id', 'software', 'site', 'created', 'creatorId', 'modified', 'modifiedId'));
 	}
 
 	public function getGridListFields()
 	{
-		return array_diff(_db()->getFields($this->table), array('id', 'software', 'site', 'global', 'sharedSoftwares'));
+		return array_diff(_db()->getFields($this->getTable()), array('id', 'software', 'site', 'global', 'sharedSoftwares'));
 	}
 
 	public function getDefaultEditFieldSettings()
 	{
-		return PzkEditConstant::gets($this->getGridEditFields(), $this->table);
+		return PzkEditConstant::getS($this->getGridEditFields(), $this->table);
 	}
 
 	public function getDefaultListFieldSettings()
 	{
-		return PzkListConstant::gets($this->getGridListFields(), $this->table);
+		return PzkListConstant::getS($this->getGridListFields(), $this->table);
 	}
 
 	public function alterField(&$fields, $field, $arr = array())
@@ -832,21 +840,21 @@ class PzkAdminController extends PzkBackendController
 		//get data;
 
 		$this->initPage()
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/index')
-			->append('admin/' . pzk_or($this->get('customModule'), $this->get('module')) . '/menu', 'right');
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/index')
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right');
 		$this->prepareListDisplay();
 		$grid = pzk_element('list');
 
 		if ($pageNum) {
-			$grid->set('pageNum', $pageNum);
+			$grid->setPageNum($pageNum);
 		}
 
 
 		if ($pageSize) {
-			$grid->set('pageSize', $pageSize);
+			$grid->setPageSize($pageSize);
 		}
 
-		$conditions = pzk_or($grid->get('conditions'), '1');
+		$conditions = pzk_or($grid->getConditions(), '1');
 
 		$items = $grid->getItems();
 

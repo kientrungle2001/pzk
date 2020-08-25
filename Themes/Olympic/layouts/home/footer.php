@@ -1,6 +1,6 @@
 <?php 
-$controller = pzk_request()->get('controller');
-$action = pzk_request()->get('action');
+$controller = pzk_request()->getController();
+$action = pzk_request()->getaction();
 ?>
 <div class='item bg-white'>
 <img class='img-responsive' src="<?= BASE_URL;?>/Default/skin/nobel/olympic/Themes/olympic/image/footcontent.png" alt="Sakura" />

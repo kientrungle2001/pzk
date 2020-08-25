@@ -1,11 +1,11 @@
 		<?php 
 		
-		$data->pageSize = $data->get('pageSize');
-		$idResult = $data->get('idResult');
-		$practice = $data->get('practice');
-		$UserId = $data->get('userId');
+		$data->pageSize = $data->getPageSize();
+		$idResult = $data->getIdResult();
+		$practice = $data->getPractice();
+		$UserId = $data->getUserId();
 		
-		$page = $data->get('page');
+		$page = $data->getPage();
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{

@@ -1,4 +1,4 @@
-<?php $book = $data->get('book');
+<?php $book = $data->getBook();
 $answers = $book->getUserAnswers();
 ?>
 <h2 class="text-left">Kết quả bài thi: {data.test[name]}</h2>
@@ -8,7 +8,7 @@ $answers = $book->getUserAnswers();
 		<table	class="table table-bordered">
 		<tr>
 			<th class="col-md-6"><div class="pull-right">Điểm</div></th>
-			<td class="col-md-6"><?php echo $book->get('totalMark')?></td>
+			<td class="col-md-6"><?php echo $book->getTotalMark()?></td>
 		</tr>
 		<tr>
 			<th class="col-md-6"><div class="pull-right">Thời gian làm bài</div></th>
@@ -26,7 +26,7 @@ $answers = $book->getUserAnswers();
 	<?php $question = $answer->getQuestion(); ?>
 	<span class="text text-primary">Câu hỏi <?php echo ($index + 1)?></span>: 
 	<?php if($question->isTn()):?>
-	<?php echo $question->get('name_vn')?>
+	<?php echo $question->getName_vn()?>
 	<?php else:?>
 	<?php  echo $question->mix($answer); ?>
 	<?php endif;?>
@@ -36,14 +36,14 @@ $answers = $book->getUserAnswers();
 	$questionAnswers = $tn->getQuestionAnswers();
 	$answerId = $question->getAnswerId();
 	$userAnswerTrue = false;
-	if($answerId == $answer->get('answerId')) {
+	if($answerId == $answer->getanswerId()) {
 		$userAnswerTrue = true;
 	}
 	$answerTrue = null;
 	?>
 	<?php foreach($questionAnswers as $questionAnswer): ?>
-		<input type="radio" name="questionAnswers[<?php echo $question->get('id')?>][]" value="<?php echo $questionAnswer->get('id')?>" <?php if($questionAnswer->get('id') == $answer->get('answerId')): $answerTrue = $questionAnswer;?>checked<?php endif;?> disabled />
-			<span <?php if($questionAnswer->get('status')):?>class="bg-success"<?php endif;?>><?php echo $questionAnswer->get('content')?></span>
+		<input type="radio" name="questionAnswers[<?php echo $question->getId()?>][]" value="<?php echo $questionAnswer->getId()?>" <?php if($questionAnswer->getId() == $answer->getanswerId()): $answerTrue = $questionAnswer;?>checked<?php endif;?> disabled />
+			<span <?php if($questionAnswer->getStatus()):?>class="bg-success"<?php endif;?>><?php echo $questionAnswer->getContent()?></span>
 			<br />
 	<?php endforeach; ?>
 	<?php if($userAnswerTrue):?>
@@ -53,18 +53,18 @@ $answers = $book->getUserAnswers();
 	<?php endif;?>
 	<br />
 	<blockquote>
-	<?php echo $question->get('explaination')?>
-	<?php echo $answerTrue->get('recommend')?>
+	<?php echo $question->getExplaination()?>
+	<?php echo $answerTrue->getRecommend()?>
 	</blockquote>
 	<?php else:?>
 	<br />
 	<blockquote>
 	<strong class="text text-success">Lý giải: </strong>
-	<?php  $teacher_answers = json_decode($question->get('teacher_answers'), true);?>
+	<?php  $teacher_answers = json_decode($question->getTeacher_answers(), true);?>
 		<?php if(isset($teacher_answers['content_full'])):?>
 		<?php echo @$teacher_answers['content_full']?>
 		<?php else:?>
-		<?php echo $question->get('explaination')?>
+		<?php echo $question->getExplaination()?>
 		<?php endif;?>
 	</blockquote>
 	<?php endif;?>

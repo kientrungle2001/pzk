@@ -14,7 +14,7 @@ class PzkAdminTopicsController extends PzkGridAdminController {
 	public $orderBy = 'topics.id desc';
 	
 	public $searchFields = array('name');
-	public $Searchlabels = 'Chủ đề';
+	public $searchLabel = 'Chủ đề';
 	
 	public function getSortFields() {
 		return PzkSortConstant::gets('id, name', 'topics');

@@ -10,7 +10,7 @@ class PzkEntityEduStudentModel extends PzkEntityModel {
 		$classes = _db()->select('classes.*, class_student.note, class_student.startClassDate, class_student.endClassDate')
 		->from('classes')
 		->join('class_student', 'classes.id = class_student.classId')
-		->where("class_student.studentId=$this->get('id')")
+		->where("class_student.studentId=$this->getId()")
 		->result();
 		
 		$result = array();
@@ -69,7 +69,7 @@ class PzkEntityEduStudentModel extends PzkEntityModel {
 		return _db()->useCB()->select('payment_period.*, class_student_period_mark.marks, class_student_period_mark.note')->from('payment_period
 			left join class_student_period_mark 
 				on class_student_period_mark.periodId = payment_period.id
-					and class_student_period_mark.studentId='.$this->get('id') . '
+					and class_student_period_mark.studentId='.$this->getId() . '
 					and class_student_period_mark.classId='.$this->getClassId().'
 					')
 			->where($conds)->orderBy('startDate asc')->result('Edu.Period');
@@ -78,7 +78,7 @@ class PzkEntityEduStudentModel extends PzkEntityModel {
 	public function getStudyDates() {
 		$periods =  _db()->useCB()->select('class_student_period_mark.periodId, class_student_period_mark.marks, class_student_period_mark.note')
 			->from('class_student_period_mark')
-			->where('class_student_period_mark.studentId='.$this->get('id') . '
+			->where('class_student_period_mark.studentId='.$this->getId() . '
 					and class_student_period_mark.classId='.$this->getClassId())
 			->orderBy('periodId asc')->result('Edu.Period');
 		$result = array();
@@ -98,7 +98,7 @@ class PzkEntityEduStudentModel extends PzkEntityModel {
 	}
 	
 	public function gridIndex() {
-		$id = $this->get('id');
+		$id = $this->getId();
 		$query = "select student.*, group_concat(distinct(classes.name), ' ') as currentClassNames,
 			group_concat('[', classes.name, ' ', case when student_order.payment_periodId = 0 then 'Cả khóa' else payment_period.name end, ']<br />' order by classes.name) as periodNames,
 				group_concat('[', payment_period.id, ']') as periodIds from student 

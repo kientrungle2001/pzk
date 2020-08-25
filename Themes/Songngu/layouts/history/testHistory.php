@@ -1,13 +1,13 @@
 		<?php 
 		
-		$data->pageSize = $data->get('pageSize');
-		$idResult = $data->get('idResult');
-		$practice = $data->get('practice');
-		$userId = $data->get('userId');
-		$startDate = $data->get('startDate');
-		$endDate = $data->get('endDate');
+		$data->pageSize = $data->getPageSize();
+		$idResult = $data->getIdResult();
+		$practice = $data->getPractice();
+		$userId = $data->getUserId();
+		$startDate = $data->getStartDate();
+		$endDate = $data->getEndDate();
 		
-		$page = $data->get('page');
+		$page = $data->getPage();
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{

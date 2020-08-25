@@ -138,17 +138,17 @@ class PzkEducationModel {
 	public function getUserBookByUserAndTest($userEntity, $testEntity) {
 		$book						=	_db()
 					->select('*')->from('user_book')
-					->whereUserId($userEntity->get('id'))
-					->whereTestId($testEntity->get('id'))
+					->whereUserId($userEntity->getId())
+					->whereTestId($testEntity->getId())
 					->result_one();
 		if(!$book) {
 			$bookId = _db()->insert('user_book')
 				->fields('userId,testId,homework,software')
 				->values(array(
 					array(
-						'userId'	=>	$userEntity->get('id'),
-						'testId'	=>	$testEntity->get('id'),
-						'homework'	=>	$testEntity->get('homework'),
+						'userId'	=>	$userEntity->getId(),
+						'testId'	=>	$testEntity->getId(),
+						'homework'	=>	$testEntity->getHomework(),
 						'software'	=>	pzk_request('softwareId')
 					)
 				))

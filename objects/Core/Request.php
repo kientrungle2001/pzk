@@ -338,6 +338,38 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 		}
 		return $data;
 	}
+
+	/**
+	 * get request id value
+	 * @return Integer request id
+	 */
+	public function getId() {
+		return $this->getInt('id');
+	}
+
+	/**
+	 * get request controller
+	 * @return String request controller value
+	 */
+	public function getController() {
+		return $this->getWord('controller');
+	}
+
+	/**
+	 * get request action
+	 * @return String request action value
+	 */
+	public function getAction() {
+		return $this->getWord('action');
+	}
+
+	/**
+	 * get request back href
+	 * @return String request back href value
+	 */
+	public function getBackHref() {
+		return $this->getBackHref();
+	}
 }
 /**
  * 

@@ -6,8 +6,8 @@ class PzkTestController extends PzkController{
 	public $isContest		=	false;
 	public function testAction(){
 		$request	= pzk_request();
-		$class 		= intval($request->get('class'));
-		$type		= intval($request->get('practice'));
+		$class 		= intval($request->getClass());
+		$type		= intval($request->getPractice());
 		$check 		= pzk_session('checkPayment');
     	
     	$testId 	= $request->getSegment(3);
@@ -15,18 +15,18 @@ class PzkTestController extends PzkController{
 		
 		$this->initPage();
 		$page 		= pzk_page();
-		$page->set('title', $testEntity->get('name'));
-		$page->set('keywords', $testEntity->get('name'));
-		$page->set('description', $testEntity->get('name'));
-		$page->set('img', $testEntity->get('img'));
-		$page->set('brief', $testEntity->get('name'));
+		$page->setTitle($testEntity->getName());
+		$page->setKeywords($testEntity->getName());
+		$page->setDescription($testEntity->getName());
+		$page->setImg($testEntity->getImg());
+		$page->setBrief($testEntity->getName());
 		
 		$this->append('education/test/test');
 		
 		$test 	= pzk_element()->getTest();
-		$test->set('class', $class);
-		$test->set('type', $type);
-		$test->set('isContest', $this->isContest);
+		$test->setClass($class);
+		$test->setType($type);
+		$test->setIsContest($this->isContest);
 		if($this->isContest) {
 			$book = _db()->getTableEntity('user_book');
 			$book->loadWhere(array(
@@ -36,21 +36,21 @@ class PzkTestController extends PzkController{
 					'testId', $testId
 				)
 			));
-			if($book->get('id')) {
-				$test->set('isDone', true);
-				$test->set('book', $book);
+			if($book->getId()) {
+				$test->setIsDone(true);
+				$test->setBook($book);
 			} else {
-				$test->set('isDone', false);
+				$test->setIsDone(false);
 			}
 		}
 		echo '1';
 		if($testId !== 0){
 			$testModel 		= pzk_model('Question');
 			$testDetail 	= $testModel->getTestById($testId);
-			$test->set('testDetail', $testDetail);
+			$test->setTestDetail($testDetail);
 		}else{
 			echo '3';
-			$test->set('testDetail', 0);
+			$test->setTestDetail(0);
 		}
     	
     	$this->display();
@@ -74,11 +74,11 @@ class PzkTestController extends PzkController{
 			$this->initPage();
 			$testEntity = _db()->getTableEntity('tests')->load($testId);
 				
-			pzk_page()->set('title', $testEntity->get('name'));
-			pzk_page()->set('keywords', $testEntity->get('name'));
-			pzk_page()->set('description', $testEntity->get('name'));
-			pzk_page()->set('img', $testEntity->get('img'));
-			pzk_page()->set('brief', $testEntity->get('name'));
+			pzk_page()->setTitle($testEntity->getName());
+			pzk_page()->setKeywords($testEntity->getName());
+			pzk_page()->setDescription($testEntity->getName());
+			pzk_page()->setImg($testEntity->getImg());
+			pzk_page()->setBrief($testEntity->getName());
 			
 			
 			$this->append('education/test/showTestTl', 'wrapper');
@@ -87,9 +87,9 @@ class PzkTestController extends PzkController{
 			$resultQuestion = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 			
 			$data_showQuestion	= pzk_element('showTestTl');		    	
-			$data_showQuestion->set('showQuestionTl', $resultQuestion);	
+			$data_showQuestion->setShowQuestionTl($resultQuestion);	
 			
-			$data_showQuestion->set('dataTest', $test_detail);		    	 
+			$data_showQuestion->setDataTest($test_detail);		    	 
 			$this->display();
 			pzk_system()->halt();
 				
@@ -102,11 +102,11 @@ class PzkTestController extends PzkController{
 				$this->initPage();
 				$testEntity = _db()->getTableEntity('tests')->load($testId);
 					
-				pzk_page()->set('title', $testEntity->get('name'));
-				pzk_page()->set('keywords', $testEntity->get('name'));
-				pzk_page()->set('description', $testEntity->get('name'));
-				pzk_page()->set('img', $testEntity->get('img'));
-				pzk_page()->set('brief', $testEntity->get('name'));
+				pzk_page()->setTitle($testEntity->getName());
+				pzk_page()->setKeywords($testEntity->getName());
+				pzk_page()->setDescription($testEntity->getName());
+				pzk_page()->setImg($testEntity->getImg());
+				pzk_page()->setBrief($testEntity->getName());
 				
 				
 				$this->append('education/test/showTestTl', 'wrapper');
@@ -115,9 +115,9 @@ class PzkTestController extends PzkController{
 				$resultQuestion = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 				
 				$data_showQuestion	= pzk_element('showTestTl');		    	
-				$data_showQuestion->set('showQuestionTl', $resultQuestion);	
+				$data_showQuestion->setShowQuestionTl($resultQuestion);	
 				
-				$data_showQuestion->set('dataTest', $test_detail);		    	 
+				$data_showQuestion->setDataTest($test_detail);		    	 
 				$this->display();
 				pzk_system()->halt();
 			}else{
@@ -137,18 +137,18 @@ class PzkTestController extends PzkController{
     	$class 		= intval(pzk_request('class'));
 		$type		= intval(pzk_request('practice'));
     	if( pzk_request()->is('POST')){
-	    	$testId = (int) pzk_request()->get('test');
+	    	$testId = (int) pzk_request()->getTest();
 	    	if(isset($testId)){
 		    	$testModel = pzk_model('Question');
 		    	$test_detail = $testModel->getTestById($testId);
 		    	$this->initPage();
 				$testEntity = _db()->getTableEntity('tests')->load($testId);
 					
-				pzk_page()->set('title', $testEntity->get('name'));
-				pzk_page()->set('keywords', $testEntity->get('name'));
-				pzk_page()->set('description', $testEntity->get('name'));
-				pzk_page()->set('img', $testEntity->get('img'));
-				pzk_page()->set('brief', $testEntity->get('name'));
+				pzk_page()->setTitle($testEntity->getName());
+				pzk_page()->setKeywords($testEntity->getName());
+				pzk_page()->setDescription($testEntity->getName());
+				pzk_page()->setImg($testEntity->getImg());
+				pzk_page()->setBrief($testEntity->getName());
 		    	$keybook	= uniqid();		    	
 		    	$s_keybook	=	pzk_session('keybook', $keybook);
 				$this->append('education/test/showTest', 'wrapper');
@@ -165,8 +165,8 @@ class PzkTestController extends PzkController{
 		    		$result_search = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 		    	}    	
 		    	$data_showQuestion	= pzk_element()->getShowTest();		    	
-		    	$data_showQuestion->set('data_showQuestion', $result_search);		    	
-		    	$data_showQuestion->set('data_criteria', $test_detail);		    	 
+		    	$data_showQuestion->setData_showQuestion($result_search);		    	
+		    	$data_showQuestion->setData_criteria($test_detail);		    	 
 		    	$this->display();
 	    	}
     	}
@@ -174,8 +174,8 @@ class PzkTestController extends PzkController{
 	public function testSNAction(){
 
 		$request	= pzk_request();
-		$class 		= intval($request->get('class'));
-		$type		= intval($request->get('practice'));
+		$class 		= intval($request->getClass());
+		$type		= intval($request->getPractice());
 		$check 		= pzk_session('checkPayment');
     	
     	$testId 	= intval(pzk_request('de'));
@@ -183,18 +183,18 @@ class PzkTestController extends PzkController{
 		
 		$this->initPage();
 		$page 		= pzk_page();
-		$page->set('title', $testEntity->get('name_sn'));
-		$page->set('keywords', $testEntity->get('name'));
-		$page->set('description', $testEntity->get('name'));
-		$page->set('img', $testEntity->get('img'));
-		$page->set('brief', $testEntity->get('name'));
+		$page->setTitle($testEntity->getName_sn());
+		$page->setKeywords($testEntity->getName());
+		$page->setDescription($testEntity->getName());
+		$page->setImg($testEntity->getImg());
+		$page->setBrief($testEntity->getName());
 		
 		$this->append('education/test/test');
 		
 		$test 	= pzk_element()->getTest();
-		$test->set('class', $class);
-		$test->set('type', $type);
-		$test->set('isContest', $this->isContest);
+		$test->setClass($class);
+		$test->setType($type);
+		$test->setIsContest($this->isContest);
 		if($this->isContest) {
 			$book = _db()->getTableEntity('user_book');
 			$book->loadWhere(array(
@@ -204,20 +204,20 @@ class PzkTestController extends PzkController{
 					'testId', $testId
 				)
 			), 1800);
-			if($book->get('id')) {
-				$test->set('isDone', true);
-				$test->set('book', $book);
+			if($book->getId()) {
+				$test->setIsDone(true);
+				$test->setBook($book);
 			} else {
-				$test->set('isDone', false);
+				$test->setIsDone(false);
 			}
 		}
 		
 		if($testId !== 0){
 			$testModel 		= pzk_model('Question');
 			$testDetail 	= $testModel->getTestById($testId);
-			$test->set('testDetail', $testDetail);
+			$test->setTestDetail($testDetail);
 		}else{
-			$test->set('testDetail', 0);
+			$test->setTestDetail(0);
 		}
     	
     	$this->display();
@@ -262,11 +262,11 @@ class PzkTestController extends PzkController{
 		    	$this->initPage();
 				$testEntity = _db()->getTableEntity('tests')->load($testId, 1800);
 					
-				pzk_page()->set('title', $testEntity->get('name_sn'));
-				pzk_page()->set('keywords', $testEntity->get('name'));
-				pzk_page()->set('description', $testEntity->get('name'));
-				pzk_page()->set('img', $testEntity->get('img'));
-				pzk_page()->set('brief', $testEntity->get('name'));
+				pzk_page()->setTitle($testEntity->getName_sn());
+				pzk_page()->setKeywords($testEntity->getName());
+				pzk_page()->setDescription($testEntity->getName());
+				pzk_page()->setImg($testEntity->getImg());
+				pzk_page()->setBrief($testEntity->getName());
 		    	$keybook	= uniqid();		    	
 		    	$s_keybook	=	pzk_session('keybook', $keybook);
 		    	$this->append('education/test/showTest', 'wrapper');
@@ -287,8 +287,8 @@ class PzkTestController extends PzkController{
 		    		$result_search = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 		    	}    	
 		    	$data_showQuestion	= pzk_element()->getShowTest();		    	
-		    	$data_showQuestion->set('data_showQuestion', $result_search);		    	
-		    	$data_showQuestion->set('data_criteria', $test_detail);		    	 
+		    	$data_showQuestion->setData_showQuestion($result_search);		    	
+		    	$data_showQuestion->setData_criteria($test_detail);		    	 
 		    	$this->display();
 	    	}
     }

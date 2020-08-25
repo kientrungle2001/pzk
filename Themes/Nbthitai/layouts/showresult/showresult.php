@@ -1,6 +1,6 @@
 <?php 
 		
-		$testId = $data->get('testId');
+		$testId = $data->getTestId();
 		switch ($testId) {
 			case 95:
 				$testName = 'toán lớp 3 lên 4';
@@ -21,14 +21,14 @@
 				$testName = '';
 		}
 		
-		$scoreTn = $data->get('scoretn');
+		$scoreTn = $data->getScoretn();
 		if($scoreTn > 0) {
 			$scoreTn = $scoreTn;
 		}else{
 			$scoreTn = 0;
 		}
 		
-		$showQuestions 	= $data->get('showQuestionTn');
+		$showQuestions 	= $data->getShowQuestionTn();
 		
 		if(count($showQuestions) > 0) { 
 		$totalQuestion = count($showQuestions);
@@ -51,8 +51,8 @@
 		
 		
 		
-		$userInfo = $data->get('userInfo');
-		$userBookIdTn = $data->get('userBookIdTn');	
+		$userInfo = $data->getUserInfo();
+		$userBookIdTn = $data->getUserBookIdTn();	
 		
 		
 	?>
@@ -67,7 +67,7 @@
 			</div>
 			<div class='text-center box-score'>
 				<b>Số câu đúng: </b> <b style='color:red;font-size: 18px;'><?php echo $scoreTn.' / '.$totalQuestion; ?> </b> </br>
-				<span style='color: red; font-weight:bold;'>( <?php $rate = $data->get('rate'); echo 'Xếp hạng: '.implode('/', $rate); ?> )</span>
+				<span style='color: red; font-weight:bold;'>( <?php $rate = $data->getRate(); echo 'Xếp hạng: '.implode('/', $rate); ?> )</span>
 			</div>
 		</div>
 
@@ -109,16 +109,16 @@
 							<?php
 								//goi object
 								$QuestionObj = pzk_obj_once('Education.Userbook.Type.Trytesttn');
-								$QuestionObj->set('questionId', $value['id']);
+								$QuestionObj->setQuestionId($value['id']);
 								
 								$questionChoice = _db()->getEntity('Question.Choice');
 								$questionChoice->setData($value);
 								
-								$QuestionObj->set('question', $questionChoice);
-								$QuestionObj->set('type', $questionChoice->get('type'));
-								$QuestionObj->set('userBookIdTn', $userBookIdTn);
+								$QuestionObj->setQuestion($questionChoice);
+								$QuestionObj->setType($questionChoice->getType());
+								$QuestionObj->setUserBookIdTn($userBookIdTn);
 								//user answer
-								$QuestionObj->set('userAnswer', $user_answers_by_question_id[$value['id']]);
+								$QuestionObj->setUserAnswer($user_answers_by_question_id[$value['id']]);
 								
 								//answer
 								$answerEntitys = array();
@@ -127,10 +127,10 @@
 										$answerEntity->setData($val);
 										$answerEntitys[] = $answerEntity;
 								}
-								$QuestionObj->set('answers', $answerEntitys);
+								$QuestionObj->setAnswers($answerEntitys);
 								
-								$QuestionObj->set('cacheable', 'false');
-								$QuestionObj->set('cacheParams', 'layout, questionId');
+								$QuestionObj->setCacheable('false');
+								$QuestionObj->setCacheParams('layout, questionId');
 								$QuestionObj->display();
 							?>
 							</div>

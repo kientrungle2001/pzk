@@ -1,6 +1,6 @@
 <?php 
-		$camp = $data->get('camp');
-		$showQuestions 	= $data->get('showQuestionTn');
+		$camp = $data->getCamp();
+		$showQuestions 	= $data->getShowQuestionTn();
 		
 		if(count($showQuestions) > 0) { 
 		// xu li questions
@@ -59,15 +59,15 @@
 								//goi object
 								
 								$QuestionObj = pzk_obj_once('Education.Userbook.Type.Trytesttn');
-								$QuestionObj->set('questionId', $value['id']);
+								$QuestionObj->setQuestionId($value['id']);
 								
 								$questionChoice = _db()->getEntity('Question.Choice');
 								$questionChoice->setData($value);
 								
-								$QuestionObj->set('question', $questionChoice);
-								$QuestionObj->set('type', $questionChoice->get('type'));
+								$QuestionObj->setQuestion($questionChoice);
+								$QuestionObj->setType($questionChoice->getType());
 								
-								$QuestionObj->set('userAnswer', false);
+								$QuestionObj->setUserAnswer(false);
 								
 								//answer
 								$answerEntitys = array();
@@ -76,10 +76,10 @@
 										$answerEntity->setData($val);
 										$answerEntitys[] = $answerEntity;
 								}
-								$QuestionObj->set('answers', $answerEntitys);
+								$QuestionObj->setAnswers($answerEntitys);
 								
-								$QuestionObj->set('cacheable', 'false');
-								$QuestionObj->set('cacheParams', 'layout, questionId');
+								$QuestionObj->setCacheable('false');
+								$QuestionObj->setCacheParams('layout, questionId');
 								$QuestionObj->display();
 							?>
 							</div>
@@ -101,7 +101,7 @@
 
 <?php 
 	//bai tu luan
-	$showQuestionTl = $data->get('showQuestionTl');
+	$showQuestionTl = $data->getShowQuestionTl();
 	//debug($dataUserAnswers);
 	if($showQuestionTl) {
 ?>
@@ -122,9 +122,9 @@
 				$BookObj->set ('id', false);
 				$BookObj->set ('questionId', $value['id']);
 				
-				$BookObj->set('content', $value['teacher_answers'] );
-				$BookObj->set('showTeacher', 1);
-				$BookObj->set('order', $key + 1 );
+				$BookObj->setContent($value['teacher_answers'] );
+				$BookObj->setShowTeacher(1);
+				$BookObj->setOrder($key + 1 );
 				$BookObj->display ();
 				?>
 			<?php endforeach;?>

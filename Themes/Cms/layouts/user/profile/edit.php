@@ -2,7 +2,7 @@
 $userId = pzk_session('userId');
 $user = _db()->getEntity('User.Account.User');
 $user->load($userId);
-$birthday= $user->get('birthday'); 
+$birthday= $user->getBirthday(); 
 if($birthday !='0000-00-00'){
 	$arr= explode("/",$birthday);
 
@@ -25,7 +25,7 @@ $areas= $user->loadArea();
 				<div class="clearfix"></div>
 				<div class="col-xs-4 margin-top-10">
 					<label for="username">Họ và Tên(*) :</label>
-					<input type="text" class="form-control" id="editinfor_name" name="editinfor_name" value="<?php echo $user->get('name')?>" placeholder="Họ và Tên" data-toggle="tooltip" data-placement="top" title="Họ và Tên">
+					<input type="text" class="form-control" id="editinfor_name" name="editinfor_name" value="<?php echo $user->getName()?>" placeholder="Họ và Tên" data-toggle="tooltip" data-placement="top" title="Họ và Tên">
 				</div>
 				
 				
@@ -36,17 +36,17 @@ $areas= $user->loadArea();
 						<option value="0" class="pd-5">Nữ</option>
 					</select>
 					<script type="text/javascript">
-						$('#editinfor_sex').val('<?php echo $user->get('sex')?>');
+						$('#editinfor_sex').val('<?php echo $user->getSex()?>');
 					</script>
 				</div>
 				<div class="col-xs-3 margin-top-10">
 					<label for="phone">Điện thoại (*) :</label>
-					<input type="text" class="form-control" id="editinfor_phone" name="editinfor_phone" value="<?php echo $user->get('phone')?>" placeholder="Điện thoại" data-toggle="tooltip" data-placement="top" title="Điện thoại phải là số">
+					<input type="text" class="form-control" id="editinfor_phone" name="editinfor_phone" value="<?php echo $user->getPhone()?>" placeholder="Điện thoại" data-toggle="tooltip" data-placement="top" title="Điện thoại phải là số">
 				</div>
 				<div class="clearfix" style="padding-bottom:10px;"></div>
 				<div class="col-xs-4 margin-top-10">
 					<label for="username">Địa chỉ :</label>
-					<input type="text" class="form-control" id="editinfor_address" name="editinfor_address" value="<?php echo $user->get('address')?>" placeholder="Địa chỉ" data-toggle="tooltip" data-placement="top" title="Địa chỉ của bạn">
+					<input type="text" class="form-control" id="editinfor_address" name="editinfor_address" value="<?php echo $user->getaddress()?>" placeholder="Địa chỉ" data-toggle="tooltip" data-placement="top" title="Địa chỉ của bạn">
 				</div>
 				<div class="col-xs-8 margin-top-10">
 					<label for="username">Ngày sinh (*) :</label>
@@ -92,12 +92,12 @@ $areas= $user->loadArea();
 				<div class="clearfix"></div>
 				<div class="col-xs-4 margin-top-10">
 					<label for="school">Trường :</label>
-					<input type="text" class="form-control" id="editinfor_school" name="editinfor_school" value="<?php echo $user->get('school')?>" placeholder="Trường học" data-toggle="tooltip" data-placement="top" title="Trường học">
+					<input type="text" class="form-control" id="editinfor_school" name="editinfor_school" value="<?php echo $user->getSchool()?>" placeholder="Trường học" data-toggle="tooltip" data-placement="top" title="Trường học">
 				</div>                            
 			   
 				<div class="col-xs-2 margin-top-10">
 					<label for="class">Lớp học :</label>
-					<input type="text" class="form-control" id="editinfor_class" name="editinfor_class" value="<?php echo $user->get('class')?>" placeholder="Lớp học" data-toggle="tooltip" data-placement="top" title="Lớp học">
+					<input type="text" class="form-control" id="editinfor_class" name="editinfor_class" value="<?php echo $user->getClass()?>" placeholder="Lớp học" data-toggle="tooltip" data-placement="top" title="Lớp học">
 				</div> 
 
 				<div class="col-xs-3 margin-top-10">
@@ -108,7 +108,7 @@ $areas= $user->loadArea();
 								<?php endforeach; ?>
 					</select>
 					<script type="text/javascript">
-					$('#editinfor_areacode').val('<?php echo $user->get('areacode')?>');
+					$('#editinfor_areacode').val('<?php echo $user->getareacode()?>');
 					</script>
 				</div>
 

@@ -5,12 +5,12 @@ class PzkEntityEduTeacherModel extends PzkEntityModel {
 	
 	public function getClasses() {
 		return _db()->select('*')->from('classes')
-			->where('teacherId=' . $this->get('id') . ' and status=1')
+			->where('teacherId=' . $this->getId() . ' and status=1')
 			->result('Edu.Class');
 	}
 	
 	public function getLastName() {
-		$names = explode(' ', $this->get('name'));
+		$names = explode(' ', $this->getName());
 		return array_pop($names);
 	}
 	

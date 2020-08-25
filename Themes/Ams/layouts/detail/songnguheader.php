@@ -1,7 +1,7 @@
 <?php 
 $signActive = pzk_session('checkPayment');
-$language = pzk_global()->get('language');
-$languagevn = pzk_global()->get('languagevn');
+$language = pzk_global()->getLanguage();
+$languagevn = pzk_global()->getLanguagevn();
 $memberlang = pzk_session('paymentLanguages');
 $lang = pzk_session('language');
 $login = pzk_session('userId');

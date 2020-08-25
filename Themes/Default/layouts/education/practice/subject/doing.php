@@ -14,11 +14,11 @@
 
 
 <?php  
-	$category_id 		= 	$data->get('categoryId');
-	$topicId			=	$data->get('topicId');
-	$check				= 	$data->get('checkPayment');
-	$class 				= 	$data->get('class');
-	$exercise_number	=	$data->get('exerciseNumber');
+	$category_id 		= 	$data->getCategoryId();
+	$topicId			=	$data->getTopicId();
+	$check				= 	$data->getCheckPayment();
+	$class 				= 	$data->getClass();
+	$exercise_number	=	$data->getExerciseNumber();
 	
 	$category 			= 	$data->getCategory();
 	$topics				= 	$data->getTopicTree();
@@ -116,7 +116,7 @@
 			?>
 			<div class="content">
 				<form id="form_question_nn" class="question_content pd-0 form-horizontal top20" method="post">
-					<?php $dataRow = $data->get('topic'); ?>
+					<?php $dataRow = $data->getTopic(); ?>
 						<?php if($dataRow['isSort'] == 1):?>
 						<div class="col-xs-12 margin-top-20">
 							<?=$dataRow['content']?>
@@ -150,11 +150,11 @@
 									<?php 
 										
 										$QuestionObj 	= pzk_obj_once('Education.Question.Type.'.ucfirst(questionTypeOjb($question['questionType'])));
-										$QuestionObj->set('questionId', $question['id']);
+										$QuestionObj->setQuestionId($question['id']);
 										
 										$questionChoice = _db()->getEntity('Question.Choice');
 										$questionChoice->setData($processQuestions[$question['id']]);
-										$QuestionObj->set('question', $questionChoice);
+										$QuestionObj->setQuestion($questionChoice);
 										
 										//debug($processAnswer[$question['id']]);die();
 										$answerEntitys = array();
@@ -164,28 +164,28 @@
 												$answerEntitys[] = $answerEntity;
 										}
 										
-										$QuestionObj->set('answers', $answerEntitys);
+										$QuestionObj->setAnswers($answerEntitys);
 										
 										if(CACHE_MODE && CACHE_QUESTION_MODE && CACHE_ANSWER_MODE){
-											$QuestionObj->set('cacheable', 'true');
+											$QuestionObj->setCacheable('true');
 										}else{
-											$QuestionObj->set('cacheable', 'false');
+											$QuestionObj->setCacheable('false');
 										}
-										$QuestionObj->set('index', $i-1);
-										$QuestionObj->set('subject', $category_id);
-										$QuestionObj->set('de', $exercise_number);
+										$QuestionObj->setIndex($i-1);
+										$QuestionObj->setSubject($category_id);
+										$QuestionObj->setDe($exercise_number);
 										if(file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $question['id'] . '.mp3'))) {
-											$QuestionObj->set('audio', $target);
+											$QuestionObj->setAudio($target);
 										} else {
 											if(file_exists(BASE_DIR .($audio = '/3rdparty/Filemanager/source/practice/' . $category_id. '/' . $exercise_number . '/' . ($i-1) . '.mp3'))) {
-												$QuestionObj->set('audio', $audio);
+												$QuestionObj->setAudio($audio);
 												if(!file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $question['id'] . '.mp3'))) {
 													copy(BASE_DIR . $audio, BASE_DIR .$target);
 												}
 											}
 											
 											if(file_exists(BASE_DIR .($audio = '/3rdparty/Filemanager/source/practice/Observation/' . $category_id. '/' . ($i-1) . '.mp3'))) {
-												$QuestionObj->set('audio', $audio);
+												$QuestionObj->setAudio($audio);
 												if(!file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $question['id'] . '.mp3'))) {
 													copy(BASE_DIR . $audio, BASE_DIR .$target);
 												}
@@ -193,7 +193,7 @@
 										}
 										
 										
-										$QuestionObj->set('cacheParams', 'layout, questionId');
+										$QuestionObj->setCacheParams('layout, questionId');
 										$QuestionObj->display();
 									?>
 							</div>

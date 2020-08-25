@@ -1,5 +1,5 @@
 <?php 
-	$districtId= $data->get('districtId');
+	$districtId= $data->getDistrictId();
 	$areas = $data->getAreaByParent($districtId);
 
  ?>

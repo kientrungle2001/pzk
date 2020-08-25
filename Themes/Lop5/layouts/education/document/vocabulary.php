@@ -1,6 +1,6 @@
 <?php
-$id = intval(pzk_request()->get('id'));
-$categoryId = $data->get('categoryId');
+$id = intval(pzk_request()->getId());
+$categoryId = $data->getCategoryId();
 
  ?>
 <div id="mathvoca" class="item text-center" style="<?php /*background: transparent url('/Default/skin/nobel/test/Themes/Default/media/vocabg.jpg') no-repeat center center;*/ ?>    

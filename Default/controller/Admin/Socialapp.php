@@ -20,7 +20,7 @@ class PzkAdminSocialappController extends PzkGridAdminController {
     );
 	public $orderBy = 'social_app.id asc';
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên ứng dụng';
+    public $searchLabel = 'Tên ứng dụng';
 	public $joins = array(
 		array(
 			'table' => '`admin` as `creator`',

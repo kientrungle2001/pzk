@@ -8,7 +8,7 @@ class PzkSupportController extends PzkController {
 		$data['created'] = date('Y-m-d H:i:s');
 		$subscribe->setData($data);
 		$subscribe->save();
-		if($subscribe->get('id')){
+		if($subscribe->getId()){
 			pzk_notifier_add_message('Cám ơn bạn đã đăng ký nhận tư vấn', 'success');
 		} else {
 			pzk_notifier_add_message('Bạn đã đăng ký nhận tư vấn rồi', 'danger');

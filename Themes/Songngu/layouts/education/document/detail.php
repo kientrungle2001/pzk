@@ -2,8 +2,8 @@
 <?php  $item = $data->getItem(); ?>
 <?php 
 $subject = _db()->getTableEntity('categories')->load($item['categoryId']);
-$subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($subject->get('parent'))->result();
-$language = pzk_global()->get('language');
+$subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($subject->getParent())->result();
+$language = pzk_global()->getLanguage();
 $lang = pzk_session('language');
  ?>
 <?php $data->displayChildren('[position=public-header]') ?>	
@@ -14,16 +14,16 @@ $lang = pzk_session('language');
 			<div id="document-detail">
 				<p class="t-weight text-center"><ul class="breadcrumb text-center">
 					<li><a href="/document/home"><?php echo $language['materials'];?></a></li>
-					<li><a href="/document/home"><?php echo $language['class'];?> <?php  echo pzk_request()->get('class')?></a></li>
+					<li><a href="/document/home"><?php echo $language['class'];?> <?php  echo pzk_request()->getClass()?></a></li>
 					<li class="active">
 						<span class="dropdown">
 						  <a class="dropdown-toggle" type="button" id="dropdownSubjectDocument" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							<?php echo $subject->get('name')?>
+							<?php echo $subject->getName()?>
 							<span class="caret"></span>
 						  </a>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
 						  <?php foreach($subjects as $sbj): ?>
-							<li><a href="/document/index/<?php echo @$sbj['id']?>?class=<?php  echo pzk_request()->get('class')?>"><?php echo @$sbj['name']?></a></li>
+							<li><a href="/document/index/<?php echo @$sbj['id']?>?class=<?php  echo pzk_request()->getClass()?>"><?php echo @$sbj['name']?></a></li>
 						  <?php endforeach; ?>
 						  </ul>
 						</span>

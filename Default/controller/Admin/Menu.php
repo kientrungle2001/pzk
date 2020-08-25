@@ -15,7 +15,7 @@ class PzkAdminMenuController extends PzkGridAdminController {
     	'ordering desc' => 'Thứ tự giảm',
     );
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên menu';
+    public $searchLabel = 'Tên menu';
 
     public $listSettingType = 'parent';
     public $listFieldSettings = array(

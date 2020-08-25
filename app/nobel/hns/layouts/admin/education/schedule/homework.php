@@ -80,7 +80,7 @@ endif;?>
 </table>
 </div>
 <div class="col-md-9">
-<h2>Danh sách Bài tập về nhà <a href="/Admin_Schedule_Teacher/remarkAll/<?php echo @$classroom['id']?>/<?php echo $data->get('homeworkId')?>">Chấm lại tất</a></h2>
+<h2>Danh sách Bài tập về nhà <a href="/Admin_Schedule_Teacher/remarkAll/<?php echo @$classroom['id']?>/<?php echo $data->getHomeworkId()?>">Chấm lại tất</a></h2>
 <table class="table table-bordered">
 	<tr class="bg-success">
 		<th>STT</th>
@@ -129,7 +129,7 @@ $dsDaLam = array();?>
 		</td>
 		<td><?php if($homework['status']): $marked++;?><strong class="text-success">Đã chấm xong</strong><?php else:?><strong class="text-warning">Chưa chấm</strong><?php endif;?></td>
 		<td>
-		<a style="width: 100%" class="btn btn-primary btn-xs" href="/Admin_Schedule_Teacher/remark/<?php echo @$classroom['id']?>/<?php echo $data->get('homeworkId')?>/<?php echo @$homework['id']?>"><span class="glyphicon glyphicon-edit"></span> Chấm lại</a>
+		<a style="width: 100%" class="btn btn-primary btn-xs" href="/Admin_Schedule_Teacher/remark/<?php echo @$classroom['id']?>/<?php echo $data->getHomeworkId()?>/<?php echo @$homework['id']?>"><span class="glyphicon glyphicon-edit"></span> Chấm lại</a>
 		</td>
 	</tr>
 	<?php 

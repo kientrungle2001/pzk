@@ -13,7 +13,7 @@ class PzkAdminGameTopicController extends PzkGridAdminController {
     );
 
     public $searchFields = array('game_topic');
-    public $Searchlabels = 'Chủ đề';
+    public $searchLabel = 'Chủ đề';
 	public $logable = true;
 	public $logFields = 'game_topic, parent, status, userId, createdId, modifiedId';
     public $addFields = 'game_topic, parent, status, userId, createdId, modifiedId, software';

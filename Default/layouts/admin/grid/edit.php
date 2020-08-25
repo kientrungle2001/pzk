@@ -29,7 +29,7 @@ function setTinymce() {
 <?php
 $controller = pzk_controller();
 
-$item = $data->get('item');
+$item = $data->getItem();
 $row = pzk_validator()->getEditingData();
 if($row) {
 	$item = array_merge($item, $row);

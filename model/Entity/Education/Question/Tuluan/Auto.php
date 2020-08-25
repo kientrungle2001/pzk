@@ -3,9 +3,9 @@ class PzkEntityEducationQuestionTuluanAutoModel extends PzkEntityModel
 {
 	public $table = 'questions';
 	public function mark($userAnswer) {
-		$answer = unserialize($userAnswer->get('content'));
-		if($this->get('auto')) {
-			$teacher_answers = json_decode($this->get('teacher_answers'), true);
+		$answer = unserialize($userAnswer->getContent());
+		if($this->getauto()) {
+			$teacher_answers = json_decode($this->getTeacher_answers(), true);
 			$total = 0;
 			foreach($answer as $type => $ans) {
 				foreach($ans as $index => $value)  {

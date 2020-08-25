@@ -33,7 +33,7 @@ class PzkAdminUserretestController extends PzkGridAdminController {
     );
 
     public $searchFields = array('username');
-    public $Searchlabels = 'Tên user';
+    public $searchLabel = 'Tên user';
 	
 
     public $addFields = 'username, startDate, endDate, resultDate, contestId, status, practice, creatorId, created, software, site';

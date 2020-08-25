@@ -1,10 +1,10 @@
 <?php
-    $table = $data->get('table');
-    $findField = $data->get('findField');
-    $showField = $data->get('showField');
-	$conditions = pzk_or($data->get('conditions'), '1');
+    $table = $data->getTable();
+    $findField = $data->getFindField();
+    $showField = $data->getShowField();
+	$conditions = pzk_or($data->getConditions(), '1');
 
-    $Ids = $data->get('value');
+    $Ids = $data->getValue();
     $name = '';
     if(is_string($Ids) && $Ids) {
         $arrIds = explode(',', trim($Ids, ','));

@@ -277,7 +277,7 @@ class PzkFilterController extends PzkController{
 		$questions = $test->getQuestions();
 		foreach($questions as $question) {
 			$answers = $question->getAnswers();
-			echo '<h2>'.$question->get('name') . '</h2><br />';
+			echo '<h2>'.$question->getName() . '</h2><br />';
 			foreach($answers as $answer) {
 				echo $answer->getContent() . '<br />';
 			}
@@ -287,21 +287,21 @@ class PzkFilterController extends PzkController{
 	
 	public function redisAction() {
 		$cacher = pzk_rediscache();
-		if($somekey = $cacher->get('somekey')) {
+		if($somekey = $cacher->getSomekey()) {
 			echo $somekey;
 			$cacher->clear();
 		} else {
-			$cacher->set('somekey', 'Không thấy được');
+			$cacher->setSomekey('Không thấy được');
 		}
 	}
 	
 	public function memcacheAction() {
 		$cacher = pzk_memcache();
-		if($somekey = $cacher->get('somekey')) {
+		if($somekey = $cacher->getSomekey()) {
 			echo $somekey;
 			$cacher->clear();
 		} else {
-			$cacher->set('somekey', 'Không thấy được');
+			$cacher->setSomekey('Không thấy được');
 		}
 	}
 	

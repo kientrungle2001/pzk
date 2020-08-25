@@ -449,12 +449,12 @@ class PzkAdminOrderTransactionController extends PzkGridAdminController {
             $row['paymentDate']= date("Y-m-d H:i:s");            
             if($username){
                 $user->loadWhere(array('username',$username));
-                $userId=$user->get('id');
+                $userId=$user->getId();
                 $row['userId']=$userId;
                 // nạp tiền vào tài khoản cho user
                 $wallets=_db()->getEntity('User.Account.Wallets');
                 $wallets->loadWhere(array('userId',$userId));
-                if($wallets->get('id')){
+                if($wallets->getId()){
                     $wal_amount=$wallets->getAmount();          
                     if($status== 1){
                         $wal_amount= $wal_amount + $amountService;

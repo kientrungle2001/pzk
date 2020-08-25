@@ -7,18 +7,18 @@
 </div-->
 
 <?php  
-	$category 		= 	$data->get('category');
-	$category_id 	= 	$data->get('categoryId');
-	$category_name 	= 	$data->get('categoryName');
+	$category 		= 	$data->getCategory();
+	$category_id 	= 	$data->getCategoryId();
+	$category_name 	= 	$data->getCategoryName();
 	$subject		=	intval(pzk_request()->getSegment(3));
 	$check 			= 	pzk_session('checkPayment');
 	$class			= 	pzk_session('lop');
 	
 	if($subject) {
 		$subjectEntity 	= _db()->getTableEntity('categories')->load($subject, 1800);
-		$parentSubject 	= $subjectEntity->get('parent');
+		$parentSubject 	= $subjectEntity->getParent();
 	}
-	$language 			= pzk_global()->get('language');
+	$language 			= pzk_global()->getLanguage();
 	$lang 				= pzk_session('language');
 ?>
 
@@ -45,7 +45,7 @@
 		</a>
 		
 		&nbsp; &nbsp; > &nbsp; &nbsp;
-		<a href="/practice/class-<?=$class;?>/subject-<?= $subjectEntity->get('alias');?>-<?= $subjectEntity->get('id');?>">
+		<a href="/practice/class-<?=$class;?>/subject-<?= $subjectEntity->getalias();?>-<?= $subjectEntity->getId();?>">
 		<?php 
 			if ($lang == 'en' || $lang == 'ev'){
 				echo $category_name['name_en'];
@@ -84,7 +84,7 @@
 						<ul class=" item list-group menu-baitap">
 						<?php if($category_id == 88) {
 						// Trường hợp bài luyện quan sát
-							$dataCategoryCurrent =  $data->get('categoryCurrentObservation');
+							$dataCategoryCurrent =  $data->getCategoryCurrentObservation();
 							if(@$dataCategoryCurrent['child']):
 								foreach($dataCategoryCurrent['child'] as $k =>$topic):								
 									if(strpos($topic['classes'], ''.$class) === false) continue; ?>
@@ -101,7 +101,7 @@
 								<li class="list-group-item hasa">
 										<a onclick="return check_display(<?php echo @$media['trial']?>);" 
 											class="getdata" 
-											href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/media-<?php echo @$media['id']?>">
+											href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/media-<?php echo @$media['id']?>">
 												<?php echo @$media['name']?></a></li>
 				<?php		}
 				
@@ -109,7 +109,7 @@
 								<li class="list-group-item hasa exercise-of-topic-<?php echo @$topic['id']?> 
 											<?php if(pzk_request('topic') == $topic['id']) echo 'active'; ?>">
 												<a  onclick="return check_display(<?php echo @$media['trial']?>);" class="getdata" 
-													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>">
+													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>">
 														<?php echo @$media['name']?></a>
 										</li>
 				<?php		}
@@ -118,7 +118,7 @@
 								<li class="list-group-item hasa">
 										<a onclick="return check_display(<?php echo @$media['trial']?>);" 
 											class="getdata" 
-											href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/homework-<?php echo @$media['id']?>">
+											href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/homework-<?php echo @$media['id']?>">
 												<?php echo @$media['name']?></a></li>
 				<?php		}
 				
@@ -126,7 +126,7 @@
 								<li class="list-group-item hasa exercise-of-topic-<?php echo @$topic['id']?> 
 											<?php if(pzk_request('topic') == $topic['id']) echo 'active'; ?>">
 												<a  onclick="return check_display(<?php echo @$media['trial']?>);" class="getdata" 
-													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/homework-<?php echo @$media['id']?>">
+													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/homework-<?php echo @$media['id']?>">
 														<?php echo @$media['name']?></a>
 										</li>
 				<?php		}
@@ -141,7 +141,7 @@
 										<li class="list-group-item hasa">
 											<a  onclick="$('#chonde').html('<?php echo $language['lesson'].$i; ?>'); de=<?php echo $i ?>; return check_display(<?php echo @$catetype['trial']?>);" 
 												data-de="<?php echo $i; ?>" class="getdata" 
-												href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/examination-<?php echo $i ?>">
+												href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/examination-<?php echo $i ?>">
 													<?php echo $language['lesson'].$i;?></a></li>
 						<?php 		} ?>
 						<?php 	endif; ?>
@@ -162,7 +162,7 @@
 											<?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo 'active'; ?>" 
 											style="<?php if(pzk_request('topic') != $topic['id']):?>display: none;<?php endif;?>">
 												<a  onclick="de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" 
-													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>">
+													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>">
 														<?php echo $language['lesson'].$i;?></a>
 										</li>
 							<?php 	} ?>
@@ -181,7 +181,7 @@
 										<li class="list-group-item hasa">
 											<a  onclick="$('#chonde').html('<?php echo $language['lesson'].$i; ?>'); de=<?php echo $i ?>; return check_display(<?php echo @$catetype['trial']?>);" 
 												data-de="<?php echo $i; ?>" class="getdata" 
-												href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/examination-<?php echo $i ?>?questionType=4">
+												href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/examination-<?php echo $i ?>?questionType=4">
 													<?php echo $language['lesson'].$i;?></a></li>
 						<?php 		}  ?>
 						<?php	endif;?>	
@@ -199,7 +199,7 @@
 											<?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo 'active'; ?>" 
 											style="<?php if(pzk_request('topic') != $topic['id']):?>display: none;<?php endif;?>">
 												<a  onclick="de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" 
-													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>?questionType=4">
+													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>?questionType=4">
 														<?php echo $language['lesson'].$i;?></a>
 										</li>
 							<?php 	} //end for

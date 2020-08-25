@@ -4,13 +4,13 @@ $i = $data->getColIndex();
 $compact	= $data->getCompact();
 $nocompact	= !$compact;
 if($compact) {
-	$data->setSelectLabel($data->get('label'));
+	$data->setSelectLabel($data->getLabel());
 }
 ?>
 
 <select
 	class="form-control"
-	name="<?php  echo $data->get('index')?>_flat[col<?php echo $i ?>][]"  placeholder="<?php  echo $data->get('label')?>">
+	name="<?php  echo $data->getIndex()?>_flat[col<?php echo $i ?>][]"  placeholder="<?php  echo $data->getLabel()?>">
 	<?php
 										$parents = _db ()->select ( '*' )->from ( $data->getTable () )->where ( pzk_or ( @$data->getCondition (), '1' ) )->orderBy(pzk_or(@$data->getOrderBy(), 'id asc'))->result ();
 										if (isset ( $parents [0] ['parent'] )) {
@@ -25,9 +25,9 @@ if($compact) {
 										}
 										?>
 	<?php foreach($parents as $parent): ?>
-	<option value="<?php echo $parent[$data->get('show_value')]; ?>">
+	<option value="<?php echo $parent[$data->getShow_value()]; ?>">
 		<?php if(isset($parent['parent'])){ echo str_repeat('--', $parent['level']); } ?>
-		#<?php echo @$parent['id']?> - <?php echo $parent[$data->get('show_name')]; ?>
+		#<?php echo @$parent['id']?> - <?php echo $parent[$data->getShow_name()]; ?>
 	</option> <?php endforeach; ?>
 
 </select>

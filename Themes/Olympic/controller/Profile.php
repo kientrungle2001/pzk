@@ -22,20 +22,20 @@ class PzkProfileController extends PzkFrontendController
 	{
 		$request 	= pzk_request();
 		
-		$name 		= $request->get('name');
-		$birthday 	= $request->get('birthday');
-		$address 	= $request->get('address');
-		$phone 		= $request->get('phone');
-		$sex 		= $request->get('sex');
+		$name 		= $request->getName();
+		$birthday 	= $request->getBirthday();
+		$address 	= $request->getaddress();
+		$phone 		= $request->getPhone();
+		$sex 		= $request->getSex();
 		
 		
-		$school 	= $request->get('school');
-		$class		= $request->get('class1');
-		$area		= $request->get('areacode');
+		$school 	= $request->getSchool();
+		$class		= $request->getClass1();
+		$area		= $request->getareacode();
 		
 		$user		= pzk_user();
 		
-		if($user->get('id')) {
+		if($user->getId()) {
 			$user->update(array(
 				'name' 		=> 	$name, 		'birthday' 		=> 	$birthday, 
 				'address' 	=> 	$address, 	'sex' 			=> 	$sex,
@@ -51,17 +51,17 @@ class PzkProfileController extends PzkFrontendController
 	{
 		
 		$request 		= 	pzk_request();
-		$oldpassword	=	md5($request->get('oldpass'));
-		$newpassword	=	$request->get('newpass');
+		$oldpassword	=	md5($request->getOldpass());
+		$newpassword	=	$request->getNewpass();
 		
 		$userId			= 	pzk_session('userId');
 		$user			=	_db()->getEntity(self::ENTITY_USER);
 		$user->loadWhere(array('and',array('id',$userId),array('password',$oldpassword)));
 		if(pzk_config('register_active')) {
-			if($user->get('id'))
+			if($user->getId())
 			{
 				$confirmpassword	= 	md5($oldpassword.$newpassword);
-				$email				=	$user->get('email');			
+				$email				=	$user->getEmail();			
 				// Update Key
 				$user->update(array('key' => $confirmpassword));
 				$this->sendMail($email,	$confirmpassword,	$newpassword);
@@ -72,7 +72,7 @@ class PzkProfileController extends PzkFrontendController
 				echo self::STATE_CHANGE_PASSWORD_FAILED;
 			}	
 		} else {
-			if($user->get('id'))
+			if($user->getId())
 			{
 				$user->update(array('password' => md5($newpassword)));
 				echo self::STATE_CHANGE_PASSWORD_SUCCESSFULLY;
@@ -93,11 +93,11 @@ class PzkProfileController extends PzkFrontendController
 		$arr			=	array('changePassword'	=> $key,	'conf'=>$newpassword);
 		$request		=	pzk_request();
 		$url			= 	$request->build($url,$arr);
-		$mailtemplate->set('url', $url);
+		$mailtemplate->setUrl($url);
 		$mail 			= 	pzk_mailer();
 		$mail->AddAddress($email);
 		$mail->Subject 	= self::MAIL_TEMPLATE_CHANGE_PASSWORD_SUBJECT;
-		$mail->Body    	= $mailtemplate->get('content');
+		$mail->Body    	= $mailtemplate->getContent();
 		if(!$mail->send()) {
 			echo 'Message could not be sent.';
 			echo 'Mailer Error: ' . $mail->ErrorInfo;
@@ -108,8 +108,8 @@ class PzkProfileController extends PzkFrontendController
 	public function confirmChangePasswordAction()
 	{
 		$request		= pzk_request();
-		$confirm		= $request->get('changePassword');
-		$newpassword	= $request->get('conf');
+		$confirm		= $request->getChangePassword();
+		$newpassword	= $request->getConf();
 		$username		= pzk_session('username');
 		$userId			= pzk_session('userId');
 		$editdate 		= date("Y-m-d H:i:s"); 
@@ -118,11 +118,11 @@ class PzkProfileController extends PzkFrontendController
 			array('key', 		$confirm),
 			array('username', 	$username)
 		)); 
-		if($user->get('id'))
+		if($user->getId())
 		{	
 			$this->initPage();
 			$editpass 	= $this->parse('user/profile/changePasswordSuccess');
-			$editpass->set('username', "ok");		
+			$editpass->setUsername("ok");		
 			$user->update(array('password' => $newpassword,'key'=>''));
 			
 			$this->append($editpass);
@@ -131,7 +131,7 @@ class PzkProfileController extends PzkFrontendController
 		else
 		{
 			$editpass 	= $this->parse('user/profile/changePasswordSuccess');
-			$editpass->set('username', "");
+			$editpass->setUsername("");
 			$this->initPage();
 			$this->append($editpass);
 			$this->display();

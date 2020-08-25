@@ -1,11 +1,11 @@
 <?php 
-$language = pzk_global()->get('language');
+$language = pzk_global()->getLanguage();
 $lang = pzk_session('language');
 ?>
 <div class="container-fluid bgcontent">	
 	<?php 
-		$parentId = $data->get('parentId');
-		$class = $data->get('class');
+		$parentId = $data->getParentId();
+		$class = $data->getClass();
 		$showQuestions 	= $data->getQuestionCompability(TN, $parentId);
 		
 		if(count($showQuestions) > 0) { 
@@ -28,8 +28,8 @@ $lang = pzk_session('language');
 			$processAnswer[$val['question_id']][] = $val;
 		}	
 		
-		$data_criteria	= $data->get('data_criteria');
-		$userInfo = $data->get('userInfo'); 
+		$data_criteria	= $data->getData_criteria();
+		$userInfo = $data->getUserInfo(); 
 	
 	?>
 	<style>
@@ -78,11 +78,11 @@ $lang = pzk_session('language');
 											$questionChoice = _db()->getEntity('Question.Choice');
 											$questionChoice->setData($value);
 										
-											$QuestionObj->set('question', $questionChoice);
+											$QuestionObj->setQuestion($questionChoice);
 										
-											$QuestionObj->set('type', $questionChoice->get('type'));
+											$QuestionObj->setType($questionChoice->getType());
 											
-											$QuestionObj->set('questionId', $value['id']);
+											$QuestionObj->setQuestionId($value['id']);
 											
 											//answer
 											$answerEntitys = array();
@@ -91,10 +91,10 @@ $lang = pzk_session('language');
 												$answerEntity->setData($val);
 												$answerEntitys[] = $answerEntity;
 											}
-											$QuestionObj->set('answers', $answerEntitys);
+											$QuestionObj->setAnswers($answerEntitys);
 											
-											$QuestionObj->set('cacheable', 'false');
-											$QuestionObj->set('cacheParams', 'layout, questionId');
+											$QuestionObj->setCacheable('false');
+											$QuestionObj->setCacheParams('layout, questionId');
 											$QuestionObj->display();
 										?>
 										</div>

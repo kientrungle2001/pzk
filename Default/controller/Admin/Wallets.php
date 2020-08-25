@@ -150,15 +150,15 @@ class PzkAdminWalletsController extends PzkGridAdminController {
             $user =_db()->getEntity('User.Account.User');
             if($username){
             	$user->loadWhere(array('username',$username));
-            	if($user->get('id')){
+            	if($user->getId()){
             		$wallets =_db()->getEntity('User.Account.Wallets');
             		$wallets->loadWhere(array('username',$username));
-            		if($wallets->get('id')){
+            		if($wallets->getId()){
             			
 		            	$this->redirect('add');
 		            	pzk_notifier()->addMessage('Username này đã có ví, bạn chỉ có thể sửa');
             		}else{
-            			$row['userId'] = $user->get('id');
+            			$row['userId'] = $user->getId();
 	            		$row['creatorId']=pzk_session('adminId');
 	            		$row['created']=date("Y-m-d H:i:s");
 	            		$this->add($row);                    
@@ -187,7 +187,7 @@ class PzkAdminWalletsController extends PzkGridAdminController {
             $user =_db()->getEntity('User.Account.User');
             if($username){
             	$user->loadWhere(array('username',$username));
-            	$row['userId'] = $user->get('id');
+            	$row['userId'] = $user->getId();
             }
         	$date=date("Y-m-d H:i:s");
             $row['modifiedId']=pzk_session('adminId');

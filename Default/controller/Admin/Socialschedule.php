@@ -50,7 +50,7 @@ class PzkAdminSocialscheduleController extends PzkGridAdminController {
     	'created desc' => 'Ngày tạo giảm',
     );
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên ứng dụng';
+    public $searchLabel = 'Tên ứng dụng';
     public $listFieldSettings = array(
         array(
             'index' => 'type',

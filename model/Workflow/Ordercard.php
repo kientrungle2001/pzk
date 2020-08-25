@@ -11,8 +11,8 @@ class PzkWorkflowOrdercardModel {
 		$couponUser->setData(array(
 			'username'	=>	$entity->getFullname(),
 			'name'		=>	$entity->getFullname(),
-			'phone'		=>	$entity->get('phone'),
-			'email'		=>	$entity->get('email'),
+			'phone'		=>	$entity->getPhone(),
+			'email'		=>	$entity->getEmail(),
 			'code'		=>	$entity->getCoupon(),
 			'serviceId' =>	$entity->getCardId(),
 			'resellerId'=>	$couponEntity->getResellerId(),

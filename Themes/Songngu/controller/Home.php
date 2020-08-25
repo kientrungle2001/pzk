@@ -6,11 +6,11 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	public function aboutAction()
 	{
 		$this->initPage();
-		pzk_page()->set('title', 'Trang hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this->append('home/about')
 			->display();
 	}
@@ -19,11 +19,11 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	{
 		$this->initPage();
 		$page = pzk_page();
-		$page->set('title', 'Chi tiết về phần mềm Full Look Song Ngữ');
-		$page->set('keywords', 'Giáo dục');
-		$page->set('description', 'Chi tiết về phần mềm Full Look Song Ngữ');
-		$page->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		$page->set('brief', 'Chi tiết về phần mềm Full Look Song Ngữ');
+		$page->setTitle('Chi tiết về phần mềm Full Look Song Ngữ');
+		$page->setKeywords('Giáo dục');
+		$page->setDescription('Chi tiết về phần mềm Full Look Song Ngữ');
+		$page->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		$page->setBrief('Chi tiết về phần mềm Full Look Song Ngữ');
 		$this->append('home/detail')
 			->display();
 	}
@@ -70,11 +70,11 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	public function paymentAction()
 	{
 		$this->initPage();
-		pzk_page()->set('title', 'Trang hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this->append('home/payment')
 			->display();
 	}
@@ -98,11 +98,11 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 		$practice = pzk_request('practice');
 		$clearTestId = pzk_request('clearTestId');
 		$this->initPage();
-		pzk_page()->set('title', 'Bảng xếp hạng');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Bảng xếp hạng cá nhân');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Bảng xếp hạng cá nhân các em sử dụng phần mềm Full Look');
+		pzk_page()->setTitle('Bảng xếp hạng');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Bảng xếp hạng cá nhân');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Bảng xếp hạng cá nhân các em sử dụng phần mềm Full Look');
 		/*if(pzk_themes('default')) {
 				$this->append('education/question/rating', 'wrapper');
 			} else {
@@ -114,18 +114,18 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 			$showRating	= pzk_element('ratingClassroom');
 
-			$dataTest = $userBook->getAllTest(pzk_request()->get('practice'));
+			$dataTest = $userBook->getAllTest(pzk_request()->getPractice());
 			//var_dump($dataTest);die;
-			$showRating->set('dataTest', $dataTest);
+			$showRating->setDataTest($dataTest);
 		} else {
 			$this->append('education/question/rating', 'wrapper');
 			$userBook	= pzk_model('Frontend');
 
 			$showRating	= pzk_element('rating');
 
-			$dataTest = $userBook->getAllTest(pzk_request()->get('practice'));
+			$dataTest = $userBook->getAllTest(pzk_request()->getPractice());
 			//var_dump($dataTest);die;
-			$showRating->set('dataTest', $dataTest);
+			$showRating->setDataTest($dataTest);
 		}
 
 
@@ -135,15 +135,15 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	{
 
 		if (pzk_request('clearTestId') == 1) {
-			pzk_session()->set('userBookTestId', NULL);
+			pzk_session()->setUserBookTestId(NULL);
 		}
 
 		$this->initPage();
-		pzk_page()->set('title', 'Bảng xếp hạng');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Bảng xếp hạng cá nhân');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Bảng xếp hạng cá nhân các em sử dụng phần mềm Full Look');
+		pzk_page()->setTitle('Bảng xếp hạng');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Bảng xếp hạng cá nhân');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Bảng xếp hạng cá nhân các em sử dụng phần mềm Full Look');
 		/*if(pzk_themes('default')) {
                 $this->append('education/question/showRating', 'wrapper');
             } else {
@@ -155,18 +155,18 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 			$showRating = pzk_element('showRatingClassroom');
 
-			$dataTest = $userBook->getAllTest(pzk_request()->get('practice'));
+			$dataTest = $userBook->getAllTest(pzk_request()->getPractice());
 
-			$showRating->set('dataTest', $dataTest);
+			$showRating->setDataTest($dataTest);
 		} else {
 			$this->append('education/question/showRating', 'wrapper');
 			$userBook   = pzk_model('Frontend');
 
 			$showRating = pzk_element()->getShowRating();
 
-			$dataTest = $userBook->getAllTest(pzk_request()->get('practice'));
+			$dataTest = $userBook->getAllTest(pzk_request()->getPractice());
 
-			$showRating->set('dataTest', $dataTest);
+			$showRating->setDataTest($dataTest);
 		}
 		$this->display();
 	}
@@ -177,7 +177,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 		}
 		$request 			= pzk_request();
 
-		$data_answers 		= $request->get('answers');
+		$data_answers 		= $request->getanswers();
 
 
 		$answers 		= array();
@@ -215,8 +215,8 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 			$duringTime = 0;
 		}
 
-		$topicPost	= $request->get('topicPost');
-		$subjectPost	= $request->get('subjectPost');
+		$topicPost	= $request->getTopicPost();
+		$subjectPost	= $request->getSubjectPost();
 
 
 		$row	= 	array(
@@ -231,7 +231,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 			'classname'			=> pzk_session('classname'),
 			'created'			=> date('Y-m-d H:i:s'),
 			'lang'			=> pzk_session('language'),
-			'software'		=> pzk_request()->get('softwareId'),
+			'software'		=> pzk_request()->getSoftwareId(),
 			'practiceType' => 'TL',
 			'duringTime'		=> $duringTime
 		);
@@ -242,7 +242,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 		$userBook->save();
 
-		$userbookId = $userBook->get('id');
+		$userbookId = $userBook->getId();
 
 
 		foreach ($question_id as $key => $value) {
@@ -301,13 +301,13 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 		$request 			= pzk_request();
 
-		$data_answers 		= $request->get('answers');
+		$data_answers 		= $request->getanswers();
 
-		$user_book_key	= $request->get('keybook');
+		$user_book_key	= $request->getKeybook();
 
 		$question_id 	= $data_answers['questions'];
-		$topicPost	= $request->get('topicPost');
-		$subjectPost	= $request->get('subjectPost');
+		$topicPost	= $request->getTopicPost();
+		$subjectPost	= $request->getSubjectPost();
 
 		$answers 		= array();
 
@@ -386,7 +386,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 			'keybook'			=> $user_book_key,
 			'mark'              => $totaltrue,
 			'exercise_number'   => $exercise_number,
-			'software' 			=> pzk_request()->get('softwareId'),
+			'software' 			=> pzk_request()->getSoftwareId(),
 			'created'			=> date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
 			'duringTime'		=> $duringTime,
 			'topic'				=> $topicPost,
@@ -409,7 +409,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 				$userBook->save();
 
 
-				$userbookId = $userBook->get('id');
+				$userbookId = $userBook->getId();
 
 				foreach ($question_id as $key => $value) {
 					if (empty($answers[$key])) {
@@ -499,51 +499,51 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function ajaxHistoryAction()
 	{
-		$practice = pzk_request()->get('practice');
-		$idResult = pzk_request()->get('idResult');
-		$page = pzk_request()->get('page');
-		$userId = pzk_request()->get('userId');
-		$startDate = pzk_request()->get('startDate');
-		$endDate = pzk_request()->get('endDate');
+		$practice = pzk_request()->getPractice();
+		$idResult = pzk_request()->getIdResult();
+		$page = pzk_request()->getPage();
+		$userId = pzk_request()->getUserId();
+		$startDate = pzk_request()->getStartDate();
+		$endDate = pzk_request()->getEndDate();
 		$pageSize = 20;
 		$this->parse('history/testHistory');
 
 		$testHistory = pzk_element('testHistory');
-		$testHistory->set('practice', $practice);
-		$testHistory->set('idResult', $idResult);
-		$testHistory->set('page', $page);
-		$testHistory->set('userId', $userId);
-		$testHistory->set('startDate', $startDate);
-		$testHistory->set('endDate', $endDate);
-		$testHistory->set('pageSize', $pageSize);
+		$testHistory->setPractice($practice);
+		$testHistory->setIdResult($idResult);
+		$testHistory->setPage($page);
+		$testHistory->setUserId($userId);
+		$testHistory->setStartDate($startDate);
+		$testHistory->setEndDate($endDate);
+		$testHistory->setPageSize($pageSize);
 		$testHistory->display();
 	}
 	public function ajaxPracticeAction()
 	{
-		$page = pzk_request()->get('page');
-		$userId = pzk_request()->get('userId');
-		$startDate = pzk_request()->get('startDate');
-		$endDate = pzk_request()->get('endDate');
+		$page = pzk_request()->getPage();
+		$userId = pzk_request()->getUserId();
+		$startDate = pzk_request()->getStartDate();
+		$endDate = pzk_request()->getEndDate();
 		$pageSize = 20;
 		$this->parse('history/practiceHistory');
 
 		$practiceHistory = pzk_element('practiceHistory');
-		$practiceHistory->set('page', $page);
-		$practiceHistory->set('userId', $userId);
-		$practiceHistory->set('startDate', $startDate);
-		$practiceHistory->set('endDate', $endDate);
-		$practiceHistory->set('pageSize', $pageSize);
+		$practiceHistory->setPage($page);
+		$practiceHistory->setUserId($userId);
+		$practiceHistory->setStartDate($startDate);
+		$practiceHistory->setEndDate($endDate);
+		$practiceHistory->setPageSize($pageSize);
 		$practiceHistory->display();
 	}
 
 	public function achievementAction()
 	{
 		$this->initPage();
-		pzk_page()->set('title', 'Trang hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$checkUser = pzk_session('checkUser');
 		$servicePackage = pzk_session('servicePackage');
 		if ($checkUser == 1 && $servicePackage == 'classroom') {
@@ -556,11 +556,11 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 			$achievementClass = pzk_element('achievementclass');
 
-			$achievementClass->set('areacode', $areacode);
-			$achievementClass->set('district', $district);
-			$achievementClass->set('school', $school);
-			$achievementClass->set('class', $class);
-			$achievementClass->set('classname', $className);
+			$achievementClass->setAreacode($areacode);
+			$achievementClass->setDistrict($district);
+			$achievementClass->setSchool($school);
+			$achievementClass->setClass($class);
+			$achievementClass->setClassname($className);
 		} else {
 			$this->append('home/achievement');
 		}
@@ -573,7 +573,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 		$this->parse('user/register/district');
 		$district = pzk_element('pagDistrict');
-		$district->set('provinceId', $provinceId);
+		$district->setProvinceId($provinceId);
 		$district->display();
 	}
 	public function getSchoolAction()
@@ -581,7 +581,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 		$districtId = pzk_request('districtId');
 		$this->parse('user/register/school');
 		$school = pzk_element('pagSchool');
-		$school->set('districtId', $districtId);
+		$school->setDistrictId($districtId);
 		$school->display();
 	}
 
@@ -591,7 +591,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 		$this->parse('home/district');
 		$district = pzk_element('district');
-		$district->set('provinceId', $provinceId);
+		$district->setProvinceId($provinceId);
 		$district->display();
 	}
 	public function getSchool2Action()
@@ -599,7 +599,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 		$districtId = pzk_request('districtId');
 		$this->parse('home/school');
 		$school = pzk_element('school');
-		$school->set('districtId', $districtId);
+		$school->setDistrictId($districtId);
 		$school->display();
 	}
 
@@ -608,7 +608,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 		$serviceName = pzk_request('serviceName');
 		$this->parse('user/register/service');
 		$service = pzk_element('pagService');
-		$service->set('serviceName', $serviceName);
+		$service->setServiceName($serviceName);
 		$service->display();
 	}
 	public function getRatingAction()
@@ -622,11 +622,11 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 		$classname  = strtolower($classname);
 		$classname  = trim($classname);
 		$rating  = "";
-		pzk_session()->set('provinceId', $provinceId);
-		pzk_session()->set('districtId', $districtId);
-		pzk_session()->set('schoolId', $schoolId);
-		pzk_session()->set('classId', $classId);
-		pzk_session()->set('classnameId', $classname);
+		pzk_session()->setProvinceId($provinceId);
+		pzk_session()->setDistrictId($districtId);
+		pzk_session()->setSchoolId($schoolId);
+		pzk_session()->setClassId($classId);
+		pzk_session()->setClassnameId($classname);
 
 		if (pzk_session('provinceId')) {
 			$rating .= " and areacode = '" . pzk_session('provinceId') . "'";
@@ -644,7 +644,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 		if (pzk_session('provinceId') && pzk_session('districtId') && pzk_session('classnameId')) {
 			$rating .= " and classname = '" . pzk_session('classnameId') . "'" . " and checkUser = '1'";
 		}
-		pzk_session()->set('condirating', $rating);
+		pzk_session()->setCondirating($rating);
 		echo $rating;
 	}
 
@@ -670,12 +670,12 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 		$classname  = strtolower($classname);
 		$classname  = trim($classname);
 
-		pzk_session()->set('cityAchievement', $city);
-		pzk_session()->set('districtAchievement', $district);
-		pzk_session()->set('schoolAchievement', $school);
-		pzk_session()->set('classAchievement', $class);
-		pzk_session()->set('classnameAchievement', $classname);
-		pzk_session()->set('classall', $classall);
+		pzk_session()->setCityAchievement($city);
+		pzk_session()->setDistrictAchievement($district);
+		pzk_session()->setSchoolAchievement($school);
+		pzk_session()->setClassAchievement($class);
+		pzk_session()->setClassnameAchievement($classname);
+		pzk_session()->setClassall($classall);
 
 		$condition = '';
 		if (pzk_session('cityAchievement') && pzk_session('cityAchievement') != 'all') {
@@ -699,7 +699,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 		if ($condition != '' && $condition != 'all') {
 			$condition = substr($condition, 4);
 		}
-		pzk_session()->set('conditionAchievement', $condition);
+		pzk_session()->setConditionAchievement($condition);
 	}
 
 	public function scienceAction()

@@ -1,7 +1,7 @@
 <?php if(count($data->getChildren())):
 $setting 	= pzk_controller();
-if($setting->get('menuLinks') && count($setting->get('menuLinks'))):
-pzk_global()->set('admin_right_module', 1);
+if($setting->getMenuLinks() && count($setting->getMenuLinks())):
+pzk_global()->setAdmin_right_module(1);
 ?>
 <div class="col-md-2">
 	<?php $data->displayChildren('all') ?>

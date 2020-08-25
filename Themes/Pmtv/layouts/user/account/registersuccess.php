@@ -1,6 +1,6 @@
     
     <?php 
-    $message= $data->get('message');
+    $message= $data->getMessage();
 	if($message=='ok')
 	{
 

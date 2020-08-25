@@ -15,7 +15,7 @@ class PzkAdminSchemaController extends PzkGridAdminController {
     );
 	//search fields co type la text
     public $searchFields = array('schema_table');
-    public $Searchlabels = 'Bảng';
+    public $searchLabel = 'Bảng';
 	public $sortFields = array(
         'schema_table asc' => 'Tên bảng tăng',
         'schema_table desc' => 'Tên bảng giảm',

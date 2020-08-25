@@ -1,5 +1,5 @@
-<?php  $fields = $data->get('fields');
-$item = $data->get('row');
+<?php  $fields = $data->getFields();
+$item = $data->getRow();
 ?>
 <?php foreach($fields as $field): ?>
 <?php  
@@ -7,17 +7,17 @@ $item = $data->get('row');
 	foreach($field as $key => $val) {
 		$fieldObj->set($key, $val);
 	}
-	$fieldObj->set('itemId', $item['id']);
-	if($fieldObj->get('type') == 'parent') {
-		$fieldObj->set('level', $item['level']);
+	$fieldObj->setItemId($item['id']);
+	if($fieldObj->getType() == 'parent') {
+		$fieldObj->setLevel($item['level']);
 	}
-	if($fieldObj->get('type') == 'ordering') {
+	if($fieldObj->getType() == 'ordering') {
 		$isOrderingField = true;
-		$fieldObj->set('level', @$item['level']);
+		$fieldObj->setLevel(@$item['level']);
 	}
-	$fieldObj->set('row', $item);
-	$fieldObj->set('value', @$item[$field['index']]);
+	$fieldObj->setRow($item);
+	$fieldObj->setValue(@$item[$field['index']]);
 ?>
-<?php  if($data->get('showLabel')): ?><strong><?php  echo $fieldObj->get('label')?></strong><br /><?php  endif; ?>
-	<?php  $fieldObj->display(); ?><?php  echo $data->get('delimiter') ?>
+<?php  if($data->getShowLabel()): ?><strong><?php  echo $fieldObj->getLabel()?></strong><br /><?php  endif; ?>
+	<?php  $fieldObj->display(); ?><?php  echo $data->getDelimiter() ?>
 <?php endforeach; ?>

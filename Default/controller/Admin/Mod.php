@@ -3,6 +3,7 @@ class PzkAdminModController extends PzkGridAdminController
 {
     public $title = 'Quản lí người dùng';
     public $table = 'admin';
+
     //joins to many table
     public $joins = array(
         array(
@@ -11,38 +12,40 @@ class PzkAdminModController extends PzkGridAdminController
             ATTR_TYPE => JOIN_TYPE_LEFT
         )
     );
+
     //select table
     public $selectFields = 'admin.*, admin_level.level';
+
     //show fields on page index
     public $listFieldSettings = array(
         array(
             ATTR_INDEX => 'name',
-            ATTR_TYPE => 'text',
-            ATTR_LABEL => 'Tên User'
+            ATTR_TYPE => LIST_TYPE_TEXT,
+            ATTR_LABEL => 'Tên đăng nhập'
         ),
         array(
             ATTR_INDEX     => 'parent',
-            ATTR_TYPE         => 'nameid',
-            ATTR_LABEL     => 'Cha',
+            ATTR_TYPE         => LIST_TYPE_NAMEID,
+            ATTR_LABEL     => 'Quản lý',
             ATTR_TABLE        =>    'admin',
             ATTR_FIND_FIELD    =>    'id',
             ATTR_SHOW_FIELD    =>    'name'
         ),
         array(
             ATTR_INDEX => 'categoryIds',
-            ATTR_TYPE => 'text',
+            ATTR_TYPE => LIST_TYPE_TEXT,
             ATTR_LABEL => 'Danh mục'
         ),
         array(
             ATTR_INDEX => 'level',
-            ATTR_TYPE => 'text',
-            ATTR_LABEL => 'Tên quyền',
+            ATTR_TYPE => LIST_TYPE_TEXT,
+            ATTR_LABEL => 'Quyền',
             ATTR_LINK    => '/Admin_Mod/filter?type=select&index=usertype_id&id='
         ),
 
         array(
             ATTR_INDEX => 'status',
-            ATTR_TYPE => 'status',
+            ATTR_TYPE => LIST_TYPE_STATUS,
             ATTR_LABEL => 'Trạng thái'
         )
 
@@ -51,7 +54,8 @@ class PzkAdminModController extends PzkGridAdminController
     public $logFields = 'name, usertype_id, status';
     //search fields co type la text
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
+
     //filter cho cac truong co type la select
     public $filterFields = array(
 
@@ -86,13 +90,15 @@ class PzkAdminModController extends PzkGridAdminController
         array(
             ATTR_INDEX => 'name',
             ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Tên người dùng'
+            ATTR_LABEL => 'Tên người dùng',
+            ATTR_MD_SIZE => 4
         ),
 
         array(
             ATTR_INDEX => 'password',
-            ATTR_TYPE => 'password',
-            ATTR_LABEL => 'Mật khẩu'
+            ATTR_TYPE => EDIT_TYPE_PASSWORD,
+            ATTR_LABEL => 'Mật khẩu',
+            ATTR_MD_SIZE => 4
         ),
         array(
             ATTR_INDEX         => 'parent',
@@ -100,7 +106,8 @@ class PzkAdminModController extends PzkGridAdminController
             ATTR_LABEL           => 'Cha',
             ATTR_TABLE           => 'admin',
             ATTR_SHOW_VALUE      => 'id',
-            ATTR_SHOW_NAME      => 'name'
+            ATTR_SHOW_NAME      => 'name',
+            ATTR_MD_SIZE => 4
         ),
         array(
             ATTR_INDEX         => 'categoryIds',
@@ -113,27 +120,32 @@ class PzkAdminModController extends PzkGridAdminController
         array(
             ATTR_INDEX => 'areacode',
             ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Tỉnh/Thành phố'
+            ATTR_LABEL => 'Tỉnh/Thành phố',
+            ATTR_MD_SIZE => 3
         ),
         array(
             ATTR_INDEX => 'district',
             ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Quận/Huyện'
+            ATTR_LABEL => 'Quận/Huyện',
+            ATTR_MD_SIZE => 3
         ),
         array(
             ATTR_INDEX => 'school',
             ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Trường'
+            ATTR_LABEL => 'Trường',
+            ATTR_MD_SIZE => 3
         ),
         array(
             ATTR_INDEX => 'class',
             ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Khối'
+            ATTR_LABEL => 'Khối',
+            ATTR_MD_SIZE => 3
         ),
         array(
             ATTR_INDEX => 'classname',
             ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Tên lớp'
+            ATTR_LABEL => 'Tên lớp',
+            ATTR_MD_SIZE => 4
         ),
         array(
             ATTR_INDEX => 'usertype_id',
@@ -142,12 +154,14 @@ class PzkAdminModController extends PzkGridAdminController
             ATTR_TABLE => 'admin_level',
             ATTR_SHOW_VALUE => 'id',
             ATTR_SHOW_NAME => 'level',
+            ATTR_MD_SIZE => 4
         ),
 
         array(
             ATTR_INDEX => 'status',
             ATTR_TYPE => EDIT_TYPE_STATUS,
             ATTR_LABEL => 'Trạng thái',
+            ATTR_MD_SIZE => 4
         )
     );
     public $addValidator = array(
@@ -179,99 +193,7 @@ class PzkAdminModController extends PzkGridAdminController
 
     //edit table
     public $editLabel = 'Sửa người dùng';
-    public $editFields = 'name, usertype_id, password, areacode, district, school, class, classname, categoryIds, status,parent';
 
-    //edit theo dang binh thuong
-    public $editFieldSettings = array(
-        array(
-            ATTR_INDEX => 'name',
-            ATTR_TYPE => 'text',
-            ATTR_LABEL => 'Tên người dùng'
-        ),
-
-        array(
-            ATTR_INDEX => 'password',
-            ATTR_TYPE => 'password',
-            ATTR_LABEL => 'Mật khẩu mới'
-        ),
-        array(
-            ATTR_INDEX         => 'parent',
-            ATTR_TYPE             => EDIT_TYPE_SELECT,
-            ATTR_LABEL           => 'Cha',
-            ATTR_TABLE           => 'admin',
-            ATTR_SHOW_VALUE      => 'id',
-            ATTR_SHOW_NAME      => 'name'
-        ),
-        array(
-            ATTR_INDEX         => 'categoryIds',
-            ATTR_TYPE             => EDIT_TYPE_MULTISELECT,
-            ATTR_LABEL           => 'Danh mục cha',
-            ATTR_TABLE           => 'categories',
-            ATTR_SHOW_VALUE      => 'id',
-            ATTR_SHOW_NAME      => 'name'
-        ),
-        array(
-            ATTR_INDEX => 'areacode',
-            ATTR_TYPE => 'text',
-            ATTR_LABEL => 'Tỉnh/Thành phố'
-        ),
-        array(
-            ATTR_INDEX => 'district',
-            ATTR_TYPE => 'text',
-            ATTR_LABEL => 'Quận/Huyện'
-        ),
-        array(
-            ATTR_INDEX => 'school',
-            ATTR_TYPE => 'text',
-            ATTR_LABEL => 'Trường'
-        ),
-        array(
-            ATTR_INDEX => 'class',
-            ATTR_TYPE => 'text',
-            ATTR_LABEL => 'Khối'
-        ),
-        array(
-            ATTR_INDEX => 'classname',
-            ATTR_TYPE => 'text',
-            ATTR_LABEL => 'Tên lớp'
-        ),
-        array(
-            ATTR_INDEX => 'usertype_id',
-            ATTR_TYPE => 'select',
-            ATTR_LABEL => 'Tên quyền',
-            ATTR_TABLE => 'admin_level',
-            ATTR_SHOW_VALUE => 'id',
-            ATTR_SHOW_NAME => 'level'
-        ),
-
-        array(
-            ATTR_INDEX => 'status',
-            ATTR_TYPE => 'status',
-            ATTR_LABEL => 'Trạng thái',
-        )
-    );
-
-    public $editValidator = array(
-        'rules' => array(
-            'name' => array(
-                'required' => true,
-                'minlength' => 2,
-                'maxlength' => 50
-            )
-
-
-        ),
-        'messages' => array(
-            'name' => array(
-                'required' => 'Tên nhóm không được để trống',
-                'minlength' => 'Tên nhóm phải dài 2 ký tự trở lên',
-                'maxlength' => 'Tên nhóm chỉ dài tối đa 50 ký tự'
-            )
-
-
-
-        )
-    );
     //add link menu
 
     //export data
@@ -283,7 +205,7 @@ class PzkAdminModController extends PzkGridAdminController
     {
         $row = $this->getEditData();
         if ($this->validateEditData($row)) {
-            $password = trim(pzk_request('password'));
+            $password = trim(pzk_request()->getPassword());
             if ($password) {
 
                 $row['password'] = md5($password);
@@ -298,13 +220,16 @@ class PzkAdminModController extends PzkGridAdminController
             }
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
     public function addPostAction()
     {
         $row = $this->getAddData();
         if ($this->validateAddData($row)) {
+            /**
+             * @var PzkAdminModel $modeladmin
+             */
             $modeladmin = pzk_model('Admin');
             $checkUser = $modeladmin->checkUser($row['name']);
             if ($checkUser) {

@@ -7,11 +7,11 @@ class PzkDocumentController extends PzkController{
 	public function homeAction(){
 		$this->initPage()
 		->append('education/document/home');
-		pzk_page()->set('title', 'Tài liệu học tập');
-		pzk_page()->set('keywords', 'Tài liệu học tập');
-		pzk_page()->set('description', 'Các tài liệu giúp học sinh ôn tập các môn học bằng tiếng Anh');
-		pzk_page()->set('img', BASE_URL . '/default/skin/nobel/Themes/story/media/logo.png');
-		pzk_page()->set('brief', 'Các tài liệu giúp học sinh ôn tập các môn học bằng tiếng Anh');
+		pzk_page()->setTitle('Tài liệu học tập');
+		pzk_page()->setKeywords('Tài liệu học tập');
+		pzk_page()->setDescription('Các tài liệu giúp học sinh ôn tập các môn học bằng tiếng Anh');
+		pzk_page()->setImg(BASE_URL . '/default/skin/nobel/Themes/story/media/logo.png');
+		pzk_page()->setBrief('Các tài liệu giúp học sinh ôn tập các môn học bằng tiếng Anh');
 		$this->display();
 	}
 	
@@ -23,18 +23,18 @@ class PzkDocumentController extends PzkController{
 		
 		$catEntity 	= _db()->getTableEntity('categories')->load($categoryId, 1800);
 		
-		pzk_page()->set('title', 'Tài liệu: ' . $catEntity->get('name'));
-		pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-		pzk_page()->set('description', $catEntity->get('meta_description'));
-		pzk_page()->set('img', $catEntity->get('img'));
-		pzk_page()->set('brief', $catEntity->get('brief'));
+		pzk_page()->setTitle('Tài liệu: ' . $catEntity->getName());
+		pzk_page()->setKeywords($catEntity->getMeta_keywords());
+		pzk_page()->setDescription($catEntity->getMeta_description());
+		pzk_page()->setImg($catEntity->getImg());
+		pzk_page()->setBrief($catEntity->getBrief());
 		
 		$document 	= pzk_element('document');
-		$document->set('class', $class);
-		$document->set('categoryId', $categoryId);
-		$document->set('parentMode', true);
-		$document->set('parentId', $categoryId);
-		$document->set('parentField', 'categoryId');
+		$document->setClass($class);
+		$document->setCategoryId($categoryId);
+		$document->setParentMode(true);
+		$document->setParentId($categoryId);
+		$document->setParentField('categoryId');
 		$document->addFilter('classes', $class, 'like');
 		$this->display();
 	}
@@ -49,17 +49,17 @@ class PzkDocumentController extends PzkController{
 		
 		$documentEntity = _db()->getTableEntity('document')->load($documentId, 1800);
 		
-		pzk_page()->set('title', $documentEntity->get('title'));
-		pzk_page()->set('keywords', $documentEntity->get('meta_keywords'));
-		pzk_page()->set('description', $documentEntity->get('meta_description'));
-		pzk_page()->set('img', $documentEntity->get('img'));
-		pzk_page()->set('brief', $documentEntity->get('	brief'));
+		pzk_page()->setTitle($documentEntity->getTitle());
+		pzk_page()->setKeywords($documentEntity->getMeta_keywords());
+		pzk_page()->setDescription($documentEntity->getMeta_description());
+		pzk_page()->setImg($documentEntity->getImg());
+		pzk_page()->setBrief($documentEntity->get	brief());
 		
 		
 		$detail 	= pzk_element()->getDetail();
 		
 		if($detail) {
-			$detail->set('itemId', pzk_request()->get('id'));
+			$detail->setItemId(pzk_request()->getId());
 			pzk_stat()->log('document', $documentId);
 		}
 

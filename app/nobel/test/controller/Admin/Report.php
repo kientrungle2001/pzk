@@ -38,7 +38,7 @@ class PzkAdminReportController extends PzkReportController
 
     //search fields co type la text
     public $searchFields = array('shipper_name');
-    public $Searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
     //sort by
     public $sortFields = array(
         'total asc' => 'total tăng',

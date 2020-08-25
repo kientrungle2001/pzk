@@ -3,7 +3,7 @@
 			<img src="<?php echo @$data->image?>" alt="">
 			<div class="caption">
 				<h4 class="pull-right">$<?php echo @$data->price?></h4>
-				<h4><a href="<?php echo @$data->link?>"><?php echo @$data->name?></a>
+				<h4><a href="<?php echo @$data->getLink()?>"><?php echo @$data->name?></a>
 				</h4>
 				<p><?php echo @$data->brief?></p>
 			</div>

@@ -26,7 +26,7 @@ h4 {
 		<!-- Show data -->
 		<div class="panel panel-default">
 			
-			<table id="admin_table_<?php echo $data->get('id')?>" class="table table-hover table-bordered table-striped table-condensed">
+			<table id="admin_table_<?php echo $data->getId()?>" class="table table-hover table-bordered table-striped table-condensed">
 				<thead>
 				<tr>
 					<th><input type="checkbox" id="selecctall"/></th>
@@ -140,7 +140,7 @@ var listFieldSettings 	= <?php echo json_encode($listFieldSettings);?>;
 {/jstmpl grid_row}
 
 <script>
-pzk.beforeload('<?php echo $data->get('id')?>', function(){
+pzk.beforeload('<?php echo $data->getId()?>', function(){
 	var objectJs = <?php echo json_encode($objectJs)?>;
 	$.extend(this, objectJs);
 });

@@ -7,7 +7,7 @@ if($item['testId']) {
 	$test = _db()->selectAll()->fromTests()->whereId($item['testId'])->result_one();
 }
 //debug($questions);
-$totalMark = $data->get('teacherMark') + $item['totalTn'];
+$totalMark = $data->getTeacherMark() + $item['totalTn'];
 ?>
 <div class="container">
 <br/>

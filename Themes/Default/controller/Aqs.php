@@ -5,18 +5,18 @@ class PzkAqsController extends PzkController {
 	
 	public function indexAction() {
 		$this->initPage();
-		pzk_page()->set('title', 'Hỏi đáp nhanh phần mềm Full Look');
-		pzk_page()->set('keywords', 'Giáo dục, hỏi đáp nhanh, full look');
-		pzk_page()->set('description', 'Hỏi đáp nhanh phần mềm Full Look');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Hỏi đáp nhanh phần mềm Full Look');
+		pzk_page()->setTitle('Hỏi đáp nhanh phần mềm Full Look');
+		pzk_page()->setKeywords('Giáo dục, hỏi đáp nhanh, full look');
+		pzk_page()->setDescription('Hỏi đáp nhanh phần mềm Full Look');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Hỏi đáp nhanh phần mềm Full Look');
 		$this->append('aqs')->display();
 	}
 	
 	public function pageAction(){
 		$obj = $this->parse('cms/AQs/AQshome');
-		$obj->set('isAjax', true);
-		$obj->set('page', intval(pzk_request()->get('page')));
+		$obj->setIsAjax(true);
+		$obj->setPage(intval(pzk_request()->getPage()));
 		$obj->display();
 	}
 	
@@ -31,7 +31,7 @@ class PzkAqsController extends PzkController {
 					'question' => $question,
 					'username' => $username,
 					'userId'	=> pzk_session('userId'),
-					'software' => pzk_request()->get('softwareId')
+					'software' => pzk_request()->getSoftwareId()
 				);
 				$entity = _db()->useCB()->getEntity('table')->setTable('aqs_question');
 				$entity->setData($addquestion);
@@ -58,7 +58,7 @@ class PzkAqsController extends PzkController {
 					'answer' 		=> $answer,
 					'userId' 		=> $userid,
 					'username' 		=> $username,
-					'software' 		=> pzk_request()->get('softwareId')
+					'software' 		=> pzk_request()->getSoftwareId()
 				);
 				$entity 	= _db()->useCB()
 					->getEntity('table')

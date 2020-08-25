@@ -12,7 +12,7 @@ require_once 'include.php';
 $sys = pzk_parse('system/full');
 require_once 'app/'.pzk_request()->getAppPath().'/configuration.php';
 
-$config = pzk_global()->get('config');
+$config = pzk_global()->getConfig();
 */
 $time_cache_web = -1; // $config['time_cache_web'];
 $time_cache_session = -1; // $config['time_cache_session'];

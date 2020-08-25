@@ -2,7 +2,7 @@
 class PzkAdminTuvanController extends PzkGridAdminController {
 	public $table = 'tuvan';
 	public $searchFields = array('id');
-    public $Searchlabels = 'Id';
+    public $searchLabel = 'Id';
 	public $filterFields = array(
 		array(
             'index' => 'type',

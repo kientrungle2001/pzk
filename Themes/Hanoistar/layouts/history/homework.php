@@ -76,16 +76,16 @@ if($item['testId']) {
 		
 		
 		
-		pzk_global()->set('answerTmpHs', $answerHs);
+		pzk_global()->setAnswerTmpHs($answerHs);
 		
-		pzk_global()->set('itemsTmp', $question);
+		pzk_global()->setItemsTmp($question);
 		
 		//bai cua hoc sinh
 		$pattern = '/\[(input|i)([\d]+)(\[([\d]+)\])?\]/';
 		
 		$contenths = preg_replace_callback($pattern, function($matches) {
-			$answer	=	pzk_global()->get('answerTmpHs');
-			$item		=	pzk_global()->get('itemsTmp');
+			$answer	=	pzk_global()->getanswerTmpHs();
+			$item		=	pzk_global()->getItemsTmp();
 			
 			return '
 			<input  size="' . @$matches[4] . '" value="'.$answer['i'][$matches[2]].'"  />';
@@ -94,8 +94,8 @@ if($item['testId']) {
 		$pattern = '/\[(tput|tp)([\d]+)(\[([\d]+)\])?\]/';
 		
 		$contenths = preg_replace_callback($pattern, function($matches) {
-			$answer	=	pzk_global()->get('answerTmpHs');
-			$item		=	pzk_global()->get('itemsTmp');
+			$answer	=	pzk_global()->getanswerTmpHs();
+			$item		=	pzk_global()->getItemsTmp();
 			
 			return '
 			<input  class="input_dt" size="' . @$matches[4] . '" value="'.@$answer['i'][@$matches[2]].'" />';
@@ -105,8 +105,8 @@ if($item['testId']) {
 		$pattern = '/\[(textarea|t)([\d]+)\]/';
 		
 		$contenths = preg_replace_callback($pattern, function($matches) {
-			$answer	=	pzk_global()->get('answerTmpHs');
-			$item		=	pzk_global()->get('itemsTmp');
+			$answer	=	pzk_global()->getanswerTmpHs();
+			$item		=	pzk_global()->getItemsTmp();
 			return '<textarea class="item tinymce_input" name="answers['.$item['id'].'_t]['.$matches[2].']">'
 			.
 			nl2br($answer['t'][$matches[2]])
@@ -120,13 +120,13 @@ if($item['testId']) {
 		if($answerTl['content_edit'] != '') {
 			$answer = unserialize($answerTl['content_edit']);
 			
-			pzk_global()->set('answerTmp', $answer);
+			pzk_global()->setAnswerTmp($answer);
 		
 			$pattern = '/\[(input|i)([\d]+)(\[([\d]+)\])?\]/';
 			
 			$content = preg_replace_callback($pattern, function($matches) {
-				$answer	=	pzk_global()->get('answerTmp');
-				$item		=	pzk_global()->get('itemsTmp');
+				$answer	=	pzk_global()->getanswerTmp();
+				$item		=	pzk_global()->getItemsTmp();
 				
 				if(isset($answer['checkfalse'][@$matches[2]])) {
 					$check = 'checked="checked"';
@@ -144,8 +144,8 @@ if($item['testId']) {
 			$pattern = '/\[(tput|tp)([\d]+)(\[([\d]+)\])?\]/';
 			
 			$content = preg_replace_callback($pattern, function($matches) {
-				$answer	=	pzk_global()->get('answerTmp');
-				$item		=	pzk_global()->get('itemsTmp');
+				$answer	=	pzk_global()->getanswerTmp();
+				$item		=	pzk_global()->getItemsTmp();
 				
 				if(isset($answer['checkfalse'][@$matches[2]])) {
 					$check = 'checked';
@@ -164,8 +164,8 @@ if($item['testId']) {
 			$pattern = '/\[(textarea|t)([\d]+)\]/';
 			
 			$content = preg_replace_callback($pattern, function($matches) {
-				$answer	=	pzk_global()->get('answerTmp');
-				$item		=	pzk_global()->get('itemsTmp');
+				$answer	=	pzk_global()->getanswerTmp();
+				$item		=	pzk_global()->getItemsTmp();
 				return '<textarea class="item tinymce_input" name="answers['.$item['id'].'_t]['.$matches[2].']">'
 				.
 				nl2br($answer['t'][$matches[2]])

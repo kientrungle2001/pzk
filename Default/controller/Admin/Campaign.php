@@ -183,7 +183,7 @@ class PzkAdminCampaignController extends PzkGridAdminController {
 				'sortFields' => PzkSortConstant::gets('id, title, categoryId, ordering', 'news'),
 				'orderBy'	=> 'news.id desc',
 				'searchFields' => array('`news`.title', '`news`.alias', '`categories`.name', '`campaign`.name'),
-				'Searchlabels' => 'Tên ứng dụng',
+				'searchLabel' => 'Tên ứng dụng',
 				'listFieldSettings'	=> array(
 					PzkListConstant::get('img', 'news'),
 					PzkListConstant::group('<br />Tiêu đề<br />Bí danh', 'title, alias', 'news'),

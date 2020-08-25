@@ -6,8 +6,8 @@ class PzkProfileController extends PzkFrontendController
 	public function detailAction()
 	{
 		if(1 && pzk_themes('cms')) {
-			$this->set('masterPage', 'onepage');
-			$this->set('masterPosition', 'left');
+			$this->setMasterPage('onepage');
+			$this->setMasterPosition('left');
 			
 		}
 		$this->render('user/profile/detail');
@@ -26,16 +26,16 @@ class PzkProfileController extends PzkFrontendController
 	{
 		$message = "";
 		$request = pzk_request();
-		$name = $request->get('name');
-		$birthday = $request->get('birthday');
-		$address = $request->get('address');
-		$phone = $request->get('phone');
-		$sex = $request->get('sex');
+		$name = $request->getName();
+		$birthday = $request->getBirthday();
+		$address = $request->getaddress();
+		$phone = $request->getPhone();
+		$sex = $request->getSex();
 		$editdate = date("Y-m-d H:i:s"); 
 		$userId = pzk_session('userId');
-		$school = $request->get('school');
-		$class = $request->get('class1');
-		$area = $request->get('areacode');
+		$school = $request->getSchool();
+		$class = $request->getClass1();
+		$area = $request->getareacode();
 		$user = _db()->getEntity('User.Account.User');
 		$user->loadWhere(array('id',$userId));
 		$user->update(array('name' => $name, 'birthday' => $birthday, 'address' => $address, 'sex' => $sex, 'phone' => $phone, 'school' =>$school, 'class' =>$class, 'areacode' =>$area, 'modified' =>$editdate, 'modifiedId' =>$userId));
@@ -49,32 +49,32 @@ class PzkProfileController extends PzkFrontendController
 	public function addinforPostAction()
 	{
 		$request = pzk_request();
-		$email = $request->get('email');
-		$username = $request->get('username');
+		$email = $request->getEmail();
+		$username = $request->getUsername();
 		$user = _db()->getEntity('User.Account.User');
 
 		$testUser = $user->loadWhere(array('username',$username));
-		if($testUser->get('id')) {
+		if($testUser->getId()) {
 				//$error = "Tên đăng nhập đã tồn tại trên hệ thống";
 				echo '01';
 				return false;
 		}else{
 				
 			$testEmail = $user->loadWhere(array('email',$email));
-			if($testEmail->get('id')) {
+			if($testEmail->getId()) {
 				//$error = "Email đã tồn tại trên hệ thống";
 				echo '02';
 				return false;
 			}else{
-				$sex = $request->get('sex');
-				$password = $request->get('password');
+				$sex = $request->getSex();
+				$password = $request->getPassword();
 				$password = md5($password);
-				$birthday = $request->get('birthday');
-				$phone = $request->get('phone');
-				$address = $request->get('address');
-				$school = $request->get('school');
-				$class = $request->get('class1');
-				$area = $request->get('area');
+				$birthday = $request->getBirthday();
+				$phone = $request->getPhone();
+				$address = $request->getaddress();
+				$school = $request->getSchool();
+				$class = $request->getClass1();
+				$area = $request->getarea();
 				$editdate = date("Y-m-d H:i:s"); 
 				$userId = pzk_session('userId');
 				$user->loadWhere(array('id',$userId));
@@ -89,22 +89,22 @@ class PzkProfileController extends PzkFrontendController
 	{
 		
 		$request = pzk_request();
-		$username = $request->get('username');
+		$username = $request->getUsername();
 		$user = _db()->getEntity('User.Account.User');
 		$testUser = $user->loadWhere(array('username',$username));
-		if($testUser->get('id')) {
+		if($testUser->getId()) {
 			echo '01';
 		}else{
-				$name = $request->get('name');
-				$sex = $request->get('sex');
-				$password = $request->get('password');
+				$name = $request->getName();
+				$sex = $request->getSex();
+				$password = $request->getPassword();
 				$password = md5($password);
-				$birthday = $request->get('birthday');
-				$phone = $request->get('phone');
-				$address = $request->get('address');
-				$school = $request->get('school');
-				$class = $request->get('class1');
-				$area = $request->get('area');
+				$birthday = $request->getBirthday();
+				$phone = $request->getPhone();
+				$address = $request->getaddress();
+				$school = $request->getSchool();
+				$class = $request->getClass1();
+				$area = $request->getarea();
 				$editdate = date("Y-m-d H:i:s"); 
 				$userId = pzk_session('userId');
 				$user->loadWhere(array('id',$userId));
@@ -123,16 +123,16 @@ class PzkProfileController extends PzkFrontendController
 	{
 		
 		$request = pzk_request();
-		$oldpassword = md5($request->get('oldpass'));
-		$newpassword = $request->get('newpass');
+		$oldpassword = md5($request->getOldpass());
+		$newpassword = $request->getNewpass();
 		
 		$userId = pzk_session('userId');
 		$user = _db()->getEntity('User.Account.User');
 		$user->loadWhere(array('and',array('id',$userId),array('password',$oldpassword)));
-		if($user->get('id'))
+		if($user->getId())
 		{
 			$confirmpassword = md5($oldpassword.$newpassword);
-			$email = $user->get('email');			
+			$email = $user->getEmail();			
 			// Update Key
 			$user->update(array('key' => $confirmpassword));
 			$this->sendMail($email,$confirmpassword,$newpassword);
@@ -154,11 +154,11 @@ class PzkProfileController extends PzkFrontendController
 		$arr = array('editpassword' =>$key, 'conf' =>$newpassword);
 		$request = pzk_request();
 		$url = $request->build($url,$arr);
-		$mailtemplate->set('url', $url);
+		$mailtemplate->setUrl($url);
 		$mail = pzk_mailer();
 		$mail->AddAddress($email);
 		$mail->Subject = 'Thay đổi mật khẩu';
-		$mail->Body    = $mailtemplate->get('content');
+		$mail->Body    = $mailtemplate->getContent();
 		if(!$mail->send()) {
 			echo 'Message could not be sent.';
 			echo 'Mailer Error: ' . $mail->ErrorInfo;
@@ -169,18 +169,18 @@ class PzkProfileController extends PzkFrontendController
 	public function confirmpassAction()
 	{
 		$request = pzk_request();
-		$confirm = $request->get('editpassword');
-		$newpassword = $request->get('conf');
+		$confirm = $request->getEditpassword();
+		$newpassword = $request->getConf();
 		$username = pzk_session('username');
 		$userId = pzk_session('userId');
 		$editdate = date("Y-m-d H:i:s"); 
 		$user = _db()->getEntity('User.Account.User');
 		$user->loadWhere(array(array('key', $confirm),array('username',$username))); 
-		if($user->get('id'))
+		if($user->getId())
 		{	
 			$editpass = $this->parse('user/profile/editpasswordsuccess');
-			$editpass->set('username', "ok");		
-			$user->update(array('password' => $newpassword, 'key' =>'', 'modified' =>$editdate, 'modifiedId' =>$user->get('id')));
+			$editpass->setUsername("ok");		
+			$user->update(array('password' => $newpassword, 'key' =>'', 'modified' =>$editdate, 'modifiedId' =>$user->getId()));
 			
 			$this->initPage();
 			$this->append($editpass);
@@ -189,7 +189,7 @@ class PzkProfileController extends PzkFrontendController
 		else
 		{
 			$editpass = $this->parse('user/profile/editpasswordsuccess');
-			$editpass->set('username', "");
+			$editpass->setUsername("");
 			$this->initPage();
 			$this->append($editpass);
 			$this->display();
@@ -272,7 +272,7 @@ class PzkProfileController extends PzkFrontendController
 	public function editavatarPostAction(){
 		$max_image_size 		 = 150; //Maximum image size (height and width
 		$jpeg_quality 			 = 150; 
-		//$fileToUpload = pzk_request()->get('fileToUpload');
+		//$fileToUpload = pzk_request()->getFileToUpload();
 		$image_name = $_FILES['fileToUpload']['name']; //file name
 		$image_size = $_FILES['fileToUpload']['size']; //file size
 		$image_temp = $_FILES['fileToUpload']['tmp_name'];

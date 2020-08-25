@@ -10,7 +10,7 @@ class PzkNewsletterModel {
 	public function getNewsletter() {
 		$entity = _db()->getTableEntity('newsletter_newsletter');
 		$entity->loadWhere(array('status', '1'));
-		if($entity->get('id')) {
+		if($entity->getId()) {
 			return $entity;
 		}
 		return null;

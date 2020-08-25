@@ -528,7 +528,7 @@ class PzkAdminOrderController extends PzkGridAdminController {
             //Khách hàng mua dịch vụ bằng tài khoản ngân hàng
             if($username){
                 $user->loadWhere(array('username',$username));
-                $userId=$user->get('id');
+                $userId=$user->getId();
                 $row['userId']=$userId;
             }
             $orderId=$this->add($row);
@@ -586,7 +586,7 @@ class PzkAdminOrderController extends PzkGridAdminController {
             //Khách hàng mua dịch vụ bằng tài khoản ngân hàng
             if($username){
                 $user->loadWhere(array('username',$username));
-                $userId=$user->get('id');
+                $userId=$user->getId();
                 $row['userId']=$userId;
             }
              
@@ -595,18 +595,18 @@ class PzkAdminOrderController extends PzkGridAdminController {
             // Update bang order_transaction
             $orderTrans=_db()->getEntity('Payment.Transaction');
             $orderTrans->loadWhere(array('orderId',$orderId));
-            if($orderTrans->get('id')){
+            if($orderTrans->getId()){
                 $orderTrans->update(array('orderId'=>$orderId,'userId'=>$row['userId'],'amount'=>$row['amount'],'paymentDate'=>date("Y-m-d H:i:s"),'paymentType'=>$row['paymentType'],'transactionStatus'=>$row['paymentStatus'],'status'=>$row['status']));
             } 
             // Lưu bảng order_shipping
             $shipping=_db()->getEntity('Service.Ordershipping');
             $shipping->loadWhere(array('orderId',$orderId));
-            if($shipping->get('id')){
+            if($shipping->getId()){
                 $shipping->delete();
             }
             $orderitem=_db()->getEntity('Service.Orderitem');
             $orderitem->loadWhere(array('orderId',$orderId));
-            if($orderitem->get('id')){
+            if($orderitem->getId()){
                 $orderitem->delete();
             }
             if($row['note'] !=0){

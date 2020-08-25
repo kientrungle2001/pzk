@@ -12,7 +12,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 	}
 
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
 
     //sort by
     public function getSortFields() {
@@ -57,7 +57,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 
     public function editPostAction() {
         $row = $this->getEditData();
-        $id = pzk_request()->get('id');
+        $id = pzk_request()->getId();
 
         if($this->validateEditData($row)) {
             $data = _db()->useCB()->select('img')->from('categories')->where(array('id', $id))->result_one();
@@ -75,7 +75,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
     }
 
     public function delPostAction() {
-        $id = pzk_request()->get('id');
+        $id = pzk_request()->getId();
         $data = _db()->useCB()->select('img')->from($this->table)->where(array('id', $id))->result_one();
         if($data['img']) {
             unlink($data['img']);
@@ -125,13 +125,13 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 
 	public function importQuestionsPostAction() {
 		set_time_limit(0);
-		$content = pzk_request()->get('content');
+		$content = pzk_request()->getContent();
 		file_put_contents(BASE_DIR . '/tmp/cauhoi.txt', $content);
 		echo 'Import dữ liệu<br />';
 		$categoryId = pzk_request()->getSegment(3);
 		$model = _db()->getEntity('Import.Category');
 		$model->load($categoryId);
-		$model->set('filePath', BASE_DIR . '/tmp/cauhoi.txt');
+		$model->setFilePath(BASE_DIR . '/tmp/cauhoi.txt');
 		$model->import();
 		//$this->assertEqual(count($model->getQuestions()), 15);
 		$questions = $model->getQuestions();
@@ -141,37 +141,37 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 			$question->import();
 			$answers = $question->getAnswers();
 			if(!count($answers)) continue;
-			//$existed = $question->getOne(array('name', $question->get('name')));
+			//$existed = $question->getOne(array('name', $question->getName()));
 			$answerQuestion1 = _db()->select('*')->from('answers_question_tn')
 				->join('questions', 'answers_question_tn.question_id = questions.id')
 				->where(array('and', 
-					array('equal', array('column', 'questions', 'name'), $question->get('name')), 
-					array('equal', array('column', 'answers_question_tn', 'content'), $answers[0]->get('content'))));
+					array('equal', array('column', 'questions', 'name'), $question->getName()), 
+					array('equal', array('column', 'answers_question_tn', 'content'), $answers[0]->getContent())));
 			$answerQuestion1 = $answerQuestion1->result_one('table');
 			$answerQuestion2 = _db()->select('*')->from('answers_question_tn')
 				->join('questions', 'answers_question_tn.question_id = questions.id')
 				->where(array('and', 
-					array('equal', array('column', 'questions', 'name'), $question->get('name')), 
-					array('equal', array('column', 'answers_question_tn', 'content'), $answers[0]->get('content'))));
+					array('equal', array('column', 'questions', 'name'), $question->getName()), 
+					array('equal', array('column', 'answers_question_tn', 'content'), $answers[0]->getContent())));
 			$answerQuestion2 = $answerQuestion2->result_one('table');
-			if($answerQuestion1 && $answerQuestion1->get('id') && $answerQuestion2 && $answerQuestion2->get('id')) {				
-				echo $answerQuestion1->get('name') . ' đã tồn tại<br />';
+			if($answerQuestion1 && $answerQuestion1->getId() && $answerQuestion2 && $answerQuestion2->getId()) {				
+				echo $answerQuestion1->getName() . ' đã tồn tại<br />';
 				continue;
 			}
-			$question->set('categoryIds', $categoryIds);
-			$question->set('created', date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
-			$question->set('createdId', pzk_session()->get('adminId'));			
-			$question->set('software', pzk_request()->get('softwareId'));			
-			$question->set('questionType', 1);
+			$question->setCategoryIds($categoryIds);
+			$question->setCreated(date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
+			$question->setCreatedId(pzk_session()->getadminId());			
+			$question->setSoftware(pzk_request()->getSoftwareId());			
+			$question->setQuestionType(1);
 			$question->save();
 						
-			if($question->get('id')) {
-				echo 'Question imported: ' . $question->get('name') . '<br />';			
+			if($question->getId()) {
+				echo 'Question imported: ' . $question->getName() . '<br />';			
 			}
 			foreach($answers as $answer) {
-				$answer->set('question_id', $question->get('id'));
-				$answer->set('date_modify', date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
-				$answer->set('admin_modify', pzk_session()->get('adminId'));
+				$answer->setQuestion_id($question->getId());
+				$answer->setDate_modify(date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
+				$answer->setAdmin_modify(pzk_session()->getadminId());
 				$answer->save();
 			}
 			$totalAnswers += count($answers);

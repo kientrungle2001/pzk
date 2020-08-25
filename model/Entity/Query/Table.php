@@ -10,7 +10,7 @@ class PzkEntityQueryTableModel extends PzkEntityModel {
 	}
 	public function getSet() {
 		if(!isset($this->_set)) {
-		$this->_set = _db()->getEntity('Attribute.Set')->load($this->get('setId'));
+		$this->_set = _db()->getEntity('Attribute.Set')->load($this->getSetId());
 		}
 		return $this->_set;
 	}
@@ -18,10 +18,10 @@ class PzkEntityQueryTableModel extends PzkEntityModel {
 		$rs = array();
 		$fields = $this->getFields();
 		if(!$fields) return '';
-		if($alias = $this->get('code', $this->getSet()->get('code'))) {
+		if($alias = $this->get('code', $this->getSet()->getCode())) {
 			if($fields)
 			foreach($fields as $field) {
-				$rs[] = $alias . '.' . $field->get('leftField') . ' as ' . $field->get('code');
+				$rs[] = $alias . '.' . $field->getLeftField() . ' as ' . $field->getCode();
 			}
 			if(!count($rs)) {
 				return $alias.'.*';
@@ -30,7 +30,7 @@ class PzkEntityQueryTableModel extends PzkEntityModel {
 		} else {
 			if($fields)
 			foreach($fields as $field) {
-				$rs[] = $field->get('leftField') . ' as ' . $field->get('code');
+				$rs[] = $field->getLeftField() . ' as ' . $field->getCode();
 			}
 			if(!count($rs)) {
 				return '*';

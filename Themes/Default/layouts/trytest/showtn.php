@@ -1,6 +1,6 @@
 <div class="container boder nomg contentheight robotofont">
 	<?php 
-		$camp = $data->get('camp');
+		$camp = $data->getCamp();
 		$showQuestions 	= $data->getQuestionByTrytest(TN, $camp);
 		
 		if(count($showQuestions) > 0) { 
@@ -23,8 +23,8 @@
 			$processAnswer[$val['question_id']][] = $val;
 		}	
 		
-		$data_criteria	= $data->get('data_criteria');
-		$userInfo = $data->get('userInfo'); 
+		$data_criteria	= $data->getData_criteria();
+		$userInfo = $data->getUserInfo(); 
 	
 	?>
 	
@@ -83,11 +83,11 @@
 											$questionChoice = _db()->getEntity('Question.Choice');
 											$questionChoice->setData($value);
 										
-											$QuestionObj->set('question', $questionChoice);
+											$QuestionObj->setQuestion($questionChoice);
 										
-											$QuestionObj->set('type', $questionChoice->get('type'));
+											$QuestionObj->setType($questionChoice->getType());
 											
-											$QuestionObj->set('questionId', $value['id']);
+											$QuestionObj->setQuestionId($value['id']);
 											
 											//answer
 											$answerEntitys = array();
@@ -96,10 +96,10 @@
 												$answerEntity->setData($val);
 												$answerEntitys[] = $answerEntity;
 											}
-											$QuestionObj->set('answers', $answerEntitys);
+											$QuestionObj->setAnswers($answerEntitys);
 											
-											$QuestionObj->set('cacheable', 'false');
-											$QuestionObj->set('cacheParams', 'layout, questionId');
+											$QuestionObj->setCacheable('false');
+											$QuestionObj->setCacheParams('layout, questionId');
 											$QuestionObj->display();
 										?>
 										</div>

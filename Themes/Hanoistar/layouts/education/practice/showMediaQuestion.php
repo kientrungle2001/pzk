@@ -1,9 +1,9 @@
 <?php
 	
 	$check = pzk_session('checkPayment');
-	$category = $data->get('category');
-	$category_id = $data->get('categoryId');
-	$category_name = $data->get('categoryName');
+	$category = $data->getCategory();
+	$category_id = $data->getCategoryId();
+	$category_name = $data->getCategoryName();
 
 	$class= pzk_session('lop');
 	$currentMedia	=	intval(pzk_request('media'));
@@ -19,9 +19,9 @@
 	if($subject) {
 		
 		$subjectEntity = _db()->getTableEntity('categories')->load($subject, 1800);
-		$parentSubject = $subjectEntity->get('parent');
+		$parentSubject = $subjectEntity->getParent();
 	}
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
 	
 ?>
@@ -85,7 +85,7 @@
 									$topicId = intval(pzk_request('topic'));
 									$topic = $data->getTopicsName($topicId, $class);
 									if($lang == 'en' || $lang == 'ev'){ echo $topic['name_en']; }else{ echo $topic['name_vn']; }
-									echo ' - ' .$mediaEntity->get('name'); 
+									echo ' - ' .$mediaEntity->getName(); 
 								} ?>
 								
 							<?php } ?>
@@ -96,8 +96,8 @@
 
 				
 				<div class="col-xs-12 margin-top-20">
-					<?php if(strpos($mediaEntity->get('url'), 'youtube.com') === false):?>
-					<?php if($mediaEntity->get('url')):?>
+					<?php if(strpos($mediaEntity->getUrl(), 'youtube.com') === false):?>
+					<?php if($mediaEntity->getUrl()):?>
 					<video width="100%" controls>
 					  <source src="<?=$media['url']; ?>" type="video/mp4">
 					  Your browser does not support HTML5 video.
@@ -105,7 +105,7 @@
 					<?php endif;?>
 					<?php else: ?>
 					<?php
-						$url = $mediaEntity->get('url');
+						$url = $mediaEntity->getUrl();
 						preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $url, $matches);
 						$id = $matches[1];
 						$width = '100%';
@@ -122,7 +122,7 @@
 					}
 					</style>
 					<div class="media-content show-less">
-						<?php echo $mediaEntity->get('content') ?>
+						<?php echo $mediaEntity->getContent() ?>
 					
 					</div>
 				</div>

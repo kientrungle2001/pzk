@@ -22,7 +22,7 @@ class PzkPaymentController extends PzkController
 		$modelNL=  pzk_model('Transaction');
 		$nganluongUrl= $modelNL->PayNganLuong();
 		
-		$this->set('urlNL', $nganluongUrl);
+		$this->setUrlNL($nganluongUrl);
 		$this->display();	
 	}
 	public function officeAction()
@@ -80,11 +80,11 @@ class PzkPaymentController extends PzkController
 	{
 		if(pzk_session('userId')) {
 			$this->layout();
-			pzk_page()->set('title', 'Thanh toán online qua thẻ cào điện thoại và ví điện tử');
-			pzk_page()->set('keywords', 'Giáo dục');
-			pzk_page()->set('description', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-			pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-			pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+			pzk_page()->setTitle('Thanh toán online qua thẻ cào điện thoại và ví điện tử');
+			pzk_page()->setKeywords('Giáo dục');
+			pzk_page()->setDescription('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+			pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+			pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 			$this->append('ecommerce/payment/paycardmobile');
 			$this->display();
 		} else {
@@ -97,9 +97,9 @@ class PzkPaymentController extends PzkController
 	public function paycardPostAction()
 	{
 		$request		=	pzk_request();
-		$type_card		=	$request->get('pm_typecard');
-		$card_serial	=	$request->get('pm_txt_serialcard');
-		$pin_card		=	$request->get('pm_txt_pincard');
+		$type_card		=	$request->getPm_typecard();
+		$card_serial	=	$request->getPm_txt_serialcard();
+		$pin_card		=	$request->getPm_txt_pincard();
 		if($type_card=='' || $card_serial=='' || $pin_card==''){
 			return false;
 		}
@@ -147,7 +147,7 @@ class PzkPaymentController extends PzkController
 				$history_payment->setData($row);
 				$history_payment->save();*/
 				//isert table order_transaction
-				//$orderId= $history_payment->get('id');
+				//$orderId= $history_payment->getId();
 				$transaction			=	_db()->getEntity('Payment.Transaction');
 				$row_					=	array(
 						'userId'			=>	pzk_session('userId'),
@@ -167,7 +167,7 @@ class PzkPaymentController extends PzkController
 			// insert table wallets
 				$wallets				=	_db()->getEntity('User.Account.Wallets');
 				$wallets->loadWhere(array('username',$client_fullname));
-				if($wallets->get('id'))
+				if($wallets->getId())
 				{
 					//$card_amount= 10000;
 					$amountWall			= $wallets->getAmount();
@@ -217,9 +217,9 @@ class PzkPaymentController extends PzkController
 			return false;
 		}
 		$request		=	pzk_request();
-		$type_card		=	$request->get('pm_typecard');
-		$card_serial	=	$request->get('pm_txt_serialcard');
-		$pin_card		=	$request->get('pm_txt_pincard');
+		$type_card		=	$request->getPm_typecard();
+		$card_serial	=	$request->getPm_txt_serialcard();
+		$pin_card		=	$request->getPm_txt_pincard();
 		
 		require(BASE_DIR.'/3rdparty/thecao/includes/MobiCardPMTV.php');
     	$call 			= 	new MobiCard();		
@@ -285,7 +285,7 @@ class PzkPaymentController extends PzkController
 			// insert table wallets
 				$wallets =	_db()->getEntity('User.Account.Wallets');
 				$wallets->loadWhere(array('username',$client_fullname));
-				if($wallets->get('id'))
+				if($wallets->getId())
 				{
 					//$card_amount= 10000;
 					$amountWall			= $wallets->getAmount();
@@ -400,17 +400,17 @@ class PzkPaymentController extends PzkController
 				// Kiểm tra xem giao dịch đã tồn tại hay chưa trong banng order_transaction
 				$transaction=_db()->getEntity('Payment.Transaction');
 				$transaction->loadWhere(array('and',array('username',$username),array('paymentDate',$datePay)));
-				if(!$transaction->get('id'))
+				if(!$transaction->getId())
 				{
 					$row_=array('userId'=>pzk_session('userId'),'username'=>$username,'paymentType'=>'nganluong','amount'=>$amount,'paymentDate'=>$datePay,'status'=>1,'transactionId'=>$transaction_id,'paymentOption'=>$method_payment_name,'transactionStatus'=>1,'reason'=>'naptien_nganluong','cardType'=>$card_type,'cardAmount'=>$card_amount);		
 					$transaction->setData($row_);			
 					$transaction->save();
 					$wallets=_db()->getEntity('User.Account.Wallets');
 					$wallets->loadWhere(array('username',$username));
-					if($wallets->get('id'))
+					if($wallets->getId())
 					{
-						$itme= $wallets->get('amount');
-						$price= $price+ $wallets->get('amount');
+						$itme= $wallets->getamount();
+						$price= $price+ $wallets->getamount();
 						$wallets->update(array('amount'=>$price));
 					}
 					else
@@ -438,8 +438,8 @@ class PzkPaymentController extends PzkController
 	
 		//pzk_notifier_add_message($error, 'danger');
 		$payment = pzk_parse(pzk_app()->getPageUri('/payment/confirmpayment'));
-		$payment->set('amount', $price);
-		$payment->set('message', $message_nl);
+		$payment->setAmount($price);
+		$payment->setMessage($message_nl);
 		$this->layout();
 		$this->append('payment/left')->append($payment);		
 		$this->display();
@@ -459,11 +459,11 @@ class PzkPaymentController extends PzkController
 		$dateActive= date("y-m-d h:i:s");
 		$card_nextnobels= _db()->getEntity('Payment.Card_nextnobels');
 		$card_nextnobels->loadWhere(array('and',array('pincard',$nextnobels_card),array('serial',$nextnobels_serial)));
-		if($card_nextnobels->get('id'))
+		if($card_nextnobels->getId())
 		{
-			if($card_nextnobels->get('status')==1){
+			if($card_nextnobels->getStatus()==1){
 				// Cap nhat du lieu
-				$serviceId=$card_nextnobels->get('serviceId');
+				$serviceId=$card_nextnobels->getServiceId();
 				$row=array('userActive'=>$userActive,'dateActive'=>$dateActive, 'status'=>0 );
 				$card_nextnobels->update($row);
 				// ghi log file
@@ -476,7 +476,7 @@ class PzkPaymentController extends PzkController
 				$model = pzk_model('Transaction');
 				$model->buyService($userActive,$serviceId,'naptheNextnobels');
 				// insert table new_message
-				$serviceId=$card_nextnobels->get('serviceId');
+				$serviceId=$card_nextnobels->getServiceId();
 				$mess=array('userId'=>pzk_session('userId'),'messageType'=>'paycardNextnobels','serviceId'=>$serviceId,'date'=>date("Y-m-d H:i:s"),'status'=>0);
 				$message=_db()->getEntity('User.NewMessage');
 				$message->create($mess);

@@ -53,7 +53,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 	);
 
     public $searchFields = array('name', 'router');
-    public $Searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
    	
     public $sortFields = array(
         'id asc' => 'ID tăng',

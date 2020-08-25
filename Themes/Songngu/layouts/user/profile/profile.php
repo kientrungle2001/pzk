@@ -23,27 +23,27 @@
     <div class="pfr_infor">
       <div class="prf_label">
         <span class="prf_labels">Họ tên :</span>
-        <span><?php  echo $user->get('name');?></span>
+        <span><?php  echo $user->getName();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Nickname :</span>
-        <span><?php  echo $user->get('username');?></span>
+        <span><?php  echo $user->getUsername();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Ngày sinh :</span>
-        <span><?php  echo $user->get('birthday');?></span>
+        <span><?php  echo $user->getBirthday();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Giới tính :</span>
-        <span><?php  $data->checkSex($user->get('sex')) ;?></span>
+        <span><?php  $data->checkSex($user->getSex()) ;?></span>
       </div>
       <div class="prf_label2">
         <span class="prf_labels">Địa chỉ :</span>
-        <span><?php  echo $user->get('address');?></span>
+        <span><?php  echo $user->getaddress();?></span>
       </div>
       <div class="prf_label3">
         <span class="prf_labels">Trường :</span>
-        <span><?php  echo $user->get('school');?></span>
+        <span><?php  echo $user->getSchool();?></span>
       </div>
       <div class="prf_label">
         <span class="prf_labels">Thời hạn sản phẩm :</span>
@@ -53,7 +53,7 @@
     <div class="pfr_imgavatar">
       <div class="pfravatar">
         <div class="pfravatar_img">
-          <img src="<?php  echo $user->get('avatar');?>" alt="" width="197px" height="192px">
+          <img src="<?php  echo $user->getavatar();?>" alt="" width="197px" height="192px">
         </div>
       </div>
       <div class="pfrbutton">
@@ -85,7 +85,7 @@
             <div class="show_note">
             <form action="/Profile/editavatarPost" method="post" id="frmuploadavatar" enctype="multipart/form-data" runat="server">
             <div class="avatar">
-              <img id="img_avatar" src="<?php echo $user->get('avatar'); ?>"alt="" width="150px" height="148px">
+              <img id="img_avatar" src="<?php echo $user->getavatar(); ?>"alt="" width="150px" height="148px">
             </div>
                 <span class="show_note">Upload ảnh lên từ máy của bạn:Chỉ chấp nhận định dạng ảnh .JPG và .JPEG dung lượng ảnh tối đa 488kb.</span>
                 <input  style="float: left;" name="fileToUpload" id="fileToUpload" type="file" />

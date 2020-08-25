@@ -123,7 +123,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 	
 	//search fields co type la text
 	public $searchFields = array('`user_book`.`id`', '`user_book`.`school`' , 'username');
-	public $Searchlabels = 'Tìm kiếm';
+	public $searchLabel = 'Tìm kiếm';
 	
 	//filter cho cac truong co type la select
 	public $filterFields = array(
@@ -213,8 +213,8 @@ class PzkAdminBookController extends PzkGridAdminController {
 	
 	
 	public function changeLangAction() {
-		$this->getSession()->set('lang', pzk_request()->get('lang'));
-		$this->redirect('admin_book/details/'.pzk_request()->get('id'));
+		$this->getSession()->setLang(pzk_request()->getLang());
+		$this->redirect('admin_book/details/'.pzk_request()->getId());
 	}
 	public function detailsAction() {
 		
@@ -271,9 +271,9 @@ class PzkAdminBookController extends PzkGridAdminController {
 			
 		
 		
-		$user_book_view->set('dataShowUserBook', $dataShowUserBook);
+		$user_book_view->setDataShowUserBook($dataShowUserBook);
 			
-		$user_book_view->set('dataUserAnswers', $dataUserAnswers);
+		$user_book_view->setDataUserAnswers($dataUserAnswers);
 		
 		if(pzk_request('isAjax')) {
 			$user_book_view->display();
@@ -597,7 +597,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 							'duringTime' => $duringTime,
 							'choiceId' => $dataUserBookTn['id'],
 							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
+							'software' =>  pzk_request()->getSoftwareId(),
 							'modified' => date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
 							'modifiedId'	=> pzk_session('adminId')
 						);
@@ -622,7 +622,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 							'duringTime' => $duringTime,
 							'choiceId' => $dataUserBookTn['id'],
 							'writeId' => $dataUserBook['id'],
-							'software' =>  pzk_request()->get('softwareId'),
+							'software' =>  pzk_request()->getSoftwareId(),
 							'created' => date(DATEFORMAT,$_SERVER['REQUEST_TIME']),
 							'modifiedId'	=> pzk_session('adminId')
 						);

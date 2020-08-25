@@ -92,7 +92,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 	
 	//search fields co type la text
 	public $searchFields = array('`categories`.`name`', 'username', '`admin`.`name`');
-	public $Searchlabels = 'Tìm kiếm';
+	public $searchLabel = 'Tìm kiếm';
 	
 	//filter cho cac truong co type la select
 	public $filterFields = array(

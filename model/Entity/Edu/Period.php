@@ -21,10 +21,10 @@ class PzkEntityEduPeriodModel extends PzkEntityModel {
 					and
 					($student->getEndClassDate()==='0000-00-00' or $studyDate < $student->getEndClassDate())) {
 						if($studentScheduleDateCount == 0) {
-							$rs[$student->get('id')] = array();
+							$rs[$student->getId()] = array();
 						}
 						$studentScheduleDateCount++;
-						$rs[$student->get('id')][$studyDate]['status'] = 0;
+						$rs[$student->getId()][$studyDate]['status'] = 0;
 				}
 			}
 		}
@@ -87,7 +87,7 @@ class PzkEntityEduPeriodModel extends PzkEntityModel {
 		$rs = $this->getStudentStats();
 		foreach($orders as $order) {
 			$periodId = $order['periodId'];
-			if($periodId == $this->get('id')) {
+			if($periodId == $this->getId()) {
 				$studentId = $order['studentId'];
 				if(isset($rs[$studentId])) {
 					$rs[$studentId]['orderId'] = $order['orderId'];
@@ -99,23 +99,23 @@ class PzkEntityEduPeriodModel extends PzkEntityModel {
 	}
 	public $amountOfClass = array();
 	public function getAmountOfClass($class) {
-		if(!isset($this->amountOfClass[$class->get('id')])) {
+		if(!isset($this->amountOfClass[$class->getId()])) {
 			$tuition_fee = $this->getTuitionFee($class);
 			if($tuition_fee) {
-				$this->amountOfClass[$class->get('id')] = $tuition_fee;
+				$this->amountOfClass[$class->getId()] = $tuition_fee;
 			} else {
-				$this->amountOfClass[$class->get('id')] = $class->getAmount();
+				$this->amountOfClass[$class->getId()] = $class->getAmount();
 			}
 			
 		}
-		return $this->amountOfClass[$class->get('id')];
+		return $this->amountOfClass[$class->getId()];
 	}
 	
 	public function getTuitionFee($class) {
 		$tuition_fee = _db()->useCB()->select('*')
 			->fromTuition_fee()
-			->whereClassId($class->get('id'))
-			->wherePeriodId($this->get('id'))
+			->whereClassId($class->getId())
+			->wherePeriodId($this->getId())
 			->result_one();
 		if($tuition_fee) {
 			return $tuition_fee['amount'];
@@ -127,8 +127,8 @@ class PzkEntityEduPeriodModel extends PzkEntityModel {
 		$orders = _db()->useCB()
 			->select('id, orderId, payment_periodId as periodId, studentId')
 			->from('student_order')
-			->whereClassId($class->get('id'))
-			->wherePayment_periodId($this->get('id'))
+			->whereClassId($class->getId())
+			->wherePayment_periodId($this->getId())
 			->inStudentId(array_keys($students))
 			->result();
 		$payments = array();
@@ -159,7 +159,7 @@ class PzkEntityEduPeriodModel extends PzkEntityModel {
 	public function getStatOfTeacher($teacher) {
 		$stats = $this->getTeacherStats();
 		if($teacher) {
-			return @$stats[$teacher->get('id')];
+			return @$stats[$teacher->getId()];
 		}
 		return NULL;
 	}

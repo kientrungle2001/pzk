@@ -21,7 +21,7 @@
 		<div id='resPractice' class="container">
 
 		<?php
-		$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId'));
+		$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->getUserId());
 		
 		$data->pageSize = 20;
 		
@@ -155,7 +155,7 @@
 		<div  id='resPractice' class="container">
 
 		<?php
-		$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId'));
+		$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->getUserId());
 		
 		$data->pageSize = 20;
 		
@@ -289,7 +289,7 @@
 		<div id='resTest' class="container">
 
 		<?php
-		$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId'));
+		$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->getUserId());
 		
 		$data->pageSize = 20;
 		

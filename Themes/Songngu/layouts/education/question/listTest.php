@@ -13,7 +13,7 @@
 
 <?php
 
-$UserId = pzk_or(pzk_request()->getSegment(3), pzk_session()->get('userId'));
+$UserId = pzk_or(pzk_request()->getSegment(3), pzk_session()->getUserId());
 $pageSize = 25;
 $data->pageSize = $pageSize;
 

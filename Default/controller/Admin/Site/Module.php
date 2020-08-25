@@ -13,7 +13,7 @@ class PzkAdminSiteModuleController extends PzkGridAdminController {
         'name desc' => 'Tên giảm',
     );
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên Module';
+    public $searchLabel = 'Tên Module';
     public $listFieldSettings = array(
         array(
             'index' => 'image',

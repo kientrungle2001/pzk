@@ -27,7 +27,7 @@
 	<form class="form" method="post"  action="/Account/loginPost" >
 	<?php 
       
-       echo @$data->get('error');
+       echo @$data->getError();
        $request = pzk_request();
        ?>
 	   <div class="form-group">

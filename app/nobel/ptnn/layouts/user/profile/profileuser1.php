@@ -30,7 +30,7 @@
     
       <div class="infor_user1" ><span style="font-size:35px;" class="glyphicon glyphicon-star"></span></div>
       <div class="infor_user2">
-        <a href="/profile/user?member=<?php echo $member ?>"><?php echo $user->get('username')?></a>
+        <a href="/profile/user?member=<?php echo $member ?>"><?php echo $user->getUsername()?></a>
       </div>
    
     <div class="avatar_user">
@@ -40,8 +40,8 @@
     <div class="line"><span class="text_infor_user"><strong><?php echo $dateVip ?></strong></span></div>
     <div class="line"><span class="text_infor_user">Danh hiệu: <strong><?php echo $sortTrophies ?></strong></span></div>
     <div class="line"><span class="text_infor_user">Giới tính: <strong><?php echo $sex ?></strong></span></div>
-    <div class="line"><span class="text_infor_user">Sinh nhật: <strong><?php echo $user->get('birthday')?></strong></span></div>
-    <div class="line"><span class="text_infor_user">Địa chỉ: <strong><?php echo $user->get('address')?></strong></span></div>
+    <div class="line"><span class="text_infor_user">Sinh nhật: <strong><?php echo $user->getBirthday()?></strong></span></div>
+    <div class="line"><span class="text_infor_user">Địa chỉ: <strong><?php echo $user->getaddress()?></strong></span></div>
     <div class="line"><span class="text_infor_user">Sổ học bạ: <strong><?php echo $sortPoint ?></strong></span></div>
     <div class="line"><span class="text_infor_user">Điểm thành tích:<strong><?php echo $hieghtPoint ?></strong></span></div>
   </div>
@@ -74,13 +74,13 @@
       ?>
     <div class="prf_friend">
       <div class="prf_avatar_friend">
-        <a href="/profile/user?member=<?php echo $friend->get('id')?>">
+        <a href="/profile/user?member=<?php echo $friend->getId()?>">
           <img style="border-radius:6%" src="<?php echo $avatar_friend ?>" alt="" width="60px" height="60px">
         </a>
         
       </div>
       <div class="prf_name_friend">
-      <a class="userfriend" href="/profile/user?member=<?php echo $friend->get('id')?>"><?php echo $userfriend ?></a>
+      <a class="userfriend" href="/profile/user?member=<?php echo $friend->getId()?>"><?php echo $userfriend ?></a>
       </div>
     </div>
     <?php } ?>

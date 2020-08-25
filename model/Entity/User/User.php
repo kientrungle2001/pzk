@@ -8,38 +8,38 @@ class PzkEntityUserUserModel extends PzkEntityModel
 	public function getWallets()
 	{
 		$wallets=_db()->getEntity('User.Wallets');
-		$wallets->loadWhere(array('username',$this->get('username')));
+		$wallets->loadWhere(array('username',$this->getUsername()));
 		return $wallets;
 	}
 	
 	public function addFriend($user) {
-		if($user->get('id')) {
+		if($user->getId()) {
 			$friend = _db()->getEntity('User.Friend');
-			$friend->set('username', $this->get('username'));
-			$friend->set('userfriend',$this->get('userfriend'));
-			$friend->set('date', date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
+			$friend->setUsername($this->getUsername());
+			$friend->set('userfriend',$this->getUserfriend());
+			$friend->setDate(date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
 			$friend->save();
 			
 			$friend = _db()->getEntity('User.Friend');
-			$friend->set('username', $this->get('userfriend'));
-			$friend->set('userfriend', $this->get('username'));
-			$friend->set('date', date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
+			$friend->setUsername($this->getUserfriend());
+			$friend->setUserfriend($this->getUsername());
+			$friend->setDate(date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
 			$friend->save();
 		}
 		
 	}
 	
 	public function removeFriend($user) {
-		if($user->get('id')) {
+		if($user->getId()) {
 			$friend = _db()->getEntity('User.Friend');
-			$friend->loadWhere(array('and', array('username', $this->get('username')), array('userfriend', $user->get('username'))));
-			if($friend->get('id')) {
+			$friend->loadWhere(array('and', array('username', $this->getUsername()), array('userfriend', $user->getUsername())));
+			if($friend->getId()) {
 				$friend->delete();
 			}
 
 			$friend = _db()->getEntity('User.Friend');
-			$friend->loadWhere(array('and', array('username', $user->get('username')), array('userfriend', $this->get('username'))));
-			if($friend->get('id')) {
+			$friend->loadWhere(array('and', array('username', $user->getUsername()), array('userfriend', $this->getUsername())));
+			if($friend->getId()) {
 				$friend->delete();
 			}
 		}
@@ -47,11 +47,11 @@ class PzkEntityUserUserModel extends PzkEntityModel
 	}
 	
 	public function inviteFriend($user, $message) {
-		if($user->get('id')) {
+		if($user->getId()) {
 			$invitation = _db()->getEntity('User.Invitation');
-			$invitation->set('username', $this->get('username'));
-			$invitation->set('userinvitation', $user->get('username'));
-			$invitation->set('invitation', $message);
+			$invitation->setUsername($this->getUsername());
+			$invitation->setUserinvitation($user->getUsername());
+			$invitation->setInvitation($message);
 			$invitation->save();	
 		}
 	}

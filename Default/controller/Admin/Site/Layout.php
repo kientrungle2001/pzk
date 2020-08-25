@@ -13,7 +13,7 @@ class PzkAdminSiteLayoutController extends PzkGridAdminController {
         'name desc' => 'Tên giảm',
     );
     public $searchFields = array('site_layout.name');
-    public $Searchlabels = 'Tên Bố cục';
+    public $searchLabel = 'Tên Bố cục';
     public $listFieldSettings = array(
         array(
             'index' => 'theme',

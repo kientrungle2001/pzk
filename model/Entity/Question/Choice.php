@@ -3,7 +3,7 @@ class PzkEntityQuestionChoiceModel extends PzkEntityModel {
 	public $table = 'questions';
 	/*public function getAnswers() {
 		$answerEntitys = array();
-		$answers = _db()->useCache(1800)->selectAll()->from('answers_question_tn')->where(array('question_id',$this->get('id')))->result();
+		$answers = _db()->useCache(1800)->selectAll()->from('answers_question_tn')->where(array('question_id',$this->getId()))->result();
 		foreach($answers as $answer) {
 			$answerEntity = _db()->getEntity('question.choice.answer');
 			$answerEntity->setData($answer);
@@ -12,6 +12,6 @@ class PzkEntityQuestionChoiceModel extends PzkEntityModel {
 		return $answerEntitys;
 	}
 	public function getAnswersTopic() {
-		return _db()->selectAll()->from('answers_question_tn')->where(array('question_id',$this->get('id')))->result('question.topic.topic');
+		return _db()->selectAll()->from('answers_question_tn')->where(array('question_id',$this->getId()))->result('question.topic.topic');
 	}*/
 }

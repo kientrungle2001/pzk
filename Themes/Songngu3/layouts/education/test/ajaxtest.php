@@ -1,9 +1,9 @@
 <?php
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 $lang = pzk_session('language');
 $check = pzk_session('checkPayment');
-	$page = $data->get('page');
-	$class = $data->get('class'); 
+	$page = $data->getPage();
+	$class = $data->getClass(); 
 	$items = $data->getTests($class, 1410, $page, 15);	
 ?>
 

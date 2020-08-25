@@ -6,7 +6,7 @@ class PzkReportController extends PzkGridAdminController {
     public $customModule = 'report';
     public $module = 'report';
     public $selectFields = '*';
-    public $Searchlabels = false;
+    public $searchLabel = false;
     public $groupBy = false;
     public $having = false;
     public $groupByReport = false;

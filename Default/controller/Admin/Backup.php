@@ -58,7 +58,7 @@ class PzkAdminBackupController extends PzkGridAdminController {
 	}
 	
 	public function delPostAction() {
-		$id = pzk_request()->get('id');
+		$id = pzk_request()->getId();
 		$row = _db()->getTableEntity('admin_backup')->load($id);
 		unlink(BASE_DIR . $row->getUrl());
 		parent::delPostAction();

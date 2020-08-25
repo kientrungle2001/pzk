@@ -1,4 +1,4 @@
-<?php $language =pzk_global()->get('language'); ?>
+<?php $language =pzk_global()->getLanguage(); ?>
 <div class="item reposive">
 	<img class="item" src="/Themes/Hanoistar/skin/images/bg_tuvan.png" />
 	<div class="item box_tuvanhd absolute">

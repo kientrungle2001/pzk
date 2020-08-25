@@ -1,5 +1,5 @@
 <?php
-	$showQuestions 	= $data->get('data_showQuestion');
+	$showQuestions 	= $data->getData_showQuestion();
 	
 	//debug($showQuestions);die();
 	// xu li questions
@@ -24,17 +24,17 @@
 	}
 	
 	
-	$data_criteria	= $data->get('data_criteria');
-	$category = $data->get('category');
-	$category_id = $data->get('categoryId');
-	$category_name = $data->get('categoryName');
+	$data_criteria	= $data->getData_criteria();
+	$category = $data->getCategory();
+	$category_id = $data->getCategoryId();
+	$category_name = $data->getCategoryName();
 	$class= intval(pzk_request('class'));
 	$de= clean_value(pzk_request('de'));
 	$subject = intval(pzk_request()->getSegment(3));
 	$parentSubject = 0;
 	if($subject) {
 		$subjectEntity = _db()->getTableEntity('categories')->load($subject);
-		$parentSubject = $subjectEntity->get('parent');
+		$parentSubject = $subjectEntity->getParent();
 	}
 	$practices = $data->getPractices($class,$subject);
 ?>
@@ -86,11 +86,11 @@
 					
 					<?php if($parentSubject == 87 || $parentSubject == 88 || $parentSubject == 164) {
 						if($parentSubject == 87) {
-							$dataCategoryCurrent =  $data->get('categoryCurrent');
+							$dataCategoryCurrent =  $data->getCategoryCurrent();
 						} else if($parentSubject == 88) {
-							$dataCategoryCurrent =  $data->get('categoryCurrentObservation');
+							$dataCategoryCurrent =  $data->getCategoryCurrentObservation();
 						} else if ($parentSubject == 164) {
-							$dataCategoryCurrent =  $data->get('categoryCurrentEnglish');
+							$dataCategoryCurrent =  $data->getCategoryCurrentEnglish();
 						}
 						
 						if(@$dataCategoryCurrent['child'])
@@ -99,7 +99,7 @@
 					<?php endforeach;
 					} else { ?>
 						<?php for($i = 1; $i <= $practices; $i++){ ?>
-							<li><a onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>';" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?></a></li>
+							<li><a onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>';" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?></a></li>
 						<?php }?>
 					<?php } ?>
 					</ul>
@@ -125,7 +125,7 @@
 		<div class="change col-md-10 col-xs-10 bd-div bgclor">
 			<div class="content">
 				<form id="form_question_nn" class="question_content pd-0 form-horizontal top20" method="post">
-					<?php $dataRow = $data->get('dataRow'); ?>
+					<?php $dataRow = $data->getDataRow(); ?>
 						<?php if($dataRow['isSort'] == 1):?>
 						<div class="col-xs-12 margin-top-20">
 							<?=$dataRow['content']?>
@@ -159,11 +159,11 @@
 									<?php 
 										
 										$QuestionObj = pzk_obj_once('Education.Question.Type.'.ucfirst(questionTypeOjb($value['questionType'])));
-										$QuestionObj->set('questionId', $value['id']);
+										$QuestionObj->setQuestionId($value['id']);
 										
 										$questionChoice = _db()->getEntity('Question.Choice');
 										$questionChoice->setData($processQuestions[$value['id']]);
-										$QuestionObj->set('question', $questionChoice);
+										$QuestionObj->setQuestion($questionChoice);
 										
 										//debug($processAnswer[$value['id']]);die();
 										$answerEntitys = array();
@@ -173,28 +173,28 @@
 												$answerEntitys[] = $answerEntity;
 										}
 										
-										$QuestionObj->set('answers', $answerEntitys);
+										$QuestionObj->setAnswers($answerEntitys);
 										
 										if(CACHE_MODE && CACHE_QUESTION_MODE && CACHE_ANSWER_MODE){
-											$QuestionObj->set('cacheable', 'true');
+											$QuestionObj->setCacheable('true');
 										}else{
-											$QuestionObj->set('cacheable', 'false');
+											$QuestionObj->setCacheable('false');
 										}
-										$QuestionObj->set('index', $i-1);
-										$QuestionObj->set('subject', $subject);
-										$QuestionObj->set('de', $de);
+										$QuestionObj->setIndex($i-1);
+										$QuestionObj->setSubject($subject);
+										$QuestionObj->setDe($de);
 										if(file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $value['id'] . '.mp3'))) {
-											$QuestionObj->set('audio', $target);
+											$QuestionObj->setAudio($target);
 										} else {
 											if(file_exists(BASE_DIR .($audio = '/3rdparty/Filemanager/source/practice/' . $subject. '/' . $de . '/' . ($i-1) . '.mp3'))) {
-												$QuestionObj->set('audio', $audio);
+												$QuestionObj->setAudio($audio);
 												if(!file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $value['id'] . '.mp3'))) {
 													copy(BASE_DIR . $audio, BASE_DIR .$target);
 												}
 											}
 											
 											if(file_exists(BASE_DIR .($audio = '/3rdparty/Filemanager/source/practice/Observation/' . $subject. '/' . ($i-1) . '.mp3'))) {
-												$QuestionObj->set('audio', $audio);
+												$QuestionObj->setAudio($audio);
 												if(!file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $value['id'] . '.mp3'))) {
 													copy(BASE_DIR . $audio, BASE_DIR .$target);
 												}
@@ -202,7 +202,7 @@
 										}
 										
 										
-										$QuestionObj->set('cacheParams', 'layout, questionId');
+										$QuestionObj->setCacheParams('layout, questionId');
 										$QuestionObj->display();
 									?>
 							</div>

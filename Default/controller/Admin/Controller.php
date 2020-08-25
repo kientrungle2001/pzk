@@ -1,8 +1,8 @@
 <?php
 class PzkAdminControllerController extends PzkGridAdminController {
 	public $table = 'site_controller';
-	public $addFields = 'name,table,joins, selectFields, listSettingType, listFieldSettings, filterFields, searchLabels, searchFields, sortFields, addFields, addLabel, addFieldSettings, addValidator, editFields, editFieldSettings, editValidator, menuLinks, moduleDetail, filterCreator, childTables';
-	public $editFields = 'name,table,joins, selectFields, listSettingType, listFieldSettings, filterFields, searchLabels, searchFields, sortFields, addFields, addLabel, addFieldSettings, addValidator, editFields, editFieldSettings, editValidator, menuLinks, moduleDetail, filterCreator, childTables';
+	public $addFields = 'name,table,joins, selectFields, listSettingType, listFieldSettings, filterFields, searchLabel, searchFields, sortFields, addFields, addLabel, addFieldSettings, addValidator, editFields, editFieldSettings, editValidator, menuLinks, moduleDetail, filterCreator, childTables';
+	public $editFields = 'name,table,joins, selectFields, listSettingType, listFieldSettings, filterFields, searchLabel, searchFields, sortFields, addFields, addLabel, addFieldSettings, addValidator, editFields, editFieldSettings, editValidator, menuLinks, moduleDetail, filterCreator, childTables';
 	public $sortFields = array(
 		'id asc' => 'ID tăng',
 		'id desc' => 'ID giảm',
@@ -62,7 +62,7 @@ class PzkAdminControllerController extends PzkGridAdminController {
             'label' => 'Các trường cần lọc'
         ),
 		array(
-            'index' => 'searchLabels',
+            'index' => 'searchLabel',
             'type' => 'text',
             'label' => 'Nhãn tìm kiếm'
         ),
@@ -179,7 +179,7 @@ class PzkAdminControllerController extends PzkGridAdminController {
             'label' => 'Các trường cần lọc'
         ),
 		array(
-            'index' => 'searchLabels',
+            'index' => 'searchLabel',
             'type' => 'text',
             'label' => 'Nhãn tìm kiếm'
         ),

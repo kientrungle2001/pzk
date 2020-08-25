@@ -17,17 +17,17 @@ class PzkEntityQueryQueryModel extends PzkEntityModel {
 	}
 	public function getSet() {
 		if(!isset($this->_set)) {
-		$this->_set = _db()->getEntity('Attribute.Set')->load($this->get('setId'));
+		$this->_set = _db()->getEntity('Attribute.Set')->load($this->getSetId());
 		}
 		return $this->_set;
 	}
 	public function getImplodedFields() {
 		$rs = array();
 		$fields = $this->getFields();
-		if($alias = $this->get('code')) {
+		if($alias = $this->getCode()) {
 			if($fields)
 			foreach($fields as $field) {
-				$rs[] = $alias . '.' . $field->get('leftField') . ($field->get('code')? ' as ' . $field->get('code') : '');
+				$rs[] = $alias . '.' . $field->getLeftField() . ($field->getCode()? ' as ' . $field->getCode() : '');
 			}
 			if(!count($rs)) {
 				return $alias.'.*';
@@ -36,7 +36,7 @@ class PzkEntityQueryQueryModel extends PzkEntityModel {
 		} else {
 			if($fields)
 			foreach($fields as $field) {
-				$rs[] = $field->get('leftField') . ($field->get('code') ? ' as ' . $field->get('code') : '');
+				$rs[] = $field->getLeftField() . ($field->getCode() ? ' as ' . $field->getCode() : '');
 			}
 			if(!count($rs)) {
 				return '*';
@@ -53,31 +53,31 @@ class PzkEntityQueryQueryModel extends PzkEntityModel {
 		foreach($tables as $table) {
 			$fields[] = $table->getImplodedFields();
 		}
-		$querySql = 'select ' . implode(', ',$fields) . ' from ' . $querySet->get('code') . ' as ' . $query->get('code');
+		$querySql = 'select ' . implode(', ',$fields) . ' from ' . $querySet->getCode() . ' as ' . $query->getCode();
 
 		if($tables) {
 			foreach($tables as $table) {
 				$tableSet = $table->getSet();
-				$querySql .= "\n".' inner join ' . $tableSet->get('code') . ' as ' . $table->get('code', $tableSet->get('code')) . ' on ' . 
-					$query->get('code', $querySet->get('code')) . '.' .  $table->get('rightField') . '=' . $table->get('code', $tableSet->get('code')) 
+				$querySql .= "\n".' inner join ' . $tableSet->getCode() . ' as ' . $table->get('code', $tableSet->getCode()) . ' on ' . 
+					$query->get('code', $querySet->getCode()) . '.' .  $table->getRightField() . '=' . $table->get('code', $tableSet->getCode()) 
 						. '.' . $table->get('leftField', 'id');
-				if($table->get('additionConditions')) {
-					$querySql .= ' and ' . $table->get('additionConditions');
+				if($table->getadditionConditions()) {
+					$querySql .= ' and ' . $table->getadditionConditions();
 				}
 			}
 		}
 
-		if($query->get('conditions')) {
-			$querySql .= ' where ' . $query->get('conditions');
+		if($query->getConditions()) {
+			$querySql .= ' where ' . $query->getConditions();
 		}
-		if($query->get('groupBy')) {
-			$querySql .= ' group by ' . $query->get('groupBy');
+		if($query->getGroupBy()) {
+			$querySql .= ' group by ' . $query->getGroupBy();
 		}
-		if($query->get('havingConditions')) {
-			$querySql .= ' having ' . $query->get('havingConditions');
+		if($query->getHavingConditions()) {
+			$querySql .= ' having ' . $query->getHavingConditions();
 		}
-		if($query->get('orderBy')) {
-			$querySql .= ' order by ' . $query->get('orderBy');
+		if($query->getOrderBy()) {
+			$querySql .= ' order by ' . $query->getOrderBy();
 		}
 		return $querySql;
 	}
@@ -86,15 +86,15 @@ class PzkEntityQueryQueryModel extends PzkEntityModel {
 		$query = $this;
 		$querySet = $query->getSet();
 		$tables = $query->getTables();
-		$querySql = $querySet->get('code') . ' as ' . $query->get('code');
+		$querySql = $querySet->getCode() . ' as ' . $query->getCode();
 		if($tables) {
 			foreach($tables as $table) {
 				$tableSet = $table->getSet();
-				$querySql .= "\n".' '.$table->get('joinType', 'inner').' join ' . $tableSet->get('code') . ' as ' . $table->get('code', $tableSet->get('code')) . ' on ' . 
-					$query->get('code', $querySet->get('code')) . '.' .  $table->get('rightField', 'id') . '=' . $table->get('code', $tableSet->get('code')) 
+				$querySql .= "\n".' '.$table->get('joinType', 'inner').' join ' . $tableSet->getCode() . ' as ' . $table->get('code', $tableSet->getCode()) . ' on ' . 
+					$query->get('code', $querySet->getCode()) . '.' .  $table->get('rightField', 'id') . '=' . $table->get('code', $tableSet->getCode()) 
 						. '.' . $table->get('leftField', 'id');
-				if($table->get('additionConditions')) {
-					$querySql .= ' and ' . $table->get('additionConditions');
+				if($table->getadditionConditions()) {
+					$querySql .= ' and ' . $table->getadditionConditions();
 				}
 			}
 		}

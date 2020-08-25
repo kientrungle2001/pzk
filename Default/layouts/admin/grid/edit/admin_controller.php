@@ -1,15 +1,15 @@
 <?php  
 $rand 		= rand(1, 100);
-$xssize 	= pzk_or($data->get('xssize'), 	12);
-$mdsize 	= pzk_or($data->get('mdsize'), 	12);
+$xssize 	= pzk_or($data->getXssize(), 	12);
+$mdsize 	= pzk_or($data->getMdsize(), 	12);
 ?>
 
 <div class="col-xs-<?php echo $xssize ?> col-md-<?php echo $mdsize ?>">
 	<div class="form-group clearfix">
-		<label for="<?php  echo $data->get('index')?><?php echo $rand ?>"><?php  echo $data->get('label')?></label>
+		<label for="<?php  echo $data->getIndex()?><?php echo $rand ?>"><?php  echo $data->getLabel()?></label>
 		<select
-			class="form-control" id="<?php  echo $data->get('index')?><?php echo $rand ?>"
-			name="<?php  echo $data->get('index')?>">
+			class="form-control" id="<?php  echo $data->getIndex()?><?php echo $rand ?>"
+			name="<?php  echo $data->getIndex()?>">
         <?php
 								$allControllers = array ();
 								$arrcontroller = glob ( BASE_DIR . '/app/' . pzk_app ()->getPathByName () . '/controller/Admin/*.php' );
@@ -23,7 +23,7 @@ $mdsize 	= pzk_or($data->get('mdsize'), 	12);
 								
 								?>
         <option
-				value="<?php if(pzk_request('action') =='add') { echo '0_'.time(); } elseif(substr($data->get('value'), 0, 2) == '0_') { echo $data->get('value'); } ?>">Chọn
+				value="<?php if(pzk_request('action') =='add') { echo '0_'.time(); } elseif(substr($data->getValue(), 0, 2) == '0_') { echo $data->getValue(); } ?>">Chọn
 				controller</option>
 		<?php foreach($arrcontroller as $val ): ?>
 		<?php if (!isset($allControllers[$val])) { $allControllers[$val] = true; } else { continue; } ?>
@@ -84,7 +84,7 @@ $mdsize 	= pzk_or($data->get('mdsize'), 	12);
 		
 			
 			
-			var my_options = $("#<?php  echo $data->get('index')?><?php echo $rand ?> option");
+			var my_options = $("#<?php  echo $data->getIndex()?><?php echo $rand ?> option");
 
 			my_options.sort(function(a,b) {
 				if (a.text > b.text) return 1;
@@ -92,14 +92,14 @@ $mdsize 	= pzk_or($data->get('mdsize'), 	12);
 				else return 0
 			})
 
-			$("#<?php  echo $data->get('index')?><?php echo $rand ?>").empty().append( my_options );
-			$("#<?php  echo $data->get('index')?><?php echo $rand ?> option").each(function(){
+			$("#<?php  echo $data->getIndex()?><?php echo $rand ?>").empty().append( my_options );
+			$("#<?php  echo $data->getIndex()?><?php echo $rand ?> option").each(function(){
 			  $(this).siblings("[value="+ this.value+"]").remove();
 			});
 		</script>
 	</div>
 </div>
 <script>
-	$("#<?php  echo $data->get('index')?><?php echo $rand ?>").val("<?php echo $data->get('value'); ?>");
+	$("#<?php  echo $data->getIndex()?><?php echo $rand ?>").val("<?php echo $data->getValue(); ?>");
 		
 </script>

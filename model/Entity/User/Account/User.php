@@ -13,14 +13,14 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	public function getWallets($userId = false)
 	{
 		if(!$userId) {
-			$userId = $this->get('id');
+			$userId = $this->getId();
 		}
 		
 		$wallets=_db()->getEntity('User.Account.Wallets');
 		
 		$wallets->loadWhere(array('userId',$userId));
-		if($wallets->get('id')){
-			return $wallets->get('amount');
+		if($wallets->getId()){
+			return $wallets->getamount();
 		}else return 0;
 	}
 	
@@ -36,24 +36,24 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	Thêm bạn bè
 	*/
 	public function addFriend($invitation) {
-		if($invitation->get('id') && $invitation->get('userinvitation') != $this->get('id')) {
+		if($invitation->getId() && $invitation->getUserinvitation() != $this->getId()) {
 			$friend = _db()->getEntity('Communication.Friend');
 			
 			// check xem đã là bạn bè chưa
-			$friend->loadWhere(array('and', array('userId', $this->get('id')), array('userfriend', $invitation->get('userinvitation'))));
-			if($friend->get('id')) return false;
+			$friend->loadWhere(array('and', array('userId', $this->getId()), array('userfriend', $invitation->getUserinvitation())));
+			if($friend->getId()) return false;
 			
 			// nếu chưa là bạn bè thì thêm bạn bè
-			$friend->set('userId', $invitation->get('userId'));
-			$friend->set('userfriend', $invitation->get('userinvitation'));
-			$friend->set('date', date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
+			$friend->setUserId($invitation->getUserId());
+			$friend->setUserfriend($invitation->getUserinvitation());
+			$friend->setDate(date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
 			$friend->save();
 			
 			// thêm cho bên kia
 			$friend = _db()->getEntity('Communication.Friend');
-			$friend->set('userId', $invitation->get('userinvitation'));
-			$friend->set('userfriend', $this->get('id'));
-			$friend->set('date', date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
+			$friend->setUserId($invitation->getUserinvitation());
+			$friend->setUserfriend($this->getId());
+			$friend->setDate(date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']));
 			$friend->save();
 			return true;
 		}
@@ -65,12 +65,12 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	Hủy kết bạn
 	*/
 	public function removeFriend($user) {
-		if($user->get('id')) {
+		if($user->getId()) {
 			
 			// hủy kết bạn bên user
 			$friend = _db()->getEntity('Communication.Friend');
-			$friend->loadWhere(array('and', array('username', $this->get('username')), array('userfriend', $user->get('username'))));
-			if($friend->get('id')) {
+			$friend->loadWhere(array('and', array('username', $this->getUsername()), array('userfriend', $user->getUsername())));
+			if($friend->getId()) {
 				$friend->delete();
 			} else {
 				return false;
@@ -78,8 +78,8 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 			
 			// hủy kết bạn bên friend
 			$friend = _db()->getEntity('Communication.Friend');
-			$friend->loadWhere(array('and', array('username', $user->get('username')), array('userfriend', $this->get('username'))));
-			if($friend->get('id')) {
+			$friend->loadWhere(array('and', array('username', $user->getUsername()), array('userfriend', $this->getUsername())));
+			if($friend->getId()) {
 				$friend->delete();
 			}
 			return true;
@@ -91,11 +91,11 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	Mời kết bạn, kèm lời nhắn
 	*/
 	public function inviteFriend($user, $message) {
-		if($user->get('id')) {
+		if($user->getId()) {
 			$invitation = _db()->getEntity('Communication.Invitation');
-			$invitation->set('username', $this->get('username'));
-			$invitation->set('userinvitation', $user->get('username'));
-			$invitation->set('invitation', $message);
+			$invitation->setUsername($this->getUsername());
+			$invitation->setUserinvitation($user->getUsername());
+			$invitation->setInvitation($message);
 			$invitation->save();	
 		}
 	}
@@ -105,7 +105,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	*/
 	public function acceptInvitation($invitation) {
 
-		if($this->get('id') == $invitation->get('userId')) {
+		if($this->getId() == $invitation->getUserId()) {
 			
 			$this->addFriend($invitation);
 			$invitation->delete();
@@ -119,7 +119,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	Hủy lời mời kết bạn
 	*/
 	public function denyInvitation($invitation) {
-		if($this->get('id') == $invitation->get('userId')) {
+		if($this->getId() == $invitation->getUserId()) {
 			$invitation->delete();
 			return true;
 		}
@@ -156,46 +156,46 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 
 		$s = pzk_session();
 		$s->set('login',true);		
-		$s->set('username', $this->get('username'));
-		$s->set('userId', $this->get('id'));
-		$s->set('name', $this->get('name'));
-		$s->set('avatar', $this->get('avatar'));		
-		$s->set('email', $this->get('email'));	
-		$s->set('phone', $this->get('phone'));
-		$s->set('address', $this->get('address'));
-		$s->set('schoolname', $this->get('schoolname'));
-		$s->set('areacode', $this->get('areacode'));
-		$s->set('birthday', $this->getBirthDate());
-		if($this->get('sex') == '1') $s->set('sex', 'Nam');
-		else $s->set('sex', 'Nữ');
+		$s->setUsername($this->getUsername());
+		$s->setUserId($this->getId());
+		$s->setName($this->getName());
+		$s->setAvatar($this->getavatar());		
+		$s->setEmail($this->getEmail());	
+		$s->setPhone($this->getPhone());
+		$s->setAddress($this->getaddress());
+		$s->setSchoolname($this->getSchoolname());
+		$s->setAreacode($this->getareacode());
+		$s->setBirthday($this->getBirthDate());
+		if($this->getSex() == '1') $s->setSex('Nam');
+		else $s->setSex('Nữ');
 		$hook_login = pzk_hook('login');
 		if($hook_login) require $hook_login;
 		if(pzk_request('softwareId')== 1 && pzk_request('siteId') == 2){
-			$s->set('school', $this->get('school'));
-			$s->set('schoolEnable', 1);
-			$s->set('district', $this->get('district'));
+			$s->setSchool($this->getSchool());
+			$s->setSchoolEnable(1);
+			$s->setDistrict($this->getDistrict());
 			
-			$s->set('classname', $this->get('classname'));
-			$s->set('class', $this->get('class'));
-			$s->set('servicePackage', $this->get('servicePackage'));
-			$s->set('checkUser', $this->get('checkUser'));
-			if($this->get('checkUser')){
+			$s->setClassname($this->getClassname());
+			$s->setClass($this->getClass());
+			$s->setServicePackage($this->getServicePackage());
+			$s->setCheckUser($this->getCheckUser());
+			if($this->getCheckUser()){
 				//check truong
 				$checkSchool = $this->checkSchool();
-				$s->set('checkSchool', $checkSchool);
+				$s->setCheckSchool($checkSchool);
 			}
 		}
-		$created = pzk_or($this->get('registered'), $this->get('created'), $this->get('modified'));
-		$s->set('created', $created);
+		$created = pzk_or($this->getRegistered(), $this->getCreated(), $this->getModified());
+		$s->setCreated($created);
 
 		$datelogin = date("Y-m-d H:i:s");
 		$this->update(array('lastlogined' => $datelogin ));
 		$login_ip = getIPAndAgent();
-		pzk_uservar()->set($_SERVER['HTTP_HOST'] . $this->get('username') . '_login_ip', $login_ip);
+		pzk_uservar()->set($_SERVER['HTTP_HOST'] . $this->getUsername() . '_login_ip', $login_ip);
 		pzk_user()->setData($this->getData());
 		if(pzk_request('softwareId') == 1){
 			$checkPayment= $this->checkPayment('full');
-			$s->set('checkPayment', $checkPayment);
+			$s->setCheckPayment($checkPayment);
 		}
 		
 	}
@@ -229,7 +229,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	public function getServiceInfo() {
 		$softwareId = pzk_request()->getSoftwareId();
 		return _db()->selectAll()->fromHistory_payment()
-		 							->whereUsername($this->get('username'))
+		 							->whereUsername($this->getUsername())
 		 							->whereBuySoftware($softwareId)
 		  							->wherePaymentstatus('1')
 		  							->result_one('Payment.History_payment');
@@ -237,7 +237,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	
 	public function logout() {
 		$s = pzk_session();
-		if($s->get('adminUser') == $s->get('username')) {
+		if($s->getadminUser() == $s->getUsername()) {
 			$s->del('adminUser');
 			$s->del('adminId');
 			$s->del('adminLevel');
@@ -284,8 +284,8 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 			return ;
 		}
 		$wallets = $this->getWallets();
-		$wallets->set('username', $this->get('username'));
-		$wallets->set('amount', 0);
+		$wallets->setUsername($this->getUsername());
+		$wallets->setAmount(0);
 		$wallets->save();
 	}
 	public function testOnline($member)
@@ -303,7 +303,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		
 	}
 	public function resetPasssword() {
-		$password=md5(rand(0,9999999999) . $this->get('password'));
+		$password=md5(rand(0,9999999999) . $this->getPassword());
 		$password=substr($password,0,8) . 'AH1';
 		$newPassword = md5($password);
 		$this->update(array('password' => $newPassword, 'key'=>''));
@@ -316,7 +316,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		
 		$friend= _db()->getEntity('Communication.Friend');
 		$friend->loadWhere(array(array('userId',$sessionUserId),array('userfriend',$member)));
-		if($friend->get('id'))
+		if($friend->getId())
 		{
 			 return true;
 		}
@@ -331,7 +331,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		$userId= pzk_session('userId');
 		$invi= _db()->getEntity('Communication.Invitation');
 		$invi->loadWhere(array(array('userId',$userId),array('userinvitation',$member)));
-		if($invi->get('id'))
+		if($invi->getId())
 		{
 			 return true;
 		}
@@ -400,15 +400,15 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	}
 	
 	public function countFriend() {
-		if(!$this->get('id')) return 0;
-		$counter = _db()->select('count(*) as total')->fromFriend()->whereUserId($this->get('id'))->result_one();
+		if(!$this->getId()) return 0;
+		$counter = _db()->select('count(*) as total')->fromFriend()->whereUserId($this->getId())->result_one();
 		return $counter['total'];
 	}
 	
 	/*public function getFriends($pageSize = 3, $pageNum = 0) {
 		return _db()->select('user.*')->fromFriend()
 		->joinUser(json_decode('["equal", ["column", "user", "username"], ["column", "friend", "userfriend"]]', true))
-		->where(array('equal', array('column', 'friend', 'username'), $this->get('username')))
+		->where(array('equal', array('column', 'friend', 'username'), $this->getUsername()))
 		->limit($pageSize, $pageNum)
 		->result('User.Account.User');
 	}*/
@@ -416,7 +416,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 
 		return _db()->select('user.*')->from('friend')
 		->joinUser(json_decode('["equal", ["column", "user", "id"], ["column", "friend", "userfriend"]]', true))
-		->where(array('equal', array('column', 'friend', 'userId'), $this->get('id')))
+		->where(array('equal', array('column', 'friend', 'userId'), $this->getId()))
 		->limit(3,0)
 		->result('User.Account.User'); 
 	}
@@ -462,19 +462,19 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	
 	public function getCity() {
 		$area = _db()->getEntity('User.Account.Areacode');
-		if($this->get('areacode'))
-			$area->load($this->get('areacode'), 300);
+		if($this->getareacode())
+			$area->load($this->getareacode(), 300);
 		return $area;
 	}
 	
 	public function getOldQuestions(){
-		return $data = pzk_uservar()->get($this->get('username')) ? $data : array();
+		return $data = pzk_uservar()->get($this->getUsername()) ? $data : array();
 	}
 	
 	public function appendQuestions($questions) {
 		$oldQuestions = $this->getOldQuestions();
 		$allQuestions = array_merge($oldQuestions, $questions);
-		pzk_uservar()->set($this->get('username'), $allQuestions);
+		pzk_uservar()->set($this->getUsername(), $allQuestions);
 		return true;
 	}
 	public function CheckDate($serviceId, $userId){
@@ -485,7 +485,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		if($serviceType=='goihoc'){
 			$date=_db()->getEntity('Service.Buyservice');
 			$date->loadWhere(array('and',array('userId',$userId),array('serviceId',$serviceId),array('status',1)));
-			if($date->get('id')){
+			if($date->getId()){
 				$datetime= date("y-m-d");
 				$dateActive= $date->getDateActive();
 				$dateEnd= $date->getDateEnd();
@@ -542,12 +542,12 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		}else return "Nữ";
 	}
 	public function getGender() {
-		if($this->get('sex')==1){
+		if($this->getSex()==1){
 			return "Nam";
 		}else return "Nữ";
 	}
 	public function getBirthDate() {
-		$arr = explode('-', $this->get('birthday'));
+		$arr = explode('-', $this->getBirthday());
 		return @$arr[2] . '/' . @$arr[1] . '/' . @$arr[0];
 	}
 	// Tính điểm học bạ cho user
@@ -622,7 +622,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 			$ett_mess= _db()->getEntity('User.NewMessage');
 			$ett_mess->loadWhere(array('and',array('userId',pzk_session('userId')),array('trophies',$sortTrophies)));
 			
-			if($ett_mess->get('id')){
+			if($ett_mess->getId()){
 				
 			}else{
 				$rowmess=array('userId'=>pzk_session('userId'),'messageType'=>'trophies','trophies'=>$sortTrophies,'date'=>date('Y-m-d H:i:s'),'status'=>0);
@@ -706,7 +706,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		
 		$classrooms 	=	_db()->select('education_classroom_student.*, education_classroom.schoolYear, education_classroom.gradeNum, education_classroom.className, education_classroom.place')->from('education_classroom_student')
 			->join('education_classroom', 'education_classroom_student.classroomId = education_classroom.id')
-			->whereStudentId($this->get('id'))->result();
+			->whereStudentId($this->getId())->result();
 		return $this->_classrooms = $classrooms;
 	}
 	private $_classroomIds = null;
@@ -751,7 +751,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	}
 	
 	public function checkCompabilityTestAccess($testId) {
-		$username = $this->get('username');
+		$username = $this->getUsername();
 		$today = date('Y-m-d H:i:s');
 		$query = _db()->select('id')->fromHistory_payment()
 			->whereUsername($username)
@@ -767,7 +767,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	}
 	
 	public function checkCompabilityTestView($testId) {
-		$username = $this->get('username');
+		$username = $this->getUsername();
 		$today = date('Y-m-d H:i:s');
 		$query = _db()->select('id')->fromHistory_payment()
 			->whereUsername($username)
@@ -795,7 +795,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 			$testTlId = $testTl['id'];
 		}
 		
-		$userId 	= $this->get('id');
+		$userId 	= $this->getId();
 		if(!$userId) {
 			return 0;
 		}

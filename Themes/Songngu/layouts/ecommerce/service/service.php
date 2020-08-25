@@ -8,7 +8,7 @@
 	</div>
 	 <?php 
 		$service  		=  	$data->loadService();
-		$couponDiscount = 	pzk_session()->get('discount');
+		$couponDiscount = 	pzk_session()->getDiscount();
 		$discount		= 	$data->loadDiscount();
 		$coupon 		=	pzk_session('coupon');
 	  ?>
@@ -96,7 +96,7 @@
 	        url:'/Service/BuyService',
 	        data: {
 	          serviceId : serviceId, 
-			  coupon: '<?= pzk_session()->get('coupon');?>',
+			  coupon: '<?= pzk_session()->getCoupon();?>',
 			  className : className
 	        },
 	        success: function(result)

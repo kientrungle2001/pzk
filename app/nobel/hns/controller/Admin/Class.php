@@ -8,7 +8,7 @@ class PzkAdminClassController extends PzkGridAdminController {
 	}
 
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
 	//sort by
     public function getSortFields() {
     	return PzkSortConstant::gets ( 'id, ordering, name', 'education_class' );

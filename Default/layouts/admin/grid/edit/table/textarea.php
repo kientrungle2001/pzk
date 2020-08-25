@@ -1,6 +1,6 @@
 <?php
-$rand = $data->get('rand');
-$fieldIndex = $data->get('fieldIndex');
-$index		= $data->get('index');
+$rand = $data->getRand();
+$fieldIndex = $data->getFieldIndex();
+$index		= $data->getIndex();
 ?>
-<textarea onchange="table_change_<?php echo $fieldIndex ?>_<?php echo $rand ?>()" class="form-control" name="<?php echo $fieldIndex ?>_flat[<?php echo $index ?>][]" placeholder="<?php  echo $data->get('label')?>"></textarea>
+<textarea onchange="table_change_<?php echo $fieldIndex ?>_<?php echo $rand ?>()" class="form-control" name="<?php echo $fieldIndex ?>_flat[<?php echo $index ?>][]" placeholder="<?php  echo $data->getLabel()?>"></textarea>

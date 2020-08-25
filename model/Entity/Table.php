@@ -6,16 +6,16 @@ class PzkEntityTableModel extends PzkEntityModel {
 		return $this;
 	}
 	public function getAlias() {
-		return $this->get('alias');
+		return $this->getalias();
 	}
 	public function getName_vn() {
-		return $this->get('name_vn');
+		return $this->getName_vn();
 	}
 	public function getName_en() {
-		return $this->get('name_en');
+		return $this->getName_en();
 	}
 	public function getName() {
-		return $this->get('name');
+		return $this->getName();
 	}
 	
 }

@@ -14,7 +14,7 @@
 		  
 	<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12">
 		<?php foreach($items as $item): ?>
-				<input type="radio" name="serviceId" id="serviceId"  checked value="<?php  echo $item->get('id') ?>"><strong> <?php  echo $item->get('serviceName') ?> </strong> Giá : <strong><?php  echo product_price($item->get('amount')) ?></strong> <br>
+				<input type="radio" name="serviceId" id="serviceId"  checked value="<?php  echo $item->getId() ?>"><strong> <?php  echo $item->getServiceName() ?> </strong> Giá : <strong><?php  echo product_price($item->getamount()) ?></strong> <br>
 				<p></p>
 		  <?php endforeach; ?>
 	</div>

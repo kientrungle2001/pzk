@@ -1,6 +1,6 @@
 <?php
 $controller = pzk_controller();
-$testName = $data->get('testName');
+$testName = $data->getTestName();
 ?>
 <div class="panel panel-default">
     <div class="panel-heading">

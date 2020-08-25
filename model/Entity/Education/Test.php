@@ -13,7 +13,7 @@ class PzkEntityEducationTestModel extends PzkEntityModel
 			if(CACHE_MODE) {
 				$db->useCache(1800);
 			}
-			$this->_questions = $db->selectAll()->fromQuestions()->likeTestId('%,'.$this->get('id').',%')->limit(100)->result('Education.Question');
+			$this->_questions = $db->selectAll()->fromQuestions()->likeTestId('%,'.$this->getId().',%')->limit(100)->result('Education.Question');
 		}
 		return $this->_questions;
 	}
@@ -22,7 +22,7 @@ class PzkEntityEducationTestModel extends PzkEntityModel
 			$questions = $this->getQuestions();
 			$questionIds = array();
 			foreach($questions as $question) {
-				$questionIds[] = $question->get('id');
+				$questionIds[] = $question->getId();
 			}
 			$db = _db();
 			if(CACHE_MODE) {
@@ -43,14 +43,14 @@ class PzkEntityEducationTestModel extends PzkEntityModel
 		
 		$answersGroupedByQuestionId = array();
 		foreach($answers as $answer) {
-			if(!isset($answersGroupedByQuestionId[$answer->get('question_id')])) {
-				$answersGroupedByQuestionId[$answer->get('question_id')] = array();
+			if(!isset($answersGroupedByQuestionId[$answer->getQuestion_id()])) {
+				$answersGroupedByQuestionId[$answer->getQuestion_id()] = array();
 			}
-			$answersGroupedByQuestionId[$answer->get('question_id')][] = $answer;
+			$answersGroupedByQuestionId[$answer->getQuestion_id()][] = $answer;
 		}
 		
 		foreach($questions as $question) {
-			$question->setAnswers(@$answersGroupedByQuestionId[$question->get('id')]);
+			$question->setAnswers(@$answersGroupedByQuestionId[$question->getId()]);
 		}
 	}
 	public function getAnswersOfQuestion($question) {
@@ -58,7 +58,7 @@ class PzkEntityEducationTestModel extends PzkEntityModel
 	}
 	
 	public function getUrl($class, $subject) {
-		return '/test/class-'.$class.'/week-'.$subject->get('id').'/examination-' . $this->get('id');
+		return '/test/class-'.$class.'/week-'.$subject->getId().'/examination-' . $this->getId();
 	}
 }
  ?>

@@ -7,7 +7,7 @@ $children 			= 	$root['children'];
 $term1 				= 	$children[0];
 $term2 				= 	$children[1];
 $isTerm2 			= 	false;
-if($term2['id'] == $data->get('menuId')) {
+if($term2['id'] == $data->getMenuId()) {
 	$term 				= 	$term2;
 	$isTerm2			= 	true;
 } else {

@@ -37,7 +37,7 @@ class PzkAdminModController extends PzkGridAdminController {
 	public $logFields = 'name, usertype_id, status';
     //search fields co type la text
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
     //filter cho cac truong co type la select
     public $filterFields = array(
 

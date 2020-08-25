@@ -14,16 +14,16 @@
 	
 	$session 			=	pzk_session();
 	$request 			=	pzk_request();
-	$class 				= 	$session->get('lop');
-	$language 			= 	pzk_global()->get('language');
-	$lang 				= 	$session->get('language');
-	$homework			=	intval($request->get('homework'));
-	$subject			=	intval($request->get('subject'));
-	$topic				=	intval($request->get('topic'));
+	$class 				= 	$session->getLop();
+	$language 			= 	pzk_global()->getLanguage();
+	$lang 				= 	$session->getLanguage();
+	$homework			=	intval($request->getHomework());
+	$subject			=	intval($request->getSubject());
+	$topic				=	intval($request->getTopic());
 	$subjectEntity		=	_db()->getTableEntity('categories')->load($subject);
-	$parentTest 		= 	$data->get('parentTest');
-	$parentTestId		=	$data->get('parentTestId');
-	$ordering			=	$data->get('ordering');
+	$parentTest 		= 	$data->getParentTest();
+	$parentTestId		=	$data->getParentTestId();
+	$ordering			=	$data->getOrdering();
 	
 ?>
 <div class="container-fluid bgcontent">			
@@ -87,11 +87,11 @@
 										<input type="hidden" name="questionTypes[<?=$question['id']?>]" value="<?=questionTypeOjb($question['questionType'])?>"/>
 										<?php 
 											$QuestionObj = pzk_obj_once('Education.Question.Type.'.ucfirst(questionTypeOjb($question['questionType'])));
-											$QuestionObj->set('stt', $index+1);
-											$QuestionObj->set('questionId', $question['id']);
+											$QuestionObj->setStt($index+1);
+											$QuestionObj->setQuestionId($question['id']);
 											$questionChoice = _db()->getEntity('Question.Choice');
 											$questionChoice->setData($indexedQuestions[$question['id']]);
-											$QuestionObj->set('question', $questionChoice);
+											$QuestionObj->setQuestion($questionChoice);
 											
 											$answerEntitys = array();
 											if(isset($answers[$question['id']])) {
@@ -102,12 +102,12 @@
 												}
 											}
 											
-											$QuestionObj->set('answers', $answerEntitys);
+											$QuestionObj->setAnswers($answerEntitys);
 											
-											$QuestionObj->set('cacheable', 'false');											
-											$QuestionObj->set('cacheParams', 'layout, questionId');
+											$QuestionObj->setCacheable('false');											
+											$QuestionObj->setCacheParams('layout, questionId');
 											if($question['questionType'] == '4') {
-												$QuestionObj->set('layout', 'education/question/tuluan');
+												$QuestionObj->setLayout('education/question/tuluan');
 											}
 											$QuestionObj->display();
 										?>

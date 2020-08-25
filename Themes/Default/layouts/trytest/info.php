@@ -17,7 +17,7 @@
 		margin-bottom: 20px;
 	}
 </style>
-<?php $userInfo = $data->get('userInfo'); ?>
+<?php $userInfo = $data->getUserInfo(); ?>
 <div class='container'>
 	<div class='formtest'>
 		<h3> Thông tin chi tiết của thí sinh </h3>

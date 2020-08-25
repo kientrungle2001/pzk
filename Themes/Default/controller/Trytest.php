@@ -9,15 +9,15 @@ class PzkTrytestController extends PzkController{
 		$contestId = intval(pzk_request()->getSegment(3));
 		
 		$this->initPage();
-			pzk_page()->set('title', 'Bắt đầu thi thử trường Trần Đại Nghĩa');
-			pzk_page()->set('keywords', 'Bắt đầu thi thử trường Trần Đại Nghĩa');
-			pzk_page()->set('description', 'Bắt đầu thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-			pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-			pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+			pzk_page()->setTitle('Bắt đầu thi thử trường Trần Đại Nghĩa');
+			pzk_page()->setKeywords('Bắt đầu thi thử trường Trần Đại Nghĩa');
+			pzk_page()->setDescription('Bắt đầu thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+			pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+			pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 			$this->append('trytest/do', 'wrapper');
 			$do = pzk_element('do');
 			
-			$do->set('contestId', $contestId);
+			$do->setContestId($contestId);
 		$this->display();
 		
 		
@@ -35,28 +35,28 @@ class PzkTrytestController extends PzkController{
 			if(time() < strtotime($contest['startDate']) && !pzk_request('showDebug')){
 				//chua toi ngay thi
 				$this->initPage();
-					pzk_page()->set('title', 'Chưa đến ngày thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('keywords', 'Chưa đến ngày thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('description', 'Chưa đến ngày thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-					pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-					pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+					pzk_page()->setTitle('Chưa đến ngày thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setKeywords('Chưa đến ngày thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setDescription('Chưa đến ngày thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+					pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+					pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 					$this->append('trytest/datetest', 'wrapper');
 					$finish = pzk_element('datetest');
-					$finish->set('dateCamp', $contest['startDate']);
-					$finish->set('title', 'Chưa đến ngày thi thử. Ngày thi ');
+					$finish->setDateCamp($contest['startDate']);
+					$finish->setTitle('Chưa đến ngày thi thử. Ngày thi ');
 				$this->display();
 				pzk_system()->halt();
 			}else if(time() > strtotime($contest['expiredDate']) && !pzk_request('showDebug')){
 				//het thoi gian thi
 				$this->initPage();
-				pzk_page()->set('title', 'Hết thời gian thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('keywords', 'Hết thời gian thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('description', 'Hết thời gian thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Hết thời gian thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setKeywords('Hết thời gian thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setDescription('Hết thời gian thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/do', 'wrapper');
 				$do = pzk_element('do');
-				$do->set('finish', 1);
+				$do->setFinish(1);
 				$this->display();
 				pzk_system()->halt();
 			}else{
@@ -72,11 +72,11 @@ class PzkTrytestController extends PzkController{
 					
 					if($checkTrytestTn == false){
 						$this->initPage();
-							pzk_page()->set('title', 'Thi thử trường Trần Đại Nghĩa');
-							pzk_page()->set('keywords', 'Thi thử trường Trần Đại Nghĩa');
-							pzk_page()->set('description', 'Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-							pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-							pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+							pzk_page()->setTitle('Thi thử trường Trần Đại Nghĩa');
+							pzk_page()->setKeywords('Thi thử trường Trần Đại Nghĩa');
+							pzk_page()->setDescription('Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+							pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+							pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 							$this->append('trytest/showtn', 'wrapper');
 						
 							$keybook	= uniqid();		    	
@@ -94,9 +94,9 @@ class PzkTrytestController extends PzkController{
 							);
 							
 							$userInfo = $frontend->getOne($userId, 'user');
-							$showtn->set('userInfo', $userInfo);
-							$showtn->set('camp', $camp);
-							$showtn->set('data_criteria', $data_criteria);	
+							$showtn->setUserInfo($userInfo);
+							$showtn->setCamp($camp);
+							$showtn->setData_criteria($data_criteria);	
 						$this->display();
 						pzk_system()->halt();
 					}else{
@@ -106,15 +106,15 @@ class PzkTrytestController extends PzkController{
 						}else{
 							//da thi xong
 							$this->initPage();
-								pzk_page()->set('title', 'Thi thử trường Trần Đại Nghĩa');
-								pzk_page()->set('keywords', 'Thi thử trường Trần Đại Nghĩa');
-								pzk_page()->set('description', 'Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+								pzk_page()->setTitle('Thi thử trường Trần Đại Nghĩa');
+								pzk_page()->setKeywords('Thi thử trường Trần Đại Nghĩa');
+								pzk_page()->setDescription('Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+								pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+								pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 								
 								$this->append('trytest/alert', 'wrapper');
 								$alert = pzk_element()->getAlert();
-								$alert->set('title', 'Bạn đã hoàn thành bài thi! <br> Mỗi tài khoản chỉ được thi một lần.');
+								$alert->setTitle('Bạn đã hoàn thành bài thi! <br> Mỗi tài khoản chỉ được thi một lần.');
 								$this->display();
 							pzk_system()->halt();
 						}
@@ -123,15 +123,15 @@ class PzkTrytestController extends PzkController{
 				}else {
 					//mua goi thi thu dot 1
 					$this->initPage();
-						pzk_page()->set('title', 'Mua gói thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('keywords', 'Mua gói thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('description', 'Mua gói thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+						pzk_page()->setTitle('Mua gói thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setKeywords('Mua gói thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setDescription('Mua gói thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+						pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+						pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('trytest/buy', 'wrapper');
 						$login = pzk_element('buy');
 						$alert = 'Bạn phải mua gói thi thử '.$contest['name'].' thì mới được thi';
-						$login->set('title', $alert);
+						$login->setTitle($alert);
 					$this->display();
 					pzk_system()->halt();	
 				}
@@ -141,15 +141,15 @@ class PzkTrytestController extends PzkController{
 			//chua dang nhap
 			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('description', 'Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setKeywords('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setDescription('Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
 				$login = pzk_element()->getLogin();
-				$login->set('rel', "/trytest/showtn/".$camp);
-				$login->set('title', 'thì mới được vào thi thử');
+				$login->setRel("/trytest/showtn/".$camp);
+				$login->setTitle('thì mới được vào thi thử');
 			$this->display();			
 			pzk_system()->halt();
 		}		
@@ -168,29 +168,29 @@ class PzkTrytestController extends PzkController{
 				//chua den ngay thi
 				
 				$this->initPage();
-					pzk_page()->set('title', 'Chưa đến ngày thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('keywords', 'Chưa đến ngày thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('description', 'Chưa đến ngày thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-					pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-					pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+					pzk_page()->setTitle('Chưa đến ngày thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setKeywords('Chưa đến ngày thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setDescription('Chưa đến ngày thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+					pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+					pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 					$this->append('trytest/datetest', 'wrapper');
 					$finish = pzk_element('datetest');
-					$finish->set('dateCamp', $contest['startDate']);
-					$finish->set('title', 'Chưa đến ngày thi thử. Ngày thi ');
+					$finish->setDateCamp($contest['startDate']);
+					$finish->setTitle('Chưa đến ngày thi thử. Ngày thi ');
 				$this->display();
 				pzk_system()->halt();
 						
 			}else if(time() > strtotime($contest['expiredDate']) && !pzk_request('showDebug')){
 				//het thoi gian thi dot 1
 				$this->initPage();
-				pzk_page()->set('title', 'Hết thời gian thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('keywords', 'Hết thời gian thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('description', 'Hết thời gian thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Hết thời gian thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setKeywords('Hết thời gian thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setDescription('Hết thời gian thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/do', 'wrapper');
 				$do = pzk_element('do');
-				$do->set('finish', 1);
+				$do->setFinish(1);
 				$this->display();
 				pzk_system()->halt();
 			}else{
@@ -212,11 +212,11 @@ class PzkTrytestController extends PzkController{
 						
 						if($checkTrytestTl == false){
 							$this->initPage();
-								pzk_page()->set('title', 'Thi thử trường Trần Đại Nghĩa');
-								pzk_page()->set('keywords', 'Thi thử trường Trần Đại Nghĩa');
-								pzk_page()->set('description', 'Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+								pzk_page()->setTitle('Thi thử trường Trần Đại Nghĩa');
+								pzk_page()->setKeywords('Thi thử trường Trần Đại Nghĩa');
+								pzk_page()->setDescription('Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+								pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+								pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 								$this->append('trytest/showtl', 'wrapper');
 							
 								$showtl = pzk_element('showtl');
@@ -231,26 +231,26 @@ class PzkTrytestController extends PzkController{
 									'camp' => $testTl['camp']
 								);
 								$userInfo = $frontend->getOne(pzk_session('userId'), 'user');
-								$showtl->set('userInfo', $userInfo);
-								$showtl->set('camp', $camp);
-								$showtl->set('data_criteria', $data_criteria);
+								$showtl->setUserInfo($userInfo);
+								$showtl->setCamp($camp);
+								$showtl->setData_criteria($data_criteria);
 							$this->display();
 							pzk_system()->halt();
 						}else{
 							//da thi xong
 							$this->initPage();
-								pzk_page()->set('title', 'Thi thử trường Trần Đại Nghĩa');
-								pzk_page()->set('keywords', 'Thi thử trường Trần Đại Nghĩa');
-								pzk_page()->set('description', 'Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+								pzk_page()->setTitle('Thi thử trường Trần Đại Nghĩa');
+								pzk_page()->setKeywords('Thi thử trường Trần Đại Nghĩa');
+								pzk_page()->setDescription('Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+								pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+								pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 								/*$this->append('trytest/finish', 'wrapper');
 								$finish = pzk_element('finish');
 								$finish->setCamp($camp);
 								$finish->setDateFinish(DATEFINISH1);*/
 								$this->append('trytest/alert', 'wrapper');
 								$alert = pzk_element()->getAlert();
-								$alert->set('title', 'Bạn đã hoàn thành bài thi! <br> Mỗi tài khoản chỉ được thi một lần.');
+								$alert->setTitle('Bạn đã hoàn thành bài thi! <br> Mỗi tài khoản chỉ được thi một lần.');
 								$this->display();
 							
 							pzk_system()->halt();
@@ -259,15 +259,15 @@ class PzkTrytestController extends PzkController{
 				}else {
 					//mua goi thi thu dot 1
 					$this->initPage();
-						pzk_page()->set('title', 'Mua gói thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('keywords', 'Mua gói thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('description', 'Mua gói thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+						pzk_page()->setTitle('Mua gói thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setKeywords('Mua gói thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setDescription('Mua gói thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+						pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+						pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('trytest/buy', 'wrapper');
 						$login = pzk_element('buy');
 						$alert = 'Bạn phải mua gói thi thử '.$contest['name'].' thì mới được thi';
-						$login->set('title', $alert);
+						$login->setTitle($alert);
 					$this->display();
 					pzk_system()->halt();
 				}
@@ -276,15 +276,15 @@ class PzkTrytestController extends PzkController{
 			//chua dang nhap
 			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('description', 'Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setKeywords('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setDescription('Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
 				$login = pzk_element()->getLogin();
-				$login->set('rel', "/trytest/showtl/".$camp);
-				$login->set('title', 'thì mới được vào thi thử');
+				$login->setRel("/trytest/showtl/".$camp);
+				$login->setTitle('thì mới được vào thi thử');
 			$this->display();
 			pzk_system()->halt();
 		}
@@ -296,9 +296,9 @@ class PzkTrytestController extends PzkController{
 		
     	$request 			= pzk_request();
     	
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getanswers();
     	
-    	$user_book_key	= $request->get('keybook');
+    	$user_book_key	= $request->getKeybook();
 		
 		$camp = $data_answers['camp'];
 		
@@ -365,7 +365,7 @@ class PzkTrytestController extends PzkController{
 				'trytest'			=> TN,
 				'camp'				=> $camp,
 				'created'			=> date('Y-m-d H:i:s'),
-				'software'		=> pzk_request()->get('softwareId'),
+				'software'		=> pzk_request()->getSoftwareId(),
     			'duringTime'		=> $duringTime
     	);
     	
@@ -388,7 +388,7 @@ class PzkTrytestController extends PzkController{
                 //hight score
 
     			 
-    			$userbookId=$userBook->get('id');
+    			$userbookId=$userBook->getId();
 
     			foreach($question_id as $key => $value){
     				if(empty($answers[$key])){
@@ -415,7 +415,7 @@ class PzkTrytestController extends PzkController{
     	 
     	$request 			= pzk_request();
     
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getanswers();
     	 
     	$question_id 		= $data_answers['questions'];
     	
@@ -467,11 +467,11 @@ class PzkTrytestController extends PzkController{
 		}
 		$request 			= pzk_request();
     	
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getanswers();
 		
 		$answers 		= $data_answers['answers'];
 		
-    	$user_book_key	= $request->get('keybook');
+    	$user_book_key	= $request->getKeybook();
 		
 		$camp = $data_answers['camp'];
     	
@@ -514,7 +514,7 @@ class PzkTrytestController extends PzkController{
 				'trytest'			=> TL,
 				'created'			=> date('Y-m-d H:i:s'),
 				'camp'				=> $camp,
-				'software'		=> pzk_request()->get('softwareId'),
+				'software'		=> pzk_request()->getSoftwareId(),
     			'duringTime'		=> $duringTime
     	);
     	
@@ -534,7 +534,7 @@ class PzkTrytestController extends PzkController{
     			
     			$userBook->save();
 
-    			$userbookId = $userBook->get('id');
+    			$userbookId = $userBook->getId();
 				
 				
 				foreach($question_id as $key => $value){
@@ -581,28 +581,28 @@ class PzkTrytestController extends PzkController{
 			if(time() < strtotime($dataContest['showResultDate']) && !pzk_request(showDebug)){
 				//chua den ngay xem ket qua
 				$this->initPage();
-					pzk_page()->set('title', 'Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('keywords', 'Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('description', 'Chưa đến ngày xem kết quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-					pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-					pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+					pzk_page()->setTitle('Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setKeywords('Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setDescription('Chưa đến ngày xem kết quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+					pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+					pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 					$this->append('trytest/datetest', 'wrapper');
 					$finish = pzk_element('datetest');
-					$finish->set('dateCamp', $dataContest['showResultDate']);
-					$finish->set('title', 'Chưa đến ngày công bố kết quả thi. Kết quả thi được công bố ngày ');
+					$finish->setDateCamp($dataContest['showResultDate']);
+					$finish->setTitle('Chưa đến ngày công bố kết quả thi. Kết quả thi được công bố ngày ');
 				$this->display();
 				pzk_system()->halt();
 			}else if(time() > strtotime($dataContest['endShowResult']) && !pzk_request(showDebug)){
 				//het thoi gian xem ket qua
 				$this->initPage();
-					pzk_page()->set('title', 'Hãy thi tự luận trường Trần Đại Nghĩa');
-					pzk_page()->set('keywords', 'Hãy thi tự luận trường Trần Đại Nghĩa');
-					pzk_page()->set('description', 'Hãy thi tự luận vào trường Trần Đại nghĩa với phần mềm Full Look');
-					pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-					pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+					pzk_page()->setTitle('Hãy thi tự luận trường Trần Đại Nghĩa');
+					pzk_page()->setKeywords('Hãy thi tự luận trường Trần Đại Nghĩa');
+					pzk_page()->setDescription('Hãy thi tự luận vào trường Trần Đại nghĩa với phần mềm Full Look');
+					pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+					pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 					$this->append('trytest/alert', 'wrapper');
 					$alert = pzk_element()->getAlert();
-					$alert->set('title', 'Đã hết thời gian xem kết quả thi');
+					$alert->setTitle('Đã hết thời gian xem kết quả thi');
 					
 				$this->display();
 				pzk_system()->halt();
@@ -625,30 +625,30 @@ class PzkTrytestController extends PzkController{
 					//chua thi trac nghiem
 					if(!$userbookTn) {
 						$this->initPage();
-							pzk_page()->set('title', 'Hãy thi tự luận trường Trần Đại Nghĩa');
-							pzk_page()->set('keywords', 'Hãy thi tự luận trường Trần Đại Nghĩa');
-							pzk_page()->set('description', 'Hãy thi tự luận vào trường Trần Đại nghĩa với phần mềm Full Look');
-							pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-							pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+							pzk_page()->setTitle('Hãy thi tự luận trường Trần Đại Nghĩa');
+							pzk_page()->setKeywords('Hãy thi tự luận trường Trần Đại Nghĩa');
+							pzk_page()->setDescription('Hãy thi tự luận vào trường Trần Đại nghĩa với phần mềm Full Look');
+							pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+							pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 							$this->append('trytest/alert', 'wrapper');
 							$alert = pzk_element()->getAlert();
 							$html = 'Bạn chưa thi thử! <br/> <br/>Phải hoàn thành xong 2 bài thi(trắc nghiệm và tự luận) mới được xem đáp án!<br/><br/> Click <a href="/trytest/showtn/'.$contestId.'">vào đây</a> để thi thử!';
-							$alert->set('title', $html);
+							$alert->setTitle($html);
 							
 						$this->display();
 						pzk_system()->halt();
 						//chua thi tu luan
 					}elseif(!$userbookTl) {
 						$this->initPage();
-							pzk_page()->set('title', 'Hãy thi tự luận trường Trần Đại Nghĩa');
-							pzk_page()->set('keywords', 'Hãy thi tự luận trường Trần Đại Nghĩa');
-							pzk_page()->set('description', 'Hãy thi tự luận vào trường Trần Đại nghĩa với phần mềm Full Look');
-							pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-							pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+							pzk_page()->setTitle('Hãy thi tự luận trường Trần Đại Nghĩa');
+							pzk_page()->setKeywords('Hãy thi tự luận trường Trần Đại Nghĩa');
+							pzk_page()->setDescription('Hãy thi tự luận vào trường Trần Đại nghĩa với phần mềm Full Look');
+							pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+							pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 							$this->append('trytest/alert', 'wrapper');
 							$alert = pzk_element()->getAlert();
 							$html = 'Bạn chưa thi thử tự luận! <br/> <br/>Phải hoàn thành xong 2 bài thi(trắc nghiệm và tự luận) mới được xem đáp án!<br/><br/> Click <a href="/trytest/showtl/'.$contestId.'">vào đây</a> để thi thử tự luận';
-							$alert->set('title', $html);
+							$alert->setTitle($html);
 							
 						$this->display();
 						pzk_system()->halt();
@@ -658,11 +658,11 @@ class PzkTrytestController extends PzkController{
 						if($checkUserBook == 1) {
 							//da cham xong
 							$this->initPage();
-									pzk_page()->set('title', 'Kết quả thi thử trường Trần Đại Nghĩa');
-									pzk_page()->set('keywords', 'Kết quả thi thử trường Trần Đại Nghĩa');
-									pzk_page()->set('description', 'Kêt quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-									pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-									pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+									pzk_page()->setTitle('Kết quả thi thử trường Trần Đại Nghĩa');
+									pzk_page()->setKeywords('Kết quả thi thử trường Trần Đại Nghĩa');
+									pzk_page()->setDescription('Kêt quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+									pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+									pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 									$this->append('trytest/showresult', 'wrapper');
 									//check rating
 									//get contest id
@@ -674,37 +674,37 @@ class PzkTrytestController extends PzkController{
 									
 									$showresult = pzk_element('showresult');
 									//set showQuestionTn
-									$showresult->set('showQuestionTn', $showQuestionTn);
+									$showresult->setShowQuestionTn($showQuestionTn);
 									//set rate
-									$showresult->set('rate', $rate);
+									$showresult->setRate($rate);
 									//xu li bai trac nghiem
-									$showresult->set('userBookIdTn', $userbookTn['id']);
+									$showresult->setUserBookIdTn($userbookTn['id']);
 									//du lieu cho bai tu luan
-									$showresult->set('dataUserAnswers', $dataUserAnswers);
+									$showresult->setDataUserAnswers($dataUserAnswers);
 									//dulieu hoc sinh
-									$showresult->set('userInfo', $userInfo);
+									$showresult->setUserInfo($userInfo);
 									//diem thi trac nghiem
 									$scoreTn = $userbookTn['mark'] * 2;
-									$showresult->set('scoretn', $scoreTn);
+									$showresult->setScoretn($scoreTn);
 									//diem bai thi tu luan 
 									$scoreTl = $userbookTl['teacherMark'];
-									$showresult->set('scoretl', $scoreTl);
-									$showresult->set('camp', $camp);
+									$showresult->setScoretl($scoreTl);
+									$showresult->setCamp($camp);
 										
 								$this->display();
 								pzk_system()->halt();
 						}elseif($checkUserBook == 2){
 							//dang cho cham
 								$this->initPage();
-									pzk_page()->set('title', 'Thi thử trường Trần Đại Nghĩa');
-									pzk_page()->set('keywords', 'Thi thử trường Trần Đại Nghĩa');
-									pzk_page()->set('description', 'Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-									pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-									pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+									pzk_page()->setTitle('Thi thử trường Trần Đại Nghĩa');
+									pzk_page()->setKeywords('Thi thử trường Trần Đại Nghĩa');
+									pzk_page()->setDescription('Thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+									pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+									pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 									$this->append('trytest/finish', 'wrapper');
 									$finish = pzk_element('finish');
-									$finish->set('camp', $dataContest['name']);
-									$finish->set('dateFinish', $dataContest['showResultDate']);
+									$finish->setCamp($dataContest['name']);
+									$finish->setDateFinish($dataContest['showResultDate']);
 								$this->display();
 								pzk_system()->halt();
 						}	
@@ -713,15 +713,15 @@ class PzkTrytestController extends PzkController{
 				}else{
 					//mua goi thi thu dot 1
 					$this->initPage();
-						pzk_page()->set('title', 'Mua gói thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('keywords', 'Mua gói thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('description', 'Mua gói thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+						pzk_page()->setTitle('Mua gói thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setKeywords('Mua gói thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setDescription('Mua gói thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+						pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+						pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('trytest/buy', 'wrapper');
 						$login = pzk_element('buy');
 						$alert = 'Bạn chưa mua gói thi thử hoặc chưa làm đề thi thử '.$dataContest['name'].'<br/>';
-						$login->set('title', $alert);
+						$login->setTitle($alert);
 					$this->display();
 					pzk_system()->halt();
 				}
@@ -731,15 +731,15 @@ class PzkTrytestController extends PzkController{
 			//chua dang nhap
 			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('description', 'Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setKeywords('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setDescription('Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
 				$login = pzk_element()->getLogin();
-				$login->set('rel', "/trytest/showresult/".$camp);
-				$login->set('title', 'thì mới xem được kết quả!');
+				$login->setRel("/trytest/showresult/".$camp);
+				$login->setTitle('thì mới xem được kết quả!');
 			$this->display();
 			pzk_system()->halt();
 		}
@@ -756,15 +756,15 @@ class PzkTrytestController extends PzkController{
 			if(time() < strtotime($dataContest['showResultDate']) && !pzk_request('showDebug')) {
 			
 				$this->initPage();
-					pzk_page()->set('title', 'Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('keywords', 'Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('description', 'Chưa đến ngày xem kết quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-					pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-					pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+					pzk_page()->setTitle('Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setKeywords('Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setDescription('Chưa đến ngày xem kết quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+					pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+					pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 					$this->append('trytest/datetest', 'wrapper');
 					$finish = pzk_element('datetest');
-					$finish->set('dateCamp', $dataContest['showResultDate']);
-					$finish->set('title', 'Chưa đến ngày công bố đề thi và đáp án. Đề thi và đáp án được công bố ngày ');
+					$finish->setDateCamp($dataContest['showResultDate']);
+					$finish->setTitle('Chưa đến ngày công bố đề thi và đáp án. Đề thi và đáp án được công bố ngày ');
 				$this->display();
 				pzk_system()->halt();
 			}else {
@@ -779,39 +779,39 @@ class PzkTrytestController extends PzkController{
 					
 					//da cham xong
 					$this->initPage();
-						pzk_page()->set('title', 'Kết quả thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('keywords', 'Kết quả thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('description', 'Kêt quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+						pzk_page()->setTitle('Kết quả thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setKeywords('Kết quả thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setDescription('Kêt quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+						pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+						pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('trytest/showtestanswer', 'wrapper');
 						//data cau trac nghiem
 						$showQuestionTn = $userBookModel->getQuestionByTrytestId($testTn['id']);
 						$showQuestionTl = $userBookModel->getQuestionByTrytestId($testTl['id']);
 						$showresult = pzk_element('showtestanswer');
 						//set showQuestionTn
-						$showresult->set('showQuestionTn', $showQuestionTn);
+						$showresult->setShowQuestionTn($showQuestionTn);
 						
 						//du lieu cho bai tu luan
-						$showresult->set('showQuestionTl', $showQuestionTl);
+						$showresult->setShowQuestionTl($showQuestionTl);
 						
-						$showresult->set('camp', $contestId);
+						$showresult->setCamp($contestId);
 							
 					$this->display();
 					pzk_system()->halt();	
 				}else{
 					//mua goi xem thu dot 1
 					$this->initPage();
-						pzk_page()->set('title', 'Mua gói xem đề thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('keywords', 'Mua gói xem đề thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('description', 'Mua gói xem đề thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+						pzk_page()->setTitle('Mua gói xem đề thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setKeywords('Mua gói xem đề thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setDescription('Mua gói xem đề thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+						pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+						pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('trytest/alert', 'wrapper');
 						$login = pzk_element()->getAlert();
 						$contestname = strtolower($dataContest['name']);
 						$alert = 'Bạn chưa mua gói xem đề '. $contestname .' <br/>';
-						$login->set('title', $alert);
+						$login->setTitle($alert);
 					$this->display();
 					pzk_system()->halt();
 				}	
@@ -823,15 +823,15 @@ class PzkTrytestController extends PzkController{
 			//chua dang nhap
 			$contestId = intval(pzk_request()->getSegment(3));
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('description', 'Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setKeywords('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setDescription('Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
 				$login = pzk_element()->getLogin();
-				$login->set('rel', "/trytest/showtestanswer/".$contestId);
-				$login->set('title', 'thì mới xem được đáp án');
+				$login->setRel("/trytest/showtestanswer/".$contestId);
+				$login->setTitle('thì mới xem được đáp án');
 			$this->display();
 			pzk_system()->halt();
 		}
@@ -848,15 +848,15 @@ class PzkTrytestController extends PzkController{
 			if(time() < strtotime($dataContest['showResultDate']) && !pzk_request(showDebug)) {
 			
 				$this->initPage();
-					pzk_page()->set('title', 'Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('keywords', 'Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
-					pzk_page()->set('description', 'Chưa đến ngày xem kết quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-					pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-					pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+					pzk_page()->setTitle('Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setKeywords('Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');
+					pzk_page()->setDescription('Chưa đến ngày xem kết quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+					pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+					pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 					$this->append('trytest/datetest', 'wrapper');
 					$finish = pzk_element('datetest');
-					$finish->set('dateCamp', $dataContest['showResultDate']);
-					$finish->set('title', 'Chưa đến ngày công bố đề thi. Đề thi được công bố ngày ');
+					$finish->setDateCamp($dataContest['showResultDate']);
+					$finish->setTitle('Chưa đến ngày công bố đề thi. Đề thi được công bố ngày ');
 				$this->display();
 				pzk_system()->halt();
 			}else {
@@ -871,39 +871,39 @@ class PzkTrytestController extends PzkController{
 					
 					//da cham xong
 					$this->initPage();
-						pzk_page()->set('title', 'Kết quả thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('keywords', 'Kết quả thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('description', 'Kêt quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+						pzk_page()->setTitle('Kết quả thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setKeywords('Kết quả thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setDescription('Kêt quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+						pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+						pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('trytest/showtest', 'wrapper');
 						//data cau trac nghiem
 						$showQuestionTn = $userBookModel->getQuestionByTrytestId($testTn['id']);
 						$showQuestionTl = $userBookModel->getQuestionByTrytestId($testTl['id']);
 						$showresult = pzk_element('showtest');
 						//set showQuestionTn
-						$showresult->set('showQuestionTn', $showQuestionTn);
+						$showresult->setShowQuestionTn($showQuestionTn);
 						
 						//du lieu cho bai tu luan
-						$showresult->set('showQuestionTl', $showQuestionTl);
+						$showresult->setShowQuestionTl($showQuestionTl);
 						
-						$showresult->set('camp', $contestId);
+						$showresult->setCamp($contestId);
 							
 					$this->display();
 					pzk_system()->halt();	
 				}else{
 					//mua goi xem thu dot 1
 					$this->initPage();
-						pzk_page()->set('title', 'Mua gói xem đề thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('keywords', 'Mua gói xem đề thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('description', 'Mua gói xem đề thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+						pzk_page()->setTitle('Mua gói xem đề thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setKeywords('Mua gói xem đề thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setDescription('Mua gói xem đề thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+						pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+						pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('trytest/alert', 'wrapper');
 						$login = pzk_element()->getAlert();
 						$contestname = strtolower($dataContest['name']);
 						$alert = '<div class="bg bg-success padding-10">Bạn chưa mua gói xem đề '. $contestname .' <br/><br/> <a href="/contest/about">Vào đây</a> để mua</a>';
-						$login->set('title', $alert);
+						$login->setTitle($alert);
 					$this->display();
 					pzk_system()->halt();
 				}	
@@ -915,15 +915,15 @@ class PzkTrytestController extends PzkController{
 			//chua dang nhap
 			$contestId = intval(pzk_request()->getSegment(3));
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('description', 'Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setKeywords('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setDescription('Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('trytest/login', 'wrapper');
 				$login = pzk_element()->getLogin();
 				$login->set('rel',"/trytest/showtest/".$contestId);
-				$login->set('title', 'thì mới xem được đề!');
+				$login->setTitle('thì mới xem được đề!');
 			$this->display();
 			pzk_system()->halt();
 		}

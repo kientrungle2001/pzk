@@ -1,4 +1,4 @@
-<?php $contest = $data->get('contest'); 
+<?php $contest = $data->getContest(); 
 ?>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">

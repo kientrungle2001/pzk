@@ -610,7 +610,7 @@ class PzkGridConstant
 		'filterStatus' 	=> true,
 		'orderBy'		=> 'social_schedule.id desc',
 		'searchFields' 	=> array('name'),
-		'Searchlabels' 	=> 'Tên ứng dụng',
+		'searchLabel' 	=> 'Tên ứng dụng',
 	);
 
 	public static function  get($field, $replace, $params = array())

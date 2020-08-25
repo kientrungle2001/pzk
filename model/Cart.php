@@ -21,10 +21,10 @@ class PzkCartModel {
 	Lấy ra các sản phẩm
 	*/
 	public function getItems() {
-		return pzk_or(pzk_session()->get('cartItems'), array());
+		return pzk_or(pzk_session()->getCartItems(), array());
 	}
 	private function setItems($items) {
-		pzk_session()->set('cartItems', $items);
+		pzk_session()->setCartItems($items);
 		$this->calculateTotal();
 	}
 	/**
@@ -42,14 +42,14 @@ class PzkCartModel {
 	Tổng hợp
 	*/
 	public function getSummary() {
-		return pzk_session()->get('cartSummary');
+		return pzk_session()->getCartSummary();
 	}
 	
 	/**
 	Lưu tổng hợp
 	*/
 	private function setSummary($summary) {
-		return pzk_session()->set('cartSummary', $summary);
+		return pzk_session()->setCartSummary($summary);
 	}
 	
 	/**

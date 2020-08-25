@@ -12,7 +12,7 @@ $root = $items[0]; ?>
 				<?php  $children = $root['children']; $index = 0; ?>
 				<?php foreach($children as $item): ?>
 				<div class="col-sm-4 carousel-item">
-					<?php  if(!$data->get('hiddenTitle')): ?>
+					<?php  if(!$data->getHiddenTitle()): ?>
 					<h3 class="title"><a href="<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></h3>
 					<?php  endif; ?>
 					<div class="text-center">

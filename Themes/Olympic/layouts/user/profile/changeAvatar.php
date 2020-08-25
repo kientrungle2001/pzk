@@ -1,7 +1,7 @@
 <?php  $user= pzk_user(); ?>
 <div id="change-avatar" class="row bottom20">
 	<div class="col-xs-12">
-		<img src="<?php echo $user->get('avatar')?>" alt="<?php echo $user->get('username')?>" class="img-circle" style="width: 120px; height: 120px">
+		<img src="<?php echo $user->getavatar()?>" alt="<?php echo $user->getUsername()?>" class="img-circle" style="width: 120px; height: 120px">
 	</div>
 	<div class="show-message"></div>
 	<div class="col-xs-12">

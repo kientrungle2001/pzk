@@ -1,12 +1,12 @@
 <?php
-		$UserId = $data->get('userId');
+		$UserId = $data->getUserId();
 		
-		$startDate = $data->get('startDate');
-		$endDate = $data->get('endDate');
+		$startDate = $data->getStartDate();
+		$endDate = $data->getEndDate();
 		
-		$data->pageSize = $data->get('pageSize');
+		$data->pageSize = $data->getPageSize();
 		
-		$page = $data->get('page');
+		$page = $data->getPage();
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{

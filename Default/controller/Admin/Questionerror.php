@@ -55,7 +55,7 @@ class PzkAdminQuestionerrorController extends PzkGridAdminController {
 	
     //search fields co type la text
     public $searchFields = array('username');
-    public $Searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
     //filter cho cac truong co type la select
     public $filterFields = array(
 

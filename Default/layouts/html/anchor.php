@@ -7,4 +7,4 @@ if($data->button) {
 	}
 	$button = 'btn ' . implode(' ', $buttons);
 }
-?><a href="<?php echo @$data->src?>" title="<?php echo @$data->title?>" class="<?php echo @$data->class?> <?php echo $button ?>"><?php echo @$data->label?><?php $data->displayChildren('all') ?></a>
+?><a href="<?php echo @$data->src?>" title="<?php echo @$data->getTitle()?>" class="<?php echo @$data->class?> <?php echo $button ?>"><?php echo @$data->label?><?php $data->displayChildren('all') ?></a>

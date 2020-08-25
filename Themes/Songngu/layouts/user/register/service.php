@@ -1,5 +1,5 @@
 <?php 
-	$serviceName= $data->get('serviceName');
+	$serviceName= $data->getServiceName();
 	if($serviceName == 'classroom'){
  ?>
 <div class="col-md-4 col-md-offset-2  top10 ">

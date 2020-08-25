@@ -19,11 +19,11 @@ class PzkContestController extends PzkThemesDefaultContestController {
 
 				if($userbook) {
 					$this->initPage();
-						pzk_page()->set('title', 'Kết quả thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('keywords', 'Kết quả thi thử trường Trần Đại Nghĩa');
-						pzk_page()->set('description', 'Kêt quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+						pzk_page()->setTitle('Kết quả thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setKeywords('Kết quả thi thử trường Trần Đại Nghĩa');
+						pzk_page()->setDescription('Kêt quả thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+						pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+						pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('showresult/showresult', 'wrapper');
 						
 						//get rate
@@ -33,32 +33,32 @@ class PzkContestController extends PzkThemesDefaultContestController {
 						
 						$showresult = pzk_element('showresult');
 						//set showQuestionTn
-						$showresult->set('showQuestionTn', $showQuestionTn);
+						$showresult->setShowQuestionTn($showQuestionTn);
 						
 						//xu li bai trac nghiem
-						$showresult->set('userBookIdTn', $userbook['id']);
+						$showresult->setUserBookIdTn($userbook['id']);
 						//set rate
-						$showresult->set('rate', $rate);
+						$showresult->setRate($rate);
 						//dulieu hoc sinh
-						$showresult->set('userInfo', $userInfo);
+						$showresult->setUserInfo($userInfo);
 						//diem thi trac nghiem
 						$scoreTn = $userbook['mark'];
-						$showresult->set('testId', $testId);
-						$showresult->set('scoretn', $scoreTn);
+						$showresult->setTestId($testId);
+						$showresult->setScoretn($scoreTn);
 						
 							
 					$this->display();
 					pzk_system()->halt();
 				}else{
 					$this->initPage();
-						pzk_page()->set('title', 'Chưa làm đề của trung tâm');
-						pzk_page()->set('keywords', 'Chưa làm đề của trung tâm');
-						pzk_page()->set('description', 'Chưa làm đề của trung tâm');
-						pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-						pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+						pzk_page()->setTitle('Chưa làm đề của trung tâm');
+						pzk_page()->setKeywords('Chưa làm đề của trung tâm');
+						pzk_page()->setDescription('Chưa làm đề của trung tâm');
+						pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+						pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 						$this->append('showresult/alert', 'wrapper');
 						$alert = pzk_element()->getAlert();
-						$alert->set('title', 'Bạn chưa làm đề này!');
+						$alert->setTitle('Bạn chưa làm đề này!');
 					$this->display();
 					pzk_system()->halt();
 				}	
@@ -70,15 +70,15 @@ class PzkContestController extends PzkThemesDefaultContestController {
 			//chua dang nhap
 			$camp = intval(pzk_request()->getSegment(3));
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('keywords', 'Đăng nhập thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('description', 'Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setKeywords('Đăng nhập thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setDescription('Đăng nhập thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('showresult/login', 'wrapper');
 				$login = pzk_element()->getLogin();
-				$login->set('rel', "/contest/showresult/".$camp);
-				$login->set('title', 'thì mới xem được kết quả!');
+				$login->setRel("/contest/showresult/".$camp);
+				$login->setTitle('thì mới xem được kết quả!');
 			$this->display();
 			pzk_system()->halt();
 		}
@@ -89,8 +89,8 @@ class PzkContestController extends PzkThemesDefaultContestController {
         $this->initPage();
         $this->append('showresult/testrating', 'wrapper');
 		$rank= pzk_element('testRating');
-		$rank->set('testId', $testId);
-	    $rank->set('pageSize', 20);
+		$rank->setTestId($testId);
+	    $rank->setPageSize(20);
 		$this->display();
     }
 	public function getStudentAction() {
@@ -99,8 +99,8 @@ class PzkContestController extends PzkThemesDefaultContestController {
 			$this->initPage();
 			$this->append('showresult/resulttest', 'wrapper');
 			$resulttest= pzk_element('resulttest');
-			$resulttest->set('class', $class);
-			$resulttest->set('pageSize', 20);
+			$resulttest->setClass($class);
+			$resulttest->setPageSize(20);
 			$this->display();
 		}
 		

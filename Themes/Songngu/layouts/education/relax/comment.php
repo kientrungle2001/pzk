@@ -1,6 +1,6 @@
 <?php
 
-$newsid=$data->get('newId');
+$newsid=$data->getNewId();
 
 pzk_session('newsid',$newsid);
 if (pzk_session('login')){

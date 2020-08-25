@@ -1,5 +1,5 @@
 <?php 
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
 ?>
 <h3><?php echo $language['same'];?></h3>

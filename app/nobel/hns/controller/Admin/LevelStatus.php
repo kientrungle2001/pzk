@@ -36,7 +36,7 @@ class PzkAdminLevelStatusController extends PzkGridAdminController {
     );
 
     public $searchFields = array('value');
-    public $Searchlabels = 'Trạng thái';
+    public $searchLabel = 'Trạng thái';
     //filter cho cac truong co type la select
     public $filterFields = array(
 

@@ -13,21 +13,21 @@ class PzkMonitorController extends PzkController {
 	}
 	public function indexAction() {
 		$this->initPage();
-			pzk_page()->set('title', 'Quản lí');
-			pzk_page()->set('keywords', 'Quản lí');
-			pzk_page()->set('description', 'Quản lí');
-			pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-			pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+			pzk_page()->setTitle('Quản lí');
+			pzk_page()->setKeywords('Quản lí');
+			pzk_page()->setDescription('Quản lí');
+			pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+			pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 			$this->append('education/monitor/manage');
 			$this->display();
 	}
 	public function studentAction($id){
 			$this->initPage();
-			pzk_page()->set('title', 'Chi tiết học sinh');
-			pzk_page()->set('keywords', 'Chi tiết học sinh');
-			pzk_page()->set('description', 'Chi tiết học sinh dùng phần mềm Full Look');
-			pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-			pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+			pzk_page()->setTitle('Chi tiết học sinh');
+			pzk_page()->setKeywords('Chi tiết học sinh');
+			pzk_page()->setDescription('Chi tiết học sinh dùng phần mềm Full Look');
+			pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+			pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 			$this->append('education/monitor/student');
 			$this->display();
 	}

@@ -2,12 +2,12 @@
 $items = $data->getItems();
 $countItems = $data->getCountItems();
 $pages = ceil($countItems / $data->pageSize);
-$parent = _db()->getTableEntity('tests')->load($data->get('parentId'), 1800);
+$parent = _db()->getTableEntity('tests')->load($data->getParentId(), 1800);
 ?>
 <div class="container">
 <div class="row">
 <div class="col-xs-12">
-<h1 class="text-center"> Bảng xếp hạng cho <?php echo $parent->get('name')?></h1>
+<h1 class="text-center"> Bảng xếp hạng cho <?php echo $parent->getName()?></h1>
 <div class="table-responsive">
 <table class="table">
 <tr>

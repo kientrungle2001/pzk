@@ -1,4 +1,4 @@
-<?php if(!pzk_session()->get('userId')): ?>
+<?php if(!pzk_session()->getUserId()): ?>
 <div class="container">
 	<div class="row">
     	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

@@ -5,7 +5,7 @@ class PzkAdminConfigController extends PzkDefaultAdminConfigController {
 		static $menuLinks;
 		if(!$menuLinks) {
 			$parentMenuLinks = parent::get('menuLinks');
-			$newMenuLinks = $this->get('newMenuLinks');
+			$newMenuLinks = $this->getNewMenuLinks();
 			foreach ($newMenuLinks as $link) {
 				$parentMenuLinks[] = $link;
 			}

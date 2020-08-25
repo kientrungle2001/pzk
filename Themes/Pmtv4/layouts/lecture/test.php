@@ -1,9 +1,9 @@
 <?php $item = $data->getItem(); 
-$hasVideo = $data->get('hasVideo');
+$hasVideo = $data->getHasVideo();
 $others = $data->getOthers();
 $tests = $data->getTests();
 $questions = $data->getQuestions();
-$cat = _db()->getTableEntity('categories')->load($data->get('catId'));
+$cat = _db()->getTableEntity('categories')->load($data->getCatId());
 ?>
 <div class="lecture-region">
 	<div class="container">
@@ -20,7 +20,7 @@ $cat = _db()->getTableEntity('categories')->load($data->get('catId'));
 							<?php endforeach; ?>
 						</select>
 						<script type="text/javascript">
-							$('#lecture-detail-select').val('<?php echo $data->get('catId')?>');
+							$('#lecture-detail-select').val('<?php echo $data->getCatId()?>');
 						</script>
 					</div>
 					<div class="<?php echo pzk_theme_css_class('time-wrapper')?>">
@@ -52,7 +52,7 @@ $cat = _db()->getTableEntity('categories')->load($data->get('catId'));
 					<?php if(pzk_request('step') == 'doing'): ?>
 						<form id="questionForm" class="form">
 						<div class="row">
-							<div class="col-xs-12"><?php echo $cat->get('content')?></div>
+							<div class="col-xs-12"><?php echo $cat->getContent()?></div>
 						</div>
 						<?php $index = 1; $questionIds = array(); ?>
 						<?php foreach($questions as $question): ?>
@@ -91,12 +91,12 @@ $cat = _db()->getTableEntity('categories')->load($data->get('catId'));
 						<?php endforeach; ?>
 						<div class="row">
 							<div class="col-xs-12 form-group text-center">
-								<input type="hidden" name="categoryId" value="<?php echo $data->get('catId')?>" />
+								<input type="hidden" name="categoryId" value="<?php echo $data->getCatId()?>" />
 								<input type="hidden" name="quantity" value="<?php  echo ($index-1); ?>" />
 								<input type="hidden" name="startTime" value="<?php echo date('Y-m-d H:i:s');?>" />
 								<input type="hidden" name="duration" id="countdownDuration" value="0" />
 								<input type="hidden" name="remaining" id="countdownRemaining" value="<?php echo (45 * 60)?>" />
-								<input type="hidden" name="testId" value="<?php  echo $data->get('testId'); ?>" />
+								<input type="hidden" name="testId" value="<?php  echo $data->getTestId(); ?>" />
 								<input type="hidden" name="questionIds" value="<?php  echo implode(',', $questionIds); ?>" />
 								<button id="saveChoiceBtn" type="submit" class="<?php echo pzk_theme_css_class('btn-complete')?>">
 									<span class="<?php echo pzk_theme_css_class('ico-ok')?>"></span> Hoàn thành
@@ -154,7 +154,7 @@ $cat = _db()->getTableEntity('categories')->load($data->get('catId'));
 			<script type="text/javascript">
 				pzk.beforeload('<?php echo @$data->id?>', function() {
 					this.setUrl('/<?php echo @$item['alias']?>?step=doing');
-					this.selectCatId('<?php echo $data->get('catId'); ?>');
+					this.selectCatId('<?php echo $data->getCatId(); ?>');
 				});
 			
 			

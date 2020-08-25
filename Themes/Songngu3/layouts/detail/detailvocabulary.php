@@ -10,7 +10,7 @@
 		$subjectId = pzk_session('subject');
 	}
 	$level 		= $data->getLevelDocument($subjectId, $check);
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
 	$class= pzk_session('lop');
 ?>

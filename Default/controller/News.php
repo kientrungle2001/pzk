@@ -23,21 +23,21 @@ class PzkNewsController extends PzkController {
 		
 		if(!$newsId) $newsId = pzk_request()->getSegment(3);
 		
-		pzk_request()->set('id', $newsId);
+		pzk_request()->setId($newsId);
 		
 		$newsEntity = _db()->getTableEntity('news')->load($newsId, 1800);
 		
-		pzk_page()->set('title', $newsEntity->get('title'));
-		pzk_page()->set('keywords', $newsEntity->get('meta_keywords'));
-		pzk_page()->set('description', $newsEntity->get('meta_description'));
-		pzk_page()->set('img', $newsEntity->get('img'));
-		pzk_page()->set('brief', $newsEntity->get('brief'));
+		pzk_page()->setTitle($newsEntity->getTitle());
+		pzk_page()->setKeywords($newsEntity->getMeta_keywords());
+		pzk_page()->setDescription($newsEntity->getMeta_description());
+		pzk_page()->setImg($newsEntity->getImg());
+		pzk_page()->setBrief($newsEntity->getBrief());
 		
 		$news = $this->parse('cms/news/detail');
 		$detail = pzk_element()->getDetail();
 		
 		if($detail) {
-			$detail->set('itemId', $newsId);
+			$detail->setItemId($newsId);
 			//$detail->statVisitor();
 			$stat = pzk_stat();
 			$stat->log('news', $newsId);

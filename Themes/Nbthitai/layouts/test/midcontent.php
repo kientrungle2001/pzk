@@ -2,16 +2,16 @@
 $class = intval(pzk_request('class'));
 $type= intval(pzk_request('practice'));
 if($type == 0){
-	$dataTest = $data->get('test');
+	$dataTest = $data->getTest();
 }
-$data->set('class', $class);
+$data->setClass($class);
 if($type==1){
-	$dataTest = $data->get('practice');
+	$dataTest = $data->getPractice();
 }
 
 $testId = intval(pzk_request()->getSegment(3));
 
-$doTestPostUrl = $data->get('doTestPostUrl');
+$doTestPostUrl = $data->getDoTestPostUrl();
 if(!$doTestPostUrl) {
 	$doTestPostUrl = '/test/doTest/';
 }
@@ -44,7 +44,7 @@ if(!$doTestPostUrl) {
 			</form>
 		<?php else: ?>
 		<form class="form_search_test" style="margin: 15px 0px" action="<?=BASE_REQUEST?><?php echo $doTestPostUrl ?>?practice=<?php echo $type ?>&class=<?php echo $class ?>" method="post" onsubmit = "return check_select_test()">
-			<?php $testDetail = $data->get('testDetail');?>
+			<?php $testDetail = $data->getTestDetail();?>
 		    <div class="col-xs-12 form-group">
 		    	<?php if(!empty($dataTest)):?>
 		    	<div class="col-xs-9 pd-0">

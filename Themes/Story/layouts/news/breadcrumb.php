@@ -1,9 +1,9 @@
 <?php
 $item = $data->getItem();
 $categories = $data->getCategories();
-$categoryTag = $data->get('categoryTag');
-$newsTag = $data->get('newsTag');
-$delimiter = $data->get('delimiter');
+$categoryTag = $data->getCategoryTag();
+$newsTag = $data->getNewsTag();
+$delimiter = $data->getDelimiter();
 $first = true;
 ?>
 <div class="container">
@@ -11,7 +11,7 @@ $first = true;
 		<li><a href = "/home/news">Tin tức</a></li>
 	   <?php foreach($categories as $cat): ?>
 	   <?php  if($first) { $first = false; continue; }?>
-	   <li><?php echo $cat->get('name')?></li>
+	   <li><?php echo $cat->getName()?></li>
 	   <?php endforeach; ?>
 	   <li class="active"><?php echo @$item['title']?></li>
 	</ol>

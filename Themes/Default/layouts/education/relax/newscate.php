@@ -1,5 +1,5 @@
 <?php  
-$cateId = $data->get('parentId');
+$cateId = $data->getParentId();
 $items = $data->getNewsByCateId($cateId); 
 if($items) {
 ?>

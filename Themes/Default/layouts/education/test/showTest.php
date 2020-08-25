@@ -1,5 +1,5 @@
 <?php	
-	$showQuestions 	= $data->get('data_showQuestion');
+	$showQuestions 	= $data->getData_showQuestion();
 	// xu li questions
 	$processQuestions = array();
 	$arrQuestionIds = array();
@@ -19,14 +19,14 @@
 			$processAnswer[$val['question_id']][] = $val;
 		}	
 	}
-	$data_criteria	= $data->get('data_criteria');
+	$data_criteria	= $data->getData_criteria();
 	$class = intval(pzk_request('class'));
 	$type= intval(pzk_request('practice'));
 	if($type == 0){
-		$dataTest = $data->get('test');
+		$dataTest = $data->getTest();
 	}
 	if($type==1){
-		$dataTest = $data->get('practice');
+		$dataTest = $data->getPractice();
 	}
 ?>
 <?php $data->displayChildren('[position=top-menu]') ?>
@@ -85,11 +85,11 @@
 									<?php 
 										$QuestionObj = pzk_obj_once('Education.Question.Type.'.ucfirst(questionTypeOjb($value['questionType'])));
 										
-										$QuestionObj->set('questionId', $value['id']);
+										$QuestionObj->setQuestionId($value['id']);
 										//$QuestionObj->setType($value[]);
 										$questionChoice = _db()->getEntity('Question.Choice');
 										$questionChoice->setData($processQuestions[$value['id']]);
-										$QuestionObj->set('question', $questionChoice);
+										$QuestionObj->setQuestion($questionChoice);
 										
 										//debug($processAnswer[$value['id']]);die();
 										$answerEntitys = array();
@@ -99,10 +99,10 @@
 												$answerEntitys[] = $answerEntity;
 										}
 										
-										$QuestionObj->set('answers', $answerEntitys);
+										$QuestionObj->setAnswers($answerEntitys);
 										
-										$QuestionObj->set('cacheable', 'false');
-										$QuestionObj->set('cacheParams', 'layout, questionId');
+										$QuestionObj->setCacheable('false');
+										$QuestionObj->setCacheParams('layout, questionId');
 										$QuestionObj->display();
 									?>
 									</div>

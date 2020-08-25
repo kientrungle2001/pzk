@@ -14,11 +14,11 @@ class PzkPracticeController extends PzkController{
 			# head meta data
 			$catEntity = _db()->getTableEntity('categories')->load($courseId, 1800);
 			
-			pzk_page()->set('title', 'Luyện tập: ' . $catEntity->get('name'));
-			pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-			pzk_page()->set('description', $catEntity->get('meta_description'));
-			pzk_page()->set('img', $catEntity->get('img'));
-			pzk_page()->set('brief', $catEntity->get('brief'));
+			pzk_page()->setTitle('Luyện tập: ' . $catEntity->getName());
+			pzk_page()->setKeywords($catEntity->getMeta_keywords());
+			pzk_page()->setDescription($catEntity->getMeta_description());
+			pzk_page()->setImg($catEntity->getImg());
+			pzk_page()->setBrief($catEntity->getBrief());
 			
 			
 			# render page content
@@ -27,7 +27,7 @@ class PzkPracticeController extends PzkController{
 			$course = pzk_element()->getCourse();
 			
 			if($course) {
-				$course->set('itemId', $courseId);
+				$course->setItemId($courseId);
 			}
 			
 		$this->display();

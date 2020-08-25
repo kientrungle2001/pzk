@@ -703,7 +703,7 @@ class PzkAdminUserController extends PzkGridAdminController {
 						'id',
 						pzk_request ( 'id' ) 
 				) );
-				if ($user->get('id')) {
+				if ($user->getId()) {
 					$user->update ( array (
 							'name' 			=> $row ['name'],
 							'username' 		=> $row ['username'],

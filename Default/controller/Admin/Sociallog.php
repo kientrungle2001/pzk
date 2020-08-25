@@ -15,7 +15,7 @@ class PzkAdminSociallogController extends PzkGridAdminController {
     	'created desc' => 'Ngày tạo giảm',
     );
     public $searchFields = array('message','scheduleId');
-    public $Searchlabels = 'Tên ứng dụng';
+    public $searchLabel = 'Tên ứng dụng';
     public $listFieldSettings = array(
         array(
             'index' => 'message',

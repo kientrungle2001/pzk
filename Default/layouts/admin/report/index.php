@@ -11,7 +11,7 @@ $exportFields = $setting->exportFields;
 $exportTypes = $setting->exportTypes;
 //search
 $searchFields = $controller->searchFields;
-$Searchlabels = $controller->Searchlabels;
+$searchLabel = $controller->searchLabel;
 //grid display
 $gridDisplay = $controller->gridDisplay;
 
@@ -228,7 +228,7 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
                         ?>
                         <div class="form-group col-xs-12">
                             <label>Tìm theo  </label><br />
-                            <input type="text" name="keyword" class="form-control" placeholder="<?php if($Searchlabels){ echo $Searchlabels; } ?>" value="<?php echo $keyword ?>" />
+                            <input type="text" name="keyword" class="form-control" placeholder="<?php if($searchLabel){ echo $searchLabel; } ?>" value="<?php echo $keyword ?>" />
                         </div>
                     <?Php } ?>
                     <?php if($sortFields) { ?>

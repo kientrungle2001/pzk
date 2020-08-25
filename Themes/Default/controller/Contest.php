@@ -8,11 +8,11 @@ class PzkContestController extends PzkController{
 	public $masterPosition = 'wrapper';
 	public function indexAction() {
 		$this->initPage();
-		pzk_page()->set('title', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setTitle('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 		$this->append('thitai/content', 'wrapper')->display();
         
 		//$this->redirect(TRY_TEST);
@@ -42,22 +42,22 @@ class PzkContestController extends PzkController{
     	$testId = intval(pzk_request()->getSegment(3));
 		$catEntity = _db()->getTableEntity('tests')->load($testId);
 			
-		pzk_page()->set('title', $catEntity->get('name'));
-		pzk_page()->set('keywords', $catEntity->get('name'));
-		pzk_page()->set('description', $catEntity->get('name'));
-		pzk_page()->set('img', $catEntity->get('img'));
-		pzk_page()->set('brief', $catEntity->get('name'));
+		pzk_page()->setTitle($catEntity->getName());
+		pzk_page()->setKeywords($catEntity->getName());
+		pzk_page()->setDescription($catEntity->getName());
+		pzk_page()->setImg($catEntity->getImg());
+		pzk_page()->setBrief($catEntity->getName());
     	if(isset($check) && $check == 1) {
 			$this->append('thitai/test');
     		$test = pzk_element()->getTest();
-			$test->set('class', $class);
-			$test->set('type', $type);
+			$test->setClass($class);
+			$test->setType($type);
     		if($testId !== 0){
     			$testModel = pzk_model('Question');
     			$testDetail = $testModel->getTestById($testId);
-    			$test->set('testDetail', $testDetail);
+    			$test->setTestDetail($testDetail);
     		}else{
-    			$test->set('testDetail', 0);
+    			$test->setTestDetail(0);
     		}
     	}else {
     		$keybook	= uniqid();
@@ -75,18 +75,18 @@ class PzkContestController extends PzkController{
     	$class = intval(pzk_request('class'));
 		$type= intval(pzk_request('practice'));
     	if( pzk_request()->is('POST')){
-	    	$testId = (int) pzk_request()->get('test');
+	    	$testId = (int) pzk_request()->getTest();
 	    	if(isset($testId)){
 		    	$testModel = pzk_model('Question');
 		    	$test_detail = $testModel->getTestById($testId);
 		    	$this->initPage();
 				$catEntity = _db()->getTableEntity('tests')->load($testId);
 					
-				pzk_page()->set('title', $catEntity->get('name'));
-				pzk_page()->set('keywords', $catEntity->get('name'));
-				pzk_page()->set('description', $catEntity->get('name'));
-				pzk_page()->set('img', $catEntity->get('img'));
-				pzk_page()->set('brief', $catEntity->get('name'));
+				pzk_page()->setTitle($catEntity->getName());
+				pzk_page()->setKeywords($catEntity->getName());
+				pzk_page()->setDescription($catEntity->getName());
+				pzk_page()->setImg($catEntity->getImg());
+				pzk_page()->setBrief($catEntity->getName());
 		    	$keybook	= uniqid();		    	
 		    	$s_keybook	=	pzk_session('keybook', $keybook);
 		    	
@@ -104,8 +104,8 @@ class PzkContestController extends PzkController{
 		    		$result_search = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 		    	}    	
 		    	$data_showQuestion	= pzk_element()->getShowTest();		    	
-		    	$data_showQuestion->set('data_showQuestion', $result_search);		    	
-		    	$data_showQuestion->set('data_criteria', $test_detail);		    	 
+		    	$data_showQuestion->setData_showQuestion($result_search);		    	
+		    	$data_showQuestion->setData_criteria($test_detail);		    	 
 		    	$this->display();
 	    	}
     	}
@@ -113,11 +113,11 @@ class PzkContestController extends PzkController{
 	
 	public function aboutAction(){
 			$this->initPage();
-			pzk_page()->set('title', 'trang hướng dẫn mua tài khoản thi thử');
-			pzk_page()->set('keywords', 'Giáo dục');
-			pzk_page()->set('description', 'hướng dẫn mua tài khoản thi thử');
-			pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-			pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+			pzk_page()->setTitle('trang hướng dẫn mua tài khoản thi thử');
+			pzk_page()->setKeywords('Giáo dục');
+			pzk_page()->setDescription('hướng dẫn mua tài khoản thi thử');
+			pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+			pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 			$this->append('thitai/about', 'wrapper')
 			->display();
 	}
@@ -129,11 +129,11 @@ class PzkContestController extends PzkController{
 	}
 	public function dotestAction(){
 			$this->initPage();
-			pzk_page()->set('title', 'trang hướng dẫn mua tài khoản thi thử');
-			pzk_page()->set('keywords', 'Giáo dục');
-			pzk_page()->set('description', 'hướng dẫn mua tài khoản thi thử');
-			pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-			pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+			pzk_page()->setTitle('trang hướng dẫn mua tài khoản thi thử');
+			pzk_page()->setKeywords('Giáo dục');
+			pzk_page()->setDescription('hướng dẫn mua tài khoản thi thử');
+			pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+			pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 			$this->append('thitai/dotest', 'wrapper')
 			->display();
 	}
@@ -143,11 +143,11 @@ class PzkContestController extends PzkController{
 	{
 		if(pzk_session('userId')) {
 			$this->layout();
-			pzk_page()->set('title', 'Thanh toán online qua thẻ cào điện thoại và ví điện tử');
-			pzk_page()->set('keywords', 'Giáo dục');
-			pzk_page()->set('description', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-			pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-			pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+			pzk_page()->setTitle('Thanh toán online qua thẻ cào điện thoại và ví điện tử');
+			pzk_page()->setKeywords('Giáo dục');
+			pzk_page()->setDescription('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+			pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+			pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 			$this->append('payment/cardmobile');
 			$this->display();	
 		} else {
@@ -162,9 +162,9 @@ class PzkContestController extends PzkController{
 			return false;
 		}
 		$request		=	pzk_request();
-		$type_card		=	clean_value($request->get('pm_typecard'));
-		$card_serial	=	clean_value($request->get('pm_txt_serialcard'));
-		$pin_card		=	clean_value($request->get('pm_txt_pincard'));
+		$type_card		=	clean_value($request->getPm_typecard());
+		$card_serial	=	clean_value($request->getPm_txt_serialcard());
+		$pin_card		=	clean_value($request->getPm_txt_pincard());
 		
 		require(BASE_DIR.'/3rdparty/thecao/includes/MobiCard.php');
     	$call 			= 	new MobiCard();		
@@ -230,10 +230,10 @@ class PzkContestController extends PzkController{
 			// insert table wallets
 				$wallets =	_db()->getEntity('User.Account.Wallets');
 				$wallets->loadWhere(array('username',$client_fullname));
-				if($wallets->get('id'))
+				if($wallets->getId())
 				{
 					//$card_amount= 10000;
-					$amountWall			= $wallets->get('amount');
+					$amountWall			= $wallets->getamount();
 					$price				= $card_amount+ $amountWall;
 					$wallets->update(array('amount'=>$price));
 				}
@@ -270,12 +270,12 @@ class PzkContestController extends PzkController{
 		$serviceId	= 	intval(pzk_request('serviceId'));
 		$service= _db()->getEntity('Service.Service');
 		$service->load($serviceId);
-		$price = $service->get('amount');
-		$serviceType = $service->get('serviceType');
-		$serviceName = $service->get('serviceName');
+		$price = $service->getamount();
+		$serviceType = $service->getServiceType();
+		$serviceName = $service->getServiceName();
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
-		$amount			=	$wallets->get('amount');
+		$amount			=	$wallets->getamount();
 		if($price <= $amount)
 		{
 			// cập nhật database
@@ -356,21 +356,21 @@ class PzkContestController extends PzkController{
         $this->initPage();
         $this->append('thitai/testrating', 'wrapper');
 		$rank = pzk_element('testRating');
-		$camp = intval(pzk_request()->get('camp'));
+		$camp = intval(pzk_request()->getCamp());
 		
-		$rank->set('camp', $camp);
+		$rank->setCamp($camp);
 		
 		$frontend = pzk_model('Frontend');
 		$contest = $frontend->getAll('contest');
 		
 		$dataContest = $frontend->getContestById($camp);
-		$rank->set('dataContest', $dataContest);
+		$rank->setDataContest($dataContest);
 		
-		$rank->set('contest', $contest);
+		$rank->setContest($contest);
 		
 		if(pzk_session('ratingPageSize')){
-			$rank->set('pageSize', pzk_session('ratingPageSize'));
-		}else $rank->set('pageSize', 20);
+			$rank->setPageSize(pzk_session('ratingPageSize'));
+		}else $rank->setPageSize(20);
 		
 		$this->display();
     }
@@ -387,21 +387,21 @@ class PzkContestController extends PzkController{
 		
 		if(!$newsId) $newsId = intval(pzk_request()->getSegment(3));
 		
-		pzk_request()->set('id', $newsId);
+		pzk_request()->setId($newsId);
 		
 		$newsEntity = _db()->getTableEntity('news')->load($newsId, 1800);
 		
-		pzk_page()->set('title', $newsEntity->get('title'));
-		pzk_page()->set('keywords', $newsEntity->get('meta_keywords'));
-		pzk_page()->set('description', $newsEntity->get('meta_description'));
-		pzk_page()->set('img', $newsEntity->get('img'));
-		pzk_page()->set('brief', $newsEntity->get('brief'));
+		pzk_page()->setTitle($newsEntity->getTitle());
+		pzk_page()->setKeywords($newsEntity->getMeta_keywords());
+		pzk_page()->setDescription($newsEntity->getMeta_description());
+		pzk_page()->setImg($newsEntity->getImg());
+		pzk_page()->setBrief($newsEntity->getBrief());
 		
 		$news = $this->parse('cms/news/chitiet');
 		$detail = pzk_element()->getDetail();
 		
 		if($detail) {
-			$detail->set('itemId', $newsId);
+			$detail->setItemId($newsId);
 			//$detail->statVisitor();
 			$this->append($news);
 		}
@@ -411,32 +411,32 @@ class PzkContestController extends PzkController{
 	public function onthiAction(){
 		$this->initPage()
 		->append('thitai/onthi');
-		pzk_page()->set('title', 'Kinh nghiệm ôn thi');
-		pzk_page()->set('keywords', 'Kinh nghiệm ôn thi');
-		pzk_page()->set('description', 'Các kinh nghiệm giúp học sinh ôn tập các môn học bằng tiếng Anh');
-		pzk_page()->set('img', BASE_URL . '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Các kinh nghiệm giúp học sinh ôn tập các môn học bằng tiếng Anh');
+		pzk_page()->setTitle('Kinh nghiệm ôn thi');
+		pzk_page()->setKeywords('Kinh nghiệm ôn thi');
+		pzk_page()->setDescription('Các kinh nghiệm giúp học sinh ôn tập các môn học bằng tiếng Anh');
+		pzk_page()->setImg(BASE_URL . '/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Các kinh nghiệm giúp học sinh ôn tập các môn học bằng tiếng Anh');
 		$this->display();
 	}
 	
 	public function profileAction()	{	
 		$this->initPage();
-		pzk_page()->set('title', 'Trang cá nhân');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Trang cá nhân thành viên');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang cá nhân');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Trang cá nhân thành viên');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this ->append('thitai/profile')
 		->display();
 	}
 	
 	public function dsthiAction()	{	
 		$this->initPage();
-		pzk_page()->set('title', 'Trang cá nhân');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Trang cá nhân thành viên');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang cá nhân');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Trang cá nhân thành viên');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this ->append('thitai/dsthi')
 		->display();
 	}
@@ -463,15 +463,15 @@ class PzkContestController extends PzkController{
 		$dataUserTestList = _db()->query($sql);
 		
 		$this->initPage();
-				pzk_page()->set('title', 'Bắt đầu thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('keywords', 'Bắt đầu thi thử trường Trần Đại Nghĩa');
-				pzk_page()->set('description', 'Bắt đầu thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Bắt đầu thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setKeywords('Bắt đầu thi thử trường Trần Đại Nghĩa');
+				pzk_page()->setDescription('Bắt đầu thi thử vao trường Trần Đại nghĩa với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('thitai/dschuathi', 'wrapper');
 				$dschuathi = pzk_element('dschuathi');
 				
-				$dschuathi->set('users', $dataUserTestList);
+				$dschuathi->setUsers($dataUserTestList);
 			$this->display();
 		
 	}

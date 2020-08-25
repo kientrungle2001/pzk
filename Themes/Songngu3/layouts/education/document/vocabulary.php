@@ -1,7 +1,7 @@
 <?php
 // require_once BASE_DIR . '/lib/string.php';
-$id = pzk_request()->get('id');
-$categoryId = $data->get('categoryId');
+$id = pzk_request()->getId();
+$categoryId = $data->getCategoryId();
 
  ?>
  

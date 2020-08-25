@@ -1,6 +1,6 @@
 <?php 
-		$camp = $data->get('camp');
-		$showQuestions 	= $data->get('showQuestionTn');
+		$camp = $data->getCamp();
+		$showQuestions 	= $data->getShowQuestionTn();
 		
 		if(count($showQuestions) > 0) { 
 		
@@ -65,9 +65,9 @@
 										$questionChoice = _db()->getEntity('Question.Choice');
 										$questionChoice->setData($value);
 										
-										$QuestionObj->set('question', $questionChoice);
+										$QuestionObj->setQuestion($questionChoice);
 										
-										$QuestionObj->set('type', $questionChoice->get('type'));
+										$QuestionObj->setType($questionChoice->getType());
 										
 										//answer
 										$answerEntitys = array();
@@ -76,11 +76,11 @@
 											$answerEntity->setData($val);
 											$answerEntitys[] = $answerEntity;
 										}
-										$QuestionObj->set('answers', $answerEntitys);
+										$QuestionObj->setAnswers($answerEntitys);
 										
-										$QuestionObj->set('questionId', $value['id']);
-										$QuestionObj->set('cacheable', 'false');
-										$QuestionObj->set('cacheParams', 'layout, questionId');
+										$QuestionObj->setQuestionId($value['id']);
+										$QuestionObj->setCacheable('false');
+										$QuestionObj->setCacheParams('layout, questionId');
 										$QuestionObj->display();
 									?>
 									</div>
@@ -102,7 +102,7 @@
 
 <?php 
 	//bai tu luan
-	$showQuestionTl = $data->get('showQuestionTl');
+	$showQuestionTl = $data->getShowQuestionTl();
 	//debug($dataUserAnswers);
 	if($showQuestionTl) {
 ?>
@@ -148,13 +148,13 @@
 										$questionChoice = _db()->getEntity('Question.Choice');
 										$questionChoice->setData($value);
 										
-										$QuestionObj->set('question', $questionChoice);
+										$QuestionObj->setQuestion($questionChoice);
 										
-										$QuestionObj->set('type', $questionChoice->get('type'));
+										$QuestionObj->setType($questionChoice->getType());
 										
-										$QuestionObj->set('questionId', $value['id']);
-										$QuestionObj->set('cacheable', 'false');
-										$QuestionObj->set('cacheParams', 'layout, questionId');
+										$QuestionObj->setQuestionId($value['id']);
+										$QuestionObj->setCacheable('false');
+										$QuestionObj->setCacheParams('layout, questionId');
 										$QuestionObj->display();
 									?>
 									</div>

@@ -7,7 +7,7 @@ class PzkEntityImportQuestionModel extends PzkEntityModel
 	public $table = "questions";
 	public function import() {
 		$answers = array();
-		$content = $this->get('content');
+		$content = $this->getContent();
 		$contents = explode('===', $content);
 		$content = $contents[0];
 		$request = @$contents[1];
@@ -25,23 +25,23 @@ class PzkEntityImportQuestionModel extends PzkEntityModel
 		if(!$name) {
 			pzk_notifier_add_message('Chưa có nội dung câu hỏi', 'danger');
 		}
-		$this->set('name', $name);
+		$this->setName($name);
 		foreach($answerContents as $answerContent) {
 			$answer = _db()->getEntity('Import.Answer');
-			$answer->set('content', $answerContent);
+			$answer->setContent($answerContent);
 			$answers[] = $answer;
 		}
 		if($rightIndex != -1) {
-			$answers[$rightIndex]->set('request', $request);
-			$answers[$rightIndex]->set('status', '1');
+			$answers[$rightIndex]->setRequest($request);
+			$answers[$rightIndex]->setStatus('1');
 		} else {
 			pzk_notifier_add_message('Câu hỏi: '. $name . ' chưa có câu trả lời đúng', 'danger');
 		}
 		if(!$level) {
 			pzk_notifier_add_message('Câu hỏi: '. $name . ' chưa có độ khó', 'danger');
 		}
-		$this->set('level', $level);
-		$this->set('answers', $answers);
+		$this->setLevel($level);
+		$this->setAnswers($answers);
 		if(!count($answers)) {
 			pzk_notifier_add_message('Câu hỏi: '. $name . ' chưa có câu trả lời nào', 'danger');
 		}

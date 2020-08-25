@@ -2,19 +2,19 @@
 $item = $data->getItem();
 
 $form = $data->getFormObject();
-$form->set('label', $data->get('label'));
-$form->set('fieldSettings', $data->get('fieldSettings'));
-$form->set('item', $item);
-$form->set('actions',$data->get('actions'));
-$form->set('action', '/Admin_' . $data->get('module'). '/editPost');
-$form->set('backHref', pzk_or(pzk_request()->get('backHref'), '/Admin_' . $data->get('module'). '/index'));
-$form->set('backLabel', 'Cancel');
-if(pzk_request()->get('backHref')) {
-	$form->set('action', '/Admin_' . $data->get('module'). '/editPost?backHref='. urlencode(pzk_request()->get('backHref')));
+$form->setLabel($data->getLabel());
+$form->setFieldSettings($data->getFieldSettings());
+$form->setItem($item);
+$form->set('actions',$data->getactions());
+$form->setAction('/Admin_' . $data->getModule(). '/editPost');
+$form->setBackHref(pzk_or(pzk_request()->getBackHref(), '/Admin_' . $data->getModule(). '/index'));
+$form->setBackLabel('Cancel');
+if(pzk_request()->getBackHref()) {
+	$form->setAction('/Admin_' . $data->getModule(). '/editPost?backHref='. urlencode(pzk_request()->getBackHref()));
 }
 $form->display();
 ?>
-<?php if( strpos(pzk_request()->get('controller'), 'document') !== false ):?>
+<?php if( strpos(pzk_request()->getController(), 'document') !== false ):?>
 <script>
 jQuery(window).bind(
     "beforeunload", 

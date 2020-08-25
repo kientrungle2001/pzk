@@ -63,7 +63,7 @@ class PzkServiceLectureModel {
 			$couponUser 	=	_db()->getTableEntity('coupon_user');
 			$couponEntity 	= 	_db()->getTableEntity('coupon');
 			$couponEntity->loadWhere(array('code', $coupon));
-			if($couponEntity->get('id')) {
+			if($couponEntity->getId()) {
 				$couponUser->setData(array(
 					'userId'	=>	pzk_session('userId'),
 					'username'	=>	pzk_session('username'),

@@ -23,11 +23,11 @@ $displayFields = explode(',',$data->displayFields);
 		$value = @$item[$field]; 
 	?>
 	<<?php echo $fieldTag ?> class="<?php echo @$data->classPrefix?><?php echo $field ?>" rel="<?php echo @$item['id']?>">
-		<?php  if(@$data->titleField==$field && @$data->linkTitle) : ?>
+		<?php  if(@$data->getTitleField()==$field && @$data->getLink()Title) : ?>
 		<a href="/<?php echo @$item['alias']?>">
 		<?php  endif;?>
 	<?php echo $value ?>
-		<?php  if(@$data->titleField==$field && @$data->linkTitle) : ?>
+		<?php  if(@$data->getTitleField()==$field && @$data->getLink()Title) : ?>
 		</a>
 		<?php  endif;?>
 	</<?php echo $fieldTag ?>>

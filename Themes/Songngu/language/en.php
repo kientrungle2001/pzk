@@ -1,6 +1,6 @@
 <?php
 
-pzk_global()->set('language', array(
+pzk_global()->setLanguage(array(
 	'birthday' => 'Chúc mừng sinh nhật',
 	'time' => 'Time',
 	'choice-test' => 'Multiple-choice test',

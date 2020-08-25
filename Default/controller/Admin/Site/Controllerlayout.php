@@ -43,7 +43,7 @@ class PzkAdminSiteControllerlayoutController extends PzkGridAdminController {
 		)
 	);
     public $searchFields = array('site_layout.name');
-    public $Searchlabels = 'Tên Bố cục';
+    public $searchLabel = 'Tên Bố cục';
     public $listFieldSettings = array(
         array(
             'index' => 'none5',
@@ -219,17 +219,17 @@ class PzkAdminSiteControllerlayoutController extends PzkGridAdminController {
 		$this->append('admin/site/controllerlayout/design');
 		$design = pzk_element('design');
 		if($design) {
-			$design->set('itemId', $id);
+			$design->setItemId($id);
 			$item = $design->getItem();
-			$design->set('layout', 'admin/site/controllerlayout/design/' . $item['name']);
+			$design->setLayout('admin/site/controllerlayout/design/' . $item['name']);
 		}
 		$this->display();
 	}
 	
 	public function moduleEditAction($moduleId, $id) {
-		$code = pzk_request()->get('code');
+		$code = pzk_request()->getCode();
 		$entity = _db()->getTableEntity('site_module')->load($moduleId);
-		$entity->set('code', $code);
+		$entity->setCode($code);
 		$entity->save();
 		$this->redirect('design/' . $id);
 	}
@@ -239,9 +239,9 @@ class PzkAdminSiteControllerlayoutController extends PzkGridAdminController {
 		
 		$module = _db()->getTableEntity('site_module');
 		$module->setData($data);
-		$module->set('software', pzk_request()->get('softwareId'));
-		$module->set('creatorId', pzk_session()->get('adminId'));
-		$module->set('created', date('Y-m-d H:i:s'));
+		$module->setSoftware(pzk_request()->getSoftwareId());
+		$module->setCreatorId(pzk_session()->getadminId());
+		$module->setCreated(date('Y-m-d H:i:s'));
 		$module->save();
 		$this->redirect('design/' . $id);
 	}
@@ -259,15 +259,15 @@ class PzkAdminSiteControllerlayoutController extends PzkGridAdminController {
 		$front = _db()->selectAll()->fromSite_module()->lteOrdering($entity->getOrdering())->result_one('Table');
 		if($front) {
 			$front->setTable('site_module');
-			if($entity->get('ordering') > $front->get('ordering')) {
-				$entityOrdering = $entity->get('ordering');
-				$frontOrdering = $front->get('ordering');
-				$entity->set('ordering', $frontOrdering);
-				$front->set('ordering', $entityOrdering);
+			if($entity->getOrdering() > $front->getOrdering()) {
+				$entityOrdering = $entity->getOrdering();
+				$frontOrdering = $front->getOrdering();
+				$entity->setOrdering($frontOrdering);
+				$front->setOrdering($entityOrdering);
 				$entity->save();
 				$front->save();
 			} else {
-				$entity->set('ordering', $front->get('ordering') - 1);
+				$entity->setOrdering($front->getOrdering() - 1);
 				$entity->save();
 			}
 		}
@@ -277,18 +277,18 @@ class PzkAdminSiteControllerlayoutController extends PzkGridAdminController {
 	public function moduleDownAction($moduleId, $id) {
 		$code = pzk_request()->getCode();
 		$entity = _db()->getTableEntity('site_module')->load($moduleId);
-		$front = _db()->selectAll()->fromSite_module()->gteOrdering($entity->get('ordering'))->result_one('table');
+		$front = _db()->selectAll()->fromSite_module()->gteOrdering($entity->getOrdering())->result_one('table');
 		if($front) {
 			$front->setTable('site_module');
-			if($entity->get('ordering') < $front->get('ordering')) {
-				$entityOrdering = $entity->get('ordering');
-				$frontOrdering = $front->get('ordering');
-				$entity->set('ordering', $frontOrdering);
-				$front->set('ordering', $entityOrdering);
+			if($entity->getOrdering() < $front->getOrdering()) {
+				$entityOrdering = $entity->getOrdering();
+				$frontOrdering = $front->getOrdering();
+				$entity->setOrdering($frontOrdering);
+				$front->setOrdering($entityOrdering);
 				$entity->save();
 				$front->save();
 			} else {
-				$entity->set('ordering', $front->get('ordering') + 1);
+				$entity->setOrdering($front->getOrdering() + 1);
 				$entity->save();
 			}
 		}
@@ -310,12 +310,12 @@ class PzkAdminSiteControllerlayoutController extends PzkGridAdminController {
 		//var_dump($obj);
 		$class = get_class($obj);
 		$module = $this->parse('admin/site/controllerlayout/module/config');
-		$module->set('module', $this->get('module'));
-		$module->set('moduleId', $moduleId);
-		$module->set('designId', $id);
-		$module->set('fieldSettings', $class::$settings);
-		$module->set('actions', $this->get('configActions'));
-		$module->set('object', $obj);
+		$module->setModule($this->getModule());
+		$module->setModuleId($moduleId);
+		$module->setDesignId($id);
+		$module->setFieldSettings($class::$settings);
+		$module->setActions($this->getConfigActions());
+		$module->setObject($obj);
 		$this->append($module);
 		$this->display();
 		//$this->redirect('design/' . $id);
@@ -341,7 +341,7 @@ class PzkAdminSiteControllerlayoutController extends PzkGridAdminController {
 			$newCode .= $key . '="' . html_escape($val) . '" ';
 		}
 		$newCode .= '/>';
-		$entity->set('code', $newCode);
+		$entity->setCode($newCode);
 		$entity->save();
 		$this->redirect('design/' . $id);
 	}

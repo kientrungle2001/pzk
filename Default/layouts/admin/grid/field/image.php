@@ -1,1 +1,1 @@
-<img src="<?php  echo $data->get('value') ?>" width="<?php  echo $data->get('width')?>" height="<?php  echo $data->get('height')?>" />
+<img src="<?php  echo $data->getValue() ?>" width="<?php  echo $data->getWidth()?>" height="<?php  echo $data->getHeight()?>" />

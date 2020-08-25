@@ -247,7 +247,7 @@ class PzkUserbookModel {
 		
 		$adminTransactions	=	_db()->getEntity('Admin.AdminTransactions');
 		
-		if($admin_wallets->get('id')){
+		if($admin_wallets->getId()){
 			
 			//	for admin_transactions
 			
@@ -321,7 +321,7 @@ class PzkUserbookModel {
 			
 			$dataAminWallets	=	array(
 					'adminId'		=> $adminId,
-					'adminName'		=> $admin->get('name'),
+					'adminName'		=> $admin->getName(),
 					'amount'		=> $amount,
 					'amount_total'	=> $amount,
 					'created'		=> $datatime,

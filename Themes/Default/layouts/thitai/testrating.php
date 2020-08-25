@@ -1,7 +1,7 @@
 <?php 
 	
-	$camp = $data->get('camp');
-    $contest = $data->get('contest');
+	$camp = $data->getCamp();
+    $contest = $data->getContest();
 	$contestDateresult = array();
 	if($contest){
 		foreach($contest as $val){
@@ -9,7 +9,7 @@
 		}
 	}
 	
-	$dataContest = $data->get('dataContest');
+	$dataContest = $data->getDataContest();
 	
     if(pzk_request('page')){
         $currentpage = intval(pzk_request('page'));

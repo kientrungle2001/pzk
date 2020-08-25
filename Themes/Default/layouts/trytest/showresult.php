@@ -1,9 +1,9 @@
 <?php 
-		$camp = $data->get('camp');
-		$scoreTn = $data->get('scoretn');
-		$scoreTl = $data->get('scoretl');
+		$camp = $data->getCamp();
+		$scoreTn = $data->getScoretn();
+		$scoreTl = $data->getScoretl();
 		$score = $scoreTn + $scoreTl;
-		$showQuestions 	= $data->get('showQuestionTn');
+		$showQuestions 	= $data->getShowQuestionTn();
 		
 		if(count($showQuestions) > 0) { 
 		
@@ -26,8 +26,8 @@
 		
 		
 		
-		$userInfo = $data->get('userInfo');
-		$userBookIdTn = $data->get('userBookIdTn');	
+		$userInfo = $data->getUserInfo();
+		$userBookIdTn = $data->getUserBookIdTn();	
 		
 		
 	?>
@@ -42,7 +42,7 @@
 			</div>
 			<div class='text-center box-score'>
 				<b>Điểm 2 bài thi của bạn: </b> <b style='color:red;font-size: 18px;'><?php echo $score;?> điểm</b> <br/>
-				<span style='color: red; font-weight:bold;'>( <?php $rate = $data->get('rate'); echo 'Xếp hạng: '.implode('/', $rate); ?> )</span>
+				<span style='color: red; font-weight:bold;'>( <?php $rate = $data->getRate(); echo 'Xếp hạng: '.implode('/', $rate); ?> )</span>
 			</div>
 		</div>
 
@@ -91,16 +91,16 @@
 							<?php
 								//goi object
 								$QuestionObj = pzk_obj_once('Education.Userbook.Type.Trytesttn');
-								$QuestionObj->set('questionId', $value['id']);
+								$QuestionObj->setQuestionId($value['id']);
 								
 								$questionChoice = _db()->getEntity('Question.Choice');
 								$questionChoice->setData($value);
 								
-								$QuestionObj->set('question', $questionChoice);
-								$QuestionObj->set('type', $questionChoice->get('type'));
-								$QuestionObj->set('userBookIdTn', $userBookIdTn);
+								$QuestionObj->setQuestion($questionChoice);
+								$QuestionObj->setType($questionChoice->getType());
+								$QuestionObj->setUserBookIdTn($userBookIdTn);
 								//user answer
-								$QuestionObj->set('UserAnswer', $user_answers_by_question_id[$value['id']]);
+								$QuestionObj->setUserAnswer($user_answers_by_question_id[$value['id']]);
 								
 								//answer
 								$answerEntitys = array();
@@ -109,10 +109,10 @@
 										$answerEntity->setData($val);
 										$answerEntitys[] = $answerEntity;
 								}
-								$QuestionObj->set('answers', $answerEntitys);
+								$QuestionObj->setAnswers($answerEntitys);
 								
-								$QuestionObj->set('cacheable', 'false');
-								$QuestionObj->set('cacheParams', 'layout, questionId');
+								$QuestionObj->setCacheable('false');
+								$QuestionObj->setCacheParams('layout, questionId');
 								$QuestionObj->display();
 							?>
 							</div>
@@ -134,7 +134,7 @@
 
 <?php 
 	//bai tu luan
-	$dataUserAnswers = $data->get('dataUserAnswers');
+	$dataUserAnswers = $data->getDataUserAnswers();
 	if($dataUserAnswers) {
 ?>
 <div class='container robotofont'>
@@ -154,11 +154,11 @@
 				$BookObj->set ('id', $value ['id'] );
 				$BookObj->set ('questionId', $value ['questionId'] );
 				$BookObj->set ('question_type', $value ['question_type'] );
-				$BookObj->set('userAnswer', $value);
-				$BookObj->set('content', $value['content'] );
-				$BookObj->set('mark', $value['mark'] );
-				$BookObj->set('recommend_mark', $value['recommend_mark'] );
-				$BookObj->set('order', $key + 1 );
+				$BookObj->setUserAnswer($value);
+				$BookObj->setContent($value['content'] );
+				$BookObj->setMark($value['mark'] );
+				$BookObj->setRecommend_mark($value['recommend_mark'] );
+				$BookObj->setOrder($key + 1 );
 				$BookObj->display ();
 				?>
 			<?php endforeach;?>

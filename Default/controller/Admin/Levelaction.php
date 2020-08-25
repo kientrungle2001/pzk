@@ -74,7 +74,7 @@ class PzkAdminLevelactionController extends PzkAdminController {
             ->append('admin/'.pzk_or($this->customModule, $this->module).'/menu', 'right');
         $this->fireEvent('index.after', $this);
         $list = pzk_element ( 'list' );
-        $list->set('module', $this->get('module'));
+        $list->setModule($this->getModule());
         $this->display();
     }
 

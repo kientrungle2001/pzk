@@ -223,7 +223,7 @@ class PzkTableController extends PzkController {
                 ->set($data)->where('id=' . $_REQUEST['id'])->result();
 		if($table == 'class_student' || $table=='student_order') {
 			$student = _db()->getEntity('edu.student')->load($data['studentId']);
-			if($student->get('id')) {
+			if($student->getId()) {
 				$student->gridIndex();
 			}
 		}
@@ -252,7 +252,7 @@ class PzkTableController extends PzkController {
                 ->values(array($data))->result();
 		if($table == 'class_student'  || $table=='student_order') {
 			$student = _db()->getEntity('edu.student')->load($data['studentId']);
-			if($student->get('id')) {
+			if($student->getId()) {
 				$student->gridIndex();
 			}
 		}
@@ -275,7 +275,7 @@ class PzkTableController extends PzkController {
 				if($table == 'class_student' || $table=='student_order') {
 					$data = _db()->useCB()->select('*')->from($table)->whereId($_REQUEST['id'])->result_one();
 					$student = _db()->getEntity('edu.student')->load($data['studentId']);
-					if($student->get('id')) {
+					if($student->getId()) {
 						$student->gridIndex();
 					}
 				}
@@ -291,7 +291,7 @@ class PzkTableController extends PzkController {
 					foreach($_REQUEST['ids'] as $id) {
 						$data = _db()->useCB()->select('*')->from($table)->whereId($id)->result_one();
 						$student = _db()->getEntity('edu.student')->load($data['studentId']);
-						if($student->get('id')) {
+						if($student->getId()) {
 							$student->gridIndex();
 						}	
 					}
@@ -301,7 +301,7 @@ class PzkTableController extends PzkController {
 						$student_order = _db()->select('*')->from('student_order')->whereOrderId($id)->result_one();
 						if($student_order) {
 							$student = _db()->getEntity('edu.student')->load($student_order['studentId']);
-							if($student->get('id')) {
+							if($student->getId()) {
 								$student->gridIndex();
 							}
 						}
@@ -326,7 +326,7 @@ class PzkTableController extends PzkController {
 			if($table == 'class_student' || $table=='student_order') {
 				$data = _db()->useCB()->select('*')->from($table)->whereId($_REQUEST['id'])->result_one();
 				$student = _db()->getEntity('edu.student')->load($data['studentId']);
-				if($student->get('id')) {
+				if($student->getId()) {
 					$student->gridIndex();
 				}
 			}
@@ -343,7 +343,7 @@ class PzkTableController extends PzkController {
 				foreach($_REQUEST['ids'] as $id) {
 					$data = _db()->useCB()->select('*')->from($table)->whereId($id)->result_one();
 					$student = _db()->getEntity('edu.student')->load($data['studentId']);
-					if($student->get('id')) {
+					if($student->getId()) {
 						$student->gridIndex();
 					}	
 				}
@@ -353,7 +353,7 @@ class PzkTableController extends PzkController {
 					$student_order = _db()->select('*')->from('student_order')->whereOrderId($id)->result_one();
 					if($student_order) {
 						$student = _db()->getEntity('edu.student')->load($student_order['studentId']);
-						if($student->get('id')) {
+						if($student->getId()) {
 							$student->gridIndex();
 						}
 					}
@@ -427,7 +427,7 @@ class PzkTableController extends PzkController {
 			if($table == 'class_student' || $table=='student_order') {
 				$data = _db()->useCB()->select('*')->from($table)->whereId($_REQUEST['id'])->result_one();
 				$student = _db()->getEntity('edu.student')->load($data['studentId']);
-				if($student->get('id')) {
+				if($student->getId()) {
 					$student->gridIndex();
 				}
 			}
@@ -438,7 +438,7 @@ class PzkTableController extends PzkController {
 				if($table == 'class_student' || $table=='student_order') {
 					$data = _db()->useCB()->select('*')->from($table)->whereId($result['row']['id'])->result_one();
 					$student = _db()->getEntity('edu.student')->load($data['studentId']);
-					if($student->get('id')) {
+					if($student->getId()) {
 						$student->gridIndex();
 					}
 				}

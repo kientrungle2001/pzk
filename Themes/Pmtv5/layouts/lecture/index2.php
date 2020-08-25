@@ -5,7 +5,7 @@ $root 				= 	$items[0];
 $children 			= 	$root['children'];
 $cautaotu			=	$children[0];
 foreach($children as $child) {
-	if($child['id'] == $data->get('menuId')) {
+	if($child['id'] == $data->getMenuId()) {
 		$cautaotu	=	$child;
 		break;
 	}

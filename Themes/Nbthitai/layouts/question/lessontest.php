@@ -104,11 +104,11 @@ if($showQuestions) {
 							<input type="hidden" name="questionType[<?=$value['id']?>]" value="<?=questionTypeOjb($value['questionType'])?>"/>
 							<?php
 							$QuestionObj = pzk_obj_once('Education.Question.Type.'.ucfirst(questionTypeOjb($value['questionType'])));
-							$QuestionObj->set('questionId', $value['id']);
+							$QuestionObj->setQuestionId($value['id']);
 										
 							$questionChoice = _db()->getEntity('Question.Choice');
 							$questionChoice->setData($processQuestions[$value['id']]);
-							$QuestionObj->set('question', $questionChoice);
+							$QuestionObj->setQuestion($questionChoice);
 							
 							//debug($processAnswer[$value['id']]);die();
 							$answerEntitys = array();
@@ -118,7 +118,7 @@ if($showQuestions) {
 									$answerEntitys[] = $answerEntity;
 							}
 							
-							$QuestionObj->set('answers', $answerEntitys);
+							$QuestionObj->setAnswers($answerEntitys);
 							
 							$QuestionObj->display();
 							?>

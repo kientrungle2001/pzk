@@ -1,32 +1,32 @@
-<?php $items = $data->get('question');
-$language = pzk_global()->get('language');
+<?php $items = $data->getQuestion();
+$language = pzk_global()->getLanguage();
 $lang = pzk_session('language')
 ?>
 
-<?php //debug($items->get('teacher_answers')); die(); ?>
+<?php //debug($items->getTeacher_answers()); die(); ?>
 <div class="nobel-list-md typedt">
 	
-	<p class='dt-request'><i><?=$items->get('request');?></i></p>
+	<p class='dt-request'><i><?=$items->getRequest();?></i></p>
 	
 	<?php
 		
 		if ($lang == 'en' || $lang == 'ev'){
-			$name = $items->get('name');
+			$name = $items->getName();
 		}else{
-			$name = $items->get('name_vn');
+			$name = $items->getName_vn();
 		} 
 		
 		
 		$pattern = '/\[(input|i)([\d]+)(\[([\d]+)\])?\]/';
-		$replacement =	"<input size='$4' name='answers[".$items->get('id')."_i][$2]'/>";
+		$replacement =	"<input size='$4' name='answers[".$items->getId()."_i][$2]'/>";
 		$content = preg_replace($pattern, $replacement, $name);
 		
 		$pattern2 = '/\[(tput|tp)([\d]+)(\[([\d]+)\])?\]/';
-		$replacement2 =	"<input class='input_dt' size='$4' name='answers[".$items->get('id')."_i][$2]'/>";
+		$replacement2 =	"<input class='input_dt' size='$4' name='answers[".$items->getId()."_i][$2]'/>";
 		$content = preg_replace($pattern2, $replacement2, $content);
 		
 		$pTextarea = '/\[(textarea|t)([\d]+)\]/';
-		$reTextarea = "<textarea class='item tinymce_input' name='answers[".$items->get('id')."_t][$2]'></textarea>";	
+		$reTextarea = "<textarea class='item tinymce_input' name='answers[".$items->getId()."_t][$2]'></textarea>";	
 		$content = preg_replace($pTextarea, $reTextarea, $content);
 		
 			?>
@@ -42,7 +42,7 @@ $lang = pzk_session('language')
 		<label class="control-label red" ><?= $language['view-explanation'];?></label>
 		<div class="item content">
 		<?php 
-		$ligiai = $items->get('teacher_answers');
+		$ligiai = $items->getTeacher_answers();
 		if(isset($ligiai)) {
 			$content = json_decode($ligiai, true);
 			if(isset($content['content_full'])) {
@@ -56,10 +56,10 @@ $lang = pzk_session('language')
 	<!-- bắt đầu phần tiếng việt cho song ngữ -->
 		<?php if($lang == 'ev'){ ?>
 		<div>
-			<p><i class="ptnn-title"><?=$items->get('request')?></i></p>
+			<p><i class="ptnn-title"><?=$items->getRequest()?></i></p>
 			<p><strong>Dịch tiếng Việt:</strong><span class="ptnn-title"> 
 			<?php 
-		$name = $items->get('name_vn');
+		$name = $items->getName_vn();
 		$name = strip_tags($name, '<img><b><i><br><i>');
 		$pattern = '/\[(input|i)([\d]+)(\[([\d]+)\])?\]/';
 		$replacement =	".....";

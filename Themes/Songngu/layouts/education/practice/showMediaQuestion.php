@@ -1,5 +1,5 @@
 <?php
-	$showQuestions 	= $data->get('data_showQuestion');
+	$showQuestions 	= $data->getData_showQuestion();
 	//shuffle($showQuestions);
 	$processQuestions = array();
 	$arrQuestionIds = array();
@@ -22,10 +22,10 @@
 	}
 	
 	$check = pzk_session('checkPayment');
-	$data_criteria	= $data->get('data_criteria');
-	$category = $data->get('category');
-	$category_id = $data->get('categoryId');
-	$category_name = $data->get('categoryName');
+	$data_criteria	= $data->getData_criteria();
+	$category = $data->getCategory();
+	$category_id = $data->getCategoryId();
+	$category_name = $data->getCategoryName();
 
 	$class= pzk_session('lop');
 	$currentMedia	=	pzk_request('media');
@@ -41,9 +41,9 @@
 	if($subject) {
 		
 		$subjectEntity = _db()->getTableEntity('categories')->load($subject, 1800);
-		$parentSubject = $subjectEntity->get('parent');
+		$parentSubject = $subjectEntity->getParent();
 	}
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
 	
 ?>
@@ -113,7 +113,7 @@
 							}else{ 
 								$topicId = pzk_request('topic');
 								$topic = $data->getTopicsName($topicId, $class);
-								echo $mediaEntity->get('name')." - "; if($lang == 'en' || $lang == 'ev'){ echo $topic['name_en']; }else{ echo $topic['name_vn']; }
+								echo $mediaEntity->getName()." - "; if($lang == 'en' || $lang == 'ev'){ echo $topic['name_en']; }else{ echo $topic['name_vn']; }
 							} ?>
 							
 						<?php } ?>
@@ -125,7 +125,7 @@
 				</button>
 					<ul class="dropdown-menu col-md-12 col-sm-12 col-xs-12 list-group" style="top:38px; max-height:350px; overflow-y: scroll;">
 					<?php if($psubject == 88) {
-						$dataCategoryCurrent =  $data->get('categoryCurrentObservation');
+						$dataCategoryCurrent =  $data->getCategoryCurrentObservation();
 						$subjectPost 	= $psubject;
 						$topicPost= $subject;
 						if(@$dataCategoryCurrent['child'])
@@ -149,7 +149,7 @@
 											<?php if($currentMedia == $media['id']) echo 'active'; ?>">
 												<a style="padding-left: 40px;" 
 													onclick="return check_display(1);" class="getdata" 
-													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/media-<?php echo @$media['id']?>">
+													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/media-<?php echo @$media['id']?>">
 														<?php echo @$media['name']?></a></li>
 							<?php	}
 									for($i = 1; $i <= $practices; $i++){  ?>
@@ -160,7 +160,7 @@
 													onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$catetype['trial']?>);" 
 													data-de="<?php echo $i; ?>" 
 													class="getdata" 
-													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/examination-<?php echo $i ?>">
+													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/examination-<?php echo $i ?>">
 														<?php echo $language['lesson'].$i;?></a></li>
 									<?php } //end for
 								}elseif($level == '2'){
@@ -179,7 +179,7 @@
 																padding-left: 40px;" 
 															onclick="return check_display(1);" 
 															class="getdata" 
-															href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>">
+															href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>">
 																<?php echo @$media['name']?></a></li>
 									<?php	}
 										
@@ -192,7 +192,7 @@
 														onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" 
 														data-de="<?php echo $i; ?>" 
 														class="getdata" 
-														href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>">
+														href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>">
 															<?php echo $language['lesson'].$i;?></a></li>
 										<?php } //end for
 									} //end foreach
@@ -211,7 +211,7 @@
 															<?php if($currentMedia == $media['id']) echo 'active'; ?>">
 																<a style="
 																	<?php if(!@$section['trial'] && pzk_request('topic')!=$section['id'] ):?>display: none;<?php endif;?>
-																	padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
+																	padding-left: 40px;" onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
 											<?php	}
 											
 											for($i = 1; $i <= $practices; $i++){  ?>
@@ -221,7 +221,7 @@
 														style="<?php if(!@$section['trial'] 
 																	&& pzk_request('topic')!=$section['id'] 
 																	):?>display: none;<?php endif;?>">
-															<a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
+															<a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 											<?php 
 											}
 										} else {										
@@ -244,7 +244,7 @@
 																			padding-left: 40px;" 
 																	onclick="return check_display(1);" 
 																	class="getdata" 
-																	href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>">
+																	href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>">
 																		<?php echo @$media['name']?></a></li>
 											<?php	}
 
@@ -259,7 +259,7 @@
 																onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" 
 																data-de="<?php echo $i; ?>" 
 																class="getdata" 
-																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>">
+																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>">
 																	<?php echo $language['lesson'].$i;?></a></li>
 												<?php 
 												} 
@@ -285,7 +285,7 @@
 																):?>display: none;<?php endif;?>padding-left: 40px;" 
 																onclick="return check_display(1);"
 																class="getdata" 
-																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/media-<?php echo @$media['id']?>">
+																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/media-<?php echo @$media['id']?>">
 																	<?php echo @$media['name']?></a></li>
 											<?php	}
 											
@@ -297,7 +297,7 @@
 													style="<?php if(!@$section1['trial'] 
 														&& pzk_request('topic')!=$section1['id']
 														):?>display: none;<?php endif;?>">
-														<a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section1['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
+														<a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section1['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 											<?php 
 											}
 										} else {
@@ -315,7 +315,7 @@
 																<a style="style="<?php if(!@$section2['trial'] && pzk_request('topic')!=$section2['id']):?>display: none;<?php endif;?>padding-left: 40px;" 
 																onclick="return check_display(1);"
 																class="getdata" 
-																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/media-<?php echo @$media['id']?>">
+																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/media-<?php echo @$media['id']?>">
 																	<?php echo @$media['name']?></a></li>
 											<?php	}
 											
@@ -327,7 +327,7 @@
 																<a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section2['trial']?>);" 
 																data-de="<?php echo $i; ?>" 
 																class="getdata" 
-																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/examination-<?php echo $i ?>">
+																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/examination-<?php echo $i ?>">
 																	<?php echo $language['lesson'].$i;?></a></li>
 													<?php 
 													}
@@ -345,7 +345,7 @@
 																<a style="<?php if(pzk_request('topic')!=$topic['id']):?>display: none;<?php endif;?>padding-left: 40px;" 
 																onclick="return check_display(1);"
 																class="getdata" 
-																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>">
+																href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>">
 																	<?php echo @$media['name']?></a></li>
 											<?php	}
 														for($i = 1; $i <= $practices; $i++){  ?>
@@ -356,7 +356,7 @@
 																	<a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" 
 																	data-de="<?php echo $i; ?>" 
 																	class="getdata" 
-																	href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>">
+																	href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>">
 																	<?php echo $language['lesson'].$i;?></a></li>
 														<?php 
 														} 
@@ -400,7 +400,7 @@
 					</video>
 					<?php else: ?>
 					<?php
-						$url = $mediaEntity->get('url');
+						$url = $mediaEntity->getUrl();
 						preg_match('/[\\?\\&]v=([^\\?\\&]+)/', $url, $matches);
 						$id = $matches[1];
 						$width = '100%';
@@ -418,7 +418,7 @@
 					</style>
 					<div class="media-content show-less">
 					<?php
-					$string = htmlentities($mediaEntity->get('content'), null, 'utf-8');
+					$string = htmlentities($mediaEntity->getContent(), null, 'utf-8');
 					$content = str_replace("&nbsp;", " ", $string);
 					$start = '<button class="btn btn-primary" type="button" onclick="translateTl(this)">
 				  Dịch
@@ -492,11 +492,11 @@
 								<?php 
 									
 									$QuestionObj = pzk_obj_once('Education.Question.Type.'.ucfirst(questionTypeOjb($value['questionType'])));
-									$QuestionObj->set('questionId', $value['id']);
+									$QuestionObj->setQuestionId($value['id']);
 									
 									$questionChoice = _db()->getEntity('Question.Choice');
 									$questionChoice->setData($processQuestions[$value['id']]);
-									$QuestionObj->set('question', $questionChoice);
+									$QuestionObj->setQuestion($questionChoice);
 									
 									//debug($processAnswer[$value['id']]);die();
 									$answerEntitys = array();
@@ -506,28 +506,28 @@
 											$answerEntitys[] = $answerEntity;
 									}
 									
-									$QuestionObj->set('answers', $answerEntitys);
+									$QuestionObj->setAnswers($answerEntitys);
 									
 									if(CACHE_MODE && CACHE_QUESTION_MODE && CACHE_ANSWER_MODE){
-										$QuestionObj->set('cacheable', 'true');
+										$QuestionObj->setCacheable('true');
 									}else{
-										$QuestionObj->set('cacheable', 'false');
+										$QuestionObj->setCacheable('false');
 									}
-									$QuestionObj->set('index', $i-1);
-									$QuestionObj->set('subject', $subject);
-									$QuestionObj->set('de', $de);
+									$QuestionObj->setIndex($i-1);
+									$QuestionObj->setSubject($subject);
+									$QuestionObj->setDe($de);
 									if(file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $value['id'] . '.mp3'))) {
-										$QuestionObj->set('audio', $target);
+										$QuestionObj->setAudio($target);
 									} else {
 										if(file_exists(BASE_DIR .($audio = '/3rdparty/Filemanager/source/practice/' . $subject. '/' . $de . '/' . ($i-1) . '.mp3'))) {
-											$QuestionObj->set('audio', $audio);
+											$QuestionObj->setAudio($audio);
 											if(!file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $value['id'] . '.mp3'))) {
 												copy(BASE_DIR . $audio, BASE_DIR .$target);
 											}
 										}
 										
 										if(file_exists(BASE_DIR .($audio = '/3rdparty/Filemanager/source/practice/Observation/' . $subject. '/' . ($i-1) . '.mp3'))) {
-											$QuestionObj->set('audio', $audio);
+											$QuestionObj->setAudio($audio);
 											if(!file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $value['id'] . '.mp3'))) {
 												copy(BASE_DIR . $audio, BASE_DIR .$target);
 											}
@@ -535,13 +535,13 @@
 									}
 									
 									
-									$QuestionObj->set('cacheParams', 'layout, questionId');
+									$QuestionObj->setCacheParams('layout, questionId');
 									$QuestionObj->display();
 								?>
 						</div>
 					<?php endforeach;?>
 					</fieldset>
-					<input type = 'hidden' name='media' value = '<?=$mediaEntity->get('id');?>'/>
+					<input type = 'hidden' name='media' value = '<?=$mediaEntity->getId();?>'/>
 					<input type="hidden" name="category_id" value="<?=$data_criteria['category_id']?>"/>
 					<input type="hidden" name="question_time" value="<?=$data_criteria['question_time']?>"/>
 					<input type="hidden" id="start_time" name="start_time" value="<?=$_SERVER['REQUEST_TIME'];?>" />

@@ -13,6 +13,6 @@ class PzkEntityTestTestModel extends PzkEntityModel {
 		return $rs;
 	}
 	public function getDetails() {
-		return _db()->select('*')->from('user_test_detail')->whereTestId($this->get('id'))->result('Test.Detail');
+		return _db()->select('*')->from('user_test_detail')->whereTestId($this->getId())->result('Test.Detail');
 	}
 }

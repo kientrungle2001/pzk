@@ -1,5 +1,5 @@
 <?php 
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
 ?>
 <?php $data->displayChildren('[position=public-header]') ?>
@@ -11,8 +11,8 @@
 	<p class="t-weight text-center btn-custom8"><?php echo $language['materials'];?></p>
 </div>
 <?php 
-$subject = _db()->getTableEntity('categories')->load($data->get('categoryId'));
-$subjects = _db()->selectAll()->fromCategories()->whereParent($subject->get('parent'))->result();
+$subject = _db()->getTableEntity('categories')->load($data->getCategoryId());
+$subjects = _db()->selectAll()->fromCategories()->whereParent($subject->getParent())->result();
 ?>
 <div class="container fivecolumns">
 	<div class="row">

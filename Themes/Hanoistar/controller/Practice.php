@@ -13,11 +13,11 @@ class PzkPracticeController extends PzkModuleController{
 		$this->initPage();
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 		$class= pzk_session('lop');
-		pzk_page()->set('title', 'Luyện tập: ' . $catEntity->get('name'));
-		pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-		pzk_page()->set('description', $catEntity->get('meta_description'));
-		pzk_page()->set('img', $catEntity->get('img'));
-		pzk_page()->set('brief', $catEntity->get('brief'));
+		pzk_page()->setTitle('Luyện tập: ' . $catEntity->getName());
+		pzk_page()->setKeywords($catEntity->getMeta_keywords());
+		pzk_page()->setDescription($catEntity->getMeta_description());
+		pzk_page()->setImg($catEntity->getImg());
+		pzk_page()->setBrief($catEntity->getBrief());
 		$this->append('education/practice/detail', 'wrapper');
 		$ngonngu = pzk_element()->getNgonngu();
 		
@@ -32,26 +32,26 @@ class PzkPracticeController extends PzkModuleController{
 		
 		$categoryCurrentObservation = $data_category->get_category_all_display_sn(88, $class , $check);	
 		
-		$ngonngu->set('categoryCurrentObservation', $categoryCurrentObservation);
+		$ngonngu->setCategoryCurrentObservation($categoryCurrentObservation);
 		
-		$ngonngu->set('categoryName', $categoryName);
+		$ngonngu->setCategoryName($categoryName);
 
 		$category = $data_category->get_category_all_display_sn($categoryOrgin_id, $class);
 
-		$ngonngu->set('category', $category);
+		$ngonngu->setCategory($category);
 
-		$ngonngu->set('categoryId', $category_id);
-		$ngonngu->set('checkPayment', $check);
+		$ngonngu->setCategoryId($category_id);
+		$ngonngu->setCheckPayment($check);
 				
 			
 		$vocabularyList = pzk_element()->getVocabularyList();
 		if(pzk_request('siteId') == 2) {
 			if($vocabularyList){
-				$vocabularyList->set('checkPayment', $check);
+				$vocabularyList->setCheckPayment($check);
 			}	
 		} else {
 			if($vocabularyList){
-				$vocabularyList->set('parentId', $category_id);
+				$vocabularyList->setParentId($category_id);
 				if(!$check) {
 					$vocabularyList->addFilter('trial', 1);
 				}
@@ -74,11 +74,11 @@ class PzkPracticeController extends PzkModuleController{
 			$questionType = clean_value(pzk_request('questionType'));
 		}
 			
-		pzk_page()->set('title', $catEntity->get('name').' Bài '.$de);
-		pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-		pzk_page()->set('description', $catEntity->get('meta_description'));
-		pzk_page()->set('img', $catEntity->get('img'));
-		pzk_page()->set('brief', $catEntity->get('brief'));
+		pzk_page()->setTitle($catEntity->getName().' Bài '.$de);
+		pzk_page()->setKeywords($catEntity->getMeta_keywords());
+		pzk_page()->setDescription($catEntity->getMeta_description());
+		pzk_page()->setImg($catEntity->getImg());
+		pzk_page()->setBrief($catEntity->getBrief());
     	
     	if(1 || pzk_request()->is('POST')){
     		
@@ -106,9 +106,9 @@ class PzkPracticeController extends PzkModuleController{
 			}
 			
 	    	$data_criteria = array(
-	    		'category_id'		=> pzk_request()->get('topic') ? intval(pzk_request()->get('topic')) : intval(pzk_request()->getSegment(3)),
-	    		'topic_id'			=> intval(pzk_request()->get('topic')),
-	    		'category_name'		=> clean_value(pzk_request()->get('category_name')),
+	    		'category_id'		=> pzk_request()->getTopic() ? intval(pzk_request()->getTopic()) : intval(pzk_request()->getSegment(3)),
+	    		'topic_id'			=> intval(pzk_request()->getTopic()),
+	    		'category_name'		=> clean_value(pzk_request()->getCategory_name()),
 				'class'		        =>  intval(pzk_request('class')),
 				'de'		        =>  $de,
 				'questionType'      => $questionType,
@@ -117,14 +117,14 @@ class PzkPracticeController extends PzkModuleController{
 		    	'question_time'		=> 10,
 		    	'question_level' 	=> null,
 	    		'keybook'			=> $keybook,
-	    		'category_type'		=> pzk_request()->get('topic') ? intval(pzk_request()->get('topic')) : intval(pzk_request()->getSegment(3)),
+	    		'category_type'		=> pzk_request()->getTopic() ? intval(pzk_request()->getTopic()) : intval(pzk_request()->getSegment(3)),
 	    		'category_type_name'=> $category_type_name['name'],
 				'category_type_name_vn'=> $category_type_name_vn['name_vn']
 	    	);
 	    	
 	    	$data_cache = array(
 	    			'category_id'		=> intval(pzk_request()->getSegment(3)),
-	    		'category_name'		=> clean_value(pzk_request()->get('category_name')),
+	    		'category_name'		=> clean_value(pzk_request()->getCategory_name()),
 				'class'		        =>  intval(pzk_request('class')),
 				'de'		        =>  clean_value(pzk_request('de')),
 				'questionType'      => $questionType,
@@ -164,19 +164,19 @@ class PzkPracticeController extends PzkModuleController{
 	    	$data_criteria['question_limit'] = count($result_search);
 	    	
 	    	$data_showQuestion	= pzk_element()->getShowQuestion();
-	    	$data_showQuestion->set('checkPayment', $check);
-	    	$data_showQuestion->set('dataRow', $dataRow);
+	    	$data_showQuestion->setCheckPayment($check);
+	    	$data_showQuestion->setDataRow($dataRow);
 	    	
-	    	$data_showQuestion->set('data_showQuestion', $result_search);
+	    	$data_showQuestion->setData_showQuestion($result_search);
 	    	
-	    	$data_showQuestion->set('data_criteria', $data_criteria);
+	    	$data_showQuestion->setData_criteria($data_criteria);
 			
 			$categoryCurrentObservation = $dataCategoryRow->get_category_all_display_sn(88, $class, $check);
 
-			$data_showQuestion->set('categoryCurrentObservation', $categoryCurrentObservation);
+			$data_showQuestion->setCategoryCurrentObservation($categoryCurrentObservation);
     	}
 		$vocabularyList = pzk_element()->getVocabularyList();
-		$vocabularyList->set('checkPayment', $check);
+		$vocabularyList->setCheckPayment($check);
     	$this->display();
     }
 	
@@ -190,11 +190,11 @@ class PzkPracticeController extends PzkModuleController{
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 		$class= pzk_session('lop');
 			
-		pzk_page()->set('title', $catEntity->get('name').' - '.$mediaEntity->get('name'));
-		pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-		pzk_page()->set('description', $catEntity->get('meta_description'));
-		pzk_page()->set('img', $catEntity->get('img'));
-		pzk_page()->set('brief', $catEntity->get('brief'));
+		pzk_page()->setTitle($catEntity->getName().' - '.$mediaEntity->getName());
+		pzk_page()->setKeywords($catEntity->getMeta_keywords());
+		pzk_page()->setDescription($catEntity->getMeta_description());
+		pzk_page()->setImg($catEntity->getImg());
+		pzk_page()->setBrief($catEntity->getBrief());
     	
     	if(1 || pzk_request()->is('POST')){
     		
@@ -225,9 +225,9 @@ class PzkPracticeController extends PzkModuleController{
 			$question_limit = 10;
 			
 	    	$data_criteria = array(
-	    		'category_id'		=> pzk_request()->get('topic') ? intval(pzk_request()->get('topic')) : intval(pzk_request()->getSegment(3)),
-	    		'topic_id'			=> intval(pzk_request()->get('topic')),
-	    		'category_name'		=> clean_value(pzk_request()->get('category_name')),
+	    		'category_id'		=> pzk_request()->getTopic() ? intval(pzk_request()->getTopic()) : intval(pzk_request()->getSegment(3)),
+	    		'topic_id'			=> intval(pzk_request()->getTopic()),
+	    		'category_name'		=> clean_value(pzk_request()->getCategory_name()),
 				'class'		        =>  intval(pzk_request('class')),
 				'media'		        =>  $media,
 				'trial'		        =>  $check,
@@ -235,14 +235,14 @@ class PzkPracticeController extends PzkModuleController{
 		    	'question_time'		=> 30,
 		    	'question_level' 	=> null,
 	    		'keybook'			=> $keybook,
-	    		'category_type'		=> pzk_request()->get('topic') ? intval(pzk_request()->get('topic')) : intval(pzk_request()->getSegment(3)),
+	    		'category_type'		=> pzk_request()->getTopic() ? intval(pzk_request()->getTopic()) : intval(pzk_request()->getSegment(3)),
 	    		'category_type_name'=> $category_type_name['name'],
 				'category_type_name_vn'=> $category_type_name_vn['name_vn']
 	    	);
 	    	
 	    	$data_cache = array(
 	    		'category_id'		=> intval(pzk_request()->getSegment(3)),
-	    		'category_name'		=> clean_value(pzk_request()->get('category_name')),
+	    		'category_name'		=> clean_value(pzk_request()->getCategory_name()),
 				'class'		        =>  intval(pzk_request('class')),
 				'media'		        =>  intval(pzk_request('media')),
 				'trial'		        =>  $check,
@@ -280,19 +280,19 @@ class PzkPracticeController extends PzkModuleController{
 	    	$data_criteria['question_limit'] = count($result_search);
 	    	
 	    	$data_showQuestion	= pzk_element()->getShowQuestion();
-	    	$data_showQuestion->set('checkPayment', $check);
-	    	$data_showQuestion->set('dataRow', $dataRow);
+	    	$data_showQuestion->setCheckPayment($check);
+	    	$data_showQuestion->setDataRow($dataRow);
 	    	
-	    	$data_showQuestion->set('data_showQuestion', $result_search);
+	    	$data_showQuestion->setData_showQuestion($result_search);
 	    	
-	    	$data_showQuestion->set('data_criteria', $data_criteria);
+	    	$data_showQuestion->setData_criteria($data_criteria);
 			
 			$categoryCurrentObservation = $dataCategoryRow->get_category_all_display_sn(88, $class, $check);
 
-			$data_showQuestion->set('categoryCurrentObservation', $categoryCurrentObservation);
+			$data_showQuestion->setCategoryCurrentObservation($categoryCurrentObservation);
     	}
 		$vocabularyList = pzk_element()->getVocabularyList();
-		$vocabularyList->set('checkPayment', $check);
+		$vocabularyList->setCheckPayment($check);
     	
     	$this->display();
     }
@@ -301,7 +301,7 @@ class PzkPracticeController extends PzkModuleController{
 		$this->initPage();
 		$this->append('home/login');
 		if($message) {
-			pzk_element()->getLogin()->set('message', $message);
+			pzk_element()->getLogin()->setMessage($message);
 		}
 		$this->display();
 		pzk_system()->halt();
@@ -320,7 +320,7 @@ class PzkPracticeController extends PzkModuleController{
 			$session 	= pzk_session();
 			$user 		= pzk_user();
 			
-			$testId 		= 	intval($request->get('homework'));
+			$testId 		= 	intval($request->getHomework());
 			$check 			= 	$user->checkPayment('full');
 			
 			# chưa thanh toán
@@ -329,7 +329,7 @@ class PzkPracticeController extends PzkModuleController{
 			}
 		}
 		
-    	$class		= $session->get('lop');
+    	$class		= $session->getLop();
 
 		# không có phiếu bài tập
     	if(!$testId){
@@ -347,13 +347,13 @@ class PzkPracticeController extends PzkModuleController{
 		
 		# kiểm tra thời hạn
 		$today = date('Y-m-d H:i:s');
-		if(($testEntity->get('startDate') <= $today || $testEntity->get('startDate') == '0000-00-00 00:00:00') && ($testEntity->get('endDate') >= $today || $testEntity->get('endDate') == '0000-00-00 00:00:00')) {
+		if(($testEntity->getStartDate() <= $today || $testEntity->getStartDate() == '0000-00-00 00:00:00') && ($testEntity->getEndDate() >= $today || $testEntity->getEndDate() == '0000-00-00 00:00:00')) {
 			# được quyền làm bài
 		} else {
 			
 			# chưa đến thời gian làm bài
-			if($testEntity->get('startDate') != '0000-00-00 00:00:00' && $testEntity->get('startDate') > $today) {
-				$this->showMessageAndHalt('Chưa đến thời gian làm bài: ' . $testEntity->get('name') . '. Thời gian bắt đầu làm: ' . date('H:i d/m/Y', strtotime($testEntity->get('startDate'))));
+			if($testEntity->getStartDate() != '0000-00-00 00:00:00' && $testEntity->getStartDate() > $today) {
+				$this->showMessageAndHalt('Chưa đến thời gian làm bài: ' . $testEntity->getName() . '. Thời gian bắt đầu làm: ' . date('H:i d/m/Y', strtotime($testEntity->getStartDate())));
 			}
 		}
 		
@@ -373,9 +373,9 @@ class PzkPracticeController extends PzkModuleController{
 		
 		$homework					= 	pzk_element()->getShowTest();
 		
-		$homework->set('itemId', 		$testId);
+		$homework->setItemId(		$testId);
 		$homework->set('bookId',		$book['id']);
-		$homework->set('book', 			$book);
+		$homework->setBook(			$book);
 		
 		
 		$ngonngu = pzk_element()->getNgonngu();
@@ -391,16 +391,16 @@ class PzkPracticeController extends PzkModuleController{
 		
 		$categoryCurrentObservation = $data_category->get_category_all_display_sn(88, $class , $check);	
 		
-		$ngonngu->set('categoryCurrentObservation', $categoryCurrentObservation);
+		$ngonngu->setCategoryCurrentObservation($categoryCurrentObservation);
 		
-		$ngonngu->set('categoryName', $categoryName);
+		$ngonngu->setCategoryName($categoryName);
 
 		$category = $data_category->get_category_all_display_sn($categoryOrgin_id, $class);
 
-		$ngonngu->set('category', $category);
+		$ngonngu->setCategory($category);
 
-		$ngonngu->set('categoryId', $category_id);
-		$ngonngu->set('checkPayment', $check);
+		$ngonngu->setCategoryId($category_id);
+		$ngonngu->setCheckPayment($check);
 		
 		$this->display();
     }
@@ -409,12 +409,12 @@ class PzkPracticeController extends PzkModuleController{
 		$request 			= 	pzk_request();
 		$session 			=	pzk_session();
 		
-		$userId 			=	$session->get('userId');
+		$userId 			=	$session->getUserId();
 		
-		$subject 			=	intval($request->get('subject'));
-		$topic				=	intval($request->get('topic'));
-		$testId				=	intval($request->get('homework'));
-		$userData 			= 	$request->get('userData');
+		$subject 			=	intval($request->getSubject());
+		$topic				=	intval($request->getTopic());
+		$testId				=	intval($request->getHomework());
+		$userData 			= 	$request->getUserData();
 		$questionIds 		= 	$userData['questionIds'];
 		$questionTypes 		= 	$userData['questionTypes'];
 		$answers			=	$userData['answers'];
@@ -466,7 +466,7 @@ class PzkPracticeController extends PzkModuleController{
 				# chấm điểm
 				$mark = $this->$action($question, $arAnswer, $test);
 				$totalMark += $mark;
-				if($question->get('auto')) {
+				if($question->getauto()) {
 					$autoMark += $mark;
 				}
 				
@@ -478,8 +478,8 @@ class PzkPracticeController extends PzkModuleController{
 					'user_book_id'	=>	$bookId,
 					'question_type'	=>	'TL',
 					'testId'		=>	$testId,
-					'auto'			=>	$question->get('auto'),
-					'isMark'		=> 	$question->get('auto') ? 1 : 0,
+					'auto'			=>	$question->getauto(),
+					'isMark'		=> 	$question->getauto() ? 1 : 0,
 					'mark'			=>	$mark
 				);
 				$user_answers[]		=	$user_answer;
@@ -518,7 +518,7 @@ class PzkPracticeController extends PzkModuleController{
 			'duringTime'			=> 	$duringTime,
 			'testId'				=> 	$testId,
 			'keybook'				=> 	uniqid(),
-			'software'				=> 	$request->get('softwareId'),
+			'software'				=> 	$request->getSoftwareId(),
 			'created'				=> 	date('Y-m-d H:i:s'),
 			'mustMark'				=> 	1,
 			'homework'				=> 	1,
@@ -543,7 +543,7 @@ class PzkPracticeController extends PzkModuleController{
 		
 		# Lưu các đáp án
 		foreach($user_answers as $user_answer) {
-			$user_answer['user_book_id']	=	$userBookEntity->get('id');
+			$user_answer['user_book_id']	=	$userBookEntity->getId();
 			
 			# kiểm tra đáp án đã có chưa
 			$userAnswerEntity 	= 	_db()->getTableEntity('user_answers');
@@ -632,7 +632,7 @@ class PzkPracticeController extends PzkModuleController{
 	public function showHomeworkAnswersChoiceAction() {
 		$request 			= pzk_request();
     
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getanswers();
     	 
     	$questionIds 		= $data_answers['questionIds'];
     	
@@ -690,10 +690,10 @@ class PzkPracticeController extends PzkModuleController{
 	}
 	
 	public function markChoice($question, $answers, $test) {
-		if(!isset($answers[$question->get('id')])) return 0;
+		if(!isset($answers[$question->getId()])) return 0;
 		$right = _db()->select('id')->from('answers_question_tn')
-			->whereQuestion_id($question->get('id'))
-			->whereId($answers[$question->get('id')])
+			->whereQuestion_id($question->getId())
+			->whereId($answers[$question->getId()])
 			->whereStatus(1)
 			->result_one();
 		if($right) {
@@ -703,8 +703,8 @@ class PzkPracticeController extends PzkModuleController{
 	}
 	
 	public function markTuluan($question, $answer, $test) {
-		if($question->get('auto')) {
-			$teacher_answers = json_decode($question->get('teacher_answers'), true);
+		if($question->getauto()) {
+			$teacher_answers = json_decode($question->getTeacher_answers(), true);
 			$total = 0;
 			foreach($answer as $type => $ans) {
 				foreach($ans as $index => $value)  {
@@ -736,8 +736,8 @@ class PzkPracticeController extends PzkModuleController{
 		
 		$detail = $this->parse('education/document/vocabulary');
 		$documentId = intval(pzk_request('id'));
-		$detail->set('itemId', $documentId);
-		$detail->set('categoryId', $categoryId);
+		$detail->setItemId($documentId);
+		$detail->setCategoryId($categoryId);
 		$detail->display();
 	}
 	public function showVocabularyAction() {
@@ -749,21 +749,21 @@ class PzkPracticeController extends PzkModuleController{
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 		$class= pzk_session('lop');
 			
-		pzk_page()->set('title', $catEntity->get('name').' Bài '.$de);
-		pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-		pzk_page()->set('description', $catEntity->get('meta_description'));
-		pzk_page()->set('img', $catEntity->get('img'));
-		pzk_page()->set('brief', $catEntity->get('brief'));
+		pzk_page()->setTitle($catEntity->getName().' Bài '.$de);
+		pzk_page()->setKeywords($catEntity->getMeta_keywords());
+		pzk_page()->setDescription($catEntity->getMeta_description());
+		pzk_page()->setImg($catEntity->getImg());
+		pzk_page()->setBrief($catEntity->getBrief());
 		$this->append('education/practice/showVocabulary', 'wrapper');	
 
 		$vocabularyList = pzk_element()->getVocabularyList();
-		$vocabularyList->set('checkPayment', $check);
+		$vocabularyList->setCheckPayment($check);
     	
     	$this->display();
 	}
 	function showAnswersTeacherAction(){
 		$request	= pzk_request();
-		$id = intval($request->get('questionId'));
+		$id = intval($request->getQuestionId());
 		$answer = _db()->select('*')->from('answers_question_tn')->whereStatus('1')->whereQuestion_id($id)->result_one();
 		echo json_encode($answer);
 	}
@@ -824,7 +824,7 @@ class PzkPracticeController extends PzkModuleController{
 				'schoolName'=>	'TH Ngôi Sao Hà Nội'
 			));
 			$user->save();
-			$userId = $user->get('id');
+			$userId = $user->getId();
 			$classroomStudent = _db()->getTableEntity('education_classroom_student');
 			$classroomStudent->setData(array(
 				'classroomId'	=>	$classroom['id'],

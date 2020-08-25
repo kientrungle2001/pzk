@@ -27,7 +27,7 @@ class PzkFrontendModel {
             $entity->setData($row);
             $entity->save();
         }
-        return $entity->get('id');
+        return $entity->getId();
     }
 	public function getOne($id, $table) {
 		$data = _db()->useCache(1800)->useCB()->select('*')->from($table)

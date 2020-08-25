@@ -11,11 +11,11 @@ class PzkPracticeController extends PzkController{
 			$this->initPage();
 			$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 			$class= pzk_session('lop');
-			pzk_page()->set('title', 'Luyện tập: ' . $catEntity->get('name'));
-			pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-			pzk_page()->set('description', $catEntity->get('meta_description'));
-			pzk_page()->set('img', $catEntity->get('img'));
-			pzk_page()->set('brief', $catEntity->get('brief'));
+			pzk_page()->setTitle('Luyện tập: ' . $catEntity->getName());
+			pzk_page()->setKeywords($catEntity->getMeta_keywords());
+			pzk_page()->setDescription($catEntity->getMeta_description());
+			pzk_page()->setImg($catEntity->getImg());
+			pzk_page()->setBrief($catEntity->getBrief());
 				$this->append('education/practice/detail', 'wrapper');
 				$ngonngu = pzk_element()->getNgonngu();
 				
@@ -30,26 +30,26 @@ class PzkPracticeController extends PzkController{
 				
 				$categoryCurrentObservation = $data_category->get_category_all_display_sn(88, $class , $check);	
 				
-				$ngonngu->set('categoryCurrentObservation', $categoryCurrentObservation);
+				$ngonngu->setCategoryCurrentObservation($categoryCurrentObservation);
 				
-				$ngonngu->set('categoryName', $categoryName);
+				$ngonngu->setCategoryName($categoryName);
 
 				$category = $data_category->get_category_all_display_sn($categoryOrgin_id, $class);
 
-				$ngonngu->set('category', $category);
+				$ngonngu->setCategory($category);
 
-				$ngonngu->set('categoryId', $category_id);
-				$ngonngu->set('checkPayment', $check);
+				$ngonngu->setCategoryId($category_id);
+				$ngonngu->setCheckPayment($check);
 				
 			
 		$vocabularyList = pzk_element()->getVocabularyList();
 		if(pzk_request('siteId') == 2) {
 			if($vocabularyList){
-				$vocabularyList->set('checkPayment', $check);
+				$vocabularyList->setCheckPayment($check);
 			}	
 		} else {
 			if($vocabularyList){
-				$vocabularyList->set('parentId', $category_id);
+				$vocabularyList->setParentId($category_id);
 				if(!$check) {
 					$vocabularyList->addFilter('trial', 1);
 				}
@@ -68,11 +68,11 @@ class PzkPracticeController extends PzkController{
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 		$class= pzk_session('lop');
 			
-		pzk_page()->set('title', $catEntity->get('name').' Bài '.$de);
-		pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-		pzk_page()->set('description', $catEntity->get('meta_description'));
-		pzk_page()->set('img', $catEntity->get('img'));
-		pzk_page()->set('brief', $catEntity->get('brief'));
+		pzk_page()->setTitle($catEntity->getName().' Bài '.$de);
+		pzk_page()->setKeywords($catEntity->getMeta_keywords());
+		pzk_page()->setDescription($catEntity->getMeta_description());
+		pzk_page()->setImg($catEntity->getImg());
+		pzk_page()->setBrief($catEntity->getBrief());
     	
     	if(1 || pzk_request()->is('POST')){
     		
@@ -99,9 +99,9 @@ class PzkPracticeController extends PzkController{
 			}
 			
 	    	$data_criteria = array(
-	    		'category_id'		=> pzk_request()->get('topic') ? pzk_request()->get('topic') : pzk_request()->getSegment(3),
-	    		'topic_id'			=> pzk_request()->get('topic'),
-	    		'category_name'		=> pzk_request()->get('category_name'),
+	    		'category_id'		=> pzk_request()->getTopic() ? pzk_request()->getTopic() : pzk_request()->getSegment(3),
+	    		'topic_id'			=> pzk_request()->getTopic(),
+	    		'category_name'		=> pzk_request()->getCategory_name(),
 				'class'		        =>  pzk_request('class'),
 				'de'		        =>  $de,
 				'trial'		        =>  $check,
@@ -109,14 +109,14 @@ class PzkPracticeController extends PzkController{
 		    	'question_time'		=> 10,
 		    	'question_level' 	=> null,
 	    		'keybook'			=> $keybook,
-	    		'category_type'		=> pzk_request()->get('topic') ? pzk_request()->get('topic') : pzk_request()->getSegment(3),
+	    		'category_type'		=> pzk_request()->getTopic() ? pzk_request()->getTopic() : pzk_request()->getSegment(3),
 	    		'category_type_name'=> $category_type_name['name'],
 				'category_type_name_vn'=> $category_type_name_vn['name_vn']
 	    	);
 	    	
 	    	$data_cache = array(
 	    			'category_id'		=> pzk_request()->getSegment(3),
-	    		'category_name'		=> pzk_request()->get('category_name'),
+	    		'category_name'		=> pzk_request()->getCategory_name(),
 				'class'		        =>  pzk_request('class'),
 				'de'		        =>  pzk_request('de'),
 				'trial'		        =>  $check,
@@ -154,19 +154,19 @@ class PzkPracticeController extends PzkController{
 	    	$data_criteria['question_limit'] = count($result_search);
 	    	
 	    	$data_showQuestion	= pzk_element()->getShowQuestion();
-	    	$data_showQuestion->set('checkPayment', $check);
-	    	$data_showQuestion->set('dataRow', $dataRow);
+	    	$data_showQuestion->setCheckPayment($check);
+	    	$data_showQuestion->setDataRow($dataRow);
 	    	
-	    	$data_showQuestion->set('data_showQuestion', $result_search);
+	    	$data_showQuestion->setData_showQuestion($result_search);
 	    	
-	    	$data_showQuestion->set('data_criteria', $data_criteria);
+	    	$data_showQuestion->setData_criteria($data_criteria);
 			
 			$categoryCurrentObservation = $dataCategoryRow->get_category_all_display_sn(88, $class, $check);
 
-			$data_showQuestion->set('categoryCurrentObservation', $categoryCurrentObservation);
+			$data_showQuestion->setCategoryCurrentObservation($categoryCurrentObservation);
     	}
 		$vocabularyList = pzk_element()->getVocabularyList();
-		$vocabularyList->set('checkPayment', $check);
+		$vocabularyList->setCheckPayment($check);
     	$this->display();
     }
 	
@@ -180,11 +180,11 @@ class PzkPracticeController extends PzkController{
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 		$class= pzk_session('lop');
 			
-		pzk_page()->set('title', $catEntity->get('name').' - '.$mediaEntity->get('name'));
-		pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-		pzk_page()->set('description', $catEntity->get('meta_description'));
-		pzk_page()->set('img', $catEntity->get('img'));
-		pzk_page()->set('brief', $catEntity->get('brief'));
+		pzk_page()->setTitle($catEntity->getName().' - '.$mediaEntity->getName());
+		pzk_page()->setKeywords($catEntity->getMeta_keywords());
+		pzk_page()->setDescription($catEntity->getMeta_description());
+		pzk_page()->setImg($catEntity->getImg());
+		pzk_page()->setBrief($catEntity->getBrief());
     	
     	if(1 || pzk_request()->is('POST')){
     		
@@ -215,9 +215,9 @@ class PzkPracticeController extends PzkController{
 			$question_limit = 10;
 			
 	    	$data_criteria = array(
-	    		'category_id'		=> pzk_request()->get('topic') ? pzk_request()->get('topic') : pzk_request()->getSegment(3),
-	    		'topic_id'			=> pzk_request()->get('topic'),
-	    		'category_name'		=> pzk_request()->get('category_name'),
+	    		'category_id'		=> pzk_request()->getTopic() ? pzk_request()->getTopic() : pzk_request()->getSegment(3),
+	    		'topic_id'			=> pzk_request()->getTopic(),
+	    		'category_name'		=> pzk_request()->getCategory_name(),
 				'class'		        =>  pzk_request('class'),
 				'media'		        =>  $media,
 				'trial'		        =>  $check,
@@ -225,14 +225,14 @@ class PzkPracticeController extends PzkController{
 		    	'question_time'		=> 30,
 		    	'question_level' 	=> null,
 	    		'keybook'			=> $keybook,
-	    		'category_type'		=> pzk_request()->get('topic') ? pzk_request()->get('topic') : pzk_request()->getSegment(3),
+	    		'category_type'		=> pzk_request()->getTopic() ? pzk_request()->getTopic() : pzk_request()->getSegment(3),
 	    		'category_type_name'=> $category_type_name['name'],
 				'category_type_name_vn'=> $category_type_name_vn['name_vn']
 	    	);
 	    	
 	    	$data_cache = array(
 	    			'category_id'		=> pzk_request()->getSegment(3),
-	    		'category_name'		=> pzk_request()->get('category_name'),
+	    		'category_name'		=> pzk_request()->getCategory_name(),
 				'class'		        =>  pzk_request('class'),
 				'media'		        =>  pzk_request('media'),
 				'trial'		        =>  $check,
@@ -270,19 +270,19 @@ class PzkPracticeController extends PzkController{
 	    	$data_criteria['question_limit'] = count($result_search);
 	    	
 	    	$data_showQuestion	= pzk_element()->getShowQuestion();
-	    	$data_showQuestion->set('checkPayment', $check);
-	    	$data_showQuestion->set('dataRow', $dataRow);
+	    	$data_showQuestion->setCheckPayment($check);
+	    	$data_showQuestion->setDataRow($dataRow);
 	    	
-	    	$data_showQuestion->set('data_showQuestion', $result_search);
+	    	$data_showQuestion->setData_showQuestion($result_search);
 	    	
-	    	$data_showQuestion->set('data_criteria', $data_criteria);
+	    	$data_showQuestion->setData_criteria($data_criteria);
 			
 			$categoryCurrentObservation = $dataCategoryRow->get_category_all_display_sn(88, $class, $check);
 
-			$data_showQuestion->set('categoryCurrentObservation', $categoryCurrentObservation);
+			$data_showQuestion->setCategoryCurrentObservation($categoryCurrentObservation);
     	}
 		$vocabularyList = pzk_element()->getVocabularyList();
-		$vocabularyList->set('checkPayment', $check);
+		$vocabularyList->setCheckPayment($check);
     	
     	$this->display();
     }
@@ -293,8 +293,8 @@ class PzkPracticeController extends PzkController{
 		
 		$detail = $this->parse('education/document/vocabulary');
 		$documentId = pzk_request('id');
-		$detail->set('itemId', pzk_request()->get('id'));
-		$detail->set('categoryId', $categoryId);
+		$detail->setItemId(pzk_request()->getId());
+		$detail->setCategoryId($categoryId);
 		$detail->display();
 	}
 	public function showVocabularyAction() {
@@ -306,21 +306,21 @@ class PzkPracticeController extends PzkController{
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 		$class= pzk_session('lop');
 			
-		pzk_page()->set('title', $catEntity->get('name').' Bài '.$de);
-		pzk_page()->set('keywords', $catEntity->get('meta_keywords'));
-		pzk_page()->set('description', $catEntity->get('meta_description'));
-		pzk_page()->set('img', $catEntity->get('img'));
-		pzk_page()->set('brief', $catEntity->get('brief'));
+		pzk_page()->setTitle($catEntity->getName().' Bài '.$de);
+		pzk_page()->setKeywords($catEntity->getMeta_keywords());
+		pzk_page()->setDescription($catEntity->getMeta_description());
+		pzk_page()->setImg($catEntity->getImg());
+		pzk_page()->setBrief($catEntity->getBrief());
 		$this->append('education/practice/showVocabulary', 'wrapper');	
 
 		$vocabularyList = pzk_element()->getVocabularyList();
-		$vocabularyList->set('checkPayment', $check);
+		$vocabularyList->setCheckPayment($check);
     	
     	$this->display();
 	}
 	function showAnswersTeacherAction(){
 		$request	= pzk_request();
-		$id = $request->get('questionId');
+		$id = $request->getQuestionId();
 		$answer = _db()->select('*')->from('answers_question_tn')->whereStatus('1')->whereQuestion_id($id)->result_one();
 		echo json_encode($answer);
 	}

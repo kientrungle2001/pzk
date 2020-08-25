@@ -1,7 +1,7 @@
 <?php  
-	$category_id 		= 	$data->get('categoryId');
-	$check				= 	$data->get('checkPayment');
-	$class 				= 	$data->get('class');
+	$category_id 		= 	$data->getCategoryId();
+	$check				= 	$data->getCheckPayment();
+	$class 				= 	$data->getClass();
 	
 	$category 			= 	$data->getCategory();
 	$topics				= 	$data->getTopicTree();

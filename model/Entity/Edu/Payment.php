@@ -2,7 +2,7 @@
 class PzkEntityEduPaymentModel extends PzkEntityModel {
 	public function get('status'$student) {
 		$paids = $this->getPaids();
-		if(isset($paids[$student->get('id')])) { 
+		if(isset($paids[$student->getId()])) { 
 			$status = '<span style="color: green;">Đã thanh toán</span>'; 
 			$this->setNumberOfPaids(1 + $this->getNumberOfPaids());
 		} else { 
@@ -14,7 +14,7 @@ class PzkEntityEduPaymentModel extends PzkEntityModel {
 	
 	public function isPaid($student) {
 		$paids = $this->getPaids();
-		if(isset($paids[$student->get('id')])) {
+		if(isset($paids[$student->getId()])) {
 			return true;
 		}
 		return false;

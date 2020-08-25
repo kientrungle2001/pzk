@@ -46,17 +46,17 @@ class PzkServiceController extends PzkController
 		/*$price = $service->getAmount();*/
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
-		if($wallets->get('id')){
-			$amount			=	$wallets->get('amount');
+		if($wallets->getId()){
+			$amount			=	$wallets->getamount();
 			if($price <= $amount)
 			{
 				// cập nhật database
 				$amount 			= 	$amount - $price;
 				$wallets->update(array('amount' 	=> $amount));
-				$serviceType = $service->get('serviceType');
-				$serviceName = $service->get('serviceName');
-				$time = $service->get('duration');
-				$languages = $service->get('languages');
+				$serviceType = $service->getServiceType();
+				$serviceName = $service->getServiceName();
+				$time = $service->getDuration();
+				$languages = $service->getLanguages();
 				
 				$paymentDate = Date('Y-m-d');
 				$date = date_create($paymentDate);
@@ -96,7 +96,7 @@ class PzkServiceController extends PzkController
 		$datetime		=	date("Y-m-d H:i:s");
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
-		$amount			=	$wallets->get('amount');
+		$amount			=	$wallets->getamount();
 		if($price <= $amount)
 		{
 			// cập nhật database
@@ -219,16 +219,16 @@ class PzkServiceController extends PzkController
 		$serviceId	= 	pzk_request('serviceId');
 		$service= _db()->getEntity('Service.Service');
 		$service->load($serviceId);
-		$contestId= $service->get('contestId');
-		$contestIds = $service->get('contestIds');
-		$price = $service->get('amount');
-		$serviceType = $service->get('serviceType');
+		$contestId= $service->getContestId();
+		$contestIds = $service->getContestIds();
+		$price = $service->getamount();
+		$serviceType = $service->getServiceType();
 
-		$serviceName = $service->get('serviceName');
+		$serviceName = $service->getServiceName();
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
-		if($wallets->get('id')){
-			$amount			=	$wallets->get('amount');
+		if($wallets->getId()){
+			$amount			=	$wallets->getamount();
 			if($price <= $amount)
 			{
 				// cập nhật database
@@ -239,13 +239,13 @@ class PzkServiceController extends PzkController
 				if($serviceType=='view'){
 					
 					$date=date_create(date("Y-m-d"));
-					$expriedDate = date_add($date,date_interval_create_from_date_string($service->get('duration') ." days"));
+					$expriedDate = date_add($date,date_interval_create_from_date_string($service->getDuration() ." days"));
 					$expriedDate =date_format($date,"Y-m-d");
 					$serviceModel->insertPayment($contestId,$price,'wallets','',$expriedDate);
 				}
 				if($serviceType=='contest'){
 					$date=date_create(date("Y-m-d"));
-					$expriedDate = date_add($date,date_interval_create_from_date_string($service->get('duration') ." days"));
+					$expriedDate = date_add($date,date_interval_create_from_date_string($service->getDuration() ." days"));
 					$expriedDate =date_format($date,"Y-m-d");
 					$serviceModel->insertPayment($contestId,$price,'wallets','',$expriedDate);
 				}
@@ -253,15 +253,15 @@ class PzkServiceController extends PzkController
 				if($serviceType=='doview'){
 					
 					$date=date_create(date("Y-m-d"));
-					$expriedDate = date_add($date,date_interval_create_from_date_string($service->get('duration') ." days"));
+					$expriedDate = date_add($date,date_interval_create_from_date_string($service->getDuration() ." days"));
 					$expriedDate =date_format($date,"Y-m-d");
-					$serviceModel->insertPayment($contestIds,$price,'wallets','',$expriedDate, $service->get('id'));
+					$serviceModel->insertPayment($contestIds,$price,'wallets','',$expriedDate, $service->getId());
 				}
 				if($serviceType=='dotest'){
 					$date=date_create(date("Y-m-d"));
-					$expriedDate = date_add($date,date_interval_create_from_date_string($service->get('duration') ." days"));
+					$expriedDate = date_add($date,date_interval_create_from_date_string($service->getDuration() ." days"));
 					$expriedDate =date_format($date,"Y-m-d");
-					$serviceModel->insertPayment($contestIds,$price,'wallets','',$expriedDate, $service->get('id'));
+					$serviceModel->insertPayment($contestIds,$price,'wallets','',$expriedDate, $service->getId());
 				}
 				
 				/*

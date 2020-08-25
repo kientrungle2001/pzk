@@ -2,7 +2,7 @@
 $userId = pzk_session('userId');
 $user = _db()->getEntity('User.Account.User');
 $user->load($userId, 300);
-$birthday= $user->get('birthday'); 
+$birthday= $user->getBirthday(); 
 if($birthday !='0000-00-00'){
 	$arr= preg_split("/[\/-]/",$birthday);
 	if(strpos($birthday, '-') !== false) {
@@ -25,7 +25,7 @@ $areas= $user->loadArea();
 						<div class="col-md-4 top10">
 							<label for="username">Họ và Tên(*) : </label>
 							<input  id="editinfor_name" name="editinfor_name" type="text" class="form-control sharp"  
-									value="<?php echo $user->get('name')?>" placeholder="Họ và Tên" title="Họ và Tên"
+									value="<?php echo $user->getName()?>" placeholder="Họ và Tên" title="Họ và Tên"
 									data-toggle="tooltip" data-placement="top" />
 						</div>
 						
@@ -38,13 +38,13 @@ $areas= $user->loadArea();
 								<option value="0" class="pd-5">Nữ</option>
 							</select>
 							<script type="text/javascript">
-								$('#editinfor_sex').val('<?php echo $user->get('sex')?>');
+								$('#editinfor_sex').val('<?php echo $user->getSex()?>');
 							</script>
 						</div>
 						<div class="col-md-3  top10">
 							<label for="phone">Điện thoại (*) :</label>
 							<input id="editinfor_phone" name="editinfor_phone" type="text" class="form-control sharp" 
-									value="<?php echo $user->get('phone')?>" placeholder="Điện thoại" title="Điện thoại phải là số" 
+									value="<?php echo $user->getPhone()?>" placeholder="Điện thoại" title="Điện thoại phải là số" 
 									data-toggle="tooltip" data-placement="top" />
 						</div>
 					</div>
@@ -52,7 +52,7 @@ $areas= $user->loadArea();
 						<div class="col-md-4  top10">
 							<label for="username">Địa chỉ : </label>
 							<input id="editinfor_address" name="editinfor_address" type="text" class="form-control sharp" 
-									value="<?php echo $user->get('address')?>" data-toggle="tooltip" data-placement="top" 
+									value="<?php echo $user->getaddress()?>" data-toggle="tooltip" data-placement="top" 
 									placeholder="Địa chỉ"  title="Địa chỉ của bạn">
 						</div>
 						<div class="col-md-8 top10" style="padding-left: 0px;">

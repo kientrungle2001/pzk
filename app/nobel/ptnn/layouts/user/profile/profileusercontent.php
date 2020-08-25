@@ -24,15 +24,15 @@
         $countComment=$user_note->countComment($note->getId());
         $date= $user_note->formatDate($note->getDatenote());
        ?>
-     <div id="listnote<?php echo $note->get('id')?>">
+     <div id="listnote<?php echo $note->getId()?>">
       <div style="float:left;">
         <img src="/default/skin/nobel/ptnn/media/usernote.png" alt="">
       </div>
     <div class="prf_titlenote">
-      <a href="/note/detailnote?member=<?php echo $member ?>&id=<?php echo $note->get('id')?>">{note.gettitlenote()}</a>
+      <a href="/note/detailnote?member=<?php echo $member ?>&id=<?php echo $note->getId()?>">{note.gettitlenote()}</a>
 
     </div>
-    <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_<?php echo @$data->id?>.delNote(<?php echo $note->get('id')?>);">[Xoá]</a></div>
+    <div style="float:right;"><a href="javascript:;" class="black" title="Xoá" onclick="pzk_<?php echo @$data->id?>.delNote(<?php echo $note->getId()?>);">[Xoá]</a></div>
     <div class="prf_clear1">
       <span class="titel_detail1">Bình luận: <?php echo $countComment ?>  |   Vào lúc: <?php echo @$date['1']?> Ngày <?php echo @$date['0']?> </span>
     </div>

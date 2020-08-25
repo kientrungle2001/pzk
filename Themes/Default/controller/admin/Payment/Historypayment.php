@@ -529,14 +529,14 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
 			$couponEntity 	= 	_db()->getTableEntity('coupon');
 			$couponEntity->loadWhere(array('code', $coupon));
 			
-			if($couponEntity->get('id')) {
+			if($couponEntity->getId()) {
 				$amount			=	$row['amount'];
-				$amount			=	$amount - $amount * $couponEntity->get('discount') / 100;
+				$amount			=	$amount - $amount * $couponEntity->getDiscount() / 100;
 				$couponUser->setData(array(
 					'userId'	=>	$row['userId'],
 					'username'	=>	$row['username'],
 					'code'		=>	$coupon,
-					'resellerId'=>	$couponEntity->get('resellerId'),
+					'resellerId'=>	$couponEntity->getResellerId(),
 					'status'	=>	1,
 					'actived'	=> 	date('Y-m-d H:i:s'),
 					'amount'	=>	$amount,
@@ -556,7 +556,7 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
             $row['created']=date("Y-m-d H:i:s");
 			$paymentId 	=	$this->add($row);
 			if($couponUser) {
-				$couponUser->set('userId', $paymentId);
+				$couponUser->setUserId($paymentId);
 				$couponUser->save();
 			}
             pzk_notifier()->addMessage('Cập nhật thành công');
@@ -592,7 +592,7 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
 			$couponEntity 	= 	_db()->getTableEntity('coupon');
 			$couponEntity->loadWhere(array('code', $coupon));
 			
-			if($couponEntity->get('id')) {
+			if($couponEntity->getId()) {
 				$amount			=	$row['amount'];
 				$amount			=	$amount - $amount * $couponEntity->getDiscount() / 100;
 				$couponUser->setData(array(

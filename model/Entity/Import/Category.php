@@ -8,33 +8,33 @@ class PzkEntityImportCategoryModel extends PzkEntityModel
 	public function import($content = false) {
 		$questions = array();
 		if(!$content)
-		$content = file_get_contents($this->get('filePath'));
-		$this->set('content', $content);
+		$content = file_get_contents($this->getFilePath());
+		$this->setContent($content);
 		$questionContents = explode('-----', $content);
 		foreach($questionContents as $questionContent) {
 			if(trim($questionContent)) {
 				$question = _db()->getEntity('Import.Question.Split');
-				$question->set('content', $questionContent);
+				$question->setContent($questionContent);
 				$questions[] = $question;
 			}
 		}
-		$this->set('questions', $questions);
+		$this->setQuestions($questions);
 	}
 	
 	public function getCategoryIds() {
 		$parent = $this;
 		$categoryIds = array();
-		$categoryIds[] = $parent->get('id');
+		$categoryIds[] = $parent->getId();
 		while($parent = $parent->getParentEntity()) {
-			$categoryIds[] = $parent->get('id');
+			$categoryIds[] = $parent->getId();
 		}
 		$categoryIds = array_reverse($categoryIds);
 		return ',' . implode(',', $categoryIds) . ',';
 	}
 	
 	public function getParentEntity() {
-		if(!$this->get('parent')) return null;
-		$parent = $this->getOne(array('id', $this->get('parent')));
+		if(!$this->getParent()) return null;
+		$parent = $this->getOne(array('id', $this->getParent()));
 		return $parent;
 	}
 }

@@ -49,7 +49,7 @@ class PzkGetdataController extends PzkController{
 			$url = "http://trangnguyen.edu.vn/dang-ky";
 
 			$file = file_get_contents($url, false, $context);	
-			pzk_filecache()->set('dangkyTrangNguyen', $file);
+			pzk_filecache()->setDangkyTrangNguyen($file);
 		}
 		
 		//echo html_escape($file);
@@ -99,7 +99,7 @@ class PzkGetdataController extends PzkController{
 			$entity = _db()->useCb()->getEntity('Table')->setTable('areacode');
             $entity->setData($row);
             $entity->save();
-			$idHuyencurrentInsert = $entity->get('id');
+			$idHuyencurrentInsert = $entity->getId();
 			
 			$this->insertSchoolByIdAction($idHuyencurrentInsert, $idhuyenweb);
 			

@@ -10,14 +10,14 @@ $term1children		=	$term1['children'];
 $term2 				= 	$terms['children'][1];
 $term2children		=	$term2['children'];
 $year				=	$children[2];
-$childs 			=	($week['id'] == $data->get('menuId')) ? $week['children'] : (($year['id'] == $data->get('menuId')) ?  $year['children'] : $terms['children']);
+$childs 			=	($week['id'] == $data->getMenuId()) ? $week['children'] : (($year['id'] == $data->getMenuId()) ?  $year['children'] : $terms['children']);
 $index				=	1;
 $tab 				= 	null;
 $tabType			= 	null;
-if($week['id'] == $data->get('menuId')) {
+if($week['id'] == $data->getMenuId()) {
 	$tab			= 	$week;
 	$tabType		=	'week';
-} elseif($year['id'] == $data->get('menuId')) {
+} elseif($year['id'] == $data->getMenuId()) {
 	$tab			= 	$year;
 	$tabType		=	'year';
 } else {

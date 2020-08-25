@@ -14,14 +14,14 @@
 	
 	$session 			=	pzk_session();
 	$request 			=	pzk_request();
-	$class 				= 	$session->get('lop');
-	$language 			= 	pzk_global()->get('language');
-	$lang 				= 	$session->get('language');
-	$homework			=	intval($request->get('homework'));
-	$subject			=	intval($request->get('subject'));
-	$topic				=	intval($request->get('topic'));
-	$bookId				=	$data->get('bookId');
-	$book				=	$data->get('book');
+	$class 				= 	$session->getLop();
+	$language 			= 	pzk_global()->getLanguage();
+	$lang 				= 	$session->getLanguage();
+	$homework			=	intval($request->getHomework());
+	$subject			=	intval($request->getSubject());
+	$topic				=	intval($request->getTopic());
+	$bookId				=	$data->getBookId();
+	$book				=	$data->getBook();
 	$subjectEntity		=	_db()->getTableEntity('categories')->load($subject);
 	
 ?>
@@ -32,7 +32,7 @@
 			
 			<div class="item fs18 top-content bold">	
 				
-				<a href="/#practice">Phiếu bài tập</a> &nbsp; &nbsp; > &nbsp; &nbsp; <a href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subjectEntity->get('id')?>">Môn <?php echo $subjectEntity->get('name')?></a>
+				<a href="/#practice">Phiếu bài tập</a> &nbsp; &nbsp; > &nbsp; &nbsp; <a href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subjectEntity->getId()?>">Môn <?php echo $subjectEntity->getName()?></a>
 				&nbsp; &nbsp; > 
 				&nbsp; &nbsp; 
 				<?php echo @$test['name']?>
@@ -102,11 +102,11 @@
 										<input type="hidden" name="questionTypes[<?=$question['id']?>]" value="<?=questionTypeOjb($question['questionType'])?>"/>
 										<?php 
 											$QuestionObj = pzk_obj_once('Education.Question.Type.'.ucfirst(questionTypeOjb($question['questionType'])));
-											$QuestionObj->set('stt', $index+1);
-											$QuestionObj->set('questionId', $question['id']);
+											$QuestionObj->setStt($index+1);
+											$QuestionObj->setQuestionId($question['id']);
 											$questionChoice = _db()->getEntity('Question.Choice');
 											$questionChoice->setData($indexedQuestions[$question['id']]);
-											$QuestionObj->set('question', $questionChoice);
+											$QuestionObj->setQuestion($questionChoice);
 											
 											$answerEntitys = array();
 											if(isset($answers[$question['id']])) {
@@ -117,16 +117,16 @@
 												}
 											}
 											
-											$QuestionObj->set('answers', $answerEntitys);
+											$QuestionObj->setAnswers($answerEntitys);
 											
-											$QuestionObj->set('cacheable', 'false');											
-											$QuestionObj->set('cacheParams', 'layout, questionId');
+											$QuestionObj->setCacheable('false');											
+											$QuestionObj->setCacheParams('layout, questionId');
 											if($question['questionType'] == '4') {
-												$QuestionObj->set('layout', 'education/question/result/tuluan');
+												$QuestionObj->setLayout('education/question/result/tuluan');
 											} else {
-												$QuestionObj->set('layout', 'education/question/result/choice');
+												$QuestionObj->setLayout('education/question/result/choice');
 											}
-											$QuestionObj->set('bookId', $data->get('bookId'));
+											$QuestionObj->setBookId($data->getBookId());
 											$QuestionObj->display();
 										?>
 										</div>

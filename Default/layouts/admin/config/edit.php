@@ -1,13 +1,13 @@
 <?php
 $controller = pzk_controller();
-$fieldSettings = pzk_request()->get('config') . 'FieldSettings';
+$fieldSettings = pzk_request()->getConfig() . 'FieldSettings';
 $addFieldSettings = $controller->$fieldSettings;
 $row = array();
-$storeType = pzk_session()->get('storeType');
+$storeType = pzk_session()->getStoreType();
 if($storeType == 'app') {
-	$row = pzk_app_store()->get('config');
+	$row = pzk_app_store()->getConfig();
 } else {
-	$row = pzk_site_store()->get('config');
+	$row = pzk_site_store()->getConfig();
 }
 
 
@@ -20,14 +20,14 @@ if($storeType == 'app') {
     </div>
     <div class="panel-body borderadmin">
     	<strong>Cấu hình cho: </strong>
-    	<select id="storeType" name="storeType" onchange="window.location='<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/changeStoreType?config=<?php  echo pzk_request()->get('config'); ?>&storeType=' + this.value;">
+    	<select id="storeType" name="storeType" onchange="window.location='<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/changeStoreType?config=<?php  echo pzk_request()->getConfig(); ?>&storeType=' + this.value;">
     		<option value="site">Trang web</option>
     		<option value="app">Ứng dụng</option>
     	</select>
     	<script type="text/javascript">
 			$('#storeType').val('<?php echo $storeType ?>');
     	</script>
-        <form id="<?php echo @$controller->module?>AddForm" role="form" enctype="multipart/form-data" method="post" action="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/writePost?config=<?php  echo pzk_request()->get('config'); ?>">
+        <form id="<?php echo @$controller->module?>AddForm" role="form" enctype="multipart/form-data" method="post" action="<?php echo BASE_REQUEST . '/admin' ?>_<?php echo @$controller->module?>/writePost?config=<?php  echo pzk_request()->getConfig(); ?>">
             <input type="hidden" name="id" value="" />
 
                 <?php foreach($addFieldSettings as $field): ?>
@@ -41,7 +41,7 @@ if($storeType == 'app') {
                 foreach($field as $key => $val) {
                 $fieldObj->set($key, $val);
                 }
-                $fieldObj->set('value', @$row[$field['index']]);
+                $fieldObj->setValue(@$row[$field['index']]);
                 $fieldObj->display();
                 ?>
                 <?php endforeach; ?>

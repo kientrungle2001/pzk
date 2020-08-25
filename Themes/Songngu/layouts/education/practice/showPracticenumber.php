@@ -1,5 +1,5 @@
 <?php
-$language = pzk_global()->get('language');
+$language = pzk_global()->getLanguage();
 $lang = pzk_session('language');
 $class = 5;
 if(pzk_session('lop')) {

@@ -116,7 +116,7 @@ if(!mobileAndTabletcheck()) {
 <!--End of Tawk.to Script-->
 <?php endif; ?>
 <?php endif; ?>
-<?php if(pzk_request()->get('softwareId') == 1 && pzk_request()->get('siteId') == 1 ): ?>
+<?php if(pzk_request()->getSoftwareId() == 1 && pzk_request()->getSiteId() == 1 ): ?>
 <div class="modal fade" id="bannerModal" role="dialog">
     <div class="modal-dialog">
 		<div class="text-left" style="width: 825px;">
@@ -206,7 +206,7 @@ if(turnOnDate.getTime() < serverMicroTime) {
 </script>
 <?php endif;?>
 
-<?php if(pzk_session()->get('userId') && (pzk_request('softwareId') ==1) && (pzk_session('email') =='' || pzk_session('phone') == '')): ?>
+<?php if(pzk_session()->getUserId() && (pzk_request('softwareId') ==1) && (pzk_session('email') =='' || pzk_session('phone') == '')): ?>
 
 <div class="pd-10 pdbot-100">
 <form id="addinfo" class="login form-horizontal" onsubmit="updateInfo()" method="post">

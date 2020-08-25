@@ -1,9 +1,9 @@
 <?php 
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
 ?>
 <div class="col-md-12 col-xs-12" id="changecontent">	
-	<?php  $items = $data->get('name'); ?>
+	<?php  $items = $data->getName(); ?>
 	<?php foreach($items as $name): ?>
 	<div class="col-md-12 col-xs-12 bdbot">
 		<h3 class="text-center">

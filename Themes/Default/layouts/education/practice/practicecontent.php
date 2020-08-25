@@ -1,13 +1,13 @@
 <?php  
-	$category 			= $data->get('category');
-	$category_id 		= $data->get('categoryId');
-	$category_name 		= $data->get('categoryName');
+	$category 			= $data->getCategory();
+	$category_id 		= $data->getCategoryId();
+	$category_name 		= $data->getCategoryName();
 	$subject			= intval(pzk_request()->getSegment(3));
 	$check				= pzk_session('checkPayment');
 	$class				= 5;
 	if($subject) {
 		$subjectEntity 	= _db()->getTableEntity('categories')->load($subject, 1800);
-		$parentSubject 	= $subjectEntity->get('parent');
+		$parentSubject 	= $subjectEntity->getParent();
 	}
 	$practices 			= $data->getPractices($class,$subject, $check);
 	
@@ -32,7 +32,7 @@
 					</button>
 						<ul class="dropdown-menu col-md-12 col-sm-12 col-xs-12" style="top:40px; max-height:350px; overflow-y: scroll;">
 						<?php if($category_id == 88) {
-								$dataCategoryCurrent =  $data->get('categoryCurrentObservation');
+								$dataCategoryCurrent =  $data->getCategoryCurrentObservation();
 							if(@$dataCategoryCurrent['child'])
 							foreach($dataCategoryCurrent['child'] as $k =>$value):?>
 							<li><a onclick="subject = <?php echo @$value['id']?>;document.getElementById('chonde').innerHTML = '<?php echo @$value['name']?>';" data-de="<?php echo @$value['name']?>" class="getdata" href="/practice/doQuestion/<?php echo @$value['id']?>?class=5&de=<?php echo @$value['name']?>" data-type="group"><?php if(pzk_user_special()): ?>#<?php echo @$value['id']?><?php endif;?> - <?php echo @$value['name']?> <?php if($check == 0){ echo "Bài dùng thử";} ?></a></li>
@@ -43,7 +43,7 @@
 								if($level== '1'){
 									$practices = $data->getPractices($class,$subject, $check);
 										for($i = 1; $i <= $practices; $i++){  ?>
-											<li ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+											<li ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 										<?php } //end for
 								}elseif($level== '2'){
 									$topics= $data->getTopics($subject, $check);
@@ -52,7 +52,7 @@
 											echo '<li class="left20" style="color:#d9534f"><h5><strong>'.$topic['name'].'</strong></h5>';
 											$practices = $data->getPractices($class,$topic['id'], $check);
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+												<li ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 											<?php } //end for
 										} //end foreach
 
@@ -64,7 +64,7 @@
 										if(count($topicChilds) == 0) {
 											$practices = $data->getPractices($class,$section['id'], $check);
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+												<li ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 											<?php 
 											}
 										} else {										
@@ -72,7 +72,7 @@
 												echo '<li class="left20'.(@$topic['trial'] ? ' trial-3-level-2': '').'" style="color:#d9534f"><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?><?php endif;?> - <?php echo $topic['name'].'</strong>';
 												$practices = $data->getPractices($class,$topic['id'], $check);
 												for($i = 1; $i <= $practices; $i++){  ?>
-													<li ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+													<li ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 												<?php 
 												} 
 											}
@@ -87,7 +87,7 @@
 										if(count($sections2) == 0) {
 											$practices = $data->getPractices($class,$section1['id'], $check);
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li ><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+												<li ><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 											<?php 
 											}
 										} else {
@@ -97,7 +97,7 @@
 												if(count($topicChilds) == 0) {
 													$practices = $data->getPractices($class,$section2['id'], $check);
 													for($i = 1; $i <= $practices; $i++){  ?>
-														<li ><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+														<li ><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 													<?php 
 													}
 												} else {
@@ -105,7 +105,7 @@
 														echo '<li class="'.(@$topic['trial'] ? ' trial-4-level-3': '').'" style="color:#d9534f; padding-left: 40px;"><h5><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?><?php endif;?> - <?php echo $topic['name'].'</strong></h5>';
 														$practices = $data->getPractices($class,$topic['id'], $check);
 														for($i = 1; $i <= $practices; $i++){  ?>
-															<li ><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->get('alias')?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+															<li ><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 														<?php 
 														} 
 													}	

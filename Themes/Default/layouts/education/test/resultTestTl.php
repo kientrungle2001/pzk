@@ -1,8 +1,8 @@
 <?php 
 	//bai tu luan
-	$dataUserAnswers = $data->get('dataUserAnswers');
+	$dataUserAnswers = $data->getDataUserAnswers();
 	if($dataUserAnswers) {
-		$scoreTl = $data->get('scoreTl');
+		$scoreTl = $data->getScoreTl();
 ?>
 <div class='container robotofont'>
 	
@@ -20,11 +20,11 @@
 				$BookObj->set ('id', $value ['id'] );
 				$BookObj->set ('questionId', $value ['questionId'] );
 				$BookObj->set ('question_type', $value ['question_type'] );
-				$BookObj->set('userAnswer', $value);
-				$BookObj->set('content', $value['content'] );
-				$BookObj->set('mark', $value['mark'] );
-				$BookObj->set('recommend_mark', $value['recommend_mark'] );
-				$BookObj->set('order', $key + 1 );
+				$BookObj->setUserAnswer($value);
+				$BookObj->setContent($value['content'] );
+				$BookObj->setMark($value['mark'] );
+				$BookObj->setRecommend_mark($value['recommend_mark'] );
+				$BookObj->setOrder($key + 1 );
 				$BookObj->display ();
 				?>
 			<?php endforeach;?>

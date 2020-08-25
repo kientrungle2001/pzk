@@ -34,7 +34,7 @@ class PzkAdminSocialaccountController extends PzkGridAdminController {
     	'social_account.created desc' => 'Ngày tạo giảm',
     );
     public $searchFields = array('name');
-    public $Searchlabels = 'Tên tài khoản';
+    public $searchLabel = 'Tên tài khoản';
     public $listFieldSettings = array(
         array(
             'index' => 'name',

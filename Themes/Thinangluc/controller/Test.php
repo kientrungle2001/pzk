@@ -28,7 +28,7 @@ class PzkTestController extends PzkThemesDefaultTestController {
 				if(!in_array($testId, $istest)){
 					$this->initPage();
 					$this->append('home/login', 'wrapper');
-					pzk_element()->getLogin()->set('message', 'Bạn cần mua phần mềm mới có thể làm bài này');
+					pzk_element()->getLogin()->setMessage('Bạn cần mua phần mềm mới có thể làm bài này');
 					$this->display();
 					pzk_system()->halt();
 				}
@@ -45,11 +45,11 @@ class PzkTestController extends PzkThemesDefaultTestController {
 		    	$this->initPage();
 				$testEntity = _db()->getTableEntity('tests')->load($testId, 1800);
 					
-				pzk_page()->set('title', $testEntity->get('name_sn'));
-				pzk_page()->set('keywords', $testEntity->get('name'));
-				pzk_page()->set('description', $testEntity->get('name'));
-				pzk_page()->set('img', $testEntity->get('img'));
-				pzk_page()->set('brief', $testEntity->get('name'));
+				pzk_page()->setTitle($testEntity->getName_sn());
+				pzk_page()->setKeywords($testEntity->getName());
+				pzk_page()->setDescription($testEntity->getName());
+				pzk_page()->setImg($testEntity->getImg());
+				pzk_page()->setBrief($testEntity->getName());
 		    	$keybook	= uniqid();		    	
 		    	$s_keybook	=	pzk_session('keybook', $keybook);
 		    	$this->append('education/test/showTest', 'wrapper');
@@ -65,19 +65,19 @@ class PzkTestController extends PzkThemesDefaultTestController {
 		    		$result_search = $testModel->getQuestionByTest($testId, $test_detail['quantity']);
 		    	}    	
 		    	$data_showQuestion	= pzk_element()->getShowTest();		    	
-		    	$data_showQuestion->set('data_showQuestion', $result_search);		    	
-		    	$data_showQuestion->set('data_criteria', $test_detail);		    	 
+		    	$data_showQuestion->setData_showQuestion($result_search);		    	
+		    	$data_showQuestion->setData_criteria($test_detail);		    	 
 		    	$this->display();
 	    	}
     }
 	public function ajaxTestAction(){
-		$page = pzk_request()->get('page');
-		$class = pzk_request()->get('lop');
+		$page = pzk_request()->getPage();
+		$class = pzk_request()->getLop();
 		$this->parse('education/test/ajaxtest');
 		
 		$ajaxtest = pzk_element()->getAjaxtest();
-		$ajaxtest->set('page', $page);
-		$ajaxtest->set('class', $class);
+		$ajaxtest->setPage($page);
+		$ajaxtest->setClass($class);
 		$ajaxtest->display();
 	}
 }

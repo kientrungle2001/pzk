@@ -105,7 +105,7 @@ class PzkAdminCronController extends PzkController {
 		); // Optional permissions
 		$loginUrl = $helper->getLoginUrl(BASE_REQUEST . '/admin_cron/fblogin/' . $id, $permissions);
 
-		echo '<a href="' . $loginUrl . '">Đăng nhập ứng dụng '. $entity->get('name') .'!</a>';
+		echo '<a href="' . $loginUrl . '">Đăng nhập ứng dụng '. $entity->getName() .'!</a>';
 	}
 	
 	public function fbloginAction($id) {
@@ -194,16 +194,16 @@ class PzkAdminCronController extends PzkController {
 		
 		$userEntity = _db()->getTableEntity('social_account');
 		$userEntity->loadWhere(array('fbId', $user['id']));
-		$userEntity->set('fbId', $user['id']);
-		$userEntity->set('name', $user['name']);
-		$userEntity->set('tokenId', base64_encode($fb_access_token));
+		$userEntity->setFbId($user['id']);
+		$userEntity->setName($user['name']);
+		$userEntity->setTokenId(base64_encode($fb_access_token));
 		
-		$userEntity->set('expiredAt', $tokenMetadata->getField('expires_at')->format('Y-m-d H:i:s'));
-		$userEntity->set('created', date('Y-m-d H:i:s'));
-		$userEntity->set('creatorId', pzk_session()->get('adminId'));
-		$userEntity->set('status', 1);
-		$userEntity->set('appId', $id);
-		$userEntity->set('type', 'profile');
+		$userEntity->setExpiredAt($tokenMetadata->getField('expires_at')->format('Y-m-d H:i:s'));
+		$userEntity->setCreated(date('Y-m-d H:i:s'));
+		$userEntity->setCreatorId(pzk_session()->getadminId());
+		$userEntity->setStatus(1);
+		$userEntity->setAppId($id);
+		$userEntity->setType('profile');
 		$userEntity->save();
 		
 		$this->redirect('admin_socialapp/index');

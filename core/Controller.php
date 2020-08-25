@@ -343,6 +343,7 @@ class PzkController extends PzkSG
 	/**
 	 * Redirect theo một đường dẫn kèm theo query string
 	 * @param String $action dạng index, hoặc Home/index, hoặc http://example.com/route[?key=value&...]
+	 * @param Array|Boolean $query query params
 	 */
 	public function redirect($action, $query = false)
 	{
@@ -444,7 +445,7 @@ class PzkController extends PzkSG
 		$property = strtolower($name[3]) . substr($name, 4);
 		switch ($prefix) {
 			case 'get':
-				return $this->$property;
+				return isset($this->$property) ? $this->$property : null;
 				break;
 			case 'has':
 				return isset($this->$property);

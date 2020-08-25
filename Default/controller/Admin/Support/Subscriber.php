@@ -16,7 +16,7 @@ class PzkAdminSupportSubscriberController extends PzkGridAdminController {
     	'created desc' => 'Ngày đăng ký giảm',
     );
     public $searchFields = array('name', 'phone','email', 'note');
-    public $Searchlabels = 'Email';
+    public $searchLabel = 'Email';
     public $listFieldSettings = array(
         array(
             'index' => 'name',

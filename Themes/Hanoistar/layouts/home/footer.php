@@ -58,7 +58,7 @@ $( document ).ready(function() {
 <?php endif; ?>
 
 <?php if(0 && 1){ ?>
-<?php $language = pzk_global()->get('language'); ?>
+<?php $language = pzk_global()->getLanguage(); ?>
 
 <footer class="container-fluid footer-color">
 	<div class="container">
@@ -173,7 +173,7 @@ if(!mobileAndTabletcheck()) {
 <!--End of Tawk.to Script-->
 <?php endif; ?>
 <?php endif; ?>
-<?php if(0 && pzk_request()->get('softwareId') == 1 && pzk_request()->get('siteId') == 2 ): ?>
+<?php if(0 && pzk_request()->getSoftwareId() == 1 && pzk_request()->getSiteId() == 2 ): ?>
 <div class="modal fade" id="bannerModal" role="dialog">
     <div class="modal-dialog">
 		<div class="text-left" style="width: 825px;">
@@ -263,7 +263,7 @@ if(turnOnDate.getTime() < serverMicroTime) {
 </script>
 <?php endif;?>
 
-<?php if(pzk_session()->get('userId') && (pzk_request('softwareId') ==1) && (pzk_session('email') =='' || pzk_session('phone') == '')): ?>
+<?php if(pzk_session()->getUserId() && (pzk_request('softwareId') ==1) && (pzk_session('email') =='' || pzk_session('phone') == '')): ?>
 
 
 

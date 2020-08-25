@@ -1,6 +1,6 @@
 <?php
 
-$dataTest = $data->get('dataTest');
+$dataTest = $data->getDataTest();
 $setting = pzk_controller();
 
 /*$testId = pzk_session('userBookTestId');*/

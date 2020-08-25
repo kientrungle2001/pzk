@@ -5,22 +5,22 @@ class PzkEntityQuestionQuestionsModel extends PzkEntityModel {
 	public function getQuestionType() {
 		// Begin dang ve Từ
 		// Điền càng nhiều đáp án càng tốt
-		if($this->get('type') == 'Q2' || $this->get('type') == 'Q3' || $this->get('type') == 'Q5' || $this->get('type') == 'Q6') {
+		if($this->getType() == 'Q2' || $this->getType() == 'Q3' || $this->getType() == 'Q5' || $this->getType() == 'Q6') {
 			return 'fill';
 		}
 		// Trắc nghiệm
-		if($this->get('type') == 'Q0'|| $this->get('type') == 'Q4') {
+		if($this->getType() == 'Q0'|| $this->getType() == 'Q4') {
 			return 'choice';		}
 		// Chữa lỗi sai( học sinh điền từ sai và điền đáp án đúng)
-		if($this->get('type') == 'Q1') {
+		if($this->getType() == 'Q1') {
 			return 'repair';		}
 		// Tìm từ theo chủ đề ( cho đoạn văn và các chủ đề. tìm các từ trong đoạn văn thuộc chủ đề đó)
-		if($this->get('type') == 'Q7') {
+		if($this->getType() == 'Q7') {
 			return 'topic';		}
 		// End dạng về Từ
 		// Begin Dạng về Câu
 		// chọn đáp án sai và sửa lại cho đúng
-		if($this->get('type') == 'Q8') {
+		if($this->getType() == 'Q8') {
 			return 'choicerepair';		
 		}
 		// Viết tiếp câu
@@ -40,7 +40,7 @@ class PzkEntityQuestionQuestionsModel extends PzkEntityModel {
 			return 'nameparagraph';		
 		}
 		// Đặt tên cho từng đoạn văn
-		if($this->get('type') == 'Q25') {
+		if($this->getType() == 'Q25') {
 			return 'name';		}
 		// End dạng về đoạn văn
 		return 'fill';

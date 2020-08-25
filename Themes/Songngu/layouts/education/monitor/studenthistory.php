@@ -1,5 +1,5 @@
 <?php 
-	$userId = pzk_or(pzk_request()->getSegment(3), pzk_session()->get('userId')); 
+	$userId = pzk_or(pzk_request()->getSegment(3), pzk_session()->getUserId()); 
 	$user = $data->getUserById($userId);
 	$createdDay = pzk_or($user['registered'], $user['created'], pzk_session('created'));
 	//$createdDay = "2016-08-08";

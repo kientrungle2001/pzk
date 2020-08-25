@@ -8,7 +8,7 @@ class PzkAdminDirectoryThemeController extends PzkBackendController {
 		$theme = $this->parse('admin/directory/theme/detail');
 		$this->initPage();
 		$this->append($theme);
-		$theme->set('itemId', pzk_request()->getSegment(3));
+		$theme->setItemId(pzk_request()->getSegment(3));
 		$this->display();
 	}
 	public function delAction($id) {
@@ -25,7 +25,7 @@ class PzkAdminDirectoryThemeController extends PzkBackendController {
 		$layout = $this->parse('admin/directory/theme/layout');
 		$this->initPage();
 		$this->append($layout);
-		$layout->set('itemId', $id);
+		$layout->setItemId($id);
 		$this->display();
 	}
 	

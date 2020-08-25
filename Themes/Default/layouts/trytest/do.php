@@ -1,7 +1,7 @@
 <?php
-	$contestId = $data->get('contestId');
+	$contestId = $data->getContestId();
 	$contest= $data->getContest();
-	$finish = $data->get('finish');
+	$finish = $data->getFinish();
 	if(($finish == 1) || (time() >= strtotime($contest['expiredDate']))) {
 		?>
 		<div class="container boder nomg contentheight linebg robotofont">

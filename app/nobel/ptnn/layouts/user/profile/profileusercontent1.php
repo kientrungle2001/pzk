@@ -23,7 +23,7 @@
         <img src="/default/skin/nobel/ptnn/media/usernote.png" alt="">
       </div>
     <div class="prf_titlenote">
-      <a href="/note/detailnote?member=<?php echo $member ?>&id=<?php echo $note->get('id')?>">{note.gettitlenote()}</a>
+      <a href="/note/detailnote?member=<?php echo $member ?>&id=<?php echo $note->getId()?>">{note.gettitlenote()}</a>
         
     </div>
     <div class="prf_clear1">

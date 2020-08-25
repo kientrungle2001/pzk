@@ -22,7 +22,7 @@ if($root['id'] == 308) {
 					<div class="row">
 						<?php for($i = 1; $i < 7; $i++): ?>
 							<div class="col-sm-4 col-xs-12 top-10 carousel-item">
-								<h3 class="<?php echo $data->get('bgcolor')?> <?php echo $data->get('bdcolor')?> title">
+								<h3 class="<?php echo $data->getBgcolor()?> <?php echo $data->getBdcolor()?> title">
 									<a class="auto-font" href="/<?php echo @$item['alias']?>">Tuần <?php echo $i ?></a>
 								</h3>
 							</div>
@@ -35,7 +35,7 @@ if($root['id'] == 308) {
 			<div class="row" id="carousel-<?php echo @$data->id?>">
 				<?php  foreach($children as $index => $item) :?>
 				<div class="col-sm-15 col-xs-6 carousel-item top-10">
-					<h3 class="<?php echo $data->get('bgcolor')?> <?php echo $data->get('bdcolor')?> title"><a class="auto-font" href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></h3>
+					<h3 class="<?php echo $data->getBgcolor()?> <?php echo $data->getBdcolor()?> title"><a class="auto-font" href="/<?php echo @$item['alias']?>"><?php echo @$item['name']?></a></h3>
 				</div>
 				<?php  endforeach;?>
 			</div>

@@ -1,5 +1,5 @@
 <?php 
-	$provinceId= $data->get('provinceId');
+	$provinceId= $data->getProvinceId();
 	$areacode = _db()->getEntity('User.Account.User');
 	$areas = $areacode->getAreaByParent($provinceId);
 

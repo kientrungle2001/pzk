@@ -1,6 +1,6 @@
 <?php 
 	
-	$class = $data->get('class');
+	$class = $data->getClass();
     
     if(pzk_request('page')){
         $currentpage = intval(pzk_request('page'));
@@ -35,7 +35,7 @@
         <?php 
             if($testIdToan){
 				
-                $pageSize= $data->get('pageSize');
+                $pageSize= $data->getPageSize();
                 
                 $user= _db()->getEntity('Userbook.Usercontest');
                 $users= $user->getRatingUserTestAllTt($testIdToan, $testIdVan, $currentpage, $pageSize);

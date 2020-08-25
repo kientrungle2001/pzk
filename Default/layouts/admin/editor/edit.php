@@ -1,30 +1,30 @@
 <table class="table">
 <tr>
 	<td>
-	<?php echo $data->get('object')?>
+	<?php echo $data->getObject()?>
 	</td>
 	<td>
-	<a href="/Admin_Editor/edit?object=<?php echo $data->get('object')?>&type=object"><img src="/default/images/icon/object.gif" /></a>
+	<a href="/Admin_Editor/edit?object=<?php echo $data->getObject()?>&type=object"><img src="/default/images/icon/object.gif" /></a>
 	</td>
 	<td>
-		<a href="/Admin_Editor/edit?object=<?php echo $data->get('object')?>&type=layout"><img src="/default/images/icon/layout.png" /></a>
+		<a href="/Admin_Editor/edit?object=<?php echo $data->getObject()?>&type=layout"><img src="/default/images/icon/layout.png" /></a>
 	</td>
 	<td>
-		<a href="/Admin_Editor/edit?object=<?php echo $data->get('object')?>&type=js"><img src="/default/images/icon/js.png" /></a>
+		<a href="/Admin_Editor/edit?object=<?php echo $data->getObject()?>&type=js"><img src="/default/images/icon/js.png" /></a>
 	</td>
 	<td>
-		<a href="/Admin_Editor/edit?object=<?php echo $data->get('object')?>&type=css"><img src="/default/images/icon/css.png" /></a>
+		<a href="/Admin_Editor/edit?object=<?php echo $data->getObject()?>&type=css"><img src="/default/images/icon/css.png" /></a>
 	</td>
 </tr>
 </table>
 <?php
-$type = $data->get('type');
+$type = $data->getType();
 $content = '';
-$obj = pzk_obj_once(str_replace('/', '.', $data->get('object')));
+$obj = pzk_obj_once(str_replace('/', '.', $data->getObject()));
 if($type == 'object') {
-	$content = file_get_contents('objects/' . $data->get('object') . '.php');
+	$content = file_get_contents('objects/' . $data->getObject() . '.php');
 	$content = html_escape($content);
-	$fileName = 'objects/' . $data->get('object') . '.php';
+	$fileName = 'objects/' . $data->getObject() . '.php';
 } else if($type == 'layout') {
 	$layout = $obj->getLayoutRealPath();
 	if(file_exists($layout . '.php')) {
@@ -35,8 +35,8 @@ if($type == 'object') {
 	}
 	$fileName = $layout . '.php';
 } else if($type == 'js') {
-	$fileName = strtolower('js/' . $data->get('object') . '.js');
-	if(($obj->get('scriptable') === 'true' || $obj->get('scriptable')) === true && file_exists($fileName)) {
+	$fileName = strtolower('js/' . $data->getObject() . '.js');
+	if(($obj->getScriptable() === 'true' || $obj->getScriptable()) === true && file_exists($fileName)) {
 		$content = file_get_contents($fileName);
 		$content = html_escape($content);
 	} else {
@@ -57,7 +57,7 @@ if($type == 'object') {
 ?>
 <form method="post" 
 	onsubmit="$('#fileContent').val(aceEditor.getValue());"
-	action="/Admin_Editor/save?object=<?php echo $data->get('object')?>&type=<?php echo $type ?>">
+	action="/Admin_Editor/save?object=<?php echo $data->getObject()?>&type=<?php echo $type ?>">
 <input type="submit" name="btn_submit" value="Lưu" class="btn btn-primary" />
 <a href="/Admin_Editor/index">Quay lại</a>
 <br /><br />
@@ -89,7 +89,7 @@ if($type == 'object') {
 	editor.setOption("minLines", 10);
 </script>
 <?php
-$xmlPage = '<'.str_replace('/', '.', $data->get('object')).' />';
+$xmlPage = '<'.str_replace('/', '.', $data->getObject()).' />';
 ?>
 <div id="customPreview">
 	<h2>Preview</h2>

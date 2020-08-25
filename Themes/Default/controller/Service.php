@@ -46,17 +46,17 @@ class PzkServiceController extends PzkController
 		/*$price = $service->getAmount();*/
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
-		if($wallets->get('id')){
-			$amount			=	$wallets->get('amount');
+		if($wallets->getId()){
+			$amount			=	$wallets->getamount();
 			if($price <= $amount)
 			{
 				// cập nhật database
 				$amount 			= 	$amount - $price;
 				$wallets->update(array('amount' 	=> $amount));
-				$serviceType = $service->get('serviceType');
-				$serviceName = $service->get('serviceName');
-				$time = $service->get('duration');
-				$languages = $service->get('languages');
+				$serviceType = $service->getServiceType();
+				$serviceName = $service->getServiceName();
+				$time = $service->getDuration();
+				$languages = $service->getLanguages();
 				
 				$paymentDate = Date('Y-m-d');
 				$date = date_create($paymentDate);
@@ -96,7 +96,7 @@ class PzkServiceController extends PzkController
 		$datetime		=	date("Y-m-d H:i:s");
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
-		$amount			=	$wallets->get('amount');
+		$amount			=	$wallets->getamount();
 		if($price <= $amount)
 		{
 			// cập nhật database
@@ -219,15 +219,15 @@ class PzkServiceController extends PzkController
 		$serviceId	= 	clean_value(pzk_request('serviceId'));
 		$service= _db()->getEntity('Service.Service');
 		$service->load($serviceId);
-		$contestId= $service->get('contestId');
-		$price = $service->get('amount');
-		$serviceType = $service->get('serviceType');
+		$contestId= $service->getContestId();
+		$price = $service->getamount();
+		$serviceType = $service->getServiceType();
 
-		$serviceName = $service->get('serviceName');
+		$serviceName = $service->getServiceName();
 		$wallets		=	_db()->getEntity('User.Account.Wallets');
 		$wallets->loadWhere(array('username',	pzk_session('username')));
-		if($wallets->get('id')){
-			$amount			=	$wallets->get('amount');
+		if($wallets->getId()){
+			$amount			=	$wallets->getamount();
 			if($price <= $amount)
 			{
 				// cập nhật database

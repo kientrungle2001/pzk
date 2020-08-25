@@ -20,8 +20,8 @@ class PzkServiceCouponModel {
 		->result_one();
 		
 		if($coupon) {
-			pzk_session()->set('coupon', $code);
-			pzk_session()->set('discount', $coupon['discount']);
+			pzk_session()->setCoupon($code);
+			pzk_session()->setDiscount($coupon['discount']);
 		} else {
 		}
 		

@@ -2,7 +2,7 @@
 class PzkAdminSlideshowController extends PzkGridAdminController {
 	public $table = 'slideshow';
 	public $searchFields = array('name');
-    public $Searchlabels = 'Tên';
+    public $searchLabel = 'Tên';
 	public $listFieldSettings = array(
         array(
             'index' => 'name',

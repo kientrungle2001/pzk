@@ -3,7 +3,7 @@ class PzkEntityEducationUserbookModel extends PzkEntityModel
 {
 	public $table = 'user_book';
 	public function getTest(){
-		return _db()->getEntity('Education.Test')->load($this->get('testId'));
+		return _db()->getEntity('Education.Test')->load($this->getTestId());
 	}
 	public function mark() {
 		$userAnswers = $this->getUserAnswers();
@@ -33,7 +33,7 @@ class PzkEntityEducationUserbookModel extends PzkEntityModel
 				$tnQuestion = $question->getTnQuestion();
 				$mark = $tnQuestion->mark($userAnswer);
 				if($mark) {
-					$mark = pzk_or($test->get('score'), $mark);
+					$mark = pzk_or($test->getScore(), $mark);
 					$totalTn++;
 					$totalAuto++;
 					$total++;
@@ -99,10 +99,10 @@ class PzkEntityEducationUserbookModel extends PzkEntityModel
 	}
 	
 	public function updateField($field, $value) {
-		_db()->update($this->table)->set(array($field => $value))->whereId($this->get('id'))->result();
+		_db()->update($this->table)->set(array($field => $value))->whereId($this->getId())->result();
 	}
 	
 	public function getUserAnswers() {
-		return _db()->selectAll()->fromUser_answers()->whereUser_book_id($this->get('id'))->result('Education.Useranswer');
+		return _db()->selectAll()->fromUser_answers()->whereUser_book_id($this->getId())->result('Education.Useranswer');
 	}
 }

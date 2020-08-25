@@ -25,22 +25,22 @@
      ?>
      <div class="list_invitation_row">
       <div class="invi_avatar">
-        <img src="<?php echo $user->get('avatar')?>" alt="" width="80" height="80">
+        <img src="<?php echo $user->getavatar()?>" alt="" width="80" height="80">
       </div>
 
       <div class="invi_content" >
         <div>
-          <a href="/profile/user?member=<?php echo $user->get('id')?>" ><span>Tên: <?php echo $user->get('name')?></span></a>
+          <a href="/profile/user?member=<?php echo $user->getId()?>" ><span>Tên: <?php echo $user->getName()?></span></a>
         </div>
         <div>
-          <a href="/profile/user?member=<?php echo $user->get('id')?>" ><span>Nickname: <?php echo $user->get('username')?></span></a>
+          <a href="/profile/user?member=<?php echo $user->getId()?>" ><span>Nickname: <?php echo $user->getUsername()?></span></a>
         </div>
         <div>
           <span class="titel_detail">Bài viết: 0   |   Tham gia:<?php echo $date ?></span>
         </div>
         <div>
-          <span><a href="<?php echo BASE_REQUEST . '/invitation/agree' ?>?member=<?php echo $user->get('id')?>"><img src="<?php echo BASE_URL.'/default/skin/nobel/ptnn/media/pr_bt_ketban.png' ; ?>" alt="Kết bạn"></a></span>
-          <span><a href="<?php echo BASE_REQUEST . '/invitation/deny' ?>?member=<?php echo $user->get('id')?>"><img src="<?php echo BASE_URL.'/default/skin/nobel/ptnn/media/huyketban.png' ; ?>" alt="Hủy Kết bạn"></a></span>
+          <span><a href="<?php echo BASE_REQUEST . '/invitation/agree' ?>?member=<?php echo $user->getId()?>"><img src="<?php echo BASE_URL.'/default/skin/nobel/ptnn/media/pr_bt_ketban.png' ; ?>" alt="Kết bạn"></a></span>
+          <span><a href="<?php echo BASE_REQUEST . '/invitation/deny' ?>?member=<?php echo $user->getId()?>"><img src="<?php echo BASE_URL.'/default/skin/nobel/ptnn/media/huyketban.png' ; ?>" alt="Hủy Kết bạn"></a></span>
         </div>
       </div>
        

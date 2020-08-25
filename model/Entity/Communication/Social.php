@@ -194,7 +194,7 @@ class PzkEntityCommunicationSocialModel extends PzkEntityModel
 				->where(array('and',array('userNote',$userNote),array('type','avatar')))
 				->result_one();*/
 		$this->loadwhere(array('and',array('userNote',$userNote),array('type','avatar')));
-		if($this->get('id')){
+		if($this->getId()){
 			$this->delete();
 		}
 	}

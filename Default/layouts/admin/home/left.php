@@ -1,4 +1,4 @@
-<?php if(pzk_global()->get('admin_right_module')): ?>
+<?php if(pzk_global()->getadmin_right_module()): ?>
 <div class="col-md-10">
 <?php else: ?>
 <div class="col-md-12">

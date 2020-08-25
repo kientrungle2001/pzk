@@ -38,24 +38,24 @@ class PzkCompabilityController extends PzkController{
 						$testTn = $frontend->getChildCompability(TN, $parentId);
 
 						$this->initPage();
-							pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
-							pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
-							pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng');
-							pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-							pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+							pzk_page()->setTitle('Đề khảo sát tìm kiếm học bổng');
+							pzk_page()->setKeywords('Đề khảo sát tìm kiếm học bổng');
+							pzk_page()->setDescription('Đề khảo sát tìm kiếm học bổng');
+							pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+							pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 							if($test1) {
 								$request 	=	pzk_request();
-								$request->set('homework', 		$test1['id']);
-								$request->set('subject', 		52);
-								$request->set('topic', 			52);
+								$request->setHomework(		$test1['id']);
+								$request->setSubject(		52);
+								$request->setTopic(			52);
 								$this->append('education/practice/mixedTest');
 								
 								$homework					= 	pzk_element()->getShowTest();
-								$homework->set('layout', 'education/contest/mixedTest');
-								$homework->set('itemId', 		$test1['id']);
-								$homework->set('parentTestId', $parentId);
-								$homework->set('parentTest', $dataParentTest);
-								$homework->set('ordering', 		1);
+								$homework->setLayout('education/contest/mixedTest');
+								$homework->setItemId(		$test1['id']);
+								$homework->setParentTestId($parentId);
+								$homework->setParentTest($dataParentTest);
+								$homework->setOrdering(		1);
 							}
 						$this->display();
 						pzk_system()->halt();
@@ -66,25 +66,25 @@ class PzkCompabilityController extends PzkController{
 						if($checkExtraTest2 == false) {
 							
 							$this->initPage();
-								pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+								pzk_page()->setTitle('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setKeywords('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setDescription('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+								pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 								
 							if($test2) {
 								$request 	=	pzk_request();
-								$request->set('homework', 		$test2['id']);
-								$request->set('subject', 		52);
-								$request->set('topic', 			52);
+								$request->setHomework(		$test2['id']);
+								$request->setSubject(		52);
+								$request->setTopic(			52);
 								$this->append('education/practice/mixedTest');
 								
 								$homework					= 	pzk_element()->getShowTest();
-								$homework->set('layout', 'education/contest/mixedTest');
-								$homework->set('itemId', 		$test2['id']);
-								$homework->set('parentTestId', $parentId);
-								$homework->set('parentTest', $dataParentTest);
-								$homework->set('ordering', 		2);
+								$homework->setLayout('education/contest/mixedTest');
+								$homework->setItemId(		$test2['id']);
+								$homework->setParentTestId($parentId);
+								$homework->setParentTest($dataParentTest);
+								$homework->setOrdering(		2);
 							}
 								
 							$this->display();
@@ -93,15 +93,15 @@ class PzkCompabilityController extends PzkController{
 						}else{
 						//da thi xong
 							$this->initPage();
-								pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng với phần mềm Full Look');
-								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+								pzk_page()->setTitle('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setKeywords('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setDescription('Đề khảo sát tìm kiếm học bổng với phần mềm Full Look');
+								pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+								pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 								
 								$this->append('trytest/alert', 'wrapper');
 								$alert = pzk_element()->getAlert();
-								$alert->set('title', 'Bạn đã hoàn thành bài thi. Kết quả được công bố '.date('H:s d/m/Y', strtotime($dataParentTest['resultDate'])));
+								$alert->setTitle('Bạn đã hoàn thành bài thi. Kết quả được công bố '.date('H:s d/m/Y', strtotime($dataParentTest['resultDate'])));
 								$this->display();
 							pzk_system()->halt();
 						} 
@@ -118,15 +118,15 @@ class PzkCompabilityController extends PzkController{
 			//chua dang nhap
 			$parentId = intval(pzk_request()->getSegment(3));
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập');
-				pzk_page()->set('keywords', 'Đăng nhập');
-				pzk_page()->set('description', 'Đăng nhập với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập');
+				pzk_page()->setKeywords('Đăng nhập');
+				pzk_page()->setDescription('Đăng nhập với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('user/login', 'wrapper');
 				$login = pzk_element()->getLogin();
-				$login->set('rel', "/Compability/test/".$parentId);
-				$login->set('title', 'thì mới được vào thi');
+				$login->setRel("/Compability/test/".$parentId);
+				$login->setTitle('thì mới được vào thi');
 			$this->display();			
 			pzk_system()->halt();
 		}		
@@ -163,11 +163,11 @@ class PzkCompabilityController extends PzkController{
 						$testTn = $frontend->getChildCompability(TN, $parentId);
 
 						$this->initPage();
-							pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
-							pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
-							pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng');
-							pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-							pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+							pzk_page()->setTitle('Đề khảo sát tìm kiếm học bổng');
+							pzk_page()->setKeywords('Đề khảo sát tìm kiếm học bổng');
+							pzk_page()->setDescription('Đề khảo sát tìm kiếm học bổng');
+							pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+							pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 							$this->append('education/test/compability', 'wrapper');
 							
 						
@@ -182,8 +182,8 @@ class PzkCompabilityController extends PzkController{
 								
 							);
 							
-							$compability->set('parentId', $parentId);
-							$compability->set('data_criteria', $data_criteria);	
+							$compability->setParentId($parentId);
+							$compability->setData_criteria($data_criteria);	
 						$this->display();
 						pzk_system()->halt();
 					}else{
@@ -194,11 +194,11 @@ class PzkCompabilityController extends PzkController{
 							$testTl = $frontend->getChildCompability(TL, $parentId);
 							
 							$this->initPage();
-								pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+								pzk_page()->setTitle('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setKeywords('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setDescription('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+								pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 								$this->append('education/test/againTestTl', 'wrapper');
 										
 						
@@ -216,23 +216,23 @@ class PzkCompabilityController extends PzkController{
 									'parentTest' => $testTl['parent']
 								);
 								
-								$compabilityTl->set('parentId', $parentId);
-								$compabilityTl->set('data_criteria', $data_criteria);
+								$compabilityTl->setParentId($parentId);
+								$compabilityTl->setData_criteria($data_criteria);
 							$this->display();
 							pzk_system()->halt();
 							
 						}else{
 						//da thi xong
 							$this->initPage();
-								pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
-								pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng với phần mềm Full Look');
-								pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-								pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+								pzk_page()->setTitle('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setKeywords('Đề khảo sát tìm kiếm học bổng');
+								pzk_page()->setDescription('Đề khảo sát tìm kiếm học bổng với phần mềm Full Look');
+								pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+								pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 								
 								$this->append('trytest/alert', 'wrapper');
 								$alert = pzk_element()->getAlert();
-								$alert->set('title', 'Bạn đã hoàn thành bài thi. Kết quả được công bố '.date('H:s d/m/Y', strtotime($dataParentTest['resultDate'])));
+								$alert->setTitle('Bạn đã hoàn thành bài thi. Kết quả được công bố '.date('H:s d/m/Y', strtotime($dataParentTest['resultDate'])));
 								$this->display();
 							pzk_system()->halt();
 						} 
@@ -249,15 +249,15 @@ class PzkCompabilityController extends PzkController{
 			//chua dang nhap
 			$parentId = intval(pzk_request()->getSegment(3));
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập');
-				pzk_page()->set('keywords', 'Đăng nhập');
-				pzk_page()->set('description', 'Đăng nhập với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập');
+				pzk_page()->setKeywords('Đăng nhập');
+				pzk_page()->setDescription('Đăng nhập với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('user/login', 'wrapper');
 				$login = pzk_element()->getLogin();
-				$login->set('rel', "/Compability/test/".$parentId);
-				$login->set('title', 'thì mới được vào thi');
+				$login->setRel("/Compability/test/".$parentId);
+				$login->setTitle('thì mới được vào thi');
 			$this->display();			
 			pzk_system()->halt();
 		}		
@@ -293,8 +293,8 @@ class PzkCompabilityController extends PzkController{
 				'parentTest' => $testTl['parent']
 			);
 			
-			$compabilityTl->set('parentId', $parentId);
-			$compabilityTl->set('data_criteria', $data_criteria);
+			$compabilityTl->setParentId($parentId);
+			$compabilityTl->setData_criteria($data_criteria);
 			$compabilityTl->display();
 			
 		}
@@ -316,11 +316,11 @@ class PzkCompabilityController extends PzkController{
 			$testTl = $frontend->getChildCompability(TL, $parentId);
 			
 			$this->initPage();
-				pzk_page()->set('title', 'Đề khảo sát tìm kiếm học bổng');
-				pzk_page()->set('keywords', 'Đề khảo sát tìm kiếm học bổng');
-				pzk_page()->set('description', 'Đề khảo sát tìm kiếm học bổng');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đề khảo sát tìm kiếm học bổng');
+				pzk_page()->setKeywords('Đề khảo sát tìm kiếm học bổng');
+				pzk_page()->setDescription('Đề khảo sát tìm kiếm học bổng');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('education/test/compabilityTl', 'wrapper');
 						
 		
@@ -336,8 +336,8 @@ class PzkCompabilityController extends PzkController{
 					'parentTest' => $testTl['parent']
 				);
 				
-				$compabilityTl->set('parentId', $parentId);
-				$compabilityTl->set('data_criteria', $data_criteria);
+				$compabilityTl->setParentId($parentId);
+				$compabilityTl->setData_criteria($data_criteria);
 			$this->display();
 			pzk_system()->halt();
 			
@@ -353,7 +353,7 @@ class PzkCompabilityController extends PzkController{
     	$frontendmodel = pzk_model('Frontend');
 		$request 			= pzk_request();
     	
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getanswers();
 		
 		$parentTest = $data_answers['parentTest'];
 		
@@ -433,14 +433,14 @@ class PzkCompabilityController extends PzkController{
 				'compability' 		=> 1,
 				'parentTest'		=> $parentTest,
 				'created'			=> date('Y-m-d H:i:s'),
-				'software'		=> pzk_request()->get('softwareId'),
+				'software'		=> pzk_request()->getSoftwareId(),
     			'duringTime'		=> $duringTime
     	);
  	
 		$userBook->setData($row);
 		$userBook->save();
 		
-		$userbookId=$userBook->get('id');
+		$userbookId=$userBook->getId();
 		
 		foreach($question_id as $key => $value){
 			if(empty($answers[$key])){
@@ -468,7 +468,7 @@ class PzkCompabilityController extends PzkController{
 		$request 			= pzk_request();
 		$frontendmodel = pzk_model('Frontend');
     	
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getanswers();
 		
 		
 		$answers 		= array();
@@ -479,7 +479,7 @@ class PzkCompabilityController extends PzkController{
     	}
 		
 		
-    	$user_book_key	= $request->get('keybook');
+    	$user_book_key	= $request->getKeybook();
 		
 		$parentTest = $data_answers['parentTest'];
     	
@@ -522,7 +522,7 @@ class PzkCompabilityController extends PzkController{
 				'trytest'			=> TL,
 				'created'			=> date('Y-m-d H:i:s'),
 				'parentTest'				=> $parentTest,
-				'software'		=> pzk_request()->get('softwareId'),
+				'software'		=> pzk_request()->getSoftwareId(),
     			'duringTime'		=> $duringTime
     	);
     	
@@ -532,7 +532,7 @@ class PzkCompabilityController extends PzkController{
 		
 		$userBook->save();
 
-		$userbookId = $userBook->get('id');
+		$userbookId = $userBook->getId();
 		
 		
 		foreach($question_id as $key => $value){
@@ -566,12 +566,12 @@ class PzkCompabilityController extends PzkController{
 		$this->initPage();
 		$this->append('education/test/rankExtra');
 		$compabilityRating = pzk_element('rankExtra');
-		$compabilityRating->set('joins', array(
+		$compabilityRating->setJoins(array(
 			array('table' => 'user', 'condition' => 'user_contest.userId=user.id')
 		));
-		$compabilityRating->set('fields', 'user_contest.*, user.username, user.name');
-		$compabilityRating->set('parentId', $parentId);
-		$compabilityRating->set('pageNum', pzk_request('page'));
+		$compabilityRating->setFields('user_contest.*, user.username, user.name');
+		$compabilityRating->setParentId($parentId);
+		$compabilityRating->setPageNum(pzk_request('page'));
 		$this->display();
 	}
 	public function rankAction() {
@@ -579,12 +579,12 @@ class PzkCompabilityController extends PzkController{
 		$this->initPage();
 		$this->append('education/test/compabilityrating');
 		$compabilityRating = pzk_element('compabilityRating');
-		$compabilityRating->set('joins', array(
+		$compabilityRating->setJoins(array(
 			array('table' => 'user', 'condition' => 'user_contest.userId=user.id')
 		));
-		$compabilityRating->set('fields', 'user_contest.*, user.username, user.name');
-		$compabilityRating->set('parentId', $parentId);
-		$compabilityRating->set('pageNum', pzk_request('page'));
+		$compabilityRating->setFields('user_contest.*, user.username, user.name');
+		$compabilityRating->setParentId($parentId);
+		$compabilityRating->setPageNum(pzk_request('page'));
 		$this->display();
 	}
 	
@@ -624,8 +624,8 @@ class PzkCompabilityController extends PzkController{
 		$this ->append('education/practice/book');
 		$book = pzk_element('book');
 		if($book) {
-			$book->set('itemId', $userbookTn['id']);
-			$book->set('teacherMark', $userbookTl['teacherMark']);
+			$book->setItemId($userbookTn['id']);
+			$book->setTeacherMark($userbookTl['teacherMark']);
 		}
 		//show phan tu luan				
 		if($userbookTl['status'] == 1) {
@@ -640,11 +640,11 @@ class PzkCompabilityController extends PzkController{
 			//du lieu cho bai tu luan
 			$dataUserAnswers 	= $userBookModel->getUserAnswers($userbookTl['id']);
 			
-			$resultTestTl->set('dataUserAnswers', $dataUserAnswers);
+			$resultTestTl->setDataUserAnswers($dataUserAnswers);
 			
 			//diem bai thi tu luan 
 			$scoreTl = $userbookTl['teacherMark'];
-			$resultTestTl->set('scoreTl', $scoreTl);
+			$resultTestTl->setScoreTl($scoreTl);
 				
 		} else {
 			
@@ -657,11 +657,11 @@ class PzkCompabilityController extends PzkController{
 			//du lieu cho bai tu luan
 			$dataUserAnswers 	= $userBookModel->getUserAnswers($userbookTl['id']);
 			
-			$resultTestTl->set('dataUserAnswers', $dataUserAnswers);
+			$resultTestTl->setDataUserAnswers($dataUserAnswers);
 			
 			//diem bai thi tu luan 
 			$scoreTl = $userbookTl['teacherMark'];
-			$resultTestTl->set('scoreTl', $scoreTl);
+			$resultTestTl->setScoreTl($scoreTl);
 		}
 		
 		$this->display();
@@ -703,18 +703,18 @@ class PzkCompabilityController extends PzkController{
 		$this->initPage();
 		$testResult = $this->parse('education/contest/user/mixedTestResult');
 		
-		$testResult->set('test', $dataParentTest);
+		$testResult->setTest($dataParentTest);
 		
 		$test1Obj = pzk_element('test1');
 		$test2Obj = pzk_element('test2');
 		
-		$test1Obj->set('testId', $test1Id);
-		$test1Obj->set('test', $test1);
-		$test1Obj->set('book', $userbook1);
+		$test1Obj->setTestId($test1Id);
+		$test1Obj->setTest($test1);
+		$test1Obj->setBook($userbook1);
 		
-		$test2Obj->set('testId', $test2Id);
-		$test2Obj->set('test', $test2);
-		$test2Obj->set('book', $userbook2);
+		$test2Obj->setTestId($test2Id);
+		$test2Obj->setTest($test2);
+		$test2Obj->setBook($userbook2);
 		
 		$this->append($testResult);
 		$this->display();
@@ -729,7 +729,7 @@ class PzkCompabilityController extends PzkController{
 		$this->initPage();
 		$this->append('trytest/alert', 'wrapper');
 			$alert = pzk_element()->getAlert();
-			$alert->set('title', $message);
+			$alert->setTitle($message);
 			$this->display();
 		pzk_system()->halt();
 	}
@@ -746,9 +746,9 @@ class PzkCompabilityController extends PzkController{
 				
 				if($test) {
 					$request 	=	pzk_request();
-					$request->set('homework', 		$testId);
-					$request->set('subject', 		$subject);
-					$request->set('topic', 			$topic);
+					$request->setHomework(		$testId);
+					$request->setSubject(		$subject);
+					$request->setTopic(			$topic);
 					//chua den ngay thi
 					if(time() < strtotime($test['startDate'])){
 						$this->showMessageAndHalt('Chưa đến ngày thi! Thời gian thi '.date('H:s d/m/Y', strtotime($test['startDate'])));
@@ -763,7 +763,7 @@ class PzkCompabilityController extends PzkController{
 					
 					$homework					= 	pzk_element()->getShowTest();
 					
-					$homework->set('itemId', 		$testId);
+					$homework->setItemId(		$testId);
 					$this->display();
 				}
 			} else { # chưa thanh toán
@@ -776,15 +776,15 @@ class PzkCompabilityController extends PzkController{
 			
 		} else { # chưa đăng nhập
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập');
-				pzk_page()->set('keywords', 'Đăng nhập');
-				pzk_page()->set('description', 'Đăng nhập với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập');
+				pzk_page()->setKeywords('Đăng nhập');
+				pzk_page()->setDescription('Đăng nhập với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('user/login');
 				$login = pzk_element()->getLogin();
-				$login->set('rel', "/Compability/mixedTest/".$testId);
-				$login->set('title', 'thì mới được vào thi');
+				$login->setRel("/Compability/mixedTest/".$testId);
+				$login->setTitle('thì mới được vào thi');
 			$this->display();			
 			pzk_system()->halt();
 		}
@@ -794,12 +794,12 @@ class PzkCompabilityController extends PzkController{
 		$request 			= 	pzk_request();
 		$session 			=	pzk_session();
 		
-		$userId 			=	$session->get('userId');
+		$userId 			=	$session->getUserId();
 		
-		$subject 			=	intval($request->get('subject'));
-		$topic				=	intval($request->get('topic'));
-		$testId				=	intval($request->get('homework'));
-		$userData 			= 	$request->get('userData');
+		$subject 			=	intval($request->getSubject());
+		$topic				=	intval($request->getTopic());
+		$testId				=	intval($request->getHomework());
+		$userData 			= 	$request->getUserData();
 		$questionIds 		= 	$userData['questionIds'];
 		$questionTypes 		= 	$userData['questionTypes'];
 		$answers			=	isset($userData['answers'])?$userData['answers']: array();
@@ -851,7 +851,7 @@ class PzkCompabilityController extends PzkController{
 				# chấm điểm
 				$mark = $this->$action($question, $arAnswer, $test);
 				$totalMark += $mark;
-				if($question->get('auto')) {
+				if($question->getauto()) {
 					$autoMark += $mark;
 				}
 				
@@ -863,8 +863,8 @@ class PzkCompabilityController extends PzkController{
 					'user_book_id'	=>	$bookId,
 					'question_type'	=>	'TL',
 					'testId'		=>	$testId,
-					'auto'			=>	$question->get('auto'),
-					'isMark'		=> 	$question->get('auto') ? 1 : 0,
+					'auto'			=>	$question->getauto(),
+					'isMark'		=> 	$question->getauto() ? 1 : 0,
 					'mark'			=>	$mark
 				);
 				$user_answers[]		=	$user_answer;
@@ -891,7 +891,7 @@ class PzkCompabilityController extends PzkController{
 			'duringTime'			=> 	$duringTime,
 			'testId'				=> 	$testId,
 			'keybook'				=> 	uniqid(),
-			'software'				=> 	$request->get('softwareId'),
+			'software'				=> 	$request->getSoftwareId(),
 			'created'				=> 	date('Y-m-d H:i:s'),
 			'mustMark'				=> 	1,
 			'homework'				=> 	1,
@@ -915,7 +915,7 @@ class PzkCompabilityController extends PzkController{
 		
 		# Lưu các đáp án
 		foreach($user_answers as $user_answer) {
-			$user_answer['user_book_id']	=	$userBookEntity->get('id');
+			$user_answer['user_book_id']	=	$userBookEntity->getId();
 			$userAnswerEntity 	= 	_db()->getTableEntity('user_answers');
 			/*
 			# kiểm tra đáp án đã có chưa
@@ -941,13 +941,13 @@ class PzkCompabilityController extends PzkController{
 		$request 			= 	pzk_request();
 		$session 			=	pzk_session();
 		
-		$userId 			=	$session->get('userId');
+		$userId 			=	$session->getUserId();
 		
-		$subject 			=	intval($request->get('subject'));
-		$topic				=	intval($request->get('topic'));
-		$testId				=	intval($request->get('homework'));
+		$subject 			=	intval($request->getSubject());
+		$topic				=	intval($request->getTopic());
+		$testId				=	intval($request->getHomework());
 		
-		$userData 			= 	$request->get('userData');
+		$userData 			= 	$request->getUserData();
 		$parentTestId		=	intval($userData['parentTestId']);
 		$questionIds 		= 	$userData['questionIds'];
 		$questionTypes 		= 	$userData['questionTypes'];
@@ -1000,7 +1000,7 @@ class PzkCompabilityController extends PzkController{
 				# chấm điểm
 				$mark = $this->$action($question, $arAnswer, $test);
 				$totalMark += $mark;
-				if($question->get('auto')) {
+				if($question->getauto()) {
 					$autoMark += $mark;
 				}
 				
@@ -1012,8 +1012,8 @@ class PzkCompabilityController extends PzkController{
 					'user_book_id'	=>	$bookId,
 					'question_type'	=>	'TL',
 					'testId'		=>	$testId,
-					'auto'			=>	$question->get('auto'),
-					'isMark'		=> 	$question->get('auto') ? 1 : 0,
+					'auto'			=>	$question->getauto(),
+					'isMark'		=> 	$question->getauto() ? 1 : 0,
 					'mark'			=>	$mark
 				);
 				$user_answers[]		=	$user_answer;
@@ -1040,7 +1040,7 @@ class PzkCompabilityController extends PzkController{
 			'duringTime'			=> 	$duringTime,
 			'testId'				=> 	$testId,
 			'keybook'				=> 	uniqid(),
-			'software'				=> 	$request->get('softwareId'),
+			'software'				=> 	$request->getSoftwareId(),
 			'created'				=> 	date('Y-m-d H:i:s'),
 			'mustMark'				=> 	1,
 			'homework'				=> 	1,
@@ -1068,7 +1068,7 @@ class PzkCompabilityController extends PzkController{
 		
 		# Lưu các đáp án
 		foreach($user_answers as $user_answer) {
-			$user_answer['user_book_id']	=	$userBookEntity->get('id');
+			$user_answer['user_book_id']	=	$userBookEntity->getId();
 			$userAnswerEntity 	= 	_db()->getTableEntity('user_answers');
 			/*
 			# kiểm tra đáp án đã có chưa
@@ -1091,10 +1091,10 @@ class PzkCompabilityController extends PzkController{
 	}
 	
 	public function markChoice($question, $answers, $test) {
-		if(!isset($answers[$question->get('id')])) return 0;
+		if(!isset($answers[$question->getId()])) return 0;
 		$right = _db()->select('id')->from('answers_question_tn')
-			->whereQuestion_id($question->get('id'))
-			->whereId($answers[$question->get('id')])
+			->whereQuestion_id($question->getId())
+			->whereId($answers[$question->getId()])
 			->whereStatus(1)
 			->result_one();
 		if($right) {
@@ -1104,8 +1104,8 @@ class PzkCompabilityController extends PzkController{
 	}
 	
 	public function markTuluan($question, $answer, $test) {
-		if($question->get('auto')) {
-			$teacher_answers = json_decode($question->get('teacher_answers'), true);
+		if($question->getauto()) {
+			$teacher_answers = json_decode($question->getTeacher_answers(), true);
 			$total = 0;
 			foreach($answer as $type => $ans) {
 				foreach($ans as $index => $value)  {
@@ -1136,9 +1136,9 @@ class PzkCompabilityController extends PzkController{
 				
 				if($test) {
 					$request 	=	pzk_request();
-					$request->set('homework', 		$testId);
-					$request->set('subject', 		$subject);
-					$request->set('topic', 			$topic);
+					$request->setHomework(		$testId);
+					$request->setSubject(		$subject);
+					$request->setTopic(			$topic);
 					//chua den ngay thi
 					if(time() < strtotime($test['resultDate'])){
 						$this->showMessageAndHalt('Chưa đến ngày công bố kết quả! Ngày công bố: '.date('H:s d/m/Y', strtotime($test['resultDate'])));
@@ -1159,9 +1159,9 @@ class PzkCompabilityController extends PzkController{
 					
 					$homework					= 	pzk_element()->getShowTest();
 					
-					$homework->set('itemId', 		$testId);
-					$homework->set('bookId', $book['id']);
-					$homework->set('book', $book);
+					$homework->setItemId(		$testId);
+					$homework->setBookId($book['id']);
+					$homework->setBook($book);
 					$this->display();
 				}
 			} else { # chưa thanh toán
@@ -1174,15 +1174,15 @@ class PzkCompabilityController extends PzkController{
 			
 		} else { # chưa đăng nhập
 			$this->initPage();
-				pzk_page()->set('title', 'Đăng nhập');
-				pzk_page()->set('keywords', 'Đăng nhập');
-				pzk_page()->set('description', 'Đăng nhập với phần mềm Full Look');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+				pzk_page()->setTitle('Đăng nhập');
+				pzk_page()->setKeywords('Đăng nhập');
+				pzk_page()->setDescription('Đăng nhập với phần mềm Full Look');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 				$this->append('user/login');
 				$login = pzk_element()->getLogin();
-				$login->set('rel', "/Compability/mixedTest/".$testId);
-				$login->set('title', 'thì mới được vào xem kết quả');
+				$login->setRel("/Compability/mixedTest/".$testId);
+				$login->setTitle('thì mới được vào xem kết quả');
 			$this->display();
 			pzk_system()->halt();
 		}
@@ -1257,7 +1257,7 @@ class PzkCompabilityController extends PzkController{
 	public function showMixedTestAnswersChoiceAction() {
 		$request 			= pzk_request();
     
-    	$data_answers 		= $request->get('answers');
+    	$data_answers 		= $request->getanswers();
     	 
     	$questionIds 		= $data_answers['questionIds'];
     	

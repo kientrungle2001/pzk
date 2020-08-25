@@ -10,7 +10,7 @@ class PzkNewsletterController extends PzkController {
 			$mail->CharSet = "UTF-8";
 			$mail->AddAddress($email);
 			$mail->Subject = 'Cảm ơn bạn đã đăng ký nhận tin qua Email';
-			$mail->Body    = $mailtemplate->get('content');
+			$mail->Body    = $mailtemplate->getContent();
 			//$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
 		if(!$mail->send()) {

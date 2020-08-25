@@ -22,9 +22,9 @@
 </div>	
 <?php } else { ?>
 <?php 
-$getTestTls = $data->get('testTl');
-$test = $data->get('dataTest');
-$showQuestionTl = $data->get('showQuestionTl');
+$getTestTls = $data->getTestTl();
+$test = $data->getDataTest();
+$showQuestionTl = $data->getShowQuestionTl();
 
  ?>
 <?php 
@@ -121,9 +121,9 @@ $showQuestionTl = $data->get('showQuestionTl');
 						$BookObj->set ('id', false);
 						$BookObj->set ('questionId', $value['id']);
 						
-						$BookObj->set('content', $value['teacher_answers'] );
-						$BookObj->set('showTeacher', 1);
-						$BookObj->set('order', $key + 1 );
+						$BookObj->setContent($value['teacher_answers'] );
+						$BookObj->setShowTeacher(1);
+						$BookObj->setOrder($key + 1 );
 						$BookObj->display ();
 						?>
 					<?php endforeach;?>

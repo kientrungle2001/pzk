@@ -16,22 +16,22 @@ class PzkProfileController extends PzkFrontendController
 	public function detailAction()
 	{	
 		$this->initPage();
-		pzk_page()->set('title', 'Trang cá nhân');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Trang cá nhân thành viên');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang cá nhân');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Trang cá nhân thành viên');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this ->append('user/profile/detail')
 		->display();
 	}
 	public function teacherAction()
 	{	
 		$this->initPage();
-		pzk_page()->set('title', 'Trang cá nhân');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Trang cá nhân thành viên');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang cá nhân');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Trang cá nhân thành viên');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this ->append('user/profile/teacher');
 		$this->display();
 	}
@@ -89,7 +89,7 @@ class PzkProfileController extends PzkFrontendController
 					'created'=>date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME'])
 			);
     		$teacher->create($lessonData);
-    		$scheduleId = $teacher->get('id');
+    		$scheduleId = $teacher->getId();
     	}
     	echo '1/'.$scheduleId;
     }
@@ -97,15 +97,15 @@ class PzkProfileController extends PzkFrontendController
 	{	
 		$id = intval($id);
 		$this->initPage();
-		pzk_page()->set('title', 'Trang cá nhân');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Trang cá nhân thành viên');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang cá nhân');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Trang cá nhân thành viên');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this ->append('user/profile/book');
 		$book = pzk_element('book');
 		if($book) {
-			$book->set('itemId', $id);
+			$book->setItemId($id);
 		}
 		$this->display();
 	}
@@ -120,11 +120,11 @@ class PzkProfileController extends PzkFrontendController
 			//da cham xong
 			
 			$this->initPage();
-				pzk_page()->set('title', 'Trang cá nhân');
-				pzk_page()->set('keywords', 'Giáo dục');
-				pzk_page()->set('description', 'Trang cá nhân thành viên');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+				pzk_page()->setTitle('Trang cá nhân');
+				pzk_page()->setKeywords('Giáo dục');
+				pzk_page()->setDescription('Trang cá nhân thành viên');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 				$this->append('education/test/resultTestTl', 'wrapper');
 				
 				$userBookModel 	= pzk_model('Userbook');
@@ -134,22 +134,22 @@ class PzkProfileController extends PzkFrontendController
 				//du lieu cho bai tu luan
 				$dataUserAnswers 	= $userBookModel->getUserAnswers($userBookId);
 				
-				$resultTestTl->set('dataUserAnswers', $dataUserAnswers);
+				$resultTestTl->setDataUserAnswers($dataUserAnswers);
 				
 				//diem bai thi tu luan 
 				$scoreTl = $userbookTl['teacherMark'];
-				$resultTestTl->set('scoreTl', $scoreTl);
+				$resultTestTl->setScoreTl($scoreTl);
 				
 					
 			$this->display();
 			
 		} else {
 			$this->initPage();
-				pzk_page()->set('title', 'Trang cá nhân');
-				pzk_page()->set('keywords', 'Giáo dục');
-				pzk_page()->set('description', 'Trang cá nhân thành viên');
-				pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-				pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+				pzk_page()->setTitle('Trang cá nhân');
+				pzk_page()->setKeywords('Giáo dục');
+				pzk_page()->setDescription('Trang cá nhân thành viên');
+				pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+				pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 				$this->append('education/test/resultTestTl', 'wrapper');
 				
 				$userBookModel 	= pzk_model('Userbook');
@@ -159,11 +159,11 @@ class PzkProfileController extends PzkFrontendController
 				//du lieu cho bai tu luan
 				$dataUserAnswers 	= $userBookModel->getUserAnswers($userBookId);
 				
-				$resultTestTl->set('dataUserAnswers', $dataUserAnswers);
+				$resultTestTl->setDataUserAnswers($dataUserAnswers);
 				
 				//diem bai thi tu luan 
 				$scoreTl = $userbookTl['teacherMark'];
-				$resultTestTl->set('scoreTl', $scoreTl);
+				$resultTestTl->setScoreTl($scoreTl);
 				
 					
 			$this->display();
@@ -172,11 +172,11 @@ class PzkProfileController extends PzkFrontendController
 	public function viewfileAction()
 	{	
 		$this->initPage();
-		pzk_page()->set('title', 'Trang cá nhân');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Trang cá nhân thành viên');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang cá nhân');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Trang cá nhân thành viên');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this ->append('user/profile/viewfile')
 		->display();
 	}
@@ -185,12 +185,12 @@ class PzkProfileController extends PzkFrontendController
 
 		$request 	= pzk_request();
 
-		$email= clean_value($request->get('addemail'));
-		$phone= clean_value($request->get('addphone'));
+		$email= clean_value($request->getaddemail());
+		$phone= clean_value($request->getaddphone());
 
 		$user		= pzk_user();
 
-		if($user->get('id')){
+		if($user->getId()){
 			$user->update(array(
 					'phone'=> $phone,
 					'email'=> $email
@@ -207,19 +207,19 @@ class PzkProfileController extends PzkFrontendController
 	{
 		$request 	= pzk_request();
 		
-		$name 		= clean_value($request->get('name'));
-		$birthday 	= clean_value($request->get('birthday'));
-		$address 	= clean_value($request->get('address'));
-		$schoolname 	= clean_value($request->get('schoolname'));	
-		$classname		= clean_value($request->get('class1'));
-		$area		= intval($request->get('areacode'));
-		$phone 		= clean_value($request->get('phone'));
-		$sex 		= intval($request->get('sex'));
+		$name 		= clean_value($request->getName());
+		$birthday 	= clean_value($request->getBirthday());
+		$address 	= clean_value($request->getaddress());
+		$schoolname 	= clean_value($request->getSchoolname());	
+		$classname		= clean_value($request->getClass1());
+		$area		= intval($request->getareacode());
+		$phone 		= clean_value($request->getPhone());
+		$sex 		= intval($request->getSex());
 		
 			
 		$user		= pzk_user();
 		
-		if($user->get('id')) {
+		if($user->getId()) {
 			if(pzk_request('softwareId') == 1 && pzk_request('siteId') == 2){
 				$user->update(array(
 				'name' 		=> 	$name,
@@ -230,10 +230,10 @@ class PzkProfileController extends PzkFrontendController
 				'sex' 			=> 	$sex
 				));
 
-				pzk_session()->set('name', $name);
-				pzk_session()->set('address', $address);
+				pzk_session()->setName($name);
+				pzk_session()->setAddress($address);
 				
-				pzk_session()->set('birthday', $birthday);
+				pzk_session()->setBirthday($birthday);
 				
 			}
 			else{
@@ -254,17 +254,17 @@ class PzkProfileController extends PzkFrontendController
 	{
 		
 		$request 		= 	pzk_request();
-		$oldpassword	=	md5($request->get('oldpass'));
-		$newpassword	=	$request->get('newpass');
+		$oldpassword	=	md5($request->getOldpass());
+		$newpassword	=	$request->getNewpass();
 		
 		$userId			= 	pzk_session('userId');
 		$user			=	_db()->getEntity(self::ENTITY_USER);
 		$user->loadWhere(array('and',array('id',$userId),array('password',$oldpassword)));
 		if(pzk_config('register_active')) {
-			if($user->get('id'))
+			if($user->getId())
 			{
 				$confirmpassword	= 	md5($oldpassword.$newpassword);
-				$email				=	$user->get('email');			
+				$email				=	$user->getEmail();			
 				// Update Key
 				$user->update(array('key' => $confirmpassword));
 				$this->sendMail($email,	$confirmpassword,	$newpassword);
@@ -275,7 +275,7 @@ class PzkProfileController extends PzkFrontendController
 				echo self::STATE_CHANGE_PASSWORD_FAILED;
 			}	
 		} else {
-			if($user->get('id'))
+			if($user->getId())
 			{
 				$user->update(array('password' => md5($newpassword)));
 				echo self::STATE_CHANGE_PASSWORD_SUCCESSFULLY;
@@ -296,11 +296,11 @@ class PzkProfileController extends PzkFrontendController
 		$arr			=	array('changePassword'	=> $key,	'conf'=>$newpassword);
 		$request		=	pzk_request();
 		$url			= 	$request->build($url,$arr);
-		$mailtemplate->set('url', $url);
+		$mailtemplate->setUrl($url);
 		$mail 			= 	pzk_mailer();
 		$mail->AddAddress($email);
 		$mail->Subject 	= self::MAIL_TEMPLATE_CHANGE_PASSWORD_SUBJECT;
-		$mail->Body    	= $mailtemplate->get('content');
+		$mail->Body    	= $mailtemplate->getContent();
 		if(!$mail->send()) {
 			echo 'Message could not be sent.';
 			echo 'Mailer Error: ' . $mail->ErrorInfo;
@@ -311,8 +311,8 @@ class PzkProfileController extends PzkFrontendController
 	public function confirmChangePasswordAction()
 	{
 		$request		= pzk_request();
-		$confirm		= $request->get('changePassword');
-		$newpassword	= $request->get('conf');
+		$confirm		= $request->getChangePassword();
+		$newpassword	= $request->getConf();
 		$username		= pzk_session('username');
 		$userId			= pzk_session('userId');
 		$editdate 		= date("Y-m-d H:i:s"); 
@@ -321,11 +321,11 @@ class PzkProfileController extends PzkFrontendController
 			array('key', 		$confirm),
 			array('username', 	$username)
 		)); 
-		if($user->get('id'))
+		if($user->getId())
 		{	
 			$this->initPage();
 			$editpass 	= $this->parse('user/profile/changePasswordSuccess');
-			$editpass->set('username', "ok");		
+			$editpass->setUsername("ok");		
 			$user->update(array('password' => $newpassword,'key'=>''));
 			
 			$this->append($editpass);
@@ -334,7 +334,7 @@ class PzkProfileController extends PzkFrontendController
 		else
 		{
 			$editpass 	= $this->parse('user/profile/changePasswordSuccess');
-			$editpass->set('username', "");
+			$editpass->setUsername("");
 			$this->initPage();
 			$this->append($editpass);
 			$this->display();

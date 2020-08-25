@@ -1,11 +1,11 @@
 <?php
-		$language = pzk_global()->get('language');
-		$parentId = $data->get('parentId');
+		$language = pzk_global()->getLanguage();
+		$parentId = $data->getParentId();
 		$showQuestions 	= $data->getQuestionCompability(TL, $parentId);
 		shuffle($showQuestions);
-		$ngoisao = $data->get('ngoisao');
+		$ngoisao = $data->getNgoisao();
 		if(count($showQuestions) > 0) {
-		$data_criteria	= $data->get('data_criteria');
+		$data_criteria	= $data->getData_criteria();
 		
 		
 		?>
@@ -69,12 +69,12 @@
 											
 											$questionChoice = _db()->getEntity('Question.Choice');
 											$questionChoice->setData($value);
-											$QuestionObj->set('question', $questionChoice);
-											$QuestionObj->set('type', $questionChoice->get('type'));
+											$QuestionObj->setQuestion($questionChoice);
+											$QuestionObj->setType($questionChoice->getType());
 											
-											$QuestionObj->set('questionId', $value['id']);
-											$QuestionObj->set('cacheable', 'false');
-											$QuestionObj->set('cacheParams', 'layout, questionId');
+											$QuestionObj->setQuestionId($value['id']);
+											$QuestionObj->setCacheable('false');
+											$QuestionObj->setCacheParams('layout, questionId');
 											$QuestionObj->display();
 										?>
 										</div>

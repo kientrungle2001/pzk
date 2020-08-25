@@ -3,7 +3,7 @@ class PzkHomeController extends PzkController {
 	public $masterPage 		= 'index';
 	public $masterPosition	= 'left';
 	public function indexAction() {
-		if(pzk_request()->get('softwareId') == 101) {
+		if(pzk_request()->getSoftwareId() == 101) {
 			$this->render('home/kid');
 		} else {
 			$this->render('home');

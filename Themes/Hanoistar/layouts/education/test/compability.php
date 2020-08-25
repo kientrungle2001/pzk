@@ -1,10 +1,10 @@
 	
 	<?php 
-		$language = pzk_global()->get('language');
+		$language = pzk_global()->getLanguage();
 		$lang = pzk_session('language');
-		$parentId = $data->get('parentId');
-		$class = $data->get('class');
-		$showResult = $data->get('showResult');
+		$parentId = $data->getParentId();
+		$class = $data->getClass();
+		$showResult = $data->getShowResult();
 		$showQuestions 	= $data->getQuestionCompability(TN, $parentId);
 		shuffle($showQuestions);
 		$processQuestions = array();
@@ -26,7 +26,7 @@
 			$processAnswer[$val['question_id']][] = $val;
 		}	
 		
-		$data_criteria	= $data->get('data_criteria');
+		$data_criteria	= $data->getData_criteria();
 		$parentTest = $data->getTestById($parentId);	
 		$otherTest = $data->getOtherTest($parentId);
 	
@@ -122,12 +122,12 @@
 										<input type="hidden" name="questionType[<?=$value['id']?>]" value="<?=questionTypeOjb($value['questionType'])?>"/>
 										<?php 
 											$QuestionObj = pzk_obj('Education.Question.Type.'.ucfirst(questionTypeOjb($value['questionType'])));
-											$QuestionObj->set('stt', $key+1);
-											$QuestionObj->set('questionId', $value['id']);
+											$QuestionObj->setStt($key+1);
+											$QuestionObj->setQuestionId($value['id']);
 											//$QuestionObj->setType($value[]);
 											$questionChoice = _db()->getEntity('Question.Choice');
 											$questionChoice->setData($processQuestions[$value['id']]);
-											$QuestionObj->set('question', $questionChoice);
+											$QuestionObj->setQuestion($questionChoice);
 											
 											//debug($processAnswer[$value['id']]);die();
 											$answerEntitys = array();
@@ -137,10 +137,10 @@
 													$answerEntitys[] = $answerEntity;
 											}
 											
-											$QuestionObj->set('answers', $answerEntitys);
+											$QuestionObj->setAnswers($answerEntitys);
 											
-											$QuestionObj->set('cacheable', 'false');
-											$QuestionObj->set('cacheParams', 'layout, questionId');
+											$QuestionObj->setCacheable('false');
+											$QuestionObj->setCacheParams('layout, questionId');
 											$QuestionObj->display();
 										?>
 										</div>

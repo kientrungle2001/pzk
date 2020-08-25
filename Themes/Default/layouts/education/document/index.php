@@ -25,8 +25,8 @@
 	<p class="t-weight text-center btn-custom8 mgright">Tài liệu học tập</p>
 </div>
 <?php 
-$subject = _db()->getTableEntity('categories')->load($data->get('categoryId'), 1800);
-$subjects = _db()->useCache(1800)->selectAll()->fromCategories()->whereParent($subject->get('parent'))->result();
+$subject = _db()->getTableEntity('categories')->load($data->getCategoryId(), 1800);
+$subjects = _db()->useCache(1800)->selectAll()->fromCategories()->whereParent($subject->getParent())->result();
 ?>
 <div class="container fivecolumns">
 	<div class="row">

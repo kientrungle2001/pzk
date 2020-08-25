@@ -8,7 +8,7 @@ class PzkEntityProfileProfileModel extends PzkEntityModel {
 			->result_one('attribute.catalog.type');
 		if(!$type) return false;
 		$permission = _db()->useCB()->select('*')->from('profile_permission')
-			->where(array('and', array('type', $this->get('type')), array('actionId', $type->get('id'))))
+			->where(array('and', array('type', $this->getType()), array('actionId', $type->getId())))
 			->result_one();
 		if(!$permission) return false;
 		if($permission['status']) {
@@ -19,7 +19,7 @@ class PzkEntityProfileProfileModel extends PzkEntityModel {
 	public function hasPermission($setId, $action) {
 	}
 	public function getPermission($controller, $action) {
-		$type = $this->get('type');
+		$type = $this->getType();
 		if($type == 'Administrator') return true;
 		$permission = _db()->useCB()->select('*')
 			->from('profile_controller_permission')

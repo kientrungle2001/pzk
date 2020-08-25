@@ -23,7 +23,7 @@
 <?php  $item = $data->getItem(); ?>
 <?php 
 $subject = _db()->getTableEntity('categories')->load($item['categoryId']);
-$subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($subject->get('parent'))->result();
+$subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($subject->getParent())->result();
  ?>
 <?php $data->displayChildren('[position=top-menu]') ?>
 <div class="container fivecolumns">
@@ -38,13 +38,13 @@ $subjects = _db()->selectAll()->fromCategories()->whereDisplay(1)->whereParent($
 					<li class="active">
 						<span class="dropdown">
 						  <a class="dropdown-toggle" type="button" id="dropdownSubjectDocument" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							<?php echo $subject->get('name')?>
+							<?php echo $subject->getName()?>
 							<span class="caret"></span>
 						  </a>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownSubjectDocument" style="top: 12px;">
 						  <?php foreach($subjects as $sbj): ?>
 						  
-							<li><a href="/document/class-<?php  echo intval(pzk_request()->get('class'))?>/subject-<?php echo @$sbj['alias']?>-<?php echo @$sbj['id']?>"><?php echo @$sbj['name']?></a></li>
+							<li><a href="/document/class-<?php  echo intval(pzk_request()->getClass())?>/subject-<?php echo @$sbj['alias']?>-<?php echo @$sbj['id']?>"><?php echo @$sbj['name']?></a></li>
 						  <?php endforeach; ?>
 						  </ul>
 						</span>

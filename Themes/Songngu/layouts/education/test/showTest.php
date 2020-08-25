@@ -1,6 +1,6 @@
 <?php
 	$selectedWeek = null; $selectedTest = null;
-	$showQuestions 	= $data->get('data_showQuestion');
+	$showQuestions 	= $data->getData_showQuestion();
 	$processQuestions = array();
 	$arrQuestionIds = array();
 	if(count($showQuestions) > 0) {
@@ -19,14 +19,14 @@
 			$processAnswer[$val['question_id']][] = $val;
 		}	
 	}
-	$data_criteria	= $data->get('data_criteria');
+	$data_criteria	= $data->getData_criteria();
 	
 	/*$class = pzk_request('class');*/
 	$class = pzk_session('lop');
 	$type= pzk_request('practice');
 	$check=  pzk_session('checkPayment');
 	
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
 	$week2= pzk_request('id');
 	
@@ -177,11 +177,11 @@
 									<?php 
 										$QuestionObj = pzk_obj_once('Education.Question.Type.'.ucfirst(questionTypeOjb($value['questionType'])));
 										
-										$QuestionObj->set('questionId', $value['id']);
+										$QuestionObj->setQuestionId($value['id']);
 										//$QuestionObj->setType($value[]);
 										$questionChoice = _db()->getEntity('Question.Choice');
 										$questionChoice->setData($processQuestions[$value['id']]);
-										$QuestionObj->set('question', $questionChoice);
+										$QuestionObj->setQuestion($questionChoice);
 										
 										//debug($processAnswer[$value['id']]);die();
 										$answerEntitys = array();
@@ -191,10 +191,10 @@
 												$answerEntitys[] = $answerEntity;
 										}
 										
-										$QuestionObj->set('answers', $answerEntitys);
+										$QuestionObj->setAnswers($answerEntitys);
 										
-										$QuestionObj->set('cacheable', 'false');
-										$QuestionObj->set('cacheParams', 'layout, questionId');
+										$QuestionObj->setCacheable('false');
+										$QuestionObj->setCacheParams('layout, questionId');
 										$QuestionObj->display();
 									?>
 									</div>

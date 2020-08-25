@@ -1,6 +1,6 @@
 <?php 
 	
-	$testId = $data->get('testId');
+	$testId = $data->getTestId();
     
     if(pzk_request('page')){
         $currentpage = intval(pzk_request('page'));
@@ -38,7 +38,7 @@
        
         <?php 
             if($testId){
-                $pageSize= $data->get('pageSize');
+                $pageSize= $data->getPageSize();
                 
                 $user= _db()->getEntity('Userbook.Usercontest');
                 $users= $user->getRatingUserTestTt($testId,$currentpage,$pageSize);

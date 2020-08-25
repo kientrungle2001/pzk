@@ -1,7 +1,7 @@
 <?php
-$exportFields = $data->get('exportFields');
+$exportFields = $data->getExportFields();
 
-$controller = pzk_request()->get('controller');
+$controller = pzk_request()->getController();
 
 if($exportFields){
 ?>

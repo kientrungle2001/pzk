@@ -31,7 +31,7 @@
 <div class="container">
 <a href="/Home/rating?practice=<?php echo $practice ?>" class="btn btn-primary">Quay lại <span class="glyphicon glyphicon-arrow-left"></span></a>
 <?php
-$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId'));
+$UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->getUserId());
 
 
 $pageSize = 25;

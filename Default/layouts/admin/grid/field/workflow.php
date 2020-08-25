@@ -1,12 +1,12 @@
 <?php  $rules = $data->getRules();
 	$state = $data->getState();
-	$role = pzk_session()->get('adminLevel');
+	$role = pzk_session()->getadminLevel();
 	$controller = pzk_controller();
 ?>
-<select id="<?php  echo $data->get('index') ?>-<?php  echo $data->get('itemId') ?>" name="workflow[<?php  echo $data->get('index') ?>][<?php  echo $data->get('itemId') ?>]"
-onchange="pzk_list.workflow('<?php  echo $data->get('index') ?>', <?php  echo $data->get('itemId') ?>, this.value, this);"
+<select id="<?php  echo $data->getIndex() ?>-<?php  echo $data->getItemId() ?>" name="workflow[<?php  echo $data->getIndex() ?>][<?php  echo $data->getItemId() ?>]"
+onchange="pzk_list.workflow('<?php  echo $data->getIndex() ?>', <?php  echo $data->getItemId() ?>, this.value, this);"
 >
-	<option value="<?php  echo $data->get('value') ?>"><?php echo $state ?></option>
+	<option value="<?php  echo $data->getValue() ?>"><?php echo $state ?></option>
 	<?php foreach($rules as $index => $settings): ?>
 		<?php  
 		$roles = explodetrim(',', @$settings['adminLevel']);

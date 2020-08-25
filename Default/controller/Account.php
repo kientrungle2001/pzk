@@ -39,17 +39,17 @@ class PzkAccountController extends  PzkController
 	const SECRET_PASSWORD = 'nnbimat';
 	public function indexAction(){
 		$this->initPage();
-		pzk_page()->set('title', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-		pzk_page()->set('img', '/default/skin/nobel/Themes/story/media/logo.png');
-		pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setTitle('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setImg('/default/skin/nobel/Themes/story/media/logo.png');
+		pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 		$this->append('education/practice/practice', 'wrapper')->display();
 	}
 	public function loginAction() 
 	{
 		
-		if(pzk_session()->get('login')){
+		if(pzk_session()->getLogin()){
 			
 			$this->redirect(self::CONTROLLER_HOME);
 		}
@@ -61,18 +61,18 @@ class PzkAccountController extends  PzkController
 	public function registermobileAction()
 	{
 		$this->initPage();
-		pzk_page()->set('title', 'Trang hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('img', '/default/skin/nobel/Themes/story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setImg('/default/skin/nobel/Themes/story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this->append('user/account/registermobile', 'wrapper')
 		->display();
 	}
 	public function loginmobileAction() 
 	{
 		
-		if(pzk_session()->get('login')){
+		if(pzk_session()->getLogin()){
 			
 			$this->redirect(self::CONTROLLER_HOME);
 		}
@@ -85,7 +85,7 @@ class PzkAccountController extends  PzkController
 	public function loginPostAction()
 	{
 		
-		if(pzk_session()->get('login')){
+		if(pzk_session()->getLogin()){
 			$error = self::LOGIN_SUCCESS;
 			echo $error;
 			return true;
@@ -94,14 +94,14 @@ class PzkAccountController extends  PzkController
 		$request = pzk_request();
 		
 		// Đăng nhập bằng form user
-		$password=md5($request->get('userpassword'));
-		$username=$request->get('userlogin');
+		$password=md5($request->getUserpassword());
+		$username=$request->getUserlogin();
 		
 		// Đăng nhập bằng form login
-		if($request->get('passwordlogin') !="" || $request->get('login') !="") {
+		if($request->getPasswordlogin() !="" || $request->getLogin() !="") {
 			
-			$password=md5($request->get('passwordlogin'));
-			$username=$request->get('login');
+			$password=md5($request->getPasswordlogin());
+			$username=$request->getLogin();
 		}
 
 		// Đăng nhập bằng facebook
@@ -113,10 +113,10 @@ class PzkAccountController extends  PzkController
 			$user=_db()->getEntity('User.Account.User');
 			$user->loadByUsername($username);
 		
-			if($user->get('id')) {
+			if($user->getId()) {
 				
-				if($user->get('password') == $password || $request->get('userpassword') == self::SECRET_PASSWORD) {
-					if($user->get('status')==1) {
+				if($user->getPassword() == $password || $request->getUserpassword() == self::SECRET_PASSWORD) {
+					if($user->getStatus()==1) {
 						$user->login();
 						$error = self::LOGIN_SUCCESS;
 						$this->redirect(self::CONTROLLER_HOME);
@@ -166,41 +166,41 @@ class PzkAccountController extends  PzkController
 		$error ="";	
 		$request=pzk_request();
 		$config=pzk_config('register_active');
-		$username=$request->get('username');
-		$password=$request->get('password1');
-		$email=$request->get('email');
-		$captcha= $request->get('captcha');
+		$username=$request->getUsername();
+		$password=$request->getPassword1();
+		$email=$request->getEmail();
+		$captcha= $request->getCaptcha();
 		//$user=_db()->getTableEntity('user');
 		$user=_db()->getEntity('User.Account.User');
 		if(1 || (pzk_config('captcha_status') && $captcha==$_SESSION['security_code'])) {
 			$user->loadWhere(array('username', $username));
-			if($user->get('id')) {
+			if($user->getId()) {
 				//$error="Tên đăng nhập đã tồn tại trên hệ thống";
 				$error = self::REGISTER_ERROR_USERNAME_EXISTED; //-1
 			} else {
 				$user->loadWhere(array('email', $email));
-				if($user->get('id')) {
+				if($user->getId()) {
 					//$error= "Email đã tồn tại trên hệ thống";
 					$error = self::REGISTER_ERROR_EMAIL_EXISTED;
 				}else {
-					$birthday = $request->get('birthday');
+					$birthday = $request->getBirthday();
 					$birthday = strtotime($birthday);
 					$birthday = date('Y-m-d',$birthday);
-					$softwareId= pzk_request()->get('softwareId');
-					$siteId	= pzk_request()->get('siteId');
-					$user->set('username', $username);
-					$user->set('password', md5($password));
-					$user->set('email', $email);
-					$user->set('name', $request->get('name'));
-					$user->set('birthday', $birthday);
-					$user->set('sex', $request->get('sex'));
-					$user->set('phone', $request->get('phone'));
-					$user->set('areacode', $request->get('areacode'));
-					$user->set('registered', date("Y-m-d H:i:s"));
-					$user->set('registeredAtSoftware', $softwareId);
-					$user->set('registeredAtSite', $siteId);
+					$softwareId= pzk_request()->getSoftwareId();
+					$siteId	= pzk_request()->getSiteId();
+					$user->setUsername($username);
+					$user->setPassword(md5($password));
+					$user->setEmail($email);
+					$user->setName($request->getName());
+					$user->setBirthday($birthday);
+					$user->setSex($request->getSex());
+					$user->setPhone($request->getPhone());
+					$user->setAreacode($request->getareacode());
+					$user->setRegistered(date("Y-m-d H:i:s"));
+					$user->setRegisteredAtSoftware($softwareId);
+					$user->setRegisteredAtSite($siteId);
 					if(!$config){
-						$user->set('status', '1');
+						$user->setStatus('1');
 						$error = self::REGISTER_SUCCESS_1;//11
 						$user->save();
 						$user->login();
@@ -243,18 +243,18 @@ class PzkAccountController extends  PzkController
 		$confirm=$request->getActive();
 		$user=_db()->getEntity('User.Account.User');
 		$user->loadByKey($confirm);
-		if($user->get('id'))
+		if($user->getId())
 		{	
 			$user->activate();
 			$user->login();
 			$confirmRegister = $this->parse(self::PAGE_REGISTER_ACTIVATED_SUCCESS);
-			$confirmRegister->set('message', 'ok');
+			$confirmRegister->setMessage('ok');
 			$this->render($confirmRegister);
 		}
 		else
 		{
 			$confirmRegister = $this->parse(self::PAGE_REGISTER_ACTIVATED_SUCCESS);
-			$confirmRegister->set('message', 'fail');
+			$confirmRegister->setMessage('fail');
 			$this->render($confirmRegister);
 		}
 	}
@@ -276,18 +276,18 @@ class PzkAccountController extends  PzkController
 	{
 		$error="";
 		$request = pzk_request();
-		$email= $request->get('email');
+		$email= $request->getEmail();
 		$captcha= $request->getCaptcha();
 		if($captcha==$_SESSION['security_code'])
 		{	
 			
 			$user=_db()->getEntity('User.Account.User');
 			$user->loadByEmail($email);
-			if($user->get('id'))
+			if($user->getId())
 			{
-				if($user->get('status')==1)
+				if($user->getStatus()==1)
 				{
-					$password=$user->get('password');
+					$password=$user->getPassword();
 					$this->sendMailForgotpassword($email,$password);
 					return $this->render(self::PAGE_FORGOT_PASSWORD_SUCCESS);
 				}
@@ -321,19 +321,19 @@ class PzkAccountController extends  PzkController
 		$confirm = $request->getForgotpassword();
 		$user = _db()->getEntity('User.Account.User');
 		$user->loadByKey($confirm);
-		if($user->get('id'))
+		if($user->getId())
 		{
 			$password = $user->resetPasssword();
 			$newpassword = $this->parse(self::PAGE_RESET_PASSWORD);
-			$newpassword->set('username', $user->get('username'));
-			$newpassword->set('password', $password);
+			$newpassword->setUsername($user->getUsername());
+			$newpassword->setPassword($password);
 			$this->render($newpassword);
 		
 		}
 		else
 		{
 			$newpassword = $this->parse(self::PAGE_RESET_PASSWORD);
-			$newpassword->set('username', "");
+			$newpassword->setUsername("");
 			$this->render($newpassword);
 			
 		}
@@ -352,7 +352,7 @@ class PzkAccountController extends  PzkController
 		if($id){
 			$user->loadWhere(array('idFacebook',$id));
 			$loginLog = _db()->getEntity('Login_log');
-			if($user->get('id')){
+			if($user->getId()){
 				$user->login();
 				$ipClient = $this->getClientIP();
 				pzk_session('ipClient', $ipClient);
@@ -415,7 +415,7 @@ class PzkAccountController extends  PzkController
 		if($id){
 			$userlogin->loadWhere(array('idGoogle',$id));
 			$loginLog = _db()->getEntity('Login_log');
-			if($userlogin->get('id')){
+			if($userlogin->getId()){
 				$userlogin->login();
 				$ipClient = $this->getClientIP();
 				pzk_session('ipClient', $ipClient);
@@ -513,12 +513,12 @@ class PzkAccountController extends  PzkController
 		$url= pzk_request()->build($url,$arr);
 		
 		$mailtemplate = $this->parse(self::MAIL_TEMPLATE_REGISTER);
-		$mailtemplate->set('username', $username);
-		$mailtemplate->set('url', $url);
+		$mailtemplate->setUsername($username);
+		$mailtemplate->setUrl($url);
 		$mail = pzk_mailer();
 		$mail->AddAddress($email);
 		$mail->Subject = 'Xác nhận đăng ký tài khoản';
-		$mail->Body    = $mailtemplate->get('content');
+		$mail->Body    = $mailtemplate->getContent();
 
 		if(!$mail->send()) {
 			echo 'Message could not be sent.';
@@ -539,11 +539,11 @@ class PzkAccountController extends  PzkController
 		//tạo URL gửi email xác nhận đăng ký
 		$url= 'Account/sendPassword';
 		$url= $request->build($url, array('forgotpassword'=>$confirm));
-		$mailtemplate->set('url', $url);
+		$mailtemplate->setUrl($url);
 		$mail = pzk_mailer();
 		$mail->AddAddress($email);
 		$mail->Subject = 'Quên mật khẩu';
-		$mail->Body    = $mailtemplate->get('content');
+		$mail->Body    = $mailtemplate->getContent();
 		
 		if(!$mail->send()) {
 			echo 'Message could not be sent.';

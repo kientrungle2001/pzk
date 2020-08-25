@@ -1,8 +1,8 @@
 <?php
-$tests 	= $data->get('tests');
-$test	= $data->get('test');
-$testId = $data->get('testId');
-$doTestPostUrl = $data->get('doTestPostUrl');
+$tests 	= $data->getTests();
+$test	= $data->getTest();
+$testId = $data->getTestId();
+$doTestPostUrl = $data->getDoTestPostUrl();
 if(!$doTestPostUrl) {
 	$doTestPostUrl = '/test/doTest/';
 }
@@ -34,18 +34,18 @@ if(!$doTestPostUrl) {
 				</div>
 			</form>
 		<?php else: ?>
-		<form class="form_search_test" style="margin: 15px 0px" action="<?=BASE_REQUEST?><?php echo $doTestPostUrl ?>?practice=<?php echo $data->get('practice')?>&class=<?php echo $data->get('class')?>" method="post" onsubmit = "return check_select_test()">
-		    <input type="hidden" id="question_time" name = "question_time" value = "<?php echo $test->get('time')?>"/>
+		<form class="form_search_test" style="margin: 15px 0px" action="<?=BASE_REQUEST?><?php echo $doTestPostUrl ?>?practice=<?php echo $data->getPractice()?>&class=<?php echo $data->getClass()?>" method="post" onsubmit = "return check_select_test()">
+		    <input type="hidden" id="question_time" name = "question_time" value = "<?php echo $test->getTime()?>"/>
 			<div class="row form-group">
 		    	<div class="col-xs-9 pd-0">
 		    		<select id="test" name="test" class="form-control select_type title-blue" onchange = "get_time_test(this.options[this.selectedIndex].getAttribute('data_time'))" >
 		    			<?php if($test):?>
-							<option value="<?php echo $test->get('id')?>" select="selected" data_time="--:--"><?php echo $test->get('name')?> </option>
+							<option value="<?php echo $test->getId()?>" select="selected" data_time="--:--"><?php echo $test->getName()?> </option>
 						<?php else:?>
 							<option value="" data_time="--:--">Chọn đề</option>
 						<?php endif;?>
 						<?php foreach ($tests as $testEntity):?>
-							<option value="<?php echo $testEntity->get('id')?>" data_time="<?php echo $testEntity->get('time')?>"><?php echo $testEntity->get('name')?> - Số câu <?php echo $testEntity->get('quantity')?></option>
+							<option value="<?php echo $testEntity->getId()?>" data_time="<?php echo $testEntity->getTime()?>"><?php echo $testEntity->getName()?> - Số câu <?php echo $testEntity->getQuantity()?></option>
 						<?php endforeach;?>
 					</select>
 		    	</div>

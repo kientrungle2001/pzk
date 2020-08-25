@@ -161,7 +161,7 @@ setInterval(function() {
 <?php foreach($items as $item): ?>
 <div class="col-sm-12">
 <article class="row post topbt15">
-	<?php if($data->get('showThumbnail') !== 'false') { ?>
+	<?php if($data->getShowThumbnail() !== 'false') { ?>
 	<div class="col-sm-4">
 		<a href="/<?php echo @$item['alias']?>">
 		<img class="img-responsive img-thumbnail" src="<?php echo BASE_URL. @createThumb($item['img'], 480, 480) ; ?>" />
@@ -169,19 +169,19 @@ setInterval(function() {
 	</div>
 	<div class="col-sm-8">
 		<a href="/<?php echo @$item['alias']?>">
-			<<?php echo $data->get('titleTag')?> class="entry-title text-justify"> <?php echo @$item['title']?></<?php echo $data->get('titleTag')?>>
+			<<?php echo $data->getTitleTag()?> class="entry-title text-justify"> <?php echo @$item['title']?></<?php echo $data->getTitleTag()?>>
 		</a>
-		<?php if($data->get('showBrief') !== 'false') { ?>
-		<<?php echo $data->get('briefTag')?> class="article-summary text-justify"><?php echo @$item['brief']?></<?php echo $data->get('briefTag')?>>
+		<?php if($data->getShowBrief() !== 'false') { ?>
+		<<?php echo $data->getBriefTag()?> class="article-summary text-justify"><?php echo @$item['brief']?></<?php echo $data->getBriefTag()?>>
 		<?php } ?>
 	</div>
 	<?php } else { ?>
 	<div class="col-sm-12">
 		<a href="/<?php echo @$item['alias']?>">
-			<<?php echo $data->get('titleTag')?> class="entry-title text-justify"> <?php echo @$item['title']?></<?php echo $data->get('titleTag')?>>
+			<<?php echo $data->getTitleTag()?> class="entry-title text-justify"> <?php echo @$item['title']?></<?php echo $data->getTitleTag()?>>
 		</a>
-		<?php if($data->get('showBrief') !== 'false') { ?>
-		<<?php echo $data->get('briefTag')?> class="article-summary text-justify"><?php echo @$item['brief']?></<?php echo $data->get('briefTag')?>>
+		<?php if($data->getShowBrief() !== 'false') { ?>
+		<<?php echo $data->getBriefTag()?> class="article-summary text-justify"><?php echo @$item['brief']?></<?php echo $data->getBriefTag()?>>
 		<?php } ?>
 	</div>
 	<?php } ?>
@@ -191,10 +191,10 @@ setInterval(function() {
 <?php endforeach; ?>
 </div>
 <?php else: ?>
-<ul class="<?php echo $data->get('ulClass')?>">
+<ul class="<?php echo $data->getUlClass()?>">
 <?php foreach($items as $item): ?>
-<li class="<?php echo $data->get('liClass')?>"><a href="/<?php echo @$item['alias']?>">
-			<<?php echo $data->get('titleTag')?> class="entry-title"> <?php echo @$item['title']?></<?php echo $data->get('titleTag')?>>
+<li class="<?php echo $data->getLiClass()?>"><a href="/<?php echo @$item['alias']?>">
+			<<?php echo $data->getTitleTag()?> class="entry-title"> <?php echo @$item['title']?></<?php echo $data->getTitleTag()?>>
 		</a></li>
 <?php endforeach; ?>
 </ul>

@@ -1,17 +1,17 @@
 <?php
 $controller = $data;
-$item = $data->get('item');
+$item = $data->getItem();
 $row = $item;
-$fieldSettings = $controller->get('fieldSettings');
-$tabs = $controller->get('tabs');
-$actions = $data->get('actions');
+$fieldSettings = $controller->getFieldSettings();
+$tabs = $controller->getTabs();
+$actions = $data->getactions();
 ?>
 <div class="panel panel-default">
 <div class="panel-heading">
     <?php  if(@$data->backHref && @$data->backLabel) { ?>
   <a class="btn btn-xs btn-default" href="<?php echo @$data->backHref?>"><span class="glyphicon glyphicon-arrow-left"></span></a>
   <?php  } ?>
-	<b><?php echo $data->get('label'); ?>
+	<b><?php echo $data->getLabel(); ?>
 	<?php  if(@$data->backHref && @$data->backLabel) { ?>
   <a class="btn btn-xs btn-default pull-right" href="<?php echo @$data->backHref?>"><span class="glyphicon glyphicon-remove-sign"></span> <?php echo @$data->backLabel?></a>
   <?php  } ?>
@@ -43,7 +43,7 @@ $actions = $data->get('actions');
 							foreach($field as $key => $val) {
 								$fieldObj->set($key, $val);
 							}
-							$fieldObj->set('value', @$row[$field['index']]); 
+							$fieldObj->setValue(@$row[$field['index']]); 
 							$fieldObj->display();
 					   } 
 					   ?>
@@ -67,7 +67,7 @@ $actions = $data->get('actions');
 			foreach($field as $key => $val) {
 				$fieldObj->set($key, $val);
 			}
-			$fieldObj->set('value', @$row[$field['index']]); 
+			$fieldObj->setValue(@$row[$field['index']]); 
 			$fieldObj->display();
 			if(pzk_request('hidden_' . $field['index'])) {
 				echo '</div>';

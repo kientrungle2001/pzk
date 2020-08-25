@@ -1,6 +1,6 @@
 	<?php 
 		$lang = pzk_session('language');
-		$language = pzk_global()->get('language');
+		$language = pzk_global()->getLanguage();
 	?>
 <div class='achievement item'>
 	<div class="container">

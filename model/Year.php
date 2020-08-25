@@ -12,7 +12,7 @@ class PzkYearModel {
 			$total += $n;
 		}
 		$sodu = $total % 9;
-		$gender = $request->get('gender');
+		$gender = $request->getGender();
 		// nam
 		if($gender == '1') {
 			if($sodu < 6) {

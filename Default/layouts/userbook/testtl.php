@@ -19,8 +19,8 @@
 	$pattern = '/\[(input|i)([\d]+)(\[([\d]+)\])?\]/';
 	
 	$content = preg_replace_callback($pattern, function($matches) {
-		$answer	=	pzk_global()->get('answerTmp');
-		$item		=	pzk_global()->get('itemsTmp');
+		$answer	=	pzk_global()->getanswerTmp();
+		$item		=	pzk_global()->getItemsTmp();
 		
 		if(isset($answer['checkfalse'][@$matches[2]])) {
 			$style = 'color: red;';
@@ -36,8 +36,8 @@
 	$pattern = '/\[(textarea|t)([\d]+)\]/';
 	
 	$content = preg_replace_callback($pattern, function($matches) {
-		$answer	=	pzk_global()->get('answerTmp');
-		$item		=	pzk_global()->get('itemsTmp');
+		$answer	=	pzk_global()->getanswerTmp();
+		$item		=	pzk_global()->getItemsTmp();
 		return '<textarea class="item tinymce_input" name="answers['.$item['user_answers_id'].'_t]['.$matches[2].']">'
 		.
 		nl2br($answer['t'][$matches[2]])

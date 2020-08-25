@@ -5,15 +5,15 @@ class PzkEntityLogin_logModel extends PzkEntityModel{
 	
 	function recordLogin($user, $ipClient) {
 		$login_log = array(
-				'userId'	=> $user->get('id'),
-				'username'	=> $user->get('username'),
+				'userId'	=> $user->getId(),
+				'username'	=> $user->getUsername(),
 				'ipClient'	=> $ipClient,
 				'time'		=> date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME'])
 		);
 		
 		$this->setData($login_log);
 		$this->save();
-		return $this->get('id');
+		return $this->getId();
 	}
 	
 	function processLoginUser(){

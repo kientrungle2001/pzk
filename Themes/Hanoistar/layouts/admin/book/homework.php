@@ -1,6 +1,6 @@
 <?php 
-	$dataShowUserBook= $data->get('dataShowUserBook');
-	$dataUserAnswers = $data->get('dataUserAnswers');
+	$dataShowUserBook= $data->getDataShowUserBook();
+	$dataUserAnswers = $data->getDataUserAnswers();
 	//debug($dataUserAnswers);die();
 	$arrQuestionIds = array();
 	if(count($dataUserAnswers) > 0){
@@ -67,10 +67,10 @@
 			if(isset($questionById[$value['questionId']])){
 			
 				$BookObj = pzk_obj_once ( 'Education.Book.Type.' . ucfirst(setSuperType ( $value ['question_type'] ) ));
-				$BookObj->set('id', $value ['id'] );
+				$BookObj->setId($value ['id'] );
 				//question
-				$BookObj->set('questionId', $value ['questionId'] );
-				$BookObj->set('question_type', $value ['question_type'] );
+				$BookObj->setQuestionId($value ['questionId'] );
+				$BookObj->setQuestion_type($value ['question_type'] );
 				
 				//$questions = array();
 				$questions = $questionById[$value['questionId']];	
@@ -85,12 +85,12 @@
 				
 
 				
-				$BookObj->set('question', $questions);
+				$BookObj->setQuestion($questions);
 				//cau tra loi cua hoc sinh
 				$arrAnswer = array();
 				$arrAnswer['content'] = $value['content'];
 				$arrAnswer['content_edit'] = $value['content_edit'];
-				$BookObj->set('studentAnswers', $arrAnswer);
+				$BookObj->setStudentAnswers($arrAnswer);
 			
 				$BookObj->display();
 			}

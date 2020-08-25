@@ -1,1 +1,1 @@
-<h1>Hello, <?php echo $data->get('name')?></h1>
+<h1>Hello, <?php echo $data->getName()?></h1>

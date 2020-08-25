@@ -1,5 +1,5 @@
 <?php 
-	$userId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->get('userId')); 
+	$userId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->getUserId()); 
 	$class = pzk_session('lop');
 	
 ?>

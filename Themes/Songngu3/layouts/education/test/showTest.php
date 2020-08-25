@@ -1,6 +1,6 @@
 <?php
 	$selectedWeek = null; $selectedTest = null;
-	$showQuestions 	= $data->get('data_showQuestion');
+	$showQuestions 	= $data->getData_showQuestion();
 	$processQuestions = array();
 	$arrQuestionIds = array();
 	if(count($showQuestions) > 0) {
@@ -19,13 +19,13 @@
 			$processAnswer[$val['question_id']][] = $val;
 		}	
 	}
-	$data_criteria	= $data->get('data_criteria');
+	$data_criteria	= $data->getData_criteria();
 	
 	/*$class = pzk_request('class');*/
 	$class = pzk_session('lop');
 	$type= pzk_request('practice');
 	$check =  pzk_session('checkPayment');
-	$language = pzk_global()->get('language');
+	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
 	$week2= pzk_request('id');
 	
@@ -233,15 +233,15 @@
 										<input type="hidden" name="questionType[<?=$value['id']?>]" value="<?=questionTypeOjb($value['questionType'])?>"/>
 										<?php 
 											$QuestionObj = pzk_obj_once('Education.Question.Type.'.ucfirst(questionTypeOjb($value['questionType'])));
-											$QuestionObj->set('stt', $key+1);
-											$QuestionObj->set('questionId', $value['id']);
+											$QuestionObj->setStt($key+1);
+											$QuestionObj->setQuestionId($value['id']);
 											//$QuestionObj->setType($value[]);
 											$questionChoice = _db()->getEntity('Question.Choice');
 											$questionChoice->setData($processQuestions[$value['id']]);
-											$QuestionObj->set('question', $questionChoice);
+											$QuestionObj->setQuestion($questionChoice);
 											
 											if(0 && file_exists(BASE_DIR .($target = '/3rdparty/Filemanager/source/practice/all/' . $value['id'] . '.mp3'))) {
-												$QuestionObj->set('audio', $target);
+												$QuestionObj->setAudio($target);
 											}
 											
 											//debug($processAnswer[$value['id']]);die();
@@ -254,10 +254,10 @@
 												}
 											}
 											
-											$QuestionObj->set('answers', $answerEntitys);
+											$QuestionObj->setAnswers($answerEntitys);
 											
-											$QuestionObj->set('cacheable', 'false');
-											$QuestionObj->set('cacheParams', 'layout, questionId');
+											$QuestionObj->setCacheable('false');
+											$QuestionObj->setCacheParams('layout, questionId');
 											$QuestionObj->display();
 										?>
 										</div>

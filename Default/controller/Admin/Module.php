@@ -23,7 +23,7 @@ class PzkAdminModuleController extends PzkGridAdminController {
 	
 	public function configAction($id) {
 		$module = pzk_obj('Core.Module.Detail');
-		$module->set('itemId', $id);
+		$module->setItemId($id);
 		$this->initPage();
 		$this->append($module);
 		$this->display();

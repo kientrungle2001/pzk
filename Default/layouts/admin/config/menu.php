@@ -2,7 +2,7 @@
 $controller = pzk_request('controller');
 $action = pzk_request('action');
 $setting = pzk_controller();
-$config = pzk_request()->get('config');
+$config = pzk_request()->getConfig();
 ?>
 
 <ul class="nav nav-pills nav-stacked">
@@ -10,8 +10,8 @@ $config = pzk_request()->get('config');
         <div class="panel-heading"><b>Cấu hình</b></div>
     </li>
     <?php
-    if($setting->get('menuLinks')) {
-        foreach($setting->get('menuLinks') as $val) {
+    if($setting->getMenuLinks()) {
+        foreach($setting->getMenuLinks() as $val) {
             $tam = explode('=', $val['href']);
             $linkaction = end($tam);
             ?>

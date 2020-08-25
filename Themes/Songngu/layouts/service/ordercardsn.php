@@ -28,7 +28,7 @@
                 $price = $item['amount'] - $item['amount']* $discount[$item['id']]['discount']/100;
               }else $price= $item['amount'];
 			  
-			  $couponDiscount = pzk_session()->get('discount');
+			  $couponDiscount = pzk_session()->getDiscount();
 			 if($couponDiscount) {
 				 $price = $price - $price * $couponDiscount;
 			 }

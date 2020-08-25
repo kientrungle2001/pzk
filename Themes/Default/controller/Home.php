@@ -8,31 +8,31 @@ class PzkHomeController extends PzkController
 	public function indexAction()
 	{
 		$this->initPage();
-		pzk_page()->set('title', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
-		if (pzk_request()->get('siteId') == 2) {
-			pzk_page()->set('img', '/Themes/songngu3/skin/images/slider3.png');
+		pzk_page()->setTitle('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		if (pzk_request()->getSiteId() == 2) {
+			pzk_page()->setImg('/Themes/songngu3/skin/images/slider3.png');
 		} else {
-			pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
+			pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
 		}
 
-		pzk_page()->set('brief', 'Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
+		pzk_page()->setBrief('Công Ty Cổ Phần Giáo Dục Phát Triển Trí Tuệ Và Sáng Tạo Next Nobels');
 		$this->append('education/practice/practice', 'wrapper');
 		$this->display();
 	}
 	public function registermobileAction()
 	{
 		$this->initPage();
-		pzk_page()->set('title', 'Trang hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Hướng dẫn mua phần mềm Full Look');
-		if (pzk_request()->get('siteId') == 2) {
-			pzk_page()->set('img', '/Themes/songngu3/skin/images/slider3.png');
+		pzk_page()->setTitle('Trang hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Hướng dẫn mua phần mềm Full Look');
+		if (pzk_request()->getSiteId() == 2) {
+			pzk_page()->setImg('/Themes/songngu3/skin/images/slider3.png');
 		} else {
-			pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
+			pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
 		}
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this->append('user/account/registermobile', 'wrapper')
 			->display();
 	}
@@ -78,8 +78,8 @@ class PzkHomeController extends PzkController
 	public function pageAction()
 	{
 		$obj = $this->parse('home/index');
-		$obj->set('isAjax', true);
-		$obj->set('page', intval(pzk_request()->get('page')));
+		$obj->setIsAjax(true);
+		$obj->setPage(intval(pzk_request()->getPage()));
 		$obj->display();
 	}
 	public function renderCodeFLAction()
@@ -121,11 +121,11 @@ class PzkHomeController extends PzkController
 	public function aboutAction()
 	{
 		$this->initPage();
-		pzk_page()->set('title', 'Trang hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Hướng dẫn mua phần mềm Full Look');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
+		pzk_page()->setTitle('Trang hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Hướng dẫn mua phần mềm Full Look');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Phần mềm Full Look, Phần mềm luyện thi vào lớp 6 Trần Đại Nghĩa');
 		$this->append('about', 'wrapper')
 			->display();
 	}
@@ -133,15 +133,15 @@ class PzkHomeController extends PzkController
 	{
 
 		if (pzk_request('clearTestId') == 1) {
-			pzk_session()->set('userBookTestId', NULL);
+			pzk_session()->setUserBookTestId(NULL);
 		}
 
 		$this->initPage();
-		pzk_page()->set('title', 'Bảng xếp hạng');
-		pzk_page()->set('keywords', 'Giáo dục');
-		pzk_page()->set('description', 'Bảng xếp hạng cá nhân');
-		pzk_page()->set('img', '/Default/skin/nobel/Themes/Story/media/logo.png');
-		pzk_page()->set('brief', 'Bảng xếp hạng cá nhân các em sử dụng phần mềm Full Look');
+		pzk_page()->setTitle('Bảng xếp hạng');
+		pzk_page()->setKeywords('Giáo dục');
+		pzk_page()->setDescription('Bảng xếp hạng cá nhân');
+		pzk_page()->setImg('/Default/skin/nobel/Themes/Story/media/logo.png');
+		pzk_page()->setBrief('Bảng xếp hạng cá nhân các em sử dụng phần mềm Full Look');
 		if (pzk_themes('default')) {
 			$this->append('education/question/showRating', 'wrapper');
 		} else {
@@ -151,9 +151,9 @@ class PzkHomeController extends PzkController
 
 		$showRating	= pzk_element('showRatings');
 
-		$dataTest = $userBook->getAllTest(intval(pzk_request()->get('practice')));
+		$dataTest = $userBook->getAllTest(intval(pzk_request()->getPractice()));
 
-		$showRating->set('dataTest', $dataTest);
+		$showRating->setDataTest($dataTest);
 
 		$this->display();
 	}
@@ -236,9 +236,9 @@ class PzkHomeController extends PzkController
 		}
 		$request 			= pzk_request();
 
-		$data_answers 		= $request->get('answers');
+		$data_answers 		= $request->getanswers();
 
-		$user_book_key	= $request->get('keybook');
+		$user_book_key	= $request->getKeybook();
 
 		$question_id 	= $data_answers['questions'];
 
@@ -319,7 +319,7 @@ class PzkHomeController extends PzkController
 			'keybook'			=> $user_book_key,
 			'mark'              => $totaltrue,
 			'exercise_number'   => $exercise_number,
-			'software' 			=> pzk_request()->get('softwareId'),
+			'software' 			=> pzk_request()->getSoftwareId(),
 			'created'			=> date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
 			'duringTime'		=> $duringTime,
 			'lang'				=> $lang
@@ -344,7 +344,7 @@ class PzkHomeController extends PzkController
 				//hight score
 
 
-				$userbookId = $userBook->get('id');
+				$userbookId = $userBook->getId();
 
 				foreach ($question_id as $key => $value) {
 					if (empty($answers[$key])) {
@@ -367,32 +367,32 @@ class PzkHomeController extends PzkController
 	}
 	public function ajaxHistoryAction()
 	{
-		$practice = intval(pzk_request()->get('practice'));
-		$idResult = intval(pzk_request()->get('idResult'));
-		$page = intval(pzk_request()->get('page'));
-		$userId = intval(pzk_request()->get('userId'));
+		$practice = intval(pzk_request()->getPractice());
+		$idResult = intval(pzk_request()->getIdResult());
+		$page = intval(pzk_request()->getPage());
+		$userId = intval(pzk_request()->getUserId());
 		$pageSize = 20;
 		$this->parse('history/testHistory');
 
 		$testHistory = pzk_element('testHistory');
-		$testHistory->set('practice', $practice);
-		$testHistory->set('idResult', $idResult);
-		$testHistory->set('page', $page);
-		$testHistory->set('userId', $userId);
-		$testHistory->set('pageSize', $pageSize);
+		$testHistory->setPractice($practice);
+		$testHistory->setIdResult($idResult);
+		$testHistory->setPage($page);
+		$testHistory->setUserId($userId);
+		$testHistory->setPageSize($pageSize);
 		$testHistory->display();
 	}
 	public function ajaxPracticeAction()
 	{
-		$page = intval(pzk_request()->get('page'));
-		$userId = intval(pzk_request()->get('userId'));
+		$page = intval(pzk_request()->getPage());
+		$userId = intval(pzk_request()->getUserId());
 		$pageSize = 20;
 		$this->parse('history/practiceHistory');
 
 		$practiceHistory = pzk_element('practiceHistory');
-		$practiceHistory->set('page', $page);
-		$practiceHistory->set('userId', $userId);
-		$practiceHistory->set('pageSize', $pageSize);
+		$practiceHistory->setPage($page);
+		$practiceHistory->setUserId($userId);
+		$practiceHistory->setPageSize($pageSize);
 		$practiceHistory->display();
 	}
 

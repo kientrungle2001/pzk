@@ -1,15 +1,15 @@
 <?php
 $controller = pzk_controller();
-$sortFields = $data->get('sortFields');
+$sortFields = $data->getSortFields();
 $filterFields = $data->get ('filterFields');
 $searchFields = $data->get ('searchFields');
-$Searchlabels = $data->get ('searchLabels');
+$searchLabel = $data->get ('searchLabel');
 $orderBy = $data->get ('orderBy');
 $view = $data->get ('view');
 $columns = $data->get ('columns');
 $keyword = $data->get ('keyword');
-$updateData = $data->get('updateData');
-$updateDataTo = $data->get('updateDataTo');
+$updateData = $data->getUpdateData();
+$updateDataTo = $data->getUpdateDataTo();
 
 ?>
 <!-- search, filter, sort -->
@@ -24,7 +24,7 @@ $updateDataTo = $data->get('updateDataTo');
            <?php if ($searchFields) : ?>
               <div class="form-group col-xs-12">
 				<label>Tìm theo </label><br /> <input type="text" name="keyword" class="form-control"
-					placeholder="<?php if($Searchlabels){ echo $Searchlabels; } ?>" value="<?php echo $keyword ?>" onkeyup="pzk_list.search(this.value);" />
+					placeholder="<?php if($searchLabel){ echo $searchLabel; } ?>" value="<?php echo $keyword ?>" onkeyup="pzk_list.search(this.value);" />
 			</div>
             <?php endif; ?>
         <?php if ($filterFields) :?>
@@ -170,7 +170,7 @@ $updateDataTo = $data->get('updateDataTo');
 				<label>&nbsp;</label><br />
 				<button type="button" value="" name="submit_action"
 					class="btn btn-primary btn-sm"
-					onclick="window.location='/Admin_<?php  echo $data->get('module') ?>/add';">
+					onclick="window.location='/Admin_<?php  echo $data->getModule() ?>/add';">
 					<span class="glyphicon glyphicon-add"></span> Thêm mới
 				</button>
 			</div>

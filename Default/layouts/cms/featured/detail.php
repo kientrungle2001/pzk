@@ -8,8 +8,8 @@
 	$ip = getRealIPAddress();
 	$id=pzk_request('id');
 	$ip=$data->getVisitor($ip,$id);
-	$featured=$data->getfeaturedContent($id);
-	$nlists=$data->getfeaturedList($id);
+	$featured=$data->getFeaturedContent($id);
+	$nlists=$data->getFeaturedList($id);
 	$lists = $nlists[0];
 ?>
 
