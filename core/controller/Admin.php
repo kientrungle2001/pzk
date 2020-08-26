@@ -53,6 +53,13 @@ class PzkAdminController extends PzkBackendController
 		if (method_exists($this, 'alterEditFieldSettings')) {
 			$this->alterEditFieldSettings($this->getEditFieldSettings());
 		}
+
+		if (!$this->getMdEditOffset()) {
+			$this->setMdEditOffset($this->getMdAddOffset());
+		}
+		if (!$this->getMdEditSize()) {
+			$this->setMdEditSize($this->getMdAddSize());
+		}
 	}
 	public $_session = false;
 	public $_filterSession = false;
@@ -218,11 +225,13 @@ class PzkAdminController extends PzkBackendController
 
 	public function addAction()
 	{
-		$module = $this->parse('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/add');
+		$module = $this->parse('admin' . DS . pzk_or($this->getCustomModule(), $this->getModule()) . DS . 'add');
 		$module->setModule($this->getModule());
 		$module->setFieldSettings($this->getAddFieldSettings());
 		$module->setActions($this->getAddActions());
 		$module->setLabel($this->getAddLabel());
+		$module->setMdOffset($this->getMdAddOffset());
+		$module->setMdSize($this->getMdAddSize());
 		$row = pzk_validator()->getEditingData();
 		if ($row) {
 			$module->getFormObject()->setItem($row);
@@ -235,7 +244,7 @@ class PzkAdminController extends PzkBackendController
 		}
 		$page = $this->initPage()
 			->append($module)
-			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right');
+			->append('admin' . DS . pzk_or($this->getCustomModule(), $this->getModule()) . DS . 'menu', 'right');
 
 		$this->prepareAddDisplay();
 		$page->display();
@@ -504,6 +513,8 @@ class PzkAdminController extends PzkBackendController
 		$module->setFieldSettings($this->getEditFieldSettings());
 		$module->setActions($this->getEditActions());
 		$module->setLabel($this->getEditLabel());
+		$module->setMdOffset($this->getMdEditOffset());
+		$module->setMdSize($this->getMdEditSize());
 		$row = pzk_validator()->getEditingData();
 		if ($row) {
 			if ($module->getFormObject())

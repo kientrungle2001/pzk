@@ -1,9 +1,10 @@
 <?php
-class PzkGridAdminController extends PzkAdminController {
+class PzkGridAdminController extends PzkAdminController
+{
 	public $masterStructure 		= 'admin/home/index';
 	public $masterPosition 			= 'left';
 	public $customModule 			= 'grid';
-    public $moduleDetail 			= FALSE;
+	public $moduleDetail 			= FALSE;
 	public $table 					= false;
 	public $joins 					= false;
 	public $filterCreator 			= false;
@@ -15,17 +16,21 @@ class PzkGridAdminController extends PzkAdminController {
 	public $quickFilterFields 		= false;
 	public $links 					= false;
 	public $listSettingType 		= false;
-	public $listFieldSettings 		= array ();
+	public $listFieldSettings 		= array();
+
+	# add/edit settings
 	public $addLabel 				= 'Thêm bản ghi';
 	public $addFields 				= false;
-	public $addFieldSettings 		= array ();
-	public $editFields				= false; 
-	public $editFieldSettings 		= array ();
-	public $searchFields 			= array ();
+	public $addFieldSettings 		= array();
+	public $editFields				= false;
+	public $editFieldSettings 		= array();
+
+	# search/filter settings
+	public $searchFields 			= array();
 	public $searchLabel 			= false;
-	public $filterFieldSettings 	= array ();
-	
-	public $sortFields 				= array ();
+	public $filterFieldSettings 	= array();
+
+	public $sortFields 				= array();
 	public $exportFields 			= false;
 	public $exportTypes 			= false;
 	public $importFields 			= false;
@@ -34,8 +39,8 @@ class PzkGridAdminController extends PzkAdminController {
 	public $editLabel 				= false;
 	public $fixedPageSize 			= false;
 	public $orderBy 				= false;
-    //update menu
-    public $updateData 				= false;
+	//update menu
+	public $updateData 				= false;
 	public $updateDataTo 			= false;
 	public $updateForms 			= array();
 	public $quickMode 				= false;
@@ -44,18 +49,22 @@ class PzkGridAdminController extends PzkAdminController {
 	public $viewFieldSettings 		= false;
 	public $childrenGridSettings 	= false;
 	public $parentDetailSettings 	= false;
-	
+
 	// layout of grid
 	public $gridLayout 				= false;
-	
-	public function append($obj, $position = NULL) {
-		$obj = $this->parse ( $obj );
-		$obj->set ('table',  $this->table );
-		return parent::append ( $obj, $position );
+	public $mdAddOffset				= 0;
+	public $mdAddSize					= 12;
+
+	public function append($obj, $position = NULL)
+	{
+		$obj = $this->parse($obj);
+		$obj->set('table',  $this->table);
+		return parent::append($obj, $position);
 	}
-	public function prepareListDisplay() {
+	public function prepareListDisplay()
+	{
 		$request = pzk_request();
-		$grid = pzk_element ( 'list' );
+		$grid = pzk_element('list');
 		if ($grid) {
 			$grid->setSortFields($this->getSortFields());
 			$grid->setFields($this->getFilterFields());
@@ -69,7 +78,7 @@ class PzkGridAdminController extends PzkAdminController {
 			$grid->setQuickMode($this->getQuickMode());
 			$grid->setQuickFieldSettings($this->getQuickFieldSettings());
 			$parentMode = $request->getParentMode();
-			if($parentMode) {
+			if ($parentMode) {
 				$parentId = $request->getParentId();
 				$parentField = $request->getParentField();
 				$grid->setParentMode(true);
@@ -77,35 +86,35 @@ class PzkGridAdminController extends PzkAdminController {
 				$grid->setParentId($parentId);
 				$grid->init();
 			}
-			$grid->set('columnDisplay',$this->getSession()->getColumnDisplay());
-			
+			$grid->set('columnDisplay', $this->getSession()->getColumnDisplay());
+
 			//set links
 			$grid->setLinks($this->getLinks());
 
 			//check admin level action
 			$level = pzk_session('adminLevel');
-			if($level == 'Administrator') {
+			if ($level == 'Administrator') {
 				$grid->setCheckAdd(true);
 				$grid->setCheckEdit(true);
 				$grid->setCheckDel(true);
 				$grid->setCheckDialog(true);
-			}else {
+			} else {
 				$controller = pzk_request()->getController();
 				$adminmodel = pzk_model('Admin');
 				$checkAdd = $adminmodel->checkActionType('add', $controller, $level);
 				$checkEdit = $adminmodel->checkActionType('edit', $controller, $level);
 				$checkDel = $adminmodel->checkActionType('del', $controller, $level);
 				$checkDialog = $adminmodel->checkActionType('dialog', $controller, $level);
-				if($checkAdd) {
+				if ($checkAdd) {
 					$grid->setCheckAdd(true);
 				}
-				if($checkEdit) {
+				if ($checkEdit) {
 					$grid->setCheckEdit(true);
 				}
-				if($checkDel) {
+				if ($checkDel) {
 					$grid->setCheckDel(true);
 				}
-				if($checkDialog) {
+				if ($checkDialog) {
 					$grid->setCheckDialog(true);
 				}
 			}
@@ -116,107 +125,104 @@ class PzkGridAdminController extends PzkAdminController {
 				$grid->setExportFields($this->getExportFields());
 			}
 			$orderBy = false;
-			if($orderBys = $this->getSession()->getOrderBys()) {
+			if ($orderBys = $this->getSession()->getOrderBys()) {
 				$orderByArr = array();
 				$orderByIndexes = array();
-				foreach($orderBys as $field => $order) {
+				foreach ($orderBys as $field => $order) {
 					$orderByArr[] = $field . ' ' . $order;
-					$orderByIndexes[$field] = ($order == 'asc')? 1: 2;
+					$orderByIndexes[$field] = ($order == 'asc') ? 1 : 2;
 				}
 				$orderBy = implode(', ', $orderByArr);
 				$grid->setOrderBys($orderBys);
 				$grid->setOrderByIndexes($orderByIndexes);
-				
 			}
-			if(!$orderBy) {
+			if (!$orderBy) {
 				$orderBy = $this->getSession()->getOrderBy();
 			}
-			
+
 			$orderBy = $orderBy ? $orderBy : $this->getOrderBy();
-			
+
 			if ($orderBy) {
 				$grid->setOrderBy($orderBy);
 			}
-			
+
 			// joins
 			if ($this->getJoins()) {
 				$grid->setJoins($this->getJoins());
 			}
-            
+
 			//filterCreator
 			if ($this->getFilterCreator() && pzk_session()->getAdminLevel() == 'Reseller') {
-                $grid->addFilter( array('column', $this->getTable(), 'creatorId') , pzk_session()->getAdminId());
-            }
-			
+				$grid->addFilter(array('column', $this->getTable(), 'creatorId'), pzk_session()->getAdminId());
+			}
+
 			//set index owner
 			$adminmodel = pzk_model('Admin');
 			$controller = pzk_request()->getController();
-			 
+
 			$checkIndexOwner = $adminmodel->checkActionType('indexOwner', $controller, pzk_session('adminLevel'));
-			
-			if($checkIndexOwner){
-				 $grid->addFilter( array('column', $this->getTable(), 'creatorId') , pzk_session()->getAdminId());
+
+			if ($checkIndexOwner) {
+				$grid->addFilter(array('column', $this->getTable(), 'creatorId'), pzk_session()->getAdminId());
 			}
-			
-			
+
+
 			// select fields
 			if ($this->getSelectFields()) {
 				$grid->setFields($this->getSelectFields());
 			}
 			// filter
-			if(pzk_session()->getAdminLevel() == 'Reseller') {
+			if (pzk_session()->getAdminLevel() == 'Reseller') {
 				$childResellers = _db()->select('*')->from('admin')->where(array('parent', pzk_session('adminId')))->result();
-				
-				if(count($childResellers)) {
+
+				if (count($childResellers)) {
 					$childIds	=	array(pzk_session('adminId'));
-					foreach($childResellers as $reseller){
-						$childIds[]= $reseller['id'];
+					foreach ($childResellers as $reseller) {
+						$childIds[] = $reseller['id'];
 					}
-					$grid->addFilter ( array('column', $this->getTable(), 'resellerId') , $childIds , 'in');
+					$grid->addFilter(array('column', $this->getTable(), 'resellerId'), $childIds, 'in');
 				} else {
-					$grid->addFilter ( array('column', $this->getTable(), 'resellerId') , pzk_session('adminId') , 'equal');
+					$grid->addFilter(array('column', $this->getTable(), 'resellerId'), pzk_session('adminId'), 'equal');
 				}
-				
 			}
-			
+
 			if ($this->getFilterFields()) {
 				$fields = $this->getFilterFields();
 				$listFieldSettings = $this->getListFieldSettings();
-				foreach($listFieldSettings as $listFieldSetting) {
-					if(isset($listFieldSetting['filter'])) {
+				foreach ($listFieldSettings as $listFieldSetting) {
+					if (isset($listFieldSetting['filter'])) {
 						$found = false;
-						foreach($fields as $filterField) {
-							if($filterField['index'] == $listFieldSetting['filter']) {
+						foreach ($fields as $filterField) {
+							if ($filterField['index'] == $listFieldSetting['filter']) {
 								$found = true;
 								break;
 							}
 						}
-						if(!$found) {
+						if (!$found) {
 							$fields[]	= $listFieldSetting['filter'];
 						}
 					}
-					
 				}
-				foreach ( $fields as $val ) {
-					if(isset($val['index']) && $val['index']) {
-						$value = $this->getFilterSession()->get($val ['index']);
-						if (isset ( $value ) && $value != NUll) {
-							if($val['index'] === 'created'){
-								$condition1 = date('Y:m:d 00:00:00', $_SERVER['REQUEST_TIME']+24*60*60);
+				foreach ($fields as $val) {
+					if (isset($val['index']) && $val['index']) {
+						$value = $this->getFilterSession()->get($val['index']);
+						if (isset($value) && $value != NUll) {
+							if ($val['index'] === 'created') {
+								$condition1 = date('Y:m:d 00:00:00', $_SERVER['REQUEST_TIME'] + 24 * 60 * 60);
 								$condition2 = date('Y:m:d 00:00:00', $_SERVER['REQUEST_TIME']);
-								$condition3 = date('Y:m:d 00:00:00', $_SERVER['REQUEST_TIME']-24*60*60);
-								if($value === '1'){
-									$grid->addFilter ( array('column', $this->getTable(), $val ['index']) , $condition1 , 'lt');
-									$grid->addFilter ( array('column', $this->getTable(), $val ['index']) , $condition2 , 'gt');
-								}if($value === '2'){
-									$grid->addFilter ( array('column', $this->getTable(), $val ['index']) , $condition2 , 'lt');
-									$grid->addFilter ( array('column', $this->getTable(), $val ['index']) , $condition3 , 'gt');
+								$condition3 = date('Y:m:d 00:00:00', $_SERVER['REQUEST_TIME'] - 24 * 60 * 60);
+								if ($value === '1') {
+									$grid->addFilter(array('column', $this->getTable(), $val['index']), $condition1, 'lt');
+									$grid->addFilter(array('column', $this->getTable(), $val['index']), $condition2, 'gt');
 								}
-							}elseif (isset($val['like']) && $val['like'] == true) {
-								$grid->addFilter ( array('column', $this->getTable(), $val ['index']) , $value, 'like');
-							}
-							else{
-								$grid->addFilter ( array('column', $this->getTable(), $val ['index']) , $value );
+								if ($value === '2') {
+									$grid->addFilter(array('column', $this->getTable(), $val['index']), $condition2, 'lt');
+									$grid->addFilter(array('column', $this->getTable(), $val['index']), $condition3, 'gt');
+								}
+							} elseif (isset($val['like']) && $val['like'] == true) {
+								$grid->addFilter(array('column', $this->getTable(), $val['index']), $value, 'like');
+							} else {
+								$grid->addFilter(array('column', $this->getTable(), $val['index']), $value);
 							}
 						}
 					}
@@ -229,22 +235,22 @@ class PzkGridAdminController extends PzkAdminController {
 			}
 			$requestPageNum = pzk_request()->getPage();
 			$sessionPageNum = $this->getSession()->getPageNum();
-			if($requestPageNum != '') {
+			if ($requestPageNum != '') {
 				$sessionPageNum = $requestPageNum;
 				$this->getSession()->setPageNum($sessionPageNum);
 			} else {
 				pzk_request()->setPage($sessionPageNum);
 			}
 			$grid->setPageNum($sessionPageNum);
-			
+
 			$keyword = $this->getSession()->getKeyword();
 			$grid->setKeyword($keyword);
 			$grid->setModule($this->getModule());
 			$grid->setTitle($this->getTitle());
 			$grid->setAddLabel($this->getAddLabel());
-			$grid->set('actions',$this->getActions());
-			$grid->setLayout('admin/grid/index/view/'. pzk_or($this->gridLayout, 'grid'));
-			if(pzk_request()->getIsAjax()) {
+			$grid->set('actions', $this->getActions());
+			$grid->setLayout('admin/grid/index/view/' . pzk_or($this->gridLayout, 'grid'));
+			if (pzk_request()->getIsAjax()) {
 				$grid->display();
 				pzk_system()->halt();
 			}
@@ -262,17 +268,17 @@ class PzkGridAdminController extends PzkAdminController {
 			$nav->setKeyword($keyword);
 			$nav->setModule($this->getModule());
 			$nav->setQuickMode($this->getQuickMode());
-			
+
 			$filter = pzk_element('filter');
 			$filter->setFilterFields($this->getQuickFilterFields());
-			
+
 			$updateForms = $this->getUpdateForms();
-			foreach($updateForms as $formSettings) {
+			foreach ($updateForms as $formSettings) {
 				$formObject = pzk_obj('core.form');
 				$formObject->setData($formSettings);
 				$nav->append($formObject);
 			}
-			
+
 			$export = pzk_element('export');
 			$export->setExportTypes($this->getExportTypes());
 			$export->setExportFields($this->getExportFields());
@@ -280,99 +286,101 @@ class PzkGridAdminController extends PzkAdminController {
 			$export->setQuickMode($this->getQuickMode());
 		}
 	}
-	public function getQuickMode() {
+	public function getQuickMode()
+	{
 		$quickMode = $this->getSession()->getQuickMode();
-		if($quickMode) return $quickMode;
+		if ($quickMode) return $quickMode;
 		return $this->quickMode;
 	}
-	public function changeStatusAction() {
+	public function changeStatusAction()
+	{
 		$id = pzk_request()->getId();
 		$field = pzk_request()->getField();
-		if (! $field)
+		if (!$field)
 			$field = 'status';
-		$entity = _db ()->getTableEntity ( $this->getTable() )->load ( $id );
+		$entity = _db()->getTableEntity($this->getTable())->load($id);
 		$status = 1 - $entity->get($field);
-		$entity->update ( array (
-				$field => $status 
-		) );
-		if(pzk_request()->getIsAjax()) {
+		$entity->update(array(
+			$field => $status
+		));
+		if (pzk_request()->getIsAjax()) {
 			echo $status;
 		} else {
 			$this->redirect('index');
 		}
-		
 	}
-	public function columnDisplayAction() {
+	public function columnDisplayAction()
+	{
 		$request = pzk_request();
 		$columnDisplay = $request->getColumnDisplay();
 		$this->getSession()->setColumnDisplay($columnDisplay);
-		if($request->getIsAjax()) {
+		if ($request->getIsAjax()) {
 			echo $status;
 		} else {
 			$this->redirect('index');
 		}
-		
 	}
-    public function updateOneFieldAction() {
-        if(pzk_request()->getIds()) {
-            $arrIds = json_decode(pzk_request()->getIds());
-            $field = pzk_request()->getField();
-            $data = pzk_request()->getData();
-            $type = pzk_request()->getType();
+	public function updateOneFieldAction()
+	{
+		if (pzk_request()->getIds()) {
+			$arrIds = json_decode(pzk_request()->getIds());
+			$field = pzk_request()->getField();
+			$data = pzk_request()->getData();
+			$type = pzk_request()->getType();
 
-            if($type == 'mutiSelect' or $type == 'multiselectoption') {
-                if($data[$field]) {
-                    $strCateIds = ','.implode(',', $data[$field]).',';
-                }else{
-                    $strCateIds = '';
-                }
-            }elseif($type == 'select') {
-                if($data[$field]) {
-                    $strCateIds =  $data[$field];
-                }else{
-                    $strCateIds = '';
-                }
-            } else {
-				if($data[$field]) {
-                    $strCateIds =  $data[$field];
-                }else{
-                    $strCateIds = '';
-                }
+			if ($type == 'mutiSelect' or $type == 'multiselectoption') {
+				if ($data[$field]) {
+					$strCateIds = ',' . implode(',', $data[$field]) . ',';
+				} else {
+					$strCateIds = '';
+				}
+			} elseif ($type == 'select') {
+				if ($data[$field]) {
+					$strCateIds =  $data[$field];
+				} else {
+					$strCateIds = '';
+				}
+			} else {
+				if ($data[$field]) {
+					$strCateIds =  $data[$field];
+				} else {
+					$strCateIds = '';
+				}
 			}
 
-            if(count($arrIds) >0) {
-                
-				_db()->update($this->table)->set(array($field => $strCateIds))->where(array('in', 'id', $arrIds))->result();
-				
-                echo 1;
-            }
+			if (count($arrIds) > 0) {
 
-        }else {
-            pzk_system()->halt();
-        }
-    }
-	public function updateDataToAction() {
-		if(pzk_request()->getIds()) {
+				_db()->update($this->table)->set(array($field => $strCateIds))->where(array('in', 'id', $arrIds))->result();
+
+				echo 1;
+			}
+		} else {
+			pzk_system()->halt();
+		}
+	}
+	public function updateDataToAction()
+	{
+		if (pzk_request()->getIds()) {
 			$arrIds = json_decode(pzk_request()->getIds());
 
 			$data = pzk_request()->getData();
 			$formIndex = $data['index'];
 
 			$updateDataTo = $this->getUpdateDataTo();
-			foreach($updateDataTo as $val) {
-				if($val['index'] == $formIndex){
+			foreach ($updateDataTo as $val) {
+				if ($val['index'] == $formIndex) {
 					$table = $val['table'];
 					$selectField = $val['selectField'];
 					break;
 				}
 			}
 
-			if(count($arrIds) >0) {
-				foreach($arrIds as $id) {
-					foreach ($selectField as $key=>$val) {
-						if($key == 'id') {
+			if (count($arrIds) > 0) {
+				foreach ($arrIds as $id) {
+					foreach ($selectField as $key => $val) {
+						if ($key == 'id') {
 							$data[$val] = $id;
-						}else{
+						} else {
 							$entity = _db()->getTableEntity($this->getTable())->load($id);
 							$data[$val] = $entity->data[$key];
 						}
@@ -387,22 +395,22 @@ class PzkGridAdminController extends PzkAdminController {
 				}
 				echo 1;
 			}
-
-		}else {
+		} else {
 			pzk_system()->halt();
 		}
 	}
-	public function workflowAction() {
+	public function workflowAction()
+	{
 		$id = pzk_request()->getId();
-		$field = pzk_request() ->getField();
+		$field = pzk_request()->getField();
 		$value = pzk_request()->getValue();
-		if (! $field)
+		if (!$field)
 			$field = 'status';
-		$entity = _db()->getTableEntity($this->getTable())->load( $id );
+		$entity = _db()->getTableEntity($this->getTable())->load($id);
 		$oldValue = $entity->data[$field];
 		$fieldSettings = null;
 		foreach ($this->getListFieldSettings() as $fs) {
-			if($fs['index'] == $field) {
+			if ($fs['index'] == $field) {
 				$fieldSettings = $fs;
 				break;
 			}
@@ -410,223 +418,227 @@ class PzkGridAdminController extends PzkAdminController {
 		$rules = $fieldSettings['rules'];
 		$states = $fieldSettings['states'];
 		$rule = $rules[$oldValue][$value];
-		if(isset($rule['adminLevel'])) {
+		if (isset($rule['adminLevel'])) {
 			$adminLevel = pzk_session()->getAdminLevel();
 			$adminLevels = explodetrim(',', $rule['adminLevel']);
-			if($adminLevel != 'Administrator' &&  !in_array($adminLevel, $adminLevels)) {
+			if ($adminLevel != 'Administrator' &&  !in_array($adminLevel, $adminLevels)) {
 				pzk_notifier_add_message('Bạn không có quyền thay đổi dữ liệu này', 'danger');
 				$this->redirect('index');
-				return ;
+				return;
 			}
 		}
-		if(isset($rule['model'])) {
+		if (isset($rule['model'])) {
 			$model = $rule['model'];
 			$handler = $rule['handler'];
 			$modelObj = pzk_model($model);
-			$modelObj->$handler($entity, $value);	
+			$modelObj->$handler($entity, $value);
 		}
-		
-		$entity->update ( array (
-				$field => $value
-		) );
-		if(pzk_request()->getIsAjax()) {
+
+		$entity->update(array(
+			$field => $value
+		));
+		if (pzk_request()->getIsAjax()) {
 			$nextRules = $rules[$value];
 			$curState = $states[$value];
-			echo '<option value="'.$value.'">' . $curState . '</option>';
+			echo '<option value="' . $value . '">' . $curState . '</option>';
 			foreach ($nextRules as $state => $setting) {
-				echo '<option value="'.$state.'"> -&gt; ' . $setting['action'] . '</option>';
+				echo '<option value="' . $state . '"> -&gt; ' . $setting['action'] . '</option>';
 			}
 		} else {
 			$this->redirect('index');
 		}
-		
 	}
-	
-	public function importPostAction() {
-		$username = pzk_session ( )->getAdminUser();
-		if (isset ( $username )) {
-			$username = pzk_session ()->getAdminUser();
+
+	public function importPostAction()
+	{
+		$username = pzk_session()->getAdminUser();
+		if (isset($username)) {
+			$username = pzk_session()->getAdminUser();
 		} else {
 			$this->redirect('admin_home/index');
 		}
-		$setting = pzk_controller ();
-		if (empty ( $setting->importFields )) {
+		$setting = pzk_controller();
+		if (empty($setting->importFields)) {
 			$this->redirect('admin_home/index');
 		}
-		
-		if (isset ( $_GET ['token'] )) {
-			$token = $_GET ['token'];
+
+		if (isset($_GET['token'])) {
+			$token = $_GET['token'];
 		} else {
 			$this->redirect('admin_home/index');
 		}
-		if (isset ( $_GET ['time'] )) {
-			$time = $_GET ['time'];
+		if (isset($_GET['time'])) {
+			$time = $_GET['time'];
 		} else {
 			$this->redirect('admin_home/index');
 		}
-		
-		if ($token == md5 ( $time . $username . SECRETKEY )) {
+
+		if ($token == md5($time . $username . SECRETKEY)) {
 			// upload
-			if (! empty ( $_FILES ['file'] ['name'] )) {
-				$allowed = array (
-						'csv',
-						'xlsx',
-						'xls' 
+			if (!empty($_FILES['file']['name'])) {
+				$allowed = array(
+					'csv',
+					'xlsx',
+					'xls'
 				);
 				$dir = BASE_DIR . "/tmp/";
-				$fileParts = pathinfo ( $_FILES ['file'] ['name'] );
+				$fileParts = pathinfo($_FILES['file']['name']);
 				// Kiem tra xem file upload co nam trong dinh dang cho phep
-				if (in_array ( $fileParts ['extension'], $allowed )) {
+				if (in_array($fileParts['extension'], $allowed)) {
 					// Neu co trong dinh dang cho phep, tach lay phan mo rong
-					$tam = explode ( '.', $_FILES ['file'] ['name'] );
-					$ext = end ( $tam );
-					$renamed = md5 ( rand ( 0, 200000 ) ) . '.' . "$ext";
-					
-					move_uploaded_file ( $_FILES ['file'] ['tmp_name'], $dir . $renamed );
+					$tam = explode('.', $_FILES['file']['name']);
+					$ext = end($tam);
+					$renamed = md5(rand(0, 200000)) . '.' . "$ext";
+
+					move_uploaded_file($_FILES['file']['tmp_name'], $dir . $renamed);
 				} else {
 					// FIle upload khong thuoc dinh dang cho phep
-					pzk_system()->halt ( "File upload không thuộc định dạng cho phép!" );
+					pzk_system()->halt("File upload không thuộc định dạng cho phép!");
 				}
 			}
-			
+
 			// load file
 			$path = $dir . $renamed;
-			if (! is_file ( $path )) {
-				pzk_system()->halt ( 'file not exist' );
+			if (!is_file($path)) {
+				pzk_system()->halt('file not exist');
 			}
 			require_once BASE_DIR . '/3rdparty/phpexcel/PHPExcel.php';
-			
-			$host = _db ()->host;
-			$user = _db ()->user;
-			$password = _db ()->password;
-			$db = _db ()->dbName;
+
+			$host = _db()->host;
+			$user = _db()->user;
+			$password = _db()->password;
+			$db = _db()->dbName;
 			// connect database
-			$dbc = mysqli_connect ( $host, $user, $password, $db );
-			
-			if (! $dbc) {
-				trigger_error ( "Could not connect to DB: " . mysqli_connect_error () );
+			$dbc = mysqli_connect($host, $user, $password, $db);
+
+			if (!$dbc) {
+				trigger_error("Could not connect to DB: " . mysqli_connect_error());
 			} else {
-				mysqli_set_charset ( $dbc, 'utf8' );
+				mysqli_set_charset($dbc, 'utf8');
 			}
-			
-			$objPHPExcel = PHPExcel_IOFactory::load ( $path );
-			
-			$sheet = $objPHPExcel->getSheet ( 0 );
-			$highestRow = $sheet->getHighestRow ();
-			$highestColumn = $sheet->getHighestColumn ();
-			
+
+			$objPHPExcel = PHPExcel_IOFactory::load($path);
+
+			$sheet = $objPHPExcel->getSheet(0);
+			$highestRow = $sheet->getHighestRow();
+			$highestColumn = $sheet->getHighestColumn();
+
 			// Loop through each row of the worksheet in turn
-			for($row = 1; $row <= $highestRow; $row ++) {
+			for ($row = 1; $row <= $highestRow; $row++) {
 				// Read a row of data into an array
-				$rowData = $sheet->toArray ( 'A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE );
+				$rowData = $sheet->toArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
 			}
-			$table = mysqli_real_escape_string ( $dbc, $setting->table );
-			$importFields = implode ( ',', $setting->importFields );
-			$cols = mysqli_real_escape_string ( $dbc, $importFields );
-			$arrfields = explode ( ',', $importFields );
-			
-			unset ( $rowData [0] );
+			$table = mysqli_real_escape_string($dbc, $setting->table);
+			$importFields = implode(',', $setting->importFields);
+			$cols = mysqli_real_escape_string($dbc, $importFields);
+			$arrfields = explode(',', $importFields);
+
+			unset($rowData[0]);
 			// combine array
 			if ($rowData) {
-				foreach ( $rowData as $item ) {
-					$arrWhere [] = array_combine ( $arrfields, $item );
+				foreach ($rowData as $item) {
+					$arrWhere[] = array_combine($arrfields, $item);
 				}
-				
+
 				$where = '';
-				foreach ( $arrWhere as $item ) {
-					foreach ( $item as $key => $val ) {
-						$val = mysql_escape_string ( $val );
+				foreach ($arrWhere as $item) {
+					foreach ($item as $key => $val) {
+						$val = mysql_escape_string($val);
 						$where .= "$key = " . "'$val'" . " AND ";
 					}
-					$where = substr ( $where, 0, - 4 );
+					$where = substr($where, 0, -4);
 					$sql = "SELECT id from {$table} WHERE {$where}";
-					$result = mysqli_query ( $dbc, $sql );
-					if (mysqli_errno ( $dbc )) {
-						$message = 'Invalid query: ' . mysqli_error ( $dbc ) . "\n";
+					$result = mysqli_query($dbc, $sql);
+					if (mysqli_errno($dbc)) {
+						$message = 'Invalid query: ' . mysqli_error($dbc) . "\n";
 						$message .= 'Whole query: ' . $sql;
-						pzk_system()->halt ( $message );
+						pzk_system()->halt($message);
 					}
-					$row = mysqli_fetch_assoc ( $result );
+					$row = mysqli_fetch_assoc($result);
 					if ($row) {
-						$vals = array ();
-						foreach ( $item as $key => $value ) {
-							$vals [] = '`' . $key . '`=\'' . mysql_escape_string ( $value ) . '\'';
+						$vals = array();
+						foreach ($item as $key => $value) {
+							$vals[] = '`' . $key . '`=\'' . mysql_escape_string($value) . '\'';
 						}
-						$values = implode ( ',', $vals );
-						$sql = "update {$table} set $values where id = " . $row ['id'] . "";
-						mysqli_query ( $dbc, $sql );
-						if (mysqli_errno ( $dbc )) {
-							$message = 'Invalid query: ' . mysqli_error ( $dbc ) . "\n";
+						$values = implode(',', $vals);
+						$sql = "update {$table} set $values where id = " . $row['id'] . "";
+						mysqli_query($dbc, $sql);
+						if (mysqli_errno($dbc)) {
+							$message = 'Invalid query: ' . mysqli_error($dbc) . "\n";
 							$message .= 'Whole query: ' . $sql;
-							pzk_system()->halt ( $message );
+							pzk_system()->halt($message);
 						}
 					} else {
-						
-						$columns = explode ( ',', $cols );
+
+						$columns = explode(',', $cols);
 						$list = '';
-						foreach ( $columns as $col ) {
-							$col = trim ( $col );
-							$col = str_replace ( '`', '', $col );
-							$list .= ',' . "'" . mysql_escape_string ( $item [$col] ) . "'";
+						foreach ($columns as $col) {
+							$col = trim($col);
+							$col = str_replace('`', '', $col);
+							$list .= ',' . "'" . mysql_escape_string($item[$col]) . "'";
 						}
-						$list = substr ( $list, 1 );
+						$list = substr($list, 1);
 						$sql = "INSERT INTO {$table}($cols)  VALUES ($list)";
-						mysqli_query ( $dbc, $sql );
-						if (mysqli_errno ( $dbc )) {
-							$message = 'Invalid query: ' . mysqli_error ( $dbc ) . "\n";
+						mysqli_query($dbc, $sql);
+						if (mysqli_errno($dbc)) {
+							$message = 'Invalid query: ' . mysqli_error($dbc) . "\n";
 							$message .= 'Whole query: ' . $sql;
-							pzk_system()->halt ( $message );
+							pzk_system()->halt($message);
 						}
 					}
 					$where = '';
 				}
 			}
-			if (is_file ( $path )) {
-				unlink ( $path );
+			if (is_file($path)) {
+				unlink($path);
 			}
 			$url = "/admin_" . $setting->module . "/index";
-			pzk_notifier_add_message ( 'Import thành công!', 'success' );
-			header ( "location: $url" );
-			exit ();
+			pzk_notifier_add_message('Import thành công!', 'success');
+			header("location: $url");
+			exit();
 		}
 	}
-	public function highchartAction() {
-		$this->initPage ();
-		$this->append ( 'admin/' . pzk_or ( $this->getCustomModule(), $this->getModule() ) . '/highchart' )
-		->append ( 'admin/' . pzk_or ( $this->customModule, $this->module ) . '/menu', 'right' );
-		$this->display ();
+	public function highchartAction()
+	{
+		$this->initPage();
+		$this->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/highchart')
+			->append('admin/' . pzk_or($this->customModule, $this->module) . '/menu', 'right');
+		$this->display();
 	}
 
-    public function detailAction($id) {
-    	$module = false;
-    	if($this->moduleDetail) {
-    		$module = $this->parse('admin/'. pzk_or ( $this->getCustomModule(), $this->getModule() ).'/'.$this->moduleDetail.'/detail');
-    	} else if(pzk_app()->existsPageUri('admin/'. $this->getModule() .'/detail')) {
-    		$module = $this->parse('admin/'. $this->getModule() .'/detail');
-    	} else if(pzk_app()->existsPageUri('admin/'. $this->getCustomModule() .'/detail')) {
-    		$module = $this->parse('admin/'. $this->getCustomModule() .'/detail');
-    	}
-        if(!$module) {
-        	$this->redirect('index');
-        }
-        $module->setItemId($id);
-        $this->initPage()
-            ->append($module)
-            ->append('admin/'.pzk_or($this->getCustomModule(), $this->getModule()).'/menu', 'right');
-        if($childList = pzk_element(pzk_or($this->getCustomModule(), $this->getModule()).$this->moduleDetail.'Children')){
-            $childList->setParentId($id);
-        }
-        $this->display();
-    }
-	
-	public function orderBysAction() {
+	public function detailAction($id)
+	{
+		$module = false;
+		if ($this->moduleDetail) {
+			$module = $this->parse('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/' . $this->moduleDetail . '/detail');
+		} else if (pzk_app()->existsPageUri('admin/' . $this->getModule() . '/detail')) {
+			$module = $this->parse('admin/' . $this->getModule() . '/detail');
+		} else if (pzk_app()->existsPageUri('admin/' . $this->getCustomModule() . '/detail')) {
+			$module = $this->parse('admin/' . $this->getCustomModule() . '/detail');
+		}
+		if (!$module) {
+			$this->redirect('index');
+		}
+		$module->setItemId($id);
+		$this->initPage()
+			->append($module)
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right');
+		if ($childList = pzk_element(pzk_or($this->getCustomModule(), $this->getModule()) . $this->moduleDetail . 'Children')) {
+			$childList->setParentId($id);
+		}
+		$this->display();
+	}
+
+	public function orderBysAction()
+	{
 		$this->getSession()->setOrderBys(pzk_request()->getOrderBys());
 		echo json_encode(pzk_request()->getOrderBys());
 	}
-	
-	public function dialogAction() {
+
+	public function dialogAction()
+	{
 		$id = pzk_request()->getId();
-		$module = $this->parse('admin/'.pzk_or($this->getCustomModule(), $this->getModule()).'/edit');
+		$module = $this->parse('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/edit');
 		$module->setTable($this->getTable());
 		$module->setItemId($id);
 		$module->setModule($this->getModule());
@@ -634,83 +646,86 @@ class PzkGridAdminController extends PzkAdminController {
 		$module->setActions($this->getEditActions());
 		$module->display();
 	}
-	
-	public function inlineEditPostAction() {
-		$id = pzk_request ( )->getId();
-		$field = pzk_request ( ) ->getField();
+
+	public function inlineEditPostAction()
+	{
+		$id = pzk_request()->getId();
+		$field = pzk_request()->getField();
 		$value = pzk_request()->getValue();
-		$entity = _db ()->getTableEntity ( $this->getTable() )->load ( $id );
-		if($entity->getId()) {
-			if($this->getLogable()) {
+		$entity = _db()->getTableEntity($this->getTable())->load($id);
+		if ($entity->getId()) {
+			if ($this->getLogable()) {
 				$logEntity = _db()->getTableEntity('admin_log');
 				$logFields = explodetrim(',', $this->getLogFields());
 				$brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
-				$brief .= '[id: '.$entity->getId().'][' . $field . ': ' . $entity->get($field) . ']';
+				$brief .= '[id: ' . $entity->getId() . '][' . $field . ': ' . $entity->get($field) . ']';
 				$brief .= ' thành ';
-				$brief .= '[id: '.$entity->getId().'][' . $field . ': ' . $value . ']';
+				$brief .= '[id: ' . $entity->getId() . '][' . $field . ': ' . $value . ']';
 				$logEntity->setUserId(pzk_session()->getAdminId());
 				$logEntity->setCreated(date('Y-m-d H:i:s'));
 				$logEntity->setActionType('edit');
-				$logEntity->setAdmin_controller('admin_'.$this->getModule());
+				$logEntity->setAdmin_controller('admin_' . $this->getModule());
 				$logEntity->setBrief($brief);
 				$logEntity->save();
 			}
-			
-			$entity->update ( array (
-					$field => $value
-			) );
+
+			$entity->update(array(
+				$field => $value
+			));
 			echo '1';
 		} else {
 			echo '0';
 		}
 	}
-	
-	public function changeQuickModeAction() {
+
+	public function changeQuickModeAction()
+	{
 		$quickMode = $this->getSession()->getQuickMode();
 		$quickMode = !$quickMode;
 		$this->getSession()->setQuickMode($quickMode);
 		$this->redirect('index');
 	}
-	
-	public function viewAction($id, $gridIndex) {
+
+	public function viewAction($id, $gridIndex)
+	{
 		$this->initPage();
 		$module = false;
-    	if($this->moduleDetail) {
-    		$module = $this->parse('admin/'. pzk_or ( $this->getCustomModule(), $this->getModule() ).'/'.$this->moduleDetail.'/view');
-    	} else if(pzk_app()->existsPageUri('admin/'. $this->getModule() .'/view')) {
-    		$module = $this->parse('admin/'. $this->getModule() .'/view');
-    	} else if(pzk_app()->existsPageUri('admin/'. $this->getCustomModule() .'/view')) {
-    		$module = $this->parse('admin/'. $this->getCustomModule() .'/view');
-    	} else {
+		if ($this->moduleDetail) {
+			$module = $this->parse('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/' . $this->moduleDetail . '/view');
+		} else if (pzk_app()->existsPageUri('admin/' . $this->getModule() . '/view')) {
+			$module = $this->parse('admin/' . $this->getModule() . '/view');
+		} else if (pzk_app()->existsPageUri('admin/' . $this->getCustomModule() . '/view')) {
+			$module = $this->parse('admin/' . $this->getCustomModule() . '/view');
+		} else {
 			$module = $this->parse('admin/grid/view');
-		} 
-		
-        $module->setItemId($id);
+		}
+
+		$module->setItemId($id);
 		$module->setFieldSettings(pzk_or($this->getViewFieldSettings(), $this->getListFieldSettings()));
 		$module->setJoins($this->getJoins());
-		$module->setFields(pzk_or($this->getDetailFields(), '`'.$this->getTable() . '`.*'));
+		$module->setFields(pzk_or($this->getDetailFields(), '`' . $this->getTable() . '`.*'));
 		$module->setListSettingType($this->getListSettingType());
 		$module->setChildrenGridSettings($this->getChildrenGridSettings());
 		$module->setParentDetailSettings($this->getParentDetailSettings());
-        $module->setModule($this->getModule());
+		$module->setModule($this->getModule());
 		$module->setGridIndex($gridIndex);
-		
+
 		$childrenGridSettings = $module->getChildrenGridSettings();
 		$gridIndex = $module->getGridIndex();
 		$selectedGridSettings = null;
 		$grid = null;
-		
-		
-		if($childrenGridSettings):
-			foreach($childrenGridSettings as $gridSettings):
-				if($gridIndex == $gridSettings['index']):
+
+
+		if ($childrenGridSettings) :
+			foreach ($childrenGridSettings as $gridSettings) :
+				if ($gridIndex == $gridSettings['index']) :
 					$selectedGridSettings = $gridSettings;
 					break;
 				endif;
 			endforeach;
-			if($selectedGridSettings):
+			if ($selectedGridSettings) :
 				$grid = pzk_parse('default/pages/admin/grid/index');
-				foreach($selectedGridSettings as $key => $val) {
+				foreach ($selectedGridSettings as $key => $val) {
 					$grid->set($key, $val);
 				}
 				$grid->setLayout('admin/grid/index/view/grid');
@@ -722,41 +737,40 @@ class PzkGridAdminController extends PzkAdminController {
 				$nav->setSortFields(@$selectedGridSettings['sortFields']);
 			endif;
 		endif;
-		
+
 		$parentDetailSettings = $module->getParentDetailSettings();
 		$gridIndex = $module->getGridIndex();
 		$selectedDetailSettings = null;
 		$detail = null;
-		
-		
-		if($parentDetailSettings):
-			foreach($parentDetailSettings as $detailSettings):
-				if($gridIndex == $detailSettings['index']):
+
+
+		if ($parentDetailSettings) :
+			foreach ($parentDetailSettings as $detailSettings) :
+				if ($gridIndex == $detailSettings['index']) :
 					$selectedDetailSettings = $detailSettings;
 					break;
 				endif;
 			endforeach;
-			if($selectedDetailSettings):
+			if ($selectedDetailSettings) :
 				$detail = pzk_parse('default/pages/admin/grid/view');
 				$detail->setModule($this->getModule());
 				$detail->setIsChildModule(true);
-				foreach($selectedDetailSettings as $key => $val) {
+				foreach ($selectedDetailSettings as $key => $val) {
 					$detail->set($key, $val);
 				}
 				$detail->setParentMode(true);
 			endif;
 		endif;
-		
+
 		$module->setParentDetail($detail);
 		$module->setChildGrid($grid);
-		
-            $this->append($module)
-            ->append('admin/'.pzk_or($this->getCustomModule(), $this->getModule()).'/menu', 'right');
-		if(pzk_request()->getIsAjax()) {
+
+		$this->append($module)
+			->append('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/menu', 'right');
+		if (pzk_request()->getIsAjax()) {
 			$module->display();
 		} else {
 			$this->display();
 		}
-        
 	}
 }

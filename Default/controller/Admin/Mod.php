@@ -26,15 +26,10 @@ class PzkAdminModController extends PzkGridAdminController
         array(
             ATTR_INDEX     => 'parent',
             ATTR_TYPE         => LIST_TYPE_NAMEID,
-            ATTR_LABEL     => 'Quản lý',
+            ATTR_LABEL     => 'Cấp trên',
             ATTR_TABLE        =>    'admin',
             ATTR_FIND_FIELD    =>    'id',
             ATTR_SHOW_FIELD    =>    'name'
-        ),
-        array(
-            ATTR_INDEX => 'categoryIds',
-            ATTR_TYPE => LIST_TYPE_TEXT,
-            ATTR_LABEL => 'Danh mục'
         ),
         array(
             ATTR_INDEX => 'level',
@@ -68,6 +63,14 @@ class PzkAdminModController extends PzkGridAdminController
             ATTR_SHOW_NAME => 'level',
         ),
         array(
+            ATTR_INDEX => 'parent',
+            ATTR_TYPE => 'select',
+            ATTR_LABEL => 'Cấp trên',
+            ATTR_TABLE => 'admin',
+            ATTR_SHOW_VALUE => 'id',
+            ATTR_SHOW_NAME => 'name',
+        ),
+        array(
             ATTR_INDEX => 'status',
             ATTR_TYPE => 'status',
             ATTR_LABEL => 'Trạng thái'
@@ -78,12 +81,13 @@ class PzkAdminModController extends PzkGridAdminController
     public $sortFields = array(
         'id asc' => 'ID tăng',
         'id desc' => 'ID giảm',
-
     );
 
     //add table
     public $addFields = 'name, usertype_id, password, areacode, district, school, class, classname, categoryIds, status, parent';
     public $addLabel = 'Thêm người dùng';
+    public $mdAddOffset = '2';
+	public $mdAddSize = '8';
 
     //add theo dang binh thuong
     public $addFieldSettings = array(
@@ -103,48 +107,10 @@ class PzkAdminModController extends PzkGridAdminController
         array(
             ATTR_INDEX         => 'parent',
             ATTR_TYPE             => EDIT_TYPE_SELECT,
-            ATTR_LABEL           => 'Cha',
+            ATTR_LABEL           => 'Cấp trên',
             ATTR_TABLE           => 'admin',
             ATTR_SHOW_VALUE      => 'id',
             ATTR_SHOW_NAME      => 'name',
-            ATTR_MD_SIZE => 4
-        ),
-        array(
-            ATTR_INDEX         => 'categoryIds',
-            ATTR_TYPE             => EDIT_TYPE_MULTISELECT,
-            ATTR_LABEL           => 'Danh mục cha',
-            ATTR_TABLE           => 'categories',
-            ATTR_SHOW_VALUE      => 'id',
-            ATTR_SHOW_NAME      => 'name'
-        ),
-        array(
-            ATTR_INDEX => 'areacode',
-            ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Tỉnh/Thành phố',
-            ATTR_MD_SIZE => 3
-        ),
-        array(
-            ATTR_INDEX => 'district',
-            ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Quận/Huyện',
-            ATTR_MD_SIZE => 3
-        ),
-        array(
-            ATTR_INDEX => 'school',
-            ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Trường',
-            ATTR_MD_SIZE => 3
-        ),
-        array(
-            ATTR_INDEX => 'class',
-            ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Khối',
-            ATTR_MD_SIZE => 3
-        ),
-        array(
-            ATTR_INDEX => 'classname',
-            ATTR_TYPE => EDIT_TYPE_TEXT,
-            ATTR_LABEL => 'Tên lớp',
             ATTR_MD_SIZE => 4
         ),
         array(

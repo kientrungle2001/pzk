@@ -307,3 +307,7 @@ table{
 .label-danger{
 	background-color: #d9534f !important;
 }
+
+.borderadmin .form-group {
+    min-height: 90px;
+}
