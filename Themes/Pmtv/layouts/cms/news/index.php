@@ -1,7 +1,7 @@
 <?php 
 		$category = pzk_request()->getSegment(3);
 		$curentcat = $data->getCategory($category);
-		$curentnews = $data->getNews2($category, pzk_request('page'));
+		$curentnews = $data->getNews2($category, pzk_request()->getPage());
 		//have subcate
 		$subcategories = $data->getSubCategory($category);
 		
@@ -31,7 +31,7 @@
 			<?php 
 			$total = $data->countItems($category);
 			$pages = ceil($total / 5);
-			$curPage = pzk_request('page');
+			$curPage = pzk_request()->getPage();
 			?>
 			<?php if ($pages > 1) : ?>
 			Trang 

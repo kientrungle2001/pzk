@@ -204,7 +204,7 @@ $updateDataTo = $data->getUpdateDataTo();
 <!-- end well -->
 <!-- end search, filter, sort -->
 <!-- update menu -->
-<?php if($updateData && pzk_request('action')=='index'): ?>
+<?php if($updateData && pzk_request()->getAction()=='index'): ?>
 	<div id="showmenucate">
 		<?php
 		foreach ($updateData as $item) {
@@ -219,7 +219,7 @@ $updateDataTo = $data->getUpdateDataTo();
 <?php endif; ?>
 
 <!-- update menu -->
-<?php if($updateDataTo && pzk_request('action')=='index'): ?>
+<?php if($updateDataTo && pzk_request()->getAction()=='index'): ?>
 	<div id="showmenucate">
 		<?php
 

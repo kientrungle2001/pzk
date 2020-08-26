@@ -28,11 +28,11 @@
 	$category_name = $data->getCategoryName();
 
 	$class= pzk_session('lop');
-	$currentMedia	=	intval(pzk_request('media'));
+	$currentMedia	=	intval(pzk_request()->getMedia());
 	$media=$currentMedia;
 	$mediaEntity	=	_db()->getTableEntity('media')->load($media);
-	if(pzk_request('subject')){
-		$psubject = intval(pzk_request('subject'));
+	if(pzk_request()->getSubject()){
+		$psubject = intval(pzk_request()->getSubject());
 	}else{
 		$psubject= intval(pzk_request()->getSegment(3));
 	}
@@ -75,11 +75,11 @@
 						foreach($dataCategoryCurrent['child'] as $k =>$value):
 						if(strpos($value['classes'], $class) === false) continue;
 						?>
-						<li  class="list-group-item hasa <?php if(pzk_request('topic') == $value['id']) echo 'active' ;?>"><a onclick="subject = <?php echo @$value['id']?>;document.getElementById('chonde').innerHTML = '<?php echo @$value['name']?>'; return check_display(<?php echo @$value['trial']?>);" data-de="<?php echo @$value['name']?>" class="getdata" href="/practice/doQuestion/<?php echo @$value['id']?>?subject=<?php echo $psubject ?>&class=<?php echo $class ?>&de=<?php echo @$value['name']?>"><?php echo @$value['name']?></a></li>
+						<li  class="list-group-item hasa <?php if(pzk_request()->getTopic() == $value['id']) echo 'active' ;?>"><a onclick="subject = <?php echo @$value['id']?>;document.getElementById('chonde').innerHTML = '<?php echo @$value['name']?>'; return check_display(<?php echo @$value['trial']?>);" data-de="<?php echo @$value['name']?>" class="getdata" href="/practice/doQuestion/<?php echo @$value['id']?>?subject=<?php echo $psubject ?>&class=<?php echo $class ?>&de=<?php echo @$value['name']?>"><?php echo @$value['name']?></a></li>
 					<?php endforeach;
 					} else { ?>
 						<?php 
-								$topicPost= intval(pzk_request('topic'));
+								$topicPost= intval(pzk_request()->getTopic());
 								$subjectPost= $subject;
 								$level = $data -> getLevel($subject);
 								if($level == '1'){
@@ -98,7 +98,7 @@
 									for($i = 1; $i <= $practices; $i++){  ?>
 										<li 
 											class="list-group-item hasa
-											<?php if(pzk_request('de') == $i) echo 'active'; ?>">
+											<?php if(pzk_request()->getDe() == $i) echo 'active'; ?>">
 												<a 
 													onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$catetype['trial']?>);" 
 													data-de="<?php echo $i; ?>" 
@@ -116,7 +116,7 @@
 											foreach($medias as $media) {  ?>
 												<li class="list-group-item hasa
 													exercise-of-topic-<?php echo @$topic['id']?>  
-													<?php if($currentMedia == $media['id']) echo 'active'; ?>"  style="<?php if(pzk_request('topic') != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>">
+													<?php if($currentMedia == $media['id']) echo 'active'; ?>"  style="<?php if(pzk_request()->getTopic() != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>">
 														<a 
 																
 															onclick="return check_display(1);" 
@@ -128,8 +128,8 @@
 										for($i = 1; $i <= $practices; $i++){  ?>
 											<li class="list-group-item hasa
 												exercise-of-topic-<?php echo @$topic['id']?> 
-												<?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo 'active'; ?>" 
-												style="<?php if(pzk_request('topic') != $topic['id'] ):?>display: none;<?php endif;?>">
+												<?php if(pzk_request()->getTopic() == $topic['id'] && pzk_request()->getDe() == $i) echo 'active'; ?>" 
+												style="<?php if(pzk_request()->getTopic() != $topic['id'] ):?>display: none;<?php endif;?>">
 													<a  
 														onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" 
 														data-de="<?php echo $i; ?>" 
@@ -151,7 +151,7 @@
 														<li 
 															class="list-group-item hasdot hasa exercise-of-topic-<?php echo @$section['id']?>  
 															<?php if($currentMedia == $media['id']) echo 'active'; ?>"
-															style="<?php if(pzk_request('topic') != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
+															style="<?php if(pzk_request()->getTopic() != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
 															>
 																<a onclick="return check_display(1);"class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/media-<?php echo @$media['id']?>"><?php echo @$media['name']?></a></li>
 											<?php	}
@@ -159,9 +159,9 @@
 											for($i = 1; $i <= $practices; $i++){  ?>
 												<li 
 													class="list-group-item hasa hasdot exercise-of-topic-<?php echo @$section['id']?> 
-														<?php if(pzk_request('topic')==$section['id'] && pzk_request('de') == $i) echo 'active'; ?>" 
+														<?php if(pzk_request()->getTopic()==$section['id'] && pzk_request()->getDe() == $i) echo 'active'; ?>" 
 														style="<?php if(!@$section['trial'] 
-																	&& pzk_request('topic')!=$section['id'] 
+																	&& pzk_request()->getTopic()!=$section['id'] 
 																	):?>display: none;<?php endif;?>">
 															<a  onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 											<?php 
@@ -179,7 +179,7 @@
 														<li class="list-group-item hasa hasdot
 															exercise-of-topic-<?php echo @$topic['id']?>  
 															<?php if($currentMedia == $media['id']) echo 'active'; ?>"
-															style="<?php if(pzk_request('topic') != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
+															style="<?php if(pzk_request()->getTopic() != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
 															>
 																<a 
 																	
@@ -192,9 +192,9 @@
 												for($i = 1; $i <= $practices; $i++){  ?>
 													<li 
 														class="list-group-item hasa hasdot
-															exercise-of-topic-<?php echo @$topic['id']?> <?php if(pzk_request('topic')==$topic['id'] && pzk_request('de') == $i) echo'active'; ?>" 
+															exercise-of-topic-<?php echo @$topic['id']?> <?php if(pzk_request()->getTopic()==$topic['id'] && pzk_request()->getDe() == $i) echo'active'; ?>" 
 															style="<?php if(!@$topic['trial'] 
-																&& pzk_request('topic')!=$topic['id']
+																&& pzk_request()->getTopic()!=$topic['id']
 																):?>display: none;<?php endif;?>">
 															<a 
 																onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" 
@@ -221,7 +221,7 @@
 															list-group-item  hasa hasdot
 															exercise-of-topic-<?php echo @$section1['id']?> 
 															<?php if($currentMedia == $media['id']) echo 'active'; ?>"
-															style="<?php if(pzk_request('topic') != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
+															style="<?php if(pzk_request()->getTopic() != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
 															>
 															<a 
 																onclick="return check_display(1);"
@@ -234,9 +234,9 @@
 												<li 
 													class="list-group-item hasa hasdot
 													exercise-of-topic-<?php echo @$section1['id']?> 
-													<?php if(pzk_request('topic')==$section1['id'] && pzk_request('de') == $i) echo 'active'; ?>" 
+													<?php if(pzk_request()->getTopic()==$section1['id'] && pzk_request()->getDe() == $i) echo 'active'; ?>" 
 													style="<?php if(!@$section1['trial'] 
-														&& pzk_request('topic')!=$section1['id']
+														&& pzk_request()->getTopic()!=$section1['id']
 														):?>display: none;<?php endif;?>">
 														<a  onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section1['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/examination-<?php echo $i ?>"><?php echo $language['lesson'].$i;?></a></li>
 											<?php 
@@ -253,7 +253,7 @@
 														<li class="list-group-item  hasa hasdot
 															exercise-of-topic-<?php echo @$section2['id']?> 
 															<?php if($currentMedia == $media['id']) echo 'active'; ?>"
-															style="<?php if(pzk_request('topic') != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
+															style="<?php if(pzk_request()->getTopic() != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
 															>
 																<a 
 																onclick="return check_display(1);"
@@ -265,8 +265,8 @@
 													for($i = 1; $i <= $practices; $i++){  ?>
 														<li class="list-group-item hasa hasdot
 															exercise-of-topic-<?php echo @$section2['id']?> 
-															<?php if(pzk_request('topic')==$section2['id'] && pzk_request('de') == $i) echo 'active'; ?>" 
-															style="<?php if(!@$section2['trial'] && pzk_request('topic')!=$section2['id']):?>display: none;<?php endif;?>">
+															<?php if(pzk_request()->getTopic()==$section2['id'] && pzk_request()->getDe() == $i) echo 'active'; ?>" 
+															style="<?php if(!@$section2['trial'] && pzk_request()->getTopic()!=$section2['id']):?>display: none;<?php endif;?>">
 																<a  onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$section2['trial']?>);" 
 																data-de="<?php echo $i; ?>" 
 																class="getdata" 
@@ -285,7 +285,7 @@
 														<li class="list-group-item hasa hasdot
 															exercise-of-topic-<?php echo @$topic['id']?>  
 															<?php if($currentMedia == $media['id']) echo 'active'; ?>"
-															style="<?php if(pzk_request('topic') != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
+															style="<?php if(pzk_request()->getTopic() != $topic['id'] && $currentMedia != $media['id']):?>display: none;<?php endif;?>"
 															>
 																<a  
 																onclick="return check_display(1);"
@@ -296,8 +296,8 @@
 														for($i = 1; $i <= $practices; $i++){  ?>
 															<li class="list-group-item hasa hasdot
 																exercise-of-topic-<?php echo @$topic['id']?> 
-																<?php if(pzk_request('topic')==$topic['id'] && pzk_request('de') == $i) echo'active'; ?>" 
-																style="<?php if(pzk_request('topic')!=$topic['id']):?>display: none;<?php endif;?>">
+																<?php if(pzk_request()->getTopic()==$topic['id'] && pzk_request()->getDe() == $i) echo'active'; ?>" 
+																style="<?php if(pzk_request()->getTopic()!=$topic['id']):?>display: none;<?php endif;?>">
 																	<a  onclick="document.getElementById('chonde').innerHTML = '<?php echo $language['lesson'].$i; ?>'; de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" 
 																	data-de="<?php echo $i; ?>" 
 																	class="getdata" 
@@ -372,7 +372,7 @@
 								if($check == 0){ 
 									echo $language['trialpractice']; 
 								}else{ 
-									$topicId = intval(pzk_request('topic'));
+									$topicId = intval(pzk_request()->getTopic());
 									$topic = $data->getTopicsName($topicId, $class);
 									if($lang == 'en' || $lang == 'ev'){ echo $topic['name_en']; }else{ echo $topic['name_vn']; }
 									echo " - Video"; 
@@ -609,8 +609,8 @@
 						<?php echo $language['score'];?>
 					</button>
 					<button id="show-answers" class="btn btn-danger <?php if(pzk_session('servicePackage') == 'classroom' && pzk_session('checkUser') == 1 && pzk_session('checkSchool') == 1){
-						$topicId = intval(pzk_request('topic'));
-						$exercise_number = intval(pzk_request('de'));
+						$topicId = intval(pzk_request()->getTopic());
+						$exercise_number = intval(pzk_request()->getDe());
 						$schedule  = _db()->getEntity('User.Account.Teacher');
 						$time = $schedule->checkTime($subject, $topicId, $exercise_number);
 						$now = date("d-m-Y H:i:s");
@@ -631,8 +631,8 @@
 						<?php echo $language['score'];?>
 					</button>
 					<button id="show-answers-mb" class="btn btn-danger col-xs-12 bot20 <?php if(pzk_session('servicePackage') == 'classroom' && pzk_session('checkUser') == 1 && pzk_session('checkSchool') == 1){
-								$topicId = intval(pzk_request('topic'));
-								$exercise_number = intval(pzk_request('de'));
+								$topicId = intval(pzk_request()->getTopic());
+								$exercise_number = intval(pzk_request()->getDe());
 								$schedule  = _db()->getEntity('User.Account.Teacher');
 								$time = $schedule->checkTime($subject, $topicId, $exercise_number);
 								$now = date("d-m-Y H:i:s");
@@ -677,8 +677,8 @@
 					<div class="col-md-10 col-md-offset-2 col-sm-10 col-sm-offset-2 col-xs-12">
 						<button class="btn btn-sm btn-danger col-md-4 col-sm-4 col-xs-12 top10" onclick="window.location='/?class=<?php echo $class ?>'"> <?php echo $language['other-subject'];?> <span class="glyphicon glyphicon-arrow-left hidden-xs"></span></button>
 						<button id="show-answers-on-dialog" class="btn btn-sm btn-danger col-md-3 col-sm-3 col-xs-12 top10 <?php if(pzk_session('servicePackage') == 'classroom' && pzk_session('checkUser') == 1 && pzk_session('checkSchool') == 1){
-							$topicId = intval(pzk_request('topic'));
-							$exercise_number = intval(pzk_request('de'));
+							$topicId = intval(pzk_request()->getTopic());
+							$exercise_number = intval(pzk_request()->getDe());
 							$schedule  = _db()->getEntity('User.Account.Teacher');
 							$time = $schedule->checkTime($subject, $topicId, $exercise_number);
 							$now = date("Y-m-d H:i:s");

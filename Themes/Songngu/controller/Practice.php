@@ -43,7 +43,7 @@ class PzkPracticeController extends PzkController{
 				
 			
 		$vocabularyList = pzk_element()->getVocabularyList();
-		if(pzk_request('siteId') == 2) {
+		if(pzk_request()->getSiteId() == 2) {
 			if($vocabularyList){
 				$vocabularyList->setCheckPayment($check);
 			}	
@@ -62,8 +62,8 @@ class PzkPracticeController extends PzkController{
 	
     	$check = pzk_session('checkPayment');
     	$this->initPage();
-		$de = pzk_request('de');
-		$topicId= pzk_request('topic');
+		$de = pzk_request()->getDe();
+		$topicId= pzk_request()->getTopic();
 		$category_id = pzk_request()->getSegment(3);
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 		$class= pzk_session('lop');
@@ -91,7 +91,7 @@ class PzkPracticeController extends PzkController{
 	    	
 	    	$category_type_name = $data_AdminQuestion_model->get_category_type_name($category_type);
 			$category_type_name_vn = $data_AdminQuestion_model->get_category_type_name_vn($category_type);
-			$de = pzk_request('de');
+			$de = pzk_request()->getDe();
 			if(is_numeric($de)) {
 				$question_limit = 5;
 			} else {
@@ -102,7 +102,7 @@ class PzkPracticeController extends PzkController{
 	    		'category_id'		=> pzk_request()->getTopic() ? pzk_request()->getTopic() : pzk_request()->getSegment(3),
 	    		'topic_id'			=> pzk_request()->getTopic(),
 	    		'category_name'		=> pzk_request()->getCategory_name(),
-				'class'		        =>  pzk_request('class'),
+				'class'		        =>  pzk_request()->getClass(),
 				'de'		        =>  $de,
 				'trial'		        =>  $check,
 		    	'question_limit' 	=> $question_limit,
@@ -117,8 +117,8 @@ class PzkPracticeController extends PzkController{
 	    	$data_cache = array(
 	    			'category_id'		=> pzk_request()->getSegment(3),
 	    		'category_name'		=> pzk_request()->getCategory_name(),
-				'class'		        =>  pzk_request('class'),
-				'de'		        =>  pzk_request('de'),
+				'class'		        =>  pzk_request()->getClass(),
+				'de'		        =>  pzk_request()->getDe(),
 				'trial'		        =>  $check,
 		    	'question_limit' 	=> $question_limit,
 		    	'question_time'		=> $de,
@@ -173,9 +173,9 @@ class PzkPracticeController extends PzkController{
 	public function doMediaQuestionAction(){
     	$check = pzk_session('checkPayment');
     	$this->initPage();
-		$media = pzk_request('media');
+		$media = pzk_request()->getMedia();
 		$mediaEntity	=	_db()->getTableEntity('media')->load($media);
-		$topicId= pzk_request('topic');
+		$topicId= pzk_request()->getTopic();
 		$category_id = pzk_request()->getSegment(3);
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 		$class= pzk_session('lop');
@@ -218,7 +218,7 @@ class PzkPracticeController extends PzkController{
 	    		'category_id'		=> pzk_request()->getTopic() ? pzk_request()->getTopic() : pzk_request()->getSegment(3),
 	    		'topic_id'			=> pzk_request()->getTopic(),
 	    		'category_name'		=> pzk_request()->getCategory_name(),
-				'class'		        =>  pzk_request('class'),
+				'class'		        =>  pzk_request()->getClass(),
 				'media'		        =>  $media,
 				'trial'		        =>  $check,
 		    	'question_limit' 	=> $question_limit,
@@ -233,8 +233,8 @@ class PzkPracticeController extends PzkController{
 	    	$data_cache = array(
 	    			'category_id'		=> pzk_request()->getSegment(3),
 	    		'category_name'		=> pzk_request()->getCategory_name(),
-				'class'		        =>  pzk_request('class'),
-				'media'		        =>  pzk_request('media'),
+				'class'		        =>  pzk_request()->getClass(),
+				'media'		        =>  pzk_request()->getMedia(),
 				'trial'		        =>  $check,
 		    	'question_limit' 	=> $question_limit,
 		    	'question_time'		=> 10,
@@ -288,11 +288,11 @@ class PzkPracticeController extends PzkController{
     }
 	
 	public function vocabularyAction(){
-		$class 		= pzk_request('class');
+		$class 		= pzk_request()->getClass();
 		$categoryId = pzk_request()->getSegment(3);		
 		
 		$detail = $this->parse('education/document/vocabulary');
-		$documentId = pzk_request('id');
+		$documentId = pzk_request()->getId();
 		$detail->setItemId(pzk_request()->getId());
 		$detail->setCategoryId($categoryId);
 		$detail->display();
@@ -300,8 +300,8 @@ class PzkPracticeController extends PzkController{
 	public function showVocabularyAction() {
 		$check = pzk_session('checkPayment');
     	$this->initPage();
-		$de = pzk_request('de');
-		$topicId= pzk_request('topic');
+		$de = pzk_request()->getDe();
+		$topicId= pzk_request()->getTopic();
 		$category_id = pzk_request()->getSegment(3);
 		$catEntity = _db()->getTableEntity('categories')->load($category_id, 1800);
 		$class= pzk_session('lop');
@@ -325,14 +325,14 @@ class PzkPracticeController extends PzkController{
 		echo json_encode($answer);
 	}
 	public function reportErrorAction(){
-		if(pzk_request('contentError') && pzk_request('questionId') && pzk_session('userId')){
+		if(pzk_request()->getContentError() && pzk_request()->getQuestionId() && pzk_session('userId')){
 			
 			$phone = pzk_session('phone');
 			$email = pzk_session('email');
 			$username = pzk_session('username');
 			$userId	=	pzk_session('userId');
-			$contentError = pzk_request('contentError');
-			$questionId = pzk_request('questionId');
+			$contentError = pzk_request()->getContentError();
+			$questionId = pzk_request()->getQuestionId();
 			$rows = array(
 				'phone' => $phone,
 				'email'  => $email,

@@ -85,12 +85,12 @@ class PzkHomeController extends PzkController
 	public function renderCodeFLAction()
 	{
 
-		$price = pzk_request('price');
+		$price = pzk_request()->getPrice();
 		$languages = '';
-		$time = pzk_request('time');
+		$time = pzk_request()->getTime();
 		$class = 0;
-		$softwareId = pzk_request('softwareId');
-		$siteId = pzk_request('siteId');
+		$softwareId = pzk_request()->getSoftwareId();
+		$siteId = pzk_request()->getSiteId();
 		$ettyCard = _db()->getEntity('Payment.Card_nextnobels');
 		$serial = 110000;
 		for ($i = 0; $i < 200; $i++) {
@@ -132,7 +132,7 @@ class PzkHomeController extends PzkController
 	public function ratingAction()
 	{
 
-		if (pzk_request('clearTestId') == 1) {
+		if (pzk_request()->getClearTestId() == 1) {
 			pzk_session()->setUserBookTestId(NULL);
 		}
 
@@ -159,8 +159,8 @@ class PzkHomeController extends PzkController
 	}
 	public function onchangeTestIdAction()
 	{
-		pzk_session('userBookTestId', intval(pzk_request('testId')));
-		$this->redirect('rating', array('practice' => intval(pzk_request('practice'))));
+		pzk_session('userBookTestId', intval(pzk_request()->getTestId()));
+		$this->redirect('rating', array('practice' => intval(pzk_request()->getPractice())));
 	}
 	public function listTestAction()
 	{
@@ -175,19 +175,19 @@ class PzkHomeController extends PzkController
 	public function changePageSizeAction()
 	{
 
-		$userId = intval(pzk_request('userId'));
+		$userId = intval(pzk_request()->getUserId());
 		if (!empty($userId)) {
-			pzk_session('listPageSize', intval(pzk_request('pageSize')));
+			pzk_session('listPageSize', intval(pzk_request()->getPageSize()));
 			$this->redirect('listTest/' . $userId);
 		} else {
-			pzk_session('ratingPageSize', intval(pzk_request('pageSize')));
+			pzk_session('ratingPageSize', intval(pzk_request()->getPageSize()));
 			$this->redirect('rating');
 		}
 	}
 	public function showtestnumberAction()
 	{
 		$this->parse('education/practice/showTestnumber');
-		$class = intval(pzk_request('class'));
+		$class = intval(pzk_request()->getClass());
 		$detail = pzk_element('testlist');
 		$detail->addFilter('classes', $class, 'like');
 		$detail->display();
@@ -196,7 +196,7 @@ class PzkHomeController extends PzkController
 	public function showtesttlAction()
 	{
 		$this->parse('education/practice/showTestTl');
-		$class = intval(pzk_request('class'));
+		$class = intval(pzk_request()->getClass());
 		$detail = pzk_element('testtllist');
 		$detail->addFilter('classes', $class, 'like');
 		$detail->display();
@@ -205,7 +205,7 @@ class PzkHomeController extends PzkController
 	public function showpracticenumberAction()
 	{
 		$this->parse('education/practice/showPracticenumber');
-		$class = intval(pzk_request('class'));
+		$class = intval(pzk_request()->getClass());
 		$detail = pzk_element('practicelist');
 		$detail->addFilter('classes', $class, 'like');
 		$detail->display();

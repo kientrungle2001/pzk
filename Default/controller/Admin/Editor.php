@@ -11,8 +11,8 @@ class PzkAdminEditorController extends PzkBackendController {
 	}
 	
 	public function addPostAction() {
-		$package = pzk_request('package');
-		$name = pzk_request('name');
+		$package = pzk_request()->getPackage();
+		$name = pzk_request()->getName();
 		var_dump($package);
 		var_dump($name);
 	}
@@ -47,7 +47,7 @@ class PzkAdminEditorController extends PzkBackendController {
 	
 	public function pageAction() {
 		$page = $this->parse('index');
-		$xml = pzk_request('xml');
+		$xml = pzk_request()->getXml();
 		$obj = $this->parse($xml);
 		$position = pzk_element('wrapper');
 		if($position) {
@@ -57,14 +57,14 @@ class PzkAdminEditorController extends PzkBackendController {
 	}
 	
 	public function layoutAction() {
-		$content = pzk_request('content');
+		$content = pzk_request()->getContent();
 		echo $content;
 	}
 	
 	public function openAction() {
-		$file 		= pzk_request('file');
-		$type 		= pzk_request('type');
-		$backHref 	= pzk_request('backHref');
+		$file 		= pzk_request()->getFile();
+		$type 		= pzk_request()->getType();
+		$backHref 	= pzk_request()->getBackHref();
 		$this->initPage();
 		$module = $this->parse('admin/editor/file');
 		$editor = pzk_element('editor');
@@ -78,9 +78,9 @@ class PzkAdminEditorController extends PzkBackendController {
 	}
 	
 	public function filePostAction() {
-		$backHref 		= pzk_request('backHref');
-		$fileName 		= pzk_request('file');
-		$fileContent 	= pzk_request('fileContent');
+		$backHref 		= pzk_request()->getBackHref();
+		$fileName 		= pzk_request()->getFile();
+		$fileContent 	= pzk_request()->getFileContent();
 		
 		file_put_contents(BASE_DIR . $fileName, $fileContent);
 		header('Location: ' . $backHref);

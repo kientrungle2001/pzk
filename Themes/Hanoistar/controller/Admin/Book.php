@@ -275,7 +275,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 			
 		$user_book_view->setDataUserAnswers($dataUserAnswers);
 		
-		if(pzk_request('isAjax')) {
+		if(pzk_request()->getIsAjax()) {
 			$user_book_view->display();
 		} else {
 			$this->display();
@@ -417,7 +417,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 				}
 				
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				if(pzk_request('btn_update_and_close')) {
+				if(pzk_request()->getBtn_update_and_close()) {
 					$this->redirect('index', array('selectedId' => $row['user_book_id']));
 				} else {
 					$this->redirect('details/' . $row['user_book_id']);
@@ -634,7 +634,7 @@ class PzkAdminBookController extends PzkGridAdminController {
 				}
 				
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				if(pzk_request('btn_update_and_close')) {
+				if(pzk_request()->getBtn_update_and_close()) {
 					$this->redirect('index', array('selectedId' => $row['user_book_id']));
 				} else {
 					$this->redirect('details/' . $row['user_book_id']);

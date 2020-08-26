@@ -49,7 +49,7 @@ $videojsEnabled = 0;
 				<!-- start check payment success -->
 				
 				<!-- start check has video -->
-				<?php if($item['video'] && !pzk_request('show_content')):	$file = $item['id']; ?>
+				<?php if($item['video'] && !pzk_request()->getShow_content()):	$file = $item['id']; ?>
 				<link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
 				<div id="all-videos" class="all-videos">
 				  <div id="video" class="video-wrapper">
@@ -71,7 +71,7 @@ $videojsEnabled = 0;
 				</div>
 				<script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
 				<script type="text/javascript">
-				var videoRequested = '<?php echo pzk_request('video')?>';
+				var videoRequested = '<?php echo pzk_request()->getVideo()?>';
 				$(function() {
 					$('#video-select').val(videoRequested);
 					$('#video-select').change();
@@ -164,7 +164,7 @@ $videojsEnabled = 0;
 						</select>
 					</div>
 					<div class="form-group col-xs-12 col-sm-2">
-						<?php if(pzk_request('exerciseNum')) : ?>
+						<?php if(pzk_request()->getExerciseNum()) : ?>
 							<div class="form-control"><span id="timer"><span class="minute">00</span>:<span class="second">00</span></span></div>
 							<script type="text/javascript">
 							$.fn.countdown = function(options) {
@@ -224,13 +224,13 @@ $videojsEnabled = 0;
 			
 			<div class="row">
 				<div class="col-xs-12">						
-					<div id="startForm" class="<?php if(pzk_request('exerciseNum')) : ?>hidden<?php endif;?>">
+					<div id="startForm" class="<?php if(pzk_request()->getExerciseNum()) : ?>hidden<?php endif;?>">
 						<img id="start-select" src="/themes/pmtv4/skin/media/start.png" class="img-responsive" usemap="#imagemap" width="920" height="731" />
 						<map name="imagemap">
 							<area id="btn-start" shape="rect" coords="340,46,580,85" href="#" />
 						</map>
 					</div>
-					<?php if(pzk_request('exerciseNum')) : ?>
+					<?php if(pzk_request()->getExerciseNum()) : ?>
 					
 					<div id="doForm" style="background: #fff; padding: 10px; margin-bottom: 30px;">
 						
@@ -247,7 +247,7 @@ $videojsEnabled = 0;
 						<input type="hidden" name="startTime" value="<?php echo date('Y-m-d H:i:s');?>" />
 						<input type="hidden" name="duration" id="countdownDuration" value="0" />
 						<input type="hidden" name="remaining" id="countdownRemaining" value="<?php echo (15 * 60)?>" />
-						<?php $questions = $data->getQuestions(pzk_request('exerciseNum'));
+						<?php $questions = $data->getQuestions(pzk_request()->getExerciseNum());
 						$index = 1;
 						$questionIds = array();
 						?>
@@ -308,7 +308,7 @@ $videojsEnabled = 0;
 							<div class="col-xs-12 form-group text-center">
 								<input type="hidden" name="categoryId" value="<?php echo @$item['id']?>" />
 								<input type="hidden" name="quantity" value="<?php  echo ($index-1); ?>" />
-								<input type="hidden" name="exerciseNum" value="<?php  echo pzk_request('exerciseNum'); ?>" />
+								<input type="hidden" name="exerciseNum" value="<?php  echo pzk_request()->getExerciseNum(); ?>" />
 								<input type="hidden" name="questionIds" value="<?php  echo implode(',', $questionIds); ?>" />
 								<button id="saveChoiceBtn" type="submit" class="btn btn-primary">
 									<span class="glyphicon glyphicon-ok"></span> Hoàn thành
@@ -365,7 +365,7 @@ $videojsEnabled = 0;
 			<script type="text/javascript">
 				pzk.beforeload('<?php echo @$data->id?>', function() {
 					this.setUrl('/<?php echo @$item['alias']?>');
-					this.selectExerciseNum('<?php echo pzk_request('exerciseNum'); ?>');
+					this.selectExerciseNum('<?php echo pzk_request()->getExerciseNum(); ?>');
 				});
 				pzk.onload('<?php echo @$data->id?>', function() {
 					// do nothing

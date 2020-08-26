@@ -11,8 +11,8 @@
 	
 	$dataContest = $data->getDataContest();
 	
-    if(pzk_request('page')){
-        $currentpage = intval(pzk_request('page'));
+    if(pzk_request()->getPage()){
+        $currentpage = intval(pzk_request()->getPage());
     }else $currentpage =0;
 	
 	if(isset($contestDateresult[$camp])) {

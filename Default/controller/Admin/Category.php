@@ -70,7 +70,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
             $this->redirect('index');
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 
@@ -88,8 +88,8 @@ class PzkAdminCategoryController extends PzkGridAdminController {
     }
 
     public function delAllAction() {
-        if(pzk_request('ids')) {
-            $arrIds = json_decode(pzk_request('ids'));
+        if(pzk_request()->getIds()) {
+            $arrIds = json_decode(pzk_request()->getIds());
             if(count($arrIds) >0) {
                 _db()->useCB()->delete()->from($this->table)
                     ->where(array('in', 'id', $arrIds))->result();

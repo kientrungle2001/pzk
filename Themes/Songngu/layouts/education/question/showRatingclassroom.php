@@ -4,10 +4,10 @@ $dataTest = $data->getDataTest();
 $setting = pzk_controller();
 
 /*$testId = pzk_session('userBookTestId');*/
-$testId= pzk_request('examination');
+$testId= pzk_request()->getExamination();
 
-$weekId= pzk_request('week');
-$practice = pzk_request('practice');
+$weekId= pzk_request()->getWeek();
+$practice = pzk_request()->getPractice();
 $weekName = $data->getWeekById($weekId);
 $pageSize = pzk_session('ratingPageSize');
 
@@ -23,7 +23,7 @@ if($testId) {
     }else{
         $data->pageSize = 20;
     }
-    $page = pzk_request('page');
+    $page = pzk_request()->getPage();
 
     if(!empty($page)) {
         $data->pageNum = $page;
@@ -39,7 +39,7 @@ if($testId) {
 }else{
     $items = '';
 }
-$practice = pzk_request('practice');
+$practice = pzk_request()->getPractice();
 $check= pzk_session('checkPayment'); 
 //data
 ?>
@@ -73,7 +73,7 @@ $check= pzk_session('checkPayment');
                                         $testName = $test['name_sn'];
                                     }else $testName = $test['name'];
                                 ?>
-                                    <li style="padding-left: 40px;"<?php if(pzk_request('week') == $week['id'] && pzk_request('examination') == $test['id']) echo'class="active"'; ?>>
+                                    <li style="padding-left: 40px;"<?php if(pzk_request()->getWeek() == $week['id'] && pzk_request()->getExamination() == $test['id']) echo'class="active"'; ?>>
                                         
                                         <a onclick="document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';"  data-de="<?php echo $testName ?>" class="getdata" href="/Home/showRating?week=<?php echo @$week['id']?>&practice=1&examination=<?php echo @$test['id']?>" data-type="group"><?php echo $testName ?></a>
                                         
@@ -88,7 +88,7 @@ $check= pzk_session('checkPayment');
                                     $testName = $test['name_sn'];
                                 }else $testName = $test['name'];
                             ?>
-                            <li style="padding-left: 40px;"<?php if(pzk_request('week') == $week['id'] && pzk_request('examination') == $test['id']) echo'class="active"'; ?>>
+                            <li style="padding-left: 40px;"<?php if(pzk_request()->getWeek() == $week['id'] && pzk_request()->getExamination() == $test['id']) echo'class="active"'; ?>>
                                 
                                 <a onclick="id = <?php echo @$week['id']?>;document.getElementById('chonde').innerHTML = '<?php echo $testName ?>';"  data-de="<?php echo $testName ?>" class="getdata" href="/Home/showRating?week=<?php echo @$week['id']?>&practice=0&examination=<?php echo @$test['id']?>" data-type="group"><?php echo $testName ?></a>
                                 

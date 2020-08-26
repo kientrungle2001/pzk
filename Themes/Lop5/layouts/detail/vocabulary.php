@@ -37,7 +37,7 @@
 		<li class="list-group-item"><a href="" onclick="showdoc(<?php echo @$item['id']?>,<?php echo @$item['trial']?>); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?><?php endif;?> - <?php echo @$item['tdn_title']?></a></li>
 		<?php endforeach; ?>
 		<?php foreach($topics as $topic): ?>
-		<?php if(!@$topic['hidden'] && (@$topic['displayAtSite'] == 0 || @$topic['displayAtSite'] == pzk_request('siteId') )):?>
+		<?php if(!@$topic['hidden'] && (@$topic['displayAtSite'] == 0 || @$topic['displayAtSite'] == pzk_request()->getSiteId() )):?>
 		<li class="list-group-item" style="color:#d9534f"><?php echo @$topic['name']?></li>
 		<?php endif; ?>
 		<?php 
@@ -60,7 +60,7 @@
 		<li class="list-group-item"><a href="" onclick="showdoc(<?php echo @$item['id']?>,<?php echo @$item['trial']?>); $('.fix_hover2').dropdown('toggle'); return false;" data-bind="disable: noResults()" data-check="<?php echo $check; ?>" data-cate="<?php echo $cate; ?>"><?php if(pzk_user_special()): ?>#<?php echo @$item['id']?><?php endif;?> - <?php echo @$item['tdn_title']?></a></li>
 		<?php endforeach; ?>
 		<?php foreach($topics as $topic): ?>
-			<?php if(!@$topic['hidden'] && (@$topic['displayAtSite'] == 0 || @$topic['displayAtSite'] == pzk_request('siteId') )):?>
+			<?php if(!@$topic['hidden'] && (@$topic['displayAtSite'] == 0 || @$topic['displayAtSite'] == pzk_request()->getSiteId() )):?>
 			<li class="left10 list-group-item" style="color:#d9534f"><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?><?php endif;?> - <?php echo @$topic['name']?></li>
 			<?php endif; ?>
 			<?php $subTopics = $data->getChild($topic['id'], $check, $class);?>
@@ -75,7 +75,7 @@
 			<?php endforeach; ?>
 			<?php else:?>
 			<?php foreach($subTopics as $subTopic): ?>
-				<?php if(!@$subTopic['hidden'] && (@$subTopic['displayAtSite'] == 0 || @$subTopic['displayAtSite'] == pzk_request('siteId') )):?>
+				<?php if(!@$subTopic['hidden'] && (@$subTopic['displayAtSite'] == 0 || @$subTopic['displayAtSite'] == pzk_request()->getSiteId() )):?>
 				<li class="left20 list-group-item" style="color:#d9534f"><?php if(pzk_user_special()): ?>#<?php echo @$subTopic['id']?><?php endif;?> - <?php echo @$subTopic['name']?></li>
 				<?php endif; ?>
 				<?php 

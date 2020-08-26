@@ -6,7 +6,7 @@
 
 <?php 
 	$ip = getRealIPAddress();
-	$id=pzk_request('id');
+	$id=pzk_request()->getId();
 	$ip=$data->getVisitor($ip,$id);
 	$featured=$data->getFeaturedContent($id);
 	$nlists=$data->getFeaturedList($id);

@@ -207,20 +207,19 @@ class PzkAdminModController extends PzkGridAdminController
         if ($this->validateEditData($row)) {
             $password = trim(pzk_request()->getPassword());
             if ($password) {
-
                 $row['password'] = md5($password);
                 $this->edit($row);
-                pzk_notifier()->addMessage('Cập nhật thành công');
+                pzk_notifier()->addMessage('Cập nhật thành công bản ghi #' . $row['id']);
                 $this->redirect('index');
             } else {
                 unset($row['password']);
                 $this->edit($row);
-                pzk_notifier()->addMessage('Cập nhật thành công');
+                pzk_notifier()->addMessage('Cập nhật thành công bản ghi #' . $row['id']);
                 $this->redirect('index');
             }
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request()->getId());
+            $this->redirect('edit' . DS . pzk_request()->getId());
         }
     }
     public function addPostAction()
@@ -237,7 +236,7 @@ class PzkAdminModController extends PzkGridAdminController
                 pzk_validator()->setEditingData($row);
                 $this->redirect('add');
             } else {
-                $password = trim(pzk_request('password'));
+                $password = trim(pzk_request()->getPassword());
                 if ($password) {
                     $row['password'] = md5($password);
 

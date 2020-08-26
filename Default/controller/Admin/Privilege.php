@@ -7,9 +7,9 @@ class PzkAdminPrivilegeController extends PzkBackendController {
 	}
 	
 	public function editAction()	{
-		$action		=	pzk_request('admin_action');
-		$controller	=	pzk_request('admin_controller');
-		$role		=	pzk_request('role');
+		$action		=	pzk_request()->getAdmin_action();
+		$controller	=	pzk_request()->getAdmin_controller();
+		$role		=	pzk_request()->getRole();
 		$row 	= _db()->selectAll()->from('admin_level_action')
 			->whereAdmin_action($controller)
 			->whereAction_type($action)
@@ -35,7 +35,7 @@ class PzkAdminPrivilegeController extends PzkBackendController {
 				'action_type'	=>	$action,
 				'admin_level'	=>	$role,
 				'status'		=>	1,
-				'software'		=>	pzk_request('softwareId')
+				'software'		=>	pzk_request()->getSoftwareId()
 			));
 			$entity->save();
 			echo '1';

@@ -1,7 +1,7 @@
 ﻿<?php if(!$data->getIsAjax()): ?>
 <?php
-$comments = pzk_request('comments');
-$featuredid = pzk_request('id');
+$comments = pzk_request()->getComments();
+$featuredid = pzk_request()->getId();
 $ip = getRealIPAddress();
 pzk_session('featuredid',$featuredid);
 if (pzk_session('login')){
@@ -48,7 +48,7 @@ span.comment_date{font-weight:none; font-size:12px;}
 <?php 
 			$total = $data->countItems();
 			$pages = ceil($total / 5);
-			$curPage = pzk_request('page');
+			$curPage = pzk_request()->getPage();
 			?>
 
 			<p class="text-center">Trang 
@@ -100,8 +100,8 @@ function commentpage(i){
 </script>
 <?php else: ?>
 <?php
-$comments=pzk_request('comments');
-$featuredid=pzk_request('id');
+$comments=pzk_request()->getComments();
+$featuredid=pzk_request()->getId();
 $ip = getRealIPAddress();
 pzk_session('featuredid',$featuredid);
 if (pzk_session('login')){
@@ -126,7 +126,7 @@ span.comment_date{font-weight:none; font-size:12px;}
 <div class="comments-wrapper">
 		
 		<h4 class="text-center"><span class="label label-primary">Nhận xét về bài viết</span></h4>
-<?php $allcomments=$data->getComments($featuredid,pzk_request('page')); ?>
+<?php $allcomments=$data->getComments($featuredid,pzk_request()->getPage()); ?>
 <?php foreach($allcomments as $allcomment): ?>		
 <div class="panel-group" id="accordion2">
   <div class="panel panel-default">
@@ -146,7 +146,7 @@ span.comment_date{font-weight:none; font-size:12px;}
 <?php 
 			$total = $data->countItems();
 			$pages = ceil($total / 5);
-			$curPage = intval(pzk_request('page'));
+			$curPage = intval(pzk_request()->getPage());
 			?>
 
 			<p class="text-center">Trang 

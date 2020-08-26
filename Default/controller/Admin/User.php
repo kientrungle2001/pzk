@@ -675,8 +675,8 @@ class PzkAdminUserController extends PzkGridAdminController {
 	);
 	public function editPostAction() {
 		$row = $this->getEditData ();
-		$row ['registeredAtSoftware'] = pzk_request('SoftwareId');
-		$row ['registeredAtSite'] = pzk_request('SiteId');
+		$row ['registeredAtSoftware'] = pzk_request()->getSoftwareId();
+		$row ['registeredAtSite'] = pzk_request()->getSiteId();
 		if ($this->validateEditData ( $row )) {
 			$password = trim ( pzk_request ( 'password' ) );
 			$confirmpassword = trim ( pzk_request ( 'confirmpassword' ) );
@@ -740,8 +740,8 @@ class PzkAdminUserController extends PzkGridAdminController {
 			), $this->passwordValidator );
 			if ($passwordValidateResult) {
 				$row ['password'] = md5 ( $password );
-				$row ['registeredAtSoftware'] = pzk_request('SoftwareId');
-				$row ['registeredAtSite'] = pzk_request('SiteId');
+				$row ['registeredAtSoftware'] = pzk_request()->getSoftwareId();
+				$row ['registeredAtSite'] = pzk_request()->getSiteId();
 				$this->add ( $row );
 				pzk_notifier ()->addMessage ( 'Cập nhật thành công' );
 				$this->redirect ( 'index' );

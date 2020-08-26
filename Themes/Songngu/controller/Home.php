@@ -31,14 +31,14 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	public function renderCodeAction()
 	{
 
-		$price = pzk_request('price');
-		$languages = pzk_request('languages');
-		$time = pzk_request('time');
-		$class = pzk_request('class');
-		$softwareId = pzk_request('softwareId');
-		$siteId = pzk_request('siteId');
-		$serial = pzk_request('serial');
-		$quantity = pzk_request('quantity');
+		$price = pzk_request()->getPrice();
+		$languages = pzk_request()->getLanguages();
+		$time = pzk_request()->getTime();
+		$class = pzk_request()->getClass();
+		$softwareId = pzk_request()->getSoftwareId();
+		$siteId = pzk_request()->getSiteId();
+		$serial = pzk_request()->getSerial();
+		$quantity = pzk_request()->getQuantity();
 		$ettyCard = _db()->getEntity('Payment.Card_nextnobels');
 
 		for ($i = 0; $i < $quantity; $i++) {
@@ -90,13 +90,13 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function ratingAction()
 	{
-		if (pzk_request('clearTestId') == 1) {
+		if (pzk_request()->getClearTestId() == 1) {
 			pzk_session()->del('userBookTestId');
 		}
-		$week = pzk_request('week');
-		$de = pzk_request('examination');
-		$practice = pzk_request('practice');
-		$clearTestId = pzk_request('clearTestId');
+		$week = pzk_request()->getWeek();
+		$de = pzk_request()->getExamination();
+		$practice = pzk_request()->getPractice();
+		$clearTestId = pzk_request()->getClearTestId();
 		$this->initPage();
 		pzk_page()->setTitle('Bảng xếp hạng');
 		pzk_page()->setKeywords('Giáo dục');
@@ -134,7 +134,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	public function showRatingAction()
 	{
 
-		if (pzk_request('clearTestId') == 1) {
+		if (pzk_request()->getClearTestId() == 1) {
 			pzk_session()->setUserBookTestId(NULL);
 		}
 
@@ -442,16 +442,16 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 	public function userVoteAction()
 	{
-		$answerId = pzk_request('answer');
-		$pollId = pzk_request('pollId');
+		$answerId = pzk_request()->getAnswer();
+		$pollId = pzk_request()->getPollId();
 		$ip = $_SERVER['REMOTE_ADDR'];
 		$poll = _db()->getEntity('Cms.Poll.Result');
 		$row = array(
 			'pollId'    => $pollId,
 			'answerId'  => $answerId,
 			'userIp'	=> $ip,
-			'site'		=> pzk_request('siteId'),
-			'software'	=> pzk_request('softwareId'),
+			'site'		=> pzk_request()->getSiteId(),
+			'software'	=> pzk_request()->getSoftwareId(),
 			'created'			=> date(DATEFORMAT, $_SERVER['REQUEST_TIME']),
 
 		);
@@ -462,7 +462,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 	public function filterDataByWeekAction()
 	{
-		$val = pzk_request('val');
+		$val = pzk_request()->getVal();
 		$tam = explode('-', $val);
 		$week = $tam[0];
 		$year = $tam[1];
@@ -472,7 +472,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function filterAchievementByWeekAction()
 	{
-		$val = pzk_request('val');
+		$val = pzk_request()->getVal();
 		$tam = explode('-', $val);
 		$week = $tam[0];
 		$year = $tam[1];
@@ -482,7 +482,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function resultAchievementByWeekAction()
 	{
-		$val = pzk_request('val');
+		$val = pzk_request()->getVal();
 		$tam = explode('-', $val);
 		$week = $tam[0];
 		$year = $tam[1];
@@ -492,7 +492,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function sortAchievementAction()
 	{
-		$val = pzk_request('val');
+		$val = pzk_request()->getVal();
 		pzk_session('sortAchievement', $val);
 
 		$this->redirect('home/achievement');
@@ -569,7 +569,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function getDistrictAction()
 	{
-		$provinceId = pzk_request('provinceId');
+		$provinceId = pzk_request()->getProvinceId();
 
 		$this->parse('user/register/district');
 		$district = pzk_element('pagDistrict');
@@ -578,7 +578,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function getSchoolAction()
 	{
-		$districtId = pzk_request('districtId');
+		$districtId = pzk_request()->getDistrictId();
 		$this->parse('user/register/school');
 		$school = pzk_element('pagSchool');
 		$school->setDistrictId($districtId);
@@ -587,7 +587,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 	public function getDistrict2Action()
 	{
-		$provinceId = pzk_request('provinceId');
+		$provinceId = pzk_request()->getProvinceId();
 
 		$this->parse('home/district');
 		$district = pzk_element('district');
@@ -596,7 +596,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function getSchool2Action()
 	{
-		$districtId = pzk_request('districtId');
+		$districtId = pzk_request()->getDistrictId();
 		$this->parse('home/school');
 		$school = pzk_element('school');
 		$school->setDistrictId($districtId);
@@ -605,7 +605,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 	public function changeServiceAction()
 	{
-		$serviceName = pzk_request('serviceName');
+		$serviceName = pzk_request()->getServiceName();
 		$this->parse('user/register/service');
 		$service = pzk_element('pagService');
 		$service->setServiceName($serviceName);
@@ -613,11 +613,11 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function getRatingAction()
 	{
-		$provinceId = pzk_request('provinceId');
-		$districtId = pzk_request('districtId');
-		$schoolId   = pzk_request('schoolId');
-		$classId    = pzk_request('classId');
-		$classname  = pzk_request('classname');
+		$provinceId = pzk_request()->getProvinceId();
+		$districtId = pzk_request()->getDistrictId();
+		$schoolId   = pzk_request()->getSchoolId();
+		$classId    = pzk_request()->getClassId();
+		$classname  = pzk_request()->getClassname();
 
 		$classname  = strtolower($classname);
 		$classname  = trim($classname);
@@ -661,12 +661,12 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	}
 	public function setAreacodeAction()
 	{
-		$city = pzk_request('city');
-		$district = pzk_request('district');
-		$school   = pzk_request('school');
-		$class    = pzk_request('classId');
-		$classname  = pzk_request('classname');
-		$classall = pzk_request('classall');
+		$city = pzk_request()->getCity();
+		$district = pzk_request()->getDistrict();
+		$school   = pzk_request()->getSchool();
+		$class    = pzk_request()->getClassId();
+		$classname  = pzk_request()->getClassname();
+		$classall = pzk_request()->getClassall();
 		$classname  = strtolower($classname);
 		$classname  = trim($classname);
 
@@ -745,9 +745,9 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 
 	function dangkiAction()
 	{
-		$name = pzk_request('name');
-		$email   = pzk_request('email');
-		$phone    = pzk_request('phone');
+		$name = pzk_request()->getName();
+		$email   = pzk_request()->getEmail();
+		$phone    = pzk_request()->getPhone();
 		if ($name && $email && $phone) {
 			$row = array(
 				'name' => $name,
@@ -763,7 +763,7 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	function voteAction()
 	{
 
-		$content = pzk_request('content');
+		$content = pzk_request()->getContent();
 		if ($content && pzk_session('userId')) {
 			$userId = pzk_session('userId');
 			$username = pzk_session('username');
@@ -793,9 +793,9 @@ class PzkHomeController extends PzkThemesDefaultHomeController
 	{
 		if (pzk_request()) {
 			$row = array(
-				'userId' => pzk_request('userId'),
-				'content' => pzk_request('text'),
-				'senderId' => pzk_request('userchuc'),
+				'userId' => pzk_request()->getUserId(),
+				'content' => pzk_request()->getText(),
+				'senderId' => pzk_request()->getUserchuc(),
 				'created' => date(DATEFORMAT, $_SERVER['REQUEST_TIME'])
 			);
 			$frontendmodel = pzk_model('Frontend');

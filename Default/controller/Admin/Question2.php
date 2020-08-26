@@ -955,14 +955,14 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 		
 		//set index owner
 		$adminmodel = pzk_model('Admin');
-		$controller = pzk_request('controller');
+		$controller = pzk_request()->getController();
 		 
 		$checkEditOwner = $adminmodel->checkActionType('editOwner', $controller, pzk_session('adminLevel'));
 		
 		if($checkEditOwner){
 			
 			$entity = _db()->getEntity('Table')->setTable($this->table);
-			$entity->load(pzk_request('id'));
+			$entity->load(pzk_request()->getId());
 			
 			if($entity->getCreatorId() == pzk_session()->getadminId()) {
 				
@@ -996,7 +996,7 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			}
 			
 			$entity = _db()->getEntity('Table')->setTable($this->table);
-			$entity->load(pzk_request('id'));
+			$entity->load(pzk_request()->getId());
 			$entity->update($row);
 			$entity->save();
 		}
@@ -1186,18 +1186,18 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 				if($result !=false){
 					
 					pzk_notifier()->addMessage('Cập nhật thành công');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}else{
 					
 					pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-					$this->redirect('detail/' . pzk_request('id'));
+					$this->redirect('detail/' . pzk_request()->getId());
 				}
 			}
 		}
 	}
 	
 	function edit_tlPostAction() {
-		$question_id = pzk_request('id');
+		$question_id = pzk_request()->getId();
 		$row = $this->getEditData();
 		$answers = $row['answers'];
 		_db()->update('questions')
@@ -1266,11 +1266,11 @@ class PzkAdminQuestion2Controller extends PzkGridAdminController {
 			if($result !=false){
 					
 				pzk_notifier()->addMessage('Cập nhật thành công');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}else{
 					
 				pzk_notifier()->addMessage('<div class="color_delete">Cập nhật không thành công !</div>');
-				$this->redirect('detail/' . pzk_request('id'));
+				$this->redirect('detail/' . pzk_request()->getId());
 			}
 		}
 	}

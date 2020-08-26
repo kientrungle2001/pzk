@@ -20,7 +20,7 @@ class PzkAQsController extends PzkController {
 	{	
 		if(pzk_session('login'))
 		{
-			$question=pzk_request('question');				
+			$question=pzk_request()->getQuestion();				
 			$username=pzk_session('username');					
 			if(!empty($question)){
 				$addquestion=array('question'=>$question,'username'=>$username);
@@ -41,8 +41,8 @@ class PzkAQsController extends PzkController {
 	{
 		if(pzk_session('login'))
 		{
-			$answer=pzk_request('answer');
-			$questionid=pzk_request('questionid');
+			$answer=pzk_request()->getAnswer();
+			$questionid=pzk_request()->getQuestionid();
 			$userid=pzk_session('id');
 			$username=pzk_session('username');
 			if(!empty($answer)){

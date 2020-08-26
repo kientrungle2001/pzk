@@ -96,16 +96,16 @@ class PzkLectureController extends PzkController {
 	public function saveChoiceAction() {
 		// kết quả
 		$result = array(
-			'quantity' 	=> (int)pzk_request('quantity'),
+			'quantity' 	=> (int)pzk_request()->getQuantity(),
 			'rights'	=> 0,
 			'wrongs'	=> 0
 		);
 		
 		// câu trả lời
-		$answers = pzk_request('answers');
+		$answers = pzk_request()->getAnswers();
 		
 		// loại câu hỏi
-		$question_types = pzk_request('question_types');
+		$question_types = pzk_request()->getQuestion_types();
 		
 		// nếu ko có câu trả lời
 		if(!count($answers)) {
@@ -133,7 +133,7 @@ class PzkLectureController extends PzkController {
 			// tính số câu sai
 			$result['wrongs'] = $result['quantity'] - $rslt['rights'];
 		}
-		$questions_answers = _db()->select('id,question_id,content')->fromAnswers_question_tn()->whereStatus(1)->where('question_id in ('.pzk_request('questionIds').')')->limit($result['quantity'])->result();
+		$questions_answers = _db()->select('id,question_id,content')->fromAnswers_question_tn()->whereStatus(1)->where('question_id in ('.pzk_request()->getQuestionIds().')')->limit($result['quantity'])->result();
 		$answersRslt = array();
 		foreach($questions_answers as $answer) {
 			if($question_types[$answer['question_id']] == QUESTION_TYPE_CHOICE) {
@@ -148,15 +148,15 @@ class PzkLectureController extends PzkController {
 		$data = array(
 			'userId'		=> pzk_session()->getUserId(),
 			'quantity'		=> $result['quantity'],
-			'categoryId'	=> pzk_request('categoryId'),
+			'categoryId'	=> pzk_request()->getCategoryId(),
 			'rights'		=> $result['rights'],
 			'userAnswers'	=> json_encode($answers),
 			'created'		=> date(DATEFORMAT),
-			'questionIds'	=> pzk_request('questionIds'),
-			'exerciseNum'	=> pzk_request('exerciseNum'),
-			'duration'		=> pzk_request('duration'),
-			'startTime'		=> pzk_request('startTime'),
-			'remaining'		=> pzk_request('remaining')
+			'questionIds'	=> pzk_request()->getQuestionIds(),
+			'exerciseNum'	=> pzk_request()->getExerciseNum(),
+			'duration'		=> pzk_request()->getDuration(),
+			'startTime'		=> pzk_request()->getStartTime(),
+			'remaining'		=> pzk_request()->getRemaining()
 		);
 		_db()->insert('pmtv_user_book')->fields(false)->values($data)->result();
 		echo json_encode($result);
@@ -164,12 +164,12 @@ class PzkLectureController extends PzkController {
 	
 	public function saveTestAction() {
 		$result = array(
-			'quantity' 	=> (int)pzk_request('quantity'),
+			'quantity' 	=> (int)pzk_request()->getQuantity(),
 			'rights'	=> 0,
 			'wrongs'	=> 0
 		);
 		
-		$answers = pzk_request('answers');
+		$answers = pzk_request()->getAnswers();
 		if(!count($answers)) {
 			$result['wrongs'] = $result['quantity'];
 		} else {
@@ -181,7 +181,7 @@ class PzkLectureController extends PzkController {
 			$result['rights'] = (int)$rslt['rights'];
 			$result['wrongs'] = $result['quantity'] - $rslt['rights'];
 		}
-		$questions_answers = _db()->select('id,question_id')->fromAnswers_question_tn()->whereStatus(1)->where('question_id in ('.pzk_request('questionIds').')')->limit($result['quantity'])->result();
+		$questions_answers = _db()->select('id,question_id')->fromAnswers_question_tn()->whereStatus(1)->where('question_id in ('.pzk_request()->getQuestionIds().')')->limit($result['quantity'])->result();
 		$answersRslt = array();
 		foreach($questions_answers as $answer) {
 			$answersRslt[$answer['question_id']] = $answer['id'];
@@ -191,22 +191,22 @@ class PzkLectureController extends PzkController {
 		$data = array(
 			'userId'		=> pzk_session()->getUserId(),
 			'quantity'		=> $result['quantity'],
-			'categoryId'	=> pzk_request('categoryId'),
+			'categoryId'	=> pzk_request()->getCategoryId(),
 			'rights'		=> $result['rights'],
 			'userAnswers'	=> json_encode($answers),
 			'created'		=> date(DATEFORMAT),
-			'questionIds'	=> pzk_request('questionIds'),
-			'testId'		=> pzk_request('testId'),
-			'duration'		=> pzk_request('duration'),
-			'startTime'		=> pzk_request('startTime'),
-			'remaining'		=> pzk_request('remaining')
+			'questionIds'	=> pzk_request()->getQuestionIds(),
+			'testId'		=> pzk_request()->getTestId(),
+			'duration'		=> pzk_request()->getDuration(),
+			'startTime'		=> pzk_request()->getStartTime(),
+			'remaining'		=> pzk_request()->getRemaining()
 		);
 		_db()->insert('pmtv_user_book')->fields(false)->values($data)->result();
 		echo json_encode($result);
 	}
 	
 	public function explainAction() {
-		$questions_answers = _db()->select('id,question_id,recommend')->fromAnswers_question_tn()->whereStatus(1)->where('question_id in ('.pzk_request('questionIds').')')->limit((int)pzk_request('quantity'))->result();
+		$questions_answers = _db()->select('id,question_id,recommend')->fromAnswers_question_tn()->whereStatus(1)->where('question_id in ('.pzk_request()->getQuestionIds().')')->limit((int)pzk_request()->getQuantity())->result();
 		$answersRslt = array();
 		foreach($questions_answers as $answer) {
 			$answersRslt[$answer['question_id']] = $answer['recommend'];

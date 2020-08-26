@@ -146,8 +146,8 @@ class PzkApiAccountController extends PzkController {
 		if(pzk_session('username') == pzk_session('adminUser')) {
 			pzk_model('Admin')->logout();
 		}
-		if(pzk_request('backHref')){
-			$this->redirect(pzk_request('backHref'));
+		if(pzk_request()->getBackHref()){
+			$this->redirect(pzk_request()->getBackHref());
 		} else {
 			$this->redirect(self::CONTROLLER_HOME_WELCOME);
 		}
@@ -202,14 +202,14 @@ class PzkApiAccountController extends PzkController {
 					$user->setRegistered(date("Y-m-d H:i:s"));
 					$user->setRegisteredAtSoftware($softwareId);
 					$user->setRegisteredAtSite($siteId);
-					$provincename= pzk_request('provincename');
+					$provincename= pzk_request()->getProvincename();
 					$user->setRefId(pzk_session('refId'));
 					$address = $provincename;
-					if((pzk_request('softwareId') == 1) && (pzk_request('siteId') == 2)){
-						if(pzk_request('school')){
-							$school= pzk_request('school');
+					if((pzk_request()->getSoftwareId() == 1) && (pzk_request()->getSiteId() == 2)){
+						if(pzk_request()->getSchool()){
+							$school= pzk_request()->getSchool();
 							$user->setSchool($school);
-							$schoolname= pzk_request('schoolname');
+							$schoolname= pzk_request()->getSchoolname();
 							
 							
 							$user->setSchoolname($schoolname);
@@ -217,25 +217,25 @@ class PzkApiAccountController extends PzkController {
 								$user->setSchool('');
 								$user->setSchoolname('');
 							}
-						if(pzk_request('selectclass')){
-							$selectclass= pzk_request('selectclass');
+						if(pzk_request()->getSelectclass()){
+							$selectclass= pzk_request()->getSelectclass();
 							$user->setClass($selectclass);
 						}else $user->setClass('');
-						if(pzk_request('classname')){
-							$classname= pzk_request('classname');
+						if(pzk_request()->getClassname()){
+							$classname= pzk_request()->getClassname();
 							$user->setClassname($classname);
 						}else $user->setClassname('');
-						if(pzk_request('district')){
-							$district= pzk_request('district');
-							$districtname= pzk_request('districtname');
+						if(pzk_request()->getDistrict()){
+							$district= pzk_request()->getDistrict();
+							$districtname= pzk_request()->getDistrictname();
 							$user->setDistrict($district);
 						}else $user->setDistrict('');
-						if(pzk_request('servicePackage')){
-							$servicePackage= pzk_request('servicePackage');
+						if(pzk_request()->getServicePackage()){
+							$servicePackage= pzk_request()->getServicePackage();
 							$user->setServicePackage($servicePackage);
 						}else $user->setServicePackage('');
 						
-						if(pzk_request('school')){
+						if(pzk_request()->getSchool()){
 							$address = 'Lớp '. $selectclass. $classname. ' Trường '. $schoolname.' - '. $districtname.' - '. $provincename;
 						}
 					}
@@ -453,7 +453,7 @@ class PzkApiAccountController extends PzkController {
 	
 	function checkLoginAction(){
 		
-		$checkLogin = pzk_request('checkLogin');
+		$checkLogin = pzk_request()->getCheckLogin();
 		
 		$login = pzk_session('userId');
 		

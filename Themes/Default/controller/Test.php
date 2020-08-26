@@ -59,7 +59,7 @@ class PzkTestController extends PzkController{
 	function testtlAction(){
 		
     	
-		$class 		= intval(pzk_request('class'));
+		$class 		= intval(pzk_request()->getClass());
 		
 		$testId = (int) pzk_request()->getSegment(3);
 		$dbTryTestIds = _db()->select('id')->fromTests()->whereTrial(1)->whereSoftware(1)->result();
@@ -134,8 +134,8 @@ class PzkTestController extends PzkController{
 	
 	function doTestAction(){
 		
-    	$class 		= intval(pzk_request('class'));
-		$type		= intval(pzk_request('practice'));
+    	$class 		= intval(pzk_request()->getClass());
+		$type		= intval(pzk_request()->getPractice());
     	if( pzk_request()->is('POST')){
 	    	$testId = (int) pzk_request()->getTest();
 	    	if(isset($testId)){
@@ -178,7 +178,7 @@ class PzkTestController extends PzkController{
 		$type		= intval($request->getPractice());
 		$check 		= pzk_session('checkPayment');
     	
-    	$testId 	= intval(pzk_request('de'));
+    	$testId 	= intval(pzk_request()->getDe());
 		$testEntity = _db()->getTableEntity('tests')->load($testId, 1800);
 		
 		$this->initPage();
@@ -234,7 +234,7 @@ class PzkTestController extends PzkController{
 			$this->display();
 			pzk_system()->halt();
     	}else{
-			$testId 	= intval(pzk_request('de'));
+			$testId 	= intval(pzk_request()->getDe());
 			$check 		= pzk_session('checkPayment');
 			
 			if(isset($check) && $check == 0){
@@ -251,9 +251,9 @@ class PzkTestController extends PzkController{
 			}
 		}
 		
-    	$class 		= intval(pzk_request('class'));
-		$practice	= intval(pzk_request('practice'));
-		$week		= intval(pzk_request('id'));
+    	$class 		= intval(pzk_request()->getClass());
+		$practice	= intval(pzk_request()->getPractice());
+		$week		= intval(pzk_request()->getId());
 		
 
     	if(isset($testId)){

@@ -280,7 +280,7 @@
 				alert('Bạn cần mua tài khoản để được sử dụng nội dung này !');
 		}
 	}
-	<?php if( $documentId = pzk_request('documentId')){ 
+	<?php if( $documentId = pzk_request()->getDocumentId()){ 
 	$document = _db()->selectAll()->fromDocument()->whereId($documentId)->result_one();
 	?>
 		$(function() {

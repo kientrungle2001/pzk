@@ -1,5 +1,5 @@
 <?php 
-$package = trim(pzk_request('package'), '/');
+$package = trim(pzk_request()->getPackage(), '/');
 if($package) {
 	$objects = glob('objects/' . trim($package, '/') . '/*.*');
 	$dirs = dir_dirs('objects/' . trim($package, '/'));

@@ -316,7 +316,7 @@ class PzkAdminServicePolicyController extends PzkGridAdminController {
         
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
     public function addPostAction() {

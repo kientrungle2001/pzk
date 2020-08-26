@@ -69,14 +69,14 @@ VALUES ('7', 'minhhoan123', '5', '', '$i', '1', now(), '1', now(), '', '', '1', 
 	
 	public function renderCodeAction(){
 		
-		$price = pzk_request('price');
-		$languages = pzk_request('languages');
-		$time = pzk_request('time');
-		$class = pzk_request('class');
-		$softwareId =pzk_request('softwareId');
-		$siteId = pzk_request('siteId');
-		$serial = pzk_request('serial');
-		$quantity = pzk_request('quantity');
+		$price = pzk_request()->getPrice();
+		$languages = pzk_request()->getLanguages();
+		$time = pzk_request()->getTime();
+		$class = pzk_request()->getClass();
+		$softwareId =pzk_request()->getSoftwareId();
+		$siteId = pzk_request()->getSiteId();
+		$serial = pzk_request()->getSerial();
+		$quantity = pzk_request()->getQuantity();
 		$ettyCard = _db()->getEntity('Payment.Card_nextnobels');
 		
 		for ($i=0; $i < $quantity ; $i++) { 

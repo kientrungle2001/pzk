@@ -53,8 +53,8 @@ class PzkServiceLectureModel {
             'paymentStatus' =>  1,
             'paymentDate'   =>  date('Y-m-d'),
             'status'        =>  1,
-            'software'      =>  pzk_request('software'),
-            'site'          =>  pzk_request('siteId')
+            'software'      =>  pzk_request()->getSoftware(),
+            'site'          =>  pzk_request()->getSiteId()
         );
         $historyPayment->setData($row);
         $historyPayment->save();
@@ -73,8 +73,8 @@ class PzkServiceLectureModel {
 					'status'	=>	1,
 					'actived'	=> 	date('Y-m-d H:i:s'),
 					'amount'	=>	$paymentOptions['amount'],
-					'software'  =>  pzk_request('software'),
-					'site'      =>  pzk_request('siteId')
+					'software'  =>  pzk_request()->getSoftware(),
+					'site'      =>  pzk_request()->getSiteId()
 				));
 				$couponUser->save();
 			}

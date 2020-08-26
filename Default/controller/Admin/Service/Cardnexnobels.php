@@ -16,12 +16,12 @@ class PzkAdminServiceCardnexnobelsController extends PzkGridAdminController {
 	public $logFields 		= 'serial, price,discount,status';
     public $searchFields 	= array('pincard_normal','serial','price','discount','status', 'languages', 'time', 'class');
     public function getLinks() {
-        if(pzk_request('softwareId')==1 && pzk_request('siteId') == 1){
+        if(pzk_request()->getSoftwareId()==1 && pzk_request()->getSiteId() == 1){
            return array(array(
                 'name'  =>  '<span class="glyphicon glyphicon-plus"></span> <span>Thêm thẻ FL</span>',
                 'href'  =>  '/home/renderCodeFL?price=400000&time=365'
             ) );
-        }else if (pzk_request('softwareId')==1 && pzk_request('siteId') == 2){
+        }else if (pzk_request()->getSoftwareId()==1 && pzk_request()->getSiteId() == 2){
             return array();
 			return array(
 				

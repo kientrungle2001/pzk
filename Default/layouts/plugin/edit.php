@@ -1,5 +1,5 @@
 <?php
-$file = pzk_request('file');
+$file = pzk_request()->getFile();
 if($file) {
 $module = $data->getModule();
 $itemId = $data->getItemId();

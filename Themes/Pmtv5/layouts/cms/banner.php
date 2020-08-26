@@ -1,5 +1,5 @@
-<?php $isHomepage = strtolower(pzk_request('controller')) == 'home' && strtolower
-(pzk_request('action')) == 'index';?>
+<?php $isHomepage = strtolower(pzk_request()->getController()) == 'home' && strtolower
+(pzk_request()->getAction()) == 'index';?>
 <div class="home-slide <?php if($isHomepage): echo 'homepage-banner auto-height'; else: echo 'homepage-banner auto-height-sub';  endif;?>">
 	<div class="container">
 		<div class="row <?php if($isHomepage):?>auto-top<?php else:?>auto-top-sub<?php endif;?>">

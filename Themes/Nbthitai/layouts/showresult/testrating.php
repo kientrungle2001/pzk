@@ -2,8 +2,8 @@
 	
 	$testId = $data->getTestId();
     
-    if(pzk_request('page')){
-        $currentpage = intval(pzk_request('page'));
+    if(pzk_request()->getPage()){
+        $currentpage = intval(pzk_request()->getPage());
     }else $currentpage =0;
 	$pageSize = 20;
 	

@@ -170,7 +170,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		else $s->setSex('Nữ');
 		$hook_login = pzk_hook('login');
 		if($hook_login) require $hook_login;
-		if(pzk_request('softwareId')== 1 && pzk_request('siteId') == 2){
+		if(pzk_request()->getSoftwareId()== 1 && pzk_request()->getSiteId() == 2){
 			$s->setSchool($this->getSchool());
 			$s->setSchoolEnable(1);
 			$s->setDistrict($this->getDistrict());
@@ -193,7 +193,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		$login_ip = getIPAndAgent();
 		pzk_uservar()->set($_SERVER['HTTP_HOST'] . $this->getUsername() . '_login_ip', $login_ip);
 		pzk_user()->setData($this->getData());
-		if(pzk_request('softwareId') == 1){
+		if(pzk_request()->getSoftwareId() == 1){
 			$checkPayment= $this->checkPayment('full');
 			$s->setCheckPayment($checkPayment);
 		}
@@ -261,7 +261,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		$s->del('classname');
 		$s->del('address');
 		$s->del('birthday');
-		if(pzk_request('softwareId')== 1 && pzk_request('siteId') == 2){
+		if(pzk_request()->getSoftwareId()== 1 && pzk_request()->getSiteId() == 2){
 			$s->del('district');
 			$s->del('school');
 			$s->del('schoolEnable');
@@ -280,7 +280,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 	
 	public function activate() {
 		$this->update(array('status' => 1,'key'=>""));
-		if(pzk_request('app')=='test'){
+		if(pzk_request()->getApp()=='test'){
 			return ;
 		}
 		$wallets = $this->getWallets();
@@ -421,7 +421,7 @@ class PzkEntityUserAccountUserModel extends PzkEntityModel
 		->result('User.Account.User'); 
 	}
 	public function viewFriends($member) {
-		$page=pzk_request('page');
+		$page=pzk_request()->getPage();
 		if(!$page){
 			$page=1;
 		}

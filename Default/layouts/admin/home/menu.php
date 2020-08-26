@@ -6,7 +6,7 @@
             $allmenu = _db()->useCB()->select('*')
                 ->from('admin_menu')
                 ->where(array('status',1))
-                ->where(array('software', pzk_request('softwareId')))
+                ->where(array('software', pzk_request()->getSoftwareId()))
                 ->orderBy('ordering asc')
                 ->result();
         }else {
@@ -14,8 +14,8 @@
                 ->from('admin_menu am')
                 ->join('admin_level_action ala', 'am.admin_controller = ala.admin_action')
                 ->where(array('equal', array('column', 'ala', 'admin_level'), $level))
-                ->where(array('equal', array('column', 'am', 'software'), pzk_request('softwareId')))
-                ->where(array('equal', array('column', 'ala', 'software'), pzk_request('softwareId')))
+                ->where(array('equal', array('column', 'am', 'software'), pzk_request()->getSoftwareId()))
+                ->where(array('equal', array('column', 'ala', 'software'), pzk_request()->getSoftwareId()))
                 ->where(array('equal', array('column', 'ala', 'action_type'),'index'))
                 ->where(array('equal', array('column', 'am', 'status'),1))
                 ->where(array('equal', array('column', 'ala', 'status'),1));

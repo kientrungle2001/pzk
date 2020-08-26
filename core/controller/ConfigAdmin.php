@@ -16,7 +16,7 @@ class PzkConfigAdminController extends PzkBackendController {
     public function __construct() {
         parent::__construct();
         //get module
-        $controller = pzk_request('controller');
+        $controller = pzk_request()->getController();
         $contrParts = explode('_', $controller);
         array_shift($contrParts);//get first array value
         $this->setModule(implode('_', $contrParts));

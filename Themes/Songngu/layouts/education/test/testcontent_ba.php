@@ -1,9 +1,9 @@
 <?php
-/*$class = pzk_request('class');*/
+/*$class = pzk_request()->getClass();*/
 $class = pzk_session('lop');
-$practice= pzk_request('practice');
+$practice= pzk_request()->getPractice();
 $check=  pzk_session('checkPayment');
-$week2= pzk_request('id');
+$week2= pzk_request()->getId();
 $weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 
  ?>

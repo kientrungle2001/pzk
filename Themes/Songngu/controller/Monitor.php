@@ -32,8 +32,8 @@ class PzkMonitorController extends PzkController {
 			$this->display();
 	}
 	public function resultAchievementByWeekAction(){
-		$val = pzk_request('val');
-		$userId = pzk_request('userId');
+		$val = pzk_request()->getVal();
+		$userId = pzk_request()->getUserId();
 		$tam = explode('-', $val);
 		$week = $tam[0];
 		$year = $tam[1];
@@ -42,8 +42,8 @@ class PzkMonitorController extends PzkController {
         $this->redirect('monitor/student/'.$userId);
 	}
 	public function filterDataByWeekAction() {
-		$val = pzk_request('val');
-		$userId = pzk_request('userId');
+		$val = pzk_request()->getVal();
+		$userId = pzk_request()->getUserId();
 		$tam = explode('-', $val);
 		$week = $tam[0];
 		$year = $tam[1];

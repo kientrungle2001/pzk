@@ -88,7 +88,7 @@
 	<?php 
 			$total = $data->countItems();
 			$pages = ceil($total / 5);
-			$curPage = intval(pzk_request('page'));
+			$curPage = intval(pzk_request()->getPage());
 			?>
 
 			<p style="text-align:left;">Trang 
@@ -136,7 +136,7 @@ function aqs_changepage(i){
 		$id=$data->getInfo($username);	
 	}
 ?>
-	<?php $allquestions=$data->getQuestion(intval(pzk_request('page')));?>
+	<?php $allquestions=$data->getQuestion(intval(pzk_request()->getPage()));?>
 		<?php foreach($allquestions as $allquestion): ?>
 		<div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
@@ -178,7 +178,7 @@ function aqs_changepage(i){
 	<?php 
 			$total = $data->countItems();
 			$pages = ceil($total / 5);
-			$curPage = intval(pzk_request('page'));
+			$curPage = intval(pzk_request()->getPage());
 			?>
 
 			<p style="text-align:left;">Trang 

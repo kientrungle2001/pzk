@@ -144,7 +144,7 @@ class PzkEntityPaymentHistory_paymentModel extends PzkEntityModel
 	function CheckPayment(){
 		
 		$username = pzk_session('username');
-		$softwareId = pzk_request('softwareId');
+		$softwareId = pzk_request()->getSoftwareId();
 		if(!$username) return false;
 		$datenow= date('Y-m-d');
 		$query = _db()->useCB()-> select('count(*) as total')
@@ -164,7 +164,7 @@ class PzkEntityPaymentHistory_paymentModel extends PzkEntityModel
 	function CheckPaymentFLSongngu(){
 		
 		$username = pzk_session('username');
-		$softwareId = pzk_request('softwareId');
+		$softwareId = pzk_request()->getSoftwareId();
 		if(!$username) return false;
 		$datenow= date('Y-m-d');
 		$query = _db()->useCB()-> select('count(*) as total')
@@ -183,7 +183,7 @@ class PzkEntityPaymentHistory_paymentModel extends PzkEntityModel
 	function CheckPaymentThithu(){
 		
 		$username = pzk_session('username');
-		$softwareId = pzk_request('softwareId');
+		$softwareId = pzk_request()->getSoftwareId();
 		if(!$username) return false;
 		$datenow= date('Y-m-d');
 		$query = _db()->useCB()-> select('count(*) as total')
@@ -215,7 +215,7 @@ class PzkEntityPaymentHistory_paymentModel extends PzkEntityModel
 	}
 	function getDate(){
 		$username = pzk_session('username');
-		$softwareId = pzk_request('softwareId');
+		$softwareId = pzk_request()->getSoftwareId();
 		if(!$username) return false;		
 		$datenow= date('Y-m-d');
 		$query = _db()->useCache(300)->useCB()-> select('history_payment.paymentDate, history_payment.expiredDate , history_payment.languages, history_payment.class')
@@ -234,7 +234,7 @@ class PzkEntityPaymentHistory_paymentModel extends PzkEntityModel
 	}
 	function getDateFL(){
 		$username = pzk_session('username');
-		$softwareId = pzk_request('softwareId');
+		$softwareId = pzk_request()->getSoftwareId();
 		if(!$username) return false;		
 		$datenow= date('Y-m-d');
 		$query = _db()->useCache(300)->useCB()-> select('history_payment.paymentDate, history_payment.expiredDate')

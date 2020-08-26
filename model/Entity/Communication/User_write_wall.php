@@ -25,7 +25,7 @@ class PzkEntityCommunicationUser_write_wallModel extends PzkEntityModel
 	}
 	public function loadWriteWall($member)
 	{
-		$page=pzk_request('page_wall');
+		$page=pzk_request()->getPage_wall();
 		if(!$page){
 			$page=1;
 		}

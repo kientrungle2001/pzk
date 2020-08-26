@@ -109,7 +109,7 @@ $stt=$data->getStt();
 		if($explanation == ""){
 			$explanation = "Không có giải thích";
 		}
-		if(pzk_request('softwareId') == 1){
+		if(pzk_request()->getSoftwareId() == 1){
 			$recommentSoftware = $language['view-explanation'];
 		
 			if($explanation == ""){

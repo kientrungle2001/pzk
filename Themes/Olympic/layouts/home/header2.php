@@ -62,7 +62,7 @@
 					
 					$currentCategory = _db()->getTableEntity('categories')->load(pzk_request()->getSegment(3));
 					$controller = pzk_request()->getController();
-					$action = pzk_request()->getaction();
+					$action = pzk_request()->getAction();
 					
 					if(isset($items[0])) {
 				?>

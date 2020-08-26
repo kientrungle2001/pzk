@@ -134,7 +134,7 @@ class PzkServiceCardActivateModel {
 				$serviceModel	= 	pzk_model('Service.Full');
                 $serviceModel->insertPayment($price,'paycardfl','','',$expriedDate,'','',$className,$languages);
                 pzk_session('checkPayment',1);
-                if(pzk_request('softwareId') == 1 && pzk_request('siteId')== 2){
+                if(pzk_request()->getSoftwareId() == 1 && pzk_request()->getSiteId()== 2){
                     pzk_session('paymentLanguages',	$languages);
                     pzk_session('lop',				$className);
                 }

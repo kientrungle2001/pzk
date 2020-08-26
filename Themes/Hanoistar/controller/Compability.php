@@ -146,8 +146,8 @@ class PzkCompabilityController extends PzkController{
 	public function showtlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = intval(pzk_request('parentId'));
-			if(!pzk_request('parentId')){
+			$parentId = intval(pzk_request()->getParentId());
+			if(!pzk_request()->getParentId()){
 				$parentId = intval(pzk_request()->getSegment(4));
 			}
 			
@@ -165,7 +165,7 @@ class PzkCompabilityController extends PzkController{
 			
 			$sSchool = pzk_session('school');
 			
-			$time = intval(pzk_request('timeTl'));
+			$time = intval(pzk_request()->getTimeTl());
 			//cham chua
 			$checkMark = $frontend->checkMarkTl($userId, $parentId);						
 			$showResult = false;
@@ -192,8 +192,8 @@ class PzkCompabilityController extends PzkController{
 	public function showTestTlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = intval(pzk_request('parentId'));
-			if(!pzk_request('parentId')){
+			$parentId = intval(pzk_request()->getParentId());
+			if(!pzk_request()->getParentId()){
 				$parentId = intval(pzk_request()->getSegment(4));
 			}
 			
@@ -218,7 +218,7 @@ class PzkCompabilityController extends PzkController{
 				
 				$sSchool = pzk_session('school');
 				
-				$time = intval(pzk_request('timeTl'));
+				$time = intval(pzk_request()->getTimeTl());
 				$compabilityTl->setShowResult(false);
 				
 				$data_criteria = array(
@@ -530,7 +530,7 @@ class PzkCompabilityController extends PzkController{
 		));
 		$compabilityRating->setFields('user_contest.*, user.username, user.name');
 		$compabilityRating->setParentId($parentId);
-		$compabilityRating->setPageNum(intval(pzk_request('page')));
+		$compabilityRating->setPageNum(intval(pzk_request()->getPage()));
 		$this->display();
 	}
 	public function showMessageAndHalt($message = null) {

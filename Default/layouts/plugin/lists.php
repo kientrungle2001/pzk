@@ -2,7 +2,7 @@
 $files = $data->getFiles();
 $module = $data->getModule();
 $itemId = $data->getItemId();
-$curentUrl = pzk_request('file');
+$curentUrl = pzk_request()->getFile();
 ?>
 <h4>File plugin</h4>
 <ul class="nav nav-pills">

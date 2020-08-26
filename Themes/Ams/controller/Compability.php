@@ -265,8 +265,8 @@ class PzkCompabilityController extends PzkController{
 	public function showtlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = intval(pzk_request('parentId'));
-			if(!pzk_request('parentId')){
+			$parentId = intval(pzk_request()->getParentId());
+			if(!pzk_request()->getParentId()){
 				$parentId = intval(pzk_request()->getSegment(3));
 			}
 			
@@ -282,7 +282,7 @@ class PzkCompabilityController extends PzkController{
 			$compabilityTl = pzk_element('compabilityTl');
 			
 			
-			$time = pzk_request('timeTl');
+			$time = pzk_request()->getTimeTl();
 			
 			
 			$data_criteria = array(
@@ -303,8 +303,8 @@ class PzkCompabilityController extends PzkController{
 	public function showTestTlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = intval(pzk_request('parentId'));
-			if(!pzk_request('parentId')){
+			$parentId = intval(pzk_request()->getParentId());
+			if(!pzk_request()->getParentId()){
 				$parentId = intval(pzk_request()->getSegment(3));
 			}
 			
@@ -326,7 +326,7 @@ class PzkCompabilityController extends PzkController{
 		
 				$compabilityTl = pzk_element('compabilityTl');
 			
-				$time = pzk_request('timeTl');
+				$time = pzk_request()->getTimeTl();
 				
 				$data_criteria = array(
 					'time' => $time,
@@ -571,7 +571,7 @@ class PzkCompabilityController extends PzkController{
 		));
 		$compabilityRating->setFields('user_contest.*, user.username, user.name');
 		$compabilityRating->setParentId($parentId);
-		$compabilityRating->setPageNum(pzk_request('page'));
+		$compabilityRating->setPageNum(pzk_request()->getPage());
 		$this->display();
 	}
 	public function rankAction() {
@@ -584,7 +584,7 @@ class PzkCompabilityController extends PzkController{
 		));
 		$compabilityRating->setFields('user_contest.*, user.username, user.name');
 		$compabilityRating->setParentId($parentId);
-		$compabilityRating->setPageNum(pzk_request('page'));
+		$compabilityRating->setPageNum(pzk_request()->getPage());
 		$this->display();
 	}
 	
@@ -1190,7 +1190,7 @@ class PzkCompabilityController extends PzkController{
 	
 	
 	public function showMixedTestResultDialogAction() {
-		$answers 		= 	pzk_request('answers');
+		$answers 		= 	pzk_request()->getAnswers();
 		
 		$questionIds 	= 	$answers['questionIds'];
 		$questionTypes 	= 	$answers['questionTypes'];

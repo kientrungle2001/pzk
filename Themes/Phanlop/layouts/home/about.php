@@ -14,7 +14,7 @@ table.tb_catruc td {
 }
 </style>
 <?php 
-	$tab6 = intval(pzk_request('tab6'));
+	$tab6 = intval(pzk_request()->getTab6());
 ?>
 
 <?php $data->displayChildren('[position=public-header]') ?>

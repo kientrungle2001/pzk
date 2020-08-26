@@ -1,6 +1,6 @@
 <?php
-$controller = pzk_request('controller');
-$action = pzk_request('action');
+$controller = pzk_request()->getController();
+$action = pzk_request()->getAction();
 $setting = pzk_controller();
 $config = pzk_request()->getConfig();
 ?>

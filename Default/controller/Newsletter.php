@@ -21,7 +21,7 @@ class PzkNewsletterController extends PzkController {
 	public function subscribeSuccessPostAction()
 	{
 			$error="";	
-			$email=pzk_request('email');
+			$email=pzk_request()->getEmail();
 			$testEmail= _db()->useCB()->select('email')->from('newsletter_subscriber')->where(array('equal','email',$email))->result();
 				if($testEmail)
 					{
@@ -41,8 +41,8 @@ class PzkNewsletterController extends PzkController {
 					}
 	}
 	public function unsubscribeAction(){
-			$email = pzk_request('email');
-			$key = pzk_request('key');
+			$email = pzk_request()->getEmail();
+			$key = pzk_request()->getKey();
 			$key2 = md5($email.'nn123456');
 			 if($key==$key2)
 				{

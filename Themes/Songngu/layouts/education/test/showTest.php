@@ -21,16 +21,16 @@
 	}
 	$data_criteria	= $data->getData_criteria();
 	
-	/*$class = pzk_request('class');*/
+	/*$class = pzk_request()->getClass();*/
 	$class = pzk_session('lop');
-	$type= pzk_request('practice');
+	$type= pzk_request()->getPractice();
 	$check=  pzk_session('checkPayment');
 	
 	$language = pzk_global()->getLanguage();
 	$lang = pzk_session('language');
-	$week2= pzk_request('id');
+	$week2= pzk_request()->getId();
 	
-	$practice= pzk_request('practice');
+	$practice= pzk_request()->getPractice();
 	$weekname = $data->getWeekNameSN($week2,$practice, $check, $class);
 	
 ?>
@@ -517,7 +517,7 @@
 		            data:{
 		            	answers: 	formdata,
 		            	keybook:"<?=$data_criteria['keybook']?>",
-		            	week: "<?php echo pzk_request('id'); ?>"
+		            	week: "<?php echo pzk_request()->getId(); ?>"
 		            },
 		            url:'<?=BASE_REQUEST?>/Ngonngu/saveChoice',
 		            success: function(results){

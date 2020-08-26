@@ -16,7 +16,7 @@ class PzkDocumentController extends PzkController{
 	}
 	
 	public function indexAction(){
-		$class 		= pzk_request('class');
+		$class 		= pzk_request()->getClass();
 		$categoryId = pzk_request()->getSegment(3);
 		$this->initPage()
 		->append('education/document/index');
@@ -40,12 +40,12 @@ class PzkDocumentController extends PzkController{
 	}
 	
 	public function detailAction(){
-		$class 		= pzk_request('class');
+		$class 		= pzk_request()->getClass();
 		$categoryId = pzk_request()->getSegment(3);
 		$this->initPage()
 			->append('education/document/detail');
 			
-		$documentId = pzk_request('id');
+		$documentId = pzk_request()->getId();
 		
 		$documentEntity = _db()->getTableEntity('document')->load($documentId, 1800);
 		

@@ -6,7 +6,7 @@ class PzkEntityCommunicationUser_noteModel extends PzkEntityModel
 {
 	public $table="user_note"; 
 	public function loadNote($member){
-		$page=pzk_request('page');
+		$page=pzk_request()->getPage();
 		if(!$page){
 			$page=1;
 		}
@@ -17,7 +17,7 @@ class PzkEntityCommunicationUser_noteModel extends PzkEntityModel
 	}
 	public function viewNote($member)
 	{
-			$page=pzk_request('page');
+			$page=pzk_request()->getPage();
 			if(!$page){
 				$page=1;
 			}

@@ -4,7 +4,7 @@
 ?>
 <h3><?php echo $language['same'];?></h3>
 <ul class="list-unstyled">
-	<?php  $items = $data->getOther(pzk_request('id')); ?>
+	<?php  $items = $data->getOther(pzk_request()->getId()); ?>
 	<?php foreach($items as $item): ?>
 	<?php  $cates = $data->getCate($item['categoryId']); ?>
 	<?php foreach($cates as $cate): ?>

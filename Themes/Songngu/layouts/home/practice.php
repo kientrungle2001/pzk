@@ -46,8 +46,8 @@
 </div>
 <?php $data->displayChildren('[position=bottom-slide]') ?>			
 <script>	
-	<?php if(pzk_request('class')) : ?>
-		$(".btnclick[data-class=<?php echo pzk_request('class') ?>]").trigger("click");
+	<?php if(pzk_request()->getClass()) : ?>
+		$(".btnclick[data-class=<?php echo pzk_request()->getClass() ?>]").trigger("click");
 	<?php endif; ?>
 	$(".subjectclick").click(function(){
 		<?php if(pzk_session('userId')): ?>

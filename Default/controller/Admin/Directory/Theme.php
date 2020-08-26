@@ -30,7 +30,7 @@ class PzkAdminDirectoryThemeController extends PzkBackendController {
 	}
 	
 	public function designAction($id) {
-		$theme 	= pzk_request('theme');
-		$page	= pzk_request('page');
+		$theme 	= pzk_request()->getTheme();
+		$page	= pzk_request()->getPage();
 	}
 }

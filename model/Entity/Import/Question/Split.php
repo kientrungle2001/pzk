@@ -36,17 +36,17 @@ class PzkEntityImportQuestionSplitModel extends PzkEntityModel
 			$answers[$rightIndex]->setRecommend($request);
 			$answers[$rightIndex]->setStatus('1');
 		} else {
-			if(!pzk_request('isAjax'))
+			if(!pzk_request()->getIsAjax())
 			pzk_notifier_add_message('Câu hỏi: '. $name . ' chưa có câu trả lời đúng', 'danger');
 		}
 		if(!$level) {
-			if(!pzk_request('isAjax'))
+			if(!pzk_request()->getIsAjax())
 			pzk_notifier_add_message('Câu hỏi: '. $name . ' chưa có độ khó', 'danger');
 		}
 		$this->setLevel($level);
 		$this->setAnswers($answers);
 		if(!count($answers)) {
-			if(!pzk_request('isAjax'))
+			if(!pzk_request()->getIsAjax())
 			pzk_notifier_add_message('Câu hỏi: '. $name . ' chưa có câu trả lời nào', 'danger');
 		}
 	}

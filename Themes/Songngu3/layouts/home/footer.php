@@ -268,7 +268,7 @@ if(turnOnDate.getTime() < serverMicroTime) {
 </script>
 <?php endif;?>
 
-<?php if(pzk_session()->getUserId() && (pzk_request('softwareId') ==1) && (pzk_session('email') =='' || pzk_session('phone') == '')): ?>
+<?php if(pzk_session()->getUserId() && (pzk_request()->getSoftwareId() ==1) && (pzk_session('email') =='' || pzk_session('phone') == '')): ?>
 
 <div class="pd-10 pdbot-100">
 <form id="addinfo" class="login form-horizontal" onsubmit="updateInfo()" method="post">
@@ -337,7 +337,7 @@ if(turnOnDate.getTime() < serverMicroTime) {
 <?php endif; ?>
 
 <?php
-if(pzk_request('showLogin')): ?>
+if(pzk_request()->getShowLogin()): ?>
 <script type="text/javascript">
 	$(function()
 	{

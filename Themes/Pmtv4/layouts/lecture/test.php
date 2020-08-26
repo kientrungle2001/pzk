@@ -33,7 +33,7 @@ $cat = _db()->getTableEntity('categories')->load($data->getCatId());
 			
 			<div class="row">
 				<div class="col-xs-12">						
-					<div id="startForm" class="<?php if(pzk_request('step')) : ?>hidden<?php endif;?>">
+					<div id="startForm" class="<?php if(pzk_request()->getStep()) : ?>hidden<?php endif;?>">
 						<img id="start-select" src="/Themes/pmtv4/skin/media/start.png" class="img-responsive" usemap="#imagemap" width="920" height="731" />
 						<map name="imagemap">
 							<area id="btn-start" shape="rect" coords="340,46,580,85" href="#" />
@@ -49,7 +49,7 @@ $cat = _db()->getTableEntity('categories')->load($data->getCatId());
 					<img class="img-responsive" src="/Themes/pmtv4/skin/media/buy_required.png" />
 					<?php endif;?>
 					<?php else: ?>
-					<?php if(pzk_request('step') == 'doing'): ?>
+					<?php if(pzk_request()->getStep() == 'doing'): ?>
 						<form id="questionForm" class="form">
 						<div class="row">
 							<div class="col-xs-12"><?php echo $cat->getContent()?></div>
@@ -162,7 +162,7 @@ $cat = _db()->getTableEntity('categories')->load($data->getCatId());
 			pzk.onload('<?php echo @$data->id?>', function() {
 				// do nothing
 			});
-			<?php if(pzk_request('step') == 'doing' && pzk_session('userId') && pzk_user()->checkPayment('lecture', 2)):?>
+			<?php if(pzk_request()->getStep() == 'doing' && pzk_session('userId') && pzk_user()->checkPayment('lecture', 2)):?>
 			$.fn.countdown = function(options) {
 				var pause = this.data('pause') || false;
 				if('pause' === options) {

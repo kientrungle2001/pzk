@@ -20,8 +20,8 @@
 		}	
 	}
 	$data_criteria	= $data->getData_criteria();
-	$class = intval(pzk_request('class'));
-	$type= intval(pzk_request('practice'));
+	$class = intval(pzk_request()->getClass());
+	$type= intval(pzk_request()->getPractice());
 	if($type == 0){
 		$dataTest = $data->getTest();
 	}

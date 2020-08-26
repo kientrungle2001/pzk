@@ -297,7 +297,7 @@ class PzkCollectionModel extends PzkSG{
 		$table = $this->getTable();
 		$tablefields = $this->getTableFields();
 		if(in_array('software', $tablefields)) {
-			$softwareId = pzk_request('softwareId');
+			$softwareId = pzk_request()->getSoftwareId();
 			
 			$softwareConds = "`$table`.`software`=$softwareId";
 			if(in_array('global', $tablefields)) {
@@ -310,7 +310,7 @@ class PzkCollectionModel extends PzkSG{
 			}
 			
 			if(in_array('site', $tablefields)) {
-				$siteId = pzk_request('siteId');
+				$siteId = pzk_request()->getSiteId();
 				if($siteId) {
 					$softwareConds = "($softwareConds) and (`$table`.`site`=$siteId or `$table`.`site`=0)";
 				} else {

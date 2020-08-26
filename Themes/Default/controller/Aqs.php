@@ -24,7 +24,7 @@ class PzkAqsController extends PzkController {
 	{	
 		if(pzk_session('login'))
 		{
-			$question	=	clean_value(pzk_request('question'));
+			$question	=	clean_value(pzk_request()->getQuestion());
 			$username	=	pzk_session('username');					
 			if($question){
 				$addquestion = array(
@@ -48,8 +48,8 @@ class PzkAqsController extends PzkController {
 	{
 		if(pzk_session('login'))
 		{
-			$answer			=	clean_value(pzk_request('answer'));
-			$questionid		=	intval(pzk_request('questionid'));
+			$answer			=	clean_value(pzk_request()->getAnswer());
+			$questionid		=	intval(pzk_request()->getQuestionid());
 			$userid			=	pzk_session('userId');
 			$username		=	pzk_session('username');
 			if($answer){

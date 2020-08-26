@@ -22,8 +22,8 @@ class PzkBackendController extends PzkController
         elseif($admin && ($level=='Administrator' || $level=='Headmaster' || $level =='Teacher' || $level =='HomeroomTeacher')) {
         }
         else {
-            $controller = pzk_request('controller');
-            $action = pzk_request('action');
+            $controller = pzk_request()->getController();
+            $action = pzk_request()->getAction();
             if(isset($action) && $action != 'index') {
 
                 $adminmodel = pzk_model('Admin');

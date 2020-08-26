@@ -27,8 +27,8 @@
 	$category 			= $data->getCategory();
 	$category_id 		= $data->getCategoryId();
 	$category_name 		= $data->getCategoryName();
-	$class				= intval(pzk_request('class'));
-	$de					= intval(pzk_request('de'));
+	$class				= intval(pzk_request()->getClass());
+	$de					= intval(pzk_request()->getDe());
 	$subject			= intval(pzk_request()->getSegment(3));
 	$parentSubject 		= 0;
 	if($subject) {
@@ -106,13 +106,13 @@
 					<?php endforeach;
 					} else { ?>
 						<?php 
-								$topicPost= intval(pzk_request('topic'));
+								$topicPost= intval(pzk_request()->getTopic());
 								$subjectPost= $subject;
 								$level = $data -> getLevel($subject);
 								if($level == '1'){
 									$practices = $data->getPractices($class,$subject, $check);
 										for($i = 1; $i <= $practices; $i++){  ?>
-											<li <?php if(pzk_request('de') == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+											<li <?php if(pzk_request()->getDe() == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 									<?php } //end for
 								}elseif($level == '2'){
 									$topics= $data->getTopics($subject, $check);
@@ -121,7 +121,7 @@
 											echo '<li class="left20" style="color:#d9534f"><h5><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?><?php endif;?> - <?php echo $topic['name'].'</strong></h5>';
 											$practices = $data->getPractices($class,$topic['id'], $check);
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li <?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+												<li <?php if(pzk_request()->getTopic() == $topic['id'] && pzk_request()->getDe() == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 											<?php } //end for
 										} 
 								}elseif ($level == '3') {
@@ -132,7 +132,7 @@
 										if(count($topicChilds) == 0) {
 											$practices = $data->getPractices($class,$section['id'], $check);
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li <?php if(pzk_request('topic') == $section['id'] && pzk_request('de') == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+												<li <?php if(pzk_request()->getTopic() == $section['id'] && pzk_request()->getDe() == $i) echo'class="active"'; ?> ><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section['alias']?>-<?php echo @$section['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 											<?php 
 											}
 										} else {										
@@ -140,7 +140,7 @@
 												echo '<li class="left20'.(@$topic['trial'] ? ' trial-3-level-2': '').'" style="color:#d9534f"><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?><?php endif;?> - <?php echo $topic['name'].'</strong>';
 												$practices = $data->getPractices($class,$topic['id'], $check);
 												for($i = 1; $i <= $practices; $i++){  ?>
-													<li <?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+													<li <?php if(pzk_request()->getTopic() == $topic['id'] && pzk_request()->getDe() == $i) echo'class="active"'; ?>><a style="padding-left: 40px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 												<?php 
 												} 
 											}
@@ -154,7 +154,7 @@
 										if(count($sections2) == 0) {
 											$practices = $data->getPractices($class,$section1['id'], $check);
 											for($i = 1; $i <= $practices; $i++){  ?>
-												<li <?php if(pzk_request('topic') == $section1['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+												<li <?php if(pzk_request()->getTopic() == $section1['id'] && pzk_request()->getDe() == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section1['alias']?>-<?php echo @$section1['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 											<?php 
 											}
 										} else {
@@ -164,7 +164,7 @@
 												if(count($topicChilds) == 0) {
 													$practices = $data->getPractices($class,$section2['id'], $check);
 													for($i = 1; $i <= $practices; $i++){  ?>
-														<li <?php if(pzk_request('topic') == $section2['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+														<li <?php if(pzk_request()->getTopic() == $section2['id'] && pzk_request()->getDe() == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$section2['alias']?>-<?php echo @$section2['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 													<?php 
 													}
 												} else {
@@ -172,7 +172,7 @@
 														echo '<li class="'.(@$topic['trial'] ? ' trial-4-level-3': '').'" style="color:#d9534f; padding-left: 40px;"><h5><strong>';?><?php if(pzk_user_special()): ?>#<?php echo @$topic['id']?><?php endif;?> - <?php echo $topic['name'].'</strong></h5>';
 														$practices = $data->getPractices($class,$topic['id'], $check);
 														for($i = 1; $i <= $practices; $i++){  ?>
-															<li <?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
+															<li <?php if(pzk_request()->getTopic() == $topic['id'] && pzk_request()->getDe() == $i) echo'class="active"'; ?>><a style="padding-left: 50px;" onclick="document.getElementById('chonde').innerHTML = '<?php echo "Bài ".$i; ?>'; de=<?php echo $i ?>; " data-de="<?php echo $i; ?>" class="getdata" href="/practice/class-5/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>"><?php echo "Bài ".$i;?><?php if($check == 0){ echo " - Bài dùng thử"; }?></a></li>
 														<?php 
 														} 
 													}	

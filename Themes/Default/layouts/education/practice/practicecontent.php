@@ -151,7 +151,7 @@
 	</div>
 </div>
 <script>
-	numberclass = <?php echo intval(pzk_request('class')); ?>;
+	numberclass = <?php echo intval(pzk_request()->getClass()); ?>;
 	de = null;
 	subject = <?php echo intval(pzk_request()->getSegment(3)); ?>;
 	de_type = null;

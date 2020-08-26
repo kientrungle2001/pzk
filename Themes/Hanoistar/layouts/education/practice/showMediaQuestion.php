@@ -6,11 +6,11 @@
 	$category_name = $data->getCategoryName();
 
 	$class= pzk_session('lop');
-	$currentMedia	=	intval(pzk_request('media'));
+	$currentMedia	=	intval(pzk_request()->getMedia());
 	$media=$currentMedia;
 	$mediaEntity	=	_db()->getTableEntity('media')->load($media);
-	if(pzk_request('subject')){
-		$psubject = intval(pzk_request('subject'));
+	if(pzk_request()->getSubject()){
+		$psubject = intval(pzk_request()->getSubject());
 	}else{
 		$psubject= intval(pzk_request()->getSegment(3));
 	}
@@ -82,7 +82,7 @@
 								if($check == 0){ 
 									echo $language['trialpractice']; 
 								}else{ 
-									$topicId = intval(pzk_request('topic'));
+									$topicId = intval(pzk_request()->getTopic());
 									$topic = $data->getTopicsName($topicId, $class);
 									if($lang == 'en' || $lang == 'ev'){ echo $topic['name_en']; }else{ echo $topic['name_vn']; }
 									echo ' - ' .$mediaEntity->getName(); 

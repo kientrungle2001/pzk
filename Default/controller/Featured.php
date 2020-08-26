@@ -35,7 +35,7 @@ class PzkFeaturedController extends PzkController {
 		{	
 			if(pzk_session('login'))
 				{
-					$comments=pzk_request('comments');
+					$comments=pzk_request()->getComments();
 					$ip=pzk_session('userIp');
 					$featuredid=pzk_session('featuredid');
 					$userid=pzk_session('id');
@@ -71,10 +71,10 @@ class PzkFeaturedController extends PzkController {
 			}
 			else
 			{
-			$userid=pzk_request('userid');
-			$featuredid=pzk_request('featuredid');
-			$datelike=pzk_request('datelike');
-			$commentid=pzk_request('commentid');
+			$userid=pzk_request()->getUserid();
+			$featuredid=pzk_request()->getFeaturedid();
+			$datelike=pzk_request()->getDatelike();
+			$commentid=pzk_request()->getCommentid();
 			$testlike=_db()->useCB()->select('id')->from('comment_like')->where(array('featuredId', $featuredid))->where(array('userId', $userid))->where(array('timelike', $datelike))->where(array('commentId', $commentid))->result_one();
 			if(!$testlike){
 				

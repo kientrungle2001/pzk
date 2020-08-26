@@ -239,9 +239,9 @@ class PzkAdminPackagesController extends PzkGridAdminController {
         $this->display();
     }
     public function putFileAction() {
-        $file = pzk_request('file');
-        $fileContent = pzk_request('content');
-        $link = pzk_request('link');
+        $file = pzk_request()->getFile();
+        $fileContent = pzk_request()->getContent();
+        $link = pzk_request()->getLink();
         file_put_contents($file, $fileContent);
         $this->redirect($link);
     }

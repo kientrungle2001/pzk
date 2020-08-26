@@ -35,8 +35,8 @@ class PzkContestController extends PzkController{
 	}
 	
 	public function testAction(){
-		$class = intval(pzk_request('class'));
-		$type= intval(pzk_request('practice'));
+		$class = intval(pzk_request()->getClass());
+		$type= intval(pzk_request()->getPractice());
 		$check = pzk_user()->checkPayment('full');
     	$this->initPage();
     	$testId = intval(pzk_request()->getSegment(3));
@@ -72,8 +72,8 @@ class PzkContestController extends PzkController{
     }
 	
 	function showTestAction(){
-    	$class = intval(pzk_request('class'));
-		$type= intval(pzk_request('practice'));
+    	$class = intval(pzk_request()->getClass());
+		$type= intval(pzk_request()->getPractice());
     	if( pzk_request()->is('POST')){
 	    	$testId = (int) pzk_request()->getTest();
 	    	if(isset($testId)){
@@ -267,7 +267,7 @@ class PzkContestController extends PzkController{
 		if(!$username){
 			return false;
 		}
-		$serviceId	= 	intval(pzk_request('serviceId'));
+		$serviceId	= 	intval(pzk_request()->getServiceId());
 		$service= _db()->getEntity('Service.Service');
 		$service->load($serviceId);
 		$price = $service->getamount();
@@ -292,7 +292,7 @@ class PzkContestController extends PzkController{
 			}else if($serviceType=='thithu4' || $serviceType=='thithu-4'){
 				$viewTest = 2;
 			} 
-			if(pzk_request('app') == 'nobel_test') {
+			if(pzk_request()->getApp() == 'nobel_test') {
 				
 				//insert table history_view_test
 				if($viewTest>0){
@@ -375,15 +375,15 @@ class PzkContestController extends PzkController{
 		$this->display();
     }
     public function changePageSizeAction() {
-        pzk_session('ratingPageSize', intval(pzk_request('pageSize')));
-		$camp = intval(pzk_request('camp'));
-        //pzk_session('camp', pzk_request('camp'));
+        pzk_session('ratingPageSize', intval(pzk_request()->getPageSize()));
+		$camp = intval(pzk_request()->getCamp());
+        //pzk_session('camp', pzk_request()->getCamp());
         $this->redirect('rating?camp='.$camp);
     }
 	public function newsAction() {
         $this->initPage();
 		
-		$newsId = intval(pzk_request('id'));
+		$newsId = intval(pzk_request()->getId());
 		
 		if(!$newsId) $newsId = intval(pzk_request()->getSegment(3));
 		

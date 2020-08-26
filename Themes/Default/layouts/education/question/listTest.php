@@ -26,7 +26,7 @@
     <h2 class="text-center robotofont">Danh sách các bài thi</h2>
 </div>
 
-<?php $practice = intval(pzk_request('practice'));?>
+<?php $practice = intval(pzk_request()->getPractice());?>
  
 <div class="container">
 <a href="/Home/rating?practice=<?php echo $practice ?>" class="btn btn-primary">Quay lại <span class="glyphicon glyphicon-arrow-left"></span></a>
@@ -37,7 +37,7 @@ $UserId = pzk_or(intval(pzk_request()->getSegment(3)), pzk_session()->getUserId(
 $pageSize = 25;
 $data->pageSize = $pageSize;
 
-$page = intval(pzk_request('page'));
+$page = intval(pzk_request()->getPage());
 if(!empty($page)) {
     $data->pageNum = $page;
 }else{

@@ -18,8 +18,8 @@ class PzkWorkflowOrdercardModel {
 			'resellerId'=>	$couponEntity->getResellerId(),
 			'status'	=>	1,
 			'actived'	=>	date('Y-m-d H:i:s'),
-			'software'	=>	pzk_request('softwareId'),
-			'site'		=>	pzk_request('siteId'),
+			'software'	=>	pzk_request()->getSoftwareId(),
+			'site'		=>	pzk_request()->getSiteId(),
 			'amount'	=>	$entity->getAmount(),
 			'class'		=>	$entity->getClass(),
 			'languages'	=>	$entity->getLanguages()

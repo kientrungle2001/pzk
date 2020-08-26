@@ -149,7 +149,7 @@ class PzkEducationModel {
 						'userId'	=>	$userEntity->getId(),
 						'testId'	=>	$testEntity->getId(),
 						'homework'	=>	$testEntity->getHomework(),
-						'software'	=>	pzk_request('softwareId')
+						'software'	=>	pzk_request()->getSoftwareId()
 					)
 				))
 				->result();

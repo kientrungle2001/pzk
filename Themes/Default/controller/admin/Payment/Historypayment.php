@@ -544,8 +544,8 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
 					'languages'	=>	$row['languages'],
 					'creatorId' =>	pzk_session('adminId'),
 					'created' 	=>	date("Y-m-d H:i:s"),
-					'software'	=>	pzk_request('softwareId'),
-					'site'		=>	pzk_request('siteId')
+					'software'	=>	pzk_request()->getSoftwareId(),
+					'site'		=>	pzk_request()->getSiteId()
 				));
 				$couponUser->save();
 				$row['amount']	=	$amount;
@@ -569,7 +569,7 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
     }
 
     public function editPostAction() {
-    	$id		= pzk_request('id');
+    	$id		= pzk_request()->getId();
         $row 	= $this->getEditData();
         
 		// check bản ghi dịch vụ
@@ -607,8 +607,8 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
 					'languages'	=>	$row['languages'],
 					'modifiedId' =>	pzk_session('adminId'),
 					'modified' 	=>	date("Y-m-d H:i:s"),
-					'software'	=>	pzk_request('softwareId'),
-					'site'		=>	pzk_request('siteId'),
+					'software'	=>	pzk_request()->getSoftwareId(),
+					'site'		=>	pzk_request()->getSiteId(),
 					'paymentId'	=>	$id
 				));
 				$couponUser->save();
@@ -619,15 +619,15 @@ class PzkAdminPaymentHistorypaymentController extends PzkGridAdminController {
         	$date = date("Y-m-d H:i:s");
             $row['modifiedId'] = pzk_session('adminId');
             $row['modified'] = date("Y-m-d H:i:s");            
-            $row['software'] = pzk_request('softwareId');
-            $row['site'] = pzk_request('siteId');
+            $row['software'] = pzk_request()->getSoftwareId();
+            $row['site'] = pzk_request()->getSiteId();
 			$this->edit($row);
             pzk_notifier()->addMessage('Cập nhật thành công');
             $this->redirect('index');
         
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 }

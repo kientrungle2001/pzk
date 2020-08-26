@@ -36,7 +36,7 @@ class PzkThemesDefaultPracticeController extends PzkController{
 				
 			
 		$vocabularyList = pzk_element()->getVocabularyList();
-		if(pzk_request('siteId') == 2) {
+		if(pzk_request()->getSiteId() == 2) {
 			if($vocabularyList){
 				$vocabularyList->setCheckPayment($check);
 			}	
@@ -89,9 +89,9 @@ class PzkThemesDefaultPracticeController extends PzkController{
     	
 		$this->initPage();
 		
-		$de = intval(pzk_request('de'));
+		$de = intval(pzk_request()->getDe());
 		
-		$topicId		= intval(pzk_request('topic'));
+		$topicId		= intval(pzk_request()->getTopic());
 		
 		// subject
 		$category_id 	= intval(pzk_request()->getSegment(3));
@@ -136,7 +136,7 @@ class PzkThemesDefaultPracticeController extends PzkController{
 	    }
 		
 		$vocabularyList = pzk_element()->getVocabularyList();
-		if(pzk_request('siteId') == 2) {
+		if(pzk_request()->getSiteId() == 2) {
 			if($vocabularyList){
 				$vocabularyList->setCheckPayment($check);
 			}	
@@ -167,14 +167,14 @@ class PzkThemesDefaultPracticeController extends PzkController{
 		echo json_encode($answer);
 	}
 	public function reportErrorAction(){
-		if(pzk_request('contentError') && pzk_request('questionId') && pzk_session('userId')){
+		if(pzk_request()->getContentError() && pzk_request()->getQuestionId() && pzk_session('userId')){
 			
 			$phone = pzk_session('phone');
 			$email = pzk_session('email');
 			$username = pzk_session('username');
 			$userId	=	pzk_session('userId');
-			$contentError = clean_value(pzk_request('contentError'));
-			$questionId = intval(pzk_request('questionId'));
+			$contentError = clean_value(pzk_request()->getContentError());
+			$questionId = intval(pzk_request()->getQuestionId());
 			$rows = array(
 				'phone' => $phone,
 				'email'  => $email,

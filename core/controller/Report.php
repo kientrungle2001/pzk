@@ -21,16 +21,16 @@ class PzkReportController extends PzkGridAdminController {
     public $reportColumns = false;
 
     public function highchartAction() {
-        pzk_session('report_type', pzk_request('type'));
+        pzk_session('report_type', pzk_request()->getType());
 
         $this->redirect('index');
     }
 
     public function changeGroupByColumnsAction() {
-        $columnType = explode('|', pzk_request('groupByColumns'));
+        $columnType = explode('|', pzk_request()->getGroupByColumns());
         $column = $columnType[0];
         $type = $columnType[1];
-        $ColumnCheck = pzk_request('groupByColumnCheck');
+        $ColumnCheck = pzk_request()->getGroupByColumnCheck();
         if($ColumnCheck)  {
             $arrGroupByColumns = pzk_session($this->table.'groupByColumns');
             $arrGroupByColumns[$column] = $type;
@@ -70,8 +70,8 @@ class PzkReportController extends PzkGridAdminController {
     }
 
     public function changeGroupByColumnTypesAction() {
-        $groupByColumn = pzk_request('groupByColumn');
-        $groupByColumnType = pzk_request('groupByColumnType');
+        $groupByColumn = pzk_request()->getGroupByColumn();
+        $groupByColumnType = pzk_request()->getGroupByColumnType();
 
         $arrGroupByColumnTypes = pzk_session($this->table.'groupByColumnType');
         $arrGroupByColumnTypes[$groupByColumn] = $groupByColumnType;
@@ -81,7 +81,7 @@ class PzkReportController extends PzkGridAdminController {
 
     }
     public function reportColumnAction() {
-        $report = pzk_request('reportColumn');
+        $report = pzk_request()->getReportColumn();
         $arrR = explode('|', $report);
         $reportColumn = $arrR[1];
         $showColumn = $arrR[0];
@@ -91,9 +91,9 @@ class PzkReportController extends PzkGridAdminController {
         $this->redirect('index');
     }
     public function fillterReportAction() {
-        $column = pzk_request('column');
-        $toDate = pzk_request('todate');
-        $fromDate = pzk_request('fromdate');
+        $column = pzk_request()->getColumn();
+        $toDate = pzk_request()->getTodate();
+        $fromDate = pzk_request()->getFromdate();
         $arrGroupByColumnTypes = pzk_session($this->table.'groupByColumnType');
         $type = @$arrGroupByColumnTypes[$column];
         $arrCondition = pzk_session($this->table.'arrcondition');
@@ -116,7 +116,7 @@ class PzkReportController extends PzkGridAdminController {
 
     }
     public function delConditionAction() {
-        $column = pzk_request('column');
+        $column = pzk_request()->getColumn();
         $arrCondition = pzk_session($this->table.'arrcondition');
         $arrDate = pzk_session($this->table.'arrdate');
         if($arrCondition && $arrDate) {
@@ -130,8 +130,8 @@ class PzkReportController extends PzkGridAdminController {
 
     }
     public function changeNormalConditionAction() {
-        $column = pzk_request('column');
-        $value = pzk_request('value');
+        $column = pzk_request()->getColumn();
+        $value = pzk_request()->getValue();
         $normalCondition = pzk_session($this->table.'normalcond');
         if($value) {
             $normalCondition[$column] = $value;

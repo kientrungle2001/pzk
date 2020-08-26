@@ -90,7 +90,7 @@ class PzkGridAdminController extends PzkAdminController {
 				$grid->setCheckDel(true);
 				$grid->setCheckDialog(true);
 			}else {
-				$controller = pzk_request('controller');
+				$controller = pzk_request()->getController();
 				$adminmodel = pzk_model('Admin');
 				$checkAdd = $adminmodel->checkActionType('add', $controller, $level);
 				$checkEdit = $adminmodel->checkActionType('edit', $controller, $level);
@@ -150,7 +150,7 @@ class PzkGridAdminController extends PzkAdminController {
 			
 			//set index owner
 			$adminmodel = pzk_model('Admin');
-			$controller = pzk_request('controller');
+			$controller = pzk_request()->getController();
 			 
 			$checkIndexOwner = $adminmodel->checkActionType('indexOwner', $controller, pzk_session('adminLevel'));
 			
@@ -314,11 +314,11 @@ class PzkGridAdminController extends PzkAdminController {
 		
 	}
     public function updateOneFieldAction() {
-        if(pzk_request('ids')) {
-            $arrIds = json_decode(pzk_request('ids'));
-            $field = pzk_request('field');
-            $data = pzk_request('data');
-            $type = pzk_request('type');
+        if(pzk_request()->getIds()) {
+            $arrIds = json_decode(pzk_request()->getIds());
+            $field = pzk_request()->getField();
+            $data = pzk_request()->getData();
+            $type = pzk_request()->getType();
 
             if($type == 'mutiSelect' or $type == 'multiselectoption') {
                 if($data[$field]) {
@@ -352,10 +352,10 @@ class PzkGridAdminController extends PzkAdminController {
         }
     }
 	public function updateDataToAction() {
-		if(pzk_request('ids')) {
-			$arrIds = json_decode(pzk_request('ids'));
+		if(pzk_request()->getIds()) {
+			$arrIds = json_decode(pzk_request()->getIds());
 
-			$data = pzk_request('data');
+			$data = pzk_request()->getData();
 			$formIndex = $data['index'];
 
 			$updateDataTo = $this->getUpdateDataTo();

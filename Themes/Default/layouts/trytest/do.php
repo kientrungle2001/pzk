@@ -27,7 +27,7 @@
 			<br/>  <br/>Học sinh hoàn thành bài trắc nghiệm rồi mới được làm bài tự luận. 
 			<br/><br/><br/>
 			<?php
-			if((time() >= strtotime($contest['startDate'])) || (pzk_request('showDebug') == 1)) { ?>
+			if((time() >= strtotime($contest['startDate'])) || (pzk_request()->getShowDebug() == 1)) { ?>
 			<a class='btn btn-primary' href='<?=BASE_REQUEST;?>/trytest/showtn/<?=$contestId;?>'>Bắt đầu thi</a>
 			<?php } ?>
 		</div>

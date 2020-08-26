@@ -35,7 +35,7 @@
 			$explanation = "Không có giải thích";
 		}
 		
-		if(pzk_request('softwareId') == 1){
+		if(pzk_request()->getSoftwareId() == 1){
 			$recommentSoftware = "View explanation";
 			if($explanation == ""){
 				$explanation = "Have not explanation";

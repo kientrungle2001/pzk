@@ -2,7 +2,7 @@
 
 /*$dataTest = $data->getDataTest();*/
 /*$dataWeeks = $data->getWeekTest(354);*/
-$practice= pzk_request('practice');
+$practice= pzk_request()->getPractice();
 $check= pzk_session('checkPayment');
 ?>
 <div class="container">

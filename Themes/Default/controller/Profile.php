@@ -36,29 +36,29 @@ class PzkProfileController extends PzkFrontendController
 		$this->display();
 	}
 	public function onchangeCateIdAction() {
-        pzk_session('cateSelect', intval(pzk_request('categoryId')));
-        pzk_session('cateSelectName', clean_value(pzk_request('cateName')));
+        pzk_session('cateSelect', intval(pzk_request()->getCategoryId()));
+        pzk_session('cateSelectName', clean_value(pzk_request()->getCateName()));
         $this->redirect('teacher');
     }
 	
 	public function onchangeHistoryWeekAction() {
-        pzk_session('historyWeek', intval(pzk_request('historyWeek')));
+        pzk_session('historyWeek', intval(pzk_request()->getHistoryWeek()));
         $this->redirect('Profile/detail');
     }
 	public function onchangeHistoryMonthAction() {
-        pzk_session('historyMonth', intval(pzk_request('historyMonth')));
+        pzk_session('historyMonth', intval(pzk_request()->getHistoryMonth()));
         $this->redirect('Profile/detail');
     }
 	
     public function updateScheduleAction()
     {
-    	$subject 	= intval(pzk_request('subject'));
-    	$topicId 	= intval(pzk_request('topicId'));
-    	$date 		= clean_value(pzk_request('date'));
+    	$subject 	= intval(pzk_request()->getSubject());
+    	$topicId 	= intval(pzk_request()->getTopicId());
+    	$date 		= clean_value(pzk_request()->getDate());
     	$date 		= date("Y-m-d H:i:s", strtotime($date));
-    	$status 	= intval(pzk_request('status'));
-    	$lessonId 	= intval(pzk_request('lessonId'));
-    	$scheduleId 	= intval(pzk_request('scheduleId'));
+    	$status 	= intval(pzk_request()->getStatus());
+    	$lessonId 	= intval(pzk_request()->getLessonId());
+    	$scheduleId 	= intval(pzk_request()->getScheduleId());
     	$teacher = _db()->getEntity('User.Account.Teacher');
     	if($scheduleId){
     		$rows = $teacher->loadWhere(array('id',$scheduleId));
@@ -83,8 +83,8 @@ class PzkProfileController extends PzkFrontendController
 					'className'=>pzk_session('adminClassname'),
 					'openDate'=>$date,
 					'status'=> $status,
-					'software'=>pzk_request('softwareId'),
-					'site'=>pzk_request('siteId'),
+					'software'=>pzk_request()->getSoftwareId(),
+					'site'=>pzk_request()->getSiteId(),
 					'creatorId'=>pzk_session('userId'),
 					'created'=>date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME'])
 			);
@@ -220,7 +220,7 @@ class PzkProfileController extends PzkFrontendController
 		$user		= pzk_user();
 		
 		if($user->getId()) {
-			if(pzk_request('softwareId') == 1 && pzk_request('siteId') == 2){
+			if(pzk_request()->getSoftwareId() == 1 && pzk_request()->getSiteId() == 2){
 				$user->update(array(
 				'name' 		=> 	$name,
 				'birthday' 	=> 	$birthday, 

@@ -63,7 +63,7 @@ class PzkPaymentController extends PzkController
 	}
 	public function cardflPostAction()
 	{
-		$flcardId= clean_value(pzk_request('flcardId'));		
+		$flcardId= clean_value(pzk_request()->getFlcardId());		
 		$flcardId= trim($flcardId);
 		$flcardId=md5($flcardId);
 		if(pzk_session('userId') ==''){
@@ -159,7 +159,7 @@ class PzkPaymentController extends PzkController
 						'transactionId'		=>	$transaction_id,
 						'reason'			=>	$client_fullname.'/'.$type_card.'/'.$card_serial.'/'.$pin_card,
 						'status'			=>	1,
-						'software'			=>	pzk_request('softwareId')
+						'software'			=>	pzk_request()->getSoftwareId()
 				);		
 				$transaction->setData($row_);			
 				$transaction->save();
@@ -445,13 +445,13 @@ public function cardPostAction()
 	}
 	public function PaymentNganLuongAction()
 	{
-		$nganluong= clean_value(pzk_request('username'));
+		$nganluong= clean_value(pzk_request()->getUsername());
 		echo "ok".$nganluong;
 	}
 	public function PaymentNextNobelsAction()
 	{
-		$nextnobels_card= clean_value(pzk_request('nextnobels_card'));
-		$nextnobels_serial= clean_value(pzk_request('nextnobels_serial'));
+		$nextnobels_card= clean_value(pzk_request()->getNextnobels_card());
+		$nextnobels_serial= clean_value(pzk_request()->getNextnobels_serial());
 		$nextnobels_card= trim($nextnobels_card);
 		$nextnobels_card=md5($nextnobels_card);
 		$userActive=pzk_session('userId');
@@ -468,7 +468,7 @@ public function cardPostAction()
 				// ghi log file
 				$File = BASE_DIR.'/3rdparty/thecao/theNextnobels.txt'; 
 				$Handle = fopen($File, 'a');
-				$Data = "UserId: ".$userActive." |username: ".pzk_session('username')." |serviceId : ".$serviceId."|thoi gian: ".$dateActive. "|Ma the: ".pzk_request('nextnobels_card')."|Serial: ".$nextnobels_serial."\n";
+				$Data = "UserId: ".$userActive." |username: ".pzk_session('username')." |serviceId : ".$serviceId."|thoi gian: ".$dateActive. "|Ma the: ".pzk_request()->getNextnobels_card()."|Serial: ".$nextnobels_serial."\n";
 				fwrite($Handle, $Data); 
 				fclose($Handle);
 				//Cập nhật bảng history_service				

@@ -139,7 +139,7 @@ class PzkCompabilityController extends PzkController{
 	public function showtlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId 		= 	intval(pzk_request('parentId'));
+			$parentId 		= 	intval(pzk_request()->getParentId());
 			
 			$frontend 		= 	pzk_model('Frontend');
 				
@@ -155,7 +155,7 @@ class PzkCompabilityController extends PzkController{
 			$sSchool 		= 	pzk_session('school');
 			$time 			= 	$testTl['time'];
 			if($sSchool == NS){
-				$time = intval(pzk_request('timeTl'));
+				$time = intval(pzk_request()->getTimeTl());
 				$compabilityTl->setNgoisao(1);
 			}
 			
@@ -401,7 +401,7 @@ class PzkCompabilityController extends PzkController{
 		));
 		$compabilityRating->setFields('user_contest.*, user.username, user.name');
 		$compabilityRating->setParentId($parentId);
-		$compabilityRating->setPageNum(intval(pzk_request('page')));
+		$compabilityRating->setPageNum(intval(pzk_request()->getPage()));
 		$this->display();
 	}
 	
@@ -718,7 +718,7 @@ class PzkCompabilityController extends PzkController{
 	
 	
 	public function showMixedTestResultDialogAction() {
-		$answers 		= 	pzk_request('answers');
+		$answers 		= 	pzk_request()->getAnswers();
 		
 		$questionIds 	= 	$answers['questionIds'];
 		$questionTypes 	= 	$answers['questionTypes'];

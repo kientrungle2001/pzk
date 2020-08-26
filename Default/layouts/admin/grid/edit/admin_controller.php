@@ -23,7 +23,7 @@ $mdsize 	= pzk_or($data->getMdsize(), 	12);
 								
 								?>
         <option
-				value="<?php if(pzk_request('action') =='add') { echo '0_'.time(); } elseif(substr($data->getValue(), 0, 2) == '0_') { echo $data->getValue(); } ?>">Chọn
+				value="<?php if(pzk_request()->getAction() =='add') { echo '0_'.time(); } elseif(substr($data->getValue(), 0, 2) == '0_') { echo $data->getValue(); } ?>">Chọn
 				controller</option>
 		<?php foreach($arrcontroller as $val ): ?>
 		<?php if (!isset($allControllers[$val])) { $allControllers[$val] = true; } else { continue; } ?>

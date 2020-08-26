@@ -1,5 +1,5 @@
 ﻿<?php 
-	$id=pzk_request('id');
+	$id=pzk_request()->getId();
 	$news=$data->getNewsContent($id);
 	$nlists=$data->getNewsList($id);
 	$lists = $nlists[0];

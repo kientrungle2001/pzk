@@ -6,9 +6,9 @@ class PzkBannerController extends PzkController {
 	public function bannerPostAction()
 	{
 		$ip 			= 	getRealIPAddress();
-		$id				=	pzk_request('id');
-		$utm_source		=	pzk_request('utm_source');
-		$utm_campaign	=	pzk_request('utm_campaign');
+		$id				=	pzk_request()->getId();
+		$utm_source		=	pzk_request()->getUtm_source();
+		$utm_campaign	=	pzk_request()->getUtm_campaign();
 		$time			=	date("Y-m-d");		
 		$testclick =_db()->useCB()->select('id')
 				->from('banner_click')

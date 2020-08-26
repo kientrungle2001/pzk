@@ -523,7 +523,7 @@ class PzkAdminOrderController extends PzkGridAdminController {
             $row['created']=date("Y-m-d H:i:s");
             $row['software']=3;
             $user= _db()->getEntity('User.Account.User');
-            $username = trim(pzk_request('username'));
+            $username = trim(pzk_request()->getUsername());
             $row['orderDate']= date("Y-m-d H:i:s");
             //Khách hàng mua dịch vụ bằng tài khoản ngân hàng
             if($username){
@@ -559,8 +559,8 @@ class PzkAdminOrderController extends PzkGridAdminController {
                 $orderitem->save();
             } 
             //Khách hàng mua và kích hoạt dịch vụ luôn
-            if(pzk_request('activeUser')==1 && pzk_request('status')==1){
-                $serviceId=pzk_request('serviceId');
+            if(pzk_request()->getActiveUser()==1 && pzk_request()->getStatus()==1){
+                $serviceId=pzk_request()->getServiceId();
                 //Cập nhật bảng history_service
                 $paymentType= $row['paymentType'];
                                
@@ -582,7 +582,7 @@ class PzkAdminOrderController extends PzkGridAdminController {
             $row['modified']=date("Y-m-d H:i:s");
             $row['software']=3;
             $user= _db()->getEntity('User.Account.User');
-            $username = trim(pzk_request('username'));            
+            $username = trim(pzk_request()->getUsername());            
             //Khách hàng mua dịch vụ bằng tài khoản ngân hàng
             if($username){
                 $user->loadWhere(array('username',$username));
@@ -591,7 +591,7 @@ class PzkAdminOrderController extends PzkGridAdminController {
             }
              
             $this->edit($row);
-            $orderId=pzk_request('id');
+            $orderId=pzk_request()->getId();
             // Update bang order_transaction
             $orderTrans=_db()->getEntity('Payment.Transaction');
             $orderTrans->loadWhere(array('orderId',$orderId));
@@ -625,8 +625,8 @@ class PzkAdminOrderController extends PzkGridAdminController {
                 $orderitem->save();
             }
             //Khách hàng mua và kích hoạt dịch vụ luôn
-            if(pzk_request('activeUser')==1 && pzk_request('status')==1){
-                $serviceId=pzk_request('serviceId');
+            if(pzk_request()->getActiveUser()==1 && pzk_request()->getStatus()==1){
+                $serviceId=pzk_request()->getServiceId();
                 //Cập nhật bảng history_service
                 $paymentType= $row['paymentType'];
                 $model = pzk_model('Transaction');
@@ -637,7 +637,7 @@ class PzkAdminOrderController extends PzkGridAdminController {
         
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 }

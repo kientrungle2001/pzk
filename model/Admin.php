@@ -55,7 +55,7 @@ class PzkAdminModel
         $users = _db()->select('a.*')
             ->from('admin_level_action a')
             ->where("admin_action='$action' and admin_level='$level'")
-            ->where(array('software', pzk_request('softwareId')))
+            ->where(array('software', pzk_request()->getSoftwareId()))
             ->limit(0, 1);
         $users = $users->result();
         if (count($users) > 0) {
@@ -73,7 +73,7 @@ class PzkAdminModel
                 'action_type'    => $type,
                 'admin_action'    => $controller,
                 'admin_level'    => $level,
-                'software'        => pzk_request('softwareId')
+                'software'        => pzk_request()->getSoftwareId()
             )
         )->limit(0, 1);
         $users = $user->result_one();

@@ -1,7 +1,7 @@
 <?php $item = $data->getItem();
 $controllers = pzk_controller();
 $addFieldSettings = $controllers->addFieldSettings;
-$controller = pzk_request('controller');
+$controller = pzk_request()->getController();
 $row = $item;
 ?>
 <div class="panel panel-default">

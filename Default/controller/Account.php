@@ -360,7 +360,7 @@ class PzkAccountController extends  PzkController
 				$user->update(array('lastlogined' =>$dateregister ));
 			}else{
 
-				$row=array('idFacebook'=>$id,'username'=>$id,'name'=>$name,'status'=>1,'registered'=>$dateregister,'lastlogined' =>$dateregister, 'registeredAtSoftware'=> pzk_request('softwareId'), 'registeredAtSite'=> pzk_request('siteId'));
+				$row=array('idFacebook'=>$id,'username'=>$id,'name'=>$name,'status'=>1,'registered'=>$dateregister,'lastlogined' =>$dateregister, 'registeredAtSoftware'=> pzk_request()->getSoftwareId(), 'registeredAtSite'=> pzk_request()->getSiteId());
 				$user->setData($row);
 				$user->save();
 				$user->login();
@@ -423,7 +423,7 @@ class PzkAccountController extends  PzkController
 				$userlogin->update(array('lastlogined' =>$dateregister ));
 			}else{
 				
-				$row=array('idGoogle'=>$id,'name'=>$name,'username'=>$id, 'email'=>$email, 'sex'=>$sex,'status'=>1,'registered'=>$dateregister,'lastlogined' =>$dateregister, 'registeredAtSoftware'=> pzk_request('softwareId'), 'registeredAtSite'=> pzk_request('siteId'));
+				$row=array('idGoogle'=>$id,'name'=>$name,'username'=>$id, 'email'=>$email, 'sex'=>$sex,'status'=>1,'registered'=>$dateregister,'lastlogined' =>$dateregister, 'registeredAtSoftware'=> pzk_request()->getSoftwareId(), 'registeredAtSite'=> pzk_request()->getSiteId());
 				$userlogin->setData($row);
 				$userlogin->save();
 				$userlogin->login();

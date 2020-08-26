@@ -266,7 +266,7 @@ class PzkSGStoreStat extends PzkSGStoreLazy {
 						'trueTestQuestion' =>  $trueTestQuestion,
 						'week' => $week,
 						'year' => $year,
-						'software' => pzk_request('softwareId'),
+						'software' => pzk_request()->getSoftwareId(),
 						'areacode' => $areacode,
 						'district' => $district,
 						'school' => $school,

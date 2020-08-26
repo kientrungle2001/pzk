@@ -14,8 +14,8 @@ table.tb_catruc td {
 }
 </style>
 <?php 
-	$tab6 = pzk_request('tab6');
-	$tab8 = pzk_request('tab8');
+	$tab6 = pzk_request()->getTab6();
+	$tab8 = pzk_request()->getTab8();
 ?>
 
 <?php $data->displayChildren('[position=public-header]') ?>

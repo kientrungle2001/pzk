@@ -1,5 +1,5 @@
 <?php 
-$curentnews = $data->getNews2( pzk_request('page'));
+$curentnews = $data->getNews2( pzk_request()->getPage());
 
 ?>
 <div class="title2">
@@ -24,7 +24,7 @@ $curentnews = $data->getNews2( pzk_request('page'));
 			<?php 
 			$total = $data->countItems();
 			$pages = ceil($total / 5);
-			$curPage = pzk_request('page');
+			$curPage = pzk_request()->getPage();
 			?>
 
 			<p style="text-align:center;">Trang 

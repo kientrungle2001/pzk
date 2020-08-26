@@ -78,7 +78,7 @@
 				
 							function show_media_topic_item($media, $class, $subjectEntity, $subject, $topic) { ?>
 								<li class="list-group-item hasa exercise-of-topic-<?php echo @$topic['id']?> 
-											<?php if(pzk_request('topic') == $topic['id']) echo 'active'; ?>">
+											<?php if(pzk_request()->getTopic() == $topic['id']) echo 'active'; ?>">
 												<a  onclick="return check_display(<?php echo @$media['trial']?>);" class="getdata" 
 													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/media-<?php echo @$media['id']?>">
 														<?php echo @$media['name']?></a>
@@ -95,7 +95,7 @@
 				
 							function show_homework_topic_item($media, $class, $subjectEntity, $subject, $topic) { ?>
 								<li class="list-group-item hasa exercise-of-topic-<?php echo @$topic['id']?> 
-											<?php if(pzk_request('topic') == $topic['id']) echo 'active'; ?>">
+											<?php if(pzk_request()->getTopic() == $topic['id']) echo 'active'; ?>">
 												<a  onclick="return check_display(<?php echo @$media['trial']?>);" class="getdata" 
 													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/homework-<?php echo @$media['id']?>">
 														<?php echo @$media['name']?></a>
@@ -124,14 +124,14 @@
 							?>
 						<?php 	if($practices):?>
 									<li class="list-group-item hasa question_type exercise-of-topic-<?php echo @$topic['id']?>" 
-											style="<?php if(pzk_request('topic') != $topic['id']):?>display: none;<?php endif;?>">
+											style="<?php if(pzk_request()->getTopic() != $topic['id']):?>display: none;<?php endif;?>">
 										<a onclick="return false;" class="getdata" href="#">Trắc Nghiệm</a>
 									</li>
 							
 							<?php 	for($i = 1; $i <= $practices; $i++){  ?>
 										<li class="list-group-item hasa exercise-of-topic-<?php echo @$topic['id']?> 
-											<?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo 'active'; ?>" 
-											style="<?php if(pzk_request('topic') != $topic['id']):?>display: none;<?php endif;?>">
+											<?php if(pzk_request()->getTopic() == $topic['id'] && pzk_request()->getDe() == $i) echo 'active'; ?>" 
+											style="<?php if(pzk_request()->getTopic() != $topic['id']):?>display: none;<?php endif;?>">
 												<a  onclick="de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" 
 													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>">
 														<?php echo $language['lesson'].$i;?></a>
@@ -163,12 +163,12 @@
 							?>
 						<?php if($practicesTL):?>
 									<li class="list-group-item hasa question_type exercise-of-topic-<?php echo @$topic['id']?>" 
-										style="<?php if(pzk_request('topic') != $topic['id']):?>display: none;<?php endif;?>">
+										style="<?php if(pzk_request()->getTopic() != $topic['id']):?>display: none;<?php endif;?>">
 											<a onclick="return false;" class="getdata" href="#">Tự luận</a></li>
 							<?php for($i = 1; $i <= $practicesTL; $i++){  ?>
 										<li class="list-group-item hasa exercise-of-topic-<?php echo @$topic['id']?> 
-											<?php if(pzk_request('topic') == $topic['id'] && pzk_request('de') == $i) echo 'active'; ?>" 
-											style="<?php if(pzk_request('topic') != $topic['id']):?>display: none;<?php endif;?>">
+											<?php if(pzk_request()->getTopic() == $topic['id'] && pzk_request()->getDe() == $i) echo 'active'; ?>" 
+											style="<?php if(pzk_request()->getTopic() != $topic['id']):?>display: none;<?php endif;?>">
 												<a  onclick="de=<?php echo $i ?>; return check_display(<?php echo @$topic['trial']?>);" data-de="<?php echo $i; ?>" class="getdata" 
 													href="/practice/class-<?php echo $class ?>/subject-<?php echo $subjectEntity->getalias()?>-<?php echo $subject ?>/topic-<?php echo @$topic['alias']?>-<?php echo @$topic['id']?>/examination-<?php echo $i ?>?questionType=4">
 														<?php echo $language['lesson'].$i;?></a>

@@ -32,7 +32,7 @@ class PzkTrytestController extends PzkController{
 			
 			$contest = $frontend->getContestById($contestId);
 			
-			if(time() < strtotime($contest['startDate']) && !pzk_request('showDebug')){
+			if(time() < strtotime($contest['startDate']) && !pzk_request()->getShowDebug()){
 				//chua toi ngay thi
 				$this->initPage();
 					pzk_page()->setTitle('Chưa đến ngày thi thử trường Trần Đại Nghĩa');
@@ -46,7 +46,7 @@ class PzkTrytestController extends PzkController{
 					$finish->setTitle('Chưa đến ngày thi thử. Ngày thi ');
 				$this->display();
 				pzk_system()->halt();
-			}else if(time() > strtotime($contest['expiredDate']) && !pzk_request('showDebug')){
+			}else if(time() > strtotime($contest['expiredDate']) && !pzk_request()->getShowDebug()){
 				//het thoi gian thi
 				$this->initPage();
 				pzk_page()->setTitle('Hết thời gian thi thử trường Trần Đại Nghĩa');
@@ -164,7 +164,7 @@ class PzkTrytestController extends PzkController{
 			$frontend = pzk_model('Frontend');
 			$contest = $frontend->getContestById($contestId);
 			
-			if(time() < strtotime($contest['startDate']) && !pzk_request('showDebug')){
+			if(time() < strtotime($contest['startDate']) && !pzk_request()->getShowDebug()){
 				//chua den ngay thi
 				
 				$this->initPage();
@@ -180,7 +180,7 @@ class PzkTrytestController extends PzkController{
 				$this->display();
 				pzk_system()->halt();
 						
-			}else if(time() > strtotime($contest['expiredDate']) && !pzk_request('showDebug')){
+			}else if(time() > strtotime($contest['expiredDate']) && !pzk_request()->getShowDebug()){
 				//het thoi gian thi dot 1
 				$this->initPage();
 				pzk_page()->setTitle('Hết thời gian thi thử trường Trần Đại Nghĩa');
@@ -753,7 +753,7 @@ class PzkTrytestController extends PzkController{
 			$dataContest = $frontend->getContestById($contestId);
 			//check ngay thi
 			
-			if(time() < strtotime($dataContest['showResultDate']) && !pzk_request('showDebug')) {
+			if(time() < strtotime($dataContest['showResultDate']) && !pzk_request()->getShowDebug()) {
 			
 				$this->initPage();
 					pzk_page()->setTitle('Chưa đến ngày xem kết quả thi thử trường Trần Đại Nghĩa');

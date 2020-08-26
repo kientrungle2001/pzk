@@ -48,7 +48,7 @@ class PzkInsertionModel extends PzkSG{
             $vals = array();
             $columns = explode(',', $this->options['fields']);
             foreach ($this->options['values'] as $value) {
-                $value['software'] = pzk_request('softwareId');
+                $value['software'] = pzk_request()->getSoftwareId();
                 $colVals = array();
                 foreach ($columns as $col) {
 					$col = trim($col);

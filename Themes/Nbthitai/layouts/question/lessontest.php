@@ -337,12 +337,12 @@ if($showQuestions) {
 	<div style="margin-top:15px;" class="col-xs-12">
 		<div class="bank_area">
 		
-			<?php if(pzk_request('softwareId') == 1):?>
+			<?php if(pzk_request()->getSoftwareId() == 1):?>
 		
 			<div class="col-xs-12">
 				<h2 class="title-practice" style="margin-bottom: 30px;">Phần mềm đánh giá toàn diện các chỉ số (IQ,EQ,CQ...) dành cho HS Tiểu học</h2>
 			</div>
-			<?php elseif (pzk_request('softwareId') == 2):?>
+			<?php elseif (pzk_request()->getSoftwareId() == 2):?>
 			<div class="col-xs-12">
 				<h2 class="title-practice" style="margin-bottom: 30px;">Phần mềm đánh giá toàn diện các chỉ số IQ, EQ, CQ,... sắp có mặt tại Việt Nam</h2>
 			</div>			

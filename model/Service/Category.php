@@ -34,11 +34,11 @@ class PzkServiceCategoryModel {
             'paymentStatus' =>  1,
             'paymentDate'   =>  Date('Y-m-d'),
             'status'        =>  1,
-            'software'      =>  pzk_request('software'),
+            'software'      =>  pzk_request()->getSoftware(),
             'expiredDate'   =>  $expiredDate,
             'serviceType'   =>  'category',
             'categoryIds'   =>  $categoryIds,
-            'site'          =>  pzk_request('siteId')
+            'site'          =>  pzk_request()->getSiteId()
 
         );
         $historyPayment->setData($row);

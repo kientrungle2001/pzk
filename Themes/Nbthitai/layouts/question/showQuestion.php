@@ -28,8 +28,8 @@
 	$category = $data->getCategory();
 	$category_id = $data->getCategoryId();
 	$category_name = $data->getCategoryName();
-	$class= intval(pzk_request('class'));
-	$de= clean_value(pzk_request('de'));
+	$class= intval(pzk_request()->getClass());
+	$de= clean_value(pzk_request()->getDe());
 	$subject = intval(pzk_request()->getSegment(3));
 	$parentSubject = 0;
 	if($subject) {

@@ -1,6 +1,6 @@
 <?php
-$comments=pzk_request('comments');
-$newsid=pzk_request('id');
+$comments=pzk_request()->getComments();
+$newsid=pzk_request()->getId();
 $ip=getRealIPAddress();
 pzk_session('newsid',$newsid);
 if (pzk_session('login')){
@@ -49,7 +49,7 @@ span.comment_date{font-weight:none; font-size:12px;}
 		</div>
 							<?php
 								$userid=$data->getInfo($username);
-								$newsid=pzk_request('id');
+								$newsid=pzk_request()->getId();
 								$datelike=date("Y-m-d");
 							?>
 							<script>

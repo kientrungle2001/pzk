@@ -364,7 +364,7 @@ class PzkAdminCampaignController extends PzkGridAdminController {
 		
 		// so nguoi mua
 		
-		if(pzk_request('app') == 'nobel_test') {
+		if(pzk_request()->getApp() == 'nobel_test') {
 			$totalbuy = _db()->useCB()->select('count(*) as c')->from('history_payment')
 			->gteDatepayment($campaign['startDate'])
 			->lteDatepayment($campaign['endDate'])

@@ -437,15 +437,15 @@ class PzkAdminOrderTransactionController extends PzkGridAdminController {
         $row = $this->getAddData();
         if($this->validateAddData($row)) {
             $row['creatorId']=pzk_session('userId');
-            $status= pzk_request('status');
-            $amount= pzk_request('amount');
-            $cardAmount= pzk_request('cardAmount');
+            $status= pzk_request()->getStatus();
+            $amount= pzk_request()->getAmount();
+            $cardAmount= pzk_request()->getCardAmount();
             if($cardAmount != 0){
                 $amountService= $cardAmount;
             }else $amountService=$amount;
             $row['created']=date("Y-m-d H:i:s");            
             $user= _db()->getEntity('User.Account.User');
-            $username = trim(pzk_request('username'));
+            $username = trim(pzk_request()->getUsername());
             $row['paymentDate']= date("Y-m-d H:i:s");            
             if($username){
                 $user->loadWhere(array('username',$username));
@@ -487,7 +487,7 @@ class PzkAdminOrderTransactionController extends PzkGridAdminController {
         
         } else {
             pzk_validator()->setEditingData($row);
-            $this->redirect('edit/' . pzk_request('id'));
+            $this->redirect('edit/' . pzk_request()->getId());
         }
     }
 }

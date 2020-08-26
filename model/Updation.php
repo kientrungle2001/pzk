@@ -78,7 +78,7 @@ class PzkUpdationModel{
 		if (isset($this->options['action']) && $this->options['action'] == 'update') {
             $columns = pzk_db()->describle($this->options['table']);
             $vals = array();
-            $this->options['values']['software'] = pzk_request('softwareId');
+            $this->options['values']['software'] = pzk_request()->getSoftwareId();
             foreach ($this->options['values'] as $key => $value) {
 
                 if (in_array($key, $columns)) {

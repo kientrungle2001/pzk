@@ -1,8 +1,8 @@
 <?php
 return false;
-$controller = pzk_request('controller');
-$action = pzk_request('action');
-$multiple = pzk_request('multiple');
+$controller = pzk_request()->getController();
+$action = pzk_request()->getAction();
+$multiple = pzk_request()->getMultiple();
 $setting = pzk_controller();
 $updateData = $setting->updateData;
 ?>
@@ -41,7 +41,7 @@ $updateData = $setting->updateData;
     ?>
 </ul>
 
-<?php if($updateData && pzk_request('action')=='index') { ?>
+<?php if($updateData && pzk_request()->getAction()=='index') { ?>
 <div id="showmenucate">
     <?php
         foreach ($updateData as $item) {

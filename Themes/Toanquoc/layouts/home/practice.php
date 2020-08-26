@@ -37,7 +37,7 @@
 </div>
 <div class="container pdbot-60">
 	<div class="row ajaxchangepractice">
-		<?php $numberclass = pzk_request('class'); ?>
+		<?php $numberclass = pzk_request()->getClass(); ?>
 		<?php if(!$numberclass):?>
 		<?php for($i = 18; $i>1; $i--){ ?>
 		<div class="col-md-2 text-center col-xs-2 text-uppercase btn-custom3 pd-10 weight-16 widthfix">

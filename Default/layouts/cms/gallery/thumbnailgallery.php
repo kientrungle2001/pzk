@@ -1,5 +1,5 @@
 <?php 
-$id=pzk_request('id');
+$id=pzk_request()->getId();
 $gallerys=$data->getSubgallery($id); 
 
 ?>

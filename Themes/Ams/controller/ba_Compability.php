@@ -139,7 +139,7 @@ class PzkCompabilityController extends PzkController{
 	public function showtlAction(){
 		if(pzk_session('userId')){
 			
-			$parentId = pzk_request('parentId');
+			$parentId = pzk_request()->getParentId();
 			
 			
 			$frontend = pzk_model('Frontend');
@@ -156,7 +156,7 @@ class PzkCompabilityController extends PzkController{
 			$sSchool = pzk_session('school');
 			$time = $testTl['time'];
 			if($sSchool == NS){
-				$time = pzk_request('timeTl');
+				$time = pzk_request()->getTimeTl();
 				$compabilityTl->setNgoisao(1);
 			}
 			
@@ -402,7 +402,7 @@ class PzkCompabilityController extends PzkController{
 		));
 		$compabilityRating->setFields('user_contest.*, user.username, user.name');
 		$compabilityRating->setParentId($parentId);
-		$compabilityRating->setPageNum(pzk_request('page'));
+		$compabilityRating->setPageNum(pzk_request()->getPage());
 		$this->display();
 	}
 	

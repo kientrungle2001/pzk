@@ -93,7 +93,7 @@ class PzkAdminLevelactionController extends PzkAdminController {
                         "admin_level" => $row['admin_level'],
                         "action_type" => $item,
                         "status" => $row['status'],
-                        "software" => pzk_request('softwareId')
+                        "software" => pzk_request()->getSoftwareId()
                     );
 
                     $check = $admin->checkActionType($item, $row['admin_action'], $row['admin_level']);
@@ -133,7 +133,7 @@ class PzkAdminLevelactionController extends PzkAdminController {
         return $option;
     }
     public  function getAdminActionAction() {
-        $adminController = trim(pzk_request('adminController'));
+        $adminController = trim(pzk_request()->getAdminController());
         $checkcontroller = substr($adminController, 0, 2);
         if($checkcontroller == '0_'){
             $html = "<select id='action_type' name='action_type' class='form-control input-sm'>
@@ -228,19 +228,19 @@ class PzkAdminLevelactionController extends PzkAdminController {
     }
 
     public function changeAdminLevelIdAction() {
-        pzk_session('alaadminLevelId', pzk_request('adminLevelId'));
+        pzk_session('alaadminLevelId', pzk_request()->getAdminLevelId());
         $this->redirect('index');
     }
 
     public function changeAdminControllerAction() {
-        pzk_session('alaadminController', pzk_request('adminController'));
+        pzk_session('alaadminController', pzk_request()->getAdminController());
         $this->redirect('index');
     }
 
     public function searchPostAction() {
-        $action	=	pzk_request('submit_action');
+        $action	=	pzk_request()->getSubmit_action();
         if($action != ACTION_RESET){
-            pzk_session($this->table.'Keyword', pzk_request('keyword'));
+            pzk_session($this->table.'Keyword', pzk_request()->getKeyword());
         }else{
             pzk_session('alaadminLevelId', '');
             pzk_session('alaadminController', '');

@@ -168,7 +168,7 @@ $pageSize = pzk_session($setting->table.'PageSize');
 if($pageSize) {
     $data->pageSize = $pageSize;
 }
-$data->pageNum = pzk_request('page');
+$data->pageNum = pzk_request()->getPage();
 $countItems = $data->getCountReportItems();
 
 $pages = ceil($countItems / $data->pageSize);

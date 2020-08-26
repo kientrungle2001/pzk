@@ -349,14 +349,14 @@ class PzkAdminController extends PzkBackendController
 	public function editPostAction()
 	{
 		$row = $this->getEditData();
-		$backHref 	= pzk_request('backHref');
+		$backHref 	= pzk_request()->getBackHref();
 
 		if ($this->validateEditData($row)) {
 			if ($backHref) {
 				if (strpos($backHref, '?') !== false) {
-					$backHref .= '&lastItemId=' . pzk_request('id');
+					$backHref .= '&lastItemId=' . pzk_request()->getId();
 				} else {
-					$backHref .= '?lastItemId=' . pzk_request('id');
+					$backHref .= '?lastItemId=' . pzk_request()->getId();
 				}
 			}
 			$this->edit($row);
@@ -395,7 +395,7 @@ class PzkAdminController extends PzkBackendController
 	{
 		$row['modifiedId'] = pzk_session()->getAdminId();
 		$row['modified'] = date(DATEFORMAT, $_SERVER['REQUEST_TIME']);
-		$row['id']		= pzk_request('id');
+		$row['id']		= pzk_request()->getId();
 		if ($this->getEntityTableEnabled()) {
 			$row['table']		= $this->getTable();
 			$entityTableEntity 	= _db()->getTableEntity('entity');
@@ -410,7 +410,7 @@ class PzkAdminController extends PzkBackendController
 
 		//set index owner
 		$adminmodel = pzk_model('Admin');
-		$controller = pzk_request('controller');
+		$controller = pzk_request()->getController();
 
 		$checkIndexOwner = $adminmodel->checkActionType('editOwner', $controller, pzk_session('adminLevel'));
 
@@ -479,7 +479,7 @@ class PzkAdminController extends PzkBackendController
 
 		//set edit owner
 		$adminmodel = pzk_model('Admin');
-		$controller = pzk_request('controller');
+		$controller = pzk_request()->getController();
 
 		$checkEditOwner = $adminmodel->checkActionType('editOwner', $controller, pzk_session('adminLevel'));
 
@@ -589,7 +589,7 @@ class PzkAdminController extends PzkBackendController
 	}
 	public function delAllAction()
 	{
-		if (pzk_request('ids')) {
+		if (pzk_request()->getIds()) {
 			$arrIds = json_decode(pzk_request()->getIds());
 			if (count($arrIds) > 0) {
 				_db()->useCB()->delete()->from($this->getTable())
@@ -653,7 +653,7 @@ class PzkAdminController extends PzkBackendController
 					if (move_uploaded_file($_FILES[$filename]['tmp_name'], $dir . $renamed)) {
 						if (!empty($row)) {
 							$row[$filename] = $renamed;
-							$id = pzk_request('id');
+							$id = pzk_request()->getId();
 							if (isset($id)) {
 								if ($this->validateEditData($row)) {
 									$data = _db()->useCB()->select('url')->from('video')->where(array('id', $id))->result_one();
@@ -664,7 +664,7 @@ class PzkAdminController extends PzkBackendController
 									$this->redirect('index');
 								} else {
 									pzk_validator()->setEditingData($row);
-									$this->redirect('edit/' . pzk_request('id'));
+									$this->redirect('edit/' . pzk_request()->getId());
 								}
 							} else {
 								if ($this->validateAddData($row)) {
@@ -687,7 +687,7 @@ class PzkAdminController extends PzkBackendController
 				}
 			} else {
 				if (!empty($row)) {
-					$id = pzk_request('id');
+					$id = pzk_request()->getId();
 					if (isset($id)) {
 						if ($this->validateEditData($row)) {
 
@@ -696,7 +696,7 @@ class PzkAdminController extends PzkBackendController
 							$this->redirect('index');
 						} else {
 							pzk_validator()->setEditingData($row);
-							$this->redirect('edit/' . pzk_request('id'));
+							$this->redirect('edit/' . pzk_request()->getId());
 						}
 					} else {
 						if ($this->validateAddData($row)) {

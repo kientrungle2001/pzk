@@ -14,7 +14,7 @@ class PzkTestController extends PzkThemesDefaultTestController {
 			$this->display();
 			pzk_system()->halt();
     	}else{
-			$testId 	= pzk_request('de');
+			$testId 	= pzk_request()->getDe();
 			$check 		= pzk_user()->checkPayment('full'); // pzk_session('checkPayment');
 			
 			if($check == 0){
@@ -35,8 +35,8 @@ class PzkTestController extends PzkThemesDefaultTestController {
 			}
 		}
     	$class= pzk_session('lop');
-		$practice	= pzk_request('practice');
-		$week		= pzk_request('id');
+		$practice	= pzk_request()->getPractice();
+		$week		= pzk_request()->getId();
 		
 
     	if(isset($testId)){

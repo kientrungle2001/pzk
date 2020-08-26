@@ -368,7 +368,7 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * @return String request back href value
 	 */
 	public function getBackHref() {
-		return $this->getBackHref();
+		return $this->get('backHref');
 	}
 }
 /**

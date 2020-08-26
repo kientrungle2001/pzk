@@ -19,7 +19,7 @@ class PzkNewsController extends PzkController {
 	{	
 		$this->initPage();
 		
-		$newsId = pzk_request('id');
+		$newsId = pzk_request()->getId();
 		
 		if(!$newsId) $newsId = pzk_request()->getSegment(3);
 		

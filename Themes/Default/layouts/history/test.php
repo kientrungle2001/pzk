@@ -25,7 +25,7 @@
 		
 		$data->pageSize = 20;
 		
-		$page = intval(pzk_request('page'));
+		$page = intval(pzk_request()->getPage());
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{
@@ -159,7 +159,7 @@
 		
 		$data->pageSize = 20;
 		
-		$page = intval(pzk_request('page'));
+		$page = intval(pzk_request()->getPage());
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{
@@ -293,7 +293,7 @@
 		
 		$data->pageSize = 20;
 		
-		$page = intval(pzk_request('page'));
+		$page = intval(pzk_request()->getPage());
 		if(!empty($page)) {
 			$data->pageNum = $page;
 		}else{

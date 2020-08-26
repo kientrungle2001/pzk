@@ -5,7 +5,7 @@
     <h2 class="text-center robotofont">Danh sách các bài thi</h2>
 </div>
 
-<?php $practice = pzk_request('practice');?>
+<?php $practice = pzk_request()->getPractice();?>
 
 <div class="container">
 
@@ -17,7 +17,7 @@ $UserId = pzk_or(pzk_request()->getSegment(3), pzk_session()->getUserId());
 $pageSize = 25;
 $data->pageSize = $pageSize;
 
-$page = pzk_request('page');
+$page = pzk_request()->getPage();
 if(!empty($page)) {
     $data->pageNum = $page;
 }else{
