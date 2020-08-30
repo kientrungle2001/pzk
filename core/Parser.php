@@ -198,8 +198,8 @@ class PzkParser
 
 			// cache lai path va class
 			if (CACHE_MODE) {
-				pzk_cache_layout()->set($node->nodeName . 'path', BASE_DIR . '/compile/objects/' . $fileNameCompiled);
-				pzk_cache_layout()->set($node->nodeName . 'class', $objectClassCompiled);
+				pzk_cache_objects()->set($node->nodeName . '_path', BASE_DIR . '/compile/objects/' . $fileNameCompiled);
+				pzk_cache_objects()->set($node->nodeName . '_class', $objectClassCompiled);
 			}
 
 
@@ -312,13 +312,9 @@ class PzkParser
 		}
 
 		// cache lai path va class
-		if (null === self::$layoutcache) {
-			self::$layoutcache = $layoutcache = pzk_cache_layout();
-		} else {
-			$layoutcache = self::$layoutcache;
-		}
-		$layoutcache->set($oldName . 'path', BASE_DIR . '/compile/objects/' . $fileNameCompiled);
-		$layoutcache->set($oldName . 'class', $objectClassCompiled);
+		
+		pzk_cache_objects()->set($oldName . '_path', BASE_DIR . '/compile/objects/' . $fileNameCompiled);
+		pzk_cache_objects()->set($oldName . '_class', $objectClassCompiled);
 		// ket qua
 		// echo 'generated: ' . BASE_DIR . '/compile/objects/' . $fileNameCompiled . '<br />';
 		if (!class_exists($objectClassCompiled))
@@ -333,14 +329,10 @@ class PzkParser
 	 */
 	public static function importObject($nodeName)
 	{
-		if (null === self::$layoutcache) {
-			self::$layoutcache = $layoutcache = pzk_cache_layout();
-		} else {
-			$layoutcache = self::$layoutcache;
-		}
-		if ($className = $layoutcache->get($nodeName . 'class')) {
+		
+		if ($className = pzk_cache_objects()->get($nodeName . '_class')) {
 			if (!class_exists($className)) {
-				require $layoutcache->get($nodeName . 'path');
+				require pzk_cache_objects()->get($nodeName . '_path');
 			}
 			return $className;
 		}
@@ -440,7 +432,7 @@ class PzkParser
 		static $allLayouts = array();
 		if (!preg_match('/</', $layout)) {
 
-			if ($fileName = pzk_cache_layout()->get($layout . 'layout')) {
+			if ($fileName = pzk_cache_layout()->get($layout)) {
 
 				if ($return) {
 					ob_start();
@@ -458,7 +450,7 @@ class PzkParser
 			if (!is_file($fileName) || filemtime($fileName) < filemtime($filePath)) {
 				$content = self::parseTemplateFile($filePath, $data);
 				file_put_contents($fileName, $content);
-				pzk_cache_layout()->set($layout . 'layout', $fileName);
+				pzk_cache_layout()->set($layout, $fileName);
 			}
 			if ($return) {
 				ob_start();

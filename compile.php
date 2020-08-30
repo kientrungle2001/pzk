@@ -15,6 +15,11 @@ require_once 'config.php';
 @mkdir(CACHE_DIR . DS . CONTROLLER_FOLDER);
 @mkdir(CACHE_DIR . DS . MODEL_FOLDER);
 @mkdir(CACHE_DIR . DS . OBJECTS_FOLDER);
+@mkdir(CACHE_DIR . DS . 'css');
+@mkdir(CACHE_DIR . DS . 'js');
+@mkdir(CACHE_DIR . DS . 'themes');
+@mkdir(CACHE_DIR . DS . 'user');
+@mkdir(CACHE_DIR . DS . 'route');
 $includes = array(
 	__DIR__ . '/lib/string.php',
 	__DIR__ . '/lib/error.php',

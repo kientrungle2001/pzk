@@ -25,9 +25,9 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 	 */
 	public function createModel($model) {
 		// neu da cache
-		if(CACHE_MODE && pzk_cache_layout()->get($model. 'path')) {
-			$path = pzk_cache_layout()->get($model. 'path');
-			$class = pzk_cache_layout()->get($model.'class');
+		if(CACHE_MODE && pzk_cache_model()->get($model. '_path')) {
+			$path = pzk_cache_model()->get($model. '_path');
+			$class = pzk_cache_model()->get($model.'_class');
 			require_once $path;
 			return new $class();
 		}
@@ -99,8 +99,8 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 		
 		// cache lai path va class
 		if(CACHE_MODE) {
-			pzk_cache_layout()->set($model.'path', BASE_DIR . '/compile/model/' . $fileNameCompiled);
-			pzk_cache_layout()->set($model.'class', $modelClassCompiled);
+			pzk_cache_model()->set($model.'_path', BASE_DIR . '/compile/model/' . $fileNameCompiled);
+			pzk_cache_model()->set($model.'_class', $modelClassCompiled);
 		}
 		
 		// ket qua

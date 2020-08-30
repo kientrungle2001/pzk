@@ -19,7 +19,7 @@ class PzkCoreThemes extends PzkObjectLightWeight {
 	public function initThemes() {
 		$request = pzk_request();
 		$allThemes 	= array();
-		$layoutcache = pzk_cache_layout();
+		$layoutcache = pzk_cache_themes();
 		if(!($themes = $layoutcache->getThemes())) {
 			$themes = $this->getThemesOnToday();
 			foreach($themes as &$t) {

@@ -181,7 +181,7 @@ class PzkObject extends PzkSG {
 		if ($this->css != false) {
 			if($this->scriptTo) {
 				$elem = pzk_element($this->scriptTo);
-				if($cssPath = pzk_cache_layout($this->css . '.css.path')) {
+				if($cssPath = pzk_cache_css($this->css . '.css.path')) {
 					$elem->append(pzk_obj('Html.Css', array( 
 							'id'			=>	$this->id . '-css',
 							'cacheable'		=>	'true',
@@ -196,7 +196,7 @@ class PzkObject extends PzkSG {
 							'cacheable'		=>	'true',
 							'cacheParams'	=>	'id',
 							'src'			=>	($cssPath = '/Default/skin/'.$app->getPathByName() . '/themes/' . $request->get('defaultTheme') .'/css/'.$this->css.'.css'))));
-							pzk_cache_layout($this->css . '.css.path', $cssPath);
+							pzk_cache_css($this->css . '.css.path', $cssPath);
 					} else if(is_file('Default/skin/'.$app->getPathByName().'/css/'.$this->css.'.css')) {
 						$elem->append(pzk_obj('Html.Css', array(
 							'id'			=>	$this->id . '-css',
@@ -204,7 +204,7 @@ class PzkObject extends PzkSG {
 							'cacheParams'	=>	'id',
 							'src'			=>	($cssPath = '/Default/skin/'.$app->getPathByName().'/css/'.$this->css.'.css')
 						)));
-						pzk_cache_layout($this->css . '.css.path', $cssPath);
+						pzk_cache_css($this->css . '.css.path', $cssPath);
 					} else if (is_file('Default/skin/'.$app->getPackageByName().'/css/'.$this->css.'.css')) {
 						$elem->append(pzk_obj('Html.Css', array(
 							'id'			=>	$this->id . '-css',
@@ -212,7 +212,7 @@ class PzkObject extends PzkSG {
 							'cacheParams'	=>	'id',
 							'src'			=>	($cssPath = '/Default/skin/'.$app->getPackageByName().'/css/'.$this->css.'.css'
 						))));
-						pzk_cache_layout($this->css . '.css.path', $cssPath);
+						pzk_cache_css($this->css . '.css.path', $cssPath);
 					}
 				}
 			} else {
@@ -272,7 +272,7 @@ class PzkObject extends PzkSG {
 		if ($this->js != false) {
 			if($this->scriptTo) {
 				$elem = pzk_element($this->scriptTo);
-				if($jsPath = pzk_cache_layout($this->js.'.js.path')) {
+				if($jsPath = pzk_cache_js($this->js.'.js.path')) {
 					$elem->append(pzk_obj('Html.Js',
 						array(
 							'id'			=>	$this->id . '-js-themes',
@@ -289,7 +289,7 @@ class PzkObject extends PzkSG {
 							'cacheParams'	=>	'id',
 							'src'			=>	($jsPath = '/Default/skin/'.pzk_app()->getPathByName().'/js/'.$this->js.'.js')
 						)));
-						pzk_cache_layout($this->js.'.js.path', $jsPath);
+						pzk_cache_js($this->js.'.js.path', $jsPath);
 					} else if(is_file('Default/skin/'.pzk_app()->getPackageByName().'/js/'.$this->js.'.js')) {
 						$elem->append(pzk_obj('Html.Js',
 						array(
@@ -298,7 +298,7 @@ class PzkObject extends PzkSG {
 							'cacheParams'	=>	'id',
 							'src'			=> 	($jsPath = '/Default/skin/'.pzk_app()->getPackageByName().'/js/'.$this->js.'.js')
 						)));
-						pzk_cache_layout($this->js.'.js.path', $jsPath);
+						pzk_cache_js($this->js.'.js.path', $jsPath);
 					}
 				}
 			} else {
@@ -434,7 +434,7 @@ class PzkObject extends PzkSG {
 	}
 	
 	public function getLayoutRealPath() {
-		if(pzk_cache_layout()->get($this->layout)) {
+		if(pzk_cache_layout()->has($this->layout)) {
 			$path = pzk_cache_layout()->get($this->layout);
 			return $path;
 		}
@@ -493,13 +493,13 @@ class PzkObject extends PzkSG {
 	}
 	
 	public function getCssRealPath() {
-		if(CACHE_MODE && pzk_cache_layout()->get($this->css)) {
-			$path = pzk_cache_layout()->get($this->css);
+		if(CACHE_MODE && pzk_cache_css()->has($this->css)) {
+			$path = pzk_cache_css()->get($this->css);
 			return $path;
 		}
 		$css = null;
 		$request = pzk_request();
-		$themes = $request->get('themes');
+		$themes = $request->getThemes();
 		if($themes) {
 			
 			foreach($themes as $theme) {
@@ -524,7 +524,7 @@ class PzkObject extends PzkSG {
 			$css = 'Default/skin/css/'. $this->css;
 		}
 		if(CACHE_MODE) {
-			pzk_cache_layout()->set($this->css, $css);
+			pzk_cache_css()->set($this->css, $css);
 		}
 		return $css;
 	}

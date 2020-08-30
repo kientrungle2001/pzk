@@ -29,116 +29,25 @@ foreach($cachefiles as $file) {
     }
 }
 
-/*
-$cachesission = glob('cache/session/*.txt*');
-foreach($cachesission as $file) {
-    $timefile = filemtime($file);
-    $timedelete = $timefile + $time_cache_session;
-
-    if(time() > $timedelete) {
-        unlink('cache/session/'.basename($file));
-		echo 'cache/session/'.basename($file) . '<br />';
-    }
-}*/
-
-$cachelayout = glob('cache/layouts/*.*');
+$cachelayout = glob('cache/*/*.*');
 foreach($cachelayout as $file) {
+    if(strpos($file, 'session') !== false) continue;
     $timefile = filemtime($file);
     $timedelete = $timefile + $time_cache_session;
 
     if(DELETE_ALL || time() > $timedelete) {
-        unlink('cache/layouts/'.basename($file));
-		echo 'cache/layouts/'.basename($file) . '<br />';
+        unlink($file);
+		echo $file . '<br />';
     }
 }
 
-$cachelayout = glob('cache/pages/*.*');
-foreach($cachelayout as $file) {
-    $timefile = filemtime($file);
-    $timedelete = $timefile + $time_cache_session;
-
-    if(DELETE_ALL || time() > $timedelete) {
-        unlink('cache/pages/'.basename($file));
-		echo 'cache/pages/'.basename($file) . '<br />';
-    }
-}
-
-$cachelayout = glob('cache/objects/*.*');
-foreach($cachelayout as $file) {
-    $timefile = filemtime($file);
-    $timedelete = $timefile + $time_cache_session;
-
-    if(DELETE_ALL || time() > $timedelete) {
-        unlink('cache/objects/'.basename($file));
-		echo 'cache/objects/'.basename($file) . '<br />';
-    }
-}
-
-$cachelayout = glob('cache/controller/*.*');
-foreach($cachelayout as $file) {
-    $timefile = filemtime($file);
-    $timedelete = $timefile + $time_cache_session;
-
-    if(DELETE_ALL || time() > $timedelete) {
-        unlink('cache/controller/'.basename($file));
-		echo 'cache/controller/'.basename($file) . '<br />';
-    }
-}
-
-$cachelayout = glob('cache/varexport/*.*');
-foreach($cachelayout as $file) {
-    $timefile = filemtime($file);
-    $timedelete = $timefile + $time_cache_session;
-
-    if(DELETE_ALL || time() > $timedelete) {
-        unlink('cache/varexport/'.basename($file));
-		echo 'cache/varexport/'.basename($file) . '<br />';
-    }
-}
-
-$compileobjects = glob('compile/objects/*.php');
+$compileobjects = glob('compile/*/*.php');
 foreach($compileobjects as $file) {
     $timefile = @filemtime($file);
     $timedelete = $timefile + $time_cache_session;
 
     if(DELETE_ALL || time() > $timedelete) {
-        unlink('compile/objects/'.basename($file));
-		echo 'compile/objects/'.basename($file) . '<br />';
+        unlink($file);
+		echo $file . '<br />';
     }
 }
-
-$compilecontrollers = glob('compile/controllers/*.php');
-foreach($compilecontrollers as $file) {
-    $timefile = @filemtime($file);
-    $timedelete = $timefile + $time_cache_session;
-
-    if(DELETE_ALL || time() > $timedelete) {
-        unlink('compile/controllers/'.basename($file));
-		echo 'compile/controllers/'.basename($file) . '<br />';
-    }
-}
-
-$compilelayouts = glob('compile/layouts/*.php');
-foreach($compilelayouts as $file) {
-    $timefile = @filemtime($file);
-    $timedelete = $timefile + $time_cache_session;
-
-    if(DELETE_ALL || time() > $timedelete) {
-        unlink('compile/layouts/'.basename($file));
-		echo 'compile/layouts/'.basename($file) . '<br />';
-    }
-}
-
-$compilemodels = glob('compile/models/*.php');
-foreach($compilemodels as $file) {
-    $timefile = @filemtime($file);
-    $timedelete = $timefile + $time_cache_session;
-
-    if(DELETE_ALL || time() > $timedelete) {
-        unlink('compile/models/'.basename($file));
-		echo 'compile/models/'.basename($file) . '<br />';
-    }
-}
-
-
-?>

@@ -236,27 +236,27 @@
 	</div>
 	<?php 
 	$users = null;
-	if(!($users = pzk_cache_layout('users_count'))) {
+	if(!($users = pzk_cache_user('users_count'))) {
 		$users = _db()->select('count(*) as c')->fromUser()->whereStatus(1)->result_one();
-		pzk_cache_layout('users_count', $users);
+		pzk_cache_user('users_count', $users);
 	}
 	
 	$users5Months = null;
-	if(!($users5Months = pzk_cache_layout('users_5months_count'))){
+	if(!($users5Months = pzk_cache_user('users_5months_count'))){
 		
 		$users5Months = _db()->select('count(*) as c')->fromUser()->whereStatus(1)->gtRegistered(date("Y-m-d H:i:s",strtotime("-5 month")))->result_one();
-		pzk_cache_layout('users_5months_count', $users5Months);
+		pzk_cache_user('users_5months_count', $users5Months);
 	}
 	
 	$usersOnline = null;
-	if(!($usersOnline = pzk_cache_layout('users_online_count'))) {
+	if(!($usersOnline = pzk_cache_user('users_online_count'))) {
 		$usersOnline = _db()->select('count(*) as c')->fromLogin_log()->gtTime(date("Y-m-d H:i:s",strtotime("-1 hour")))->result_one();
-		pzk_cache_layout('users_online_count', $usersOnline);
+		pzk_cache_user('users_online_count', $usersOnline);
 	}
 	$user = null;
-	if(!($user = pzk_cache_layout('user_lastest'))) {
+	if(!($user = pzk_cache_user('user_lastest'))) {
 		$user = _db()->select('username')->fromUser()->whereStatus(1)->orderBy('id desc')->result_one();
-		pzk_cache_layout('user_lastest', $user);
+		pzk_cache_user('user_lastest', $user);
 	}
 	
 	?>

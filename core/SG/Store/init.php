@@ -210,6 +210,29 @@ function pzk_cache_controller($key = NULL, $value = NULL, $timeout = null)
 	return $store;
 }
 
+function pzk_cache_model($key = NULL, $value = NULL, $timeout = null)
+{
+	static $store;
+	if (!$store) {
+		// if(CACHE_MODE) {
+		$store = new PzkSGStoreLazy(new PzkSGStoreFormatJson(new PzkSGStoreDomain(
+			new PzkSGStoreDriverFile( CACHE_FOLDER . DS . MODEL_FOLDER ))));
+		// } else {
+		// $store = new PzkSGStoreDriverPhp();
+		// }
+	}
+	if ($key === NULL) {
+		return $store;
+	} else {
+		if ($value === NULL) {
+			return $store->get($key, $timeout);
+		} else {
+			return $store->set($key, $value);
+		}
+	}
+	return $store;
+}
+
 function pzk_cache_pages($key = NULL, $value = NULL, $timeout = null)
 {
 	static $store;
@@ -257,6 +280,121 @@ function pzk_cache_table($key = NULL, $value = NULL, $timeout = null)
 	if (!$store) {
 		// if(CACHE_MODE) {
 		$store = new PzkSGStoreLazy(new PzkSGStoreFormatJson(new PzkSGStoreDomain(new PzkSGStoreDriverFile('cache/table'))));
+		// } else {
+		// $store = new PzkSGStoreDriverPhp();
+		// }
+	}
+	if ($key === NULL) {
+		return $store;
+	} else {
+		if ($value === NULL) {
+			return $store->get($key, $timeout);
+		} else {
+			return $store->set($key, $value);
+		}
+	}
+	return $store;
+}
+
+function pzk_cache_css($key = NULL, $value = NULL, $timeout = null)
+{
+	static $store;
+	if (!$store) {
+		// if(CACHE_MODE) {
+		$store = new PzkSGStoreLazy(new PzkSGStoreFormatJson(
+			new PzkSGStoreDomain(new PzkSGStoreDriverFile('cache/css'))));
+		// } else {
+		// $store = new PzkSGStoreDriverPhp();
+		// }
+	}
+	if ($key === NULL) {
+		return $store;
+	} else {
+		if ($value === NULL) {
+			return $store->get($key, $timeout);
+		} else {
+			return $store->set($key, $value);
+		}
+	}
+	return $store;
+}
+
+function pzk_cache_js($key = NULL, $value = NULL, $timeout = null)
+{
+	static $store;
+	if (!$store) {
+		// if(CACHE_MODE) {
+		$store = new PzkSGStoreLazy(new PzkSGStoreFormatJson(
+			new PzkSGStoreDomain(new PzkSGStoreDriverFile('cache/js'))));
+		// } else {
+		// $store = new PzkSGStoreDriverPhp();
+		// }
+	}
+	if ($key === NULL) {
+		return $store;
+	} else {
+		if ($value === NULL) {
+			return $store->get($key, $timeout);
+		} else {
+			return $store->set($key, $value);
+		}
+	}
+	return $store;
+}
+
+function pzk_cache_themes($key = NULL, $value = NULL, $timeout = null)
+{
+	static $store;
+	if (!$store) {
+		// if(CACHE_MODE) {
+		$store = new PzkSGStoreLazy(new PzkSGStoreFormatJson(
+			new PzkSGStoreDomain(new PzkSGStoreDriverFile('cache/themes'))));
+		// } else {
+		// $store = new PzkSGStoreDriverPhp();
+		// }
+	}
+	if ($key === NULL) {
+		return $store;
+	} else {
+		if ($value === NULL) {
+			return $store->get($key, $timeout);
+		} else {
+			return $store->set($key, $value);
+		}
+	}
+	return $store;
+}
+
+function pzk_cache_user($key = NULL, $value = NULL, $timeout = null)
+{
+	static $store;
+	if (!$store) {
+		// if(CACHE_MODE) {
+		$store = new PzkSGStoreLazy(new PzkSGStoreFormatJson(
+			new PzkSGStoreDomain(new PzkSGStoreDriverFile('cache/user'))));
+		// } else {
+		// $store = new PzkSGStoreDriverPhp();
+		// }
+	}
+	if ($key === NULL) {
+		return $store;
+	} else {
+		if ($value === NULL) {
+			return $store->get($key, $timeout);
+		} else {
+			return $store->set($key, $value);
+		}
+	}
+	return $store;
+}
+
+function pzk_cache_route($key = NULL, $value = NULL, $timeout = null)
+{
+	static $store;
+	if (!$store) {
+		// if(CACHE_MODE) {
+		$store = new PzkSGStoreLazy(new PzkSGStoreFormatJson(
+			new PzkSGStoreDomain(new PzkSGStoreDriverFile('cache/route'))));
 		// } else {
 		// $store = new PzkSGStoreDriverPhp();
 		// }

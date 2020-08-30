@@ -7,6 +7,6 @@ require 'compile.php';
   <script>
   setTimeout(function() {
     window.location.reload();
-  }, 60 * 1000);
+  }, 600 * 1000);
   </script>
 <?php endif;?>
