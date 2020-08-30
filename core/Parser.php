@@ -198,8 +198,8 @@ class PzkParser
 
 			// cache lai path va class
 			if (CACHE_MODE) {
-				pzk_layoutcache()->set($node->nodeName . 'path', BASE_DIR . '/compile/objects/' . $fileNameCompiled);
-				pzk_layoutcache()->set($node->nodeName . 'class', $objectClassCompiled);
+				pzk_cache_layout()->set($node->nodeName . 'path', BASE_DIR . '/compile/objects/' . $fileNameCompiled);
+				pzk_cache_layout()->set($node->nodeName . 'class', $objectClassCompiled);
 			}
 
 
@@ -313,7 +313,7 @@ class PzkParser
 
 		// cache lai path va class
 		if (null === self::$layoutcache) {
-			self::$layoutcache = $layoutcache = pzk_layoutcache();
+			self::$layoutcache = $layoutcache = pzk_cache_layout();
 		} else {
 			$layoutcache = self::$layoutcache;
 		}
@@ -334,7 +334,7 @@ class PzkParser
 	public static function importObject($nodeName)
 	{
 		if (null === self::$layoutcache) {
-			self::$layoutcache = $layoutcache = pzk_layoutcache();
+			self::$layoutcache = $layoutcache = pzk_cache_layout();
 		} else {
 			$layoutcache = self::$layoutcache;
 		}
@@ -440,7 +440,7 @@ class PzkParser
 		static $allLayouts = array();
 		if (!preg_match('/</', $layout)) {
 
-			if (1 && ($fileName = pzk_layoutcache()->get($layout . 'layout'))) {
+			if ($fileName = pzk_cache_layout()->get($layout . 'layout')) {
 
 				if ($return) {
 					ob_start();
@@ -458,7 +458,7 @@ class PzkParser
 			if (!is_file($fileName) || filemtime($fileName) < filemtime($filePath)) {
 				$content = self::parseTemplateFile($filePath, $data);
 				file_put_contents($fileName, $content);
-				pzk_layoutcache()->set($layout . 'layout', $fileName);
+				pzk_cache_layout()->set($layout . 'layout', $fileName);
 			}
 			if ($return) {
 				ob_start();

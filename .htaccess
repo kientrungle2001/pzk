@@ -28,8 +28,8 @@ SetEnvIfNoCase Request_URI \
 
 RewriteEngine on
 RewriteBase /
-	#RewriteRule ^document/class-([\d]+)/subject-[\w\d-]+-([\d]+)$ /document/index/$2&class=$1 [L,R=301]
-	#RewriteRule ^document/class-([\d]+)/subject-[\w\d-]+-([\d]+)/[\w\d-]+-([\d]+)$   /document/detail/$2&id=$3&class=$1 [R=404]
+	#RewriteRule ^document/class-([\d]+)/subject-[\w\d\-]+-([\d]+)$ /document/index/$2&class=$1 [L,R=301]
+	#RewriteRule ^document/class-([\d]+)/subject-[\w\d\-]+-([\d]+)/[\w\d\-]+-([\d]+)$   /document/detail/$2&id=$3&class=$1 [R=404]
 	
     RewriteCond %{REQUEST_FILENAME} !-f
     #RewriteRule ^(.*)(js)$ redir.php?file=$1$2&type=$2 [L]

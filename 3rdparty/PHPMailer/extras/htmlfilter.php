@@ -212,7 +212,7 @@ function tln_getnxtag($body, $offset)
     }
 
     /**
-     * Look for next [\W-_], which will indicate the end of the tag name.
+     * Look for next [\w\-_], which will indicate the end of the tag name.
      */
     $regary = tln_findnxreg($body, $pos, '[^\w\-_]');
     if ($regary == false) {

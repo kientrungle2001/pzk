@@ -1,4 +1,9 @@
+root $MAGE_ROOT;
+
 index index.html index.php;
+
+autoindex off;
+charset UTF-8;
 
 # set expiration of assets to MAX for caching
 location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
@@ -9,6 +14,10 @@ location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
 location / {
 	# Check if a file or directory index file exists, else route it to index.php.
 	try_files $uri $uri/ /index.php$is_args$args;
+}
+
+location /app {
+        deny all;
 }
 
 location ~* \.php$ {

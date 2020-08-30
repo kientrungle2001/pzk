@@ -12,7 +12,7 @@ class PzkCoreApplication extends PzkObjectLightWeight
 	public $controller = false;
 
 	/**
-	 * Chạy controller
+	 * Chạy application
 	 */
 	public function run()
 	{
@@ -68,10 +68,10 @@ class PzkCoreApplication extends PzkObjectLightWeight
 	 */
 	public function getControllerInstance($controller)
 	{
-		$layoutcache = pzk_layoutcache();
+		$layoutcache = pzk_cache_layout();
 
 		# nếu đã cache
-		if (CACHE_MODE && $layoutcache->get($controller . 'path')) {
+		if (CACHE_MODE && $layoutcache->has($controller . 'path')) {
 			$path = $layoutcache->get($controller . 'path');
 			$class = $layoutcache->get($controller . 'class');
 			if (!class_exists($class)) {
@@ -177,8 +177,8 @@ class PzkCoreApplication extends PzkObjectLightWeight
 	 */
 	public function generateController($controller, $package)
 	{
-		if ($className = pzk_layoutcache()->get($controller . '-' . $package . '-class')) {
-			$classPath = pzk_layoutcache()->get($controller . '-' . $package . '-path');
+		if ($className = pzk_cache_layout()->get($controller . '-' . $package . '-class')) {
+			$classPath = pzk_cache_layout()->get($controller . '-' . $package . '-path');
 			return array(
 				'filePath' 	=> $classPath,
 				'className'	=> $className
@@ -207,8 +207,8 @@ class PzkCoreApplication extends PzkObjectLightWeight
 				'filePath' 	=> $fileNameCompiledPath,
 				'className'	=> $controllerClassCompiled
 			);
-			pzk_layoutcache()->set($controller . '-' . $package . '-class', $result['className']);
-			pzk_layoutcache()->set($controller . '-' . $package . '-path', $result['filePath']);
+			pzk_cache_layout()->set($controller . '-' . $package . '-class', $result['className']);
+			pzk_cache_layout()->set($controller . '-' . $package . '-path', $result['filePath']);
 			return $result;
 		} else {
 			pzk_system()->halt('No controller ' . $controller . ' found in ' . $package . '!');

@@ -35,12 +35,12 @@ class PzkCoreRewriteTable extends PzkObjectLightweight{
 	}
 	
 	public function getItem($route) {
-		if(NULL !== ($item = pzk_layoutcache()->get(md5('route-'.$route.'-'.$this->table)))) {
+		if(NULL !== ($item = pzk_cache_layout()->get(md5('route-'.$route.'-'.$this->table)))) {
 			return $item;
 		} else {
 			$item = _db()->useCache(3600)->useCacheKey('route-'.$route.'-'.$this->table)->select('*')->from($this->table)->where(array($this->field, $route))->result_one();
 			if($item === NULL) $item = false;
-			pzk_layoutcache()->set(md5('route-'.$route.'-'.$this->table), $item);
+			pzk_cache_layout()->set(md5('route-'.$route.'-'.$this->table), $item);
 			return $item;
 		}
 		

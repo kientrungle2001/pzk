@@ -7,48 +7,52 @@ require_once 'config.php';
 @mkdir(COMPILE_DIR . DS . PAGES_FOLDER);
 @mkdir(COMPILE_DIR . DS . LAYOUTS_FOLDER);
 
-@mkdir('cache');
-@mkdir('cache/data');
-@mkdir('cache/layout');
-@mkdir('cache/session');
+@mkdir(CACHE_DIR);
+@mkdir(CACHE_DIR . DS . 'data');
+@mkdir(CACHE_DIR . DS . LAYOUTS_FOLDER);
+@mkdir(CACHE_DIR . DS . 'session');
+@mkdir(CACHE_DIR. DS . PAGES_FOLDER);
+@mkdir(CACHE_DIR . DS . CONTROLLER_FOLDER);
+@mkdir(CACHE_DIR . DS . MODEL_FOLDER);
+@mkdir(CACHE_DIR . DS . OBJECTS_FOLDER);
 $includes = array(
 	__DIR__ . '/lib/string.php',
-    __DIR__ . '/lib/error.php',
-    __DIR__ . '/lib/array.php',
-    __DIR__ . '/lib/condition.php',
-    __DIR__ . '/lib/format.php',
-    __DIR__ . '/lib/thumb.php',
-    __DIR__ . '/lib/recursive.php',
-    __DIR__ . '/lib/dir.php',
-    __DIR__ . '/lib/browser.php',
-    __DIR__ . '/lib/util.php',
+	__DIR__ . '/lib/error.php',
+	__DIR__ . '/lib/array.php',
+	__DIR__ . '/lib/condition.php',
+	__DIR__ . '/lib/format.php',
+	__DIR__ . '/lib/thumb.php',
+	__DIR__ . '/lib/recursive.php',
+	__DIR__ . '/lib/dir.php',
+	__DIR__ . '/lib/browser.php',
+	__DIR__ . '/lib/util.php',
 	__DIR__ . '/core/SG.php',
-    __DIR__ . '/core/SG/Store.php',
-    __DIR__ . '/core/SG/Store/Cluster.php',
-    __DIR__ . '/core/SG/Store/Crypt.php',
-    __DIR__ . '/core/SG/Store/Driver.php',
-    __DIR__ . '/core/SG/Store/Driver/Php.php',
-    __DIR__ . '/core/SG/Store/Driver/File.php',
-    __DIR__ . '/core/SG/Store/Driver/VarexportFile.php',
-    __DIR__ . '/core/SG/Store/Driver/Memcache.php',
-    __DIR__ . '/core/SG/Store/Driver/Redis.php',
-    __DIR__ . '/core/SG/Store/Lazy.php',
+	__DIR__ . '/core/SG/Store.php',
+	__DIR__ . '/core/SG/Store/Cluster.php',
+	__DIR__ . '/core/SG/Store/Crypt.php',
+	__DIR__ . '/core/SG/Store/Driver.php',
+	__DIR__ . '/core/SG/Store/Driver/Php.php',
+	__DIR__ . '/core/SG/Store/Driver/File.php',
+	__DIR__ . '/core/SG/Store/Driver/VarexportFile.php',
+	__DIR__ . '/core/SG/Store/Driver/Memcache.php',
+	__DIR__ . '/core/SG/Store/Driver/Redis.php',
+	__DIR__ . '/core/SG/Store/Lazy.php',
 	__DIR__ . '/core/SG/Store/Stat.php',
 	__DIR__ . '/core/SG/Store/Format.php',
-    __DIR__ . '/core/SG/Store/Format/Json.php',
-    __DIR__ . '/core/SG/Store/Format/Xml.php',
-    __DIR__ . '/core/SG/Store/Format/Serialize.php',
-    __DIR__ . '/core/SG/Store/Prefix.php',
-    __DIR__ . '/core/SG/Store/Session.php',
-    __DIR__ . '/core/SG/Store/App.php',
-    __DIR__ . '/core/SG/Store/Domain.php',
-    __DIR__ . '/core/SG/Store/init.php',
+	__DIR__ . '/core/SG/Store/Format/Json.php',
+	__DIR__ . '/core/SG/Store/Format/Xml.php',
+	__DIR__ . '/core/SG/Store/Format/Serialize.php',
+	__DIR__ . '/core/SG/Store/Prefix.php',
+	__DIR__ . '/core/SG/Store/Session.php',
+	__DIR__ . '/core/SG/Store/App.php',
+	__DIR__ . '/core/SG/Store/Domain.php',
+	__DIR__ . '/core/SG/Store/init.php',
 	__DIR__ . '/core/Object.php',
-    __DIR__ . '/core/Object/LightWeight.php',
-    __DIR__ . '/core/Object/LightWeightSG.php',
+	__DIR__ . '/core/Object/LightWeight.php',
+	__DIR__ . '/core/Object/LightWeightSG.php',
 
-    __DIR__ . '/core/Parser.php',
-    // __DIR__ . '/core/controller/Constant.php',
+	__DIR__ . '/core/Parser.php',
+	// __DIR__ . '/core/controller/Constant.php',
 	__DIR__ . '/core/controller/Constant/List.php',
 	__DIR__ . '/core/controller/Constant/Validator.php',
 	__DIR__ . '/core/controller/Constant/Sort.php',
@@ -105,7 +109,7 @@ $includes = array(
 
 );
 $includeContent = '<?php ' . "\r\n";
-foreach($includes as $include) {
+foreach ($includes as $include) {
 	$content = file_get_contents($include);
 	$content = preg_replace('/^<\?php/', '', $content);
 	$content = preg_replace('/\?>$/', '', $content);
@@ -128,8 +132,8 @@ mb_internal_encoding('UTF-8');
 require_once 'include.php';
 require_once 'core/Compilers.php';
 
-//$objectCompiler = new PzkObjectCompiler();
-//$objectCompiler->compileDir('objects');
+$objectCompiler = new PzkObjectCompiler();
+$objectCompiler->compileDir('objects');
 
 $pageCompiler = new PzkPageCompiler();
 $pageCompiler->compileDir('system');

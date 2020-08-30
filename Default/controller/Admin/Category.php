@@ -8,7 +8,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
 		return PzkEditConstant::gets('parentOfCategory, status', 'categories');
 	}
 	public function getListFieldSettings() {
-		return PzkListConstant::gets('ordering, name, name_vn, name_en, alias, router, extotal, import, trial, status, isSort, display', 'categories');
+		return PzkListConstant::gets('ordering, name, alias, router, extotal, import, trial, status, isSort, display', 'categories');
 	}
 
     public $searchFields = array('name');

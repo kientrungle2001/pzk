@@ -934,12 +934,12 @@ AND table_schema = '{$this->dbName}'");
 			$cacheKey = 'describe_' .$table;
 			
 			$cacher = NULL;
-			$cacher = 'pzk_layoutcache';
+			$cacher = 'pzk_cache_layout';
 			/*
 			if(1 && defined('CACHE_DEFAULT_CACHER')) {
 				$cacher = CACHE_DEFAULT_CACHER;
 			} else {
-				$cacher = 'pzk_layoutcache';
+				$cacher = 'pzk_cache_layout';
 			}*/
 			$data = $cacher()->get($cacheKey, 1800);
 			if($data !== NULL) {
@@ -958,7 +958,7 @@ AND table_schema = '{$this->dbName}'");
 		}
 		if(1) {
 			$cacher = NULL;
-			$cacher = 'pzk_layoutcache';
+			$cacher = 'pzk_cache_layout';
 			/*
 			if(1 && defined('CACHE_DEFAULT_CACHER')) {
 				$cacher = CACHE_DEFAULT_CACHER;

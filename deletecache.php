@@ -41,14 +41,47 @@ foreach($cachesission as $file) {
     }
 }*/
 
-$cachelayout = glob('cache/layout/*.*');
+$cachelayout = glob('cache/layouts/*.*');
 foreach($cachelayout as $file) {
     $timefile = filemtime($file);
     $timedelete = $timefile + $time_cache_session;
 
     if(DELETE_ALL || time() > $timedelete) {
-        unlink('cache/layout/'.basename($file));
-		echo 'cache/layout/'.basename($file) . '<br />';
+        unlink('cache/layouts/'.basename($file));
+		echo 'cache/layouts/'.basename($file) . '<br />';
+    }
+}
+
+$cachelayout = glob('cache/pages/*.*');
+foreach($cachelayout as $file) {
+    $timefile = filemtime($file);
+    $timedelete = $timefile + $time_cache_session;
+
+    if(DELETE_ALL || time() > $timedelete) {
+        unlink('cache/pages/'.basename($file));
+		echo 'cache/pages/'.basename($file) . '<br />';
+    }
+}
+
+$cachelayout = glob('cache/objects/*.*');
+foreach($cachelayout as $file) {
+    $timefile = filemtime($file);
+    $timedelete = $timefile + $time_cache_session;
+
+    if(DELETE_ALL || time() > $timedelete) {
+        unlink('cache/objects/'.basename($file));
+		echo 'cache/objects/'.basename($file) . '<br />';
+    }
+}
+
+$cachelayout = glob('cache/controller/*.*');
+foreach($cachelayout as $file) {
+    $timefile = filemtime($file);
+    $timedelete = $timefile + $time_cache_session;
+
+    if(DELETE_ALL || time() > $timedelete) {
+        unlink('cache/controller/'.basename($file));
+		echo 'cache/controller/'.basename($file) . '<br />';
     }
 }
 

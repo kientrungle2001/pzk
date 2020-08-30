@@ -11,7 +11,7 @@ class PzkCoreThemesThemes extends PzkObject{
 		}
 		
 		$today	= 	date('Y-m-d');
-		if(!($themes = pzk_layoutcache()->getAllThemeNames())) {
+		if(!($themes = pzk_cache_layout()->getAllThemeNames())) {
 			$themes	=	_db()->select("name")
 					->useCache(1800)
 					->useCacheKey('themes-today-asc')
@@ -28,7 +28,7 @@ class PzkCoreThemesThemes extends PzkObject{
 			foreach($themes as &$theme) {
 				$theme['name'] = ucfirst($theme['name']);
 			}
-			pzk_layoutcache()->setAllThemeNames( $themes);
+			pzk_cache_layout()->setAllThemeNames( $themes);
 		}
 		
 		return($themes);

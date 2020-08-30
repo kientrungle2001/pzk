@@ -300,6 +300,8 @@ if(($showchart && $sessionShowColumn && $sessionColumn && $sessionColumnType) or
                                             <?php } ?>
                                         </select>
                                     <?php
+                                    $fromdate = '';
+                                    $todate = '';
                                     if($arrDate) {
                                         $todate = @$arrDate["date" . $value['index']]['todate'];
 

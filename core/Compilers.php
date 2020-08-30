@@ -138,15 +138,15 @@ class PzkPageCompiler extends PzkCompiler {
 }
 
 class PzkObjectCompiler extends PzkCompiler {
-	public $target = 'compile/objects/';
+	public $target = COMPILE_FOLDER.DS . OBJECTS_FOLDER;
 	public function compile() {
 		$file = $this->source;
-		$parts = explode('/', $file);
+		$parts = explode(DS, $file);
 		array_shift($parts);
 		foreach($parts as $index => $part) {
 			$parts[$index] = ucfirst($parts[$index]);
 		}
-		$fileName = $this->target . 'Pzk' . implode('', $parts);
+		$fileName = BASE_DIR . DS . $this->target . DS . 'objects' . DOT . implode(DOT, $parts);
 		if(!is_file($fileName) || (filemtime(utf8_decode($file)) > filemtime(utf8_decode($fileName)))) {
 			copy($file, $fileName);
 			echo 'File <a href="#">' . $file . '</a> compiled successfully!<br />';

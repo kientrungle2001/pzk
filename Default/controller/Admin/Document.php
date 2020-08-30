@@ -1,10 +1,13 @@
 <?php
 class PzkAdminDocumentController extends PzkGridAdminController {
+	public const TABLE = 'document';
+	public const CONTROLLER = 'Admin_Document';
+	public const ADD_ACTION = 'add';
 	public $title 		= 'Quản lý tài liệu';
-	public $table 		= 'document';
-	public $gridLayout	= 'grid/js';
+	public $table 		= self::TABLE;
+	// public $gridLayout	= 'grid/js';
 	public function getJoins() {
-		return PzkJoinConstant::gets('category, creator, modifier', 'document');
+		return PzkJoinConstant::gets('category, creator, modifier', self::TABLE);
 	}
 
 	public $selectFields = 'document.*, categories.name as categoryName, creator.name as creatorName, modifier.name as modifiedName';
@@ -12,15 +15,15 @@ class PzkAdminDocumentController extends PzkGridAdminController {
 		return array(
 				array(
 						'name'	=> 	'Tạo Alias',
-						'href'	=> 	'/admin_document/alias'
+						'href'	=> 	DS . self::CONTROLLER . DS . 'alias'
 				),
 				array(
 					'name'	=> 	'Thêm Nhanh Tài liệu',
-					'href'	=> 	'/admin_document/add?type=document&hidden_ordering=1&hidden_global=1&hidden_campaignId=1&hidden_sharedSoftwares=1&hidden_startDate=1&hidden_endDate=1&hidden_type=1&hidden_meta_keywords=1&hidden_meta_description=1&hidden_brief=1&hidden_img=1&hidden_file=1'
+					'href'	=> 	DS. self::CONTROLLER . DS . self::ADD_ACTION . '?type=document&hidden_ordering=1&hidden_global=1&hidden_campaignId=1&hidden_sharedSoftwares=1&hidden_startDate=1&hidden_endDate=1&hidden_type=1&hidden_meta_keywords=1&hidden_meta_description=1&hidden_brief=1&hidden_img=1&hidden_file=1'
 				),
 				array(
 					'name'	=> 	'Thêm Nhanh Từ vựng',
-					'href'	=> 	'/admin_document/add?type=vocabulary&hidden_ordering=1&hidden_global=1&hidden_campaignId=1&hidden_sharedSoftwares=1&hidden_startDate=1&hidden_endDate=1&hidden_type=1&hidden_meta_keywords=1&hidden_meta_description=1&hidden_brief=1&hidden_img=1&hidden_file=1'
+					'href'	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?type=vocabulary&hidden_ordering=1&hidden_global=1&hidden_campaignId=1&hidden_sharedSoftwares=1&hidden_startDate=1&hidden_endDate=1&hidden_type=1&hidden_meta_keywords=1&hidden_meta_description=1&hidden_brief=1&hidden_img=1&hidden_file=1'
 				),
 		);
 	}
@@ -29,17 +32,17 @@ class PzkAdminDocumentController extends PzkGridAdminController {
 			/*
 			PzkListConstant::get('img', 'document'),
 			*/
-			PzkListConstant::group('<br />Tiêu đề<br />Bí danh', 'title, alias', 'document'),
+			PzkListConstant::group('<br />Tiêu đề<br />Bí danh', 'title, alias', self::TABLE),
 			/*
 			PzkListConstant::group('<br />Từ khóa<br />Mô tả', 'meta_keywords, meta_description', 'document'),*/
-			PzkListConstant::get('categoryName', 'document'),
-			PzkListConstant::get('document_en_title', 'document'),
+			PzkListConstant::get('categoryName', self::TABLE),
+			PzkListConstant::get('document_en_title', self::TABLE),
 			array(
 				'index' 	=> 'tdn_title',
 				'type' 		=> 'text',
 				'label' 	=> 'Tiêu đề TĐN',
 			),
-			PzkListConstant::get('categoryIds', 'document'),
+			PzkListConstant::get('categoryIds', self::TABLE),
 			array(
 				'index' 	=> 'classes',
 				'type' 		=> 'text',
@@ -74,23 +77,23 @@ class PzkAdminDocumentController extends PzkGridAdminController {
 			/*
 			PzkListConstant::get('campaignName', 'document'),
 			*/
-			PzkListConstant::group('<br />Xem<br />Thích<br />Bình luận', 'views, likes, comments', 'document'),
-			PzkListConstant::group('<br />Người tạo<br />Người sửa', 'creatorName, modifiedName', 'document'),
-			PzkListConstant::group('<br />Ngày tạo<br />Ngày sửa', 'created, modified', 'document'),
-			PzkListConstant::get('trial', 'document'),
-			PzkListConstant::get('ordering', 'document'),
+			PzkListConstant::group('<br />Xem<br />Thích<br />Bình luận', 'views, likes, comments', self::TABLE),
+			PzkListConstant::group('<br />Người tạo<br />Người sửa', 'creatorName, modifiedName', self::TABLE),
+			PzkListConstant::group('<br />Ngày tạo<br />Ngày sửa', 'created, modified', self::TABLE),
+			PzkListConstant::get('trial', self::TABLE),
+			PzkListConstant::get('ordering', self::TABLE),
 			/*PzkListConstant::get('classes', 'document'),*/
 			/*PzkListConstant::get('file', 'document'),*/
-			PzkListConstant::get('status', 'document'),
+			PzkListConstant::get('status', self::TABLE),
 			array(
-				'index' 	=> 'displayAtSite',
-				'type' 		=> 'ordering',
-				'label' 	=> 'H.Thị ở Site',
+				ATTR_INDEX 	=> 'displayAtSite',
+				ATTR_TYPE 		=> LIST_TYPE_ORDERING,
+				ATTR_LABEL 	=> 'H.Thị ở Site',
 			),
 			array(
-				'index' 	=> 'hidden',
-				'type' 		=> 'status',
-				'label' 	=> 'Ẩn',
+				ATTR_INDEX 	=> 'hidden',
+				ATTR_TYPE 		=> LIST_TYPE_STATUS,
+				ATTR_LABEL 	=> 'Ẩn',
 			),
 		);
 	}
@@ -103,12 +106,12 @@ class PzkAdminDocumentController extends PzkGridAdminController {
 	}
 	
 	public function getSortFields() {
-		return PzkSortConstant::gets('id, title, categoryId, ordering', 'document');
+		return PzkSortConstant::gets('id, title, categoryId, ordering', self::TABLE);
 	}
 	
 	public $quickMode = false;
 	public function getQuickFieldSettings(){
-		return PzkListConstant::gets('title', 'document');
+		return PzkListConstant::gets('title', self::TABLE);
 	}
 	
 	public $logable = true;
@@ -118,20 +121,20 @@ class PzkAdminDocumentController extends PzkGridAdminController {
 	public $addFields = 'title, en_title, type, categoryId, img, content, brief, trial, alias, file, ordering, classes, categoryIds,
 				meta_keywords, meta_description, status, software, global, sharedSoftwares';
 	public function getAddFieldSettings() { 
-		return PzkEditConstant::gets('title[mdsize=3], en_title[mdsize=3], alias[mdsize=3], categoryId[mdsize=3],  file[mdsize=3],categoryIds[mdsize=12], img[mdsize=3], status[mdsize=3], trial[mdsize=3], classes[mdsize=3], brief[mdsize=3], typeOfDocument[mdsize=3], content,  ordering[mdsize=2], meta_keywords[mdsize=5], meta_description[mdsize=5]','document');
+		return PzkEditConstant::gets('title[mdsize=3], en_title[mdsize=3], alias[mdsize=3], categoryId[mdsize=3],  file[mdsize=3],categoryIds[mdsize=12], img[mdsize=3], status[mdsize=3], trial[mdsize=3], classes[mdsize=3], brief[mdsize=3], typeOfDocument[mdsize=3], content,  ordering[mdsize=2], meta_keywords[mdsize=5], meta_description[mdsize=5]',self::TABLE);
     }
 	
 	public $editFields = 'title, en_title, type, categoryId, img, content, brief, trial, alias, file, ordering, classes, categoryIds,
 				meta_keywords, meta_description, status, software, global, sharedSoftwares';
 	public function getEditFieldSettings() { 
-		return PzkEditConstant::gets('title[mdsize=3], en_title[mdsize=3], alias[mdsize=3], categoryId[mdsize=3],  file[mdsize=3],categoryIds[mdsize=12], img[mdsize=3], status[mdsize=3], trial[mdsize=3], classes[mdsize=3], brief[mdsize=3], typeOfDocument[mdsize=3], content,  ordering[mdsize=2], meta_keywords[mdsize=5], meta_description[mdsize=5]','document');
+		return PzkEditConstant::gets('title[mdsize=3], en_title[mdsize=3], alias[mdsize=3], categoryId[mdsize=3],  file[mdsize=3],categoryIds[mdsize=12], img[mdsize=3], status[mdsize=3], trial[mdsize=3], classes[mdsize=3], brief[mdsize=3], typeOfDocument[mdsize=3], content,  ordering[mdsize=2], meta_keywords[mdsize=5], meta_description[mdsize=5]',self::TABLE);
     }
 	
 	public $detailFields = 'document.*, categories.name as categoryName, creator.name as creatorName, modifier.name as modifiedName';
 	public function getViewFieldSettings() { 
 		return PzkListConstant::gets('title, alias, meta_keywords, meta_description, categoryName,
 			campaignName, views, likes, comments, creatorName, modifiedName, created, modified, 
-			 statusText, orderingText, briefText', 'document');
+			 statusText, orderingText, briefText', self::TABLE);
 	}
 	
 	public function getChildrenGridSettings() { 
@@ -165,11 +168,9 @@ class PzkAdminDocumentController extends PzkGridAdminController {
 	
 	public function getParentDetailSettings() { 
 		return array(
-			PzkParentConstant::get('creator', 'document'),
-			PzkParentConstant::get('modifier', 'document'),
-			PzkParentConstant::get('category', 'document', PzkListConstant::gets('nameOfCategory, alias, router, statusText, displayText', 'category'))
+			PzkParentConstant::get('creator', self::TABLE),
+			PzkParentConstant::get('modifier', self::TABLE),
+			PzkParentConstant::get('category', self::TABLE, PzkListConstant::gets('nameOfCategory, alias, router, statusText, displayText', 'category'))
 		);
 	}
 }
-	
-?>

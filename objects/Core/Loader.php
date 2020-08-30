@@ -25,9 +25,9 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 	 */
 	public function createModel($model) {
 		// neu da cache
-		if(CACHE_MODE && pzk_layoutcache()->get($model. 'path')) {
-			$path = pzk_layoutcache()->get($model. 'path');
-			$class = pzk_layoutcache()->get($model.'class');
+		if(CACHE_MODE && pzk_cache_layout()->get($model. 'path')) {
+			$path = pzk_cache_layout()->get($model. 'path');
+			$class = pzk_cache_layout()->get($model.'class');
 			require_once $path;
 			return new $class();
 		}
@@ -99,8 +99,8 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 		
 		// cache lai path va class
 		if(CACHE_MODE) {
-			pzk_layoutcache()->set($model.'path', BASE_DIR . '/compile/model/' . $fileNameCompiled);
-			pzk_layoutcache()->set($model.'class', $modelClassCompiled);
+			pzk_cache_layout()->set($model.'path', BASE_DIR . '/compile/model/' . $fileNameCompiled);
+			pzk_cache_layout()->set($model.'class', $modelClassCompiled);
 		}
 		
 		// ket qua
@@ -184,7 +184,7 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 	/**
 	 * Import application instance
 	 */
-	public function importApplicationInstance() {
+	public function createApplicationInstance() {
 		// chạy ứng dụng
 		$application = pzk_request()->getApp();
 		$sys = pzk_element()->getSystem();
@@ -194,9 +194,9 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 	/**
 	 * Import application: configuration & instance
 	 */
-	public function importApplication() {
+	public function loadApplication() {
 		$this->importApplicationConfigurations();
-		$this->importApplicationInstance();
+		$this->createApplicationInstance();
 	}
 
 }
@@ -215,6 +215,9 @@ function pzk_loader() {
  * @return object
  */
 function pzk_model($name, $newInstance = false) {
+	if(is_array($name)) {
+		$name = implode(DOT, $name);
+	}
 	if($newInstance) {
 		return pzk_loader()->createModel($name);
 	}

@@ -195,12 +195,25 @@ class PzkCoreSystem extends PzkObjectLightWeight {
 		if(function_exists('pzk_stat')) {
 			pzk_stat()->saveSession();
 		}
-		if(function_exists('pzk_layoutcache')) {
-			pzk_layoutcache()->saveSession();
+		if(function_exists('pzk_cache_layout')) {
+			pzk_cache_layout()->saveSession();
+		}
+
+		if(function_exists('pzk_cache_objects')) {
+			pzk_cache_objects()->saveSession();
+		}
+		if(function_exists('pzk_cache_pages')) {
+			pzk_cache_pages()->saveSession();
+		}
+		if(function_exists('pzk_cache_controller')) {
+			pzk_cache_controller()->saveSession();
+		}
+		if(function_exists('pzk_cache_table')) {
+			pzk_cache_table()->saveSession();
 		}
 		/*
-		if(function_exists('pzk_layoutcache')) {
-			pzk_layoutcache()->saveSession();
+		if(function_exists('pzk_cache_layout')) {
+			pzk_cache_layout()->saveSession();
 		}*/
 		die($message);
 	}

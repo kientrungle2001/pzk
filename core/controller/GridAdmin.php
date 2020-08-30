@@ -724,7 +724,7 @@ class PzkGridAdminController extends PzkAdminController
 				endif;
 			endforeach;
 			if ($selectedGridSettings) :
-				$grid = pzk_parse('default/pages/admin/grid/index');
+				$grid = $this->parse('admin/grid/index');
 				foreach ($selectedGridSettings as $key => $val) {
 					$grid->set($key, $val);
 				}
@@ -752,7 +752,7 @@ class PzkGridAdminController extends PzkAdminController
 				endif;
 			endforeach;
 			if ($selectedDetailSettings) :
-				$detail = pzk_parse('default/pages/admin/grid/view');
+				$detail = $this->parse('admin/grid/view');
 				$detail->setModule($this->getModule());
 				$detail->setIsChildModule(true);
 				foreach ($selectedDetailSettings as $key => $val) {

@@ -65,6 +65,8 @@ define('DS', DIRECTORY_SEPARATOR);
 
 define('UNS', '_');
 
+define('DOT', '.');
+
 define ('PHP_EXT', '.php');
 
 define ('HTML_EXT', '.html');
@@ -122,6 +124,10 @@ define('COMPILE_FOLDER', 'compile');
 
 // thư mục compile
 define('COMPILE_DIR', BASE_DIR . DS . COMPILE_FOLDER);
+
+define('CACHE_FOLDER', 'cache');
+
+define('CACHE_DIR', BASE_DIR . DS . CACHE_FOLDER);
 
 // tên thư mục compile
 define('OBJECTS_FOLDER', 'objects');

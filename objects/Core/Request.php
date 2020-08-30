@@ -1,5 +1,6 @@
 <?php
-class PzkCoreRequest extends PzkObjectLightWeightSG {
+class PzkCoreRequest extends PzkObjectLightWeightSG
+{
 	/**
 	 * Đường dẫn URL, chỉ chứa đường dẫn không có ?query=...
 	 * @var String
@@ -40,27 +41,28 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * @var Array
 	 */
 	public $options;
-	
+
 	/**
 	 * (non-PHPdoc)
 	 * @see PzkObjectLightWeightSG::init()
 	 */
-	public function init() {
+	public function init()
+	{
 		$this->parse_full_path();
 	}
-	
+
 	private function parse_full_path()
 	{
 		$s = &$_SERVER;
-		$ssl = (!empty($s['HTTPS']) && $s['HTTPS'] == 'on') ? true:false;
+		$ssl = (!empty($s['HTTPS']) && $s['HTTPS'] == 'on') ? true : false;
 		$sp = strtolower($s['SERVER_PROTOCOL']);
-		
+
 		$protocol = substr($sp, 0, strpos($sp, '/')) . (($ssl) ? 's' : '');
 		$this->protocol = $protocol;
-		
+
 		$port = $s['SERVER_PORT'];
 		$this->port = $port;
-		$port = ((!$ssl && $port=='80') || ($ssl && $port=='443')) ? '' : ':'.$port;
+		$port = ((!$ssl && $port == '80') || ($ssl && $port == '443')) ? '' : ':' . $port;
 		$this->resovledPort = $port;
 		$host = isset($s['HTTP_X_FORWARDED_HOST']) ? $s['HTTP_X_FORWARDED_HOST'] : (isset($s['HTTP_HOST']) ? $s['HTTP_HOST'] : null);
 		$this->host = $host;
@@ -75,39 +77,42 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 		$full_route = $segments2[0];
 		$this->full_route = $full_route;
 		$segments3 = explode(STARTUP_SCRIPT, $full_route, 2);
-		$this->route = isset($segments3[1])?$segments3[1]: $segments3[0];
+		$this->route = isset($segments3[1]) ? $segments3[1] : $segments3[0];
 		$this->stripped_slash_route = preg_replace('/^[\/]/', '', $this->route);
 		$this->query = $_REQUEST;
 		$this->method = $_SERVER['REQUEST_METHOD'];
 		return $url;
 	}
-	
+
 	/**
 	 * Kiểm tra xem phương thức là gì
 	 * $method = get|post|put|delete|head|options|ajax|ssl|flash|mobile
 	 * @param String $method Phương thức cần kiểm tra
 	 * @return boolean
 	 */
-	public function is($method) {
+	public function is($method)
+	{
 		return ($this->method == $method);
 	}
-	
+
 	/**
-	*	Kiểm tra xem phương thức có phải là phương thức POST không
-	*	@return boolean
-	*/
-	public function isPost() {
+	 *	Kiểm tra xem phương thức có phải là phương thức POST không
+	 *	@return boolean
+	 */
+	public function isPost()
+	{
 		return $this->is('POST') || $this->is('post');
 	}
-	
+
 	/**
-	*	Kiểm tra xem phương thức có phải là phương thức GET không
-	*	@return boolean
-	*/
-	public function isGet() {
+	 *	Kiểm tra xem phương thức có phải là phương thức GET không
+	 *	@return boolean
+	 */
+	public function isGet()
+	{
 		return $this->is('GET') || $this->is('get');
 	}
-	
+
 	/**
 	 * Xây dựng đường dẫn dựa vào route và query
 	 * @example pzk_request()->build('home/category', array('id' => 1)); <br />
@@ -117,10 +122,11 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * @param string $options mảng các options
 	 * @return string đường dẫn
 	 */
-	public function build($route, $query = false, $options = false) {
+	public function build($route, $query = false, $options = false)
+	{
 		return BASE_REQUEST . '/' . $route . ($query ? '?' . http_build_query($query) : '') . ($options ? '#' . http_build_query($options) : '');
 	}
-	
+
 	/**
 	 * Xây dựng đường dẫn dựa vào đường dẫn hiện thời
 	 * @example Đường dẫn hiện thời là: http://example.com/home/category?page=3<br /> 
@@ -130,11 +136,12 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * @param string $options
 	 * @return string
 	 */
-	public function buildCurrent($query = false, $options = false) {
+	public function buildCurrent($query = false, $options = false)
+	{
 		$route = preg_replace('/^\//', '', $this->route);
 		return $this->build($route, $query, $options);
 	}
-	
+
 	/**
 	 * Xây dựng đường dẫn dựa vào controller hiện thời
 	 * @example Đường dẫn hiện thời là: http://example.com/home/category?page=3<br /> 
@@ -145,25 +152,28 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * @param string $options
 	 * @return string đường dẫn cần tạo
 	 */
-	public function buildAction($action = false, $query = false, $options = false) {
+	public function buildAction($action = false, $query = false, $options = false)
+	{
 		$route = $this->getController() . '/' . $action;
 		return $this->build($route, $query, $options);
 	}
-	
+
 	/**
 	 * Đặt giá trị
 	 * @param String $key
 	 * @param mixed $value
 	 */
-	public function set($key, $value) {
+	public function set($key, $value)
+	{
 		$this->query[$key] = $value;
 	}
-	
+
 	/**
 	 * unset giá trị
 	 * @param String $key
 	 */
-	public function un_set($key) {
+	public function un_set($key)
+	{
 		unset($this->query[$key]);
 	}
 
@@ -171,7 +181,8 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * unset giá trị
 	 * @param String $key
 	 */
-	public function del($key) {
+	public function del($key)
+	{
 		unset($this->query[$key]);
 	}
 
@@ -179,155 +190,175 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * unset giá trị
 	 * @param String $key
 	 */
-	public function has($key) {
+	public function has($key)
+	{
 		return isset($this->query[$key]);
 	}
-	
+
 	/**
 	 * Lấy giá trị ra, nếu ko có thì lấy giá trị mặc định
 	 * @param string $key
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	public function get($key, $default = NULL) {
-		if(isset($this->query[$key])) return $this->query[$key];
+	public function get($key, $default = NULL)
+	{
+		if (isset($this->query[$key])) return $this->query[$key];
 		else return $default;
 	}
-	
+
 	/**
 	 * Lấy giá trị ra, nếu ko có thì lấy giá trị mặc định
-	 * @param string $key
+	 * @param String $key
 	 * @param mixed $default
-	 * @return mixed
+	 * @return Integer|null
 	 */
-	public function getInt($key, $default = NULL) {
-		if(isset($this->query[$key])) return intval($this->query[$key]);
+	public function getInt($key, $default = NULL)
+	{
+		if (isset($this->query[$key])) return intval($this->query[$key]);
 		else return $default;
 	}
-	
-	public function getWord($key, $default = NULL) {
-		if(isset($this->query[$key])) return wordval($this->query[$key]);
-		else return $default;
+
+	/**
+	 * Tra ve gia tri dang word: [\w\d_-]*
+	 * @param String $key
+	 * @param String|null $default
+	 * @return String|null
+	 */
+	public function getWord($key, $default = NULL)
+	{
+		if ($this->has($key)) return wordval($this->get($key));
+		return $default;
 	}
-	
+
 	/**
 	 * Lấy dữ liệu của url theo phân đoạn
 	 * @param int $index vị trí của phân đoạn tính từ 1
 	 */
-	public function getSegment($index) {
+	public function getSegment($index)
+	{
 		$parts = null;
-		if(isset($this->parts)) {
+		if (isset($this->parts)) {
 			$parts = $this->parts;
 		} else {
-			$parts = explode('/', $this->route);
+			$parts = explode(DS, $this->route);
 			$this->parts = $parts;
 		}
-		
-		return isset($parts[$index])? wordval($parts[$index]): null;
+
+		return isset($parts[$index]) ? wordval($parts[$index]) : null;
 	}
-	
+
 	/**
 	 * Redirect về một url
 	 * @param string $url
 	 */
-	public function redirect($url) {
-		if(strpos($url, '://') !== false)
+	public function redirect($url)
+	{
+		if (strpos($url, '://') !== false)
 			header('Location: ' . $url);
 		else
 			header('Location: ' . BASE_REQUEST . '/' . $url);
-		if(function_exists('pzk_system'))
+		if (function_exists('pzk_system'))
 			pzk_system()->halt();
 	}
 	public $is_admin_route = NULL;
-	public function isAdminRoute() {
-		if($this->is_admin_route === NULL) {
+	public function isAdminRoute()
+	{
+		if ($this->is_admin_route === NULL) {
 			$this->is_admin_route = ADMIN_MODE;
 		}
 		return $this->is_admin_route;
 	}
-	
-	public function getStrippedSlashRoute() {
+
+	public function getStrippedSlashRoute()
+	{
 		return $this->stripped_slash_route;
 	}
-	
-	public function getAppPath() {
+
+	public function getAppPath()
+	{
 		static $path;
-		if($path) return $path;
-		$path = str_replace('_', '/', $this->getApp());
+		if ($path) return $path;
+		$path = str_replace(UNS, DS, $this->getApp());
 		return $path;
 	}
-	
-	public function getPackagePath() {
+
+	public function getPackagePath()
+	{
 		static $package;
-		if($package) return $package;
+		if ($package) return $package;
 		$appPath = $this->getAppPath();
-		$package = substr($appPath, 0, stripos($appPath, '/'));
+		$package = substr($appPath, 0, stripos($appPath, DS));
 		return $package;
 	}
 	public $detector = null;
-	public function getDetector() {
-		if(!$this->detector) {
+	public function getDetector()
+	{
+		if (!$this->detector) {
 			require_once BASE_DIR . '/3rdparty/Mobile-Detect-2.8.22/Mobile_Detect.php';
 			$this->detector = new Mobile_Detect();
 		}
 		return $this->detector;
 	}
 	public $_isMobileAndTablet = NULL;
-	public function isMobileAndTablet() {
-		if(NULL === $this->_isMobileAndTablet) {
-			if(($isMobileAndTablet = pzk_session()->getIsMobileAndTablet()) !== NULL) {
+	public function isMobileAndTablet()
+	{
+		if (NULL === $this->_isMobileAndTablet) {
+			if (($isMobileAndTablet = pzk_session()->getIsMobileAndTablet()) !== NULL) {
 				return $this->_isMobileAndTablet = $isMobileAndTablet;
 			} else {
 				$isMobileAndTablet = ($this->_isMobileAndTablet = $this->getDetector()->isMobile());
-				pzk_session()->setIsMobileAndTablet( $isMobileAndTablet);
+				pzk_session()->setIsMobileAndTablet($isMobileAndTablet);
 				return $isMobileAndTablet;
 			}
-			
 		}
 		return $this->_isMobileAndTablet;
 	}
-	
-	public function isDesktop() {
+
+	public function isDesktop()
+	{
 		return !$this->isMobileAndTablet();
 	}
-	
+
 	public $_isTablet = NULL;
-	public function isTablet() {
-		if(NULL === $this->_isTablet) {
-			if(($isTablet = pzk_session()->getIsTablet()) !== NULL) {
+	public function isTablet()
+	{
+		if (NULL === $this->_isTablet) {
+			if (($isTablet = pzk_session()->getIsTablet()) !== NULL) {
 				return $this->_isTablet = $isTablet;
 			} else {
 				$isTablet = ($this->_isTablet = $this->getDetector()->isTablet());
-				pzk_session()->setIsTablet( $isTablet);
+				pzk_session()->setIsTablet($isTablet);
 				return $isTablet;
 			}
-			
 		}
 		return $this->_isTablet;
 	}
-	
+
 	public $_isMobile = NULL;
-	public function isMobile() {
-		if(NULL === $this->_isMobile) {
+	public function isMobile()
+	{
+		if (NULL === $this->_isMobile) {
 			return ($this->_isMobile = $this->isMobileAndTablet() && !$this->isTablet());
 		}
 		return $this->_isMobile;
 	}
-	public function getTransformData() {
+	public function getTransformData()
+	{
 		$fields = array();
 		$arguments = func_get_args();
-		if(count($arguments) == 0) {
+		if (count($arguments) == 0) {
 			return (array)$this->query;
 		} else {
 			$fields = arguments_to_fields($arguments);
 		}
 		$data = array();
-		foreach($fields as $field) {
-			if(strpos($field, ':') !== -1) {
+		foreach ($fields as $field) {
+			if (strpos($field, ':') !== -1) {
 				$pair = explode(':', $field);
 				$key = $pair[0];
 				$requestKey = $pair[1];
-				if(is_numeric($requestKey)) {
+				if (is_numeric($requestKey)) {
 					$data[$key] = $this->getSegment($requestKey);
 				} else {
 					$data[$key] = $this->get($requestKey);
@@ -343,7 +374,8 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * get request id value
 	 * @return Integer request id
 	 */
-	public function getId() {
+	public function getId()
+	{
 		return $this->getInt('id');
 	}
 
@@ -351,23 +383,26 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
 	 * get request controller
 	 * @return String request controller value
 	 */
-	public function getController() {
-		return $this->getWord('controller');
+	public function getController($default = null)
+	{
+		return $this->getWord('controller', $default);
 	}
 
 	/**
 	 * get request action
 	 * @return String request action value
 	 */
-	public function getAction() {
-		return $this->getWord('action');
+	public function getAction($default = null)
+	{
+		return $this->getWord('action', $default);
 	}
 
 	/**
 	 * get request back href
 	 * @return String request back href value
 	 */
-	public function getBackHref() {
+	public function getBackHref()
+	{
 		return $this->get('backHref');
 	}
 }
@@ -377,10 +412,11 @@ class PzkCoreRequest extends PzkObjectLightWeightSG {
  * @param string $value
  * @return PzkCoreRequest|mixed
  */
-function pzk_request($var = NULL, $value = NULL) {
+function pzk_request($var = NULL, $value = NULL)
+{
 	$request = pzk_element()->getRequest();
-	if($var == NULL) return $request;
-	if($value == NULL) return $request->get($var);
+	if ($var == NULL) return $request;
+	if ($value == NULL) return $request->get($var);
 	return $request->set($var, $value);
 }
 
@@ -388,6 +424,7 @@ function pzk_request($var = NULL, $value = NULL) {
  * Redirect về một đường dẫn url
  * @param string $url
  */
-function pzk_redirect($url) {
+function pzk_redirect($url)
+{
 	return pzk_request()->redirect($url);
 }

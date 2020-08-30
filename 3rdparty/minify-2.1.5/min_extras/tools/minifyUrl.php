@@ -17,7 +17,7 @@ function sniffType($headers) {
     $type = null;
     $headers = "\n\n" . implode("\n\n", $headers) . "\n\n";
     if (preg_match(
-            '@\\n\\nContent-Type: *([\\w/\\+-]+)( *; *charset *= *([\\w-]+))? *\\n\\n@i'
+            '@\\n\\nContent-Type: *([\\w/\\+-]+)( *; *charset *= *([\\w\-]+))? *\\n\\n@i'
             ,$headers
             ,$m)) {
         $sentType = $m[1];
