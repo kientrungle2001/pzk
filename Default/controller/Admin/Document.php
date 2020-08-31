@@ -42,66 +42,117 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public function getListFieldSettings()
 	{
 		return array(
-			PzkListConstant::get('img', 'document'),
-			PzkListConstant::group('<br />Tiêu đề<br />Bí danh', 'title, alias', self::TABLE),
-			PzkListConstant::get('categoryName', self::TABLE),
-			PzkListConstant::get('categoryIds', self::TABLE),
+			list_field('img', self::TABLE),
+			list_fields_group(
+				'<br />Tiêu đề<br />Bí danh',
+				['title', 'alias'],
+				self::TABLE
+			),
+			list_field(LIST_FIELD_CATEGORY_NAME, self::TABLE),
 			array(
-				'index' 	=> 'classes',
-				'type' 		=> 'text',
-				'label' 	=> 'Lớp',
+				ATTR_INDEX 	=> 'classes',
+				ATTR_TYPE 		=> LIST_TYPE_TEXT,
+				ATTR_LABEL 	=> 'Lớp',
 				'filter'	=> 	array(
-					'index' 		=> 'classes',
-					'type' 			=> 'selectoption',
-					'label' 		=> 'Chọn lớp',
+					ATTR_INDEX 		=> 'classes',
+					ATTR_TYPE 			=> 'selectoption',
+					ATTR_LABEL 		=> 'Chọn lớp',
 					'option' 		=> array(
 						CLASS3 			=> "Lớp 3",
 						CLASS4 			=> "Lớp 4",
 						CLASS5 			=> "Lớp 5"
 					),
-					'like' 			=> true
+					ATTR_LIKE 			=> true
 				),
 			),
-			PzkListConstant::group('<br />Người tạo<br />Người sửa', 'creatorName, modifiedName', self::TABLE),
-			PzkListConstant::group('<br />Ngày tạo<br />Ngày sửa', 'created, modified', self::TABLE),
-			PzkListConstant::get('ordering', self::TABLE),
-			PzkListConstant::get('status', self::TABLE)
+			list_fields_group(
+				'<br />Người tạo<br />Người sửa',
+				[LIST_FIELD_CREATOR_NAME, LIST_FIELD_MODIFIED_NAME],
+				self::TABLE
+			),
+			list_fields_group(
+				'<br />Ngày tạo<br />Ngày sửa',
+				[LIST_FIELD_CREATED, LIST_FIELD_MODIFIED],
+				self::TABLE
+			),
+			list_field(LIST_FIELD_ORDERING, self::TABLE),
+			list_field(LIST_FIELD_STATUS, self::TABLE)
 		);
 	}
 
 	public $searchLabel = 'Tìm kiếm';
-	public $searchFields = array('`document`.id', '`document`.title', '`document`.alias');
+	public $searchFields = [
+		['column', self::TABLE, 'id'],
+		['column', self::TABLE, 'title'],
+		['column', self::TABLE, 'alias']
+	];
 
 	public function getFilterFields()
 	{
-		return PzkFilterConstant::gets('subjectCategory, trial, status', 'document', 'classes');
+		return filter_fields([
+			'subjectCategory',
+			'trial',
+			'status'
+		], self::TABLE);
 	}
 
 	public function getSortFields()
 	{
-		return PzkSortConstant::gets('id, title, categoryId, ordering', self::TABLE);
+		return sort_fields([
+			'id',
+			'title',
+			'categoryId',
+			'ordering'
+		], self::TABLE);
 	}
 
 	public $quickMode = false;
 	public function getQuickFieldSettings()
 	{
-		return PzkListConstant::gets('title', self::TABLE);
+		return list_fields('title', self::TABLE);
 	}
 
 	public $logable = true;
 	public $logFields = 'title, categoryId, img, content, brief, trial, alias, file, ordering, classes';
 
 	public $addLabel = 'Thêm tài liệu';
-	public $addFields = 'title, categoryId, img, content, brief, trial, alias, file, ordering, classes, status, software, global, sharedSoftwares';
+	public $addFields = [
+		'title',
+		'categoryId',
+		'img',
+		'content',
+		'brief',
+		'trial',
+		'alias',
+		'file',
+		'ordering',
+		'classes',
+		'status',
+		'software',
+		'global',
+		'sharedSoftwares'
+	];
 	public function getAddFieldSettings()
 	{
-		return PzkEditConstant::gets('title[mdsize=6], alias[mdsize=6], categoryId[mdsize=6],  file[mdsize=6], img[mdsize=12], status[mdsize=4], trial[mdsize=4], ordering[mdsize=4], classes[mdsize=12], brief[mdsize=12], content', self::TABLE);
+		return edit_fields([
+			'title[mdsize=6]',
+			'alias[mdsize=6]',
+			'categoryId[mdsize=6]',
+			'file[mdsize=6]',
+			'img[mdsize=12]',
+			'status[mdsize=4]',
+			'trial[mdsize=4]',
+			'ordering[mdsize=4]',
+			'classes[mdsize=12]',
+			'brief[mdsize=12]',
+			'content'
+		], self::TABLE);
 	}
 
 	public $detailFields = 'document.*, categories.name as categoryName, creator.name as creatorName, modifier.name as modifiedName';
 	public function getViewFieldSettings()
 	{
-		return PzkListConstant::gets('title, alias, categoryName,
+		return list_fields('title, alias, categoryName,
 			views, likes, comments, creatorName, modifiedName, created, modified, 
 			 statusText, orderingText, briefText', self::TABLE);
 	}

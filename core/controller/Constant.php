@@ -5,6 +5,7 @@ define('ATTR_INDEX', 'index');
 define('ATTR_LABEL', 'label');
 define('ATTR_TYPE', 'type');
 define('ATTR_TABLE', 'table');
+define('ATTR_LIKE', 'like');
 define('ATTR_UPLOADTYPE', 'uploadtype');
 define('ATTR_SHOW_VALUE', 'show_value');
 define('ATTR_SHOW_NAME', 'show_name');

@@ -10,6 +10,12 @@ define('LIST_TYPE_IMAGE', 'image');
 define('LIST_TYPE_VIDEO', 'video');
 
 define('LIST_FIELD_CATEGORY_NAME', 'categoryName');
+define('LIST_FIELD_CREATOR_NAME', 'creatorName');
+define('LIST_FIELD_MODIFIED_NAME', 'modifiedName');
+define('LIST_FIELD_CREATED', 'created');
+define('LIST_FIELD_MODIFIED', 'modified');
+define('LIST_FIELD_ORDERING', 'ordering');
+define('LIST_FIELD_STATUS', 'status');
 
 class PzkListConstant
 {
@@ -528,9 +534,10 @@ class PzkListConstant
 				ATTR_TYPE			=> 'group',
 				ATTR_LABEL			=> $label,
 				ATTR_DELIMITER		=> '<br />',
-				ATTR_FIELDS		=> array()
+				ATTR_FIELDS			=> []
 			);
-		$fields = explodetrim(',', $fields);
+		if (is_string($fields))
+			$fields = explodetrim(',', $fields);
 		foreach ($fields as $field) {
 			if ($field)
 				$result[ATTR_FIELDS][] = self::get($field, $replace);
@@ -632,4 +639,16 @@ class PzkGridConstant
 		}
 		return $result;
 	}
+}
+
+function list_fields($fields, $replace) {
+	return PzkListConstant::gets($fields, $replace);
+}
+
+function list_field($field, $replace) {
+	return PzkListConstant::get($field, $replace);
+}
+
+function list_fields_group($label, $fields, $replace) {
+	return PzkListConstant::group($label, $fields, $replace);
 }

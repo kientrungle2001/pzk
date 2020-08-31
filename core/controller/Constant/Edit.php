@@ -446,3 +446,7 @@ class PzkEditConstant
 		return $result;
 	}
 }
+
+function edit_fields($fields, $replace) {
+	return PzkEditConstant::gets($fields, $replace);
+}

@@ -126,4 +126,7 @@ class PzkFilterConstant {
 		return $result;
 	}
 }
-?>
+
+function filter_fields($fields, $replace) {
+	return PzkFilterConstant::gets($fields, $replace);
+}

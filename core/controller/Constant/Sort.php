@@ -66,3 +66,7 @@ class PzkSortConstant
 		return $result;
 	}
 }
+
+function sort_fields($fields, $replace) {
+	return PzkSortConstant::get($fields, $replace);
+}
