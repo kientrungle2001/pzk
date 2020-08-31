@@ -49,22 +49,7 @@ class PzkAdminDocumentController extends PzkGridAdminController
 				self::TABLE
 			),
 			list_field(LIST_FIELD_CATEGORY_NAME, self::TABLE),
-			array(
-				ATTR_INDEX 	=> 'classes',
-				ATTR_TYPE 		=> LIST_TYPE_TEXT,
-				ATTR_LABEL 	=> 'Lớp',
-				'filter'	=> 	array(
-					ATTR_INDEX 		=> 'classes',
-					ATTR_TYPE 			=> 'selectoption',
-					ATTR_LABEL 		=> 'Chọn lớp',
-					'option' 		=> array(
-						CLASS3 			=> "Lớp 3",
-						CLASS4 			=> "Lớp 4",
-						CLASS5 			=> "Lớp 5"
-					),
-					ATTR_LIKE 			=> true
-				),
-			),
+			list_field(LIST_FIELD_CLASSES_WITH_FILTER, self::TABLE),
 			list_fields_group(
 				'<br />Người tạo<br />Người sửa',
 				[LIST_FIELD_CREATOR_NAME, LIST_FIELD_MODIFIED_NAME],

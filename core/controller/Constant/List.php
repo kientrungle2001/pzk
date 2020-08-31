@@ -16,6 +16,7 @@ define('LIST_FIELD_CREATED', 'created');
 define('LIST_FIELD_MODIFIED', 'modified');
 define('LIST_FIELD_ORDERING', 'ordering');
 define('LIST_FIELD_STATUS', 'status');
+define('LIST_FIELD_CLASSES_WITH_FILTER', 'classesWithFilter');
 
 class PzkListConstant
 {
@@ -81,6 +82,23 @@ class PzkListConstant
 		ATTR_INDEX 		=> 'classes',
 		ATTR_TYPE 			=> LIST_TYPE_TEXT,
 		ATTR_LABEL 		=> 'Lớp'
+	);
+
+	public static $classesWithFilter = array(
+		ATTR_INDEX 	=> 'classes',
+		ATTR_TYPE 		=> LIST_TYPE_TEXT,
+		ATTR_LABEL 	=> 'Lớp',
+		'filter'	=> 	array(
+			ATTR_INDEX 		=> 'classes',
+			ATTR_TYPE 			=> 'selectoption',
+			ATTR_LABEL 		=> 'Chọn lớp',
+			'option' 		=> array(
+				CLASS3 			=> "Lớp 3",
+				CLASS4 			=> "Lớp 4",
+				CLASS5 			=> "Lớp 5"
+			),
+			ATTR_LIKE 			=> true
+		),
 	);
 
 	public static $click = array(
@@ -641,14 +659,17 @@ class PzkGridConstant
 	}
 }
 
-function list_fields($fields, $replace) {
+function list_fields($fields, $replace)
+{
 	return PzkListConstant::gets($fields, $replace);
 }
 
-function list_field($field, $replace) {
+function list_field($field, $replace)
+{
 	return PzkListConstant::get($field, $replace);
 }
 
-function list_fields_group($label, $fields, $replace) {
+function list_fields_group($label, $fields, $replace)
+{
 	return PzkListConstant::group($label, $fields, $replace);
 }

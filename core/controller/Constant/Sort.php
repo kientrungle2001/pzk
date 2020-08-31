@@ -68,5 +68,5 @@ class PzkSortConstant
 }
 
 function sort_fields($fields, $replace) {
-	return PzkSortConstant::get($fields, $replace);
+	return PzkSortConstant::gets($fields, $replace);
 }
