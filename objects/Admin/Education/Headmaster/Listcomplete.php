@@ -45,7 +45,7 @@ class PzkAdminEducationHeadmasterListcomplete extends PzkObject {
 		return _db()->select('user_book.*, tests.name as testName, tests.week, tests.month, tests.semester, categories.name as subject')->from('user_book')
 			->join('tests', 'user_book.testId=tests.id')
 			->join('categories', 'tests.subjectId=categories.id')
-			->where('user_book.userId='.$this->getStudentId())
+			->where(['user_book.userId',$this->getStudentId()])
 			->where('tests.homework=0')
 			->orderBy('tests.subjectId asc, tests.week asc')
 			->result();

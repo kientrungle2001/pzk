@@ -9,7 +9,10 @@ class PzkAdminLoginController extends PzkController {
             $post = pzk_request()->query;
             $user = $this->fillter($post["username"]);
             $pass = $this->fillter($post["password"]);
-			
+            
+            /**
+             * @var PzkAdminModel $usermodel
+             */
             $usermodel = pzk_model('Admin');
             $checkLogin = $usermodel->login($user, $pass);
 			if(isset($checkLogin)) {

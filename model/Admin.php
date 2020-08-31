@@ -26,7 +26,8 @@ class PzkAdminModel
         $users = _db()->select('a.id, a.status, a.name, a.areacode, a.district, a.school, a.class, a.classname, a.usertype_id, a.categoryIds, at.level')
             ->from('admin a')
             ->join('admin_level at', 'a.usertype_id = at.id')
-            ->where("a.name='$username' and a.password='$password'")
+            ->where(['equal',['column', 'a', 'name'], $username])
+            ->where(['equal', ['column', 'a','password'], $password])
             ->where("a.status = 1")
             ->limit(0, 1);
         $users = $users->result_one();
@@ -54,8 +55,8 @@ class PzkAdminModel
     {
         $users = _db()->select('a.*')
             ->from('admin_level_action a')
-            ->where("admin_action='$action' and admin_level='$level'")
-            ->where(array('software', pzk_request()->getSoftwareId()))
+            ->whereAdmin_action($action)
+            ->whereAdmin_level($level)
             ->limit(0, 1);
         $users = $users->result();
         if (count($users) > 0) {

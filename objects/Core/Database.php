@@ -219,10 +219,30 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
      * @return PzkCoreDatabase
      */
     public function select($fields) {
-        $this->options['action'] = 'select';
+		$this->options['action'] = 'select';
+		if(is_array($fields)) {
+			$fields = $this->buildFields($fields);
+		}
         $this->options['fields'] = $this->prefixify($fields);
         return $this;
-    }
+	}
+	
+	public function buildFields($fields) {
+		if(is_string($fields)) return $fields;
+		$result = [];
+		foreach($fields as $field) {
+			if(is_string($field)) {
+				if(strpos($field, '`') !== false || strpos($field, '.') !== false) {
+					$result[] = $field;
+				} else {
+					$result[] = '`'.$field.'`';
+				}				
+			} else {
+				$result[] = "`{$field[0]}`.`{$field[1]}`";
+			}
+		}
+		return implode(',', $fields);
+	}
     
     /**
      * Add more fields to select
@@ -233,7 +253,7 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
     	if(!isset($this->options['fields']) || !$this->options['fields'])
     		$this->select($fields);
     	else 
-    		$this->options['fields'] .= ',' . $this->prefixify($fields);
+    		$this->options['fields'] .= ',' . $this->prefixify($this->buildFields($fields));
     	return $this;
     }
 

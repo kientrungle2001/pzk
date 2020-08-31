@@ -84,7 +84,7 @@ class PzkUserbookModel {
 						->join('tests t', 'u.testId = t.id');
 						$query->whereUser_book_id($userBookId);
 					
-						$query->where('t.TeacherIds like "%,'.$adminId.',%"');
+						$query->where(['like', 't.TeacherIds', '%,'.$adminId.',%']);
 						$query->whereQuestion_type('TL');
 					
 					}else{

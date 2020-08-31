@@ -25,18 +25,19 @@ class PzkEntityEduStudentModel extends PzkEntityModel {
 	public function search($name, $phone, $classId, $periodId, $paymentState){
 		$cond = "1";
 		if($name) {
-			$name = @mysql_real_escape_string($name);
+			$name = @mysql_escape_string($name);
 			$cond .= " and name like '%$name%'";
 		}
 		if($phone) {
-			$phone = @mysql_real_escape_string($phone);
+			$phone = @mysql_escape_string($phone);
 			$cond .= " and phone like '%$phone%'";
 		}
 		if($classId) {
 			$cond .= " and id in (select studentId from class_student where classId=$classId)";
 		}
 		if($periodId) {
-			$period = _db()->select('*')->from('payment_period')->where('id='.$periodId)->result_one();
+			$periodId = intval($periodId);
+			$period = _db()->select('*')->from('payment_period')->whereId($periodId)->result_one();
 			$classCond = "select id from classes where startDate < '" . date('Y-m-d', strtotime($period['startDate']) + 30 * 24 * 3600) . "'";
 			$cond .= " and id in (select studentId from class_student where classId in ($classCond))";
 			if($paymentState) {
@@ -78,8 +79,8 @@ class PzkEntityEduStudentModel extends PzkEntityModel {
 	public function getStudyDates() {
 		$periods =  _db()->useCB()->select('class_student_period_mark.periodId, class_student_period_mark.marks, class_student_period_mark.note')
 			->from('class_student_period_mark')
-			->where('class_student_period_mark.studentId='.$this->getId() . '
-					and class_student_period_mark.classId='.$this->getClassId())
+			->where('class_student_period_mark.studentId', $this->getId())
+			->where('class_student_period_mark.classId', $this->getClassId())
 			->orderBy('periodId asc')->result('Edu.Period');
 		$result = array();
 		foreach($periods as $period) {

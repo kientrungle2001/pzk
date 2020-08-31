@@ -5,7 +5,8 @@ class PzkEntityEduTeacherModel extends PzkEntityModel {
 	
 	public function getClasses() {
 		return _db()->select('*')->from('classes')
-			->where('teacherId=' . $this->getId() . ' and status=1')
+			->whereTeacherId($this->getId())
+			->whereStatus(1)
 			->result('Edu.Class');
 	}
 	

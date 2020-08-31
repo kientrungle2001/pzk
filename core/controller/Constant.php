@@ -1,5 +1,6 @@
 <?php
 
+# attributes
 define('ATTR_INDEX', 'index');
 define('ATTR_LABEL', 'label');
 define('ATTR_TYPE', 'type');
@@ -20,6 +21,10 @@ define('ATTR_DELIMITER', 'delimiter');
 define('ATTR_FIELDS', 'fields');
 define('ATTR_MD_SIZE', 'mdsize');
 define('ATTR_XS_SIZE', 'xssize');
+
+# tables
+define('TABLE_DOCUMENT', 'document');
+define('TABLE_CATEGORIES', 'categories');
 
 require_once __DIR__ . '/Constant/Join.php';
 require_once __DIR__ . '/Constant/List.php';

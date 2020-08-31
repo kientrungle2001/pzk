@@ -9,6 +9,8 @@ define('LIST_TYPE_NAMEID', 'nameid');
 define('LIST_TYPE_IMAGE', 'image');
 define('LIST_TYPE_VIDEO', 'video');
 
+define('LIST_FIELD_CATEGORY_NAME', 'categoryName');
+
 class PzkListConstant
 {
 

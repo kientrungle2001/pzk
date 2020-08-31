@@ -31,7 +31,7 @@ class PzkQuestionModel {
 			if(isset($data['questionType']) && ($data['questionType'])){
 				$query->where(array('questionType', $data['questionType']));
 			}else{
-				$query->where('questionType = 1');
+				$query->whereQuestionType(1);
 			}
 			
 			if(!empty($data['question_level'])){

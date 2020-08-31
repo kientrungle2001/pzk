@@ -4,8 +4,12 @@ define('JOIN_TYPE_INNER', 'inner');
 define('JOIN_TYPE_OUTER', 'outer');
 define('JOIN_TYPE_LEFT', 'left');
 define('JOIN_TYPE_RIGHT', 'right');
+define('JOIN_TABLE_CATEGORY', 'category');
+define('JOIN_TABLE_CREATOR', 'creator');
+define('JOIN_TABLE_MODIFIER', 'modifier');
 
-class PzkJoinConstant {
+class PzkJoinConstant
+{
 	public static $aqs_question = array(
 		ATTR_TABLE 		=> 'aqs_question',
 		ATTR_CONDITION 	=> '{replace}.questionId = aqs_question.id',
@@ -56,7 +60,8 @@ class PzkJoinConstant {
 		ATTR_CONDITION => '{replace}.userId = user.id',
 		ATTR_TYPE 		=> JOIN_TYPE_LEFT
 	);
-	public static function  get($field, $replace) {
+	public static function  get($field, $replace)
+	{
 		$dom = pzk_parse_selector($field);
 		$tagName = $dom['tagName'];
 		$result = self::$$tagName;
@@ -66,12 +71,13 @@ class PzkJoinConstant {
 		$result[ATTR_CONDITION] = str_replace('{replace}', $replace, $result[ATTR_CONDITION]);
 		return $result;
 	}
-	
-	public static function  gets($fields, $replace) {
-		if(is_string($fields))
-		$fields = explodetrim(',', $fields);
+
+	public static function  gets($fields, $replace)
+	{
+		if (is_string($fields))
+			$fields = explodetrim(',', $fields);
 		$result = array();
-		foreach($fields as $field) {
+		foreach ($fields as $field) {
 			$result[] = self::get($field, $replace);
 		}
 		return $result;
