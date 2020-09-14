@@ -67,9 +67,9 @@ class PzkAdminDocumentController extends PzkGridAdminController
 
 	public $searchLabel = 'Tìm kiếm';
 	public $searchFields = [
-		['column', self::TABLE, 'id'],
-		['column', self::TABLE, 'title'],
-		['column', self::TABLE, 'alias']
+		[C_COLUMN, self::TABLE, 'id'],
+		[C_COLUMN, self::TABLE, 'title'],
+		[C_COLUMN, self::TABLE, 'alias']
 	];
 
 	public function getFilterFields()

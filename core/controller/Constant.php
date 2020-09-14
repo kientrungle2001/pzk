@@ -27,6 +27,17 @@ define('ATTR_XS_SIZE', 'xssize');
 define('TABLE_DOCUMENT', 'document');
 define('TABLE_CATEGORIES', 'categories');
 
+# db
+define('C_AND', 'and');
+define('C_OR', 'or');
+define('C_EQUAL', 'equal');
+define('C_GT', 'gt');
+define('C_GTE', 'gte');
+define('C_LT', 'lt');
+define('C_LTE', 'lte');
+define('C_IN', 'in');
+define('C_COLUMN', 'column');
+
 require_once __DIR__ . '/Constant/Join.php';
 require_once __DIR__ . '/Constant/List.php';
 require_once __DIR__ . '/Constant/Sort.php';
