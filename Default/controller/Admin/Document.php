@@ -4,6 +4,8 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public const TABLE = 'document';
 	public const TABLE_COMMENT = 'document_comment';
 	public const TABLE_VISITOR = 'document_visitor';
+	public const LABEL_LISTING_CREATOR_MODIFIER_NAME = '<br />Người tạo<br />Người sửa';
+	public const LABEL_LISTING_CREATOR_MODIFIER_DATE = '<br />Ngày tạo<br />Ngày sửa';
 	public const CONTROLLER = 'Admin_Document';
 	public const ADD_ACTION = 'add';
 	public $title 		= 'Quản lý tài liệu';
@@ -24,6 +26,12 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	];
 	public function getLinks()
 	{
+		$hidden_fields = [
+			'ordering', 'global', 'campaignId', 'sharedSoftwares', 
+			'startDate', 'endDate', 'type', 
+			'meta_keywords', 'meta_description', 
+			'brief', 'img', 'file'
+		];
 		return array(
 			array(
 				'name'	=> 	'Tạo Alias',
@@ -34,24 +42,14 @@ class PzkAdminDocumentController extends PzkGridAdminController
 				'href'	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
 				$this->buildQuery([
 					'type' => 'document'
-				], [
-					'ordering', 'global', 'campaignId', 'sharedSoftwares', 
-					'startDate', 'endDate', 'type', 
-					'meta_keywords', 'meta_description', 
-					'brief', 'img', 'file'
-				])
+				], array_concat($hidden_fields))
 			),
 			array(
 				'name'	=> 	'Thêm Nhanh Từ vựng',
 				'href'	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
 				$this->buildQuery([
 					'type' => 'vocabulary'
-				], [
-					'ordering', 'global', 'campaignId', 'sharedSoftwares', 
-					'startDate', 'endDate', 'type', 
-					'meta_keywords', 'meta_description', 
-					'brief', 'img', 'file'
-				])
+				], array_concat($hidden_fields))
 			),
 		);
 	}
@@ -67,12 +65,12 @@ class PzkAdminDocumentController extends PzkGridAdminController
 			list_field(LIST_FIELD_CATEGORY_NAME, self::TABLE),
 			list_field(LIST_FIELD_CLASSES_WITH_FILTER, self::TABLE),
 			list_fields_group(
-				'<br />Người tạo<br />Người sửa',
+				self::LABEL_LISTING_CREATOR_MODIFIER_NAME,
 				[LIST_FIELD_CREATOR_NAME, LIST_FIELD_MODIFIED_NAME],
 				self::TABLE
 			),
 			list_fields_group(
-				'<br />Ngày tạo<br />Ngày sửa',
+				self::LABEL_LISTING_CREATOR_MODIFIER_DATE,
 				[LIST_FIELD_CREATED, LIST_FIELD_MODIFIED],
 				self::TABLE
 			),

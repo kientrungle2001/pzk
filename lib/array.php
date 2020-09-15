@@ -184,3 +184,19 @@ function table_display($elems) {
 	$rs.= '</table>';
 	return $rs;
 }
+
+function array_concat() {
+	$result = [];
+	$arrays = func_get_args();
+	
+	foreach($arrays as $array) {
+		if(is_array($array)) {
+			foreach($array as $value) {
+				$result[] = $value;
+			}
+		} else {
+			$result[] = $array;
+		}
+	}
+	return $result;
+}
