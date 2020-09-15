@@ -2,6 +2,8 @@
 $rand 			= rand(1, 100);
 $settings 		= $data->getSettings();
 $value			= $data->getValue();
+$xssize   = $data->getXssize();
+$mdsize = $data->getMdsize();
 ?>
 
 <div id="table-<?php  echo $data->getIndex()?>-<?php echo $rand ?>" class="col-xs-<?php echo $xssize ?> col-md-<?php echo $mdsize ?>">
