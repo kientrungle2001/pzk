@@ -1000,4 +1000,15 @@ class PzkAdminController extends PzkBackendController
 		}
 		debug($rowData);
 	}
+
+	public function buildQuery($values, $hiddens) {
+		$params = [];
+		foreach($values as $key => $value) {
+			$params[] = $key . '=' . $value;
+		}
+		foreach($hiddens as $key) {
+				$params[] = 'hidden_' . $key . '=1';
+		}
+		return implode('&', $params);
+	}
 }

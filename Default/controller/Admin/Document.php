@@ -31,11 +31,27 @@ class PzkAdminDocumentController extends PzkGridAdminController
 			),
 			array(
 				'name'	=> 	'Thêm Nhanh Tài liệu',
-				'href'	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?type=document&hidden_ordering=1&hidden_global=1&hidden_campaignId=1&hidden_sharedSoftwares=1&hidden_startDate=1&hidden_endDate=1&hidden_type=1&hidden_meta_keywords=1&hidden_meta_description=1&hidden_brief=1&hidden_img=1&hidden_file=1'
+				'href'	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
+				$this->buildQuery([
+					'type' => 'document'
+				], [
+					'ordering', 'global', 'campaignId', 'sharedSoftwares', 
+					'startDate', 'endDate', 'type', 
+					'meta_keywords', 'meta_description', 
+					'brief', 'img', 'file'
+				])
 			),
 			array(
 				'name'	=> 	'Thêm Nhanh Từ vựng',
-				'href'	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?type=vocabulary&hidden_ordering=1&hidden_global=1&hidden_campaignId=1&hidden_sharedSoftwares=1&hidden_startDate=1&hidden_endDate=1&hidden_type=1&hidden_meta_keywords=1&hidden_meta_description=1&hidden_brief=1&hidden_img=1&hidden_file=1'
+				'href'	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
+				$this->buildQuery([
+					'type' => 'vocabulary'
+				], [
+					'ordering', 'global', 'campaignId', 'sharedSoftwares', 
+					'startDate', 'endDate', 'type', 
+					'meta_keywords', 'meta_description', 
+					'brief', 'img', 'file'
+				])
 			),
 		);
 	}
