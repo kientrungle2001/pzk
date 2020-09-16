@@ -168,6 +168,7 @@ $(function() {
 				?>
 
 			</div>
+			<div class="table-responsive">
 			<table id="admin_table_<?php  echo $data->getId() ?>" class="table table-hover table-bordered table-striped table-condensed">
 				<thead class="header">
 				<tr>
@@ -348,6 +349,7 @@ $(function() {
 
 				</tbody>
 			</table>
+			</div>
 			<div class="panel-footer item">
 				<?php if($data->getCheckDel()) { ?>
 				<div  id="griddelete" style="margin-left: 10px;" class="btn  btn-sm pull-right btn-danger" >

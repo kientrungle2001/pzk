@@ -4,6 +4,10 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public const TABLE = 'document';
 	public const TABLE_COMMENT = 'document_comment';
 	public const TABLE_VISITOR = 'document_visitor';
+	
+	public const TYPE_DOCUMENT = 'document';
+	public const TYPE_VOCABULARY = 'vocabulary';
+	
 	public const LABEL_LISTING_CREATOR_MODIFIER_NAME = '<br />Người tạo<br />Người sửa';
 	public const LABEL_LISTING_CREATOR_MODIFIER_DATE = '<br />Ngày tạo<br />Ngày sửa';
 	public const CONTROLLER = 'Admin_Document';
@@ -27,28 +31,28 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public function getLinks()
 	{
 		$hidden_fields = [
-			'ordering', 'global', 'campaignId', 'sharedSoftwares', 
-			'startDate', 'endDate', 'type', 
-			'meta_keywords', 'meta_description', 
-			'brief', 'img', 'file'
+			FIELD_ORDERING, FIELD_GLOBAL, FIELD_CAMPAIGN_ID, FIELD_SHARED_SOFTWARES, 
+			FIELD_START_DATE, FIELD_END_DATE, FIELD_TYPE, 
+			FIELD_META_KEYWORDS, FIELD_META_DESCRIPTION, 
+			FIELD_BRIEF, FIELD_IMG, FIELD_FILE
 		];
 		return array(
 			array(
-				'name'	=> 	'Tạo Alias',
-				'href'	=> 	DS . self::CONTROLLER . DS . 'alias'
+				A_NAME	=> 	'Tạo Alias',
+				A_HREF	=> 	DS . self::CONTROLLER . DS . 'alias'
 			),
 			array(
-				'name'	=> 	'Thêm Nhanh Tài liệu',
-				'href'	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
+				A_NAME	=> 	'Thêm Nhanh Tài liệu',
+				A_HREF	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
 				$this->buildQuery([
-					'type' => 'document'
+					FIELD_TYPE => self::TYPE_DOCUMENT
 				], array_concat($hidden_fields))
 			),
 			array(
-				'name'	=> 	'Thêm Nhanh Từ vựng',
-				'href'	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
+				A_NAME	=> 	'Thêm Nhanh Từ vựng',
+				A_HREF	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
 				$this->buildQuery([
-					'type' => 'vocabulary'
+					FIELD_TYPE => self::TYPE_VOCABULARY
 				], array_concat($hidden_fields))
 			),
 		);
@@ -56,59 +60,47 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public function getListFieldSettings()
 	{
 		return array(
-			list_field('img', self::TABLE),
-			list_fields_group(
-				'<br />Tiêu đề<br />Bí danh',
-				['title', 'alias'],
-				self::TABLE
-			),
+			list_field(FIELD_IMG, self::TABLE),
+			list_field(FIELD_TITLE, self::TABLE),
 			list_field(LIST_FIELD_CATEGORY_NAME, self::TABLE),
 			list_field(LIST_FIELD_CLASSES_WITH_FILTER, self::TABLE),
-			list_fields_group(
-				self::LABEL_LISTING_CREATOR_MODIFIER_NAME,
-				[LIST_FIELD_CREATOR_NAME, LIST_FIELD_MODIFIED_NAME],
-				self::TABLE
-			),
-			list_fields_group(
-				self::LABEL_LISTING_CREATOR_MODIFIER_DATE,
-				[LIST_FIELD_CREATED, LIST_FIELD_MODIFIED],
-				self::TABLE
-			),
-			list_field(LIST_FIELD_ORDERING, self::TABLE),
-			list_field(LIST_FIELD_STATUS, self::TABLE)
+			list_field(LIST_FIELD_MODIFIED_NAME, self::TABLE),
+			list_field(FIELD_MODIFIED, self::TABLE),
+			list_field(FIELD_ORDERING, self::TABLE),
+			list_field(FIELD_STATUS, self::TABLE)
 		);
 	}
 
 	public $searchLabel = 'Tìm kiếm';
 	public $searchFields = [
-		[C_COLUMN, self::TABLE, 'id'],
-		[C_COLUMN, self::TABLE, 'title'],
-		[C_COLUMN, self::TABLE, 'alias']
+		[C_COLUMN, self::TABLE, FIELD_ID],
+		[C_COLUMN, self::TABLE, FIELD_TITLE],
+		[C_COLUMN, self::TABLE, FIELD_ALIAS]
 	];
 
 	public function getFilterFields()
 	{
 		return filter_fields([
 			'subjectCategory',
-			'trial',
-			'status'
+			FIELD_TRIAL,
+			FIELD_STATUS
 		], self::TABLE);
 	}
 
 	public function getSortFields()
 	{
 		return sort_fields([
-			'id',
-			'title',
-			'categoryId',
-			'ordering'
+			FIELD_ID,
+			FIELD_TITLE,
+			FIELD_CATEGORY_ID,
+			FIELD_ORDERING
 		], self::TABLE);
 	}
 
 	public $quickMode = false;
 	public function getQuickFieldSettings()
 	{
-		return list_fields('title', self::TABLE);
+		return list_fields(FIELD_TITLE, self::TABLE);
 	}
 
 	public $logable = true;
@@ -116,20 +108,20 @@ class PzkAdminDocumentController extends PzkGridAdminController
 
 	public $addLabel = 'Thêm tài liệu';
 	public $addFields = [
-		'title',
-		'categoryId',
-		'img',
-		'content',
-		'brief',
-		'trial',
-		'alias',
-		'file',
-		'ordering',
-		'classes',
-		'status',
-		'software',
-		'global',
-		'sharedSoftwares'
+		FIELD_TITLE,
+		FIELD_CATEGORY_ID,
+		FIELD_IMG,
+		FIELD_CONTENT,
+		FIELD_BRIEF,
+		FIELD_TRIAL,
+		FIELD_ALIAS,
+		FIELD_FILE,
+		FIELD_ORDERING,
+		FIELD_CLASSES,
+		FIELD_STATUS,
+		FIELD_SOFTWARE,
+		FIELD_GLOBAL,
+		FIELD_SHARED_SOFTWARES
 	];
 	public function getAddFieldSettings()
 	{
@@ -160,28 +152,28 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	{
 		return array(
 			array(
-				'index'	=> 'comments',
-				'title'	=> 'Bình luận',
-				'label'	=> 'Bình luận',
-				'table'	=> 'document_comment',
+				A_INDEX	=> 'comments',
+				A_TITLE	=> 'Bình luận',
+				A_LABEL	=> 'Bình luận',
+				A_TABLE	=> self::TABLE_COMMENT,
 				'parentField'	=> 'documentId',
 				'addLabel'	=> 'Thêm bình luận',
 				'quickMode'	=> false,
 				'module'	=> 'document_comment',
-				'listFieldSettings'	=>  PzkListConstant::gets('comment, likes, ip, created', 'document_comment'),
-				'sortFields' => PzkSortConstant::gets('id, created, likes', 'document_comment')
+				'listFieldSettings'	=>  PzkListConstant::gets('comments, likes, ip, created', self::TABLE_COMMENT),
+				'sortFields' => PzkSortConstant::gets('id, created, likes', self::TABLE_COMMENT)
 			),
 			array(
-				'index'	=> 'visitor',
-				'title'	=> 'Người ghé thăm',
-				'label'	=> 'Người ghé thăm',
-				'table'	=> 'document_visitor',
+				A_INDEX	=> 'visitor',
+				A_TITLE	=> 'Người ghé thăm',
+				A_LABEL	=> 'Người ghé thăm',
+				A_TABLE	=> self::TABLE_VISITOR,
 				'addLabel'	=> 'Thêm người ghé thăm',
 				'quickMode'	=> false,
 				'module'	=> 'visitor',
 				'parentField'	=> 'documentId',
-				'listFieldSettings'	=> PzkListConstant::gets('ip, visited', 'document_visitor'),
-				'sortFields' => PzkSortConstant::gets('id, visited', 'document_visitor')
+				'listFieldSettings'	=> PzkListConstant::gets([F_IP, F_VISITED], self::TABLE_VISITOR),
+				'sortFields' => PzkSortConstant::gets([F_ID, F_VISITED], self::TABLE_VISITOR)
 			)
 		);
 	}
