@@ -85,6 +85,7 @@ define('FIELD_META_DESCRIPTION', 'meta_description');
 define('FIELD_CAMPAIGN_ID', 'campaignId');
 
 define('FIELD_LIKES', 'likes');
+define('FIELD_VIEWS', 'views');
 define('FIELD_COMMENTS', 'comments');
 define('FIELD_IP', 'ip');
 define('FIELD_VISITED', 'visited');
@@ -132,6 +133,7 @@ define('F_META_DESCRIPTION', FIELD_META_DESCRIPTION);
 define('F_CAMPAIGN_ID', FIELD_CAMPAIGN_ID);
 
 define('F_LIKES', FIELD_LIKES);
+define('F_VIEWS', FIELD_VIEWS);
 define('F_COMMENTS', FIELD_COMMENTS);
 define('F_IP', FIELD_IP);
 define('F_VISITED', FIELD_VISITED);

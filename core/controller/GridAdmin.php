@@ -656,7 +656,6 @@ class PzkGridAdminController extends PzkAdminController
 		if ($entity->getId()) {
 			if ($this->getLogable()) {
 				$logEntity = _db()->getTableEntity('admin_log');
-				$logFields = explodetrim(',', $this->getLogFields());
 				$brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
 				$brief .= '[id: ' . $entity->getId() . '][' . $field . ': ' . $entity->get($field) . ']';
 				$brief .= ' thành ';

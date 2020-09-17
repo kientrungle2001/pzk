@@ -315,7 +315,13 @@ class PzkAdminController extends PzkBackendController
 		$entity->save();
 		if ($this->getLogable()) {
 			$logEntity = _db()->getTableEntity('admin_log');
-			$logFields = explodetrim(',', $this->getLogFields());
+			$logFields = [];
+			if (is_string($this->getLogFields())) {
+				$logFields = explodetrim(',', $this->getLogFields());
+			} else if (is_array($this->getLogFields())) {
+				$logFields = $this->getLogFields();
+			}
+
 			$brief = pzk_session()->getAdminUser() . ' Thêm mới bản ghi: ' . $this->getModule();
 			foreach ($logFields as $field) {
 				$brief .= '[' . $field . ': ' . (isset($row[$field]) ? $row[$field] : '') . ']';
@@ -429,7 +435,12 @@ class PzkAdminController extends PzkBackendController
 				$entity->save();
 				if ($this->getLogable()) {
 					$logEntity = _db()->getTableEntity('admin_log');
-					$logFields = explodetrim(',', $this->getLogFields());
+					if (is_string($this->getLogFields())) {
+						$logFields = explodetrim(',', $this->getLogFields());
+					} else if (is_array($this->getLogFields())) {
+						$logFields = $this->getLogFields();
+					}
+
 					$brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
 					foreach ($logFields as $field) {
 						if (1 || $entity->get($field) !== @$row[$field])
@@ -456,7 +467,13 @@ class PzkAdminController extends PzkBackendController
 
 			if ($this->getLogable()) {
 				$logEntity = _db()->getTableEntity('admin_log');
-				$logFields = explodetrim(',', $this->getLogFields());
+				$logFields = [];
+				if (is_string($this->getLogFields())) {
+					$logFields = explodetrim(',', $this->getLogFields());
+				} else {
+					$logFields = $this->getLogFields();
+				}
+
 				$brief = pzk_session()->getAdminUser() . ' Sửa bản ghi: ' . $this->getModule();
 				foreach ($logFields as $field) {
 					if (1 || $entity->get($field) !== @$row[$field])
@@ -576,7 +593,13 @@ class PzkAdminController extends PzkBackendController
 
 		if ($this->getLogable()) {
 			$logEntity = _db()->getTableEntity('admin_log');
-			$logFields = explodetrim(',', $this->getLogFields());
+			$logFields = [];
+			if (is_string($this->getLogFields())) {
+				$logFields = explodetrim(',', $this->getLogFields());
+			} else if (is_array($this->getLogFields())) {
+				$logFields = $this->getLogFields();
+			}
+
 			$brief = pzk_session()->getAdminUser() . ' Xóa bản ghi: ' . $this->getModule();
 			foreach ($logFields as $field) {
 				$brief .= '[' . $field . ': ' . $entity->get($field) . ']';
@@ -1001,13 +1024,14 @@ class PzkAdminController extends PzkBackendController
 		debug($rowData);
 	}
 
-	public function buildQuery($values, $hiddens) {
+	public function buildQuery($values, $hiddens)
+	{
 		$params = [];
-		foreach($values as $key => $value) {
+		foreach ($values as $key => $value) {
 			$params[] = $key . '=' . $value;
 		}
-		foreach($hiddens as $key) {
-				$params[] = 'hidden_' . $key . '=1';
+		foreach ($hiddens as $key) {
+			$params[] = 'hidden_' . $key . '=1';
 		}
 		return implode('&', $params);
 	}

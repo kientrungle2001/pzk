@@ -4,10 +4,10 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public const TABLE = 'document';
 	public const TABLE_COMMENT = 'document_comment';
 	public const TABLE_VISITOR = 'document_visitor';
-	
+
 	public const TYPE_DOCUMENT = 'document';
 	public const TYPE_VOCABULARY = 'vocabulary';
-	
+
 	public const LABEL_LISTING_CREATOR_MODIFIER_NAME = '<br />Người tạo<br />Người sửa';
 	public const LABEL_LISTING_CREATOR_MODIFIER_DATE = '<br />Ngày tạo<br />Ngày sửa';
 	public const CONTROLLER = 'Admin_Document';
@@ -31,9 +31,9 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public function getLinks()
 	{
 		$hidden_fields = [
-			FIELD_ORDERING, FIELD_GLOBAL, FIELD_CAMPAIGN_ID, FIELD_SHARED_SOFTWARES, 
-			FIELD_START_DATE, FIELD_END_DATE, FIELD_TYPE, 
-			FIELD_META_KEYWORDS, FIELD_META_DESCRIPTION, 
+			FIELD_ORDERING, FIELD_GLOBAL, FIELD_CAMPAIGN_ID, FIELD_SHARED_SOFTWARES,
+			FIELD_START_DATE, FIELD_END_DATE, FIELD_TYPE,
+			FIELD_META_KEYWORDS, FIELD_META_DESCRIPTION,
 			FIELD_BRIEF, FIELD_IMG, FIELD_FILE
 		];
 		return array(
@@ -44,16 +44,16 @@ class PzkAdminDocumentController extends PzkGridAdminController
 			array(
 				A_NAME	=> 	'Thêm Nhanh Tài liệu',
 				A_HREF	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
-				$this->buildQuery([
-					FIELD_TYPE => self::TYPE_DOCUMENT
-				], array_concat($hidden_fields))
+					$this->buildQuery([
+						FIELD_TYPE => self::TYPE_DOCUMENT
+					], array_concat($hidden_fields))
 			),
 			array(
 				A_NAME	=> 	'Thêm Nhanh Từ vựng',
 				A_HREF	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
-				$this->buildQuery([
-					FIELD_TYPE => self::TYPE_VOCABULARY
-				], array_concat($hidden_fields))
+					$this->buildQuery([
+						FIELD_TYPE => self::TYPE_VOCABULARY
+					], array_concat($hidden_fields))
 			),
 		);
 	}
@@ -126,26 +126,38 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public function getAddFieldSettings()
 	{
 		return edit_fields([
-			'title[mdsize=6]',
-			'alias[mdsize=6]',
-			'categoryId[mdsize=6]',
-			'file[mdsize=6]',
-			'img[mdsize=12]',
-			'status[mdsize=4]',
-			'trial[mdsize=4]',
-			'ordering[mdsize=4]',
-			'classes[mdsize=12]',
-			'brief[mdsize=12]',
-			'content'
+			F_TITLE . '[mdsize=6]',
+			F_ALIAS . '[mdsize=6]',
+			F_CATEGORY_ID . '[mdsize=6]',
+			F_FILE . '[mdsize=6]',
+			F_IMG . '[mdsize=12]',
+			F_STATUS . '[mdsize=4]',
+			F_TRIAL . '[mdsize=4]',
+			F_ORDERING . '[mdsize=4]',
+			F_CLASSES . '[mdsize=12]',
+			F_BRIEF . '[mdsize=12]',
+			F_CONTENT
 		], self::TABLE);
 	}
 
 	public $detailFields = 'document.*, categories.name as categoryName, creator.name as creatorName, modifier.name as modifiedName';
 	public function getViewFieldSettings()
 	{
-		return list_fields('title, alias, categoryName,
-			views, likes, comments, creatorName, modifiedName, created, modified, 
-			 statusText, orderingText, briefText', self::TABLE);
+		return list_fields([
+			F_TITLE,
+			F_ALIAS,
+			'categoryName',
+			F_VIEWS,
+			F_LIKES,
+			F_COMMENTS,
+			'creatorName',
+			'modifiedName',
+			F_CREATED,
+			F_MODIFIED,
+			'statusText',
+			'orderingText',
+			'briefText'
+		], self::TABLE);
 	}
 
 	public function getChildrenGridSettings()
@@ -164,7 +176,7 @@ class PzkAdminDocumentController extends PzkGridAdminController
 				'sortFields' => PzkSortConstant::gets('id, created, likes', self::TABLE_COMMENT)
 			),
 			array(
-				A_INDEX	=> 'visitor',
+				A_INDEX	=> 'visitors',
 				A_TITLE	=> 'Người ghé thăm',
 				A_LABEL	=> 'Người ghé thăm',
 				A_TABLE	=> self::TABLE_VISITOR,
