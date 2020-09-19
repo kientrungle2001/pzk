@@ -83,3 +83,7 @@ class PzkJoinConstant
 		return $result;
 	}
 }
+
+function join_tables($fields, $replace) {
+	return PzkJoinConstant::gets($fields, $replace);
+}

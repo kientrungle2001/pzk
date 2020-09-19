@@ -19,7 +19,7 @@ class PzkAdminDocumentController extends PzkGridAdminController
 
 	public function getJoins()
 	{
-		return PzkJoinConstant::gets([JOIN_TABLE_CATEGORY, JOIN_TABLE_CREATOR, JOIN_TABLE_MODIFIER], self::TABLE);
+		return join_tables([JOIN_TABLE_CATEGORY, JOIN_TABLE_CREATOR, JOIN_TABLE_MODIFIER], self::TABLE);
 	}
 
 	public $selectFields = [
@@ -104,7 +104,7 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public $addLabel = 'Thêm tài liệu';
 	public $addFields = [
 		...F_BASIC,
-		FIELD_CLASSES,
+		F_CLASSES,
 		...F_SCOPE
 	];
 	public function getAddFieldSettings()
