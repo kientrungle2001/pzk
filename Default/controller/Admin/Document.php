@@ -31,10 +31,8 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public function getLinks()
 	{
 		$hidden_fields = [
-			FIELD_ORDERING, FIELD_GLOBAL, FIELD_CAMPAIGN_ID, FIELD_SHARED_SOFTWARES,
-			FIELD_START_DATE, FIELD_END_DATE, FIELD_TYPE,
-			FIELD_META_KEYWORDS, FIELD_META_DESCRIPTION,
-			FIELD_BRIEF, FIELD_IMG, FIELD_FILE
+			FIELD_ORDERING, FIELD_TYPE, FIELD_CAMPAIGN_ID, FIELD_BRIEF, FIELD_IMG, FIELD_FILE,
+			...F_SCOPE
 		];
 		return array(
 			array(
@@ -45,14 +43,14 @@ class PzkAdminDocumentController extends PzkGridAdminController
 				A_NAME	=> 	'Thêm Nhanh Tài liệu',
 				A_HREF	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
 					$this->buildQuery([
-						FIELD_TYPE => self::TYPE_DOCUMENT
+						F_TYPE => self::TYPE_DOCUMENT
 					], array_concat($hidden_fields))
 			),
 			array(
 				A_NAME	=> 	'Thêm Nhanh Từ vựng',
 				A_HREF	=> 	DS . self::CONTROLLER . DS . self::ADD_ACTION . '?' .
 					$this->buildQuery([
-						FIELD_TYPE => self::TYPE_VOCABULARY
+						F_TYPE => self::TYPE_VOCABULARY
 					], array_concat($hidden_fields))
 			),
 		);
@@ -60,68 +58,54 @@ class PzkAdminDocumentController extends PzkGridAdminController
 	public function getListFieldSettings()
 	{
 		return array(
-			list_field(FIELD_IMG, self::TABLE),
-			list_field(FIELD_TITLE, self::TABLE),
-			list_field(LIST_FIELD_CATEGORY_NAME, self::TABLE),
-			list_field(LIST_FIELD_CLASSES_WITH_FILTER, self::TABLE),
-			list_field(LIST_FIELD_MODIFIED_NAME, self::TABLE),
-			list_field(FIELD_MODIFIED, self::TABLE),
-			list_field(FIELD_ORDERING, self::TABLE),
-			list_field(FIELD_STATUS, self::TABLE)
+			list_field(F_IMG, self::TABLE),
+			list_field(F_TITLE, self::TABLE),
+			list_field(LF_CATEGORY_NAME, self::TABLE),
+			list_field(LF_CLASSES_WITH_FILTER, self::TABLE),
+			list_field(F_MODIFIED_NAME, self::TABLE),
+			list_field(F_MODIFIED, self::TABLE),
+			list_field(F_ORDERING, self::TABLE),
+			list_field(F_STATUS, self::TABLE)
 		);
 	}
 
 	public $searchLabel = 'Tìm kiếm';
 	public $searchFields = [
-		[C_COLUMN, self::TABLE, FIELD_ID],
-		[C_COLUMN, self::TABLE, FIELD_TITLE],
-		[C_COLUMN, self::TABLE, FIELD_ALIAS]
+		[C_COLUMN, self::TABLE, F_ID],
+		[C_COLUMN, self::TABLE, F_TITLE],
+		[C_COLUMN, self::TABLE, F_ALIAS]
 	];
 
 	public function getFilterFields()
 	{
 		return filter_fields([
-			'subjectCategory',
-			FIELD_TRIAL,
-			FIELD_STATUS
+			F_SUBJECT_CATEGORY,
+			F_TRIAL,
+			F_STATUS
 		], self::TABLE);
 	}
 
 	public function getSortFields()
 	{
 		return sort_fields([
-			FIELD_ID,
-			FIELD_TITLE,
-			FIELD_CATEGORY_ID,
-			FIELD_ORDERING
+			F_ID, F_TITLE, F_CATEGORY_ID, F_ORDERING
 		], self::TABLE);
 	}
 
 	public $quickMode = false;
 	public function getQuickFieldSettings()
 	{
-		return list_fields(FIELD_TITLE, self::TABLE);
+		return list_fields(F_TITLE, self::TABLE);
 	}
 
 	public $logable = true;
-	public $logFields = 'title, categoryId, img, content, brief, trial, alias, file, ordering, classes';
+	public $logFields = [...F_BASIC, F_CLASSES];
 
 	public $addLabel = 'Thêm tài liệu';
 	public $addFields = [
-		FIELD_TITLE,
-		FIELD_CATEGORY_ID,
-		FIELD_IMG,
-		FIELD_CONTENT,
-		FIELD_BRIEF,
-		FIELD_TRIAL,
-		FIELD_ALIAS,
-		FIELD_FILE,
-		FIELD_ORDERING,
+		...F_BASIC,
 		FIELD_CLASSES,
-		FIELD_STATUS,
-		FIELD_SOFTWARE,
-		FIELD_GLOBAL,
-		FIELD_SHARED_SOFTWARES
+		...F_SCOPE
 	];
 	public function getAddFieldSettings()
 	{
@@ -146,17 +130,17 @@ class PzkAdminDocumentController extends PzkGridAdminController
 		return list_fields([
 			F_TITLE,
 			F_ALIAS,
-			'categoryName',
+			F_CATEGORY_NAME,
 			F_VIEWS,
 			F_LIKES,
 			F_COMMENTS,
-			'creatorName',
-			'modifiedName',
+			F_CREATOR_NAME,
+			F_MODIFIED_NAME,
 			F_CREATED,
 			F_MODIFIED,
-			'statusText',
-			'orderingText',
-			'briefText'
+			F_STATUS_TEXT,
+			F_ORDERING_TEXT,
+			F_BRIEF_TEXT
 		], self::TABLE);
 	}
 
@@ -172,8 +156,8 @@ class PzkAdminDocumentController extends PzkGridAdminController
 				'addLabel'	=> 'Thêm bình luận',
 				'quickMode'	=> false,
 				'module'	=> 'document_comment',
-				'listFieldSettings'	=>  PzkListConstant::gets('comments, likes, ip, created', self::TABLE_COMMENT),
-				'sortFields' => PzkSortConstant::gets('id, created, likes', self::TABLE_COMMENT)
+				'listFieldSettings'	=>  list_fields([F_COMMENTS, F_LIKES, F_IP, F_CREATED], self::TABLE_COMMENT),
+				'sortFields' => sort_fields([F_ID, F_LIKES, F_CREATED], self::TABLE_COMMENT)
 			),
 			array(
 				A_INDEX	=> 'visitors',
@@ -184,8 +168,8 @@ class PzkAdminDocumentController extends PzkGridAdminController
 				'quickMode'	=> false,
 				'module'	=> 'visitor',
 				'parentField'	=> 'documentId',
-				'listFieldSettings'	=> PzkListConstant::gets([F_IP, F_VISITED], self::TABLE_VISITOR),
-				'sortFields' => PzkSortConstant::gets([F_ID, F_VISITED], self::TABLE_VISITOR)
+				'listFieldSettings'	=> list_fields([F_IP, F_VISITED], self::TABLE_VISITOR),
+				'sortFields' => sort_fields([F_ID, F_VISITED], self::TABLE_VISITOR)
 			)
 		);
 	}
@@ -195,7 +179,7 @@ class PzkAdminDocumentController extends PzkGridAdminController
 		return array(
 			PzkParentConstant::get('creator', self::TABLE),
 			PzkParentConstant::get('modifier', self::TABLE),
-			PzkParentConstant::get('category', self::TABLE, PzkListConstant::gets('nameOfCategory, alias, router, statusText, displayText', 'category'))
+			PzkParentConstant::get('category', self::TABLE, list_fields('nameOfCategory, alias, router, statusText, displayText', 'category'))
 		);
 	}
 }

@@ -2,7 +2,7 @@
 define('LIST_TYPE_TEXT', 'text');
 define('LIST_TYPE_DATETIME', 'datetime');
 define('LIST_TYPE_STATUS', 'status');
-define('LIST_TYPE_LINK', ATTR_LINK);
+define('LIST_TYPE_LINK', 'link');
 define('LIST_TYPE_PARENT', 'parent');
 define('LIST_TYPE_ORDERING', 'ordering');
 define('LIST_TYPE_NAMEID', 'nameid');
@@ -17,6 +17,15 @@ define('LIST_FIELD_MODIFIED', 'modified');
 define('LIST_FIELD_ORDERING', 'ordering');
 define('LIST_FIELD_STATUS', 'status');
 define('LIST_FIELD_CLASSES_WITH_FILTER', 'classesWithFilter');
+
+define('LF_CATEGORY_NAME', LIST_FIELD_CATEGORY_NAME);
+define('LF_CREATOR_NAME', LIST_FIELD_CREATOR_NAME);
+define('LF_MODIFIED_NAME', LIST_FIELD_MODIFIED_NAME);
+define('LF_CREATED', LIST_FIELD_CREATED);
+define('LF_MODIFIED', LIST_FIELD_MODIFIED);
+define('LF_ORDERING', LIST_FIELD_ORDERING);
+define('LF_STATUS', LIST_FIELD_STATUS);
+define('LF_CLASSES_WITH_FILTER', LIST_FIELD_CLASSES_WITH_FILTER);
 
 class PzkListConstant
 {
@@ -459,7 +468,7 @@ class PzkListConstant
 	public static $title = array(
 		ATTR_INDEX 		=> 'title',
 		ATTR_TYPE 			=> LIST_TYPE_TEXT,
-		ATTR_LABEL 		=> 'Tieu de',
+		ATTR_LABEL 		=> 'Tiêu đề',
 		ATTR_LINK			=> '/admin_{replace}/view/',
 		ATTR_CTRL_LINK		=> '/admin_{replace}/edit/'
 	);

@@ -1,25 +1,28 @@
 <?php
-class PzkCoreDatabase extends PzkObjectLightWeight {
+class PzkCoreDatabase extends PzkObjectLightWeight
+{
 
-    public $connId = false;
-    public $options;
+	public $connId = false;
+	public $options;
 	public $prefix = null;
-	
+
 	public $host = false;
 	public $user = false;
 	public $password = false;
 	public $dbName = false;
-    /**
-     * Hàm khởi tạo và clear
-     * @param string $attrs các thuộc tính
-     */
-    public function __construct($attrs = array()) {
-        parent::__construct($attrs);
-        $this->clear();
-    }
-	
-	public function init() {
-		if(!$this->host) {
+	/**
+	 * Hàm khởi tạo và clear
+	 * @param string $attrs các thuộc tính
+	 */
+	public function __construct($attrs = array())
+	{
+		parent::__construct($attrs);
+		$this->clear();
+	}
+
+	public function init()
+	{
+		if (!$this->host) {
 			$this->host = pzk_config('db_host');
 			$this->user = pzk_config('db_user');
 			$this->password = pzk_config('db_password');
@@ -27,152 +30,167 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 		}
 		//$this->connect();
 	}
-	
-	public function lock() {
+
+	public function lock()
+	{
 		$this->options['lock'] = true;
 		return $this;
 	}
-	
-	public function unlock() {
+
+	public function unlock()
+	{
 		$this->options['lock'] = false;
 		return $this;
 	}
-	
-    /**
-     * Join với table với điều kiện join, và kiểu join
-     * @param string $table bảng cần join
-     * @param mixed $conds điều kiện join
-     * @param string $type kiểu join: inner, left, right, mặc định là inner
-     * @return PzkCoreDatabase
-     */
-	public function join($table, $conds, $type = 'inner') {
-		if(!isset($this->options['joins'])) {
+
+	/**
+	 * Join với table với điều kiện join, và kiểu join
+	 * @param string $table bảng cần join
+	 * @param mixed $conds điều kiện join
+	 * @param string $type kiểu join: inner, left, right, mặc định là inner
+	 * @return PzkCoreDatabase
+	 */
+	public function join($table, $conds, $type = 'inner')
+	{
+		if (!isset($this->options['joins'])) {
 			$this->options['joins'] = array();
 		}
 		$this->options['joins'][$table] = array('conds' => $this->buildCondition($conds), 'type' => $type);
 		return $this;
 	}
-	
-	public function leftJoin($table, $conds) {
+
+	public function leftJoin($table, $conds)
+	{
 		return $this->join($table, $conds, 'left');
 	}
-	
-	public function rightJoin($table, $conds) {
+
+	public function rightJoin($table, $conds)
+	{
 		return $this->join($table, $conds, 'right');
 	}
 
 	/**
 	 * Kết nối tới cơ sở dữ liệu
 	 */
-    public function connect() {
-        if (false === $this->connId) {
-            $this->connId = mysqli_connect($this->host, $this->user, $this->password, $this->dbName) or die('Cant connect');
-
+	public function connect()
+	{
+		if (false === $this->connId) {
+			$this->connId = mysqli_connect($this->host, $this->user, $this->password, $this->dbName) or die('Cant connect');
+			mysqli_query($this->connId, 'SET sql_mode = ""');
 			//mysqli_query("SET character_set_results=utf8", $this->connId);
-            //mysqli_select_db(@$this->dbName, $this->connId) or die('Cant select db: ' . @$this->dbName);
-            if(pzk_app()->name=='qlhs' || pzk_app()->name=='phongthuy') {
+			//mysqli_select_db(@$this->dbName, $this->connId) or die('Cant select db: ' . @$this->dbName);
+			if (pzk_app()->name == 'qlhs' || pzk_app()->name == 'phongthuy') {
 				mysqli_query($this->connId, 'set names utf-8');
 			} else {
 				mysqli_set_charset($this->connId, 'utf8');
 			}
-        }
-    }
-	
-	public function close() {
-		if($this->connId) {
+		}
+	}
+
+	public function close()
+	{
+		if ($this->connId) {
 			mysqli_close($this->connId);
 		}
 	}
 
-    /**
-     * Chèn vào bảng
-     * @param string $table
-     * @return PzkCoreDatabase
-     */
-    public function insert($table) {
-        $this->options['action'] = 'insert';
-        $this->from($table);
-        return $this;
-    }
-	
-	public function insertRow($table, $row) {
+	/**
+	 * Chèn vào bảng
+	 * @param string $table
+	 * @return PzkCoreDatabase
+	 */
+	public function insert($table)
+	{
+		$this->options['action'] = 'insert';
+		$this->from($table);
+		return $this;
+	}
+
+	public function insertRow($table, $row)
+	{
 		$vals = array();
 		$fields = array();
-		foreach($row as $field => $val) {
+		foreach ($row as $field => $val) {
 			$vals[] 	= 	"'" . mysql_escape_string($val) . "'";
-			$fields[]	=	'`'.$field.'`';
+			$fields[]	=	'`' . $field . '`';
 		}
 		$query = 'insert into `' . $table . '`(' . implode(',', $field) . ') values(' . implode(',', $vals) . ')';
 		$result = $this->query($query);
-		if($result) {
+		if ($result) {
 			return mysqli_insert_id($this->connId);
 		}
 		return NULL;
 	}
-	
-	public function updateRow($table, $id, $data) {
-		
-	}
-	
-	public function deleteRow($table, $id) {
-		
+
+	public function updateRow($table, $id, $data)
+	{
 	}
 
-    /**
-     * Giá trị cần chèn vào bảng
-     * @param array $values: dạng array($row1, $row2), trong đó $row1 là giá trị bản ghi
-     * @return PzkCoreDatabase
-     */
-    public function values($values) {
-		if(!isset($values[0])) {
+	public function deleteRow($table, $id)
+	{
+	}
+
+	/**
+	 * Giá trị cần chèn vào bảng
+	 * @param array $values: dạng array($row1, $row2), trong đó $row1 là giá trị bản ghi
+	 * @return PzkCoreDatabase
+	 */
+	public function values($values)
+	{
+		if (!isset($values[0])) {
 			$values = array($values);
 		}
-        $this->options['values'] = $values;
-        return $this;
-    }
+		$this->options['values'] = $values;
+		return $this;
+	}
 
-    /**
-     * Các trường cần insert vào
-     * @param string $fields dạng chuỗi, cách nhau bởi dấu ,
-     * @return PzkCoreDatabase
-     */
-    public function fields($fields) {
-        $this->options['fields'] = $fields;
-        return $this;
-    }
-
-    /**
-     * Lệnh xóa
-     * @return PzkCoreDatabase
-     */
-    public function delete() {
-        $this->options['action'] = 'delete';
-        return $this;
-    }
-
-    /**
-     * Lệnh cập nhật
-     * @param string $table
-     * @return PzkCoreDatabase
-     */
-    public function update($table) {
-        $this->options['action'] = 'update';
-        $this->from($table);
-        return $this;
-    }
-	
 	/**
-     * Lệnh cập nhật
-     * @param string $table
-     * @return PzkCoreDatabase
-     */
-    public function multiUpdate($table) {
-        $this->options['action'] = 'multiUpdate';
-        $this->from($table);
-        return $this;
-    }
-	
-	public function setField($field, $increase = false) {
+	 * Các trường cần insert vào
+	 * @param string $fields dạng chuỗi, cách nhau bởi dấu ,
+	 * @return PzkCoreDatabase
+	 */
+	public function fields($fields)
+	{
+		$this->options['fields'] = $fields;
+		return $this;
+	}
+
+	/**
+	 * Lệnh xóa
+	 * @return PzkCoreDatabase
+	 */
+	public function delete()
+	{
+		$this->options['action'] = 'delete';
+		return $this;
+	}
+
+	/**
+	 * Lệnh cập nhật
+	 * @param string $table
+	 * @return PzkCoreDatabase
+	 */
+	public function update($table)
+	{
+		$this->options['action'] = 'update';
+		$this->from($table);
+		return $this;
+	}
+
+	/**
+	 * Lệnh cập nhật
+	 * @param string $table
+	 * @return PzkCoreDatabase
+	 */
+	public function multiUpdate($table)
+	{
+		$this->options['action'] = 'multiUpdate';
+		$this->from($table);
+		return $this;
+	}
+
+	public function setField($field, $increase = false)
+	{
 		$this->options['values'] = array(
 			'field'		=> $field,
 			'increase'	=> $increase,
@@ -180,148 +198,162 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 		);
 		return $this;
 	}
-	
-	public function addToUpdate($id, $value) {
+
+	public function addToUpdate($id, $value)
+	{
 		$this->options['values']['rows'][] = array('id'	=> $id, 'value'	=> $value);
 		return $this;
 	}
 
-    /**
-     * Lệnh đặt giá trị cho cập nhật
-     * @param string $values: giá trị dạng array('trường' => 'giá trị')
-     * @return PzkCoreDatabase
-     */
-    public function set($values) {
-		
-		if(isset($values['lock'])) {
-			if(count($values) > 1 && $values['lock'] == 1){
+	/**
+	 * Lệnh đặt giá trị cho cập nhật
+	 * @param string $values: giá trị dạng array('trường' => 'giá trị')
+	 * @return PzkCoreDatabase
+	 */
+	public function set($values)
+	{
+
+		if (isset($values['lock'])) {
+			if (count($values) > 1 && $values['lock'] == 1) {
 				$this->where(array('lock', 0));
 			}
-		}else {
+		} else {
 			$listFields = $this->getTableFields();
-			if(in_array('lock', $listFields)) {
-				if(!$this->isNotLocked()) {
+			if (in_array('lock', $listFields)) {
+				if (!$this->isNotLocked()) {
 					$this->where(array('lock', 0));
 				}
 			}
 		}
-        $this->options['values'] = $values;
-        return $this;
-    }
-	
-	public function isNotLocked() {
+		$this->options['values'] = $values;
+		return $this;
+	}
+
+	public function isNotLocked()
+	{
 		return isset($this->options['lock']) && $this->options['lock'] === false;
 	}
 
-    /**
-     * Lệnh SELECT
-     * @param string $fields các trường, cách nhau bởi dấu phẩy ,
-     * @return PzkCoreDatabase
-     */
-    public function select($fields) {
+	/**
+	 * Lệnh SELECT
+	 * @param string $fields các trường, cách nhau bởi dấu phẩy ,
+	 * @return PzkCoreDatabase
+	 */
+	public function select($fields)
+	{
 		$this->options['action'] = 'select';
-		if(is_array($fields)) {
+		if (is_array($fields)) {
 			$fields = $this->buildFields($fields);
 		}
-        $this->options['fields'] = $this->prefixify($fields);
-        return $this;
+		$this->options['fields'] = $this->prefixify($fields);
+		return $this;
 	}
-	
-	public function buildFields($fields) {
-		if(is_string($fields)) return $fields;
+
+	public function buildFields($fields)
+	{
+		if (is_string($fields)) return $fields;
 		$result = [];
-		foreach($fields as $field) {
-			if(is_string($field)) {
-				if(strpos($field, '`') !== false || strpos($field, '.') !== false) {
+		foreach ($fields as $field) {
+			if (is_string($field)) {
+				if (strpos($field, '`') !== false || strpos($field, '.') !== false) {
 					$result[] = $field;
 				} else {
-					$result[] = '`'.$field.'`';
-				}				
+					$result[] = '`' . $field . '`';
+				}
 			} else {
 				$result[] = "`{$field[0]}`.`{$field[1]}`";
 			}
 		}
 		return implode(',', $fields);
 	}
-    
-    /**
-     * Add more fields to select
-     * @param string $fields
-     * @return PzkCoreDatabase
-     */
-    public function addFields($fields) {
-    	if(!isset($this->options['fields']) || !$this->options['fields'])
-    		$this->select($fields);
-    	else 
-    		$this->options['fields'] .= ',' . $this->prefixify($this->buildFields($fields));
-    	return $this;
-    }
 
-    /**
-     * Lệnh đếm
-     * @return PzkCoreDatabase
-     */
-    public function count() {
-        $this->options['action'] = 'count';
-        return $this;
-    }
+	/**
+	 * Add more fields to select
+	 * @param string $fields
+	 * @return PzkCoreDatabase
+	 */
+	public function addFields($fields)
+	{
+		if (!isset($this->options['fields']) || !$this->options['fields'])
+			$this->select($fields);
+		else
+			$this->options['fields'] .= ',' . $this->prefixify($this->buildFields($fields));
+		return $this;
+	}
 
-    /**
-     * Lệnh FROM
-     * @param string $table
-     * @return PzkCoreDatabase
-     */
-    public function from($table) {
-        if (strpos($table, '`') !== false || strpos($table, ' ') !== false || strpos($table, '.') !== false) {
-            $this->options['table'] = $this->prefixify($table);
-        } else {
-            $this->options['table'] = '`' . $this->prefixify($table) . '`';
-        }
-        return $this;
-    }
+	/**
+	 * Lệnh đếm
+	 * @return PzkCoreDatabase
+	 */
+	public function count()
+	{
+		$this->options['action'] = 'count';
+		return $this;
+	}
 
-    /**
-     * Lệnh WHERE
-     * @param mixed $conds điều kiện: là chuỗi hoặc là biểu thức dạng mảng
-     * @return PzkCoreDatabase
-     */
-    public function where($conds) {
+	/**
+	 * Lệnh FROM
+	 * @param string $table
+	 * @return PzkCoreDatabase
+	 */
+	public function from($table)
+	{
+		if (strpos($table, '`') !== false || strpos($table, ' ') !== false || strpos($table, '.') !== false) {
+			$this->options['table'] = $this->prefixify($table);
+		} else {
+			$this->options['table'] = '`' . $this->prefixify($table) . '`';
+		}
+		return $this;
+	}
+
+	/**
+	 * Lệnh WHERE
+	 * @param mixed $conds điều kiện: là chuỗi hoặc là biểu thức dạng mảng
+	 * @return PzkCoreDatabase
+	 */
+	public function where($conds)
+	{
 		$condsStr = $this->buildCondition($conds);
-		if(@$condsStr[0] !== '(') {
+		if (@$condsStr[0] !== '(') {
 			$condsStr = "($condsStr)";
 		}
-        $this->options['conds'] = pzk_or(isset($this->options['conds'])?$this->options['conds']: null, 1) . ' AND ' . $condsStr;
-        return $this;
-    }
-	
-	public function equal($col, $val) {
+		$this->options['conds'] = pzk_or(isset($this->options['conds']) ? $this->options['conds'] : null, 1) . ' AND ' . $condsStr;
+		return $this;
+	}
+
+	public function equal($col, $val)
+	{
 		return $this->where(array($col, $val));
 	}
-	
-	public function setConds($conds) {
+
+	public function setConds($conds)
+	{
 		$this->options['conds'] = $conds;
 		return $this;
 	}
-	
-	public function and_($conds) {
-		if(!isset($this->options['conds'])) {
+
+	public function and_($conds)
+	{
+		if (!isset($this->options['conds'])) {
 			$this->options['conds'] = '1';
 		}
-		$this->options['conds'] = '('.$this->options['conds'] . ') and (' . $conds . ')';
+		$this->options['conds'] = '(' . $this->options['conds'] . ') and (' . $conds . ')';
 		return $this;
 	}
-	
-	public function or_($conds) {
-		$this->options['conds'] = '('.$this->options['conds'] . ') or (' . $conds . ')';
+
+	public function or_($conds)
+	{
+		$this->options['conds'] = '(' . $this->options['conds'] . ') or (' . $conds . ')';
 		return $this;
 	}
-    
-    /**
-     * Sử dụng condition builder
-     * @see PzkCoreDatabaseArrayCondition
-     * @return PzkCoreDatabase
-     */
-	public function useCB() {
+
+	/**
+	 * Sử dụng condition builder
+	 * @see PzkCoreDatabaseArrayCondition
+	 * @return PzkCoreDatabase
+	 */
+	public function useCB()
+	{
 		$this->options['useConditionBuilder'] = true;
 		return $this;
 	}
@@ -330,13 +362,15 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 	 * @param string $timeout
 	 * @return PzkCoreDatabase
 	 */
-	public function useCache($timeout = null) {
+	public function useCache($timeout = null)
+	{
 		$this->options['useCache'] = true;
 		$this->options['cacheTimeout'] = $timeout;
 		return $this;
 	}
-	
-	public function useCacheKey($key) {
+
+	public function useCacheKey($key)
+	{
 		$this->options['cacheKey'] = $key;
 		return $this;
 	}
@@ -346,147 +380,151 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 	 * @param mixed $conds điều kiện
 	 * @return string điều kiện sql
 	 */
-	public function buildCondition($conds) {
+	public function buildCondition($conds)
+	{
 		$builder = pzk_element()->getConditionBuilder();
-		if($builder) {
+		if ($builder) {
 			return $this->prefixify($builder->build($conds));
 		}
 	}
-	
-	public function prefixify($str) {
+
+	public function prefixify($str)
+	{
 		//if(null !== $this->prefix)
-			return str_replace('#', $this->prefix, $str);
+		return str_replace('#', $this->prefix, $str);
 		return $str;
 	}
-	
+
 	/**
 	 * Lọc dữ liệu theo mảng, dùng như where
 	 * @param array $filters bộ lọc
 	 * @return PzkCoreDatabase
 	 */
-    public function filters($filters) {
-        if ($filters && is_array($filters)) {
-            $this->where($filters);
-        }
-        return $this;
-    }
+	public function filters($filters)
+	{
+		if ($filters && is_array($filters)) {
+			$this->where($filters);
+		}
+		return $this;
+	}
 
-    /**
-     * Sắp xếp thứ tự
-     * @param string $orderBy
-     * @return PzkCoreDatabase
-     */
-    public function orderBy($orderBy) {
-        $this->options['orderBy'] = $this->prefixify($orderBy);
-        return $this;
-    }
+	/**
+	 * Sắp xếp thứ tự
+	 * @param string $orderBy
+	 * @return PzkCoreDatabase
+	 */
+	public function orderBy($orderBy)
+	{
+		$this->options['orderBy'] = $this->prefixify($orderBy);
+		return $this;
+	}
 
-    /**
-     * Gom nhóm
-     * @param string $groupBy
-     * @return PzkCoreDatabase
-     */
-    public function groupBy($groupBy) {
-		if(!$groupBy) return $this;
-        if(!isset($this->options['groupBy']) || !$this->options['groupBy']){
+	/**
+	 * Gom nhóm
+	 * @param string $groupBy
+	 * @return PzkCoreDatabase
+	 */
+	public function groupBy($groupBy)
+	{
+		if (!$groupBy) return $this;
+		if (!isset($this->options['groupBy']) || !$this->options['groupBy']) {
 			$this->options['groupBy'] = $this->prefixify($groupBy);
 		} else {
 			$this->options['groupBy'] .= ', ' . $this->prefixify($groupBy);
 		}
-        return $this;
-    }
-
-    /**
-     * Điều kiện having
-     * @param mixed $conds
-     * @return PzkCoreDatabase
-     */
-    public function having($conds) {
-		if(!$conds) return $this;
-        if (isset($this->options['groupBy'])) {
-			$condsStr = $this->buildCondition($conds);
-            $this->options['having'] =  pzk_or(isset($this->options['having'])?$this->options['having']: null, 1) . ' AND ' . $condsStr;;
-        }
 		return $this;
-    }
-	
-    /**
-     * Thực thi query
-     * @param string $entity trả về mảng dạng entity hay dạng mảng thông thường
-     * @return NULL|array|array<PzkEntityModel>
-     */
-    public function result($entity = false) {
-        //mysqli_query('set names utf-8', $this->connId);
-        
-        if ($this->isSelectQuery()) {
+	}
+
+	/**
+	 * Điều kiện having
+	 * @param mixed $conds
+	 * @return PzkCoreDatabase
+	 */
+	public function having($conds)
+	{
+		if (!$conds) return $this;
+		if (isset($this->options['groupBy'])) {
+			$condsStr = $this->buildCondition($conds);
+			$this->options['having'] =  pzk_or(isset($this->options['having']) ? $this->options['having'] : null, 1) . ' AND ' . $condsStr;;
+		}
+		return $this;
+	}
+
+	/**
+	 * Thực thi query
+	 * @param string $entity trả về mảng dạng entity hay dạng mảng thông thường
+	 * @return NULL|array|array<PzkEntityModel>
+	 */
+	public function result($entity = false)
+	{
+		//mysqli_query('set names utf-8', $this->connId);
+
+		if ($this->isSelectQuery()) {
 			return $this->executeSelectQuery($entity);
-			
-        } else if ($this->isInsertQuery()) {
+		} else if ($this->isInsertQuery()) {
 			return $this->executeInsertQuery($entity);
-			
-        } else if ($this->isUpdateQuery()) {
+		} else if ($this->isUpdateQuery()) {
 			return $this->executeUpdateQuery($entity);
-			
-        } else if ($this->isMultiUpdateQuery()) {
+		} else if ($this->isMultiUpdateQuery()) {
 			return $this->executeMultiUpdateQuery($entity);
-			
-        } else if ($this->isDeleteQuery()) {
+		} else if ($this->isDeleteQuery()) {
 			return $this->executeDeleteQuery($entity);
-            
-        }
-        return $this;
-    }
-	
-	
-	public function isSelectQuery() {
-		if(isset($this->options['action']) && $this->options['action'] == 'select') {
+		}
+		return $this;
+	}
+
+
+	public function isSelectQuery()
+	{
+		if (isset($this->options['action']) && $this->options['action'] == 'select') {
 			return true;
 		}
 		return false;
 	}
-	
-	public function executeSelectQuery($entity = false) {
+
+	public function executeSelectQuery($entity = false)
+	{
 		$rslt = array();
-		
+
 		$query = null;
 		$cacheKey = false;
-		if(0 && DEBUG_MODE && $this->isUsingCache()) {
-			if(isset($this->options['cacheKey'])) {
-				$cacheKey = filename_replace($_SERVER['HTTP_HOST'] .$this->options['cacheKey'] . $entity);
+		if (0 && DEBUG_MODE && $this->isUsingCache()) {
+			if (isset($this->options['cacheKey'])) {
+				$cacheKey = filename_replace($_SERVER['HTTP_HOST'] . $this->options['cacheKey'] . $entity);
 			} else {
 				$query = $this->getSelectQuery();
-				$cacheKey = filename_replace($_SERVER['HTTP_HOST'] .$query . $entity);
-			}	
-			echo $cacheKey .'<br />';
+				$cacheKey = filename_replace($_SERVER['HTTP_HOST'] . $query . $entity);
+			}
+			echo $cacheKey . '<br />';
 			debug_print_backtrace(0, 4);
 		}
-		
-		
-		if(CACHE_MODE && $this->isUsingCache()) {
-			if(isset($this->options['cacheKey'])) {
-				$cacheKey = filename_replace($_SERVER['HTTP_HOST'] .$this->options['cacheKey'] . $entity);
+
+
+		if (CACHE_MODE && $this->isUsingCache()) {
+			if (isset($this->options['cacheKey'])) {
+				$cacheKey = filename_replace($_SERVER['HTTP_HOST'] . $this->options['cacheKey'] . $entity);
 			} else {
 				$query = $this->getSelectQuery();
-				$cacheKey = filename_replace($_SERVER['HTTP_HOST'] .$query . $entity);
+				$cacheKey = filename_replace($_SERVER['HTTP_HOST'] . $query . $entity);
 			}
-			
+
 			//debug($cacheKey); die();
-			
+
 			$cacher = NULL;
-			if(1 && defined('CACHE_DEFAULT_CACHER')) {
+			if (1 && defined('CACHE_DEFAULT_CACHER')) {
 				$cacher = CACHE_DEFAULT_CACHER;
 			} else {
 				$cacher = 'pzk_filecache';
 			}
-			
-			
-			$data = $cacher()->get($cacheKey, isset($this->options['cacheTimeout'])? $this->options['cacheTimeout']: null);
-						
-			if($data !== NULL && $data !== '' && !!$data) {
+
+
+			$data = $cacher()->get($cacheKey, isset($this->options['cacheTimeout']) ? $this->options['cacheTimeout'] : null);
+
+			if ($data !== NULL && $data !== '' && !!$data) {
 				$data = unserialize($data);
-				if($entity) {
+				if ($entity) {
 					$rsltEntity = array();
-					foreach($data as $item) {
+					foreach ($data as $item) {
 						$entityObj = _db()->getEntity($entity);
 						$entityObj->setData($item);
 						$rsltEntity[] = $entityObj;
@@ -496,25 +534,25 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 				return $data;
 			}
 		}
-		
+
 		$this->connect();
-		if(!$query) $query = $this->getSelectQuery();
-		if(DEBUG_MODE)
+		if (!$query) $query = $this->getSelectQuery();
+		if (DEBUG_MODE)
 			$this->addToDebug($query);
 		$result = mysqli_query($this->connId, $query);
-		
+
 		$this->verifyError($query);
 		$rsltEntity = array();
 		while ($row = mysqli_fetch_assoc($result)) {
-			if(isset($row['params']) && $row['params']) {
+			if (isset($row['params']) && $row['params']) {
 				$params = json_decode($row['params'], true);
 				$row = array_merge($row, $params);
 			}
-			if($entity) {
+			if ($entity) {
 				$entityObj = pzk_loader()->createModel('Entity.' . $entity);
 				$entityObj->setData($row);
 				$rslt[] = $entityObj;
-				if(CACHE_MODE && $this->isUsingCache()) {
+				if (CACHE_MODE && $this->isUsingCache()) {
 					$rsltEntity[] = $row;
 				}
 			} else {
@@ -522,147 +560,155 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 			}
 		}
 		// mysqli_free_result($result);
-		if(CACHE_MODE && $this->isUsingCache()) {
+		if (CACHE_MODE && $this->isUsingCache()) {
 			$cacher = NULL;
-			if(defined('CACHE_DEFAULT_CACHER')) {
+			if (defined('CACHE_DEFAULT_CACHER')) {
 				$cacher = CACHE_DEFAULT_CACHER;
 			} else {
 				$cacher = 'pzk_filecache';
 			}
-			if($entity) {
+			if ($entity) {
 				$cacher()->set($cacheKey, serialize($rsltEntity));
 			} else {
 				$cacher()->set($cacheKey, serialize($rslt));
 			}
-			
 		}
 		return $rslt;
 	}
-	
-	public function getSelectQuery() {
+
+	public function getSelectQuery()
+	{
 		// neu bang co truong software thi
-			// them dieu kien loc where software $this->where();
-		if(!$this->hasSoftwareConditions()) {
+		// them dieu kien loc where software $this->where();
+		if (!$this->hasSoftwareConditions()) {
 			$softwareConds = $this->getSoftwareConditions();
-			if($softwareConds) {
+			if ($softwareConds) {
 				$this->and_($softwareConds);
 			}
 			$this->markHavingSoftwareConditions();
 		}
-		
+
 		$query = 'select ' . $this->options['fields']
-				. ' from ' . $this->prefix . $this->options['table'];
-		if(isset($this->options['joins'])) {
+			. ' from ' . $this->prefix . $this->options['table'];
+		if (isset($this->options['joins'])) {
 			$joins = $this->options['joins'];
-			foreach($joins as $table => $join) {
-				$query.= ' ' . $join['type'] . ' join ' . $this->prefix . $table . ' on ' . $join['conds'];
+			foreach ($joins as $table => $join) {
+				$query .= ' ' . $join['type'] . ' join ' . $this->prefix . $table . ' on ' . $join['conds'];
 			}
 		}
 		$query .= ((isset($this->options['conds']) && $this->options['conds']) ? ' where ' . $this->options['conds'] : '')
-				. (isset($this->options['groupBy']) && $this->options['groupBy'] ? ' group by ' . $this->options['groupBy'] : '')
-				. (isset($this->options['having']) && $this->options['having'] ? ' having ' . $this->options['having'] : '')
-				. (isset($this->options['orderBy']) && $this->options['orderBy'] ? ' order by ' . $this->options['orderBy'] : '')
-				. (isset($this->options['pagination']) && $this->options['pagination'] ?
-						' limit ' . $this->options['start'] . ', '
-						. $this->options['pagination'] : '');
+			. (isset($this->options['groupBy']) && $this->options['groupBy'] ? ' group by ' . $this->options['groupBy'] : '')
+			. (isset($this->options['having']) && $this->options['having'] ? ' having ' . $this->options['having'] : '')
+			. (isset($this->options['orderBy']) && $this->options['orderBy'] ? ' order by ' . $this->options['orderBy'] : '')
+			. (isset($this->options['pagination']) && $this->options['pagination'] ?
+				' limit ' . $this->options['start'] . ', '
+				. $this->options['pagination'] : '');
 		return $query;
 	}
-	
-	public function hasSoftwareConditions() {
+
+	public function hasSoftwareConditions()
+	{
 		return isset($this->options['hasSoftwareConditions']) && $this->options['hasSoftwareConditions'];
 	}
-	
-	public function markHavingSoftwareConditions() {
+
+	public function markHavingSoftwareConditions()
+	{
 		$this->options['hasSoftwareConditions'] = true;
 	}
-	
-	public function verifyError($query = false) {
+
+	public function verifyError($query = false)
+	{
 		if (mysqli_errno($this->connId)) {
 			$message = 'Invalid query: ' . mysqli_error($this->connId) . "\n";
 			$message .= 'Whole query: ' . $query;
-			
-			if($this->isSelectQuery()) {
+
+			if ($this->isSelectQuery()) {
 				//$this->addToDebug($query);
 				echo ($message);
-			}
-				
-			else
+			} else
 				pzk_notifier_add_message($message, 'danger');
 			return false;
 		}
 		return true;
 	}
-	
-	public function isUsingCache() {
+
+	public function isUsingCache()
+	{
 		return isset($this->options['useCache']) && $this->options['useCache'];
 	}
-	
-	public function useGlobal() {
+
+	public function useGlobal()
+	{
 		$this->options['global'] = true;
 		return $this;
 	}
-	public function getSoftwareConditions() {
-		if(isset($this->options['global']) && $this->options['global']) {
+	public function getSoftwareConditions()
+	{
+		if (isset($this->options['global']) && $this->options['global']) {
 			return '1';
 		}
 		$table = $this->getTable();
 		$tablefields = $this->getTableFields();
-		if(in_array('software', $tablefields)) {
+		if (in_array('software', $tablefields)) {
 			$softwareId = pzk_request()->getSoftwareId();
-			
+
 			$softwareConds = "`$table`.`software`=$softwareId";
-			if(in_array('global', $tablefields)) {
+			if (in_array('global', $tablefields)) {
 				$globalConds = "`$table`.`global`=1";
 				$softwareConds = $softwareConds . ' or ' . $globalConds;
 			}
-			if(in_array('sharedSoftwares', $tablefields)) {
+			if (in_array('sharedSoftwares', $tablefields)) {
 				$sharedConds = "`$table`.`sharedSoftwares` like '%,$softwareId,%'";
 				$softwareConds = $softwareConds . ' or ' . $sharedConds;
 			}
-			
-			if(in_array('site', $tablefields)) {
+
+			if (in_array('site', $tablefields)) {
 				$siteId = pzk_request()->getSiteId();
-				if($siteId) {
+				if ($siteId) {
 					$softwareConds = "($softwareConds) and (`$table`.`site`=$siteId or `$table`.`site`=0)";
 				} else {
 					$softwareConds = "($softwareConds) and (`$table`.`site`=0)";
 				}
 			}
-			
+
 			return $softwareConds;
 		}
-		
+
 		return null;
 	}
-	
-	public function getTable() {
+
+	public function getTable()
+	{
 		$table = str_replace('`', '', $this->options['table']);
 		$tmp = preg_split('/[\. ]/', $table);
 		$table = end($tmp);
 		return $table;
 	}
-	
+
 	public $_tableFields = array();
-	public function getTableFields() {
-		
+	public function getTableFields()
+	{
+
 		$table = $this->options['table'];
-		if(!isset($this->_tableFields[$table])) {
+		if (!isset($this->_tableFields[$table])) {
 			$fields = $this->getFields($table);
 			$this->_tableFields[$table] = $fields;
 		}
 		return $this->_tableFields[$table];
 	}
-	
-	public function isInsertQuery() {
-		if(isset($this->options['action']) && $this->options['action'] == 'insert') {
+
+	public function isInsertQuery()
+	{
+		if (isset($this->options['action']) && $this->options['action'] == 'insert') {
 			return true;
 		}
 		return false;
 	}
-	
-	public function executeInsertQuery($entity = false) {
+
+	public function executeInsertQuery($entity = false)
+	{
 		$query = $this->getInsertQuery();
-		if(DEBUG_MODE)
+		if (DEBUG_MODE)
 			$this->addToDebug($query);
 		$this->connect();
 		$result = mysqli_query($this->connId, $query);
@@ -673,11 +719,12 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 		}
 		return 0;
 	}
-	
-	public function getInsertQuery() {
+
+	public function getInsertQuery()
+	{
 		$vals = array();
 		$columns = array();
-		if(isset($this->options['fields']) && is_string($this->options['fields'])) {
+		if (isset($this->options['fields']) && is_string($this->options['fields'])) {
 			$columns = explode(',', $this->options['fields']);
 		} else {
 			$columns = $this->getTableFields();
@@ -694,265 +741,282 @@ class PzkCoreDatabase extends PzkObjectLightWeight {
 			foreach ($columns as $col) {
 				$col = trim($col);
 				$col = str_replace('`', '', $col);
-				$colVals[] = "'" . @mysql_escape_string(isset($value[$col])?$value[$col]: '') . "'";
+				$colVals[] = "'" . @mysql_escape_string(isset($value[$col]) ? $value[$col] : '') . "'";
 			}
 			$vals[] = '(' . implode(',', $colVals) . ')';
 		}
-		
+
 		$table = $this->options['table'];
 		$fields = $this->options['fields'];
 
 		$values = implode(',', $vals);
-		
+
 		$query = "insert into $table($fields) values $values";
 		return $query;
 	}
-	
-	public function isUpdateQuery() {
-		if(isset($this->options['action']) && $this->options['action'] == 'update') {
+
+	public function isUpdateQuery()
+	{
+		if (isset($this->options['action']) && $this->options['action'] == 'update') {
 			return true;
 		}
 		return false;
 	}
-	
-	public function executeUpdateQuery($entity = false) {
+
+	public function executeUpdateQuery($entity = false)
+	{
 		$query = $this->getUpdateQuery();
 		file_put_contents(BASE_DIR . '/update.log', $query . "\n", FILE_APPEND);
-		if(DEBUG_MODE)
+		if (DEBUG_MODE)
 			$this->addToDebug($query);
 		$this->connect();
 		$result = mysqli_query($this->connId, $query);
 		$this->verifyError($query);
 		return $result;
 	}
-	
-	public function getUpdateQuery() {
+
+	public function getUpdateQuery()
+	{
 		$columns = $this->getTableFields();
 		$vals = array();
 		$this->options['values']['software'] = pzk_request()->getSoftwareId();
 		foreach ($this->options['values'] as $key => $value) {
 
 			if (in_array($key, $columns)) {
-				$vals[] = '`'.$key . '`=\'' . @mysql_escape_string($value) . '\'';
+				$vals[] = '`' . $key . '`=\'' . @mysql_escape_string($value) . '\'';
 			}
 		}
 		$values = implode(',', $vals);
 		$query = "update {$this->options['table']} set $values where {$this->options['conds']}";
 		return $query;
 	}
-	
-	public function isMultiUpdateQuery() {
-		if(isset($this->options['action']) && $this->options['action'] == 'multiUpdate') {
+
+	public function isMultiUpdateQuery()
+	{
+		if (isset($this->options['action']) && $this->options['action'] == 'multiUpdate') {
 			return true;
 		}
 		return false;
 	}
-	
-	public function executeMultiUpdateQuery($entity = false) {
+
+	public function executeMultiUpdateQuery($entity = false)
+	{
 		$query = $this->getMultiUpdateQuery();
-		if($query) {
-			if(DEBUG_MODE)
+		if ($query) {
+			if (DEBUG_MODE)
 				$this->addToDebug($query);
 			$this->connect();
 			$result = mysqli_query($this->connId, $query);
 			$this->verifyError($query);
-			return $result;	
+			return $result;
 		} else {
 			return NULL;
 		}
 	}
-	
-	public function getMultiUpdateQuery() {
+
+	public function getMultiUpdateQuery()
+	{
 		$columns = $this->getTableFields();
 		// field name
 		$field = $this->options['values']['field'];
-		if(in_array($field, $columns)) {
+		if (in_array($field, $columns)) {
 			// value to set
 			$rows = $this->options['values']['rows'];
 			$increase = isset($this->options['values']['increase']) && $this->options['values']['increase'];
-			if(count($rows)) {
+			if (count($rows)) {
 				$ids = array();
 				$whens = array();
-				foreach($rows as $row) {
+				foreach ($rows as $row) {
 					$id = $row['id'];
 					$value = $row['value'];
 					$ids[] = $id;
-					if($increase) {
+					if ($increase) {
 						$whens[] = "when $id then $field + $value";
 					} else {
 						$whens[] = "when $id then $value";
 					}
-					
 				}
 				$ids = implode(',', $ids);
 				$whens = implode(' ', $whens);
 				$query = "update {$this->options['table']} set $field = case id $whens end where id in ($ids)";
-				return $query;	
+				return $query;
 			}
-			
+
 			return null;
 		}
 		return NULL;
 	}
-	
-	public function isDeleteQuery() {
-		if(isset($this->options['action']) && $this->options['action'] == 'delete') {
+
+	public function isDeleteQuery()
+	{
+		if (isset($this->options['action']) && $this->options['action'] == 'delete') {
 			return true;
 		}
 		return false;
 	}
-	
-	public function executeDeleteQuery($entity = false) {
-		
+
+	public function executeDeleteQuery($entity = false)
+	{
+
 		$query = $this->getDeleteQuery();
-		if(DEBUG_MODE)
+		if (DEBUG_MODE)
 			$this->addToDebug($query);
 		$this->connect();
 		$result = mysqli_query($this->connId, $query);
 		$this->verifyError($query);
 		return $result;
 	}
-	
-	public function getDeleteQuery() {
+
+	public function getDeleteQuery()
+	{
 		$query = "delete from {$this->options['table']} where {$this->options['conds']}";
 		return $query;
 	}
-	
-    /**
-     * Trả về câu query trước khi execute
-     * @return string
-     */
-	public function getQuery() {
-		if($this->isSelectQuery()) {
+
+	/**
+	 * Trả về câu query trước khi execute
+	 * @return string
+	 */
+	public function getQuery()
+	{
+		if ($this->isSelectQuery()) {
 			return $this->getSelectQuery();
-		} elseif($this->isInsertQuery()) {
+		} elseif ($this->isInsertQuery()) {
 			return $this->getInsertQuery();
-		} elseif($this->isUpdateQuery()) {
+		} elseif ($this->isUpdateQuery()) {
 			return $this->getUpdateQuery();
-		} elseif($this->isDeleteQuery()) {
+		} elseif ($this->isDeleteQuery()) {
 			return $this->getDeleteQuery();
-		} elseif($this->isMultiUpdateQuery()) {
+		} elseif ($this->isMultiUpdateQuery()) {
 			return $this->getMultiUpdateQuery();
 		} else {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Trả về một bản ghi
 	 * @param string $entity: trả về theo entity hay theo dạng mảng thông thường
 	 * @return Ambigous <multitype:, Ambigous <NULL, unknown>>|NULL
 	 */
-	public function result_one($entity = false) {
-		$this->limit(1,0);
+	public function result_one($entity = false)
+	{
+		$this->limit(1, 0);
 		$rows = $this->result($entity);
-		if(count($rows)) {
+		if (count($rows)) {
 			return $rows[0];
 		}
 		return NULL;
 	}
-	
+
 	/**
 	 * Phân trang
 	 * @param unknown $pagination: số bản ghi / trang
 	 * @param unknown $page: số hiệu trang
 	 * @return PzkCoreDatabase
 	 */
-    public function limit($pagination, $page = 0) {
-        $this->options['start'] = $pagination * $page;
-        $this->options['pagination'] = $pagination;
-        return $this;
-    }
-	
-    /**
-     * Clear query để bắt đầu lại
-     * @return PzkCoreDatabase
-     */
-    public function clear() {
-        $this->options = array();
-		//$this->useCache(15*60);
-        return $this;
-    }
+	public function limit($pagination, $page = 0)
+	{
+		$this->options['start'] = $pagination * $page;
+		$this->options['pagination'] = $pagination;
+		return $this;
+	}
 
-    /**
-     * Describle một bảng: trả về các columns của bảng
-     * @param string $table
-     * @param boolean $columns trả về danh sách tên column hay trả về danh sách chi tiết của column
-     * @return array
-     */
-    public function describle($table, $columns = true) {
+	/**
+	 * Clear query để bắt đầu lại
+	 * @return PzkCoreDatabase
+	 */
+	public function clear()
+	{
+		$this->options = array();
+		//$this->useCache(15*60);
+		return $this;
+	}
+
+	/**
+	 * Describle một bảng: trả về các columns của bảng
+	 * @param string $table
+	 * @param boolean $columns trả về danh sách tên column hay trả về danh sách chi tiết của column
+	 * @return array
+	 */
+	public function describle($table, $columns = true)
+	{
 		$this->connect();
-        $result = mysqli_query($this->connId, 'describe ' . $this->prefix . $table);
-        $rslt = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            if ($columns) {
-                $rslt[] = $row['Field'];
-            } else {
-                $rslt[] = $row;
-            }
-        }
-        return $rslt;
-    }
-	
-	public function getColumns($table, $fields = 'COLUMN_NAME, DATA_TYPE, COLUMN_TYPE, COLUMN_COMMENT') {
+		$result = mysqli_query($this->connId, 'describe ' . $this->prefix . $table);
+		$rslt = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			if ($columns) {
+				$rslt[] = $row['Field'];
+			} else {
+				$rslt[] = $row;
+			}
+		}
+		return $rslt;
+	}
+
+	public function getColumns($table, $fields = 'COLUMN_NAME, DATA_TYPE, COLUMN_TYPE, COLUMN_COMMENT')
+	{
 		$this->connect();
-        $result = mysqli_query($this->connId, "SELECT $fields 
+		$result = mysqli_query($this->connId, "SELECT $fields 
 FROM information_schema.columns 
 WHERE table_name = '$table'
 AND table_schema = '{$this->dbName}'");
-        $rslt = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $rslt[] = $row;
-        }
-        return $rslt;
+		$rslt = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			$rslt[] = $row;
+		}
+		return $rslt;
 	}
 
-    /**
-     * Query một câu lệnh sql thông thường
-     * @param string $sql câu lệnh sql
-     * @return array|resource|multitype:multitype:
-     */
-    public function query($sql) {
+	/**
+	 * Query một câu lệnh sql thông thường
+	 * @param string $sql câu lệnh sql
+	 * @return array|resource|multitype:multitype:
+	 */
+	public function query($sql)
+	{
 		$sql = $this->prefixify($sql);
-        $this->connect();
-		if(DEBUG_MODE)
+		$this->connect();
+		if (DEBUG_MODE)
 			$this->addToDebug($sql);
-        $result = mysqli_query($this->connId, $sql);
-        $this->verifyError();
-        if (is_bool($result))
-            return $result;
-        $rslt = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $rslt[] = $row;
-        }
-        return $rslt;
-    }
-	
-    /**
-     * Query lấy một bản ghi
-     * @param string $sql câu lệnh sql
-     * @return array|NULL
-     */
-	public function query_one($sql) {
+		$result = mysqli_query($this->connId, $sql);
+		$this->verifyError();
+		if (is_bool($result))
+			return $result;
+		$rslt = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			$rslt[] = $row;
+		}
+		return $rslt;
+	}
+
+	/**
+	 * Query lấy một bản ghi
+	 * @param string $sql câu lệnh sql
+	 * @return array|NULL
+	 */
+	public function query_one($sql)
+	{
 		$result = $this->query($sql);
-		if(is_bool($result)) return $result;
-		if(count($result))
+		if (is_bool($result)) return $result;
+		if (count($result))
 			return $result[0];
 		return null;
 	}
-	
+
 	/**
 	 * Lấy các trường của một bảng trong csdl
 	 * @param string $table
 	 * @return array mảng các trường
 	 */
-	public function getFields($table) {
+	public function getFields($table)
+	{
 		$cacheKey = false;
-		if(1) {
-			
+		if (1) {
+
 			// $cacheKey = filename_replace('describe_' .$table);
-			$cacheKey = 'describe_' .$table;
-			
+			$cacheKey = 'describe_' . $table;
+
 			$cacher = NULL;
 			$cacher = 'pzk_cache_table';
 			/*
@@ -962,7 +1026,7 @@ AND table_schema = '{$this->dbName}'");
 				$cacher = 'pzk_cache_table';
 			}*/
 			$data = $cacher()->get($cacheKey, 1800);
-			if($data !== NULL) {
+			if ($data !== NULL) {
 				return $data;
 			}
 		}
@@ -970,13 +1034,13 @@ AND table_schema = '{$this->dbName}'");
 		$tmp = preg_split('/[\. ]/', $table);
 		$table = $tmp[0];
 		$query = "describe `{$this->prefix}$table`";
-		
+
 		$fields = $this->query($query);
 		$columns = array();
-		foreach($fields as $field) {
+		foreach ($fields as $field) {
 			$columns[] = $field['Field'];
 		}
-		if(1) {
+		if (1) {
 			$cacher = NULL;
 			$cacher = 'pzk_cache_table';
 			/*
@@ -989,39 +1053,41 @@ AND table_schema = '{$this->dbName}'");
 		}
 		return $columns;
 	}
-	
+
 	/**
 	 * Xây dựng insert data
 	 * @param string $table bảng
 	 * @param array $data mảng dữ liệu chưa được lọc
 	 * @return array mảng dữ liệu insert được
 	 */
-	public function buildInsertData($table, $data) {
+	public function buildInsertData($table, $data)
+	{
 		$fields = $this->getFields($table);
 		$params = array();
 		$result = array();
-		foreach($data as $key => $val) {
-			if(in_array($key, $fields)) {
-				if(is_array($val)) {
-					$val = ','.implode(',', $val).',';
+		foreach ($data as $key => $val) {
+			if (in_array($key, $fields)) {
+				if (is_array($val)) {
+					$val = ',' . implode(',', $val) . ',';
 				}
 				$result[$key] = $val;
 			} else {
 				$params[$key] = $val;
 			}
 		}
-		if(in_array('params', $fields)) {
+		if (in_array('params', $fields)) {
 			$result['params'] = json_encode($params);
 		}
 		return $result;
 	}
-	
+
 	/**
 	 * Trả về một entity trong model/entity
 	 * @param string $entity tên entity theo kiểu edu.student
 	 * @return PzkEntityModel
 	 */
-	public function getEntity($entity) {
+	public function getEntity($entity)
+	{
 		return pzk_loader()->createModel('Entity.' . $entity);
 	}
 	/**
@@ -1029,12 +1095,14 @@ AND table_schema = '{$this->dbName}'");
 	 * @param string $table tên bảng cơ sở dữ liệu
 	 * @return PzkEntityTableModel
 	 */
-	public function getTableEntity($table) {
+	public function getTableEntity($table)
+	{
 		$entity = $this->getEntity('Table')->setTable($table);
 		return $entity;
 	}
-	
-	public function __call($name, $arguments) {
+
+	public function __call($name, $arguments)
+	{
 
 		//Getting and setting with $this->property($optional);
 
@@ -1057,31 +1125,31 @@ AND table_schema = '{$this->dbName}'");
 		//Getting and setting with $this->getProperty($optional);
 		//Getting and setting with $this->setProperty($optional);
 		$prefix6 = substr($name, 0, 6);
-		$property6 = strtolower(isset($name[6])?$name[6]: '') . substr($name, 7);
+		$property6 = strtolower(isset($name[6]) ? $name[6] : '') . substr($name, 7);
 		$prefix5 = substr($name, 0, 5);
-		$property5 = strtolower(isset($name[5])?$name[5]: '') . substr($name, 6);
+		$property5 = strtolower(isset($name[5]) ? $name[5] : '') . substr($name, 6);
 		$prefix4 = substr($name, 0, 4);
-		$property4 = strtolower(isset($name[4])?$name[4]: '') . substr($name, 5);
+		$property4 = strtolower(isset($name[4]) ? $name[4] : '') . substr($name, 5);
 		$prefix3 = substr($name, 0, 3);
-		$property3 = strtolower(isset($name[3])?$name[3]: '') . substr($name, 4);
+		$property3 = strtolower(isset($name[3]) ? $name[3] : '') . substr($name, 4);
 		$prefix2 = substr($name, 0, 2);
-		$property2 = strtolower(isset($name[2])?$name[2]: '') . substr($name, 3);
+		$property2 = strtolower(isset($name[2]) ? $name[2] : '') . substr($name, 3);
 		switch ($prefix6) {
 			case 'select':
-			if($property6 == 'all') {
-				return $this->select('*');
-			}
-			if($property6 == 'none') {
-				return $this->select('');
-			}
-			return $this->addFields(str_replace('__', '.', $property6));
-			break;
-			case 'update': 
+				if ($property6 == 'all') {
+					return $this->select('*');
+				}
+				if ($property6 == 'none') {
+					return $this->select('');
+				}
+				return $this->addFields(str_replace('__', '.', $property6));
+				break;
+			case 'update':
 				return $this->update($property6);
-			break;
+				break;
 			case 'insert':
 				return $this->insert($property6);
-			break;
+				break;
 		}
 		switch ($prefix5) {
 			case 'where':
@@ -1117,7 +1185,7 @@ AND table_schema = '{$this->dbName}'");
 				return $this->from($property4);
 				break;
 			case 'join':
-				return $this->join($property4, $arguments[0], isset($arguments[1])?$arguments[1]: null);
+				return $this->join($property4, $arguments[0], isset($arguments[1]) ? $arguments[1] : null);
 				break;
 		}
 		switch ($prefix3) {
@@ -1139,28 +1207,31 @@ AND table_schema = '{$this->dbName}'");
 				return $this->where(array('in', $property2, $arguments[0]));
 				break;
 		}
-		die('No method: '. $name);
+		die('No method: ' . $name);
 		//return parent::__call($name, $arguments);
 	}
 	public $debugs = array();
-	public function addToDebug($query) {
-		if(strpos($query, 'insert into') !== false 
-				|| strpos($query, 'update') !== false 
-				|| strpos($query, 'delete') !== false) {
+	public function addToDebug($query)
+	{
+		if (
+			strpos($query, 'insert into') !== false
+			|| strpos($query, 'update') !== false
+			|| strpos($query, 'delete') !== false
+		) {
 			// file_put_contents(BASE_DIR . '/query.log', $query ."\r\n", FILE_APPEND);
 		}
 		$backtrace = debug_backtrace();
 		$rs = '';
 		$indexF = 1;
-		for($i = 2; $i < count($backtrace) -1; $i++) {
-			$arguments = isset($backtrace[$i]['args'])?$backtrace[$i]['args']: null;
-			if(!$arguments) $arguments = array();
-			foreach($arguments as $index => $argument) {
-				if(is_object($argument)) {
+		for ($i = 2; $i < count($backtrace) - 1; $i++) {
+			$arguments = isset($backtrace[$i]['args']) ? $backtrace[$i]['args'] : null;
+			if (!$arguments) $arguments = array();
+			foreach ($arguments as $index => $argument) {
+				if (is_object($argument)) {
 					$arguments[$index] = get_class($argument);
 				} else {
-					if(is_string($argument)) {
-						if(strlen($argument) < 255) {
+					if (is_string($argument)) {
+						if (strlen($argument) < 255) {
 							$arguments[$index] = "$argument";
 						} else {
 							$arguments[$index] = '{text}';
@@ -1168,31 +1239,32 @@ AND table_schema = '{$this->dbName}'");
 					} else {
 						$arguments[$index] = @(string)$argument;
 					}
-					
 				}
-				
 			}
 			$datas = implode(', ', $arguments);
-			$rs .= $indexF . '. Function: ' . (isset($backtrace[$i]['class'])?$backtrace[$i]['class']:null) . '::' . (isset($backtrace[$i]['function'])?$backtrace[$i]['function']: null) . 
-			'( '. $datas .' )' .
-			' at file: ' . (isset($backtrace[$i]['file'])?$backtrace[$i]['file']: null) .
-			' line :' . (isset($backtrace[$i]['line'])?$backtrace[$i]['line']: null) . "\n";
+			$rs .= $indexF . '. Function: ' . (isset($backtrace[$i]['class']) ? $backtrace[$i]['class'] : null) . '::' . (isset($backtrace[$i]['function']) ? $backtrace[$i]['function'] : null) .
+				'( ' . $datas . ' )' .
+				' at file: ' . (isset($backtrace[$i]['file']) ? $backtrace[$i]['file'] : null) .
+				' line :' . (isset($backtrace[$i]['line']) ? $backtrace[$i]['line'] : null) . "\n";
 			$indexF++;
 		}
 		$this->debugs[] = array('query' => $query, 'backtrace' => $rs);
 	}
-	
-	public function getDebugs() {
+
+	public function getDebugs()
+	{
 		return $this->debugs;
 	}
-	
-	public function getRecord($id, $table = 'news', $fields = '*') {
+
+	public function getRecord($id, $table = 'news', $fields = '*')
+	{
 		return _db()->select($fields)->from($table)->whereId($id)->result_one();
 	}
-	
-	public function getContent($id, $table = 'news', $field = 'content') {
+
+	public function getContent($id, $table = 'news', $field = 'content')
+	{
 		$record 	=	$this->getRecord($id, $table, $field);
-		if($record)	return $record[$field];
+		if ($record)	return $record[$field];
 		return NULL;
 	}
 }
@@ -1201,8 +1273,9 @@ AND table_schema = '{$this->dbName}'");
  * Lấy ra database instance
  * @return PzkCoreDatabase
  */
-function _db() {
-    $db = pzk_element()->getDb()->clear();
+function _db()
+{
+	$db = pzk_element()->getDb()->clear();
 	$db->select('*');
 	$db->useCB();
 	return $db;
@@ -1213,10 +1286,12 @@ function _db() {
  * @param string $sql
  * @return array
  */
-function db_query($sql) {
-    return _db()->query($sql);
+function db_query($sql)
+{
+	return _db()->query($sql);
 }
 
-function pzk_db() {
+function pzk_db()
+{
 	return pzk_element()->getDb();
 }

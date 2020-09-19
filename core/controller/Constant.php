@@ -66,14 +66,24 @@ define('FIELD_TITLE', 'title');
 define('FIELD_NAME', 'name');
 define('FIELD_ALIAS', 'alias');
 define('FIELD_CATEGORY_ID', 'categoryId');
+define('FIELD_CATEGORY_IDS', 'categoryIds');
+define('FIELD_CATEGORY_NAME', 'categoryName');
 define('FIELD_IMG', 'img');
 define('FIELD_FILE', 'file');
 define('FIELD_ORDERING', 'ordering');
 define('FIELD_STATUS', 'status');
 define('FIELD_TRIAL', 'trial');
 
+define('FIELD_STATUS_TEXT', 'statusText');
+define('FIELD_ORDERING_TEXT', 'orderingText');
+define('FIELD_BRIEF_TEXT', 'briefText');
+
+define('FIELDS_BASIC', [FIELD_TYPE, FIELD_TITLE, FIELD_ALIAS, FIELD_CATEGORY_ID, FIELD_IMG, FIELD_FILE, FIELD_ORDERING, FIELD_STATUS, FIELD_TRIAL]);
+
 # education
 define('FIELD_CLASSES', 'classes');
+
+define('FIELD_SUBJECT_CATEGORY', 'subjectCategory');
 
 # content
 define('FIELD_BRIEF', 'brief');
@@ -83,6 +93,8 @@ define('FIELD_CONTENT', 'content');
 define('FIELD_META_KEYWORDS', 'meta_keywords');
 define('FIELD_META_DESCRIPTION', 'meta_description');
 define('FIELD_CAMPAIGN_ID', 'campaignId');
+
+define('FIELDS_SEO', [FIELD_META_KEYWORDS, FIELD_META_DESCRIPTION]);
 
 define('FIELD_LIKES', 'likes');
 define('FIELD_VIEWS', 'views');
@@ -96,15 +108,22 @@ define('FIELD_CREATOR_ID', 'creatorId');
 define('FIELD_MODIFIED', 'modified');
 define('FIELD_MODIFIED_ID', 'modifiedId');
 
+define('FIELD_CREATOR_NAME', 'creatorName');
+define('FIELD_MODIFIED_NAME', 'modifiedName');
+
 # start & end
 define('FIELD_START_DATE', 'startDate');
 define('FIELD_END_DATE', 'endDate');
+
+define('FIELDS_DATE', [FIELD_START_DATE, FIELD_END_DATE]);
 
 # software & site
 define('FIELD_GLOBAL', 'global');
 define('FIELD_SOFTWARE', 'software');
 define('FIELD_SITE', 'site');
 define('FIELD_SHARED_SOFTWARES', 'sharedSoftwares');
+
+define('FIELDS_SCOPE', [FIELD_GLOBAL, FIELD_SOFTWARE, FIELD_SITE, FIELD_SHARED_SOFTWARES]);
 
 ## shorts
 # basic
@@ -114,14 +133,24 @@ define('F_TITLE', FIELD_TITLE);
 define('F_NAME', FIELD_NAME);
 define('F_ALIAS', FIELD_ALIAS);
 define('F_CATEGORY_ID', FIELD_CATEGORY_ID);
+define('F_CATEGORY_IDS', FIELD_CATEGORY_IDS);
+define('F_CATEGORY_NAME', FIELD_CATEGORY_NAME);
 define('F_IMG', FIELD_IMG);
 define('F_FILE', FIELD_FILE);
 define('F_ORDERING', FIELD_ORDERING);
 define('F_STATUS', FIELD_STATUS);
 define('F_TRIAL', FIELD_TRIAL);
 
+define('F_STATUS_TEXT', FIELD_STATUS_TEXT);
+define('F_ORDERING_TEXT', FIELD_ORDERING_TEXT);
+define('F_BRIEF_TEXT', FIELD_BRIEF_TEXT);
+
+define('F_BASIC', FIELDS_BASIC);
+
 # education
 define('F_CLASSES', FIELD_CLASSES);
+
+define('F_SUBJECT_CATEGORY', FIELD_SUBJECT_CATEGORY);
 
 # content
 define('F_BRIEF', FIELD_BRIEF);
@@ -131,6 +160,8 @@ define('F_CONTENT', FIELD_CONTENT);
 define('F_META_KEYWORDS', FIELD_META_KEYWORDS);
 define('F_META_DESCRIPTION', FIELD_META_DESCRIPTION);
 define('F_CAMPAIGN_ID', FIELD_CAMPAIGN_ID);
+
+define('F_SEO', FIELDS_SEO);
 
 define('F_LIKES', FIELD_LIKES);
 define('F_VIEWS', FIELD_VIEWS);
@@ -144,9 +175,14 @@ define('F_CREATOR_ID', FIELD_CREATOR_ID);
 define('F_MODIFIED', FIELD_MODIFIED);
 define('F_MODIFIED_ID', FIELD_MODIFIED_ID);
 
+define('F_CREATOR_NAME', FIELD_CREATOR_NAME);
+define('F_MODIFIED_NAME', FIELD_MODIFIED_NAME);
+
 # start & end
 define('F_START_DATE', FIELD_START_DATE);
 define('F_END_DATE', FIELD_END_DATE);
+
+define('F_DATE', FIELDS_DATE);
 
 # software & site
 define('F_GLOBAL', FIELD_GLOBAL);
@@ -154,6 +190,7 @@ define('F_SOFTWARE', FIELD_SOFTWARE);
 define('F_SITE', FIELD_SITE);
 define('F_SHARED_SOFTWARES', FIELD_SHARED_SOFTWARES);
 
+define('F_SCOPE', FIELDS_SCOPE);
 
 # db
 define('C_AND', 'and');
