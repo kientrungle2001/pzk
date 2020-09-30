@@ -149,6 +149,7 @@ $pageCompiler->setSource('app/nobel/cms/application.php')->compile();
 //$pageCompiler->setSource('app/nobel/olympic/application.php')->compile();
 //$pageCompiler->setSource('app/nobel/ptnn/application.php')->compile();
 $pageCompiler->setSource('app/nobel/test/pmtv/application.php')->compile();
+$pageCompiler->setSource('app/course/fun/application.xml')->compile();
 $pageCompiler->compileDir('Default/pages');
 $pageCompiler->compileDir('app/*/pages');
 $pageCompiler->compileDir('app/*/*/pages');

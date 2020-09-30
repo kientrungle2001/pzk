@@ -152,24 +152,24 @@ class PzkAdminDocumentController extends PzkGridAdminController
 				A_TITLE	=> 'Bình luận',
 				A_LABEL	=> 'Bình luận',
 				A_TABLE	=> self::TABLE_COMMENT,
-				'parentField'	=> 'documentId',
-				'addLabel'	=> 'Thêm bình luận',
-				'quickMode'	=> false,
-				'module'	=> 'document_comment',
-				'listFieldSettings'	=>  list_fields([F_COMMENTS, F_LIKES, F_IP, F_CREATED], self::TABLE_COMMENT),
-				'sortFields' => sort_fields([F_ID, F_LIKES, F_CREATED], self::TABLE_COMMENT)
+				A_PARENT_FIELD	=> 'documentId',
+				A_ADD_LABEL	=> 'Thêm bình luận',
+				A_QUICK_MODE	=> false,
+				A_MODULE	=> 'document_comment',
+				A_LIST_FIELD_SETTINGS	=>  list_fields([F_COMMENTS, F_LIKES, F_IP, F_CREATED], self::TABLE_COMMENT),
+				A_SORT_FIELDS => sort_fields([F_ID, F_LIKES, F_CREATED], self::TABLE_COMMENT)
 			),
 			array(
 				A_INDEX	=> 'visitors',
 				A_TITLE	=> 'Người ghé thăm',
 				A_LABEL	=> 'Người ghé thăm',
 				A_TABLE	=> self::TABLE_VISITOR,
-				'addLabel'	=> 'Thêm người ghé thăm',
-				'quickMode'	=> false,
-				'module'	=> 'visitor',
-				'parentField'	=> 'documentId',
-				'listFieldSettings'	=> list_fields([F_IP, F_VISITED], self::TABLE_VISITOR),
-				'sortFields' => sort_fields([F_ID, F_VISITED], self::TABLE_VISITOR)
+				A_ADD_LABEL	=> 'Thêm người ghé thăm',
+				A_QUICK_MODE	=> false,
+				A_MODULE	=> 'visitor',
+				A_PARENT_FIELD	=> 'documentId',
+				A_LIST_FIELD_SETTINGS	=> list_fields([F_IP, F_VISITED], self::TABLE_VISITOR),
+				A_SORT_FIELDS => sort_fields([F_ID, F_VISITED], self::TABLE_VISITOR)
 			)
 		);
 	}

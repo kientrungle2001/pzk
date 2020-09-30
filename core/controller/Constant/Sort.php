@@ -10,6 +10,9 @@ class PzkSortConstant
 	public static $name = '{replace}.name';
 	public static $nameLabel = 'Tên';
 
+	public static $code = '{replace}.code';
+	public static $codeLabel = 'Mã';
+
 	public static $level = '{replace}.level';
 	public static $levelLabel = 'Tên';
 

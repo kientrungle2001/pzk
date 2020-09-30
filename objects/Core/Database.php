@@ -249,6 +249,14 @@ class PzkCoreDatabase extends PzkObjectLightWeight
 		return $this;
 	}
 
+	/**
+	 * select *
+	 * @return PzkCoreDatabase $this
+	 */
+	public function selectAll() {
+		return $this->select('*');
+	}
+
 	public function buildFields($fields)
 	{
 		if (is_string($fields)) return $fields;

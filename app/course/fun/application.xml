@@ -1,0 +1,13 @@
+<Core.Application id="app" name="course_fun" dispatcher="ControllerBased"
+	gsv="DJBoN802jfeoHdZJX1oM0vqdSuVjiqQ_0t4dHq0zEf4">
+	<Core.Database.ArrayCondition id="conditionBuilder" />
+	<Core.Database id="db" host="localhost"
+		user="root" password="kien102105" dbName="flsn" />
+	<Core.Database.Schema id="db_schema" />
+	<Core.Themes />
+	<Core.Rewrite.Action />
+	<Core.Rewrite.Controller />
+	<Core.Mailer id="mailer" username="kieunghia.luckystar@gmail.com" password="121310121310" host="smtp.gmail.com" secure="tls" port="587" />
+	<Core.Notifier id="notifier" />
+	<Core.Validator id="validator" />
+</Core.Application>

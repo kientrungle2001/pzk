@@ -26,6 +26,13 @@ define('ATTR_FIELDS', 'fields');
 define('ATTR_MD_SIZE', 'mdsize');
 define('ATTR_XS_SIZE', 'xssize');
 
+define('ATTR_PARENT_FIELD', 'parentField');
+define('ATTR_ADD_LABEL', 'addLabel');
+define('ATTR_QUICK_MODE', 'quickMode');
+define('ATTR_MODULE', 'module');
+define('ATTR_LIST_FIELD_SETTINGS', 'listFieldSettings');
+define('ATTR_SORT_FIELDS', 'sortFields');
+
 ## shorts
 define('A_INDEX', ATTR_INDEX);
 define('A_NAME', ATTR_NAME);
@@ -52,6 +59,13 @@ define('A_FIELDS', ATTR_FIELDS);
 define('A_MD_SIZE', ATTR_MD_SIZE);
 define('A_XS_SIZE', ATTR_XS_SIZE);
 
+define('A_PARENT_FIELD', ATTR_PARENT_FIELD);
+define('A_ADD_LABEL', ATTR_ADD_LABEL);
+define('A_QUICK_MODE', ATTR_QUICK_MODE);
+define('A_MODULE', ATTR_MODULE);
+define('A_LIST_FIELD_SETTINGS', ATTR_LIST_FIELD_SETTINGS);
+define('A_SORT_FIELDS', ATTR_SORT_FIELDS);
+
 ## tables
 define('TABLE_DOCUMENT', 'document');
 define('TABLE_CATEGORIES', 'categories');
@@ -64,6 +78,7 @@ define('FIELD_ID', 'id');
 define('FIELD_TYPE', 'type');
 define('FIELD_TITLE', 'title');
 define('FIELD_NAME', 'name');
+define('FIELD_CODE', 'code');
 define('FIELD_ALIAS', 'alias');
 define('FIELD_CATEGORY_ID', 'categoryId');
 define('FIELD_CATEGORY_IDS', 'categoryIds');
@@ -131,6 +146,7 @@ define('F_ID', FIELD_ID);
 define('F_TYPE', FIELD_TYPE);
 define('F_TITLE', FIELD_TITLE);
 define('F_NAME', FIELD_NAME);
+define('F_CODE', FIELD_CODE);
 define('F_ALIAS', FIELD_ALIAS);
 define('F_CATEGORY_ID', FIELD_CATEGORY_ID);
 define('F_CATEGORY_IDS', FIELD_CATEGORY_IDS);

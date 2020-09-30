@@ -1,0 +1,15 @@
+<?php pzk_store_instance("course/fun/3001")->set('config', array (
+  'site_name' => 'course.fun',
+  'site_slogan' => 'Đem tri thức cho cộng đồng',
+  'site_brief' => '',
+  'site_logo' => '',
+  'site_header' => '',
+  'site_url' => '',
+  'site_keywords' => '',
+  'site_description' => '',
+  'site_footer' => '',
+  'site_notification' => '',
+  'site_payment_message' => '',
+  'site_payment_bank' => '',
+  'site_payment_service' => '',
+));

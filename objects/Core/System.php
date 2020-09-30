@@ -108,6 +108,12 @@ class PzkCoreSystem extends PzkObjectLightWeight {
 			'siteId'		=> 	'1',
 			'language'		=> 	true
 		),
+		'course.fun' 		=> array(
+			'app'			=> 	'course_fun',
+			'softwareId'	=> 	'3001',
+			'siteId'		=> 	'1',
+			'language'		=> 	false
+		),
 	);
 	
 	public function finish() {

@@ -145,7 +145,7 @@ pzk = {
 		pzk.load('/js/lib/' + lib + '.js');
 	}
 };
-pzk.lib('locks');
+// pzk.lib('locks');
 pzk.lib('string');
 pzk.lib('array');
 pzk.lib('html');

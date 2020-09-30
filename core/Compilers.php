@@ -9,7 +9,7 @@ class PzkCompiler {
 	public function compileDir($dir) {
 		for($i = 0; $i < 16; $i++) {
 			$subDir = str_repeat('/*', $i);
-			$pattern = $dir . $subDir . '/*.php';
+			$pattern = $dir . $subDir . '/*.*';
 			$files = glob($pattern);
 			foreach($files as $file) {
 				$this->setSource($file);
@@ -63,7 +63,9 @@ class PzkPageCompiler extends PzkCompiler {
 	}
 	private $_fileNames = array();
 	private function _getFileName($file) {
-		return (isset($this->_fileNames[$file])) ? $this->_fileNames[$file] : $this->_fileNames[$file] = $this->target . str_replace('/', '_', $file);
+		$fileName = (isset($this->_fileNames[$file])) ? $this->_fileNames[$file] : $this->_fileNames[$file] = $this->target . str_replace('/', '_', $file);
+		$fileName = str_replace('.xml', '.php', $fileName);
+		return $fileName;
 	}
 	
 	public function isCompiled($file) {
@@ -120,6 +122,7 @@ class PzkPageCompiler extends PzkCompiler {
 					//$attrs['package'] = '';
 					$attrs['className'] = 'PzkTextLabel';
 					$attrs['fullNames'] = array('TextLabel');
+					$attrs['value'] = $childNode->nodeValue;
 					$attrs = var_export($attrs, true);
 					$content .= '$attrs = '. $attrs . ";\r\n";
 					$content .= '$attrs[\'className\'] = $className;'. "\r\n";
