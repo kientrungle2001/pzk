@@ -4,6 +4,9 @@ class PzkSortConstant
 	public static $id = '{replace}.id';
 	public static $idLabel = 'ID';
 
+	public static $courseId = '{replace}.courseId';
+	public static $courseIdLabel = 'Khóa học';
+
 	public static $title = '{replace}.title';
 	public static $titleLabel = 'Tiêu đề';
 
@@ -45,10 +48,6 @@ class PzkSortConstant
 			$result = self::$$tagName;
 		} else {
 			$result = '{replace}.' . $tagName;
-			$tagNameLabel = $tagName . 'Label';
-		}
-		foreach ($dom['attrs'] as $attr) {
-			$result[$attr['name']] = $attr['value'];
 		}
 		$result = str_replace('{replace}', $replace, $result);
 		return $result;
@@ -62,9 +61,17 @@ class PzkSortConstant
 
 		$result = array();
 		foreach ($fields as $field) {
-			$fieldLabel = $field . 'Label';
-			$result[self::get($field, $replace) . ' asc'] = pzk_or(@self::$$fieldLabel, $field) . ' tăng';
-			$result[self::get($field, $replace) . ' desc'] = pzk_or(@self::$$fieldLabel, $field) . ' giảm';
+			$dom = pzk_parse_selector($field);
+			$tagName = $dom['tagName'];
+			$fieldLabel = $tagName . 'Label';
+			$customLabel = null;
+			foreach($dom['attrs'] as $attr) {
+				if($attr['name'] === 'label') {
+					$customLabel = $attr['value'];
+				}
+			}
+			$result[self::get($field, $replace) . ' asc'] = pzk_or($customLabel, @self::$$fieldLabel, $tagName) . ' tăng';
+			$result[self::get($field, $replace) . ' desc'] = pzk_or($customLabel, @self::$$fieldLabel, $tagName) . ' giảm';
 		}
 		return $result;
 	}

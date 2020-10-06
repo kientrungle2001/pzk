@@ -105,6 +105,14 @@ class PzkEditConstant
 		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
 		ATTR_LABEL 		=> 'Số lượng bài tập'
 	);
+	public static $courseId = array(
+		ATTR_INDEX 		=> 'courseId',
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_LABEL 		=> 'Khóa học',
+		ATTR_TABLE 		=> 'course',
+		ATTR_SHOW_VALUE 	=> 'id',
+		ATTR_SHOW_NAME 	=> 'title'
+	);
 	public static $categoryId = array(
 		ATTR_INDEX 		=> 'categoryId',
 		ATTR_TYPE 			=> EDIT_TYPE_SELECT,

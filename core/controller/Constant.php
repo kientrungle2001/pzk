@@ -99,6 +99,8 @@ define('FIELDS_BASIC', [FIELD_TYPE, FIELD_TITLE, FIELD_ALIAS, FIELD_CATEGORY_ID,
 define('FIELD_CLASSES', 'classes');
 
 define('FIELD_SUBJECT_CATEGORY', 'subjectCategory');
+define('FIELD_COURSE_ID', 'courseId');
+define('FIELD_COURSE_TITLE', 'courseTitle');
 
 # content
 define('FIELD_BRIEF', 'brief');
@@ -168,6 +170,8 @@ define('F_CLASSES', FIELD_CLASSES);
 
 define('F_SUBJECT_CATEGORY', FIELD_SUBJECT_CATEGORY);
 
+define('F_COURSE_ID', FIELD_COURSE_ID);
+define('F_COURSE_TITLE', FIELD_COURSE_TITLE);
 # content
 define('F_BRIEF', FIELD_BRIEF);
 define('F_CONTENT', FIELD_CONTENT);

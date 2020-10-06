@@ -7,6 +7,7 @@ define('JOIN_TYPE_RIGHT', 'right');
 define('JOIN_TABLE_CATEGORY', 'category');
 define('JOIN_TABLE_CREATOR', 'creator');
 define('JOIN_TABLE_MODIFIER', 'modifier');
+define('JOIN_TABLE_COURSE', 'course');
 
 class PzkJoinConstant
 {
@@ -23,6 +24,11 @@ class PzkJoinConstant
 	public static $category = array(
 		ATTR_TABLE 		=> 'categories',
 		ATTR_CONDITION 	=> '{replace}.categoryId = categories.id',
+		ATTR_TYPE 			=> JOIN_TYPE_LEFT
+	);
+	public static $course = array(
+		ATTR_TABLE 		=> 'course',
+		ATTR_CONDITION 	=> '{replace}.courseId = course.id',
 		ATTR_TYPE 			=> JOIN_TYPE_LEFT
 	);
 	public static $creator = array(
