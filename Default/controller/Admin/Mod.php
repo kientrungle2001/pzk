@@ -206,9 +206,10 @@ class PzkAdminModController extends PzkGridAdminController
                 if ($password) {
                     $row['password'] = md5($password);
 
-                    $this->add($row);
+                    $rowId = $this->add($row);
+                    $row['id'] = $rowId;
 
-                    pzk_notifier()->addMessage('Cập nhật thành công');
+                    pzk_notifier()->addMessage('Cập nhật thành công #' . $row['id']);
                     $this->redirect('index');
                 } else {
                     pzk_validator()->setEditingData($row);

@@ -354,7 +354,7 @@ class PzkAdminController extends PzkBackendController
 
 		if ($this->validateEditData($row)) {
 			$this->edit($row);
-			pzk_notifier()->addMessage('Cập nhật thành công');
+			pzk_notifier()->addMessage('Cập nhật thành công #' . $row['id']);
 			$this->redirect('index');
 		} else {
 			pzk_validator()->setEditingData($row);
@@ -375,7 +375,7 @@ class PzkAdminController extends PzkBackendController
 				}
 			}
 			$this->edit($row);
-			pzk_notifier()->addMessage('Cập nhật thành công');
+			pzk_notifier()->addMessage('Cập nhật thành công #' . pzk_request()->getId());
 			if (pzk_request()->get(BTN_EDIT_AND_CLOSE)) {
 				if ($backHref) {
 					$this->redirect($backHref);
@@ -694,7 +694,7 @@ class PzkAdminController extends PzkBackendController
 									$url = BASE_DIR . "/3rdparty/uploads/videos/" . $data['url'];
 									unlink($url);
 									$this->edit($row);
-									pzk_notifier()->addMessage('Cập nhật thành công');
+									pzk_notifier()->addMessage('Cập nhật thành công #' . $row['id']);
 									$this->redirect('index');
 								} else {
 									pzk_validator()->setEditingData($row);
@@ -726,7 +726,7 @@ class PzkAdminController extends PzkBackendController
 						if ($this->validateEditData($row)) {
 
 							$this->edit($row);
-							pzk_notifier()->addMessage('Cập nhật thành công');
+							pzk_notifier()->addMessage('Cập nhật thành công #' . $id);
 							$this->redirect('index');
 						} else {
 							pzk_validator()->setEditingData($row);

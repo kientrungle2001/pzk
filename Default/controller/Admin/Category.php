@@ -66,7 +66,7 @@ class PzkAdminCategoryController extends PzkGridAdminController {
                 unlink($url);
             }
             $this->edit($row);
-            pzk_notifier()->addMessage('Cập nhật thành công');
+            pzk_notifier()->addMessage('Cập nhật thành công #' . $id);
             $this->redirect('index');
         } else {
             pzk_validator()->setEditingData($row);

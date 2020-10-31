@@ -61,21 +61,19 @@ if(!SESSION_LOCAL_MODE && !$a)
 // Bắt quyền truy cập cho các file php của hệ thống
 define('PZK_ACCESS', true);
 
+// Separator
 define('DS', DIRECTORY_SEPARATOR);
-
 define('UNS', '_');
-
 define('DOT', '.');
 
+// Extensions
 define ('PHP_EXT', '.php');
-
 define ('HTML_EXT', '.html');
-
 define ('PHTML_EXT', '.phtml');
-
 define ('CSS_EXT', '.css');
-
 define ('XML_EXT', '.xml');
+define ('JSON_EXT', '.json');
+define ('JS_EXT', '.js');
 
 // Thư mục hệ thống
 define('SYSTEM_DIR', dirname(__FILE__));
@@ -201,7 +199,6 @@ define('CACHE_ANSWER_MODE', false);
 // Chế độ debug
 define('DEBUG_MODE', false);
 
-
 // Mức debug: 1 thì chỉ hiển thị query của mysql, 2 thì hiển thị luồng chạy
 define('DEBUG_LEVEL', 2);
 
@@ -211,16 +208,18 @@ define('PHAR_MODE', false);
 // Chế độ compile: Compile các file ra thư mục compile để chạy nhanh hơn
 define('COMPILE_MODE', true);
 
-
 // Chế độ compile nối các file require trong include.php thành một file
 define('COMPILE_INCLUDE_MODE', true);
 
 // Chế độ compile các file model ra thư mục compile/models
 define('COMPILE_MODEL_MODE', true);
+
 // Chế độ compile các file object ra thư mục compile/objects
 define('COMPILE_OBJECT_MODE', true);
+
 // Chế độ compile các file pages ra thư mục compile/pages
 define('COMPILE_PAGE_MODE', true);
+
 // Chế độ compile các file layout ra thư mục compile/layouts
 define('COMPILE_LAYOUT_MODE', true);
 
