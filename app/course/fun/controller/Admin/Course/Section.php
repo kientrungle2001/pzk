@@ -5,8 +5,8 @@ class PzkAdminCourseSectionController extends PzkGridAdminController
 
   public $title     = 'Quản lý bài học';
   public $table     = self::TABLE;
-  public $mdAddOffset  = '1';
-  public $mdAddSize  = '10';
+  public $mdAddOffset  = '2';
+  public $mdAddSize  = '8';
 
   public $selectFields = [
     'course_section.*',
@@ -20,9 +20,9 @@ class PzkAdminCourseSectionController extends PzkGridAdminController
   public function getListFieldSettings()
   {
     return array(
-      list_field(F_TITLE, self::TABLE),
-      list_field(F_COURSE_TITLE, self::TABLE),
-      list_field(F_CODE, self::TABLE),
+      list_field(F_TITLE . '[label=Bài học]', self::TABLE),
+      list_field(F_COURSE_TITLE . '[label=Khóa học]', self::TABLE),
+      list_field(F_CODE . '[label=Mã]', self::TABLE),
       list_field(F_STATUS, self::TABLE)
     );
   }
@@ -58,10 +58,10 @@ class PzkAdminCourseSectionController extends PzkGridAdminController
   public function getAddFieldSettings()
   {
     return edit_fields([
-      F_TITLE . '[mdsize=4][label=Bài học]',
-      F_CODE . '[mdsize=4][label=Mã bài học]',
-      F_COURSE_ID,
-      F_STATUS . '[mdsize=4]',
+      F_TITLE . '[inline=true][label=Bài học]',
+      F_CODE . '[inline=true][label=Mã bài học]',
+      F_COURSE_ID . '[inline=true]',
+      F_STATUS . '[inline=true]',
       F_CONTENT
     ], self::TABLE);
   }

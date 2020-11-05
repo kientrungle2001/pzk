@@ -1,1 +1,1 @@
-<Block layout="course/detail" />
+<Cms.Detail table="course" layout="course/detail" />

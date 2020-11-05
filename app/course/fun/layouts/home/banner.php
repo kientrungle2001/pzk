@@ -7,8 +7,8 @@
       <div class="row">
         <div class="col-12 col-md-6">
           <div class="bg-white m-sm-1 p-sm-1 m-md-2 p-md-2 p-lg-3 m-lg-3 p-xl-4 p-xl-4">
-            <h1 class="lead">Learn on your schedule</h1>
-            <p>Study any topic, anytime. Explore thousands of courses starting at $12.99 each.</p>
+            <h1 class="lead">Học theo lịch trình của bạn</h1>
+            <p>Nghiên cứu bất kỳ chủ đề, bất cứ lúc nào. Khám phá hàng nghìn khóa học bắt đầu từ $ 12,99 mỗi khóa học.</p>
             <form>
               <!-- Actual search box -->
               <div class="form-group has-search">

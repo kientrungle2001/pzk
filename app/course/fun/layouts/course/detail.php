@@ -1,4 +1,5 @@
-<section id="course_detail">
+<?php $item = $data->getItem(); ?>
+<section id="course_detail" class="container-fluid">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -8,28 +9,13 @@
   </nav>
   <div class="row">
     <div class="col-md-4">
-      <img src="http://placehold.it/640x480" class="img-fluid" />
+      <img src="<?php echo pzk_or(@$item['img'], 'http://placehold.it/640x480'); ?>" class="img-fluid" />
     </div>
     <div class="col-md-8">
-      <h2 class="lead">Khóa học lập trình web với php</h2>
-      <p>Sau khi tham gia khóa học “Kỷ Nguyên Bán Hàng Mới - Biến Khách Hàng Thành Bạn”, học viên sẽ đạt được các lợi ích sau:
-        <br />
-        - Biết cách áp dụng từ công thức kết hợp ứng dụng kỹ năng để có được nghệ thuật phản xạ tự nhiên trong vai trò người bán hàng
-        <br />
-        - Nhận thức rõ về tố chất năng lực bản thân với nghề bán hàng, qua đó xác lập con đường bán hàng chuyên nghiệp hay nghề tay trái
-        <br />
-        - Sở hữu quy trình tiếp cận và biến khách hàng thành bạn
-        <br />
-        - Nắm bắt các tố chất cần có ở người làm công việc bán hàng
-        <br />
-        - Học được kiến thức và kỹ thuật thiết yếu mà một người bán hàng cần trang bị
-        <br />
-        - Tìm hiểu các yếu tố làm nên một người bán hàng thành công
-        <br />
-        - Khám phá mô hình và các kênh bán hàng hiện nay
-        <br />
-        - Hướng dẫn chi tiết 10 bước bán hàng thân thiện mà hiệu quả
-      </p>
+      <h2 class="lead"><?php echo html_escape($item['title']) ?></h2>
+      <div class="content">
+        <?php echo $item['content'] ?>
+      </div>
     </div>
   </div>
   <div class="row">

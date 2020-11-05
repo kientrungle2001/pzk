@@ -76,7 +76,7 @@ $actions = $data->getactions();
   <?php endforeach; ?>
 
   <?php } ?>
-  <div class="col-xs-12" style="position: static; bottom: 50px; padding: 10px; background: #555;">
+  <div class="col-xs-12" style="position: static; bottom: 50px; padding: 10px; background: #555; margin-top: 15px">
   <?php foreach($actions as $action): ?>
   <button type="submit" name="<?php echo @$action['name']?>" value="1" class="btn btn-primary"><span class="glyphicon glyphicon-ok-sign"></span> <?php echo @$action['label']?></button>
   <?php endforeach; ?>

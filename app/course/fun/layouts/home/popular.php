@@ -20,49 +20,23 @@ $items = _db()->selectAll()->from('categories')->whereStatus(1)->orderBy('orderi
       foreach ($items as $item) : ?>
         <div class="tab-pane fade<?php echo $first ? ' show active' : '' ?>" role="tabpanel" id="course-category-<?php echo $item['id'] ?>">
           <?php echo $item['content'] ?>
-
+          <?php $courses = _db()->selectAll()->from('course')->whereCategoryId($item['id'])->result(); ?>
           <div class="p-3">
             <div class="row">
-              <div class="col-md-3">
-                <div class="card">
-                  <img class="card-img-top" src="http://placehold.it/128x96" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/Course/detail" class="btn btn-primary">Go somewhere</a>
+              <?php foreach ($courses as $course) : ?>
+                <div class="col-md-3">
+                  <div class="card">
+                    <a href="/Course/detail/<?php echo $course['id'] ?>">
+                      <img class="card-img-top" src="<?php echo pzk_or(@$course['img'], 'http://placehold.it/128x96') ?>" alt="<?php echo html_escape($course['title']) ?>">
+                    </a>
+                    <div class="card-body">
+                      <h5 class="card-title"><a href="/Course/detail/<?php echo $course['id'] ?>"><?php echo html_escape($course['title']) ?></a></h5>
+                      <p class="card-text"><?php echo nl2br(html_escape(@$course['brief'])) ?></p>
+                      <a href="/Course/detail/<?php echo $course['id'] ?>" class="btn btn-primary">Xem khóa học</a>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card">
-                  <img class="card-img-top" src="http://placehold.it/128x96" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/Course/detail" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card">
-                  <img class="card-img-top" src="http://placehold.it/128x96" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/Course/detail" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="card">
-                  <img class="card-img-top" src="http://placehold.it/128x96" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="/Course/detail" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
+              <?php endforeach; ?>
             </div>
           </div>
         </div>

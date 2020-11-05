@@ -24,7 +24,7 @@ class PzkCmsDetail extends PzkCoreDbDetail {
 	}
 	
 	/**
-	Lay ban ghi truoc
+	* Lay ban ghi truoc
 	*/
 	public function getPrevItem($conds = false) {
 		return _db()->useCB()->select($this->fields)->from($this->table)
@@ -32,7 +32,7 @@ class PzkCmsDetail extends PzkCoreDbDetail {
 	}
 	
 	/**
-	Lay ban ghi ke tiep
+	* Lay ban ghi ke tiep
 	*/
 	public function getNextItem($conds = false) {
 		return _db()->useCB()->select($this->fields)->from($this->table)

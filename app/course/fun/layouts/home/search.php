@@ -29,7 +29,7 @@ function sw_get_current_weekday()
   return date('H:i d/m/Y') . ', ' . $weekday;
 }
 ?>
-<div id="search">
+<div id="search" class="container-fluid">
 
   <div class="row bg-danger">
     <div class="col-sm-6 col-12 d-none d-sm-block">

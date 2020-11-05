@@ -4,6 +4,8 @@ class PzkCourseController extends PzkController {
   public $masterPosition = 'right';
   public const COURSE_DETAIL_PAGE = 'course/detail';
   public function detailAction() {
-    $this->render(self::COURSE_DETAIL_PAGE);
+    $detail = $this->parse(self::COURSE_DETAIL_PAGE);
+    $detail->setItemId(pzk_request()->getSegment(3));
+    $this->render($detail);
   }
 }

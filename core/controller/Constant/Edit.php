@@ -83,7 +83,7 @@ class PzkEditConstant
 	public static $alias =  array(
 		ATTR_INDEX 		=> 'alias',
 		ATTR_TYPE 			=> EDIT_TYPE_TEXT,
-		ATTR_LABEL 		=> 'Alias'
+		ATTR_LABEL 		=> 'Bí danh'
 	);
 	public static $ordering = array(
 		ATTR_INDEX 		=> 'ordering',
@@ -455,6 +455,7 @@ class PzkEditConstant
 	}
 }
 
-function edit_fields($fields, $replace) {
+function edit_fields($fields, $replace)
+{
 	return PzkEditConstant::gets($fields, $replace);
 }

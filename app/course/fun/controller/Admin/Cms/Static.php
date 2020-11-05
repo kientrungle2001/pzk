@@ -5,8 +5,8 @@ class PzkAdminCmsStaticController extends PzkGridAdminController
 
   public $title     = 'Quản lý khối tĩnh';
   public $table     = self::TABLE;
-  public $mdAddOffset  = '1';
-  public $mdAddSize  = '10';
+  public $mdAddOffset  = '2';
+  public $mdAddSize  = '8';
 
   public $selectFields = [
     'cms_static.*'
@@ -16,7 +16,7 @@ class PzkAdminCmsStaticController extends PzkGridAdminController
   {
     return array(
       list_field(F_TITLE, self::TABLE),
-      list_field(F_CODE, self::TABLE),
+      list_field(F_CODE . '[label=Mã]', self::TABLE),
       list_field(F_STATUS, self::TABLE)
     );
   }
@@ -52,9 +52,9 @@ class PzkAdminCmsStaticController extends PzkGridAdminController
   public function getAddFieldSettings()
   {
     return edit_fields([
-      F_TITLE . '[mdsize=4]',
-      F_CODE . '[mdsize=4]',
-      F_STATUS . '[mdsize=4]',
+      F_TITLE . '[label=Tiêu đề][inline=true]',
+      F_CODE . '[label=Mã][inline=true]',
+      F_STATUS . '[inline=true]',
       F_CONTENT
     ], self::TABLE);
   }

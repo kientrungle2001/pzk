@@ -5,8 +5,8 @@ class PzkAdminCourseController extends PzkGridAdminController
 
   public $title     = 'Quản lý khóa hoc';
   public $table     = self::TABLE;
-  public $mdAddOffset  = '1';
-  public $mdAddSize  = '10';
+  public $mdAddOffset  = '2';
+  public $mdAddSize  = '8';
 
   public $selectFields = [
     'course.*',
@@ -58,10 +58,10 @@ class PzkAdminCourseController extends PzkGridAdminController
   public function getAddFieldSettings()
   {
     return edit_fields([
-      F_TITLE . '[mdsize=4][label=Khóa học]',
-      F_CODE . '[mdsize=4][label=Mã khóa học]',
-      F_CATEGORY_ID . '[label=Danh mục]',
-      F_STATUS . '[mdsize=4]',
+      F_TITLE . '[inline=true][label=Khóa học]',
+      F_CODE . '[inline=true][label=Mã khóa học]',
+      F_CATEGORY_ID . '[inline=true][label=Danh mục]',
+      F_STATUS . '[inline=true]',
       F_CONTENT
     ], self::TABLE);
   }
