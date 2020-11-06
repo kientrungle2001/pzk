@@ -12,27 +12,14 @@ $sections = _db()->selectAll()->from('course_section')->whereCourseId($item['id'
     </ol>
   </nav>
   <div class="row">
-    <div class="col-md-4">
-      <img src="<?php echo pzk_or(@$item['img'], 'http://placehold.it/640x480'); ?>" class="img-fluid" />
-    </div>
-    <div class="col-md-8">
+    <div class="col">
       <h2 class="lead"><?php echo html_escape($item['title']) ?></h2>
-      <div class="content">
-        <?php echo $item['content'] ?>
-      </div>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <h2 class="lead">Nội dung khóa học</h2>
       <div>
-        <ul>
-          <?php foreach ($sections as $section) : ?>
-            <li>
-              <a href="/course/section/<?php echo $item['id'] ?>/<?php echo $section['id'] ?>"><?php echo html_escape($section['title']) ?></a>
-            </li>
-          <?php endforeach; ?>
-        </ul>
+            <?php $data->displayChildren('all');?>
       </div>
     </div>
   </div>

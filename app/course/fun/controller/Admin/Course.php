@@ -54,12 +54,13 @@ class PzkAdminCourseController extends PzkGridAdminController
   public $logFields = [F_TITLE, F_CODE, F_CONTENT];
 
   public $addLabel = 'Thêm khóa học';
-  public $addFields = [F_TITLE, F_CATEGORY_ID, F_CODE, F_CONTENT, F_STATUS];
+  public $addFields = [F_TITLE, F_CATEGORY_ID, F_CODE, F_IMG, F_CONTENT, F_STATUS];
   public function getAddFieldSettings()
   {
     return edit_fields([
       F_TITLE . '[inline=true][label=Khóa học]',
       F_CODE . '[inline=true][label=Mã khóa học]',
+      F_IMG . '[inline=true][label=Ảnh khóa học]',
       F_CATEGORY_ID . '[inline=true][label=Danh mục]',
       F_STATUS . '[inline=true]',
       F_CONTENT

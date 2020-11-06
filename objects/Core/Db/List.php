@@ -5,7 +5,7 @@ class PzkCoreDbList extends PzkObject
 	public $layoutType = 'div';
 
 	/**
-	Cac dieu kien de lay du lieu
+	 * Cac dieu kien de lay du lieu
 	 */
 	public $table = 'news';
 	public $fields = '*';
@@ -23,14 +23,14 @@ class PzkCoreDbList extends PzkObject
 	public $parentWhere = 'equal';
 
 	/**
-	Dieu kien theo parent
+	 * Dieu kien theo parent
 	 */
 	public $parentId = false;
 	public $parentMode = false;
 	public $parentField = 'parentId';
 
 	/**
-	Cac truong can hien thi
+	 * Cac truong can hien thi
 	 */
 	public $displayFields = 'title,content';
 	public $titleTag = 'h3';
@@ -44,7 +44,7 @@ class PzkCoreDbList extends PzkObject
 
 	public function getItems($keyword = NULL, $fields = array())
 	{
-		$query = _db()->useCache(1800)->useCacheKey($this->table . '_parent_' . $this->parentId . '_pageSize_' . $this->pageSize . '_pageNum_' . $this->pageNum . '_condition_' . md5(var_export($this->conditions, true)))->select($this->fields)->from($this->table)
+		$query = _db()->select($this->fields)->from($this->table)
 			->where($this->conditions)
 			//->where($this->status)
 			->orderBy($this->orderBy)
@@ -81,7 +81,6 @@ class PzkCoreDbList extends PzkObject
 			$query->where($conds);
 		}
 		$this->prepareQuery($query);
-		//echo $query->getQuery();
 		return $query->result();
 	}
 
@@ -177,12 +176,12 @@ class PzkCoreDbList extends PzkObject
 
 	public function getNameById($id, $table, $field)
 	{
-		$data = _db()->useCache(1800)->select('*')->from($table)->where(array('id', $id))->result_one();
+		$data = _db()->select('*')->from($table)->where(array('id', $id))->result_one();
 		return $data[$field];
 	}
 	public function executeStringQuery($sql)
 	{
-		$data = _db()->useCache(1800)->query($sql);
+		$data = _db()->query($sql);
 		return $data;
 	}
 }
