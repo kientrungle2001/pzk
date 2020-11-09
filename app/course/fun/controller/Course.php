@@ -16,9 +16,16 @@ class PzkCourseController extends PzkController
 
   public function listAction()
   {
+    $this->initPage();
+    $courseId = pzk_request()->getSegment(3);
     $list = $this->parse(self::COURSE_LIST_PAGE);
-    $list->setParentId(pzk_request()->getSegment(3));
-    $this->render($list);
+    $list->setParentId($courseId);
+    $courseMenu = pzk_element()->getCourseMenu();
+    if($courseMenu) {
+      $courseMenu->setActiveCourseId($courseId);
+    }
+    $this->append($list);
+    $this->display();
   }
 
   public function sectionAction($courseId, $sectionId)
