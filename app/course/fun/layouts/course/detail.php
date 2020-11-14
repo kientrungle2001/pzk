@@ -24,7 +24,7 @@ $sections = _db()->selectAll()->from('course_section')->whereCourseId($item['id'
   </div>
   <div class="row">
     <div class="col">
-      <h2 class="lead">Nội dung khóa học</h2>
+      <h2>Nội dung khóa học</h2>
       <div>
         <ul>
           <?php foreach ($sections as $section) : ?>

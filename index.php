@@ -6,8 +6,13 @@ require_once 'config.php';
 // include các thư viện và file hệ thống
 require_once BASE_DIR . DS . 'include.php';
 
-// chạy hệ thống
-require_once BASE_DIR . DS . COMPILE_FOLDER . DS . PAGES_FOLDER . DS . 'system_full.php';
+if (COMPILE_MODE) {
+  // chạy hệ thống
+  require_once BASE_DIR . DS . COMPILE_FOLDER . DS . PAGES_FOLDER . DS . 'system_full.php';
+} else {
+  pzk_parse('system/full');
+}
+
 
 // load configuration & application instance
 pzk_loader()->loadApplication();

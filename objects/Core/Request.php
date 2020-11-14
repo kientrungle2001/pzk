@@ -376,7 +376,7 @@ class PzkCoreRequest extends PzkObjectLightWeightSG
 	 */
 	public function getId()
 	{
-		return $this->getInt('id');
+		return $this->id;
 	}
 
 	/**

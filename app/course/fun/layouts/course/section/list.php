@@ -1,5 +1,5 @@
 <?php $sections = $data->getItems()?>
-<h2 class="lead">Nội dung khóa học</h2>
+<h3 class="lead">Nội dung khóa học</h3>
 <div>
   <ul>
     <?php foreach ($sections as $section) : ?>

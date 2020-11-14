@@ -442,7 +442,7 @@ class PzkObject extends PzkSG
 
 	public function getLayoutRealPath()
 	{
-		if (pzk_cache_layout()->has($this->layout)) {
+		if (CACHE_MODE && pzk_cache_layout()->has($this->layout)) {
 			$path = pzk_cache_layout()->get($this->layout);
 			return $path;
 		}

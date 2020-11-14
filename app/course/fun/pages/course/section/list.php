@@ -1,1 +1,0 @@
-<Core.Db.List table="course_section" parentMode="true" parentField="courseId" layout="course/section/list" />

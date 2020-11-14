@@ -2,7 +2,7 @@
 
 <?php
 $activeCourseId = $data->getActiveCourseId();
-$items = _db()->selectAll()->fromCategories()->whereStatus(1)->result();
+$items = _db()->selectAll()->fromCategories()->whereStatus(1)->orderBy('ordering asc')->result();
 ?>
 <!-- Links -->
 <ul class="nav flex-column">

@@ -89,7 +89,7 @@ if (!class_exists('PzkEntityModel')) {
 		 */
 		public function update($data)
 		{
-			$this->data = array_merge($this->data, $data);
+			$this->data = merge_array($this->data, $data);
 			foreach ($data as $key => &$value) {
 				if ($value === NULL) {
 					$value = '';

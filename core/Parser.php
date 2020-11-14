@@ -26,7 +26,7 @@ class PzkParser
 			// neu obj la mot string
 		} else if (is_string($obj)) {
 			// neu obj la mot duong dan den file
-			if (!preg_match('/[\<\>]/', $obj) && $filePath = BASE_DIR . DS . $obj . PHP_EXT) {
+			if (!preg_match('/[\<\>]/', $obj)) {
 				return self::parseFile($obj);
 			}
 			return self::parseDocument($obj);
@@ -42,9 +42,19 @@ class PzkParser
 	 */
 	public static function parseFile($obj)
 	{
-		$fileName = BASE_DIR . '/compile/pages/' . str_replace(DS, UNS, $obj . PHP_EXT);
-		require $fileName;
-		return $obj0;
+		if (COMPILE_MODE) {
+			$fileName = BASE_DIR . '/compile/pages/' . str_replace(DS, UNS, $obj . PHP_EXT);
+			require $fileName;
+			return $obj0;
+		} else {
+			if (file_exists(BASE_DIR . DS . $obj . XML_EXT)) {
+				$content = file_get_contents(BASE_DIR . DS . $obj . XML_EXT);
+				return self::parseDocument($content);
+			} else if (file_exists(BASE_DIR . DS . $obj . PHP_EXT)) {
+				$content = file_get_contents(BASE_DIR . DS . $obj . PHP_EXT);
+				return self::parseDocument($content);
+			}
+		}
 	}
 
 	/**
@@ -105,16 +115,16 @@ class PzkParser
 			}
 
 			// xet xem co ten rut gon khong
-			$shorts = explode('.', $nodeName);
+			$shorts = explode(DOT, $nodeName);
 			if (count($shorts) == 2) {
 				$shortRs = pzk_global()->get('shorty_' . $shorts[0]);
 				if ($shortRs) {
-					$nodeName = $shortRs . '.' . $shorts[1];
+					$nodeName = $shortRs . DOT . $shorts[1];
 				}
 			}
 
 			// tách tagName theo dấu .
-			$names 							= 	explode('.', $nodeName);
+			$names 							= 	explode(DOT, $nodeName);
 			$className 						= 	self::getClass($names);
 			$object							=	implode(DS,	$names);
 
@@ -173,6 +183,9 @@ class PzkParser
 			// lay ten class cua object
 			$objectClass = $className;
 
+
+
+
 			// lay ten class cua object khi da compile
 			$fileNameCompiled = str_replace(DS, '.', $fileName);
 			$objectClassCompiled = str_replace(PHP_EXT, '', $fileNameCompiled);
@@ -182,51 +195,58 @@ class PzkParser
 
 			$objectClassCompiled = self::getClass($partsCompiled);
 
-			// kiem tra xem da compile chua hoac file objects co thay doi
-			if (
-				!is_file(BASE_DIR . '/compile/objects/' . $fileNameCompiled)
-				|| (filemtime(BASE_DIR . '/compile/objects/' . $fileNameCompiled) < filemtime((BASE_DIR .  DS . $fileName)))
-			) {
-				// noi dung file object
-				$fileContent 			= file_get_contents(BASE_DIR . DS . $fileName);
+			if (COMPILE_MODE) {
+				// kiem tra xem da compile chua hoac file objects co thay doi
+				if (
+					!is_file(BASE_DIR . '/compile/objects/' . $fileNameCompiled)
+					|| (filemtime(BASE_DIR . '/compile/objects/' . $fileNameCompiled) < filemtime((BASE_DIR .  DS . $fileName)))
+				) {
+					// noi dung file object
+					$fileContent 			= file_get_contents(BASE_DIR . DS . $fileName);
 
-				// noi dung duoc compile
-				$fileContentCompiled 	= str_replace($objectClass, $objectClassCompiled, $fileContent);
+					// noi dung duoc compile
+					$fileContentCompiled 	= str_replace($objectClass, $objectClassCompiled, $fileContent);
 
-				file_put_contents('compile/objects/' . $fileNameCompiled, $fileContentCompiled);
+					file_put_contents('compile/objects/' . $fileNameCompiled, $fileContentCompiled);
+				}
+
+				// cache lai path va class
+				if (CACHE_MODE) {
+					pzk_cache_objects()->set($node->nodeName . '_path', BASE_DIR . '/compile/objects/' . $fileNameCompiled);
+					pzk_cache_objects()->set($node->nodeName . '_class', $objectClassCompiled);
+				}
+
+
+				// echo 'required: ' . BASE_DIR . '/compile/objects/' . $fileNameCompiled . '<br />';
+				// ket qua
+				require_once BASE_DIR . '/compile/objects/' . $fileNameCompiled;
+			} else {
+				require_once BASE_DIR . DS . $fileName;
 			}
-
-			// cache lai path va class
-			if (CACHE_MODE) {
-				pzk_cache_objects()->set($node->nodeName . '_path', BASE_DIR . '/compile/objects/' . $fileNameCompiled);
-				pzk_cache_objects()->set($node->nodeName . '_class', $objectClassCompiled);
-			}
-
-
-			// echo 'required: ' . BASE_DIR . '/compile/objects/' . $fileNameCompiled . '<br />';
-			// ket qua
-			require_once BASE_DIR . '/compile/objects/' . $fileNameCompiled;
-
 			// require_once $fileObjectPath;
 
 			// lay cac thuoc tinh
 			$attrs = array();
+			$request = null;
 			if (function_exists('pzk_request')) {
 				$request = pzk_request();
-				foreach ($node->attributes as $attr) {
-					$nodeName = $attr->nodeName;
-					$nodeValue = $attr->nodeValue;
-					if (preg_match('/rq-([\w][\w\d]*)/', $nodeName, $match)) {
+			}
+			foreach ($node->attributes as $attr) {
+				$nodeName = $attr->nodeName;
+				$nodeValue = $attr->nodeValue;
+				if (preg_match('/rq-([\w][\w\d]*)/', $nodeName, $match)) {
+					if ($request) {
 						if (preg_match('/rseg([\d]+)/', $nodeValue, $rq)) {
 							$attrs[$match[1]] = $request->getSegment($rq[1]);
 						} else {
 							$attrs[$match[1]] = $request->get($nodeValue);
 						}
-					} else {
-						$attrs[$attr->nodeName] = $attr->nodeValue;
 					}
+				} else {
+					$attrs[$attr->nodeName] = $attr->nodeValue;
 				}
 			}
+
 			$attrs['tagName'] = $node->nodeName;
 			$attrs['className'] = $className;
 			$attrs['pzkParentId'] = $parent ? $parent->getId() : null;
@@ -312,7 +332,7 @@ class PzkParser
 		}
 
 		// cache lai path va class
-		
+
 		pzk_cache_objects()->set($oldName . '_path', BASE_DIR . '/compile/objects/' . $fileNameCompiled);
 		pzk_cache_objects()->set($oldName . '_class', $objectClassCompiled);
 		// ket qua
@@ -329,7 +349,7 @@ class PzkParser
 	 */
 	public static function importObject($nodeName)
 	{
-		
+
 		if ($className = pzk_cache_objects()->get($nodeName . '_class')) {
 			if (!class_exists($className)) {
 				require pzk_cache_objects()->get($nodeName . '_path');

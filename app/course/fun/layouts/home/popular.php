@@ -20,7 +20,7 @@ $items = _db()->selectAll()->from('categories')->whereStatus(1)->orderBy('orderi
       foreach ($items as $item) : ?>
         <div class="tab-pane fade<?php echo $first ? ' show active' : '' ?>" role="tabpanel" id="course-category-<?php echo $item['id'] ?>">
           <?php echo $item['content'] ?>
-          <?php $courses = _db()->selectAll()->from('course')->whereCategoryId($item['id'])->result(); ?>
+          <?php $courses = _db()->selectAll()->from('course')->whereCategoryId($item['id'])->orderBy('ordering asc')->result(); ?>
           <div class="p-3">
             <div class="row">
               <?php foreach ($courses as $course) : ?>

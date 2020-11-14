@@ -28,13 +28,17 @@ function sw_get_current_weekday()
   }
   return date('H:i d/m/Y') . ', ' . $weekday;
 }
+$items = _db()->selectAll()->fromCategories()->whereStatus(1)->orderBy('ordering asc')->result();
 ?>
 <div id="search" class="container-fluid">
 
   <div class="row bg-danger">
     <div class="col-sm-6 col-12 d-none d-sm-block">
       <div class="p-3 text-white">
-        <?= sw_get_current_weekday(); ?>
+        <a class="text-white d-inline-block pl-1 pr-1" href="/">Trang chủ</a>
+        <?php foreach($items as $item):?>
+          <a class="text-white d-inline-block pl-1 pr-1" href="/course/list/<?php echo $item['id']?>"><?php echo html_escape($item['name'])?></a>
+        <?php endforeach;?>
       </div>
     </div>
 

@@ -13,7 +13,7 @@ $sections = _db()->selectAll()->from('course_section')->whereCourseId($item['id'
   </nav>
   <div class="row">
     <div class="col">
-      <h2 class="lead"><?php echo html_escape($item['title']) ?></h2>
+      <h2><?php echo html_escape($item['title']) ?></h2>
     </div>
   </div>
   <div class="row">

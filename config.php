@@ -206,7 +206,7 @@ define('DEBUG_LEVEL', 2);
 define('PHAR_MODE', false);
 
 // Chế độ compile: Compile các file ra thư mục compile để chạy nhanh hơn
-define('COMPILE_MODE', true);
+define('COMPILE_MODE', false);
 
 // Chế độ compile nối các file require trong include.php thành một file
 define('COMPILE_INCLUDE_MODE', true);

@@ -144,7 +144,7 @@ class PzkController extends PzkSG
 	{
 		if ($uri instanceof PzkObject) return $uri;
 		if (strpos($uri, '<') !== false) return pzk_parse($uri);
-		if ($realUri = pzk_cache_pages()->get($uri)) {
+		if (CACHE_MODE && $realUri = pzk_cache_pages()->get($uri)) {
 			return pzk_parse($realUri);
 		}
 		$themes = pzk_request()->getThemes();
@@ -154,8 +154,10 @@ class PzkController extends PzkSG
 			# @example: Themes/Songngu/nobel/test/pages/index.php
 			foreach ($themes as $theme) {
 				$themeUri = str_replace(APP_FOLDER . DS, THEMES_FOLDER . DS . $theme . DS, pzk_app()->getPageUri($uri));
-
-				if (is_file($file = BASE_DIR . DS . $themeUri . PHP_EXT)) {
+				if (is_file($file = BASE_DIR . DS . $themeUri . XML_EXT)) {
+					pzk_cache_pages()->set($uri, $themeUri);
+					return pzk_parse($themeUri);
+				} elseif (is_file($file = BASE_DIR . DS . $themeUri . PHP_EXT)) {
 					pzk_cache_pages()->set($uri, $themeUri);
 					return pzk_parse($themeUri);
 				}
@@ -164,7 +166,10 @@ class PzkController extends PzkSG
 			# @example: Themes/Songngu/pages/index.php
 			foreach ($themes as $theme) {
 				$themeUri = THEMES_FOLDER . DS . $theme . DS . PAGES_FOLDER . DS . $uri;
-				if (is_file($file = BASE_DIR . DS . $themeUri . PHP_EXT)) {
+				if (is_file($file = BASE_DIR . DS . $themeUri . XML_EXT)) {
+					pzk_cache_pages()->set($uri, $themeUri);
+					return pzk_parse($themeUri);
+				} elseif (is_file($file = BASE_DIR . DS . $themeUri . PHP_EXT)) {
 					pzk_cache_pages()->set($uri, $themeUri);
 					return pzk_parse($themeUri);
 				}
@@ -175,7 +180,10 @@ class PzkController extends PzkSG
 			# @example: app/nobel/test/pages/Songngu/index.php
 			foreach ($themes as $theme) {
 				$themeUri = pzk_app()->getPageUri($theme . DS . $uri);
-				if (is_file($file = BASE_DIR . DS . $themeUri . PHP_EXT)) {
+				if (is_file($file = BASE_DIR . DS . $themeUri . XML_EXT)) {
+					pzk_cache_pages()->set($uri, $themeUri);
+					return pzk_parse($themeUri);
+				} elseif (is_file($file = BASE_DIR . DS . $themeUri . PHP_EXT)) {
 					pzk_cache_pages()->set($uri, $themeUri);
 					return pzk_parse($themeUri);
 				}
@@ -184,7 +192,10 @@ class PzkController extends PzkSG
 
 
 		# @example: app/nobel/test/pages/index.php
-		if (is_file(BASE_DIR . DS . ($pageUri = pzk_app()->getPageUri($uri)) . PHP_EXT)) {
+		if (is_file(BASE_DIR . DS . ($pageUri = pzk_app()->getPageUri($uri)) . XML_EXT)) {
+			pzk_cache_pages()->set($uri, $pageUri);
+			return pzk_parse($pageUri);
+		} elseif (is_file(BASE_DIR . DS . ($pageUri = pzk_app()->getPageUri($uri)) . PHP_EXT)) {
 			pzk_cache_pages()->set($uri, $pageUri);
 			return pzk_parse($pageUri);
 		}
@@ -195,7 +206,10 @@ class PzkController extends PzkSG
 			# @example: app/nobel/pages/Songngu/index.php
 			foreach ($themes as $theme) {
 				$themeUri = pzk_app()->getPackagePageUri($theme . DS . $uri);
-				if (is_file(BASE_DIR . DS . $themeUri . PHP_EXT)) {
+				if (is_file(BASE_DIR . DS . $themeUri . XML_EXT)) {
+					pzk_cache_pages()->set($uri, $themeUri);
+					return pzk_parse($themeUri);
+				} elseif (is_file(BASE_DIR . DS . $themeUri . PHP_EXT)) {
 					pzk_cache_pages()->set($uri, $themeUri);
 					return pzk_parse($themeUri);
 				}
@@ -208,7 +222,10 @@ class PzkController extends PzkSG
 					THEMES_FOLDER . DS . $theme . DS,
 					pzk_app()->getPackagePageUri($uri)
 				);
-				if (is_file($file = BASE_DIR . DS . $themeUri . PHP_EXT)) {
+				if (is_file($file = BASE_DIR . DS . $themeUri . XML_EXT)) {
+					pzk_cache_pages()->set($uri, $themeUri);
+					return pzk_parse($themeUri);
+				} elseif (is_file($file = BASE_DIR . DS . $themeUri . PHP_EXT)) {
 					pzk_cache_pages()->set($uri, $themeUri);
 					return pzk_parse($themeUri);
 				}
@@ -216,14 +233,20 @@ class PzkController extends PzkSG
 		}
 
 		# @example: app/nobel/pages/index.php
-		if (is_file(BASE_DIR . DS . ($pageUri = pzk_app()->getPackagePageUri($uri)) . PHP_EXT)) {
+		if (is_file(BASE_DIR . DS . ($pageUri = pzk_app()->getPackagePageUri($uri)) . XML_EXT)) {
+			pzk_cache_pages()->set($uri, $pageUri);
+			return pzk_parse($pageUri);
+		} elseif (is_file(BASE_DIR . DS . ($pageUri = pzk_app()->getPackagePageUri($uri)) . PHP_EXT)) {
 			pzk_cache_pages()->set($uri, $pageUri);
 			return pzk_parse($pageUri);
 		}
 
 		# @example: Default/pages/index.php
 		$pageUri = DEFAULT_FOLDER . DS . PAGES_FOLDER . DS . $uri;
-		if (is_file(BASE_DIR . DS . $pageUri . PHP_EXT)) {
+		if (is_file(BASE_DIR . DS . $pageUri . XML_EXT)) {
+			pzk_cache_pages()->set($uri, $pageUri);
+			return pzk_parse(DEFAULT_FOLDER . DS . PAGES_FOLDER . DS . $uri);
+		} elseif (is_file(BASE_DIR . DS . $pageUri . PHP_EXT)) {
 			pzk_cache_pages()->set($uri, $pageUri);
 			return pzk_parse(DEFAULT_FOLDER . DS . PAGES_FOLDER . DS . $uri);
 		}

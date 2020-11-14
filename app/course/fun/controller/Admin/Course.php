@@ -23,6 +23,7 @@ class PzkAdminCourseController extends PzkGridAdminController
       list_field(F_TITLE, self::TABLE),
       list_field(F_CATEGORY_NAME . '[label=Danh mục]', self::TABLE),
       list_field(F_CODE, self::TABLE),
+      list_field(F_ORDERING, self::TABLE),
       list_field(F_STATUS, self::TABLE)
     );
   }
