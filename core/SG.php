@@ -40,6 +40,7 @@ class PzkSG {
 	 * $sg->set('name', 'John Doe');<br />
 	 * echo $sg->get('name'); // will echo 'John Doe';
 	 * </code>
+	 * @return PzkSG
 	 */
 	public function set($key, $value) {
 		$this->$key = $value;

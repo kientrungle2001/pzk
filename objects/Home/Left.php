@@ -4,6 +4,6 @@
 	 * Object Home/Left for content of themes vnwomen
 	 */
 	class PzkHomeLeft extends PzkObject{
-		
+		public $layout = 'home/left';
 	}
  ?>

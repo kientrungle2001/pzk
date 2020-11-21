@@ -1,23 +1,31 @@
 <?php
 class PzkCourseController extends PzkController
 {
-  public $masterPage = 'sidebar-left';
-  public $masterPosition = 'right';
-  public const COURSE_DETAIL_PAGE = 'course/detail';
-  public const COURSE_LIST_PAGE = 'course/list';
-  public const COURSE_SECTION_PAGE = 'course/section';
+  public const COURSE_DETAIL_PAGE       = 'course/detail';
+  public const COURSE_LIST_PAGE         = 'course/list';
+  public const COURSE_SECTION_PAGE      = 'course/section';
   public const COURSE_SECTION_LIST_PAGE = 'course/section/list';
-  public function detailAction()
+
+  public const LEFT_POSITION = 'left';
+  public const RIGHT_POSITION = 'right';
+  public const MASTER_PAGE = 'sidebar-left';
+  
+  public $masterPage = self::MASTER_PAGE;
+  public $masterPosition = self::RIGHT_POSITION;
+
+  public function detailAction($courseId)
   {
+    /**
+     * @var PzkCoreDbDetail $detail
+     */
     $detail = $this->parse(self::COURSE_DETAIL_PAGE);
-    $detail->setItemId(pzk_request()->getSegment(3));
+    $detail->setItemId($courseId);
     $this->render($detail);
   }
 
-  public function listAction()
+  public function listAction($courseId)
   {
     $this->initPage();
-    $courseId = pzk_request()->getSegment(3);
     $list = $this->parse(self::COURSE_LIST_PAGE);
     $list->setParentId($courseId);
     $courseMenu = pzk_element()->getCourseMenu();
@@ -40,7 +48,7 @@ class PzkCourseController extends PzkController
     $sectionList->setParentId($courseId);
     $this->initPage();
     $this->append($detail);
-    $this->append($sectionList, 'left');
+    $this->append($sectionList, self::LEFT_POSITION);
     $this->display();
   }
 }

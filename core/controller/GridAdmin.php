@@ -294,7 +294,7 @@ class PzkGridAdminController extends PzkAdminController
 	}
 	public function changeStatusAction()
 	{
-		$id = pzk_request()->getId();
+		$id = pzk_request()->getInt('id');
 		$field = pzk_request()->getField();
 		if (!$field)
 			$field = 'status';
@@ -401,7 +401,7 @@ class PzkGridAdminController extends PzkAdminController
 	}
 	public function workflowAction()
 	{
-		$id = pzk_request()->getId();
+		$id = pzk_request()->getInt('id');
 		$field = pzk_request()->getField();
 		$value = pzk_request()->getValue();
 		if (!$field)
@@ -637,7 +637,7 @@ class PzkGridAdminController extends PzkAdminController
 
 	public function dialogAction()
 	{
-		$id = pzk_request()->getId();
+		$id = pzk_request()->getInt('id');
 		$module = $this->parse('admin/' . pzk_or($this->getCustomModule(), $this->getModule()) . '/edit');
 		$module->setTable($this->getTable());
 		$module->setItemId($id);
@@ -649,7 +649,7 @@ class PzkGridAdminController extends PzkAdminController
 
 	public function inlineEditPostAction()
 	{
-		$id = pzk_request()->getId();
+		$id = pzk_request()->getInt('id');
 		$field = pzk_request()->getField();
 		$value = pzk_request()->getValue();
 		$entity = _db()->getTableEntity($this->getTable())->load($id);

@@ -4,18 +4,20 @@
       <img src="https://img-b.udemycdn.com/notices/home_banner/image_udlite/f8324ecd-1a8d-4260-8e15-ec8aaeffa1d1.jpg" class="img-fluid w-100" />
     </div>
     <div class="position-absolute w-100 top-0 left-0 d-none d-sm-block">
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <div class="bg-white m-sm-1 p-sm-1 m-md-2 p-md-2 p-lg-3 m-lg-3 p-xl-4 p-xl-4">
-            <h1 class="lead">Học theo lịch trình của bạn</h1>
-            <p>Nghiên cứu bất kỳ chủ đề, bất cứ lúc nào. Khám phá hàng nghìn khóa học bắt đầu từ $ 12,99 mỗi khóa học.</p>
-            <form>
-              <!-- Actual search box -->
-              <div class="form-group has-search">
-                <span class="fa fa-search form-control-feedback"></span>
-                <input type="text" class="form-control" placeholder="Search">
-              </div>
-            </form>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="bg-white m-sm-1 p-sm-1 m-md-2 p-md-2 p-lg-3 m-lg-3 p-xl-4 p-xl-4">
+              <h1 class="lead">Học theo lịch trình của bạn</h1>
+              <p>Nghiên cứu bất kỳ chủ đề, bất cứ lúc nào. Khám phá hàng nghìn khóa học bắt đầu từ $ 12,99 mỗi khóa học.</p>
+              <form>
+                <!-- Actual search box -->
+                <div class="form-group has-search">
+                  <span class="fa fa-search form-control-feedback"></span>
+                  <input type="text" class="form-control" placeholder="Search">
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

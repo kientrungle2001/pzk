@@ -358,7 +358,7 @@ class PzkAdminController extends PzkBackendController
 			$this->redirect('index');
 		} else {
 			pzk_validator()->setEditingData($row);
-			$this->redirect('edit/' . pzk_request()->getId());
+			$this->redirect('edit/' . pzk_request()->getInt('id'));
 		}
 	}
 	public function editPostAction()
@@ -369,13 +369,13 @@ class PzkAdminController extends PzkBackendController
 		if ($this->validateEditData($row)) {
 			if ($backHref) {
 				if (strpos($backHref, '?') !== false) {
-					$backHref .= '&lastItemId=' . pzk_request()->getId();
+					$backHref .= '&lastItemId=' . pzk_request()->getInt('id');
 				} else {
-					$backHref .= '?lastItemId=' . pzk_request()->getId();
+					$backHref .= '?lastItemId=' . pzk_request()->getInt('id');
 				}
 			}
 			$this->edit($row);
-			pzk_notifier()->addMessage('Cập nhật thành công #' . pzk_request()->getId());
+			pzk_notifier()->addMessage('Cập nhật thành công #' . pzk_request()->getInt('id'));
 			if (pzk_request()->get(BTN_EDIT_AND_CLOSE)) {
 				if ($backHref) {
 					$this->redirect($backHref);
@@ -383,9 +383,9 @@ class PzkAdminController extends PzkBackendController
 					$this->redirect('index');
 				}
 			} else if (pzk_request()->get(BTN_EDIT_AND_CONTINUE)) {
-				$this->redirect('edit/' . pzk_request()->getId());
+				$this->redirect('edit/' . pzk_request()->getInt('id'));
 			} else if (pzk_request()->get(BTN_EDIT_AND_DETAIL)) {
-				$this->redirect('detail/' . pzk_request()->getId());
+				$this->redirect('detail/' . pzk_request()->getInt('id'));
 			} else {
 				if ($backHref) {
 					$this->redirect($backHref);
@@ -395,7 +395,7 @@ class PzkAdminController extends PzkBackendController
 			}
 		} else {
 			pzk_validator()->setEditingData($row);
-			$this->redirect('edit/' . pzk_request()->getId());
+			$this->redirect('edit/' . pzk_request()->getInt('id'));
 		}
 	}
 	public function getEditData()
@@ -410,7 +410,7 @@ class PzkAdminController extends PzkBackendController
 	{
 		$row['modifiedId'] = pzk_session()->getAdminId();
 		$row['modified'] = date(DATEFORMAT, $_SERVER['REQUEST_TIME']);
-		$row['id']		= pzk_request()->getId();
+		$row['id']		= pzk_request()->getInt('id');
 		if ($this->getEntityTableEnabled()) {
 			$row['table']		= $this->getTable();
 			$entityTableEntity 	= _db()->getTableEntity('entity');
@@ -421,7 +421,7 @@ class PzkAdminController extends PzkBackendController
 			}
 		}
 		$entity = _db()->getTableEntity($this->getTable());
-		$entity->load(pzk_request()->getId());
+		$entity->load(pzk_request()->getInt('id'));
 
 		//set index owner
 		$adminmodel = pzk_model('Admin');
@@ -585,11 +585,11 @@ class PzkAdminController extends PzkBackendController
 		if ($this->getChildTables()) {
 			foreach ($this->getChildTables() as $val) {
 				_db()->useCB()->delete()->from($val['table'])
-					->where(array($val['referenceField'], pzk_request()->getId()))->result();
+					->where(array($val['referenceField'], pzk_request()->getInt('id')))->result();
 			}
 		}
 		$entity = _db()->getTableEntity($this->getTable());
-		$entity->load(pzk_request()->getId());
+		$entity->load(pzk_request()->getInt('id'));
 
 		if ($this->getLogable()) {
 			$logEntity = _db()->getTableEntity('admin_log');
@@ -615,7 +615,7 @@ class PzkAdminController extends PzkBackendController
 
 		if ($this->getEntityTableEnabled()) {
 			$entityTableEntity 	= _db()->getTableEntity('entity');
-			$entityTableEntity->load(pzk_request()->getId());
+			$entityTableEntity->load(pzk_request()->getInt('id'));
 			$entityTableEntity->delete();
 		}
 		pzk_notifier()->addMessage('Xóa thành công');
@@ -687,7 +687,7 @@ class PzkAdminController extends PzkBackendController
 					if (move_uploaded_file($_FILES[$filename]['tmp_name'], $dir . $renamed)) {
 						if (!empty($row)) {
 							$row[$filename] = $renamed;
-							$id = pzk_request()->getId();
+							$id = pzk_request()->getInt('id');
 							if (isset($id)) {
 								if ($this->validateEditData($row)) {
 									$data = _db()->useCB()->select('url')->from('video')->where(array('id', $id))->result_one();
@@ -698,7 +698,7 @@ class PzkAdminController extends PzkBackendController
 									$this->redirect('index');
 								} else {
 									pzk_validator()->setEditingData($row);
-									$this->redirect('edit/' . pzk_request()->getId());
+									$this->redirect('edit/' . pzk_request()->getInt('id'));
 								}
 							} else {
 								if ($this->validateAddData($row)) {
@@ -721,7 +721,7 @@ class PzkAdminController extends PzkBackendController
 				}
 			} else {
 				if (!empty($row)) {
-					$id = pzk_request()->getId();
+					$id = pzk_request()->getInt('id');
 					if (isset($id)) {
 						if ($this->validateEditData($row)) {
 
@@ -730,7 +730,7 @@ class PzkAdminController extends PzkBackendController
 							$this->redirect('index');
 						} else {
 							pzk_validator()->setEditingData($row);
-							$this->redirect('edit/' . pzk_request()->getId());
+							$this->redirect('edit/' . pzk_request()->getInt('id'));
 						}
 					} else {
 						if ($this->validateAddData($row)) {
@@ -774,7 +774,7 @@ class PzkAdminController extends PzkBackendController
 	public function saveOrderingAction()
 	{
 		$field = pzk_request()->getField();
-		$id = pzk_request()->getId();
+		$id = pzk_request()->getInt('id');
 		$value = pzk_request()->getValue();
 		$entity = _db()->getTableEntity($this->getTable())->load($id);
 		$entity->update(array(
