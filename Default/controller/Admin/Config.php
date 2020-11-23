@@ -121,12 +121,14 @@ class PzkAdminConfigController extends PzkConfigAdminController {
 			array (
 					'index' 		=> 'site_name',
 					'type' 			=> EDIT_TYPE_TEXT,
-					'label' 		=> 'Tên trang web' 
+					'label' 		=> 'Tên trang web',
+					'inline'		=> true 
 			),
 			array (
 					'index' 		=> 'site_slogan',
 					'type' 			=> EDIT_TYPE_TEXT,
-					'label' 		=> 'Khẩu hiệu(slogan)' 
+					'label' 		=> 'Khẩu hiệu(slogan)',
+					'inline'		=> true 
 			),
 			array (
 					'index' 		=> 'site_brief',
@@ -137,53 +139,63 @@ class PzkAdminConfigController extends PzkConfigAdminController {
 					'index' 		=> 'site_logo',
 					'type' 			=> EDIT_TYPE_FILE_MANAGER,
 					'uploadtype'	=> EDIT_TYPE_UPLOAD_TYPE_IMAGE,
-					'label' 		=> 'Logo' 
+					'label' 		=> 'Logo',
+					'inline'		=> true
 			),
 			array (
 					'index' 		=> 'site_header',
 					'type' 			=> EDIT_TYPE_FILE_MANAGER,
 					'uploadtype'	=> EDIT_TYPE_UPLOAD_TYPE_IMAGE,
-					'label' 		=> 'Header' 
+					'label' 		=> 'Header',
+					'inline'		=> true 
 			),
 			array (
 					'index' 		=> 'site_url',
 					'type' 			=> EDIT_TYPE_TEXT,
-					'label' 		=> 'Đường dẫn'
+					'label' 		=> 'Đường dẫn',
+					'inline'		=> true
 			),
 			array (
 					'index' 		=> 'site_keywords',
 					'type' 			=> EDIT_TYPE_TEXT_AREA,
-					'label' 		=> 'Từ khóa SEO'
+					'label' 		=> 'Từ khóa SEO',
+					'inline'		=> true
 			),
 			array (
 					'index' 		=> 'site_description',
 					'type' 			=> EDIT_TYPE_TEXT_AREA,
-					'label' 		=> 'Mô tả SEO'
+					'label' 		=> 'Mô tả SEO',
+					'inline'		=> true
 			),
 			array (
 					'index' 		=> 'site_footer',
 					'type' 			=> EDIT_TYPE_TINYMCE,
-					'label' 		=> 'Footer Code'
+					'label' 		=> 'Footer Code',
+					'inline'		=> true
 			),
 			array (
 					'index' 		=> 'site_notification',
 					'type' 			=> EDIT_TYPE_TEXT_AREA,
-					'label' 		=> 'Thông báo của website'
+					'label' 		=> 'Thông báo của website',
+					'inline'		=> true
 			),
 			array (
 					'index' 		=> 'site_payment_message',
 					'type' 			=> EDIT_TYPE_TINYMCE,
-					'label' 		=> 'Mô tả thanh toán'
+					'label' 		=> 'Mô tả thanh toán',
+					'inline'		=> true
 			),
 			array (
 					'index' 		=> 'site_payment_bank',
 					'type' 			=> EDIT_TYPE_TINYMCE,
-					'label' 		=> 'Mô tả thanh toán chuyển khoản'
+					'label' 		=> 'Mô tả thanh toán chuyển khoản',
+					'inline'		=> true
 			),
 			array (
 					'index' 		=> 'site_payment_service',
 					'type' 			=> EDIT_TYPE_TINYMCE,
-					'label' 		=> 'Mô tả thanh toán thẻ cào'
+					'label' 		=> 'Mô tả thanh toán thẻ cào',
+					'inline'		=> true
 			),
 	);
 	public $databaseFields = array (
@@ -196,22 +208,26 @@ class PzkAdminConfigController extends PzkConfigAdminController {
 			array (
 					'index' => 'db_host',
 					'type' => 'text',
-					'label' => 'Tên host' 
+					'label' => 'Tên host',
+					'inline'		=> true 
 			),
 			array (
 					'index' => 'db_user',
 					'type' => 'text',
-					'label' => 'Tên user' 
+					'label' => 'Tên user',
+					'inline'		=> true 
 			),
 			array (
 					'index' => 'db_password',
 					'type' => 'password',
-					'label' => 'Password' 
+					'label' => 'Password',
+					'inline'		=> true 
 			),
 			array (
 					'index' => 'db_database',
 					'type' => 'text',
-					'label' => 'Tên database' 
+					'label' => 'Tên database',
+					'inline'		=> true 
 			) 
 	);
 	public $emailFields = array (
@@ -224,22 +240,26 @@ class PzkAdminConfigController extends PzkConfigAdminController {
 			array (
 					'index' => 'email_host',
 					'type' => 'text',
-					'label' => 'Tên host' 
+					'label' => 'Tên host', 
+					'inline'		=> true
 			),
 			array (
 					'index' => 'email_user',
 					'type' => 'text',
-					'label' => 'Tên user' 
+					'label' => 'Tên user',
+					'inline'		=> true
 			),
 			array (
 					'index' => 'email_password',
 					'type' => 'password',
-					'label' => 'Password' 
+					'label' => 'Password',
+					'inline'		=> true
 			),
 			array (
 					'index' => 'email_port',
 					'type' => 'text',
-					'label' => 'Port' 
+					'label' => 'Port',
+					'inline'		=> true
 			) 
 	);
 	public $nganluongFields = array (
@@ -292,167 +312,200 @@ class PzkAdminConfigController extends PzkConfigAdminController {
 			array (
 					'index' => 'bank_number1',
 					'type' => 'text',
-					'label' => 'Số tài khoản 1' 
+					'label' => 'Số tài khoản 1' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_user1',
 					'type' => 'text',
-					'label' => 'Chủ tài khoản 1' 
+					'label' => 'Chủ tài khoản 1' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_name1',
 					'type' => 'text',
-					'label' => 'Ngân hàng 1' 
+					'label' => 'Ngân hàng 1' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_place1',
 					'type' => 'text',
-					'label' => 'Chi nhánh' 
+					'label' => 'Chi nhánh' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_content1',
 					'type' => 'text',
-					'label' => 'Nội dung' 
+					'label' => 'Nội dung' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_number2',
 					'type' => 'text',
-					'label' => 'Số tài khoản 2' 
+					'label' => 'Số tài khoản 2' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_user2',
 					'type' => 'text',
-					'label' => 'Chủ tài khoản 2' 
+					'label' => 'Chủ tài khoản 2' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_name2',
 					'type' => 'text',
-					'label' => 'Ngân hàng 2' 
+					'label' => 'Ngân hàng 2' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_place2',
 					'type' => 'text',
-					'label' => 'Chi nhánh' 
+					'label' => 'Chi nhánh' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_content2',
 					'type' => 'text',
-					'label' => 'Nội dung' 
+					'label' => 'Nội dung' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_number3',
 					'type' => 'text',
-					'label' => 'Số tài khoản 3' 
+					'label' => 'Số tài khoản 3' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_user3',
 					'type' => 'text',
-					'label' => 'Chủ tài khoản 3' 
+					'label' => 'Chủ tài khoản 3' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_name3',
 					'type' => 'text',
-					'label' => 'Ngân hàng 3' 
+					'label' => 'Ngân hàng 3' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_place3',
 					'type' => 'text',
-					'label' => 'Chi nhánh' 
+					'label' => 'Chi nhánh' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_content3',
 					'type' => 'text',
-					'label' => 'Nội dung' 
+					'label' => 'Nội dung' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_number4',
 					'type' => 'text',
-					'label' => 'Số tài khoản 4' 
+					'label' => 'Số tài khoản 4' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_user4',
 					'type' => 'text',
-					'label' => 'Chủ tài khoản 4' 
+					'label' => 'Chủ tài khoản 4' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_name4',
 					'type' => 'text',
-					'label' => 'Ngân hàng 4' 
+					'label' => 'Ngân hàng 4' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_place4',
 					'type' => 'text',
-					'label' => 'Chi nhánh' 
+					'label' => 'Chi nhánh' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_content4',
 					'type' => 'text',
-					'label' => 'Nội dung' 
+					'label' => 'Nội dung' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_number5',
 					'type' => 'text',
-					'label' => 'Số tài khoản 5' 
+					'label' => 'Số tài khoản 5' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_user5',
 					'type' => 'text',
-					'label' => 'Chủ tài khoản 5' 
+					'label' => 'Chủ tài khoản 5' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_name5',
 					'type' => 'text',
-					'label' => 'Ngân hàng 5' 
+					'label' => 'Ngân hàng 5' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_place5',
 					'type' => 'text',
-					'label' => 'Chi nhánh' 
+					'label' => 'Chi nhánh' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_content5',
 					'type' => 'text',
-					'label' => 'Nội dung' 
+					'label' => 'Nội dung' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_number6',
 					'type' => 'text',
-					'label' => 'Số tài khoản 6' 
+					'label' => 'Số tài khoản 6' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_user6',
 					'type' => 'text',
-					'label' => 'Chủ tài khoản 6' 
+					'label' => 'Chủ tài khoản 6' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_name6',
 					'type' => 'text',
-					'label' => 'Ngân hàng 6' 
+					'label' => 'Ngân hàng 6' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_place6',
 					'type' => 'text',
-					'label' => 'Chi nhánh' 
+					'label' => 'Chi nhánh' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'bank_content6',
 					'type' => 'text',
-					'label' => 'Nội dung' 
+					'label' => 'Nội dung' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'note1',
 					'type' => 'text',
-					'label' => 'Ghi chú chuyển tiền qua máy ATM' 
+					'label' => 'Ghi chú chuyển tiền qua máy ATM' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'note2',
 					'type' => 'text',
-					'label' => 'Ghi chú giữ lại biên nhận chuyển khoản' 
+					'label' => 'Ghi chú giữ lại biên nhận chuyển khoản' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'note3',
 					'type' => 'text',
-					'label' => 'Ghi chú kiểm tra giao dịch' 
+					'label' => 'Ghi chú kiểm tra giao dịch' ,
+					'inline'		=> true
 			) 
 	);
 	public $officeFields = array (
@@ -465,22 +518,26 @@ class PzkAdminConfigController extends PzkConfigAdminController {
 			array (
 					'index' => 'name_office',
 					'type' => 'text',
-					'label' => 'Tên văn phòng' 
+					'label' => 'Tên văn phòng' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'address_office',
 					'type' => 'text',
-					'label' => 'Địa chỉ' 
+					'label' => 'Địa chỉ' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'phone_office',
 					'type' => 'text',
-					'label' => 'Điện thoại' 
+					'label' => 'Điện thoại' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'note_office',
 					'type' => 'text',
-					'label' => 'Ghi chú' 
+					'label' => 'Ghi chú' ,
+					'inline'		=> true
 			) 
 	);
 	public $supportFields = array (
@@ -499,52 +556,62 @@ class PzkAdminConfigController extends PzkConfigAdminController {
 			array (
 					'index' => 'support_en_link',
 					'type' => 'text',
-					'label' => 'Đường dẫn phần mềm tiếng Anh' 
+					'label' => 'Đường dẫn phần mềm tiếng Anh' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'hotline',
 					'type' => 'text',
-					'label' => 'Số hotline (hỗ trợ phần mềm tiếng Anh)' 
+					'label' => 'Số hotline (hỗ trợ phần mềm tiếng Anh)' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'email',
 					'type' => 'text',
-					'label' => 'Email hỗ trợ (hỗ trợ phần mềm tiếng Anh)' 
+					'label' => 'Email hỗ trợ (hỗ trợ phần mềm tiếng Anh)' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'yahoo',
 					'type' => 'text',
-					'label' => 'Yahoo hỗ trợ (hỗ trợ phần mềm tiếng Anh)' 
+					'label' => 'Yahoo hỗ trợ (hỗ trợ phần mềm tiếng Anh)' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'skype',
 					'type' => 'text',
-					'label' => 'Skype hỗ trợ (hỗ trợ phần mềm tiếng Anh)' 
+					'label' => 'Skype hỗ trợ (hỗ trợ phần mềm tiếng Anh)' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'support_vn_link',
 					'type' => 'text',
-					'label' => 'Đường dẫn phần mềm tiếng Việt' 
+					'label' => 'Đường dẫn phần mềm tiếng Việt' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'vn_hotline',
 					'type' => 'text',
-					'label' => 'Số hotline (hỗ trợ phần mềm tiếng Việt)' 
+					'label' => 'Số hotline (hỗ trợ phần mềm tiếng Việt)' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'vn_email',
 					'type' => 'text',
-					'label' => 'Email hỗ trợ (hỗ trợ phần mềm tiếng Việt)' 
+					'label' => 'Email hỗ trợ (hỗ trợ phần mềm tiếng Việt)' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'vn_yahoo',
 					'type' => 'text',
-					'label' => 'Yahoo hỗ trợ (hỗ trợ phần mềm tiếng Việt)' 
+					'label' => 'Yahoo hỗ trợ (hỗ trợ phần mềm tiếng Việt)' ,
+					'inline'		=> true
 			),
 			array (
 					'index' => 'vn_skype',
 					'type' => 'text',
-					'label' => 'Skype hỗ trợ (hỗ trợ phần mềm tiếng Việt)' 
+					'label' => 'Skype hỗ trợ (hỗ trợ phần mềm tiếng Việt)' ,
+					'inline'		=> true
 			) 
 	);
 	public $statFields = array (

@@ -39,41 +39,47 @@ class PzkCoreDbList extends PzkObject
 
 	public function init()
 	{
-		$this->conditions = json_decode($this->conditions, true);
+		$this->setConditions(json_decode($this->getConditions(), true));
 	}
 
+	/**
+	 * @param String|null $keyword
+	 * @param array $fields filter keyword by fields
+	 * @return array
+	 */
 	public function getItems($keyword = NULL, $fields = array())
 	{
-		$query = _db()->select($this->fields)->from($this->table)
-			->where($this->conditions)
+		$query = _db()->select($this->getFields())->from($this->getTable())
+			->where($this->getConditions())
 			//->where($this->status)
-			->orderBy($this->orderBy)
-			->limit($this->pageSize, $this->pageNum)
-			->groupBy($this->groupBy)
-			->having($this->having);
-		if (@$this->joins) {
-			foreach ($this->joins as $join) {
-				$query->join($join['table'], $join['condition'], @$join['type']);
+			->orderBy($this->getOrderBy())
+			->limit($this->getPageSize(), $this->getPageNum())
+			->groupBy($this->getGroupBy())
+			->having($this->getHaving());
+		if ($this->getJoins()) {
+			foreach ($this->getJoins() as $join) {
+				$query->join($join['table'], $join['condition'], isset($join['type']) ? $join['type'] : 'inner');
 			}
 		}
-		if ($this->parentMode && $this->parentMode !== 'false') {
-			if ($this->parentId === false) {
+		if ($this->getParentMode() && $this->getParentMode() !== 'false') {
+			if ($this->getParentId() === false) {
 				$request = pzk_request();
 				$this->parentId = $request->getSegment(3);
 			}
-			if ($this->parentWhere == 'like') {
-				$query->where(array($this->parentWhere, $this->parentField, '%,' . $this->parentId . ',%'));
+			if ($this->getParentWhere() == 'like') {
+				$query->where(array($this->getParentWhere(), $this->getParentField(), '%,' . $this->getParentId() . ',%'));
 			} else {
-				$query->where(array($this->parentWhere, $this->parentField, $this->parentId));
+				$query->where(array($this->getParentWhere(), $this->getParentField(), $this->getParentId()));
 			}
 		}
-		if ($this->filters && count($this->filters)) {
+		if ($this->getFilters() && count($this->getFilters())) {
 
-			foreach ($this->filters as $filter) {
+			foreach ($this->getFilters() as $filter) {
 				$query->where($filter);
 			}
 		}
 		if ($keyword && count($fields)) {
+			$keyword = mysql_escape_string($keyword);
 			$conds = array('or');
 			foreach ($fields as $field) {
 				$conds[] = array('like', $field, "%$keyword%");
@@ -116,6 +122,7 @@ class PzkCoreDbList extends PzkObject
 	public function addFilter($index, $value, $filterType = 'equal')
 	{
 		if ($value == '') return $this;
+		$value = mysql_escape_string($value);
 		if ($filterType == 'like' && is_numeric($value)) {
 			$this->filters[] = array($filterType, $index, '%,' . $value . ',%');
 		} else {
