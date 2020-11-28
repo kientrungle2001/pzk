@@ -216,6 +216,7 @@ define('F_SCOPE', FIELDS_SCOPE);
 define('C_AND', 'and');
 define('C_OR', 'or');
 define('C_EQUAL', 'equal');
+define('C_LIKE', 'like');
 define('C_GT', 'gt');
 define('C_GTE', 'gte');
 define('C_LT', 'lt');

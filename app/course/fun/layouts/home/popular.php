@@ -26,13 +26,13 @@ $items = _db()->selectAll()->from('categories')->whereStatus(1)->orderBy('orderi
               <?php foreach ($courses as $course) : ?>
                 <div class="col-md-3">
                   <div class="card">
-                    <a href="/Course/detail/<?php echo $course['id'] ?>">
+                    <a href="/course/enroll/<?php echo $course['id'] ?>">
                       <img class="card-img-top" src="<?php echo pzk_or(@$course['img'], 'http://placehold.it/128x96') ?>" alt="<?php echo html_escape($course['title']) ?>">
                     </a>
                     <div class="card-body">
-                      <h5 class="card-title"><a href="/Course/detail/<?php echo $course['id'] ?>"><?php echo html_escape($course['title']) ?></a></h5>
+                      <h5 class="card-title"><a href="/course/enroll/<?php echo $course['id'] ?>"><?php echo html_escape($course['title']) ?></a></h5>
                       <p class="card-text"><?php echo nl2br(html_escape(@$course['brief'])) ?></p>
-                      <a href="/Course/detail/<?php echo $course['id'] ?>" class="btn btn-primary">Xem khóa học</a>
+                      <a href="/course/enroll/<?php echo $course['id'] ?>" class="btn btn-primary">Xem khóa học</a>
                     </div>
                   </div>
                 </div>

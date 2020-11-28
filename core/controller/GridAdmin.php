@@ -52,8 +52,8 @@ class PzkGridAdminController extends PzkAdminController
 
 	// layout of grid
 	public $gridLayout 				= false;
-	public $mdAddOffset				= 0;
-	public $mdAddSize					= 12;
+	public $mdAddOffset  			= '2';
+  public $mdAddSize  				= '8';
 
 	public function append($obj, $position = NULL)
 	{

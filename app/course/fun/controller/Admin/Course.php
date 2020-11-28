@@ -59,11 +59,11 @@ class PzkAdminCourseController extends PzkGridAdminController
   public function getAddFieldSettings()
   {
     return edit_fields([
-      F_TITLE . '[inline=true][label=Khóa học]',
-      F_CODE . '[inline=true][label=Mã khóa học]',
-      F_IMG . '[inline=true][label=Ảnh khóa học]',
-      F_CATEGORY_ID . '[inline=true][label=Danh mục]',
-      F_STATUS . '[inline=true]',
+      F_TITLE . '[label=Khóa học]',
+      F_CODE . '[label=Mã khóa học]',
+      F_IMG . '[label=Ảnh khóa học]',
+      F_CATEGORY_ID . '[label=Danh mục]',
+      F_STATUS,
       F_CONTENT
     ], self::TABLE);
   }

@@ -41,6 +41,7 @@ if(PHAR_MODE) {
     require_once __DIR__ . '/core/SG/Store/init.php';
 	
 
+    require_once __DIR__ . '/core/controller/Constant.php';
     require_once __DIR__ . '/core/Object.php';
     require_once __DIR__ . '/core/Object/LightWeight.php';
     require_once __DIR__ . '/core/Object/LightWeightSG.php';

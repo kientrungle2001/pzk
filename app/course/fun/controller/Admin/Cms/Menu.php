@@ -1,22 +1,23 @@
 <?php
-class PzkAdminCmsStaticController extends PzkGridAdminController
+class PzkAdminCmsMenuController extends PzkGridAdminController
 {
-  public const TABLE = 'cms_static';
+  public const TABLE = 'cms_menu';
 
-  public $title     = 'Quản lý khối tĩnh';
+  public $title     = 'Quản lý menu';
   public $table     = self::TABLE;
   public $mdAddOffset  = '2';
   public $mdAddSize  = '8';
 
   public $selectFields = [
-    'cms_static.*'
+    'cms_menu.*'
   ];
 
   public function getListFieldSettings()
   {
     return array(
       list_field(F_TITLE, self::TABLE),
-      list_field(F_CODE . '[label=Mã]', self::TABLE),
+      list_field(F_CODE . '[label=Đường dẫn]', self::TABLE),
+      list_field(F_ORDERING, self::TABLE),
       list_field(F_STATUS, self::TABLE)
     );
   }
@@ -45,17 +46,16 @@ class PzkAdminCmsStaticController extends PzkGridAdminController
   }
 
   public $logable = true;
-  public $logFields = [F_TITLE, F_CODE, F_CONTENT];
+  public $logFields = [F_TITLE, F_CODE];
 
-  public $addLabel = 'Thêm khối tĩnh';
-  public $addFields = [F_TITLE, F_CODE, F_CONTENT, F_STATUS];
+  public $addLabel = 'Thêm menu';
+  public $addFields = [F_TITLE, F_CODE, F_ORDERING, F_STATUS];
   public function getAddFieldSettings()
   {
     return edit_fields([
       F_TITLE . '[label=Tiêu đề]',
-      F_CODE . '[label=Mã]',
-      F_STATUS,
-      F_CONTENT
+      F_CODE . '[label=Đường dẫn]',
+      F_ORDERING
     ], self::TABLE);
   }
 }

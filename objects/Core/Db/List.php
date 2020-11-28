@@ -95,23 +95,24 @@ class PzkCoreDbList extends PzkObject
 		if ($isSelect) {
 			$select = $this->fields;
 		} else {
-			$select = implode(',', $this->exportFields);
+			$select = implode(',', $this->getExportFields());
 		}
-		$query = _db()->useCache(1800)->select($select)->from($this->table)
-			->where($this->conditions)
-			->orderBy($this->orderBy)
+		$query = _db()->select($select)->from($this->getTable())
+			->where($this->getConditions())
+			->orderBy($this->getOrderBy())
 			//->limit($this->pageSize, $this->pageNum)
-			->groupBy($this->groupBy)
-			->having($this->having);
-		if ($this->filters && count($this->filters)) {
-			foreach ($this->filters as $filter) {
+			->groupBy($this->getGroupBy())
+			->having($this->getHaving());
+		if ($this->getFilters() && count($this->getFilters())) {
+			foreach ($this->getFilters() as $filter) {
 				$query->where($filter);
 			}
 		}
 		if ($keyword && count($fields)) {
-			$conds = array('or');
+			$keyword = mysql_escape_string($keyword);
+			$conds = array(C_OR);
 			foreach ($fields as $field) {
-				$conds[] = array('like', $field, "%$keyword%");
+				$conds[] = array(C_LIKE, $field, "%$keyword%");
 			}
 			$query->where($conds);
 		}
@@ -139,31 +140,32 @@ class PzkCoreDbList extends PzkObject
 
 	public function getCountItems($keyword = NULL, $fields = array())
 	{
-		$query = _db()->useCache(1800)->select('count(*) as c')
-			->from($this->table)
-			->where($this->conditions)
-			->groupBy($this->groupBy)
-			->having($this->having);
-		if (@$this->joins) {
-			foreach ($this->joins as $join) {
-				$query->join($join['table'], $join['condition'], @$join['type']);
+		$query = _db()->select('count(*) as c')
+			->from($this->getTable())
+			->where($this->getConditions())
+			->groupBy($this->getGroupBy())
+			->having($this->getHaving());
+		if ($this->getJoins()) {
+			foreach ($this->getJoins() as $join) {
+				$query->join($join['table'], $join['condition'], isset($join['type']) ? $join['type'] : 'inner');
 			}
 		}
-		if ($this->parentMode && $this->parentMode !== 'false') {
-			if (!$this->parentId) {
+		if ($this->getParentMode() && $this->getParentMode() !== 'false') {
+			if (!$this->getParentId()) {
 				$request = pzk_request();
 				$this->parentId = $request->getSegment(3);
 			}
-			if ($this->parentWhere == 'like') {
-				$query->where(array($this->parentWhere, $this->parentField, '%,' . $this->parentId . ',%'));
+			if ($this->getParentWhere() == C_LIKE) {
+				$query->where(array($this->getParentWhere(), $this->getParentField(), '%,' . $this->getParentId() . ',%'));
 			} else {
-				$query->where(array($this->parentWhere, $this->parentField, $this->parentId));
+				$query->where(array($this->getParentWhere(), $this->getParentField(), $this->getParentId()));
 			}
 		}
 		if ($keyword && count($fields)) {
-			$conds = array('or');
+			$keyword = mysql_escape_string($keyword);
+			$conds = array(C_OR);
 			foreach ($fields as $field) {
-				$conds[] = array('like', $field, "%$keyword%");
+				$conds[] = array(C_LIKE, $field, "%$keyword%");
 			}
 			$query->where($conds);
 		}

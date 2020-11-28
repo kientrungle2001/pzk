@@ -30,8 +30,8 @@ class PzkAdminCategoryController extends PzkGridAdminController
 
   public function getAddFieldSettings()
   {
-    return PzkEditConstant::gets('nameOfCategory[inline=true], alias[inline=true], router[inline=true], parent[inline=true], img[inline=true], 
-				content, status[inline=true]', 'categories');
+    return PzkEditConstant::gets('nameOfCategory, alias, router, parent, img, 
+				content, status', 'categories');
   }
 
   public function getAddValidator()

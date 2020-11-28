@@ -69,7 +69,7 @@ class PzkAdminModel
     public function checkActionType($type, $controller, $level)
     {
         $type   =     trim($type);
-        $user    =     _db()->select('*')->fromAdmin_level_action()->where(
+        $user    =     _db()->selectAll()->fromAdmin_level_action()->where(
             array(
                 'action_type'    => $type,
                 'admin_action'    => $controller,
@@ -118,7 +118,7 @@ class PzkAdminModel
         $pass = trim($pass);
         $pass = md5($pass);
         $users = _db()->select('count(*) as c')
-            ->from('admin')
+            ->fromAdmin()
             ->whereId($userid)
             ->wherePassword($pass)
             ->result_one();

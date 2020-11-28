@@ -1,24 +1,23 @@
 <?php
-class PzkAdminCmsStaticController extends PzkGridAdminController
+class PzkAdminCourseProviderController extends PzkGridAdminController
 {
-  public const TABLE = 'cms_static';
+  public const TABLE = TABLE_COURSE_PROVIDER;
 
-  public $title     = 'Quản lý khối tĩnh';
+  public $title     = 'Quản lý tổ chức';
   public $table     = self::TABLE;
-  public $mdAddOffset  = '2';
-  public $mdAddSize  = '8';
 
   public $selectFields = [
-    'cms_static.*'
+    TABLE_COURSE_PROVIDER . DOT . F_ALL
   ];
 
   public function getListFieldSettings()
   {
-    return array(
-      list_field(F_TITLE, self::TABLE),
-      list_field(F_CODE . '[label=Mã]', self::TABLE),
-      list_field(F_STATUS, self::TABLE)
-    );
+    return [
+      list_field(F_TITLE,     self::TABLE),
+      list_field(F_CODE,      self::TABLE),
+      list_field(F_ORDERING,  self::TABLE),
+      list_field(F_STATUS,    self::TABLE)
+    ];
   }
 
   public $searchLabel = 'Tìm kiếm';
@@ -47,13 +46,14 @@ class PzkAdminCmsStaticController extends PzkGridAdminController
   public $logable = true;
   public $logFields = [F_TITLE, F_CODE, F_CONTENT];
 
-  public $addLabel = 'Thêm khối tĩnh';
-  public $addFields = [F_TITLE, F_CODE, F_CONTENT, F_STATUS];
+  public $addLabel = 'Thêm tổ chức';
+  public $addFields = [F_TITLE, F_CODE, F_IMG, F_CONTENT, F_STATUS];
   public function getAddFieldSettings()
   {
     return edit_fields([
-      F_TITLE . '[label=Tiêu đề]',
-      F_CODE . '[label=Mã]',
+      F_TITLE     . '[label=Tổ chức]',
+      F_CODE      . '[label=Mã tổ chức]',
+      F_IMG       . '[label=Ảnh tổ chức]',
       F_STATUS,
       F_CONTENT
     ], self::TABLE);

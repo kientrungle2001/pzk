@@ -167,6 +167,16 @@ class PzkCoreLoader extends PzkObjectLightWeight{
 	 */
 	public function importApplicationConfigurations() {
 		$request = pzk_request();
+		
+		// include các cấu hình tùy chỉnh của gói
+		if($request->getPackagePath() 
+			&& is_file($configFile = BASE_DIR . '/app/'.$request->getPackagePath().'/constants.php'))
+			require_once $configFile;
+
+		// include cấu hình tùy chỉnh của ứng dụng
+		if(is_file($configFile = BASE_DIR . '/app/'.$request->getAppPath().'/constants.php'))
+			require_once $configFile;
+		
 		// include các cấu hình tùy chỉnh của gói
 		if($request->getPackagePath() 
 			&& is_file($configFile = BASE_DIR . '/app/'.$request->getPackagePath().'/configuration.php'))

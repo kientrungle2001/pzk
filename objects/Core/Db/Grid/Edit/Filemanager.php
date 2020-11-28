@@ -7,4 +7,5 @@
  */
 class PzkCoreDbGridEditFilemanager extends PzkObject {
     public $layout = 'admin/grid/edit/filemanager';
+    public $inline = true;
 }
