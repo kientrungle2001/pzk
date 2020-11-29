@@ -128,7 +128,7 @@ class PzkAdminController extends PzkBackendController
 	public function filterAction()
 	{
 		$request = pzk_request();
-		$id = $request->getId();
+		$id = $request->get('id');
 		$filterValue = $request->getSelect();
 		if ($id) {
 			$entity = _db()->getTableEntity($this->getTable());
@@ -138,7 +138,7 @@ class PzkAdminController extends PzkBackendController
 
 		$this->getFilterSession()->set($request->getIndex(), $filterValue);
 		if ($request->getIsAjax()) {
-			echo 1;
+			echo json_encode([$request->getIndex(), $filterValue]);
 		} else {
 			$this->redirect('index');
 		}

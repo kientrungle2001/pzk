@@ -37,7 +37,7 @@ class PzkAdminCourseController extends PzkGridAdminController
 
   public function getFilterFields()
   {
-    return filter_fields([F_STATUS], self::TABLE);
+    return filter_fields([F_CATEGORY_ID, F_COURSE_PROVIDER_ID, F_STATUS], self::TABLE);
   }
 
   public function getSortFields()
@@ -55,7 +55,7 @@ class PzkAdminCourseController extends PzkGridAdminController
   public $logFields = [F_TITLE, F_CODE, F_CONTENT];
 
   public $addLabel = 'Thêm khóa học';
-  public $addFields = [F_TITLE, F_CATEGORY_ID, F_CODE, F_IMG, F_CONTENT, F_STATUS];
+  public $addFields = [F_TITLE, F_CATEGORY_ID, F_COURSE_PROVIDER_ID, F_CODE, F_IMG, F_CONTENT, F_STATUS];
   public function getAddFieldSettings()
   {
     return edit_fields([
@@ -63,6 +63,7 @@ class PzkAdminCourseController extends PzkGridAdminController
       F_CODE . '[label=Mã khóa học]',
       F_IMG . '[label=Ảnh khóa học]',
       F_CATEGORY_ID . '[label=Danh mục]',
+      F_COURSE_PROVIDER_ID,
       F_STATUS,
       F_CONTENT
     ], self::TABLE);

@@ -421,12 +421,16 @@ class PzkEditConstant
 		ATTR_LABEL         => 'Niên khóa'
 	);
 
+	public static $extra_fields = [];
+
 	public static function  get($field, $replace)
 	{
 		$dom = pzk_parse_selector($field);
 		$tagName = $dom['tagName'];
 		if (isset(self::$$tagName)) {
 			$result = self::$$tagName;
+		} elseif (isset(self::$extra_fields[$tagName])) {
+			$result = self::$extra_fields[$tagName];
 		} else {
 			$result = array(
 				ATTR_INDEX    =>     $tagName,
@@ -456,7 +460,7 @@ class PzkEditConstant
 
 	public static function sets($fields) {
 		foreach($fields as $field => $settings) {
-			self::$$field = $settings;
+			self::$extra_fields[$field] = $settings;
 		}
 	}
 }

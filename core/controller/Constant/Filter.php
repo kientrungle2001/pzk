@@ -102,11 +102,19 @@ class PzkFilterConstant {
 		ATTR_SHOW_VALUE => 'position',
 		ATTR_SHOW_NAME => 'position',
 	);
+
+	public static $extra_fields = [];
 	
 	public static function  get($field, $replace) {
 		$dom = pzk_parse_selector($field);
 		$tagName = $dom['tagName'];
-		$result = self::$$tagName;
+		$result = null;
+		if(isset(self::$extra_fields[$tagName])) {
+			$result = self::$extra_fields[$tagName];
+		} else {
+			$result = self::$$tagName;
+		}
+		
 		foreach ($dom['attrs'] as $attr) {
 			$result[$attr['name']] = $attr['value'];
 		}
@@ -124,6 +132,12 @@ class PzkFilterConstant {
 			$result[] = self::get($field, $replace);
 		}
 		return $result;
+	}
+
+	public static function sets($fields) {
+		foreach($fields as $field => $settings) {
+			self::$extra_fields[$field] = $settings;
+		}
 	}
 }
 

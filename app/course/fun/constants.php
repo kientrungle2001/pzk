@@ -1,9 +1,51 @@
 <?php
+define('TABLE_COURSE', 'course');
 define('TABLE_COURSE_PROVIDER', 'course_provider');
 
 define('FIELD_ALL', '*');
 define('F_ALL', FIELD_ALL);
+define('LBL_COURSE', 'Khóa học');
+define('LBL_COURSE_PROVIDER', 'Tổ chức');
 
 
 define('FIELD_COURSE_PROVIDER_ID', 'courseProviderId');
 define('F_COURSE_PROVIDER_ID', FIELD_COURSE_PROVIDER_ID);
+
+PzkFilterConstant::sets([
+  F_COURSE_ID => [
+    ATTR_INDEX 		=> F_COURSE_ID,
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_LABEL 		=> LBL_COURSE,
+		ATTR_TABLE 		=> TABLE_COURSE,
+		ATTR_SHOW_VALUE 	=> F_ID,
+		ATTR_SHOW_NAME 	=> F_TITLE
+  ],
+  F_COURSE_PROVIDER_ID => [
+    ATTR_INDEX 		=> F_COURSE_PROVIDER_ID,
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_LABEL 		=> LBL_COURSE_PROVIDER,
+		ATTR_TABLE 		=> TABLE_COURSE_PROVIDER,
+		ATTR_SHOW_VALUE 	=> F_ID,
+		ATTR_SHOW_NAME 	=> F_TITLE
+  ],
+  F_CATEGORY_ID => [
+    ATTR_INDEX 		=> F_CATEGORY_ID,
+		ATTR_TYPE 			=> EDIT_TYPE_SELECT,
+		ATTR_LABEL 		=> 'Danh mục',
+		ATTR_TABLE 		=> TABLE_CATEGORIES,
+		ATTR_SHOW_VALUE 	=> F_ID,
+		ATTR_SHOW_NAME 	=> F_NAME
+  ]
+]);
+
+PzkEditConstant::sets([
+  F_COURSE_PROVIDER_ID => [
+    ATTR_INDEX          => F_COURSE_PROVIDER_ID,
+    ATTR_TYPE           => EDIT_TYPE_SELECT,
+    ATTR_TABLE          => TABLE_COURSE_PROVIDER,
+		ATTR_FIELDS         => [F_ID, F_TITLE],
+		ATTR_LABEL          => LBL_COURSE_PROVIDER,
+		ATTR_SHOW_NAME      => F_TITLE,
+		ATTR_SHOW_VALUE     => F_ID,
+  ]
+]);
