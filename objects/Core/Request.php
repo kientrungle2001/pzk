@@ -105,12 +105,30 @@ class PzkCoreRequest extends PzkObjectLightWeightSG
 	}
 
 	/**
+	 *	Kiểm tra xem phương thức có phải là phương thức PUT không
+	 *	@return boolean
+	 */
+	public function isPut()
+	{
+		return $this->is('PUT') || $this->is('put');
+	}
+
+	/**
 	 *	Kiểm tra xem phương thức có phải là phương thức GET không
 	 *	@return boolean
 	 */
 	public function isGet()
 	{
 		return $this->is('GET') || $this->is('get');
+	}
+
+	/**
+	 *	Kiểm tra xem phương thức có phải là phương thức DELETE không
+	 *	@return boolean
+	 */
+	public function isDelete()
+	{
+		return $this->is('DELETE') || $this->is('delete');
 	}
 
 	/**
@@ -410,7 +428,7 @@ class PzkCoreRequest extends PzkObjectLightWeightSG
  * 
  * @param string $var
  * @param string $value
- * @return PzkCoreRequest|mixed
+ * @return PzkCoreRequest
  */
 function pzk_request($var = NULL, $value = NULL)
 {

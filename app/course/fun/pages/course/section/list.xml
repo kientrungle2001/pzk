@@ -1,1 +1,1 @@
-<Core.Db.List table="course_section" parentMode="true" parentField="courseId" orderBy="ordering asc" layout="course/section/list" />
+<Education.Course.Section.List />

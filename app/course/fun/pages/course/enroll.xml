@@ -1,1 +1,1 @@
-<Cms.Detail table="course" layout="course/enroll" />
+<Education.Course.Detail layout="course/enroll" />
